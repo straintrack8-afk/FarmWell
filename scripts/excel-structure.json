@@ -1,0 +1,37 @@
+{
+  "sheets": [
+    "README",
+    "Age_Groups",
+    "Disease_Categories",
+    "Diseases_Master_List",
+    "Symptom_Categories",
+    "Symptoms",
+    "Disease_AgeGroup_Mapping",
+    "Disease_Symptom_Mapping",
+    "Disease_Details_Complete",
+    "Disease_Summary_All104"
+  ],
+  "totalRows": 11,
+  "columns": [
+    "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE"
+  ],
+  "sampleData": [
+    {
+      "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE": "COMPREHENSIVE VERSION - ALL DISEASES WITH COMPLETE DATA"
+    },
+    {
+      "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE": "Created:",
+      "__EMPTY": "2025-12-17 07:19:24"
+    },
+    {
+      "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE": "Source:",
+      "__EMPTY": "pig333.com E-diagnostics System"
+    },
+    {
+      "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE": "COMPREHENSIVE DATA INCLUDED:"
+    },
+    {
+      "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE": "✓ ALL 104 diseases with complete details"
+    }
+  ]
+}

@@ -1,0 +1,349 @@
+{
+  "README": {
+    "rowCount": 11,
+    "columns": [
+      "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE"
+    ],
+    "sampleData": [
+      {
+        "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE": "COMPREHENSIVE VERSION - ALL DISEASES WITH COMPLETE DATA"
+      },
+      {
+        "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE": "Created:",
+        "__EMPTY": "2025-12-17 07:19:24"
+      },
+      {
+        "PIG333 E-DIAGNOSTICS COMPREHENSIVE DATABASE": "Source:",
+        "__EMPTY": "pig333.com E-diagnostics System"
+      }
+    ]
+  },
+  "Age_Groups": {
+    "rowCount": 6,
+    "columns": [
+      "age_group_id",
+      "age_group_name",
+      "description"
+    ],
+    "sampleData": [
+      {
+        "age_group_id": 1,
+        "age_group_name": "Sows / gilts / boars",
+        "description": "Adult breeding animals"
+      },
+      {
+        "age_group_id": 2,
+        "age_group_name": "Piglets: 0 to 7 days",
+        "description": "Newborn piglets in first week of life"
+      },
+      {
+        "age_group_id": 3,
+        "age_group_name": "Piglets: 8 days to weaning",
+        "description": "Pre-weaned piglets from 8 days to weaning"
+      }
+    ]
+  },
+  "Disease_Categories": {
+    "rowCount": 6,
+    "columns": [
+      "category_id",
+      "category_name",
+      "description"
+    ],
+    "sampleData": [
+      {
+        "category_id": 1,
+        "category_name": "Bacterial",
+        "description": "Diseases caused by bacteria"
+      },
+      {
+        "category_id": 2,
+        "category_name": "Viral",
+        "description": "Diseases caused by viruses"
+      },
+      {
+        "category_id": 3,
+        "category_name": "Parasitic",
+        "description": "Diseases caused by parasites"
+      }
+    ]
+  },
+  "Diseases_Master_List": {
+    "rowCount": 104,
+    "columns": [
+      "disease_id",
+      "disease_name",
+      "category_id",
+      "category_name",
+      "alternative_names",
+      "short_description",
+      "importance",
+      "zoonotic"
+    ],
+    "sampleData": [
+      {
+        "disease_id": 1,
+        "disease_name": "App (Actinobacillus pleuropneumoniae)",
+        "category_id": 1,
+        "category_name": "Bacterial",
+        "alternative_names": "Pleuropneumonia",
+        "short_description": "Disease of bacterial origin with high respiratory impact. Production of toxins can cause sudden death with nasal hemorrhage.",
+        "importance": "High",
+        "zoonotic": "No"
+      },
+      {
+        "disease_id": 2,
+        "disease_name": "Campylobacter infection",
+        "category_id": 1,
+        "category_name": "Bacterial",
+        "alternative_names": "Campylobacteriosis",
+        "short_description": "Usually subclinical, mainly affects piglets causing diarrhea.",
+        "importance": "Low",
+        "zoonotic": "Yes"
+      },
+      {
+        "disease_id": 3,
+        "disease_name": "Clostridium difficile",
+        "category_id": 1,
+        "category_name": "Bacterial",
+        "short_description": "Characterized by diarrhea in piglets within first few hours of birth.",
+        "importance": "Medium",
+        "zoonotic": "Yes"
+      }
+    ]
+  },
+  "Symptom_Categories": {
+    "rowCount": 8,
+    "columns": [
+      "category_id",
+      "category_name",
+      "description"
+    ],
+    "sampleData": [
+      {
+        "category_id": 1,
+        "category_name": "Mortality",
+        "description": "Mortality-related symptoms"
+      },
+      {
+        "category_id": 2,
+        "category_name": "Number of affected pigs",
+        "description": "Prevalence in herd"
+      },
+      {
+        "category_id": 3,
+        "category_name": "Fever status",
+        "description": "Temperature-related symptoms"
+      }
+    ]
+  },
+  "Symptoms": {
+    "rowCount": 57,
+    "columns": [
+      "symptom_id",
+      "symptom_name",
+      "category_id",
+      "category_name",
+      "description"
+    ],
+    "sampleData": [
+      {
+        "symptom_id": 1,
+        "symptom_name": "Increase by less than 6%",
+        "category_id": 1,
+        "category_name": "Mortality",
+        "description": "Slight increase in mortality rate"
+      },
+      {
+        "symptom_id": 2,
+        "symptom_name": "Increase by more than 6%",
+        "category_id": 1,
+        "category_name": "Mortality",
+        "description": "Significant increase in mortality rate"
+      },
+      {
+        "symptom_id": 3,
+        "symptom_name": "Sudden deaths",
+        "category_id": 1,
+        "category_name": "Mortality",
+        "description": "Sudden death without prior symptoms"
+      }
+    ]
+  },
+  "Disease_AgeGroup_Mapping": {
+    "rowCount": 367,
+    "columns": [
+      "mapping_id",
+      "disease_id",
+      "disease_name",
+      "age_group_id",
+      "age_group_name",
+      "severity",
+      "notes"
+    ],
+    "sampleData": [
+      {
+        "mapping_id": 1,
+        "disease_id": 1,
+        "disease_name": "App",
+        "age_group_id": 5,
+        "age_group_name": "Weaners: 15 to 56 days",
+        "severity": "High",
+        "notes": "Typical age 8-16 weeks, most common in growers"
+      },
+      {
+        "mapping_id": 2,
+        "disease_id": 1,
+        "disease_name": "App",
+        "age_group_id": 6,
+        "age_group_name": "Growers / finishers",
+        "severity": "High",
+        "notes": "Typical age 8-16 weeks, most common in growers"
+      },
+      {
+        "mapping_id": 3,
+        "disease_id": 2,
+        "disease_name": "Campylobacter infection",
+        "age_group_id": 2,
+        "age_group_name": "Piglets: 0 to 7 days",
+        "severity": "Low",
+        "notes": "Mainly affects piglets"
+      }
+    ]
+  },
+  "Disease_Symptom_Mapping": {
+    "rowCount": 178,
+    "columns": [
+      "mapping_id",
+      "disease_id",
+      "disease_name",
+      "symptom_id",
+      "symptom_name",
+      "frequency",
+      "notes"
+    ],
+    "sampleData": [
+      {
+        "mapping_id": 1,
+        "disease_id": 1,
+        "disease_name": "App",
+        "symptom_id": 2,
+        "symptom_name": "Increase by more than 6%",
+        "frequency": "Common",
+        "notes": "High mortality in acute outbreaks"
+      },
+      {
+        "mapping_id": 2,
+        "disease_id": 1,
+        "disease_name": "App",
+        "symptom_id": 3,
+        "symptom_name": "Sudden deaths",
+        "frequency": "Common",
+        "notes": "Main sign in peracute form"
+      },
+      {
+        "mapping_id": 3,
+        "disease_id": 1,
+        "disease_name": "App",
+        "symptom_id": 6,
+        "symptom_name": "Fever",
+        "frequency": "Common",
+        "notes": "High fever present"
+      }
+    ]
+  },
+  "Disease_Details_Complete": {
+    "rowCount": 6,
+    "columns": [
+      "disease_id",
+      "disease_name",
+      "category",
+      "detailed_description",
+      "key_symptoms",
+      "causes_transmission",
+      "diagnosis_methods",
+      "control_prevention",
+      "treatment"
+    ],
+    "sampleData": [
+      {
+        "disease_id": 1,
+        "disease_name": "App",
+        "category": "Bacterial",
+        "detailed_description": "Pleuropneumonia caused by Actinobacillus pleuropneumoniae. At least 15 serotypes exist with varying virulence. Toxin production causes severe pulmonary damage. Incubation period as short as 3 hours. Affects pigs 8-16 weeks typically. Can cause sudden death with minimal signs.",
+        "key_symptoms": "Sudden death, nasal hemorrhage, high fever, blue ears, severe respiratory distress, coughing, depression",
+        "causes_transmission": "Aerosol transmission over short distances. Carried in tonsils and upper respiratory tract. Survives outside pig only few days. Stress and coinfections (PRRS, influenza) trigger clinical disease in carriers.",
+        "diagnosis_methods": "Clinical signs + sudden death + nasal hemorrhage + post-mortem pleuropneumonia. Laboratory: bacterial culture, PCR, serology. Important to identify serotype for vaccination.",
+        "control_prevention": "Vaccination with appropriate serotypes. Select App-negative replacement stock. Strategic medication at risk periods. In outbreaks examine population 3x daily for early detection.",
+        "treatment": "Mass injection of entire group immediately (dont wait for individual symptoms). Wide range of antibiotics effective. Injectable route essential as sick pigs dont eat/drink. Early treatment critical."
+      },
+      {
+        "disease_id": 2,
+        "disease_name": "Campylobacter infection",
+        "category": "Bacterial",
+        "detailed_description": "Usually subclinical infection mainly affecting piglets causing diarrhea. Generally mild clinical significance.",
+        "key_symptoms": "Diarrhea in piglets, usually mild and self-limiting",
+        "causes_transmission": "Fecal-oral transmission. Environmental contamination. Carrier animals.",
+        "diagnosis_methods": "Clinical signs and fecal culture. Usually diagnosed retrospectively.",
+        "control_prevention": "Good hygiene and sanitation. Proper cleaning between batches.",
+        "treatment": "Usually self-limiting. Supportive care if needed. Antibiotics rarely necessary."
+      },
+      {
+        "disease_id": 13,
+        "disease_name": "Colibacillosis",
+        "category": "Bacterial",
+        "detailed_description": "Diarrhea caused by enterotoxigenic E. coli (ETEC) affecting mainly lactating piglets with high mortality. Different strains produce different toxins (K88, K99, F18). Three main presentations: neonatal diarrhea (first 4 days), post-weaning diarrhea, and edema disease.",
+        "key_symptoms": "Watery diarrhea, severe dehydration, pale pigs, high mortality in neonates, weakness",
+        "causes_transmission": "Fecal-oral route. Environmental contamination. Poor hygiene. Inadequate colostrum. Cold damp conditions. Stress factors. High stocking density.",
+        "diagnosis_methods": "Clinical signs, age of pigs, post-mortem. Laboratory: bacterial culture identifying pathogenic strains and virulence factors. Antimicrobial sensitivity testing important.",
+        "control_prevention": "Good hygiene and management. Adequate colostrum intake. Warm dry environment. Sow vaccination for passive immunity. Reduce stress. Control stocking density.",
+        "treatment": "Oral or injectable antibiotics based on sensitivity. Fluid therapy for dehydration. Supportive care. Early treatment critical. Probiotics may help."
+      }
+    ]
+  },
+  "Disease_Summary_All104": {
+    "rowCount": 104,
+    "columns": [
+      "ID",
+      "Disease Name",
+      "Category",
+      "Age Groups Affected",
+      "Key Clinical Signs",
+      "Main Transmission",
+      "Primary Control",
+      "Importance"
+    ],
+    "sampleData": [
+      {
+        "ID": 1,
+        "Disease Name": "App",
+        "Category": "Bacterial",
+        "Age Groups Affected": "Weaners-Growers",
+        "Key Clinical Signs": "Sudden death, nasal hemorrhage, respiratory distress",
+        "Main Transmission": "Aerosol, carrier pigs",
+        "Primary Control": "Vaccination, antibiotics",
+        "Importance": "High"
+      },
+      {
+        "ID": 2,
+        "Disease Name": "Campylobacter",
+        "Category": "Bacterial",
+        "Age Groups Affected": "Piglets",
+        "Key Clinical Signs": "Mild diarrhea",
+        "Main Transmission": "Fecal-oral",
+        "Primary Control": "Hygiene",
+        "Importance": "Low"
+      },
+      {
+        "ID": 3,
+        "Disease Name": "C. difficile",
+        "Category": "Bacterial",
+        "Age Groups Affected": "Neonates",
+        "Key Clinical Signs": "Diarrhea first hours/days",
+        "Main Transmission": "Fecal-oral",
+        "Primary Control": "Hygiene, antibiotics",
+        "Importance": "Medium"
+      }
+    ]
+  }
+}
