@@ -1,7 +1,7 @@
 {
-    "name": "PigWell",
-    "short_name": "PigWell",
-    "description": "Identify pig diseases based on age and symptoms",
+    "name": "FarmWell",
+    "short_name": "FarmWell",
+    "description": "Comprehensive poultry and swine health diagnostics",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#F9FAFB",

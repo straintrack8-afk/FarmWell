@@ -1,0 +1,140 @@
+{
+  "metadata": {
+    "version": "4.0",
+    "source": "BIOCHECK PIG V4.0 - Ghent University",
+    "total_questions": 50,
+    "last_updated": "2026-01-09"
+  },
+  "categories": [
+    {
+      "id": "farm_characteristics",
+      "name": "Farm Characteristics",
+      "weight": 0.05,
+      "description": "Basic information about your farm setup and operations",
+      "questions": [
+        {"id": "Q1", "text": "Which of the following animal categories are present on the farm?", "type": "multi_select", "required": true, "category": "farm_characteristics", "options": [{"value": "sows", "label": "Sows/gilts/boars", "score": 0}, {"value": "suckling", "label": "Suckling piglets", "score": 0}, {"value": "weaned", "label": "Weaned piglets", "score": 0}, {"value": "slaughter", "label": "Slaughter pigs", "score": 0}], "scoring": "demographic"},
+        {"id": "Q2", "text": "Are there, besides the pigs, any other farm animals present?", "type": "single_select", "required": true, "category": "farm_characteristics", "options": [{"value": "yes", "label": "Yes", "score": 0}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q3", "text": "How many years of experience does the farm manager have in pig farming?", "type": "number", "required": true, "category": "farm_characteristics", "unit": "years", "scoring": "demographic"},
+        {"id": "Q4", "text": "How many workers (including the manager) work on the pig farm?", "type": "number", "required": true, "category": "farm_characteristics", "unit": "workers", "scoring": "demographic"}
+      ]
+    },
+    {
+      "id": "purchase_animals",
+      "name": "Purchase of Animals & Semen",
+      "weight": 0.12,
+      "description": "Biosecurity measures related to purchasing breeding animals and semen",
+      "questions": [
+        {"id": "Q5", "text": "Are breeding pigs purchased?", "type": "single_select", "required": true, "category": "purchase_animals", "options": [{"value": "yes", "label": "Yes", "score": 0}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q6", "text": "Are the breeding pigs always bought from the same supplier?", "type": "single_select", "required": true, "category": "purchase_animals", "options": [{"value": "always", "label": "Always the same supplier", "score": 100}, {"value": "sometimes", "label": "Sometimes a different supplier", "score": 50}, {"value": "never", "label": "Never the same supplier", "score": 0}]},
+        {"id": "Q7", "text": "Whenever breeding pigs are bought, is the supplier's health status known before purchase?", "type": "single_select", "required": true, "category": "purchase_animals", "help": "A herd with a known health status is free from specific diseases or certifies freedom from diseases.", "options": [{"value": "higher", "label": "Yes, supplier's health status is higher than mine", "score": 100}, {"value": "equal", "label": "Yes, equal to my own status", "score": 80}, {"value": "lower_precautions", "label": "Yes, lower but I take precautions", "score": 60}, {"value": "lower_no_precautions", "label": "Yes, lower with no precautions", "score": 20}, {"value": "no", "label": "No", "score": 0}, {"value": "dont_know", "label": "I don't know", "score": 0}]},
+        {"id": "Q8", "text": "Are all new breeding pigs quarantined in an area separate from the rest of the herd?", "type": "single_select", "required": true, "category": "purchase_animals", "options": [{"value": "yes", "label": "Yes", "score": 100}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q9", "text": "What is the minimum duration (in days) of the quarantine period?", "type": "number", "required": true, "category": "purchase_animals", "unit": "days", "scoring": {">=28": 100, "14-27": 75, "7-13": 50, "1-6": 25, "0": 0}}
+      ]
+    },
+    {
+      "id": "transport_deadstock",
+      "name": "Transport & Deadstock",
+      "weight": 0.10,
+      "description": "Biosecurity measures for pig transport and carcass removal",
+      "questions": [
+        {"id": "Q10", "text": "Is there a loading area for pigs that is separated from the pig units?", "type": "single_select", "required": true, "category": "transport_deadstock", "options": [{"value": "yes", "label": "Yes", "score": 100}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q11", "text": "Is the loading area cleaned and disinfected after each loading?", "type": "single_select", "required": true, "category": "transport_deadstock", "options": [{"value": "always", "label": "Always", "score": 100}, {"value": "sometimes", "label": "Sometimes", "score": 50}, {"value": "never", "label": "Never", "score": 0}]},
+        {"id": "Q12", "text": "Are the transport vehicles cleaned and disinfected before arrival at the farm?", "type": "single_select", "required": true, "category": "transport_deadstock", "options": [{"value": "always_verified", "label": "Always, and I verify this", "score": 100}, {"value": "always_not_verified", "label": "Always, but I don't verify", "score": 75}, {"value": "sometimes", "label": "Sometimes", "score": 50}, {"value": "never", "label": "Never", "score": 0}]},
+        {"id": "Q13", "text": "How are dead pigs removed from the farm?", "type": "single_select", "required": true, "category": "transport_deadstock", "options": [{"value": "collection_service", "label": "Collection service picks them up", "score": 100}, {"value": "on_farm_disposal", "label": "Disposed on-farm (burial/incineration)", "score": 80}, {"value": "taken_off_farm", "label": "I take them off the farm myself", "score": 0}]},
+        {"id": "Q14", "text": "Is there a designated area for storing dead pigs before removal?", "type": "single_select", "required": true, "category": "transport_deadstock", "options": [{"value": "yes_outside", "label": "Yes, outside the pig area", "score": 100}, {"value": "yes_inside", "label": "Yes, inside the pig area", "score": 50}, {"value": "no", "label": "No designated area", "score": 0}]}
+      ]
+    },
+    {
+      "id": "feed_water_equipment",
+      "name": "Feed, Water & Equipment",
+      "weight": 0.08,
+      "description": "Biosecurity measures for feed, water supply, and equipment management",
+      "questions": [
+        {"id": "Q15", "text": "How is feed delivered to the farm?", "type": "single_select", "required": true, "category": "feed_water_equipment", "options": [{"value": "bulk_external", "label": "Bulk delivery from external feed mill", "score": 50}, {"value": "bulk_own", "label": "Bulk delivery from own feed mill", "score": 100}, {"value": "bags", "label": "Bagged feed", "score": 75}, {"value": "on_farm_production", "label": "Produced entirely on farm", "score": 100}]},
+        {"id": "Q16", "text": "Is the feed storage area protected from wild birds and rodents?", "type": "single_select", "required": true, "category": "feed_water_equipment", "options": [{"value": "yes_fully", "label": "Yes, fully protected", "score": 100}, {"value": "partially", "label": "Partially protected", "score": 50}, {"value": "no", "label": "No protection", "score": 0}]},
+        {"id": "Q17", "text": "What is the source of drinking water for the pigs?", "type": "single_select", "required": true, "category": "feed_water_equipment", "options": [{"value": "municipal", "label": "Municipal/public water supply", "score": 100}, {"value": "well_treated", "label": "Private well with treatment", "score": 80}, {"value": "well_untreated", "label": "Private well without treatment", "score": 40}, {"value": "surface_water", "label": "Surface water (river, pond)", "score": 0}]},
+        {"id": "Q18", "text": "Is the drinking water tested for quality?", "type": "single_select", "required": true, "category": "feed_water_equipment", "options": [{"value": "twice_yearly", "label": "At least twice per year", "score": 100}, {"value": "annually", "label": "Once per year", "score": 75}, {"value": "less_than_annual", "label": "Less than once per year", "score": 25}, {"value": "never", "label": "Never", "score": 0}]},
+        {"id": "Q19", "text": "Is equipment (tools, boots, etc.) shared between different pig units?", "type": "single_select", "required": true, "category": "feed_water_equipment", "options": [{"value": "never", "label": "Never, each unit has its own", "score": 100}, {"value": "yes_cleaned", "label": "Yes, but cleaned between uses", "score": 50}, {"value": "yes_not_cleaned", "label": "Yes, not cleaned between uses", "score": 0}]}
+      ]
+    },
+    {
+      "id": "visitors_workers",
+      "name": "Visitors & Workers",
+      "weight": 0.12,
+      "description": "Biosecurity protocols for people entering the farm",
+      "questions": [
+        {"id": "Q20", "text": "Is there a visitor log to record all people entering the farm?", "type": "single_select", "required": true, "category": "visitors_workers", "options": [{"value": "yes_always", "label": "Yes, always maintained", "score": 100}, {"value": "yes_sometimes", "label": "Yes, but not always used", "score": 50}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q21", "text": "Are visitors required to wait a minimum period after visiting another pig farm before entering yours?", "type": "single_select", "required": true, "category": "visitors_workers", "options": [{"value": "48_hours", "label": "Yes, at least 48 hours", "score": 100}, {"value": "24_hours", "label": "Yes, at least 24 hours", "score": 75}, {"value": "less_24", "label": "Yes, but less than 24 hours", "score": 25}, {"value": "no", "label": "No waiting period", "score": 0}]},
+        {"id": "Q22", "text": "Is there a hygiene lock (changing area) at the entrance to the pig units?", "type": "single_select", "required": true, "category": "visitors_workers", "options": [{"value": "yes", "label": "Yes", "score": 100}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q23", "text": "Are workers and visitors required to change clothes and boots in the hygiene lock?", "type": "single_select", "required": true, "category": "visitors_workers", "options": [{"value": "always_both", "label": "Always, both clothes and boots", "score": 100}, {"value": "always_boots", "label": "Always boots, sometimes clothes", "score": 75}, {"value": "sometimes", "label": "Sometimes", "score": 25}, {"value": "never", "label": "Never", "score": 0}]},
+        {"id": "Q24", "text": "Do workers on the pig farm also work with pigs on other farms?", "type": "single_select", "required": true, "category": "visitors_workers", "options": [{"value": "no", "label": "No", "score": 100}, {"value": "yes", "label": "Yes", "score": 0}]},
+        {"id": "Q25", "text": "Do workers on the pig farm keep pigs at home?", "type": "single_select", "required": true, "category": "visitors_workers", "options": [{"value": "no", "label": "No", "score": 100}, {"value": "yes", "label": "Yes", "score": 0}]}
+      ]
+    },
+    {
+      "id": "vermin_bird_control",
+      "name": "Vermin & Bird Control",
+      "weight": 0.08,
+      "description": "Measures to prevent and control pests and wild animals",
+      "questions": [
+        {"id": "Q26", "text": "Is there a professional pest control program in place?", "type": "single_select", "required": true, "category": "vermin_bird_control", "options": [{"value": "yes_regular", "label": "Yes, with regular monitoring", "score": 100}, {"value": "yes_occasional", "label": "Yes, but only when problems noticed", "score": 50}, {"value": "no", "label": "No program", "score": 0}]},
+        {"id": "Q27", "text": "How often is rodent control performed?", "type": "single_select", "required": true, "category": "vermin_bird_control", "options": [{"value": "monthly", "label": "Monthly or more often", "score": 100}, {"value": "quarterly", "label": "Quarterly", "score": 75}, {"value": "biannually", "label": "Twice per year", "score": 50}, {"value": "annually", "label": "Once per year", "score": 25}, {"value": "never", "label": "Never/only when noticed", "score": 0}]},
+        {"id": "Q28", "text": "Are pig buildings protected against bird entry?", "type": "single_select", "required": true, "category": "vermin_bird_control", "options": [{"value": "yes_fully", "label": "Yes, fully protected (nets, closed buildings)", "score": 100}, {"value": "partially", "label": "Partially protected", "score": 50}, {"value": "no", "label": "No protection", "score": 0}]},
+        {"id": "Q29", "text": "Are cats or dogs present on the farm?", "type": "single_select", "required": true, "category": "vermin_bird_control", "options": [{"value": "no", "label": "No", "score": 100}, {"value": "yes_outside_only", "label": "Yes, but kept outside pig areas", "score": 75}, {"value": "yes_access", "label": "Yes, with access to pig areas", "score": 0}]},
+        {"id": "Q30", "text": "Is there fencing to prevent wild boar or other wild animals from entering the farm?", "type": "single_select", "required": true, "category": "vermin_bird_control", "options": [{"value": "yes_secure", "label": "Yes, secure fencing (>1.5m high)", "score": 100}, {"value": "yes_basic", "label": "Yes, basic fencing", "score": 50}, {"value": "no", "label": "No fencing", "score": 0}]}
+      ]
+    },
+    {
+      "id": "location",
+      "name": "Location & Infrastructure",
+      "weight": 0.07,
+      "description": "Farm location and physical infrastructure biosecurity",
+      "questions": [
+        {"id": "Q31", "text": "What is the distance to the nearest pig farm?", "type": "single_select", "required": true, "category": "location", "options": [{"value": "over_3km", "label": "More than 3 km", "score": 100}, {"value": "1_3km", "label": "1-3 km", "score": 75}, {"value": "500m_1km", "label": "500m - 1 km", "score": 50}, {"value": "under_500m", "label": "Less than 500m", "score": 0}]},
+        {"id": "Q32", "text": "Is there a perimeter fence around the entire farm?", "type": "single_select", "required": true, "category": "location", "options": [{"value": "yes_secure", "label": "Yes, secure fence with locked gate", "score": 100}, {"value": "yes_basic", "label": "Yes, basic fence", "score": 75}, {"value": "partial", "label": "Partial fencing", "score": 25}, {"value": "no", "label": "No fence", "score": 0}]},
+        {"id": "Q33", "text": "Is there a disinfection point for vehicles at the farm entrance?", "type": "single_select", "required": true, "category": "location", "options": [{"value": "yes_mandatory", "label": "Yes, and use is mandatory", "score": 100}, {"value": "yes_optional", "label": "Yes, but use is optional", "score": 50}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q34", "text": "Are different pig units (farrowing, nursery, finishing) physically separated?", "type": "single_select", "required": true, "category": "location", "options": [{"value": "separate_buildings", "label": "Yes, in separate buildings", "score": 100}, {"value": "same_building_separated", "label": "Same building but separated", "score": 50}, {"value": "not_separated", "label": "Not separated", "score": 0}, {"value": "single_unit", "label": "Only one type of unit on farm", "score": 100}]}
+      ]
+    },
+    {
+      "id": "disease_management",
+      "name": "Disease Management",
+      "weight": 0.10,
+      "description": "Disease monitoring, vaccination, and health management practices",
+      "questions": [
+        {"id": "Q35", "text": "Is there a written herd health plan developed with a veterinarian?", "type": "single_select", "required": true, "category": "disease_management", "options": [{"value": "yes_updated", "label": "Yes, updated regularly", "score": 100}, {"value": "yes_not_updated", "label": "Yes, but not updated", "score": 50}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q36", "text": "How often does a veterinarian visit the farm?", "type": "single_select", "required": true, "category": "disease_management", "options": [{"value": "weekly", "label": "Weekly or more", "score": 100}, {"value": "monthly", "label": "Monthly", "score": 75}, {"value": "quarterly", "label": "Quarterly", "score": 50}, {"value": "only_problems", "label": "Only when problems occur", "score": 0}]},
+        {"id": "Q37", "text": "Are pigs vaccinated according to a regular schedule?", "type": "single_select", "required": true, "category": "disease_management", "options": [{"value": "yes_all", "label": "Yes, all recommended vaccines", "score": 100}, {"value": "yes_some", "label": "Yes, some vaccines", "score": 50}, {"value": "no", "label": "No vaccination program", "score": 0}]},
+        {"id": "Q38", "text": "Are sick pigs immediately isolated from healthy pigs?", "type": "single_select", "required": true, "category": "disease_management", "options": [{"value": "always", "label": "Always", "score": 100}, {"value": "sometimes", "label": "Sometimes", "score": 50}, {"value": "never", "label": "Never", "score": 0}]},
+        {"id": "Q39", "text": "Are antibiotics used only under veterinary prescription?", "type": "single_select", "required": true, "category": "disease_management", "options": [{"value": "always", "label": "Always", "score": 100}, {"value": "sometimes", "label": "Sometimes", "score": 50}, {"value": "no", "label": "No, I use them as needed", "score": 0}]}
+      ]
+    },
+    {
+      "id": "cleaning_disinfection",
+      "name": "Cleaning & Disinfection",
+      "weight": 0.07,
+      "description": "Cleaning and disinfection protocols for pig units",
+      "questions": [
+        {"id": "Q40", "text": "Are pig units operated on an all-in/all-out basis?", "type": "single_select", "required": true, "category": "cleaning_disinfection", "help": "All-in/all-out means all pigs enter and leave at the same time, with cleaning between batches.", "options": [{"value": "always", "label": "Always", "score": 100}, {"value": "sometimes", "label": "Sometimes", "score": 50}, {"value": "never", "label": "Never (continuous flow)", "score": 0}]},
+        {"id": "Q41", "text": "Are pig units cleaned and disinfected between batches?", "type": "single_select", "required": true, "category": "cleaning_disinfection", "options": [{"value": "always_both", "label": "Always, both cleaned and disinfected", "score": 100}, {"value": "cleaned_only", "label": "Cleaned but not always disinfected", "score": 50}, {"value": "sometimes", "label": "Sometimes", "score": 25}, {"value": "never", "label": "Never", "score": 0}]},
+        {"id": "Q42", "text": "How long is the downtime between batches?", "type": "single_select", "required": true, "category": "cleaning_disinfection", "options": [{"value": "7_plus", "label": "7 days or more", "score": 100}, {"value": "4_6", "label": "4-6 days", "score": 75}, {"value": "2_3", "label": "2-3 days", "score": 50}, {"value": "0_1", "label": "0-1 days", "score": 0}]},
+        {"id": "Q43", "text": "Are footbaths used at the entrance to pig units?", "type": "single_select", "required": true, "category": "cleaning_disinfection", "options": [{"value": "yes_always_changed", "label": "Yes, and changed regularly", "score": 100}, {"value": "yes_not_changed", "label": "Yes, but not changed regularly", "score": 50}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q44", "text": "Are manure pits cleaned and disinfected between batches?", "type": "single_select", "required": true, "category": "cleaning_disinfection", "options": [{"value": "always", "label": "Always", "score": 100}, {"value": "sometimes", "label": "Sometimes", "score": 50}, {"value": "never", "label": "Never", "score": 0}]},
+        {"id": "Q45", "text": "Is the effectiveness of cleaning and disinfection verified?", "type": "single_select", "required": true, "category": "cleaning_disinfection", "options": [{"value": "yes_regularly", "label": "Yes, regularly tested", "score": 100}, {"value": "yes_occasionally", "label": "Yes, occasionally", "score": 50}, {"value": "no", "label": "No", "score": 0}]}
+      ]
+    },
+    {
+      "id": "swill_feeding",
+      "name": "Swill & Food Waste",
+      "weight": 0.14,
+      "description": "Critical biosecurity measures related to food waste feeding",
+      "questions": [
+        {"id": "Q46", "text": "Are pigs fed any form of food waste or swill?", "type": "single_select", "required": true, "category": "swill_feeding", "options": [{"value": "no", "label": "No, never", "score": 100}, {"value": "yes_cooked", "label": "Yes, but properly cooked/treated", "score": 50}, {"value": "yes_uncooked", "label": "Yes, uncooked food waste", "score": 0}]},
+        {"id": "Q47", "text": "Do pigs have access to garbage or waste areas?", "type": "single_select", "required": true, "category": "swill_feeding", "options": [{"value": "no", "label": "No", "score": 100}, {"value": "yes", "label": "Yes", "score": 0}]},
+        {"id": "Q48", "text": "Are kitchen scraps from the farm household fed to pigs?", "type": "single_select", "required": true, "category": "swill_feeding", "options": [{"value": "no", "label": "No", "score": 100}, {"value": "yes_cooked", "label": "Yes, but cooked", "score": 50}, {"value": "yes_uncooked", "label": "Yes, uncooked", "score": 0}]},
+        {"id": "Q49", "text": "Is all feed from certified, commercial sources?", "type": "single_select", "required": true, "category": "swill_feeding", "options": [{"value": "yes", "label": "Yes, all certified", "score": 100}, {"value": "mostly", "label": "Mostly certified", "score": 50}, {"value": "no", "label": "No", "score": 0}]},
+        {"id": "Q50", "text": "Are workers trained on the risks of feeding food waste to pigs?", "type": "single_select", "required": true, "category": "swill_feeding", "options": [{"value": "yes", "label": "Yes, all workers trained", "score": 100}, {"value": "some", "label": "Some workers trained", "score": 50}, {"value": "no", "label": "No training", "score": 0}]}
+      ]
+    }
+  ]
+}

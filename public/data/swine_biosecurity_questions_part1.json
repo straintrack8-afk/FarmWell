@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "version": "4.0",
+    "source": "BIOCHECK PIG V4.0 - Ghent University",
+    "total_questions": 116,
+    "last_updated": "2026-01-09",
+    "part": "1 of 2"
+  },
+  "categories": [
+    {
+      "id": "farm_characteristics",
+      "name": "Farm Characteristics",
+      "weight": 0.05,
+      "description": "Basic information about your farm setup and operations",
+      "questions": [
+        {
+          "id": "Q1",
+          "text": "Which of the following animal categories are present on the farm?",
+          "type": "multi_select",
+          "required": true,
+          "category": "farm_characteristics",
+          "options": [
+            {"value": "sows", "label": "Sows/gilts/boars", "score": 0},
+            {"value": "suckling", "label": "Suckling piglets", "score": 0},
+            {"value": "weaned", "label": "Weaned piglets", "score": 0},
+            {"value": "slaughter", "label": "Slaughter pigs", "score": 0}
+          ],
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q2",
+          "text": "Are there, besides the pigs, any other farm animals present?",
+          "type": "single_select",
+          "required": true,
+          "category": "farm_characteristics",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0, "next": "Q2a"},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q2a",
+          "text": "Which other animals are present on the farm?",
+          "type": "multi_select",
+          "required": false,
+          "category": "farm_characteristics",
+          "conditional": {"question": "Q2", "value": "yes"},
+          "options": [
+            {"value": "cattle", "label": "Cattle", "score": 0},
+            {"value": "poultry", "label": "Poultry", "score": 0},
+            {"value": "sheep_goats", "label": "Sheep/Goats", "score": 0},
+            {"value": "horses", "label": "Horses", "score": 0},
+            {"value": "other", "label": "Other", "score": 0}
+          ],
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q3",
+          "text": "How many years of experience does the farm manager have in pig farming?",
+          "type": "number",
+          "required": true,
+          "category": "farm_characteristics",
+          "unit": "years",
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q4",
+          "text": "How many workers (including the manager) work on the pig farm?",
+          "type": "number",
+          "required": true,
+          "category": "farm_characteristics",
+          "unit": "workers",
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q5",
+          "text": "What is the age of the oldest pig building on the farm?",
+          "type": "number",
+          "required": true,
+          "category": "farm_characteristics",
+          "unit": "years",
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q6",
+          "text": "What is the age of the newest pig building on the farm?",
+          "type": "number",
+          "required": true,
+          "category": "farm_characteristics",
+          "unit": "years",
+          "scoring": "demographic"
+        }
+      ]
+    }
+  ]
+}

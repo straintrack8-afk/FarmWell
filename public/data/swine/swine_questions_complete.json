@@ -1,0 +1,1817 @@
+{
+  "version": "4.0",
+  "source": "BIOCHECK PIG V4.0 - Biocheck.Gent BV",
+  "total_questions": 116,
+  "categories": [
+    {
+      "id": "farm_characteristics",
+      "name": "Farm Characteristics",
+      "weight": 0.05,
+      "description": "Basic farm profile and demographics",
+      "questions": [
+        {
+          "id": "Q_I",
+          "number": "I",
+          "text": "Which of the following animal categories are present on the farm?",
+          "type": "multi_select",
+          "required": true,
+          "category": "farm_characteristics",
+          "options": [
+            {"value": "sows_gilts_boars", "label": "Sows/gilts/boars"},
+            {"value": "suckling_piglets", "label": "Suckling piglets"},
+            {"value": "weaned_piglets", "label": "Weaned piglets"},
+            {"value": "slaughter_pigs", "label": "Slaughter pigs"}
+          ],
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q_II",
+          "number": "II",
+          "text": "Are there, besides the pigs, any other farm animals present on your farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "farm_characteristics",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q_III"},
+            {"value": "no", "label": "No", "next": "Q_IV"}
+          ],
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q_III",
+          "number": "III",
+          "text": "What other farm animal(s) is (are) present on your farm?",
+          "type": "multi_select",
+          "required": false,
+          "category": "farm_characteristics",
+          "condition": "Q_II == 'yes'",
+          "options": [
+            {"value": "cattle", "label": "Cattle"},
+            {"value": "poultry", "label": "Poultry"},
+            {"value": "horses", "label": "Horses"},
+            {"value": "sheep_goats", "label": "Sheep/goats"},
+            {"value": "other", "label": "Other"}
+          ],
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q_IV",
+          "number": "IV",
+          "text": "How many years of experience in keeping pigs does the person in charge have?",
+          "type": "number",
+          "required": true,
+          "category": "farm_characteristics",
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q_V",
+          "number": "V",
+          "text": "What is the number of people (full-time or part-time) that are taking care of the pigs?",
+          "type": "number",
+          "required": true,
+          "category": "farm_characteristics",
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q_VI",
+          "number": "VI",
+          "text": "How old (in years) is the oldest building in which pigs are being kept?",
+          "type": "number",
+          "required": true,
+          "category": "farm_characteristics",
+          "help": "If the building was renovated, give the age before the renovation.",
+          "scoring": "demographic"
+        },
+        {
+          "id": "Q_VII",
+          "number": "VII",
+          "text": "How old (in years) is the newest building in which pigs are being kept?",
+          "type": "number",
+          "required": true,
+          "category": "farm_characteristics",
+          "help": "If the building was renovated, give the age before the renovation.",
+          "scoring": "demographic"
+        }
+      ]
+    },
+    {
+      "id": "purchase_animals",
+      "name": "Purchase of Breeding Pigs, Weaned Piglets and Semen",
+      "weight": 0.12,
+      "description": "Procurement and supplier health status",
+      "questions": [
+        {
+          "id": "Q1",
+          "number": "1",
+          "text": "Are breeding pigs (sows/gilts/boars) purchased?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q2"},
+            {"value": "no", "label": "No", "next": "Q10"}
+          ]
+        },
+        {
+          "id": "Q2",
+          "number": "2",
+          "text": "Are the breeding pigs (during the past 2 years) always bought from the same supplier?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q1 == 'yes'",
+          "options": [
+            {"value": "always_same", "label": "Always the same supplier", "score": 100},
+            {"value": "sometimes_different", "label": "Sometimes a different supplier", "score": 50}
+          ]
+        },
+        {
+          "id": "Q3",
+          "number": "3",
+          "text": "Whenever breeding pigs are bought from another farm, is the supplier's health status known before purchase?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q1 == 'yes'",
+          "help": "A herd with a known health status is a herd from which it is known if it is free from specific diseases (e.g., scabies, PRRS) or not.",
+          "options": [
+            {"value": "higher", "label": "Yes, the supplier's health status is higher than my own status", "score": 100},
+            {"value": "equal", "label": "Yes, the supplier's health status is equal to my own status", "score": 80},
+            {"value": "lower_precautions", "label": "Yes, the supplier's health status is lower than my own, but I take precautious measures", "score": 60},
+            {"value": "lower_no_precautions", "label": "Yes, the supplier's health status is lower than my own and no precautious measures are taken", "score": 20},
+            {"value": "no", "label": "No", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q4",
+          "number": "4",
+          "text": "Is it verified (e.g. written document or other statements) whether the transport vehicle that brings the breeding pigs to the farm is cleaned and disinfected before loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q1 == 'yes'",
+          "help": "If the transport vehicle looks visually clean but the transporter cannot provide evidence of the cleaning and disinfection, select 'I don't know'.",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q5",
+          "number": "5",
+          "text": "How many times per year are breeding pigs delivered to your farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q1 == 'yes'",
+          "options": [
+            {"value": "twice_or_less", "label": "Twice or less", "score": 100},
+            {"value": "3_to_6", "label": "3 to 6 times", "score": 75},
+            {"value": "7_to_12", "label": "7 to 12 times", "score": 50},
+            {"value": "more_than_12", "label": "More than 12 times", "score": 25}
+          ]
+        },
+        {
+          "id": "Q6",
+          "number": "6",
+          "text": "Are all new breeding pigs quarantined in an area separate from the rest of the herd?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q1 == 'yes'",
+          "help": "The quarantine area can be in the same building, but it should be completely separate (no physical contact) from the rest of the animals.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100, "next": "Q7"},
+            {"value": "no", "label": "No", "score": 0, "next": "Q10"}
+          ]
+        },
+        {
+          "id": "Q7",
+          "number": "7",
+          "text": "Is strict all-in management practised in the quarantine area?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q6 == 'yes'",
+          "help": "All-in: all the animals that have to be quarantined are put into the quarantine area at the same moment. It's crucial that no new animals are introduced before it is emptied.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q8",
+          "number": "8",
+          "text": "What is the minimum duration (in days) of the quarantine period that you applied in the last year?",
+          "type": "number",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q6 == 'yes'",
+          "scoring": {
+            ">=28": 100,
+            "14-27": 75,
+            "7-13": 50,
+            "<7": 25
+          }
+        },
+        {
+          "id": "Q9",
+          "number": "9",
+          "text": "Is there a separate hygiene lock for the quarantine area?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q6 == 'yes'",
+          "help": "A hygiene lock is a facility, where among others, you can change into specific clothes/boots and clean/disinfect your hands.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q10",
+          "number": "10",
+          "text": "Are piglets purchased?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q11"},
+            {"value": "no", "label": "No", "next": "Q15"}
+          ]
+        },
+        {
+          "id": "Q11",
+          "number": "11",
+          "text": "Are the piglets (during the past 2 years) always bought from the same supplier?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q10 == 'yes'",
+          "options": [
+            {"value": "always_same", "label": "Always the same supplier", "score": 100},
+            {"value": "sometimes_different", "label": "Sometimes a different supplier", "score": 50}
+          ]
+        },
+        {
+          "id": "Q12",
+          "number": "12",
+          "text": "Whenever piglets are bought from another farm, is the supplier's health status known before purchase?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q10 == 'yes'",
+          "options": [
+            {"value": "higher", "label": "Yes, the supplier's health status is higher than my own status", "score": 100},
+            {"value": "equal", "label": "Yes, the supplier's health status is equal to my own status", "score": 80},
+            {"value": "lower_precautions", "label": "Yes, lower but I take precautious measures", "score": 60},
+            {"value": "lower_no_precautions", "label": "Yes, lower and no precautious measures", "score": 20},
+            {"value": "no", "label": "No", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q13",
+          "number": "13",
+          "text": "Is it verified whether the transport vehicle that brings the piglets is cleaned and disinfected before loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q10 == 'yes'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q14",
+          "number": "14",
+          "text": "How many times per year are piglets delivered to your farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q10 == 'yes'",
+          "options": [
+            {"value": "three_or_less", "label": "Three times or less", "score": 100},
+            {"value": "4_to_6", "label": "4 to 6 times", "score": 75},
+            {"value": "7_to_12", "label": "7 to 12 times", "score": 50},
+            {"value": "more_than_12", "label": "More than 12 times", "score": 25}
+          ]
+        },
+        {
+          "id": "Q15",
+          "number": "15",
+          "text": "Does breeding occur naturally or artificially?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "options": [
+            {"value": "natural", "label": "Natural breeding", "next": "Q16"},
+            {"value": "artificial", "label": "Artificial insemination", "next": "Q17"},
+            {"value": "both", "label": "Both", "next": "Q16"}
+          ]
+        },
+        {
+          "id": "Q16",
+          "number": "16",
+          "text": "Which boars are used for natural breeding?",
+          "type": "multi_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q15 == 'natural' OR Q15 == 'both'",
+          "options": [
+            {"value": "own_on_farm", "label": "Own boars that remain on the farm", "score": 100},
+            {"value": "own_different_farm", "label": "Own boars that are housed on different farm(s)", "score": 75},
+            {"value": "shared_boars", "label": "Breeding boars that are used on different farms", "score": 0}
+          ],
+          "next_if_natural": "Q18",
+          "next_if_both": "Q17"
+        },
+        {
+          "id": "Q17",
+          "number": "17",
+          "text": "Whenever semen is purchased from a farm/boar station, is the supplier's health status known before purchase?",
+          "type": "single_select",
+          "required": true,
+          "category": "purchase_animals",
+          "condition": "Q15 == 'artificial' OR Q15 == 'both'",
+          "options": [
+            {"value": "higher", "label": "Yes, supplier's health status is higher than mine", "score": 100},
+            {"value": "equal", "label": "Yes, equal to my own status", "score": 80},
+            {"value": "lower_precautions", "label": "Yes, lower but I take precautions", "score": 60},
+            {"value": "lower_no_precautions", "label": "Yes, lower and no precautions", "score": 20},
+            {"value": "no", "label": "No", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transport_deadstock",
+      "name": "Transport of Animals, Removal of Deadstock and Manure",
+      "weight": 0.10,
+      "description": "Logistics and waste handling",
+      "questions": [
+        {
+          "id": "Q18",
+          "number": "18",
+          "text": "Is the establishment physically divided into a clean and dirty area?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "help": "The clean area is where only farm animals, authorized persons after hygiene measures, and farm-specific materials are allowed. The dirty area includes all other parts with visitor/vehicle access.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q19",
+          "number": "19",
+          "text": "Are slaughter pigs transported from your farm to the slaughterhouse?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q20"},
+            {"value": "no", "label": "No", "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"}
+          ]
+        },
+        {
+          "id": "Q20",
+          "number": "20",
+          "text": "Is the transport vehicle for the slaughter pigs empty before loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q19 == 'yes'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100, "next": "Q21"},
+            {"value": "sometimes", "label": "Sometimes", "score": 50, "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"},
+            {"value": "never", "label": "Never", "score": 0, "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"},
+            {"value": "dont_know", "label": "I don't know", "score": 0, "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"}
+          ]
+        },
+        {
+          "id": "Q21",
+          "number": "21",
+          "text": "Is it verified whether the transport vehicle for slaughter pigs is cleaned and disinfected before loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q20 == 'always'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q22",
+          "number": "22",
+          "text": "Are sows transported from your farm either to other farms or to the slaughterhouse?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q23"},
+            {"value": "no", "label": "No", "next_logic": "Q25_if_piglets_else_Q28"}
+          ]
+        },
+        {
+          "id": "Q23",
+          "number": "23",
+          "text": "Is the transport vehicle for the sows empty before loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q22 == 'yes'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100, "next": "Q24"},
+            {"value": "sometimes", "label": "Sometimes", "score": 50, "next_logic": "Q25_if_piglets_else_Q28"},
+            {"value": "never", "label": "Never", "score": 0, "next_logic": "Q25_if_piglets_else_Q28"},
+            {"value": "dont_know", "label": "I don't know", "score": 0, "next_logic": "Q25_if_piglets_else_Q28"}
+          ]
+        },
+        {
+          "id": "Q24",
+          "number": "24",
+          "text": "Is it verified whether the transport vehicle for sows is cleaned and disinfected before loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q23 == 'always'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q25",
+          "number": "25",
+          "text": "Are piglets transported from your farm to other farms (e.g. to a finisher site)?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q26"},
+            {"value": "no", "label": "No", "next": "Q28"}
+          ]
+        },
+        {
+          "id": "Q26",
+          "number": "26",
+          "text": "Is the transport vehicle for the piglets empty before loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q25 == 'yes'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100, "next": "Q27"},
+            {"value": "sometimes", "label": "Sometimes", "score": 50, "next": "Q28"},
+            {"value": "never", "label": "Never", "score": 0, "next": "Q28"},
+            {"value": "dont_know", "label": "I don't know", "score": 0, "next": "Q28"}
+          ]
+        },
+        {
+          "id": "Q27",
+          "number": "27",
+          "text": "Is it verified whether the transport vehicle for piglets is cleaned and disinfected before loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q26 == 'always'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q28",
+          "number": "28",
+          "text": "Does the driver have access to the animal holding areas and/or is direct contact with the animals possible when loading?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100},
+            {"value": "own_transport", "label": "Farmer and/or farm personnel is the driver (own transport)", "score": 100}
+          ]
+        },
+        {
+          "id": "Q29",
+          "number": "29",
+          "text": "Does the driver receive and wear farm-specific clothing and shoes?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "brings_own", "label": "The driver brings his/her own cleaned and disinfected clothing and shoes", "score": 75},
+            {"value": "stays_in_vehicle", "label": "The driver stays inside the transport vehicle", "score": 100},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        },
+        {
+          "id": "Q30",
+          "number": "30",
+          "text": "Are the pigs loaded from a separate loading area or directly from the pens/central corridor?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "help": "The separate loading area is a physically separated location where the animals are brought before/during loading.",
+          "options": [
+            {"value": "separate_area", "label": "Separate loading area", "score": 100, "next": "Q32"},
+            {"value": "pen_corridor", "label": "Pen/central corridor", "score": 50, "next": "Q31"}
+          ]
+        },
+        {
+          "id": "Q31",
+          "number": "31",
+          "text": "Are pigs ever returned to the pens after they were in the transport vehicle?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q30 == 'pen_corridor'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q32",
+          "number": "32",
+          "text": "Is manure transported and disposed of through the dirty access road?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q33",
+          "number": "33",
+          "text": "Are farm-specific hoses for the removal of manure from the manure pit available?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "help": "Hoses for manure removal that always stay at the farm.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0},
+            {"value": "not_applicable", "label": "Not applicable", "score": 50}
+          ]
+        },
+        {
+          "id": "Q34",
+          "number": "34",
+          "text": "Is there a dedicated deadstock storage space, physically separated from the animal facilities?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "yes_separated", "label": "Yes", "score": 100, "next": "Q35"},
+            {"value": "yes_not_separated", "label": "Yes, but it is not physically separated from the live animals", "score": 50, "next": "Q35"},
+            {"value": "no", "label": "No", "score": 0, "next": "Q39"},
+            {"value": "immediately_processed", "label": "Not relevant, deadstock is immediately processed", "score": 75, "next": "Q39"}
+          ]
+        },
+        {
+          "id": "Q35",
+          "number": "35",
+          "text": "Is the deadstock storage space located in the dirty area of the farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q36",
+          "number": "36",
+          "text": "Is the deadstock storage space enclosed and well maintained to prevent vermin, pets or wild animals from accessing?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100, "next": "Q37"},
+            {"value": "sometimes_partial", "label": "Sometimes/partially", "score": 50, "next": "Q38"},
+            {"value": "no", "label": "No", "score": 0, "next": "Q38"}
+          ]
+        },
+        {
+          "id": "Q37",
+          "number": "37",
+          "text": "Is the deadstock storage cooled?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q36 == 'yes'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q38",
+          "number": "38",
+          "text": "Is the deadstock storage space cleaned and disinfected after each use?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+          "options": [
+            {"value": "cleaned_and_disinfected", "label": "Cleaned and disinfected", "score": 100},
+            {"value": "only_cleaned", "label": "Only cleaned", "score": 75},
+            {"value": "only_disinfected", "label": "Only disinfected", "score": 50},
+            {"value": "not_cleaned_nor_disinfected", "label": "Not cleaned nor disinfected", "score": 0}
+          ]
+        },
+        {
+          "id": "Q39",
+          "number": "39",
+          "text": "What happens with deadstock?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "help": "Composting is natural decomposition. Burying might be prohibited in your country.",
+          "options": [
+            {"value": "composted", "label": "Deadstock is composted", "next": "Q40"},
+            {"value": "buried_burned", "label": "Deadstock is buried/burned", "next": "Q41"},
+            {"value": "rendering", "label": "Deadstock is stored and collected by a rendering company", "next": "Q42"}
+          ]
+        },
+        {
+          "id": "Q40",
+          "number": "40",
+          "text": "Is deadstock composted in a closed system?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q39 == 'composted'",
+          "options": [
+            {"value": "inside_building", "label": "Yes, dead animals are composted inside a building that can be completely closed", "score": 100},
+            {"value": "outside_enclosed", "label": "Yes, dead animals are composted outside, enclosed with e.g. plastic", "score": 75},
+            {"value": "no", "label": "No", "score": 0}
+          ],
+          "next": "Q43"
+        },
+        {
+          "id": "Q41",
+          "number": "41",
+          "text": "How are dead animals buried/burned?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q39 == 'buried_burned'",
+          "help": "Buried in appropriate soil: deep burial in pits away from groundwater source.",
+          "options": [
+            {"value": "approved_incinerator", "label": "Dead animals are burned in an approved incinerator on the farm", "score": 100},
+            {"value": "buried_appropriate", "label": "Dead animals are buried in the appropriate soil on the farm", "score": 75},
+            {"value": "other", "label": "Other", "score": 25}
+          ],
+          "next": "Q43"
+        },
+        {
+          "id": "Q42",
+          "number": "42",
+          "text": "Can deadstock be collected by the rendering company without them entering the premises of the farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "condition": "Q39 == 'rendering'",
+          "help": "E.g. from the public road",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q43",
+          "number": "43",
+          "text": "Does the farmer/farmworker change footwear when entering the deadstock area?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q44",
+          "number": "44",
+          "text": "Is deadstock manipulated with single-use gloves, or are hands cleaned and disinfected after manipulation?",
+          "type": "single_select",
+          "required": true,
+          "category": "transport_deadstock",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "feed_water_equipment",
+      "name": "Feed, Water and Equipment Supply",
+      "weight": 0.08,
+      "description": "Supply chain biosecurity",
+      "questions": [
+        {
+          "id": "Q45",
+          "number": "45",
+          "text": "What type of feed is used on the farm?",
+          "type": "multi_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "help": "Swill feeding might be prohibited in your country.",
+          "options": [
+            {"value": "commercial", "label": "Commercial feed"},
+            {"value": "own_produced", "label": "Own-produced or natural crops (e.g. acorn)"},
+            {"value": "swill_uncooked", "label": "Swill feed uncooked"},
+            {"value": "swill_cooked", "label": "Swill feed cooked"}
+          ],
+          "next_if_commercial": "Q46",
+          "next_if_not_commercial": "Q49"
+        },
+        {
+          "id": "Q46",
+          "number": "46",
+          "text": "Does animal feed originate from a feeding company meeting specific hygienic requirements?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "condition": "Q45_includes_commercial",
+          "help": "E.g. Salmonella-free, heat treatment such as pelletizing",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q47",
+          "number": "47",
+          "text": "Can the feeding company fill up the feed silos/storage without entering the clean area?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "condition": "Q45_includes_commercial",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q48",
+          "number": "48",
+          "text": "Does the feed supplier have access to the animal holding areas where direct contact with the pigs is possible?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "condition": "Q45_includes_commercial",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q49",
+          "number": "49",
+          "text": "Is the water delivery system (incl. a water header tank) covered at all times?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "partially", "label": "Partially", "score": 50},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q50",
+          "number": "50",
+          "text": "How frequently is a bacteriological analysis of the drinking water performed?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "options": [
+            {"value": "yearly_or_more", "label": "Yearly or more frequent", "score": 100, "next": "Q51"},
+            {"value": "every_two_years", "label": "Every two years", "score": 75, "next": "Q51"},
+            {"value": "less_than_two_years", "label": "Less frequent than every two years", "score": 50, "next": "Q51"},
+            {"value": "never", "label": "Never", "score": 0, "next": "Q52"},
+            {"value": "municipal_supply", "label": "Never, I have a municipal water supply", "score": 75, "next": "Q52"}
+          ]
+        },
+        {
+          "id": "Q51",
+          "number": "51",
+          "text": "At which location are the water samples for the bacteriological analyses taken?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "condition": "Q50 != 'never' AND Q50 != 'municipal_supply'",
+          "options": [
+            {"value": "source_and_last_drinker", "label": "Both at the source and the last drinker (farthest away from the source)", "score": 100},
+            {"value": "last_drinker", "label": "At the last drinker", "score": 75},
+            {"value": "source", "label": "At the source", "score": 50},
+            {"value": "other", "label": "Other (e.g. drinker at the beginning of the line)", "score": 25},
+            {"value": "dont_know", "label": "I don't know", "score": 0}
+          ]
+        },
+        {
+          "id": "Q52",
+          "number": "52",
+          "text": "Is a specific and well-functioning pass-through for materials entering the buildings used?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "help": "E.g. a UV cabinet for utensils and tools. Materials can be mobile phones, documents, pens, diagnostic tools, etc.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q53",
+          "number": "53",
+          "text": "Is there any equipment (small or large) shared with other farms that enter your farm and/or has contact with your pigs?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q54"},
+            {"value": "no", "label": "No", "next": "Q55"},
+            {"value": "dont_know", "label": "I don't know", "next": "Q55"}
+          ]
+        },
+        {
+          "id": "Q54",
+          "number": "54",
+          "text": "Are specific measures taken for the introduction of equipment from other farms?",
+          "type": "single_select",
+          "required": true,
+          "category": "feed_water_equipment",
+          "condition": "Q53 == 'yes'",
+          "help": "E.g. cleaning and disinfection, quarantine period at a specific location.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "visitors_workers",
+      "name": "Visitors and Farmworkers",
+      "weight": 0.12,
+      "description": "Human biosecurity",
+      "questions": [
+        {
+          "id": "Q55",
+          "number": "55",
+          "text": "Does the farm follow a written biosecurity plan?",
+          "type": "single_select",
+          "required": true,
+          "category": "visitors_workers",
+          "help": "Should contain: critical aspects/risks, prioritization of biosecurity implementation, and at least annual revisions.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q56",
+          "number": "56",
+          "text": "Did the farmer and/or farmworkers receive training on biosecurity in pig production in the last five years?",
+          "type": "single_select",
+          "required": true,
+          "category": "visitors_workers",
+          "help": "Training can be a diploma, e-learning, workshops, or webinars. Can also be given by internal personnel with certified training.",
+          "options": [
+            {"value": "both", "label": "Both have received training on biosecurity", "score": 100},
+            {"value": "only_one", "label": "Only one of them has received training on biosecurity", "score": 50},
+            {"value": "neither", "label": "Neither of them has received training on biosecurity", "score": 0}
+          ]
+        },
+        {
+          "id": "Q57",
+          "number": "57",
+          "text": "Are visitors obliged to notify and record their presence before entering the animal facilities?",
+          "type": "single_select",
+          "required": true,
+          "category": "visitors_workers",
+          "help": "E.g. closed gate requiring call/bell, obligation to sign register book.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q58",
+          "number": "58",
+          "text": "Is there a hygiene lock available that is always used by visitors when they enter the animal facilities?",
+          "type": "single_select",
+          "required": true,
+          "category": "visitors_workers",
+          "help": "A hygiene lock is a room where you can change into farm-specific clothes/footwear and wash/disinfect hands.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100, "next": "Q59"},
+            {"value": "present_not_always", "label": "There is a hygiene lock present, but it is not always used", "score": 50, "next": "Q59"},
+            {"value": "no", "label": "No", "score": 0, "next": "Q61"}
+          ]
+        },
+        {
+          "id": "Q59",
+          "number": "59",
+          "text": "Are all animal facilities only accessible for visitors through a hygiene lock?",
+          "type": "single_select",
+          "required": true,
+          "category": "visitors_workers",
+          "condition": "Q58 != 'no'",
+          "help": "No alternative ways to enter - must always go through the hygiene lock.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q60",
+          "number": "60",
+          "text": "Is there a strict separation between the clean and the dirty area of the hygiene lock?",
+          "type": "single_select",
+          "required": true,
+          "category": "visitors_workers",
+          "condition": "Q58 != 'no'",
+          "help": "E.g. by a physical barrier (wooden plank/bench) or a walkthrough shower. Dirty area is where people enter/store clothes; clean area is where they put on farm-specific clothing.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q61",
+          "number": "61",
+          "text": "Is there a shower facility and is it always used by visitors/personnel before they enter the animal facilities?",
+          "type": "single_select",
+          "required": true,
+          "category": "visitors_workers",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "only_visitors", "label": "Only for visitors, not for personnel", "score": 75},
+            {"value": "present_not_always", "label": "There is a shower facility, but it is not always used", "score": 50},
+            {"value": "no_facility", "label": "There is no shower facility", "score": 0}
+          ]
+        },
+        {
+          "id": "Q62",
+          "number": "62",
+          "text": "Before being allowed to enter the farm, do visitors and farmworkers have to...?",
+          "type": "matrix",
+          "required": true,
+          "category": "visitors_workers",
+          "rows": [
+            {"id": "clothes", "text": "wear available farm-specific clothes/bring clean clothes (if not available)"},
+            {"id": "footwear", "text": "wear available farm-specific footwear/bring clean and disinfected footwear (if not available)"},
+            {"id": "hands", "text": "wash and disinfect hands/use gloves"}
+          ],
+          "columns": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        },
+        {
+          "id": "Q63",
+          "number": "63",
+          "text": "Are there farmworkers who have contact with pigs other than those on the establishment?",
+          "type": "single_select",
+          "required": true,
+          "category": "visitors_workers",
+          "help": "Pigs at home, on other farms, wild boars, hunting, agricultural shows, etc.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vermin_bird_control",
+      "name": "Vermin and Bird Control",
+      "weight": 0.08,
+      "description": "Pest management",
+      "questions": [
+        {
+          "id": "Q64",
+          "number": "64",
+          "text": "Is the outside of the farm buildings (around the walls) paved and clean (removal of weeds, waste, ...) so that there are no hiding places for vermin?",
+          "type": "single_select",
+          "required": true,
+          "category": "vermin_bird_control",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "partially", "label": "Partially", "score": 50},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q65",
+          "number": "65",
+          "text": "Is a pest control programme in place on the farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "vermin_bird_control",
+          "options": [
+            {"value": "professional_periodic", "label": "A professional pest control company is hired periodically", "score": 100},
+            {"value": "own_periodic", "label": "The farm has its own periodical pest control programme", "score": 75},
+            {"value": "if_noticed", "label": "Pest control is performed only if an infestation/overpopulation is noticed (e.g. via rodent traps)", "score": 25},
+            {"value": "no_programme", "label": "There is no pest control programme", "score": 0}
+          ]
+        },
+        {
+          "id": "Q66",
+          "number": "66",
+          "text": "Do pets or wild animals have access to the animal facilities (incl. the storage for feed and bedding material)?",
+          "type": "single_select",
+          "required": true,
+          "category": "vermin_bird_control",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "only_some", "label": "Only to some of them", "score": 50},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q67",
+          "number": "67",
+          "text": "Do birds have access to the animal facilities (incl. the storage for feed and bedding material)?",
+          "type": "single_select",
+          "required": true,
+          "category": "vermin_bird_control",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "only_some", "label": "Only to some of them", "score": 50},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q68",
+          "number": "68",
+          "text": "Are grids placed on all air in- and outlets?",
+          "type": "single_select",
+          "required": true,
+          "category": "vermin_bird_control",
+          "help": "Grids that are small enough to keep rodents and small birds out.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "partially", "label": "Partially", "score": 50},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "location",
+      "name": "Location of the Farm",
+      "weight": 0.07,
+      "description": "Geographic risk factors",
+      "questions": [
+        {
+          "id": "Q69",
+          "number": "69",
+          "text": "Is the farm located in an area with a high or a low density of pigs?",
+          "type": "single_select",
+          "required": true,
+          "category": "location",
+          "help": "A region with high density has >300 pigs/km² at municipality level. If there are multiple pig farms within 3 km radius, you're likely in high-density area.",
+          "options": [
+            {"value": "low", "label": "Low density", "score": 100},
+            {"value": "high", "label": "High density", "score": 50},
+            {"value": "dont_know", "label": "I don't know", "score": 50}
+          ]
+        },
+        {
+          "id": "Q70",
+          "number": "70",
+          "text": "Are there any other pig farms within a 500-metre radius (0.3 miles) of your farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "location",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q71",
+          "number": "71",
+          "text": "Is manure from other pig farms being spread on farmlands within a 500-metre radius (0.3 miles) of your farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "location",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q72",
+          "number": "72",
+          "text": "Do transport vehicles carrying animals from other farms often (minimum once a day) pass on a road less than 100-metre (328 feet) from your farm?",
+          "type": "single_select",
+          "required": true,
+          "category": "location",
+          "help": "E.g. due to location of slaughterhouse in neighbourhood.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q73",
+          "number": "73",
+          "text": "Have wild boars (or their traces) been spotted within a 10-kilometre radius (6.2 miles) of your establishment?",
+          "type": "single_select",
+          "required": true,
+          "category": "location",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0, "next": "Q74"},
+            {"value": "no", "label": "No", "score": 100, "next": "Q76"},
+            {"value": "dont_know", "label": "I don't know", "score": 50, "next": "Q76"}
+          ]
+        },
+        {
+          "id": "Q74",
+          "number": "74",
+          "text": "Is the farm enclosed by wild-boar-proof fences?",
+          "type": "single_select",
+          "required": true,
+          "category": "location",
+          "condition": "Q73 == 'yes'",
+          "help": "A wild-boar-proof fence is a double row of fencing made from metal net/wire with minimum height of 1.5m or a single solid fence made from metal, masonry, or other solid material with minimum height of 1.5m.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100, "next": "Q75"},
+            {"value": "no", "label": "No", "score": 0, "next": "Q76"}
+          ]
+        },
+        {
+          "id": "Q75",
+          "number": "75",
+          "text": "Are the fences inspected on a regular basis (at least monthly) to identify breaches and repaired if needed?",
+          "type": "single_select",
+          "required": true,
+          "category": "location",
+          "condition": "Q74 == 'yes'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "disease_management",
+      "name": "Disease Management",
+      "weight": 0.10,
+      "description": "Health protocols",
+      "questions": [
+        {
+          "id": "Q76",
+          "number": "76",
+          "text": "Is there a treatment plan on the farm that is evaluated on an annual basis by a veterinarian/health advisor?",
+          "type": "multi_select",
+          "required": true,
+          "category": "disease_management",
+          "help": "Health advisor: any person who comes to the farm to help improve health (e.g. nutritionist, consultant).",
+          "options": [
+            {"value": "vaccination", "label": "Yes, for vaccination", "score": 100},
+            {"value": "deworming", "label": "Yes, for deworming", "score": 100},
+            {"value": "additives", "label": "Yes, for additives/pre- or probiotics", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q77",
+          "number": "77",
+          "text": "Is a regular (at least once a year) evaluation made of the disease status of the farm (e.g. serology, trends in slaughterhouse findings, etc.) in consultation with a veterinarian/health advisor?",
+          "type": "single_select",
+          "required": true,
+          "category": "disease_management",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q78",
+          "number": "78",
+          "text": "Are runt pigs (stay-behinds e.g. due to unclear causes) and/or diseased pigs isolated from the healthy ones or is a strict euthanasia policy used?",
+          "type": "single_select",
+          "required": true,
+          "category": "disease_management",
+          "options": [
+            {"value": "always_isolated", "label": "Runt pigs are always isolated from the healthy animals", "score": 100, "next": "Q79"},
+            {"value": "sometimes_isolated", "label": "Runt pigs are sometimes isolated from the healthy animals", "score": 75, "next": "Q79"},
+            {"value": "not_isolated", "label": "Runt pigs are not isolated, they always remain within their group", "score": 0, "next": "Q81"},
+            {"value": "euthanasia", "label": "There is a strict euthanasia policy, so there are no/barely any runt pigs", "score": 100, "next": "Q81"}
+          ]
+        },
+        {
+          "id": "Q79",
+          "number": "79",
+          "text": "What happens with the runt pigs after recovery?",
+          "type": "single_select",
+          "required": true,
+          "category": "disease_management",
+          "condition": "Q78 == 'always_isolated' OR Q78 == 'sometimes_isolated'",
+          "options": [
+            {"value": "back_to_original", "label": "They are put back into their original group", "score": 50},
+            {"value": "younger_group", "label": "They are relocated to a younger age group", "score": 25},
+            {"value": "kept_isolated", "label": "They are kept isolated from the other animals until they leave the farm", "score": 100}
+          ]
+        },
+        {
+          "id": "Q80",
+          "number": "80",
+          "text": "Are diseased pigs consistently handled/visited after the healthy ones?",
+          "type": "single_select",
+          "required": true,
+          "category": "disease_management",
+          "condition": "Q78 == 'always_isolated' OR Q78 == 'sometimes_isolated'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "farrowing_suckling",
+      "name": "Farrowing and Suckling Period",
+      "weight": 0.07,
+      "description": "Where sows and after farrowing their suckling piglets are housed together",
+      "questions": [
+        {
+          "id": "Q81",
+          "number": "81",
+          "text": "Are the sows washed before they are moved into the farrowing unit?",
+          "type": "single_select",
+          "required": true,
+          "category": "farrowing_suckling",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        },
+        {
+          "id": "Q82",
+          "number": "82",
+          "text": "Are suckling piglets systematically transferred between sows (i.e. cross-fostering)?",
+          "type": "single_select",
+          "required": true,
+          "category": "farrowing_suckling",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q83"},
+            {"value": "no", "label": "No", "next": "Q85"}
+          ]
+        },
+        {
+          "id": "Q83",
+          "number": "83",
+          "text": "Does cross-fostering of suckling piglets between different sows occur once or multiple times per lactation?",
+          "type": "single_select",
+          "required": true,
+          "category": "farrowing_suckling",
+          "condition": "Q82 == 'yes'",
+          "options": [
+            {"value": "once", "label": "Once", "score": 75},
+            {"value": "more_than_once", "label": "More than once", "score": 50}
+          ]
+        },
+        {
+          "id": "Q84",
+          "number": "84",
+          "text": "When does cross-fostering occur?",
+          "type": "multi_select",
+          "required": true,
+          "category": "farrowing_suckling",
+          "condition": "Q82 == 'yes'",
+          "options": [
+            {"value": "within_24h", "label": "Within 24 hours after farrowing", "score": 100},
+            {"value": "24_to_72h", "label": "Between 24 and 72 hours after farrowing", "score": 75},
+            {"value": "more_than_72h", "label": "More than 72 hours after farrowing", "score": 50}
+          ]
+        },
+        {
+          "id": "Q85",
+          "number": "85",
+          "text": "How many times are the piglets routinely taken by hand (e.g. vaccination, castration, grinding of teeth, tail docking, ear tagging) between birth and weaning?",
+          "type": "number",
+          "required": true,
+          "category": "farrowing_suckling",
+          "help": "Some manipulations might be prohibited in your country. If multiple manipulations occur at same moment, count as one occasion.",
+          "scoring": {
+            "<=2": 100,
+            "3": 75,
+            "4": 50,
+            ">=5": 25
+          }
+        },
+        {
+          "id": "Q86",
+          "number": "86",
+          "text": "Are materials/tools for treatment (e.g. castration blade, tail-docker, ear-tagger, injection needles) cleaned and disinfected or replaced between each litter?",
+          "type": "single_select",
+          "required": true,
+          "category": "farrowing_suckling",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "only_some", "label": "Only some of the materials/tools are cleaned and disinfected or replaced", "score": 50},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q87",
+          "number": "87",
+          "text": "When castrating, are the castration blades/needles disinfected or replaced between different piglets?",
+          "type": "single_select",
+          "required": true,
+          "category": "farrowing_suckling",
+          "options": [
+            {"value": "after_each", "label": "The blades/needles are disinfected or replaced after each piglet", "score": 100},
+            {"value": "after_several", "label": "The blades/needles are disinfected/replaced after several piglets or different blades/needles per pen are used", "score": 50},
+            {"value": "until_blunt", "label": "The blades/needles are not disinfected or replaced until blunt", "score": 0},
+            {"value": "not_performed", "label": "Castration is not performed", "score": 100}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nursery_unit",
+      "name": "Nursery Unit",
+      "weight": 0.07,
+      "description": "Where all weaned piglets are housed together",
+      "questions": [
+        {
+          "id": "Q88",
+          "number": "88",
+          "text": "Is strict all-in management practised in each compartment of the nursery unit?",
+          "type": "single_select",
+          "required": true,
+          "category": "nursery_unit",
+          "help": "All-in: animals moved to the same nursery unit all at once and no new animals introduced before it is emptied.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q89",
+          "number": "89",
+          "text": "Are older piglets (from a different farrowing group) sometimes mixed with younger piglets?",
+          "type": "single_select",
+          "required": true,
+          "category": "nursery_unit",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q90",
+          "number": "90",
+          "text": "What is the maximal stocking density of a pen in the nursery unit?",
+          "type": "single_select",
+          "required": true,
+          "category": "nursery_unit",
+          "options": [
+            {"value": "0.33_or_more", "label": "0.33 m² per animal or more", "score": 100},
+            {"value": "0.32_to_0.26", "label": "0.32 to 0.26 m² per animal", "score": 75},
+            {"value": "0.25_to_0.16", "label": "0.25 to 0.16 m² per animal", "score": 50},
+            {"value": "0.15_or_less", "label": "0.15 m² per animal or less", "score": 0}
+          ]
+        },
+        {
+          "id": "Q91",
+          "number": "91",
+          "text": "Is the nursery unit physically separated (i.e. no direct contact possible) from the other pig units?",
+          "type": "single_select",
+          "required": true,
+          "category": "nursery_unit",
+          "help": "No other animal groups present in the same building/area.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0},
+            {"value": "not_applicable", "label": "Not applicable", "score": 50}
+          ]
+        },
+        {
+          "id": "Q92",
+          "number": "92",
+          "text": "Is there a separate hygiene lock for the nursery unit?",
+          "type": "single_select",
+          "required": true,
+          "category": "nursery_unit",
+          "help": "A hygiene lock is a facility where you can change into specific clothes/boots and clean/disinfect hands.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finishing_unit",
+      "name": "Finishing Unit",
+      "weight": 0.07,
+      "description": "Where all slaughter pigs are housed together",
+      "questions": [
+        {
+          "id": "Q93",
+          "number": "93",
+          "text": "Is strict all-in management practiced in each compartment of the finishing unit?",
+          "type": "single_select",
+          "required": true,
+          "category": "finishing_unit",
+          "help": "All-in: animals moved to same finishing unit all at once and no new animals introduced before emptied.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q94",
+          "number": "94",
+          "text": "Are different age groups strictly separated into different (physically separated) compartments/areas?",
+          "type": "single_select",
+          "required": true,
+          "category": "finishing_unit",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100, "next": "Q95"},
+            {"value": "no", "label": "No", "score": 0, "next": "Q96"},
+            {"value": "not_applicable", "label": "Not applicable", "score": 50, "next": "Q96"}
+          ]
+        },
+        {
+          "id": "Q95",
+          "number": "95",
+          "text": "Are older slaughter pigs sometimes mixed with younger pigs?",
+          "type": "single_select",
+          "required": true,
+          "category": "finishing_unit",
+          "condition": "Q94 == 'yes'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 0},
+            {"value": "no", "label": "No", "score": 100}
+          ]
+        },
+        {
+          "id": "Q96",
+          "number": "96",
+          "text": "What is the maximal pig density of a pen in the finishing unit?",
+          "type": "single_select",
+          "required": true,
+          "category": "finishing_unit",
+          "help": "Regular slaughter pigs: 90-115 kg live weight. Heavy slaughter pigs: >115 kg.",
+          "options": [
+            {"value": "1_or_more", "label": "1 or more m² per slaughter pig (1.50 m² or more per heavy slaughter pig)", "score": 100},
+            {"value": "0.70_to_0.99", "label": "0.70 to 0.99 m² per slaughter pig (1.10 to 1.49 m² per heavy)", "score": 75},
+            {"value": "0.60_to_0.69", "label": "0.60 to 0.69 m² per slaughter pig (0.80 to 1.09 m² per heavy)", "score": 50},
+            {"value": "less_than_0.60", "label": "Less than 0.60 m² per slaughter pig (less than 0.80 m² per heavy)", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "measures_between_compartments",
+      "name": "Measures Between Compartments, Working Lines and Equipment Use",
+      "weight": 0.07,
+      "description": "Internal biosecurity protocols",
+      "questions": [
+        {
+          "id": "Q97",
+          "number": "97",
+          "text": "Are different compartments/age groups present on the establishment?",
+          "type": "single_select",
+          "required": true,
+          "category": "measures_between_compartments",
+          "options": [
+            {"value": "yes", "label": "Yes", "next": "Q98"},
+            {"value": "no", "label": "No", "next": "Q103"}
+          ]
+        },
+        {
+          "id": "Q98",
+          "number": "98",
+          "text": "Between different compartments/age groups, are the following actions performed?",
+          "type": "matrix",
+          "required": true,
+          "category": "measures_between_compartments",
+          "condition": "Q97 == 'yes'",
+          "help": "Compartment: a physically defined unit where one group of pigs is kept.",
+          "rows": [
+            {"id": "clothes", "text": "Change into specific clothes per compartment/age group"},
+            {"id": "footwear", "text": "Change into specific footwear per compartment/age group"},
+            {"id": "hands", "text": "Wash hands/change gloves per compartment/age group"}
+          ],
+          "columns": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        },
+        {
+          "id": "Q99",
+          "number": "99",
+          "text": "Are either disinfection baths and/or boot washers used between different compartments/units?",
+          "type": "single_select",
+          "required": true,
+          "category": "measures_between_compartments",
+          "condition": "Q97 == 'yes'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "only_some", "label": "Only for some compartments/units", "score": 50},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q100",
+          "number": "100",
+          "text": "Which working sequence is used in normal circumstances?",
+          "type": "single_select",
+          "required": true,
+          "category": "measures_between_compartments",
+          "condition": "Q97 == 'yes'",
+          "options": [
+            {"value": "young_to_old", "label": "From young to old animals", "score": 100},
+            {"value": "old_to_young", "label": "From old to young animals", "score": 50},
+            {"value": "another_sequence", "label": "Another working sequence", "score": 25},
+            {"value": "no_sequence", "label": "There is no working sequence", "score": 0}
+          ]
+        },
+        {
+          "id": "Q101",
+          "number": "101",
+          "text": "Is the equipment that is needed for a specific animal category placed according to the working lines to avoid use in other age categories?",
+          "type": "single_select",
+          "required": true,
+          "category": "measures_between_compartments",
+          "condition": "Q97 == 'yes'",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q102",
+          "number": "102",
+          "text": "Are clearly recognizable (e.g. by colors) and separate materials/tools used for each unit or age group?",
+          "type": "single_select",
+          "required": true,
+          "category": "measures_between_compartments",
+          "condition": "Q97 == 'yes'",
+          "help": "For all units: farrowing crates, nursery unit and finishing unit.",
+          "options": [
+            {"value": "yes", "label": "Yes", "score": 100},
+            {"value": "no", "label": "No", "score": 0}
+          ]
+        },
+        {
+          "id": "Q103",
+          "number": "103",
+          "text": "Are the pig sorting/driving panels easy to clean (e.g. plastic) and are they regularly cleaned and disinfected?",
+          "type": "single_select",
+          "required": true,
+          "category": "measures_between_compartments",
+          "help": "Regularly: after every use or at least after every production cycle during sanitary break.",
+          "options": [
+            {"value": "easy_and_regular", "label": "Yes, the panels are easy to clean and are regularly cleaned and disinfected", "score": 100},
+            {"value": "easy_not_regular", "label": "The panels are easy to clean but are not regularly cleaned and disinfected", "score": 75},
+            {"value": "not_easy_but_regular", "label": "The panels are not easy to clean (e.g. wood) but are regularly cleaned and disinfected", "score": 50},
+            {"value": "not_easy_not_regular", "label": "No, the panels are not easy to clean and are not regularly cleaned and disinfected", "score": 0}
+          ]
+        },
+        {
+          "id": "Q104",
+          "number": "104",
+          "text": "Are specific injection syringes and needles used for each age group?",
+          "type": "single_select",
+          "required": true,
+          "category": "measures_between_compartments",
+          "help": "For all units: farrowing crates, nursery unit and finishing unit.",
+          "options": [
+            {"value": "both_specific", "label": "Both syringes and needles are specific for each age group", "score": 100},
+            {"value": "only_needles", "label": "Only the needles are specific for the age group", "score": 75},
+            {"value": "no", "label": "No", "score": 0},
+            {"value": "not_applicable", "label": "Not applicable", "score": 50}
+          ]
+        },
+        {
+          "id": "Q105",
+          "number": "105",
+          "text": "After how many pigs are the injection needles changed?",
+          "type": "single_select",
+          "required": true,
+          "category": "measures_between_compartments",
+          "help": "For all units. If this differs per compartment, indicate worst-case scenario.",
+          "options": [
+            {"value": "less_than_20", "label": "<20", "score": 100},
+            {"value": "20_to_49", "label": "20-49", "score": 75},
+            {"value": "50_to_100", "label": "50-100", "score": 50},
+            {"value": "more_than_100", "label": ">100", "score": 0}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cleaning_disinfection",
+      "name": "Cleaning and Disinfection",
+      "weight": 0.07,
+      "description": "Sanitation protocols",
+      "questions": [
+        {
+          "id": "Q106",
+          "number": "106",
+          "text": "Are the pens/compartments cleaned after each production cycle?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "help": "For all units: farrowing crates, nursery unit and finishing unit.",
+          "options": [
+            {"value": "all_after_each", "label": "All pens/compartments are cleaned after each production cycle", "score": 100, "next": "Q107"},
+            {"value": "only_some", "label": "Only some of the pens/compartments are cleaned after each production cycle", "score": 50, "next": "Q107"},
+            {"value": "after_couple", "label": "The pens/compartments are cleaned after every couple of production cycles", "score": 25, "next": "Q107"},
+            {"value": "never", "label": "The pens/compartments are never cleaned", "score": 0, "next": "Q112"}
+          ]
+        },
+        {
+          "id": "Q107",
+          "number": "107",
+          "text": "Are the pens/compartments soaked with water before the start of the cleaning?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "condition": "Q106 != 'never'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100, "next": "Q108"},
+            {"value": "sometimes", "label": "Sometimes", "score": 50, "next": "Q108"},
+            {"value": "dry_only", "label": "Never, I only practise dry cleaning", "score": 0, "next": "Q109"}
+          ]
+        },
+        {
+          "id": "Q108",
+          "number": "108",
+          "text": "Is detergent/soap added to the water during cleaning?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "condition": "Q107 != 'dry_only'",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        },
+        {
+          "id": "Q109",
+          "number": "109",
+          "text": "Are the pens/compartments disinfected after each production cycle?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "help": "For all units: farrowing crates, nursery unit and finishing unit.",
+          "options": [
+            {"value": "all_after_each", "label": "All pens/compartments are disinfected after each production cycle", "score": 100},
+            {"value": "only_some", "label": "Only some of the pens/compartments are disinfected after each production cycle", "score": 50},
+            {"value": "after_couple", "label": "The pens/compartments are disinfected after every couple of production cycles", "score": 25},
+            {"value": "never", "label": "The pens/compartments are never disinfected", "score": 0}
+          ]
+        },
+        {
+          "id": "Q110",
+          "number": "110",
+          "text": "Are the animal facilities fully dried before new pigs enter?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        },
+        {
+          "id": "Q111",
+          "number": "111",
+          "text": "Is the efficacy of cleaning and disinfection checked (e.g. hygienogram, ATP-metry, swabs)?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "help": "A hygienogram is a quantification of the bacterial status of the environment with a contact plate.",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes", "label": "Sometimes", "score": 50},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        },
+        {
+          "id": "Q112",
+          "number": "112",
+          "text": "Are the corridors and the loading area cleaned and disinfected after the pigs are moved?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "options": [
+            {"value": "cleaned_and_disinfected", "label": "Cleaned and disinfected after use", "score": 100},
+            {"value": "only_cleaned", "label": "Only cleaned after use", "score": 75},
+            {"value": "only_disinfected", "label": "Only disinfected after use", "score": 50},
+            {"value": "neither", "label": "Not cleaned nor disinfected after use", "score": 0}
+          ]
+        },
+        {
+          "id": "Q113",
+          "number": "113",
+          "text": "Is equipment (e.g. sorting/driving panels, spades) cleaned and disinfected after their use?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "options": [
+            {"value": "always", "label": "Always", "score": 100},
+            {"value": "sometimes_part", "label": "Sometimes/part of the equipment", "score": 50},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        },
+        {
+          "id": "Q114",
+          "number": "114",
+          "text": "Are the feeding systems (feed lines, troughs) cleaned and disinfected after each production cycle?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "options": [
+            {"value": "cleaned_and_disinfected", "label": "Cleaned and disinfected after each production cycle", "score": 100},
+            {"value": "only_cleaned", "label": "Only cleaned after each production cycle", "score": 75},
+            {"value": "occasionally", "label": "Cleaned but not after each production cycle (only occasionally)", "score": 50},
+            {"value": "never", "label": "Never cleaned nor disinfected", "score": 0}
+          ]
+        },
+        {
+          "id": "Q115",
+          "number": "115",
+          "text": "Is the feed silo/storage cleaned (and disinfected) on the inside?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "options": [
+            {"value": "multiple_per_year", "label": "Multiple times a year", "score": 100},
+            {"value": "once_per_year", "label": "Once a year", "score": 75},
+            {"value": "once_per_two_years", "label": "Once every two years", "score": 50},
+            {"value": "less_than_two_years", "label": "Less than once every two years", "score": 25},
+            {"value": "never", "label": "Never", "score": 0},
+            {"value": "no_silo", "label": "There is no feed silo/storage", "score": 50}
+          ]
+        },
+        {
+          "id": "Q116",
+          "number": "116",
+          "text": "Is the drinking water system cleaned and disinfected on the inside between production cycles?",
+          "type": "single_select",
+          "required": true,
+          "category": "cleaning_disinfection",
+          "help": "This excludes the use of continuous low doses of disinfectant during production cycles.",
+          "options": [
+            {"value": "multiple_per_year", "label": "Multiple times a year", "score": 100},
+            {"value": "once_per_year", "label": "Once a year", "score": 75},
+            {"value": "once_per_two_years", "label": "Once every two years", "score": 50},
+            {"value": "less_than_two_years", "label": "Less than once every two years", "score": 25},
+            {"value": "never", "label": "Never", "score": 0}
+          ]
+        }
+      ]
+    }
+  ]
+}

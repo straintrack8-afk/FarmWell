@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'icons/*.png', 'data/*.json'],
       manifest: {
-        name: 'PigWell',
-        short_name: 'PigWell',
-        description: 'Identify pig diseases based on age and symptoms',
+        name: 'FarmWell',
+        short_name: 'FarmWell',
+        description: 'Comprehensive livestock health diagnostics',
         theme_color: '#366092',
         background_color: '#F9FAFB',
         display: 'standalone',

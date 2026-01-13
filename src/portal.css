@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --primary: #3b82f6;
+  --secondary: #10b981;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+}
+
+/* Global Reset and Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Shared Layout Components */
+.portal-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .portal-layout {
+    padding: 1rem;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .portal-layout {
+    padding: 0.5rem;
+  }
+}
+
+.portal-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.portal-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 2rem;
+  padding: 3rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .portal-card {
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portal-card {
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+  }
+}
+
+/* Specific Page Elements */
+.farmwell-card {
+  /* Inherit shared portal-card but specific for Welcome Page if needed */
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 2rem;
+  padding: 3rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .farmwell-card {
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .farmwell-card {
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.main-logo {
+  height: 200px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .main-logo {
+    height: 120px;
+  }
+}
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .module-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.module-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.module-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f633;
+}
+
+.module-icon {
+  height: 120px;
+  width: auto;
+  margin-bottom: 1.5rem;
+  display: block;
+  transition: transform 0.3s ease;
+  object-fit: contain;
+}
+
+.module-card:hover .module-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.module-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-main);
+}
+
+.module-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .module-card {
+    padding: 1.5rem;
+  }
+  .module-icon {
+    height: 80px;
+  }
+  .module-title {
+    font-size: 1.5rem;
+  }
+}
+
+.footer-branding {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.vaksindo-logo {
+  max-height: 200px;
+  width: auto;
+  max-width: 100%;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 480px) {
+  .vaksindo-logo {
+    max-height: 120px;
+  }
+}
+
+.vaksindo-logo:hover {
+  transform: scale(1.05);
+}

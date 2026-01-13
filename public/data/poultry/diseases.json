@@ -1,0 +1,1257 @@
+{
+  "diseases": [
+    {
+      "id": 501,
+      "name": "Aflatoxicosis",
+      "latinName": "Mycotoxicosis",
+      "category": "Toxins",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Broilers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Stunted Growth",
+        "Pale Comb & Wattles",
+        "Lethargy / Depression",
+        "Lameness",
+        "Bloody Diarrhea",
+        "Bloody Vent / Prolapse"
+      ],
+      "mortality": "High",
+      "transmission": "Ingestion of Aflatoxin B1 in moldy feed. Ducks are more sensitive than chickens.",
+      "zoonotic": false,
+      "zoonoticNote": "Indirect",
+      "description": "Poisoning caused by toxins produced by mold (Aspergillus flavus) in feed ingredients like corn.",
+      "diagnosis": "Feed analysis (ELISA/HPLC); Necropsy (Liver damage).",
+      "controlPrevention": "Moisture control in grain storage; Use of Toxin Binders in feed.",
+      "treatment": "Remove contaminated feed immediately; High quality protein; Toxin binders.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 303,
+      "name": "Ascariasis",
+      "latinName": "Roundworms, Cacingan",
+      "category": "Parasitic",
+      "ageGroups": [
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Emaciation / Weight Loss",
+        "Stunted Growth",
+        "Green Diarrhea",
+        "Pale Comb & Wattles",
+        "Drop in Egg Production"
+      ],
+      "mortality": "Medium",
+      "transmission": "Caused by Ascaridia galli. Fecal-oral transmission of eggs.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Infestation with large roundworms in the small intestine. Competes for nutrients and causes physical blockage.",
+      "diagnosis": "Fecal flotation (Eggs); Necropsy (Adult worms).",
+      "controlPrevention": "Routine deworming program; Litter management.",
+      "treatment": "Anthelmintics (Levamisole, Albendazole, Piperazine, Ivermectin).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 601,
+      "name": "Ascites Syndrome",
+      "latinName": "Water Belly",
+      "category": "Other",
+      "ageGroups": [
+        "Growers (2-8 weeks)",
+        "Breeders"
+      ],
+      "symptoms": [
+        "Cyanosis (Blue Comb)",
+        "Gasping / Dyspnea",
+        "Sudden Death",
+        "Lethargy / Depression",
+        "Pale Comb & Wattles",
+        "Fever / High Body Heat",
+        "Lameness"
+      ],
+      "mortality": "High",
+      "transmission": "Metabolic strain in fast-growing broilers; High altitude; Poor ventilation (dust/ammonia).",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Water Belly. Accumulation of fluid in the abdomen due to pulmonary hypertension and heart failure.",
+      "diagnosis": "Necropsy (Straw-colored fluid in abdomen, Enlarged right heart).",
+      "controlPrevention": "Ventilation management; Lighting programs to slow growth; Mash feed.",
+      "treatment": "No cure. Fluid aspiration gives temporary relief but not practical.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 101,
+      "name": "Avian Influenza",
+      "latinName": "Bird Flu, AI, HPAI",
+      "category": "Viral",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Broilers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Sudden Death",
+        "Cyanosis (Blue Comb)",
+        "Swollen Head / Face",
+        "Lameness",
+        "Gasping / Dyspnea",
+        "Drop in Egg Production",
+        "Green Diarrhea",
+        "Conjunctivitis / Watery Eyes",
+        "Torticollis (Twisted Neck)",
+        "Nasal Discharge"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Orthomyxovirus (Type A). Spread via wild birds, infected feces, air, contaminated feed/water/vehicles.",
+      "zoonotic": true,
+      "zoonoticNote": "Yes",
+      "description": "A highly contagious viral disease affecting respiratory, digestive, and nervous systems. Can be Low Pathogenic (LPAI) or High Pathogenic (HPAI). HPAI causes sudden massive mortality and is zoonotic (can infect humans).",
+      "diagnosis": "RT-PCR (H5/H7/H9 genes); HI Test; Rapid Antigen Test; Necropsy (Hemorrhages in proventriculus/fat).",
+      "controlPrevention": "Strict Biosecurity; Vaccination (where legal); Exclusion of wild birds; Quarantine new stock.",
+      "treatment": "None for viral infection. Supportive care for LPAI. HPAI usually requires culling of the flock.",
+      "vaccines": [
+        {
+          "id": "V04",
+          "name": "Vaksimune AI H9",
+          "details": "- Inactivated vaccine against Avian Influenza, H9N2 strain.\r\n- Inactivated vaccine (oil emulsion)\r\n"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 502,
+      "name": "Botulism",
+      "latinName": "Limberneck",
+      "category": "Toxins",
+      "ageGroups": [
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Limberneck",
+        "Paralysis (Leg/Wing)",
+        "Sudden Death",
+        "Warts / Nodules (Scabs)",
+        "Conjunctivitis / Watery Eyes"
+      ],
+      "mortality": "Medium",
+      "transmission": "Ingestion of Clostridium botulinum toxin from rotting carcasses, maggots, or stagnant water.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Also called Limberneck. Paralytic disease caused by neurotoxin.",
+      "diagnosis": "Clinical signs; Mouse bioassay.",
+      "controlPrevention": "Remove dead birds daily; Clean water lines; Avoid wet litter.",
+      "treatment": "Remove source of toxin; Selenium/Antibiotics (for secondary); Laxatives (Molasses).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 604,
+      "name": "Cannibalism",
+      "latinName": "Feather Pecking",
+      "category": "Other",
+      "ageGroups": [
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Bloody Vent / Prolapse",
+        "Warts / Nodules (Scabs)",
+        "Sudden Death",
+        "Drop in Egg Production"
+      ],
+      "mortality": "Medium",
+      "transmission": "Stress; Overcrowding; High light intensity; Nutrient deficiency (Sodium/Amino acids).",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Behavioral vice where birds peck at feathers, toes, or vents of other birds.",
+      "diagnosis": "Observation of behavior/wounds.",
+      "controlPrevention": "Beak trimming; Red light; Space management; Salt in water.",
+      "treatment": "Isolate injured birds; Apply tar/anti-peck spray; Correct environmental stress.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 202,
+      "name": "Chronic Respiratory Disease",
+      "latinName": "CRD, Mycoplasmosis",
+      "category": "Bacterial",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Tracheal Rales (Snoring)",
+        "Nasal Discharge",
+        "Conjunctivitis / Watery Eyes",
+        "Stunted Growth",
+        "Drop in Egg Production",
+        "Swollen Head / Face"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Mycoplasma gallisepticum (MG). Vertical transmission (breeder to chick) and horizontal (airborne).",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Chronic disease affecting the respiratory system. Often complicates with E. coli to form CRD-Complex (CCD).",
+      "diagnosis": "Serum Plate Agglutination (SPA); ELISA; PCR; Culture.",
+      "controlPrevention": "Sourcing MG-free chicks; Biosecurity; Vaccination (Live/Killed).",
+      "treatment": "Antibiotics (Macrolides like Tylosin, Tilmicosin, or Tetracyclines).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 301,
+      "name": "Coccidiosis",
+      "latinName": "Cocci, Berak Darah",
+      "category": "Parasitic",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Bloody Diarrhea",
+        "Yellow / Sulfur Diarrhea",
+        "Pale Comb & Wattles",
+        "Lethargy / Depression",
+        "Stunted Growth",
+        "Drop in Egg Production",
+        "Lameness"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Eimeria spp. (e.g., E. tenella, E. acervulina). Ingestion of sporulated oocysts from wet litter.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Protozoal disease damaging the intestinal tract. One of the most economically important diseases in poultry.",
+      "diagnosis": "Microscopic examination of mucosal scrapings (Oocysts identification).",
+      "controlPrevention": "Use of Coccidiostats in feed (rotation); Dry litter management; Vaccination.",
+      "treatment": "Sulfa drugs (Sulfadiazine, Toltrazuril) or Amprolium in drinking water.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 201,
+      "name": "Colibacillosis",
+      "latinName": "E. coli infection",
+      "category": "Bacterial",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Broilers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Lethargy / Depression",
+        "Gasping / Dyspnea",
+        "White Diarrhea (Chalky)",
+        "Swollen Joints (Hocks)",
+        "Drop in Egg Production",
+        "Green Diarrhea",
+        "Sudden Death"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Escherichia coli. Spread via fecal contamination (egg shell penetration) or inhalation of dust.",
+      "zoonotic": false,
+      "zoonoticNote": "Potential",
+      "description": "Infection caused by E. coli, often occurring as a secondary infection following respiratory viral diseases or environmental stress.",
+      "diagnosis": "Bacterial Culture (MacConkey Agar); Necropsy lesions.",
+      "controlPrevention": "Sanitation; Water chlorination; Hatchery hygiene; Minimizing stress/ammonia.",
+      "treatment": "Antibiotics (based on sensitivity test); Acidifiers in water; Probiotics.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 403,
+      "name": "Curled Toe Paralysis",
+      "latinName": "Riboflavin Deficiency",
+      "category": "Nutritional",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)"
+      ],
+      "symptoms": [
+        "Curled Toes",
+        "Lameness",
+        "Stunted Growth",
+        "Green Diarrhea"
+      ],
+      "mortality": "Low",
+      "transmission": "Deficiency of Vitamin B2 (Riboflavin).",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Nerve degeneration causing specific paralysis of the toes in young chicks.",
+      "diagnosis": "Clinical signs; Response to treatment.",
+      "controlPrevention": "Riboflavin supplementation in breeder and starter diets.",
+      "treatment": "Immediate Vitamin B Complex supplementation.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 107,
+      "name": "Duck Plague",
+      "latinName": "Duck Virus Enteritis, DVE",
+      "category": "Viral",
+      "ageGroups": [
+        "Broilers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Bloody Diarrhea",
+        "Conjunctivitis / Watery Eyes",
+        "Bloody Vent / Prolapse",
+        "Fever / High Body Heat",
+        "Nasal Discharge",
+        "Paralysis (Leg/Wing)"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Herpesvirus. Spread via contact with infected birds or contaminated water bodies.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Also known as Duck Virus Enteritis (DVE). Acute contagious disease affecting adult ducks, geese, and swans.",
+      "diagnosis": "Necropsy (Hemorrhagic bands in esophagus/intestine); PCR; Virus Isolation.",
+      "controlPrevention": "Vaccination with Live Attenuated vaccine; Preventing contact with wild waterfowl.",
+      "treatment": "None. Depopulation is often recommended due to carrier state.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 106,
+      "name": "Duck Viral Hepatitis",
+      "latinName": "DVH",
+      "category": "Viral",
+      "ageGroups": [
+        "Broilers",
+        "Breeders"
+      ],
+      "symptoms": [
+        "Opisthotonos",
+        "Sudden Death",
+        "Paralysis (Leg/Wing)",
+        "Green Diarrhea",
+        "Lethargy / Depression"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Duck Hepatitis Virus (Picornavirus). Spread via fecal-oral route and direct contact.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Acute, highly fatal disease of young ducklings (1-28 days old). Causes rapid death with liver necrosis. Older ducks are resistant.",
+      "diagnosis": "Necropsy (Enlarged liver with hemorrhagic spots); PCR; Virus Neutralization.",
+      "controlPrevention": "Vaccinating breeder ducks to provide maternal immunity; Strict isolation of ducklings.",
+      "treatment": "Serum therapy (Hyperimmune serum) injected into ducklings during early outbreak.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 108,
+      "name": "Egg Drop Syndrome",
+      "latinName": "EDS '76",
+      "category": "Viral",
+      "ageGroups": [
+        "Layers",
+        "Ducks"
+      ],
+      "symptoms": [
+        "White / Depigmented Eggs",
+        "Soft / Shell-less Eggs",
+        "Drop in Egg Production",
+        "Sneezing / Snicking"
+      ],
+      "mortality": "Medium",
+      "transmission": "Caused by Duck Adenovirus A. Transmitted vertically (egg) and horizontally (feces/water).",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Disease affecting laying hens causing a sudden drop in egg production and quality failure, often in otherwise healthy-looking birds.",
+      "diagnosis": "HI Test (specific for EDS); PCR.",
+      "controlPrevention": "Vaccination (Inactivated) before laying period; Hygiene.",
+      "treatment": "None. Spontaneous recovery usually occurs after 4-10 weeks.",
+      "vaccines": [
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Inactivated vaccine combination of Newcastle Disease virus LaSota strain, Infectious Bronchitis strain M-41 variants 771 and QX, Egg Drop Syndrome'76  in oil emulsion."
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Inactivated vaccine against Newcastle Disease (LaSota strain), Egg Drop Syndrome’76, and Infectious Bronchitis (M-41 strain).\r\n- Inactivated vaccine (oil emulsion)\r\n- Packing size: 500 & 1000 Doses"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 402,
+      "name": "Encephalomalacia",
+      "latinName": "Crazy Chick Disease",
+      "category": "Nutritional",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)"
+      ],
+      "symptoms": [
+        "Torticollis (Twisted Neck)",
+        "Tremors",
+        "Lameness",
+        "Sudden Death"
+      ],
+      "mortality": "Low",
+      "transmission": "Deficiency of Vitamin E or Selenium. Often due to rancid fats in feed destroying Vit E.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Also called Crazy Chick Disease. Degeneration of brain tissue in young chicks.",
+      "diagnosis": "Histopathology of brain (hemorrhage/edema); Feed analysis.",
+      "controlPrevention": "Add Antioxidants to feed; Ensure fresh fat source.",
+      "treatment": "Vitamin E and Selenium supplementation in water.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 203,
+      "name": "Fowl Cholera",
+      "latinName": "Pasteurellosis",
+      "category": "Bacterial",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Swollen Head / Face",
+        "Lameness",
+        "Sudden Death",
+        "Green Diarrhea",
+        "Tracheal Rales (Snoring)",
+        "Torticollis (Twisted Neck)",
+        "Drop in Egg Production"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Pasteurella multocida. Spread by rodents, cats, and contaminated soil/water.",
+      "zoonotic": false,
+      "zoonoticNote": "Rare",
+      "description": "Contagious bacterial disease causing septicemia. Can be acute (sudden death) or chronic (localized swelling). Affects chickens and ducks.",
+      "diagnosis": "Bacterial Culture (Bipolar rods on Gram stain); PCR.",
+      "controlPrevention": "Rodent control; Biosecurity; Bacterin Vaccination.",
+      "treatment": "Antibiotics (Sulfonamides, Amoxicillin, Tetracyclines) - but recurrence is common.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 109,
+      "name": "Fowl Pox",
+      "latinName": "Avian Pox, Cacar",
+      "category": "Viral",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Warts / Nodules (Scabs)",
+        "Gasping / Dyspnea",
+        "Stunted Growth",
+        "Drop in Egg Production",
+        "Conjunctivitis / Watery Eyes"
+      ],
+      "mortality": "Medium",
+      "transmission": "Caused by Avipoxvirus. Spread by mosquitoes/mites (vectors) or direct contact through broken skin.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Slow-spreading viral infection causing cutaneous (dry) or diphtheritic (wet) lesions. Wet pox involves the upper respiratory tract and is more severe.",
+      "diagnosis": "Clinical signs; Histopathology (Bollinger bodies); PCR.",
+      "controlPrevention": "Wing-web Vaccination; Mosquito control.",
+      "treatment": "None. Remove diptheritic membranes if blocking breathing; Iodine on skin lesions.",
+      "vaccines": [
+        {
+          "id": "V18",
+          "name": "Vaksimune Pox",
+          "details": "Live vaccine of Fowl Pox of Beaudette strain, propagated in embryonated Specific Pathogen Free (SPF) eggs, in liquid form."
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 302,
+      "name": "Histomoniasis",
+      "latinName": "Blackhead Disease",
+      "category": "Parasitic",
+      "ageGroups": [
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Yellow / Sulfur Diarrhea",
+        "Darkening of Skin",
+        "Emaciation / Weight Loss",
+        "Lethargy / Depression",
+        "Sudden Death"
+      ],
+      "mortality": "Medium",
+      "transmission": "Caused by Histomonas meleagridis. Transmitted via Heterakis (cecal worm) eggs or earthworms.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Also known as Blackhead. Protozoal disease affecting the ceca and liver. Turkeys are most susceptible, but chickens carry it.",
+      "diagnosis": "Necropsy (Target lesions on liver, Caseous cores in ceca).",
+      "controlPrevention": "Deworming (Control Heterakis worms); Keeping chickens and turkeys separate.",
+      "treatment": "No approved treatment in many countries. Nitroimidazoles (if legal).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 104,
+      "name": "Infectious Bronchitis",
+      "latinName": "IB",
+      "category": "Viral",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Misshapen / Wrinkled Eggs",
+        "Sneezing / Snicking",
+        "Nasal Discharge",
+        "White / Depigmented Eggs",
+        "Swollen Joints (Hocks)",
+        "Lethargy / Depression"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Coronavirus. Spread via airborne route (wind) over long distances and direct contact.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Acute highly contagious respiratory disease. The virus also damages the kidneys (nephrosis) and the reproductive tract, leading to permanent production issues.",
+      "diagnosis": "RT-PCR (S1 gene sequencing); ELISA (rising titer); Virus Isolation.",
+      "controlPrevention": "Vaccination using serotypes matching the field strain (Mass, 4/91, etc.); Biosecurity.",
+      "treatment": "None. Antibiotics may be used only to prevent secondary bacterial infections (E. coli).",
+      "vaccines": [
+        {
+          "id": "V01",
+          "name": "Vaksimune \r\nND IB Inaktif",
+          "details": "- Inactivated vaccine against Newcastle Disease (Sub-Genotype VIIh & VIIi) and Infectious Bronchitis, M41 strain\r\n- Inactivated vaccine (oil emulsion)"
+        },
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Inactivated vaccine combination of Newcastle Disease virus LaSota strain, Infectious Bronchitis strain M-41 variants 771 and QX, Egg Drop Syndrome'76  in oil emulsion."
+        },
+        {
+          "id": "V11",
+          "name": "Vaksimune ND Clone IB",
+          "details": "- Live vaccine against Newcastle Disease (clone strain) and Infectious Bronchitis (H120 Massachusetts strain).\r\n- Live vaccine (freeze-dried)\r\n- Packing size: 500, 1000 & 2000 Doses"
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Inactivated vaccine against Newcastle Disease (LaSota strain), Egg Drop Syndrome’76, and Infectious Bronchitis (M-41 strain).\r\n- Inactivated vaccine (oil emulsion)\r\n- Packing size: 500 & 1000 Doses"
+        },
+        {
+          "id": "V15",
+          "name": "Vaksimune NDHV IB",
+          "details": "Live freeze-dried vaccine of Newcastle Disease Ulster strain and Infectious Bronchitis of H120 strain, propagated  in embryonated Specific Pathogen Free (SPF) eggs"
+        },
+        {
+          "id": "V17",
+          "name": "Vaksimune NDLS IB",
+          "details": "Live vaccine of attenuated Newcastle Disease and Infectious Bronchitis"
+        },
+        {
+          "id": "V19",
+          "name": "Vaksimune\r\nNDL IB Plus",
+          "details": "Inactivated vaccines of Newcastle Disease Genotype VII strain N018 and Infectious Bronchitis M-41 strain variants 771 and Qx in oil emulsion"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 103,
+      "name": "Infectious Bursal Disease",
+      "latinName": "Gumboro, IBD",
+      "category": "Viral",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "White Diarrhea (Chalky)",
+        "Tremors",
+        "Lethargy / Depression",
+        "Bloody Vent / Prolapse",
+        "Pale Comb & Wattles",
+        "Swollen Joints (Hocks)"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Birnavirus. Highly resistant in the environment. Spread via fecal-oral route.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Also known as Gumboro. An acute, highly contagious viral infection in young chickens that targets the Bursa of Fabricius, causing immunosuppression.",
+      "diagnosis": "Necropsy (Swollen/hemorrhagic bursa); PCR; ELISA; Agar Gel Precipitation (AGP).",
+      "controlPrevention": "Vaccination of breeders (Maternal Antibody); Vaccination of chicks (Intermediate/Hot strains); Disinfection.",
+      "treatment": "None. Supportive therapy (electrolytes, kidney flush) and good management to increase comfort.",
+      "vaccines": [
+        {
+          "id": "V07",
+          "name": "Vaksimune IBD D",
+          "details": "- Live freeze-dried vaccine against Infectious Bursal Disease, LZD228 strain\r\nLive vaccine (freeze-dried)\r\n- Packing size: 500, 1000 & 2000 Doses"
+        },
+        {
+          "id": "V08",
+          "name": "Vaksimune IBD M+",
+          "details": "- Live vaccine against Infectious Bursal Disease, Multrop strain,\r\nLive vaccine (freeze-dried)\r\n- Packing size: 500, 1000 & 2000 Doses"
+        },
+        {
+          "id": "V09",
+          "name": "Vaksimune IBD MHV",
+          "details": "- Live freeze-dried vaccine of Infectious Bursal Disease \r\n- Live vaccine (freeze-dried)\r\n- Administration by in-ovo or subcutan injection "
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 204,
+      "name": "Infectious Coryza",
+      "latinName": "Snot",
+      "category": "Bacterial",
+      "ageGroups": [
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Swollen Head / Face",
+        "Nasal Discharge",
+        "Conjunctivitis / Watery Eyes",
+        "Drop in Egg Production",
+        "Tracheal Rales (Snoring)",
+        "Lethargy / Depression"
+      ],
+      "mortality": "Medium",
+      "transmission": "Caused by Avibacterium paragallinarum. Spread via direct contact, airborne droplets, and water.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Acute respiratory disease of chickens characterized by severe facial swelling and foul-smelling nasal discharge.",
+      "diagnosis": "Bacterial Culture (Requires NAD/Satellite growth); PCR.",
+      "controlPrevention": "Vaccination (Bacterin); All-in-All-out management; Depopulation of carriers.",
+      "treatment": "Antibiotics (Sulfonamides, Erythromycin, Fluoroquinolones).",
+      "vaccines": [
+        {
+          "id": "V05",
+          "name": "Vaksimune Coryza L",
+          "details": "Bacterial inactivated vaccines Avibacterium paragallinarum serovars A of 0083 strain, serotype B of SPROSS and local strain, serotype C of Modesto strain in AI(OH)3 adjuvant"
+        },
+        {
+          "id": "V06",
+          "name": "Vaksimune Coryza LE",
+          "details": "- Inactivated vaccine against Avibacterium paragallinarum serotypes A, B, and C\r\n- Inactivated vaccine (water-in-oil-in-water emulsion)\r\n- Packing size: 500, 1000 & 2000 Doses"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 105,
+      "name": "Infectious Laryngotracheitis",
+      "latinName": "ILT",
+      "category": "Viral",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Gasping / Dyspnea",
+        "Nasal Discharge",
+        "Conjunctivitis / Watery Eyes",
+        "Sudden Death",
+        "Cyanosis (Blue Comb)",
+        "Drop in Egg Production"
+      ],
+      "mortality": "Medium",
+      "transmission": "Caused by Herpesvirus (Gallid herpesvirus 1). Spread via carrier birds (latent), airborne droplets, and fomites.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Respiratory disease characterized by severe difficulty breathing and bloody mucus. The virus establishes latent infection in recovered birds.",
+      "diagnosis": "Histopathology (Intranuclear inclusion bodies); PCR; Virus Isolation.",
+      "controlPrevention": "Vaccination (Eye drop/Water/Pox-vectored); Biosecurity to prevent introduction from carriers.",
+      "treatment": "None. Antibiotics for secondary infection. Ensure good ventilation.",
+      "vaccines": [
+        {
+          "id": "V10",
+          "name": "Vaksimune ILT",
+          "details": "- Live vaccine against Infectious Laryngotracheitis, Hudson strain\r\n- Live vaccine (freeze-dried)\r\n- Packing size: 500, 1000 & 2000 Doses"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 304,
+      "name": "Leucocytozoonosis",
+      "latinName": "Avian Malaria",
+      "category": "Parasitic",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Green Diarrhea",
+        "Pale Comb & Wattles",
+        "Nasal Discharge",
+        "Sudden Death"
+      ],
+      "mortality": "Medium",
+      "transmission": "Caused by Leucocytozoon caulleryi. Transmitted by biting midges (Culicoides) or black flies.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Blood parasite disease resembling malaria. Causes severe anemia and hemorrhage.",
+      "diagnosis": "Blood smear (Giemsa stain); Necropsy.",
+      "controlPrevention": "Control insect vectors (screens, insecticides); Sulfonamide preventive.",
+      "treatment": "Sulfonamides (Sulfamonomethoxine) + Pyrimethamine.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 110,
+      "name": "Marek's Disease",
+      "latinName": "Fowl Paralysis",
+      "category": "Viral",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "Paralysis (Leg/Wing)",
+        "Emaciation / Weight Loss",
+        "Pale Comb & Wattles",
+        "Gasping / Dyspnea",
+        "Swollen Head / Face",
+        "Warts / Nodules (Scabs)"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Herpesvirus (MDV). Spread via inhalation of infected dander (dust) from feather follicles.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Lymphoproliferative disease causing tumors in nerves and organs. One of the most ubiquitous avian infections worldwide.",
+      "diagnosis": "Histopathology (Lymphoid tumors); PCR; Necropsy findings.",
+      "controlPrevention": "Hatchery Vaccination (HVT/Rispens) on Day 1 or in-ovo; Strict hygiene for young chicks.",
+      "treatment": "None. Infected birds remain carriers for life. Cull affected birds.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 206,
+      "name": "Necrotic Enteritis",
+      "latinName": "Clostridiosis, Rot Gut",
+      "category": "Bacterial",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)"
+      ],
+      "symptoms": [
+        "Bloody Diarrhea",
+        "Lethargy / Depression",
+        "Sudden Death",
+        "Stunted Growth",
+        "Pale Comb & Wattles"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Clostridium perfringens (Toxin A/C). Triggered by gut damage or diet changes.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Acute enterotoxemia causing necrosis of the intestinal lining. Often linked to Coccidiosis damage or high fishmeal diets.",
+      "diagnosis": "Necropsy (Gas-filled intestine, necrotic membrane); Gram stain of mucosal scrape.",
+      "controlPrevention": "Control Coccidiosis; Probiotics; Organic acids; Avoid drastic feed changes.",
+      "treatment": "Antibiotics (Penicillin, Amoxicillin, Bacitracin) in water.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 102,
+      "name": "Newcastle Disease",
+      "latinName": "ND, Ranikhet, Tetelo",
+      "category": "Viral",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Broilers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Torticollis (Twisted Neck)",
+        "Gasping / Dyspnea",
+        "Green Diarrhea",
+        "Paralysis (Leg/Wing)",
+        "Soft / Shell-less Eggs",
+        "Tracheal Rales (Snoring)",
+        "Tremors",
+        "Drop in Egg Production",
+        "Conjunctivitis / Watery Eyes"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Avian Paramyxovirus 1 (APMV-1). Spread via inhalation (air), ingestion of feces, and contaminated equipment/people.",
+      "zoonotic": true,
+      "zoonoticNote": "Yes (Mild)",
+      "description": "A contagious viral disease affecting poultry of all ages. Categorized by pathotype: Velogenic (High mortality), Mesogenic (Moderate), and Lentogenic (Mild). Affects respiratory, nervous, and digestive systems.",
+      "diagnosis": "HI Test (Hemagglutination Inhibition); RT-PCR; Virus Isolation in embryonated eggs.",
+      "controlPrevention": "Routine Vaccination program (Live & Killed vaccines); Good Biosecurity.",
+      "treatment": "None. Supportive care (vitamins/electrolytes) to reduce stress and secondary bacterial infections.",
+      "vaccines": [
+        {
+          "id": "V01",
+          "name": "Vaksimune \r\nND IB Inaktif",
+          "details": "- Inactivated vaccine against Newcastle Disease (Sub-Genotype VIIh & VIIi) and Infectious Bronchitis, M41 strain\r\n- Inactivated vaccine (oil emulsion)"
+        },
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Inactivated vaccine combination of Newcastle Disease virus LaSota strain, Infectious Bronchitis strain M-41 variants 771 and QX, Egg Drop Syndrome'76  in oil emulsion."
+        },
+        {
+          "id": "V03",
+          "name": "Vaksimune \r\nND L Inaktif",
+          "details": "Inactivated Vaccine of Newcastle Disease Genotype VII N018 strain in oil emulsion."
+        },
+        {
+          "id": "V11",
+          "name": "Vaksimune ND Clone IB",
+          "details": "- Live vaccine against Newcastle Disease (clone strain) and Infectious Bronchitis (H120 Massachusetts strain).\r\n- Live vaccine (freeze-dried)\r\n- Packing size: 500, 1000 & 2000 Doses"
+        },
+        {
+          "id": "V12",
+          "name": "Vaksimune ND HV",
+          "details": "- Live attenuated vaccine for Newcastle disease, Ulster strain.\r\n- Freeze-dried live attenuated vaccine.\r\n- Packaging: 500, 1,000, and 2,000 doses."
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Inactivated vaccine against Newcastle Disease (LaSota strain), Egg Drop Syndrome’76, and Infectious Bronchitis (M-41 strain).\r\n- Inactivated vaccine (oil emulsion)\r\n- Packing size: 500 & 1000 Doses"
+        },
+        {
+          "id": "V14",
+          "name": "Vaksimune ND Inaktif",
+          "details": "Inactivated vaccine of Newcastle Disease LaSota strain in oil emulsion."
+        },
+        {
+          "id": "V15",
+          "name": "Vaksimune NDHV IB",
+          "details": "Live freeze-dried vaccine of Newcastle Disease Ulster strain and Infectious Bronchitis of H120 strain, propagated  in embryonated Specific Pathogen Free (SPF) eggs"
+        },
+        {
+          "id": "V16",
+          "name": "Vaksimune NDL Inaktif 0.1",
+          "details": "Inactivated Vaccine of Newcastle Disease Genotype VII N018 strain in 0,1 dose in oil emulsion."
+        },
+        {
+          "id": "V17",
+          "name": "Vaksimune NDLS IB",
+          "details": "Live vaccine of attenuated Newcastle Disease and Infectious Bronchitis"
+        },
+        {
+          "id": "V19",
+          "name": "Vaksimune\r\nNDL IB Plus",
+          "details": "Inactivated vaccines of Newcastle Disease Genotype VII strain N018 and Infectious Bronchitis M-41 strain variants 771 and Qx in oil emulsion"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 404,
+      "name": "Perosis",
+      "latinName": "Slipped Tendon",
+      "category": "Nutritional",
+      "ageGroups": [
+        "Growers (2-8 weeks)",
+        "Breeders"
+      ],
+      "symptoms": [
+        "Slipped Tendon",
+        "Lameness",
+        "Stunted Growth"
+      ],
+      "mortality": "Low",
+      "transmission": "Deficiency of Manganese or Choline; Biotin/Niacin/Folic Acid deficiency.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Slipped Tendon. Deformity of the leg bone causing the Achilles tendon to slip out of its groove.",
+      "diagnosis": "Clinical signs; Necropsy.",
+      "controlPrevention": "Ensure adequate Manganese and Choline in feed.",
+      "treatment": "None. The deformity is irreversible.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 603,
+      "name": "Prolapse",
+      "latinName": "Blowout",
+      "category": "Other",
+      "ageGroups": [
+        "Layers",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Bloody Vent / Prolapse",
+        "Sudden Death",
+        "Soft / Shell-less Eggs",
+        "Bloody Diarrhea"
+      ],
+      "mortality": "Low",
+      "transmission": "Laying large/double-yolk eggs; Obesity; Early light stimulation; High intensity light.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Blowout. Protrusion of the oviduct through the vent.",
+      "diagnosis": "Clinical observation.",
+      "controlPrevention": "Weight management during rearing; Reduce light intensity.",
+      "treatment": "Isolate bird; Clean and gently push tissue back; Apply anti-peck spray.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 205,
+      "name": "Pullorum Disease",
+      "latinName": "Bacillary White Diarrhea",
+      "category": "Bacterial",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers"
+      ],
+      "symptoms": [
+        "White Diarrhea (Chalky)",
+        "Lethargy / Depression",
+        "Sudden Death",
+        "Lameness",
+        "Stunted Growth",
+        "Gasping / Dyspnea"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Salmonella Pullorum. Vertical transmission (egg) is primary.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Also known as Bacillary White Diarrhea. Highly fatal systemic disease of young chicks/poults. Vertically transmitted.",
+      "diagnosis": "Rapid Whole Blood Test (for breeders); Bacterial Culture.",
+      "controlPrevention": "Eradication (Test and Cull positive breeders); Purchasing from certified clean flocks.",
+      "treatment": "Treatment not recommended (creates carriers). Focus on eradication.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 401,
+      "name": "Rickets",
+      "latinName": "Soft Bones",
+      "category": "Nutritional",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Broilers",
+        "Breeders"
+      ],
+      "symptoms": [
+        "Soft / Rubber Beak & Bones",
+        "Lameness",
+        "Stunted Growth",
+        "Lethargy / Depression",
+        "Gasping / Dyspnea"
+      ],
+      "mortality": "Medium",
+      "transmission": "Deficiency or imbalance of Calcium, Phosphorus, or Vitamin D3.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Metabolic bone disease in young, fast-growing birds leading to soft and deformed bones.",
+      "diagnosis": "Feed analysis; Histopathology of bone; Clinical signs.",
+      "controlPrevention": "Correct feed formulation; Ensure proper Ca:P ratio (2:1); Vitamin D3 supplement.",
+      "treatment": "Supplementation with water-soluble Vitamin D3 and Calcium.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 207,
+      "name": "Riemerella anatipestifer",
+      "latinName": "New Duck Disease",
+      "category": "Bacterial",
+      "ageGroups": [
+        "Broilers",
+        "Breeders"
+      ],
+      "symptoms": [
+        "Tremors",
+        "Lameness",
+        "Green Diarrhea",
+        "Nasal Discharge",
+        "Sudden Death",
+        "Opisthotonos"
+      ],
+      "mortality": "High",
+      "transmission": "Caused by Riemerella anatipestifer. Spread via respiratory route or foot lesions.",
+      "zoonotic": false,
+      "zoonoticNote": "Rare",
+      "description": "Also called New Duck Disease. A septicemic disease primarily affecting young ducks (1-8 weeks).",
+      "diagnosis": "Bacterial Culture; PCR; Necropsy findings.",
+      "controlPrevention": "Vaccination (Bacterin); Good litter management; Stress reduction.",
+      "treatment": "Antibiotics (Penicillin, Cephalosporins, Enrofloxacin) - Early treatment is key.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 208,
+      "name": "Salmonellosis",
+      "latinName": "Paratyphoid",
+      "category": "Bacterial",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Broilers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "White Diarrhea (Chalky)",
+        "Lethargy / Depression",
+        "Lameness",
+        "Conjunctivitis / Watery Eyes"
+      ],
+      "mortality": "Medium",
+      "transmission": "Caused by Salmonella Enteritidis/Typhimurium. Spread via pests, feed, vertical transmission.",
+      "zoonotic": true,
+      "zoonoticNote": "Yes",
+      "description": "Paratyphoid infection caused by non-host specific Salmonella. Public health concern (Zoonotic).",
+      "diagnosis": "Culture; PCR; Environmental swabbing.",
+      "controlPrevention": "Rodent control; Feed hygiene; Acidifiers; Probiotics.",
+      "treatment": "Antibiotics may reduce shedding but rarely eliminate carrier state.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 503,
+      "name": "Salt Poisoning",
+      "latinName": "Sodium Toxicity",
+      "category": "Toxins",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Broilers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Fever / High Body Heat",
+        "Tremors",
+        "Nasal Discharge",
+        "Lameness",
+        "Sudden Death"
+      ],
+      "mortality": "Low",
+      "transmission": "Accidental mixing error in feed or lack of fresh water.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Intoxication due to excessive intake of Sodium Chloride (Salt) or water deprivation followed by overdrinking.",
+      "diagnosis": "Feed/Water analysis; Necropsy (Brain edema).",
+      "controlPrevention": "Ensure consistent fresh water supply; Check feed mixing.",
+      "treatment": "Restrict water initially (give small amounts frequently) to prevent brain swelling.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 602,
+      "name": "Visceral Gout",
+      "latinName": "Uric Acid Deposition",
+      "category": "Other",
+      "ageGroups": [
+        "Day-old chicks (0-1 days)",
+        "Growers (2-8 weeks)",
+        "Layers",
+        "Broilers",
+        "Breeders",
+        "Ducks"
+      ],
+      "symptoms": [
+        "Sudden Death",
+        "Pale Comb & Wattles",
+        "White Diarrhea (Chalky)",
+        "Stunted Growth"
+      ],
+      "mortality": "Medium",
+      "transmission": "Dehydration; High Calcium diet in young birds (urolithiasis); Nephrotoxic IB virus.",
+      "zoonotic": false,
+      "zoonoticNote": "No",
+      "description": "Accumulation of uric acid crystals on internal organs due to kidney failure.",
+      "diagnosis": "Necropsy (Chalky deposits).",
+      "controlPrevention": "Ensure water availability; Low protein diet during recovery.",
+      "treatment": "Electrolytes; Urine acidifiers (Ammonium Chloride/Potassium Chloride).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    }
+  ],
+  "symptomCategories": {
+    "general": {
+      "label": "General / Systemic",
+      "symptoms": [
+        "Sudden Death",
+        "Lethargy / Depression",
+        "Emaciation / Weight Loss",
+        "Fever / High Body Heat",
+        "Stunted Growth"
+      ]
+    },
+    "respiratory": {
+      "label": "Respiratory System",
+      "symptoms": [
+        "Gasping / Dyspnea",
+        "Sneezing / Snicking",
+        "Tracheal Rales (Snoring)",
+        "Nasal Discharge",
+        "Conjunctivitis / Watery Eyes"
+      ]
+    },
+    "digestive": {
+      "label": "Digestive System",
+      "symptoms": [
+        "White Diarrhea (Chalky)",
+        "Green Diarrhea",
+        "Bloody Diarrhea",
+        "Yellow / Sulfur Diarrhea",
+        "Bloody Vent / Prolapse"
+      ]
+    },
+    "nervous": {
+      "label": "Nervous System",
+      "symptoms": [
+        "Torticollis (Twisted Neck)",
+        "Opisthotonos",
+        "Tremors",
+        "Paralysis (Leg/Wing)",
+        "Limberneck"
+      ]
+    },
+    "musculoskeletal": {
+      "label": "Musculoskeletal (Legs/Wings)",
+      "symptoms": [
+        "Lameness",
+        "Swollen Joints (Hocks)",
+        "Curled Toes",
+        "Soft / Rubber Beak & Bones",
+        "Slipped Tendon"
+      ]
+    },
+    "integumentary": {
+      "label": "Integumentary (Head/Skin/Feathers)",
+      "symptoms": [
+        "Cyanosis (Blue Comb)",
+        "Swollen Head / Face",
+        "Pale Comb & Wattles",
+        "Warts / Nodules (Scabs)",
+        "Darkening of Skin"
+      ]
+    },
+    "reproductive": {
+      "label": "Reproductive System",
+      "symptoms": [
+        "Drop in Egg Production",
+        "Soft / Shell-less Eggs",
+        "Misshapen / Wrinkled Eggs",
+        "White / Depigmented Eggs"
+      ]
+    }
+  },
+  "ageGroups": [
+    {
+      "id": "day-old",
+      "label": "Day-old chicks (0-1 days)",
+      "shortLabel": "Day-old",
+      "icon": "🐣"
+    },
+    {
+      "id": "growers",
+      "label": "Growers (2-8 weeks)",
+      "shortLabel": "Growers",
+      "icon": "🐔"
+    },
+    {
+      "id": "layers",
+      "label": "Layers",
+      "shortLabel": "Layers",
+      "icon": "🥚"
+    },
+    {
+      "id": "broilers",
+      "label": "Broilers",
+      "shortLabel": "Broilers",
+      "icon": "🍗"
+    },
+    {
+      "id": "breeders",
+      "label": "Breeders",
+      "shortLabel": "Breeders",
+      "icon": "🐓"
+    },
+    {
+      "id": "ducks",
+      "label": "Ducks",
+      "shortLabel": "Ducks",
+      "icon": "🦆"
+    },
+    {
+      "id": "all",
+      "label": "All ages",
+      "shortLabel": "All ages",
+      "icon": "✨"
+    }
+  ]
+}

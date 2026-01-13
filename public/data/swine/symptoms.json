@@ -1,0 +1,346 @@
+{
+  "categories": [
+    {
+      "id": "mortality",
+      "name": "Mortality",
+      "icon": "skull",
+      "symptoms": [
+        {
+          "id": "1",
+          "label": "Increase by less than 6%",
+          "count": 5
+        },
+        {
+          "id": "2",
+          "label": "Increase by more than 6%",
+          "count": 9
+        },
+        {
+          "id": "3",
+          "label": "Sudden deaths",
+          "count": 9
+        }
+      ]
+    },
+    {
+      "id": "number",
+      "name": "Number of affected pigs",
+      "icon": "activity",
+      "symptoms": [
+        {
+          "id": "4",
+          "label": "Less than 10%",
+          "count": 0
+        },
+        {
+          "id": "5",
+          "label": "More than 10%",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "id": "fever",
+      "name": "Fever status",
+      "icon": "activity",
+      "symptoms": [
+        {
+          "id": "6",
+          "label": "Fever",
+          "count": 12
+        },
+        {
+          "id": "7",
+          "label": "No fever",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "id": "locomotion",
+      "name": "Locomotion / nervous signs",
+      "icon": "brain",
+      "symptoms": [
+        {
+          "id": "8",
+          "label": "Blindness",
+          "count": 1
+        },
+        {
+          "id": "9",
+          "label": "Fits / convulsions",
+          "count": 6
+        },
+        {
+          "id": "10",
+          "label": "Holding head to one side",
+          "count": 0
+        },
+        {
+          "id": "11",
+          "label": "Incoordination / partial paralysis",
+          "count": 8
+        },
+        {
+          "id": "12",
+          "label": "Lameness/stiffness/arthritis",
+          "count": 6
+        },
+        {
+          "id": "13",
+          "label": "Opisthotonus",
+          "count": 3
+        },
+        {
+          "id": "14",
+          "label": "Paralysis / dog-sitting position",
+          "count": 2
+        },
+        {
+          "id": "15",
+          "label": "Trembling / shaking",
+          "count": 4
+        },
+        {
+          "id": "16",
+          "label": "Weakness",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "id": "excretiondischarge",
+      "name": "Excretion/discharge signs",
+      "icon": "activity",
+      "symptoms": [
+        {
+          "id": "17",
+          "label": "Blood from nose",
+          "count": 2
+        },
+        {
+          "id": "18",
+          "label": "Blood from vulva",
+          "count": 0
+        },
+        {
+          "id": "19",
+          "label": "Blood in feces/diarrhea",
+          "count": 4
+        },
+        {
+          "id": "20",
+          "label": "Conjunctivitis",
+          "count": 1
+        },
+        {
+          "id": "21",
+          "label": "Constipation",
+          "count": 0
+        },
+        {
+          "id": "22",
+          "label": "Diarrhoea",
+          "count": 9
+        },
+        {
+          "id": "23",
+          "label": "Mucus/pus from nose",
+          "count": 0
+        },
+        {
+          "id": "24",
+          "label": "Mucus/pus in feces/diarrhea",
+          "count": 1
+        },
+        {
+          "id": "25",
+          "label": "Salivation",
+          "count": 2
+        },
+        {
+          "id": "26",
+          "label": "Vomiting",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "skinbodily",
+      "name": "Skin/bodily signs",
+      "icon": "palette",
+      "symptoms": [
+        {
+          "id": "27",
+          "label": "Abdomen distended",
+          "count": 1
+        },
+        {
+          "id": "28",
+          "label": "Anemia / pale pigs",
+          "count": 5
+        },
+        {
+          "id": "29",
+          "label": "Anorexia / weight loss",
+          "count": 13
+        },
+        {
+          "id": "30",
+          "label": "Blisters / vesicles",
+          "count": 1
+        },
+        {
+          "id": "31",
+          "label": "Blue skin / cyanosis",
+          "count": 5
+        },
+        {
+          "id": "32",
+          "label": "Dehydration",
+          "count": 4
+        },
+        {
+          "id": "33",
+          "label": "Edema",
+          "count": 1
+        },
+        {
+          "id": "34",
+          "label": "Gangrene / necrosis",
+          "count": 0
+        },
+        {
+          "id": "35",
+          "label": "Greasy brown skin",
+          "count": 1
+        },
+        {
+          "id": "36",
+          "label": "Hairy pigs",
+          "count": 1
+        },
+        {
+          "id": "37",
+          "label": "Hemorrhage",
+          "count": 3
+        },
+        {
+          "id": "38",
+          "label": "Jaundice",
+          "count": 1
+        },
+        {
+          "id": "39",
+          "label": "Lymph nodes enlarged",
+          "count": 0
+        },
+        {
+          "id": "40",
+          "label": "Poor growth / wasting / starvation",
+          "count": 8
+        },
+        {
+          "id": "41",
+          "label": "Raised skin patches",
+          "count": 1
+        },
+        {
+          "id": "42",
+          "label": "Scratching/irritation of the skin",
+          "count": 1
+        },
+        {
+          "id": "43",
+          "label": "Skin Lesions (black, brown, red)",
+          "count": 4
+        },
+        {
+          "id": "44",
+          "label": "Swollen testicles",
+          "count": 1
+        },
+        {
+          "id": "45",
+          "label": "Ulcerated / inflamed skin / dermatitis",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "id": "reproductive",
+      "name": "Reproductive signs",
+      "icon": "heart",
+      "symptoms": [
+        {
+          "id": "46",
+          "label": "Abortion / not in pig",
+          "count": 6
+        },
+        {
+          "id": "47",
+          "label": "Anoestrus",
+          "count": 0
+        },
+        {
+          "id": "48",
+          "label": "Mastitis",
+          "count": 2
+        },
+        {
+          "id": "49",
+          "label": "Mummified piglets",
+          "count": 3
+        },
+        {
+          "id": "50",
+          "label": "No milk",
+          "count": 1
+        },
+        {
+          "id": "51",
+          "label": "Reproductive failure",
+          "count": 2
+        },
+        {
+          "id": "52",
+          "label": "Small litter size",
+          "count": 1
+        },
+        {
+          "id": "53",
+          "label": "Stillbirths",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "respiratory",
+      "name": "Respiratory signs",
+      "icon": "wind",
+      "symptoms": [
+        {
+          "id": "54",
+          "label": "Coughing",
+          "count": 7
+        },
+        {
+          "id": "55",
+          "label": "Deformed nose",
+          "count": 0
+        },
+        {
+          "id": "56",
+          "label": "Pneumonia / rapid breathing",
+          "count": 8
+        },
+        {
+          "id": "57",
+          "label": "Sneezing",
+          "count": 2
+        }
+      ]
+    }
+  ],
+  "totalSymptoms": 57
+}

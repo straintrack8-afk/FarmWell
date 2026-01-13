@@ -1,8 +1,14 @@
 {
-  "name": "pig-app",
+  "name": "farmwell",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Comprehensive livestock health diagnostics platform for swine and poultry",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/straintrack8-afk/FarmWell.git"
+  },
+  "author": "FarmWell Team",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,6 +16,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "jspdf": "^4.0.0",
+    "jspdf-autotable": "^5.0.7",
     "lucide-react": "^0.561.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
