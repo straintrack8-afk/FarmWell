@@ -97,23 +97,23 @@ function ResultsPage() {
 
     // Redirect if no age selected
     if (!selectedAge) {
-        navigate('../age');
+        navigate('/swine/diagnosis/age');
         return null;
     }
 
     const selectedAgeGroup = AGE_GROUPS.find(a => a.id === selectedAge);
 
     const handleDiseaseClick = (diseaseId) => {
-        navigate(`../disease/${diseaseId}`);
+        navigate(`/swine/diagnosis/disease/${diseaseId}`);
     };
 
     const handleNewDiagnosis = () => {
         resetDiagnosis();
-        navigate('../');
+        navigate('/swine/diagnosis/age');
     };
 
     const handleRefineSymptoms = () => {
-        navigate('../symptoms');
+        navigate('/swine/diagnosis/symptoms');
     };
 
     return (

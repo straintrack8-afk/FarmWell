@@ -1,159 +1,267 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { useLanguage } from '../../../contexts/LanguageContext';
 
 function PoultryLanding() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
+    const { language } = useLanguage();
 
     const handleDiagnosticTool = () => {
-        navigate('/poultry/diagnostic');
+        navigate('/poultry/diagnostic/age');
     };
 
     const handleHatcheryAudit = () => {
         navigate('/poultry/hatchery-audit');
     };
 
+    const handleBroilerAssessment = () => {
+        navigate('/poultry/biosecurity');
+    };
+
     return (
-        <div className="container">
-            <div className="page-header" style={{ padding: '3rem 1rem', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
-                <button
-                    onClick={() => navigate('/')}
-                    className="btn btn-sm btn-secondary"
-                    style={{
-                        position: 'absolute',
-                        top: '1rem',
-                        right: '1rem',
-                        color: '#dc2626',
-                        borderColor: '#fee2e2'
-                    }}
-                >
-                    Exit Module
-                </button>
-                <img
-                    src="/images/PoultryWell_Logo.png"
-                    alt="FarmWell Poultry"
-                    style={{ height: '180px', width: 'auto', marginBottom: '1.5rem' }}
-                />
-                <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '1rem', textAlign: 'center' }}>
-                    Poultry Management Tools
-                </h1>
-                <p className="page-subtitle" style={{ width: '100%', maxWidth: '600px', margin: '0 auto 2rem', textAlign: 'center' }}>
-                    Comprehensive tools for poultry health diagnostics and hatchery quality management
-                </p>
-            </div>
-
-            <div style={{
-                maxWidth: '900px',
-                margin: '0 auto',
-                padding: '0 1rem 2rem',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '2rem'
-            }}>
-                {/* Diagnostic Tool Card */}
-                <div className="card" style={{
-                    padding: '2rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s, box-shadow 0.2s',
-                    border: '2px solid transparent'
-                }}
-                    onClick={handleDiagnosticTool}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-4px)';
-                        e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)';
-                        e.currentTarget.style.borderColor = 'var(--primary)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '';
-                        e.currentTarget.style.borderColor = 'transparent';
-                    }}
-                >
-                    <div style={{
-                        width: '80px',
-                        height: '80px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '2.5rem',
-                        marginBottom: '1.5rem'
-                    }}>
-                        🔍
+        <div className="portal-layout">
+            <div className="portal-container">
+                <div className="portal-card">
+                    {/* Header with FarmWell logo and Online status */}
+                    <div className="header">
+                        <div
+                            className="header-logo"
+                            onClick={() => navigate('/')}
+                            style={{
+                                cursor: 'pointer',
+                                transition: 'opacity 0.2s'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+                            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                        >
+                            <img
+                                src="/images/FarmWell_Logo.png"
+                                alt="FarmWell"
+                                style={{ height: '80px', width: 'auto' }}
+                            />
+                        </div>
+                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                            <div style={{
+                                padding: '0.5rem 1rem',
+                                background: '#f3f4f6',
+                                borderRadius: '8px',
+                                fontSize: '0.875rem',
+                                fontWeight: '600',
+                                color: '#374151'
+                            }}>
+                                {language.toUpperCase()}
+                            </div>
+                            <div className="offline-indicator online">
+                                <span className="status-dot" style={{
+                                    width: '8px',
+                                    height: '8px',
+                                    borderRadius: '50%',
+                                    background: '#10B981'
+                                }}></span>
+                                Online
+                            </div>
+                        </div>
                     </div>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>
-                        Disease Diagnostic Tool
-                    </h3>
-                    <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-                        Identify poultry diseases based on age and clinical symptoms. Fast, accurate, and works offline.
-                    </p>
-                    <button className="btn btn-primary" style={{ width: '100%' }}>
-                        Start Diagnosis
-                    </button>
-                </div>
 
-                {/* Hatchery Audit Card */}
-                <div className="card" style={{
-                    padding: '2rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s, box-shadow 0.2s',
-                    border: '2px solid transparent'
-                }}
-                    onClick={handleHatcheryAudit}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-4px)';
-                        e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)';
-                        e.currentTarget.style.borderColor = '#10B981';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '';
-                        e.currentTarget.style.borderColor = 'transparent';
-                    }}
-                >
-                    <div style={{
-                        width: '80px',
-                        height: '80px',
-                        borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                    {/* PoultryWell Logo (centered) */}
+                    <div className="page-header" style={{
+                        padding: '0.1875rem 1rem',
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '2.5rem',
-                        marginBottom: '1.5rem'
+                        flexDirection: 'column',
+                        alignItems: 'center'
                     }}>
-                        🧫
+                        <img
+                            src="/images/PoultryWell_Logo.png"
+                            alt="PoultryWell"
+                            style={{ height: '200px', width: 'auto', marginBottom: '0.75rem' }}
+                        />
                     </div>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>
-                        Hatchery Audit
-                    </h3>
-                    <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-                        Comprehensive quarterly assessment of hatchery operations, vaccine management, and environmental quality.
-                    </p>
-                    <button className="btn btn-success" style={{ width: '100%' }}>
-                        Open Hatchery Audit
-                    </button>
-                </div>
-            </div>
 
-            <div className="footer-branding" style={{ marginTop: '4rem', paddingBottom: '2rem' }}>
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-                    Powered By
-                </p>
-                <div className="flex justify-center items-center">
-                    <img
-                        src="/images/Vaksindo_logo.png"
-                        alt="Vaksindo"
-                        className="vaksindo-logo"
-                    />
+                    {/* Feature Cards */}
+                    <div className="feature-grid" style={{
+                        maxWidth: '900px',
+                        margin: '0 auto',
+                        padding: '0 1rem 2rem',
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                        gap: '2rem'
+                    }}>
+                        {/* Diagnostic Tool Card */}
+                        <div className="action-card" onClick={handleDiagnosticTool}>
+                            <span className="action-card-icon">🔍</span>
+                            <h3 className="action-card-title">
+                                {t('poultry.diagnosis.title')}
+                            </h3>
+                            <p className="action-card-description">
+                                {t('poultry.diagnosis.description')}
+                            </p>
+                            <ul className="action-card-features">
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.diagnosis.features.ageSpecific')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.diagnosis.features.symptomBased')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.diagnosis.features.treatment')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.diagnosis.features.offline')}</span>
+                                </li>
+                            </ul>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                                {t('poultry.diagnosis.button')} →
+                            </button>
+                        </div>
+
+                        {/* Hatchery Audit Card */}
+                        <div className="action-card" onClick={handleHatcheryAudit}>
+                            <span className="action-card-icon">🧫</span>
+                            <h3 className="action-card-title">
+                                {t('poultry.hatchery.title')}
+                            </h3>
+                            <p className="action-card-description">
+                                {t('poultry.hatchery.description')}
+                            </p>
+                            <ul className="action-card-features">
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.hatchery.features.vaccine')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.hatchery.features.environmental')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.hatchery.features.reports')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.hatchery.features.quarterly')}</span>
+                                </li>
+                            </ul>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)' }}>
+                                {t('poultry.hatchery.button')} →
+                            </button>
+                        </div>
+
+                        {/* Broiler Assessment Card */}
+                        <div className="action-card" onClick={handleBroilerAssessment}>
+                            <span className="action-card-icon">📋</span>
+                            <h3 className="action-card-title">
+                                {t('poultry.biosecurity.title')}
+                            </h3>
+                            <p className="action-card-description">
+                                {t('poultry.biosecurity.description')}
+                            </p>
+                            <ul className="action-card-features">
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.biosecurity.features.comprehensive')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.biosecurity.features.scoring')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.biosecurity.features.risks')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.biosecurity.features.biocheck')}</span>
+                                </li>
+                            </ul>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}>
+                                {t('poultry.biosecurity.button')} →
+                            </button>
+                        </div>
+
+                        {/* Breeder Assessment Card */}
+                        <div className="action-card" onClick={() => navigate('/poultry/breeder-assessment')}>
+                            <span className="action-card-icon">🏭</span>
+                            <h3 className="action-card-title">
+                                {t('poultry.breeder.title')}
+                            </h3>
+                            <p className="action-card-description">
+                                {t('poultry.breeder.description')}
+                            </p>
+                            <ul className="action-card-features">
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.breeder.features.assessment')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.breeder.features.priority')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.breeder.features.risks')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.breeder.features.multilingual')}</span>
+                                </li>
+                            </ul>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' }}>
+                                {t('poultry.breeder.button')} →
+                            </button>
+                        </div>
+
+                        {/* Layer Assessment Card */}
+                        <div className="action-card" onClick={() => navigate('/poultry/layer-assessment')}>
+                            <span className="action-card-icon">🥚</span>
+                            <h3 className="action-card-title">
+                                {t('poultry.layer.title')}
+                            </h3>
+                            <p className="action-card-description">
+                                {t('poultry.layer.description')}
+                            </p>
+                            <ul className="action-card-features">
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.layer.features.assessment')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.layer.features.categories')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.layer.features.risks')}</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>{t('poultry.layer.features.multilingual')}</span>
+                                </li>
+                            </ul>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)' }}>
+                                {t('poultry.layer.button')} →
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Footer Branding */}
+                    <div className="footer-branding" style={{ marginTop: '4rem', paddingBottom: '2rem' }}>
+                        <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
+                            Powered By
+                        </p>
+                        <div className="flex justify-center items-center">
+                            <img
+                                src="/images/Vaksindo_logo.png"
+                                alt="Vaksindo"
+                                className="vaksindo-logo"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

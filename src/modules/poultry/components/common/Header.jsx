@@ -1,12 +1,14 @@
 import React from 'react';
-import { useDiagnosis } from '../../contexts/DiagnosisContext';
-import { STEPS } from '../../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
-    const { isOffline, reset, setStep } = useDiagnosis();
+const Header = ({ isOffline = false, onBack = null }) => {
+    const navigate = useNavigate();
 
-    const resetDiagnosis = () => {
-        reset();
+    const handleBackToPoultry = () => {
+        if (onBack) {
+            onBack();
+        }
+        navigate('/poultry');
     };
 
     return (
@@ -14,12 +16,13 @@ const Header = () => {
             <div
                 className="header-logo"
                 style={{ cursor: 'pointer' }}
-                onClick={() => { resetDiagnosis(); setStep(STEPS.LANDING); }}
+                onClick={handleBackToPoultry}
             >
                 <img
                     src="/images/PoultryWell_Logo.png"
-                    alt="FarmWell"
-                    style={{ height: '60px', width: 'auto' }}
+                    alt="PoultryWell"
+                    style={{ height: '80px', width: 'auto' }}
+                    title="Back to Poultry Module"
                 />
             </div>
 
@@ -33,15 +36,6 @@ const Header = () => {
                     }}></span>
                     {!isOffline ? 'Online' : 'Offline Mode'}
                 </div>
-
-                <a
-                    href="/poultry"
-                    className="btn btn-sm btn-secondary"
-                    style={{ color: '#059669', borderColor: '#d1fae5' }}
-                    onClick={(e) => { e.preventDefault(); resetDiagnosis(); window.location.href = '/poultry'; }}
-                >
-                    ← Back to Poultry Module
-                </a>
             </div>
         </header>
     );

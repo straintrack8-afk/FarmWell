@@ -8,7 +8,7 @@ import '../../hatchery.css';
 
 function AuditHistory() {
     const navigate = useNavigate();
-    const { audits, deleteAudit } = useHatcheryAudit();
+    const { audits, removeAudit } = useHatcheryAudit();
 
     const [filters, setFilters] = useState({
         status: 'all',
@@ -105,7 +105,7 @@ function AuditHistory() {
 
     const handleDelete = (auditId) => {
         if (confirm('Are you sure you want to delete this audit? This action cannot be undone.')) {
-            deleteAudit(auditId);
+            removeAudit(auditId);
         }
     };
 

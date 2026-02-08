@@ -1,0 +1,1257 @@
+{
+  "diseases": [
+    {
+      "id": 501,
+      "name": "Nhiễm độc Aflatoxin",
+      "latinName": "Mycotoxicosis",
+      "category": "Độc tố",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà thịt",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Còi cọc",
+        "Mào và tích nhợt nhạt",
+        "Ủ rũ / Trầm cảm",
+        "Què quặt",
+        "Tiêu chảy ra máu",
+        "Lòi trĩ / Sa huyệt"
+      ],
+      "mortality": "Cao",
+      "transmission": "Ăn phải Aflatoxin B1 trong thức ăn bị mốc. Vịt nhạy cảm hơn gà.",
+      "zoonotic": false,
+      "zoonoticNote": "Gián tiếp",
+      "description": "Ngộ độc do độc tố từ nấm mốc (Aspergillus flavus) trong nguyên liệu thức ăn như ngô.",
+      "diagnosis": "Phân tích thức ăn (ELISA/HPLC); Mổ khám (Tổn thương gan).",
+      "controlPrevention": "Kiểm soát độ ẩm khi bảo quản ngũ cốc; Sử dụng chất hấp phụ độc tố trong thức ăn.",
+      "treatment": "Ngừng ngay thức ăn nhiễm độc; Bổ sung protein chất lượng cao; Chất hấp phụ độc tố.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 303,
+      "name": "Nhiễm giun đũa",
+      "latinName": "Roundworms, Cacingan",
+      "category": "Ký sinh trùng",
+      "ageGroups": [
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Gầy yếu / Sụt cân",
+        "Còi cọc",
+        "Tiêu chảy xanh",
+        "Mào và tích nhợt nhạt",
+        "Giảm sản lượng trứng"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Gây ra bởi Ascaridia galli. Lây truyền qua đường phân-miệng (trứng).",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Nhiễm giun đũa lớn ở ruột non. Cạnh tranh dinh dưỡng và gây tắc nghẽn vật lý.",
+      "diagnosis": "Nổi trứng trong phân; Mổ khám (Giun trưởng thành).",
+      "controlPrevention": "Chương trình tẩy giun định kỳ; Quản lý chất độn chuồng.",
+      "treatment": "Thuốc tẩy giun (Levamisole, Albendazole, Piperazine, Ivermectin).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 601,
+      "name": "Hội chứng cổ trướng",
+      "latinName": "Water Belly",
+      "category": "Khác",
+      "ageGroups": [
+        "Gà giò (2-8 tuần)",
+        "Gà giống"
+      ],
+      "symptoms": [
+        "Tím tái (Mào xanh)",
+        "Thở há mồm / Khó thở",
+        "Chết đột ngột",
+        "Ủ rũ / Trầm cảm",
+        "Mào và tích nhợt nhạt",
+        "Sốt / Thân nhiệt cao",
+        "Què quặt"
+      ],
+      "mortality": "Cao",
+      "transmission": "Áp lực chuyển hóa ở gà thịt tăng trưởng nhanh; Độ cao; Thông khí kém (bụi/amoniac).",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bụng nước. Tích tụ dịch trong ổ bụng do tăng huyết áp phổi và suy tim.",
+      "diagnosis": "Mổ khám (Dịch màu rơm trong ổ bụng, Tim phải to).",
+      "controlPrevention": "Quản lý thông khí; Chương trình chiếu sáng làm chậm tăng trưởng; Thức ăn dạng bột.",
+      "treatment": "Không chữa khỏi. Hút dịch chỉ giảm nhẹ tạm thời và không thực tế.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 101,
+      "name": "Cúm gia cầm",
+      "latinName": "Bird Flu, AI, HPAI",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà thịt",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Chết đột ngột",
+        "Tím tái (Mào xanh)",
+        "Sưng đầu / mặt",
+        "Què quặt",
+        "Thở há mồm / Khó thở",
+        "Giảm sản lượng trứng",
+        "Tiêu chảy xanh",
+        "Viêm kết mạc / Chảy nước mắt",
+        "Nghẹo cổ",
+        "Chảy nước mũi"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Orthomyxovirus (Type A). Lây qua chim hoang dã, phân nhiễm bệnh, không khí, thức ăn/nước/phương tiện bị ô nhiễm.",
+      "zoonotic": true,
+      "zoonoticNote": "Có",
+      "description": "Bệnh virus rất lây lan ảnh hưởng đến hệ hô hấp, tiêu hóa và thần kinh. Có thể là dạng Độc lực thấp (LPAI) hoặc Độc lực cao (HPAI). HPAI gây chết hàng loạt đột ngột và là bệnh zoonotic (có thể lây sang người).",
+      "diagnosis": "RT-PCR (gen H5/H7/H9); Xét nghiệm HI; Xét nghiệm kháng nguyên nhanh; Mổ khám (Xuất huyết ở tuyến tiền liệt/mỡ).",
+      "controlPrevention": "An toàn sinh học nghiêm ngặt; Tiêm phòng (nơi hợp pháp); Ngăn chim hoang dã; Cách ly đàn mới.",
+      "treatment": "Không có điều trị đặc hiệu. Chăm sóc hỗ trợ cho LPAI. HPAI thường yêu cầu tiêu hủy đàn.",
+      "vaccines": [
+        {
+          "id": "V04",
+          "name": "Vaksimune AI H9",
+          "details": "- Vắc xin bất hoạt chống Cúm gia cầm, chủng H9N2.\r\n- Vắc xin bất hoạt (nhũ dầu)"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 502,
+      "name": "Ngộ độc Botulinum",
+      "latinName": "Limberneck",
+      "category": "Độc tố",
+      "ageGroups": [
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Cổ mềm",
+        "Liệt (chân/cánh)",
+        "Chết đột ngột",
+        "Mụn cóc / Nốt sần (vảy)",
+        "Viêm kết mạc / Chảy nước mắt"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Ăn phải độc tố Clostridium botulinum từ xác chết thối rữa, dòi bọ, hoặc nước đọng.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Còn gọi là Limberneck. Bệnh gây liệt do độc tố thần kinh.",
+      "diagnosis": "Triệu chứng lâm sàng; Thử nghiệm sinh học trên chuột.",
+      "controlPrevention": "Loại bỏ gà chết hàng ngày; Làm sạch đường nước; Tránh chất độn ướt.",
+      "treatment": "Loại bỏ nguồn độc tố; Selenium/Kháng sinh (cho nhiễm khuẩn thứ cấp); Thuốc nhuận tràng (Mật đường).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 604,
+      "name": "Cắn mổ nhau",
+      "latinName": "Feather Pecking",
+      "category": "Khác",
+      "ageGroups": [
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Lòi trĩ / Sa huyệt",
+        "Mụn cóc / Nốt sần (vảy)",
+        "Chết đột ngột",
+        "Giảm sản lượng trứng"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Căng thẳng; Quá đông; Cường độ ánh sáng cao; Thiếu dinh dưỡng (Natri/Axit amin).",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Tập tính xấu khi gà mổ vào lông, ngón chân hoặc huyệt của con khác.",
+      "diagnosis": "Quan sát hành vi/vết thương.",
+      "controlPrevention": "Cắt mỏ; Ánh sáng đỏ; Quản lý không gian; Muối trong nước.",
+      "treatment": "Cách ly gà bị thương; Bôi nhựa đường/xịt chống mổ; Khắc phục căng thẳng môi trường.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 202,
+      "name": "Bệnh hô hấp mãn tính",
+      "latinName": "CRD, Mycoplasmosis",
+      "category": "Vi khuẩn",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Khò khè (Ngáy)",
+        "Chảy nước mũi",
+        "Viêm kết mạc / Chảy nước mắt",
+        "Còi cọc",
+        "Giảm sản lượng trứng",
+        "Sưng đầu / mặt"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Mycoplasma gallisepticum (MG). Lây truyền dọc (từ gà giống sang gà con) và ngang (qua không khí).",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh mãn tính ảnh hưởng hệ hô hấp. Thường phức tạp hóa với E. coli thành CRD-Complex (CCD).",
+      "diagnosis": "Ngưng kết huyết thanh (SPA); ELISA; PCR; Nuôi cấy.",
+      "controlPrevention": "Nguồn gà con không nhiễm MG; An toàn sinh học; Tiêm phòng (Sống/Bất hoạt).",
+      "treatment": "Kháng sinh (Macrolide như Tylosin, Tilmicosin, hoặc Tetracycline).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 301,
+      "name": "Bệnh cầu trùng",
+      "latinName": "Cocci, Berak Darah",
+      "category": "Ký sinh trùng",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Tiêu chảy ra máu",
+        "Tiêu chảy vàng / lưu huỳnh",
+        "Mào và tích nhợt nhạt",
+        "Ủ rũ / Trầm cảm",
+        "Còi cọc",
+        "Giảm sản lượng trứng",
+        "Què quặt"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Eimeria spp. (vd: E. tenella, E. acervulina). Ăn phải noãn nang bào tử từ chất độn ướt.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh do động vật nguyên sinh phá hủy đường ruột. Một trong những bệnh quan trọng nhất về kinh tế trong chăn nuôi gia cầm.",
+      "diagnosis": "Xét nghiệm kính hiển vi cạo niêm mạc (Nhận diện noãn nang).",
+      "controlPrevention": "Sử dụng thuốc chống cầu trùng trong thức ăn (luân phiên); Quản lý chất độn khô; Tiêm phòng.",
+      "treatment": "Sulfonamid (Sulfadiazine, Toltrazuril) hoặc Amprolium trong nước uống.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 201,
+      "name": "Nhiễm khuẩn E. coli",
+      "latinName": "E. coli infection",
+      "category": "Vi khuẩn",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà thịt",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Ủ rũ / Trầm cảm",
+        "Thở há mồm / Khó thở",
+        "Tiêu chảy trắng (phấn)",
+        "Sưng khớp (cựa)",
+        "Giảm sản lượng trứng",
+        "Tiêu chảy xanh",
+        "Chết đột ngột"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Escherichia coli. Lây qua ô nhiễm phân (xuyên vỏ trứng) hoặc hít bụi.",
+      "zoonotic": false,
+      "zoonoticNote": "Tiềm năng",
+      "description": "Nhiễm trùng do E. coli, thường xảy ra như nhiễm trùng thứ cấp sau các bệnh virus hô hấp hoặc căng thẳng môi trường.",
+      "diagnosis": "Nuôi cấy vi khuẩn (Môi trường MacConkey); Tổn thương mổ khám.",
+      "controlPrevention": "Vệ sinh; Khử trùng nước; Vệ sinh trại ấp; Giảm thiểu căng thẳng/amoniac.",
+      "treatment": "Kháng sinh (dựa trên kháng sinh đồ); Chất acid hóa trong nước; Probiotic.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 403,
+      "name": "Liệt ngón chân cuộn",
+      "latinName": "Riboflavin Deficiency",
+      "category": "Dinh dưỡng",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)"
+      ],
+      "symptoms": [
+        "Ngón chân cuộn",
+        "Què quặt",
+        "Còi cọc",
+        "Tiêu chảy xanh"
+      ],
+      "mortality": "Thấp",
+      "transmission": "Thiếu Vitamin B2 (Riboflavin).",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Thoái hóa thần kinh gây liệt đặc hiệu ở ngón chân ở gà con non.",
+      "diagnosis": "Triệu chứng lâm sàng; Đáp ứng điều trị.",
+      "controlPrevention": "Bổ sung Riboflavin trong khẩu phần gà giống và gà con.",
+      "treatment": "Bổ sung ngay Vitamin B Complex.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 107,
+      "name": "Dịch tả vịt",
+      "latinName": "Duck Virus Enteritis, DVE",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà thịt",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Tiêu chảy ra máu",
+        "Viêm kết mạc / Chảy nước mắt",
+        "Lòi trĩ / Sa huyệt",
+        "Sốt / Thân nhiệt cao",
+        "Chảy nước mũi",
+        "Liệt (chân/cánh)"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Herpesvirus. Lây qua tiếp xúc với vịt nhiễm bệnh hoặc nguồn nước ô nhiễm.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Còn gọi là Viêm ruột do virus vịt (DVE). Bệnh truyền nhiễm cấp tính ảnh hưởng vịt trưởng thành, ngỗng và thiên nga.",
+      "diagnosis": "Mổ khám (Dải xuất huyết ở thực quản/ruột); PCR; Phân lập virus.",
+      "controlPrevention": "Tiêm phòng bằng vắc xin sống giảm độc lực; Ngăn tiếp xúc với thủy cầm hoang dã.",
+      "treatment": "Không có. Thường khuyến nghị tiêu hủy do trạng thái mang trùng.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 106,
+      "name": "Viêm gan virus vịt",
+      "latinName": "DVH",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà thịt",
+        "Gà giống"
+      ],
+      "symptoms": [
+        "Ngửa cổ ra sau",
+        "Chết đột ngột",
+        "Liệt (chân/cánh)",
+        "Tiêu chảy xanh",
+        "Ủ rũ / Trầm cảm"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Duck Hepatitis Virus (Picornavirus). Lây qua đường phân-miệng và tiếp xúc trực tiếp.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh cấp tính, tỷ lệ chết cao ở vịt con (1-28 ngày tuổi). Gây chết nhanh với hoại tử gan. Vịt lớn kháng bệnh.",
+      "diagnosis": "Mổ khám (Gan to với đốm xuất huyết); PCR; Trung hòa virus.",
+      "controlPrevention": "Tiêm phòng vịt giống để cung cấp miễn dịch mẹ truyền; Cách ly nghiêm ngặt vịt con.",
+      "treatment": "Liệu pháp huyết thanh (Huyết thanh siêu miễn dịch) tiêm cho vịt con trong đợt bùng phát sớm.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 108,
+      "name": "Hội chứng giảm đẻ",
+      "latinName": "EDS '76",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà đẻ",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Trứng trắng / Mất sắc tố",
+        "Trứng mềm / Không vỏ",
+        "Giảm sản lượng trứng",
+        "Hắt hơi / Khụt khịt"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Gây ra bởi Duck Adenovirus A. Lây truyền dọc (trứng) và ngang (phân/nước).",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh ảnh hưởng gà đẻ gây giảm đột ngột sản lượng trứng và chất lượng trứng kém, thường ở những con trông khỏe mạnh.",
+      "diagnosis": "Xét nghiệm HI (đặc hiệu cho EDS); PCR.",
+      "controlPrevention": "Tiêm phòng (Bất hoạt) trước thời kỳ đẻ; Vệ sinh.",
+      "treatment": "Không có. Thường hồi phục tự nhiên sau 4-10 tuần.",
+      "vaccines": [
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Vắc xin bất hoạt kết hợp virus Newcastle Disease chủng LaSota, Infectious Bronchitis chủng M-41 biến thể 771 và QX, Egg Drop Syndrome'76 trong nhũ dầu."
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Vắc xin bất hoạt chống Newcastle Disease (chủng LaSota), Egg Drop Syndrome’76 và Infectious Bronchitis (chủng M-41).\r\n- Vắc xin bất hoạt (nhũ dầu)\r\n- Quy cách đóng gói: 500 & 1000 Liều"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 402,
+      "name": "Nhũn não",
+      "latinName": "Crazy Chick Disease",
+      "category": "Dinh dưỡng",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)"
+      ],
+      "symptoms": [
+        "Nghẹo cổ",
+        "Run rẩy",
+        "Què quặt",
+        "Chết đột ngột"
+      ],
+      "mortality": "Thấp",
+      "transmission": "Thiếu Vitamin E hoặc Selenium. Thường do chất béo ôi trong thức ăn phá hủy Vit E.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Còn gọi là Bệnh gà điên. Thoái hóa mô não ở gà con non.",
+      "diagnosis": "Mô bệnh học não (xuất huyết/phù); Phân tích thức ăn.",
+      "controlPrevention": "Thêm chất chống oxy hóa vào thức ăn; Đảm bảo nguồn chất béo tươi.",
+      "treatment": "Bổ sung Vitamin E và Selenium trong nước.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 203,
+      "name": "Dịch tả gà",
+      "latinName": "Pasteurellosis",
+      "category": "Vi khuẩn",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Sưng đầu / mặt",
+        "Què quặt",
+        "Chết đột ngột",
+        "Tiêu chảy xanh",
+        "Khò khè (Ngáy)",
+        "Nghẹo cổ",
+        "Giảm sản lượng trứng"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Pasteurella multocida. Lây qua động vật gặm nhấm, mèo và đất/nước ô nhiễm.",
+      "zoonotic": false,
+      "zoonoticNote": "Hiếm",
+      "description": "Bệnh vi khuẩn truyền nhiễm gây nhiễm trùng huyết. Có thể cấp tính (chết đột ngột) hoặc mãn tính (sưng cục bộ). Ảnh hưởng gà và vịt.",
+      "diagnosis": "Nuôi cấy vi khuẩn (Trực khuẩn hai cực trên nhuộm Gram); PCR.",
+      "controlPrevention": "Kiểm soát động vật gặm nhấm; An toàn sinh học; Tiêm phòng Bacterin.",
+      "treatment": "Kháng sinh (Sulfonamide, Amoxicillin, Tetracycline) - nhưng tái phát phổ biến.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 109,
+      "name": "Bệnh đậu gà",
+      "latinName": "Avian Pox, Cacar",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Mụn cóc / Nốt sần (vảy)",
+        "Thở há mồm / Khó thở",
+        "Còi cọc",
+        "Giảm sản lượng trứng",
+        "Viêm kết mạc / Chảy nước mắt"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Gây ra bởi Avipoxvirus. Lây qua muỗi/mạt (vector) hoặc tiếp xúc trực tiếp qua da tổn thương.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Nhiễm virus lây lan chậm gây tổn thương da (khô) hoặc bạch hầu (ướt). Đậu ướt liên quan đường hô hấp trên và nghiêm trọng hơn.",
+      "diagnosis": "Triệu chứng lâm sàng; Mô bệnh học (Thể Bollinger); PCR.",
+      "controlPrevention": "Tiêm phòng cánh; Kiểm soát muỗi.",
+      "treatment": "Không có. Loại bỏ màng bạch hầu nếu chặn thở; Iodine trên tổn thương da.",
+      "vaccines": [
+        {
+          "id": "V18",
+          "name": "Vaksimune Pox",
+          "details": "Vắc xin sống Bệnh đậu gà chủng Beaudette, nuôi cấy trong trứng SPF, dạng lỏng."
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 302,
+      "name": "Bệnh đầu đen",
+      "latinName": "Blackhead Disease",
+      "category": "Ký sinh trùng",
+      "ageGroups": [
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Tiêu chảy vàng / lưu huỳnh",
+        "Sạm da",
+        "Gầy yếu / Sụt cân",
+        "Ủ rũ / Trầm cảm",
+        "Chết đột ngột"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Gây ra bởi Histomonas meleagridis. Lây truyền qua trứng giun Heterakis (giun manh tràng) hoặc giun đất.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Còn gọi là Bệnh đầu đen. Bệnh do động vật nguyên sinh ảnh hưởng manh tràng và gan. Gà tây dễ mắc nhất, nhưng gà mang mầm bệnh.",
+      "diagnosis": "Mổ khám (Tổn thương bia trên gan, lõi bã đậu trong manh tràng).",
+      "controlPrevention": "Tẩy giun (Kiểm soát giun Heterakis); Tách riêng gà và gà tây.",
+      "treatment": "Không có điều trị được phê duyệt ở nhiều nước. Nitroimidazole (nếu hợp pháp).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 104,
+      "name": "Viêm phế quản truyền nhiễm",
+      "latinName": "IB",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Trứng biến dạng / Nhăn",
+        "Hắt hơi / Khụt khịt",
+        "Chảy nước mũi",
+        "Trứng trắng / Mất sắc tố",
+        "Sưng khớp (cựa)",
+        "Ủ rũ / Trầm cảm"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Coronavirus. Lây qua đường không khí (gió) khoảng cách xa và tiếp xúc trực tiếp.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh hô hấp cấp tính rất lây lan. Virus cũng phá hủy thận (nhiễm mỡ thận) và đường sinh dục, dẫn đến vấn đề sản xuất vĩnh viễn.",
+      "diagnosis": "RT-PCR (Giải trình tự gen S1); ELISA (tăng hiệu giá); Phân lập virus.",
+      "controlPrevention": "Tiêm phòng sử dụng serotype khớp với chủng hiện trường (Mass, 4/91, v.v.); An toàn sinh học.",
+      "treatment": "Không có. Kháng sinh chỉ dùng để ngăn nhiễm khuẩn thứ cấp (E. coli).",
+      "vaccines": [
+        {
+          "id": "V01",
+          "name": "Vaksimune \r\nND IB Inaktif",
+          "details": "- Vắc xin bất hoạt chống Newcastle Disease (Sub-Genotype VIIh & VIIi) và Infectious Bronchitis, chủng M41\r\n- Vắc xin bất hoạt (nhũ dầu)"
+        },
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Vắc xin bất hoạt kết hợp virus Newcastle Disease chủng LaSota, Infectious Bronchitis chủng M-41 biến thể 771 và QX, Egg Drop Syndrome'76 trong nhũ dầu."
+        },
+        {
+          "id": "V11",
+          "name": "Vaksimune ND Clone IB",
+          "details": "- Vắc xin sống chống Newcastle Disease (chủng clone) và Infectious Bronchitis (chủng H120 Massachusetts).\r\n- Vắc xin sống (đông khô)\r\n- Quy cách đóng gói: 500, 1000 & 2000 Liều"
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Vắc xin bất hoạt chống Newcastle Disease (chủng LaSota), Egg Drop Syndrome’76 và Infectious Bronchitis (chủng M-41).\r\n- Vắc xin bất hoạt (nhũ dầu)\r\n- Quy cách đóng gói: 500 & 1000 Liều"
+        },
+        {
+          "id": "V15",
+          "name": "Vaksimune NDHV IB",
+          "details": "Vắc xin sống đông khô Newcastle Disease chủng Ulster và Infectious Bronchitis chủng H120, nuôi cấy trong trứng SPF"
+        },
+        {
+          "id": "V17",
+          "name": "Vaksimune NDLS IB",
+          "details": "Vắc xin sống Newcastle Disease và Infectious Bronchitis giảm độc lực"
+        },
+        {
+          "id": "V19",
+          "name": "Vaksimune\r\nNDL IB Plus",
+          "details": "Vắc xin bất hoạt Newcastle Disease Genotype VII chủng N018 và Infectious Bronchitis chủng M-41 biến thể 771 và Qx trong nhũ dầu"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 103,
+      "name": "Bệnh Gumboro",
+      "latinName": "Gumboro, IBD",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Tiêu chảy trắng (phấn)",
+        "Run rẩy",
+        "Ủ rũ / Trầm cảm",
+        "Lòi trĩ / Sa huyệt",
+        "Mào và tích nhợt nhạt",
+        "Sưng khớp (cựa)"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Birnavirus. Rất kháng trong môi trường. Lây qua đường phân-miệng.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Còn gọi là Gumboro. Nhiễm virus cấp tính rất lây lan ở gà non nhắm vào túi Fabricius, gây suy giảm miễn dịch.",
+      "diagnosis": "Mổ khám (Túi sưng/xuất huyết); PCR; ELISA; Kết tủa trên thạch (AGP).",
+      "controlPrevention": "Tiêm phòng gà giống (Kháng thể mẹ); Tiêm phòng gà con (Chủng trung gian/nóng); Khử trùng.",
+      "treatment": "Không có. Liệu pháp hỗ trợ (điện giải, rửa thận) và quản lý tốt để tăng sự thoải mái.",
+      "vaccines": [
+        {
+          "id": "V07",
+          "name": "Vaksimune IBD D",
+          "details": "- Vắc xin sống đông khô chống Infectious Bursal Disease, chủng LZD228\r\nVắc xin sống (đông khô)\r\n- Quy cách đóng gói: 500, 1000 & 2000 Liều"
+        },
+        {
+          "id": "V08",
+          "name": "Vaksimune IBD M+",
+          "details": "- Vắc xin sống chống Infectious Bursal Disease, chủng Multrop,\r\nVắc xin sống (đông khô)\r\n- Quy cách đóng gói: 500, 1000 & 2000 Liều"
+        },
+        {
+          "id": "V09",
+          "name": "Vaksimune IBD MHV",
+          "details": "- Vắc xin sống đông khô Infectious Bursal Disease \r\n- Vắc xin sống (đông khô)\r\n- Cách dùng: Tiêm in-ovo hoặc dưới da "
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 204,
+      "name": "Viêm mũi truyền nhiễm",
+      "latinName": "Snot",
+      "category": "Vi khuẩn",
+      "ageGroups": [
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Sưng đầu / mặt",
+        "Chảy nước mũi",
+        "Viêm kết mạc / Chảy nước mắt",
+        "Giảm sản lượng trứng",
+        "Khò khè (Ngáy)",
+        "Ủ rũ / Trầm cảm"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Gây ra bởi Avibacterium paragallinarum. Lây qua tiếp xúc trực tiếp, giọt bắn không khí và nước.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh hô hấp cấp tính của gà đặc trưng bởi sưng mặt nghiêm trọng và dịch mũi có mùi hôi.",
+      "diagnosis": "Nuôi cấy vi khuẩn (Yêu cầu NAD tăng trưởng vệ tinh); PCR.",
+      "controlPrevention": "Tiêm phòng (Bacterin); Quản lý cùng vào-cùng ra; Tiêu hủy gà mang trùng.",
+      "treatment": "Kháng sinh (Sulfonamide, Erythromycin, Fluoroquinolone).",
+      "vaccines": [
+        {
+          "id": "V05",
+          "name": "Vaksimune Coryza L",
+          "details": "Vắc xin vi khuẩn bất hoạt Avibacterium paragallinarum serovar A chủng 0083, serotype B chủng SPROSS và chủng địa phương, serotype C chủng Modesto trong tá dược AI(OH)3"
+        },
+        {
+          "id": "V06",
+          "name": "Vaksimune Coryza LE",
+          "details": "- Vắc xin bất hoạt chống Avibacterium paragallinarum serotype A, B, và C\r\n- Vắc xin bất hoạt (nhũ dầu trong nước)\r\n- Quy cách đóng gói: 500, 1000 & 2000 Liều"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 105,
+      "name": "Viêm thanh khí quản truyền nhiễm",
+      "latinName": "ILT",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Thở há mồm / Khó thở",
+        "Chảy nước mũi",
+        "Viêm kết mạc / Chảy nước mắt",
+        "Chết đột ngột",
+        "Tím tái (Mào xanh)",
+        "Giảm sản lượng trứng"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Gây ra bởi Herpesvirus (Gallid herpesvirus 1). Lây qua gà mang trùng (tiềm ẩn), giọt bắn không khí và vật trung gian.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh hô hấp đặc trưng bởi khó thở nghiêm trọng và dịch nhầy có máu. Virus thiết lập nhiễm tiềm ẩn ở gà hồi phục.",
+      "diagnosis": "Mô bệnh học (Thể vùi trong nhân); PCR; Phân lập virus.",
+      "controlPrevention": "Tiêm phòng (Nhỏ mắt/Nước/Vắc xin vectơ đậu); An toàn sinh học để ngăn xâm nhập từ gà mang trùng.",
+      "treatment": "Không có. Kháng sinh cho nhiễm khuẩn thứ cấp. Đảm bảo thông khí tốt.",
+      "vaccines": [
+        {
+          "id": "V10",
+          "name": "Vaksimune ILT",
+          "details": "- Vắc xin sống chống Infectious Laryngotracheitis, chủng Hudson\r\n- Vắc xin sống (đông khô)\r\n- Quy cách đóng gói: 500, 1000 & 2000 Liều"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 304,
+      "name": "Bệnh do Leucocytozoon",
+      "latinName": "Avian Malaria",
+      "category": "Ký sinh trùng",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Tiêu chảy xanh",
+        "Mào và tích nhợt nhạt",
+        "Chảy nước mũi",
+        "Chết đột ngột"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Gây ra bởi Leucocytozoon caulleryi. Lây truyền qua ruồi cắn (Culicoides) hoặc ruồi đen.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh ký sinh trùng máu giống sốt rét. Gây thiếu máu và xuất huyết nghiêm trọng.",
+      "diagnosis": "Phết máu (nhuộm Giemsa); Mổ khám.",
+      "controlPrevention": "Kiểm soát côn trùng vector (lưới, thuốc diệt côn trùng); Dự phòng Sulfonamide.",
+      "treatment": "Sulfonamide (Sulfamonomethoxine) + Pyrimethamine.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 110,
+      "name": "Bệnh Marek",
+      "latinName": "Fowl Paralysis",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Liệt (chân/cánh)",
+        "Gầy yếu / Sụt cân",
+        "Mào và tích nhợt nhạt",
+        "Thở há mồm / Khó thở",
+        "Sưng đầu / mặt",
+        "Mụn cóc / Nốt sần (vảy)"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Herpesvirus (MDV). Lây qua hít bụi nhiễm từ nang lông.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh tăng sinh lympho gây khối u ở dây thần kinh và cơ quan. Một trong những nhiễm trùng phổ biến nhất ở gia cầm trên toàn thế giới.",
+      "diagnosis": "Mô bệnh học (Khối u lymphoid); PCR; Kết quả mổ khám.",
+      "controlPrevention": "Tiêm phòng trại ấp (HVT/Rispens) vào Ngày 1 hoặc in-ovo; Vệ sinh nghiêm ngặt cho gà con non.",
+      "treatment": "Không có. Gà nhiễm bệnh mang trùng suốt đời. Loại bỏ gà bệnh.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 206,
+      "name": "Viêm ruột hoại tử",
+      "latinName": "Clostridiosis, Rot Gut",
+      "category": "Vi khuẩn",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)"
+      ],
+      "symptoms": [
+        "Tiêu chảy ra máu",
+        "Ủ rũ / Trầm cảm",
+        "Chết đột ngột",
+        "Còi cọc",
+        "Mào và tích nhợt nhạt"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Clostridium perfringens (Độc tố A/C). Kích hoạt bởi tổn thương ruột hoặc thay đổi khẩu phần.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Nhiễm độc ruột cấp tính gây hoại tử niêm mạc ruột. Thường liên quan đến tổn thương do Cầu trùng hoặc khẩu phần nhiều bột cá.",
+      "diagnosis": "Mổ khám (Ruột chứa khí, màng hoại tử); Nhuộm Gram cạo niêm mạc.",
+      "controlPrevention": "Kiểm soát Cầu trùng; Probiotic; Axit hữu cơ; Tránh thay đổi thức ăn đột ngột.",
+      "treatment": "Kháng sinh (Penicillin, Amoxicillin, Bacitracin) trong nước.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 102,
+      "name": "Bệnh Newcastle",
+      "latinName": "ND, Ranikhet, Tetelo",
+      "category": "Virus",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà thịt",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Nghẹo cổ",
+        "Thở há mồm / Khó thở",
+        "Tiêu chảy xanh",
+        "Liệt (chân/cánh)",
+        "Trứng mềm / Không vỏ",
+        "Khò khè (Ngáy)",
+        "Run rẩy",
+        "Giảm sản lượng trứng",
+        "Viêm kết mạc / Chảy nước mắt"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Avian Paramyxovirus 1 (APMV-1). Lây qua hít thở (không khí), ăn phân và thiết bị/người ô nhiễm.",
+      "zoonotic": true,
+      "zoonoticNote": "Có (Nhẹ)",
+      "description": "Bệnh virus truyền nhiễm ảnh hưởng gia cầm mọi lứa tuổi. Phân loại theo pathotype: Velogenic (Tử vong cao), Mesogenic (Trung bình), và Lentogenic (Nhẹ). Ảnh hưởng hệ hô hấp, thần kinh và tiêu hóa.",
+      "diagnosis": "Xét nghiệm HI (Ức chế ngưng kết hồng cầu); RT-PCR; Phân lập virus trong trứng có phôi.",
+      "controlPrevention": "Chương trình tiêm phòng định kỳ (Vắc xin sống & Bất hoạt); An toàn sinh học tốt.",
+      "treatment": "Không có. Chăm sóc hỗ trợ (vitamin/điện giải) để giảm căng thẳng và nhiễm khuẩn thứ cấp.",
+      "vaccines": [
+        {
+          "id": "V01",
+          "name": "Vaksimune \r\nND IB Inaktif",
+          "details": "- Vắc xin bất hoạt chống Newcastle Disease (Sub-Genotype VIIh & VIIi) và Infectious Bronchitis, chủng M41\r\n- Vắc xin bất hoạt (nhũ dầu)"
+        },
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Vắc xin bất hoạt kết hợp virus Newcastle Disease chủng LaSota, Infectious Bronchitis chủng M-41 biến thể 771 và QX, Egg Drop Syndrome'76 trong nhũ dầu."
+        },
+        {
+          "id": "V03",
+          "name": "Vaksimune \r\nND L Inaktif",
+          "details": "Vắc xin bất hoạt Newcastle Disease Genotype VII chủng N018 trong nhũ dầu."
+        },
+        {
+          "id": "V11",
+          "name": "Vaksimune ND Clone IB",
+          "details": "- Vắc xin sống chống Newcastle Disease (chủng clone) và Infectious Bronchitis (chủng H120 Massachusetts).\r\n- Vắc xin sống (đông khô)\r\n- Quy cách đóng gói: 500, 1000 & 2000 Liều"
+        },
+        {
+          "id": "V12",
+          "name": "Vaksimune ND HV",
+          "details": "- Vắc xin sống giảm độc lực cho Newcastle disease, chủng Ulster.\r\n- Vắc xin sống giảm độc lực đông khô.\r\n- Đóng gói: 500, 1.000 và 2.000 liều."
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Vắc xin bất hoạt chống Newcastle Disease (chủng LaSota), Egg Drop Syndrome’76 và Infectious Bronchitis (chủng M-41).\r\n- Vắc xin bất hoạt (nhũ dầu)\r\n- Quy cách đóng gói: 500 & 1000 Liều"
+        },
+        {
+          "id": "V14",
+          "name": "Vaksimune ND Inaktif",
+          "details": "Vắc xin bất hoạt Newcastle Disease chủng LaSota trong nhũ dầu."
+        },
+        {
+          "id": "V15",
+          "name": "Vaksimune NDHV IB",
+          "details": "Vắc xin sống đông khô Newcastle Disease chủng Ulster và Infectious Bronchitis chủng H120, nuôi cấy trong trứng SPF"
+        },
+        {
+          "id": "V16",
+          "name": "Vaksimune NDL Inaktif 0.1",
+          "details": "Vắc xin bất hoạt Newcastle Disease Genotype VII chủng N018 liều 0,1 trong nhũ dầu."
+        },
+        {
+          "id": "V17",
+          "name": "Vaksimune NDLS IB",
+          "details": "Vắc xin sống Newcastle Disease và Infectious Bronchitis giảm độc lực"
+        },
+        {
+          "id": "V19",
+          "name": "Vaksimune\r\nNDL IB Plus",
+          "details": "Vắc xin bất hoạt Newcastle Disease Genotype VII chủng N018 và Infectious Bronchitis chủng M-41 biến thể 771 và Qx trong nhũ dầu"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 404,
+      "name": "Bệnh trật gân",
+      "latinName": "Slipped Tendon",
+      "category": "Dinh dưỡng",
+      "ageGroups": [
+        "Gà giò (2-8 tuần)",
+        "Gà giống"
+      ],
+      "symptoms": [
+        "Trật gân",
+        "Què quặt",
+        "Còi cọc"
+      ],
+      "mortality": "Thấp",
+      "transmission": "Thiếu Mangan hoặc Choline; Thiếu Biotin/Niacin/Acid Folic.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Trật gân. Biến dạng xương chân khiến gân Achilles trượt khỏi rãnh.",
+      "diagnosis": "Triệu chứng lâm sàng; Mổ khám.",
+      "controlPrevention": "Đảm bảo đủ Mangan và Choline trong thức ăn.",
+      "treatment": "Không có. Biến dạng không thể đảo ngược.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 603,
+      "name": "Sa huyệt",
+      "latinName": "Blowout",
+      "category": "Khác",
+      "ageGroups": [
+        "Gà đẻ",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Lòi trĩ / Sa huyệt",
+        "Chết đột ngột",
+        "Trứng mềm / Không vỏ",
+        "Tiêu chảy ra máu"
+      ],
+      "mortality": "Thấp",
+      "transmission": "Đẻ trứng to/lòng đôi; Béo phì; Kích thích ánh sáng sớm; Cường độ ánh sáng cao.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Sa huyệt. Lộn ống dẫn trứng ra ngoài qua huyệt.",
+      "diagnosis": "Quan sát lâm sàng.",
+      "controlPrevention": "Quản lý cân nặng trong giai đoạn nuôi; Giảm cường độ ánh sáng.",
+      "treatment": "Cách ly gà; Làm sạch và đẩy mô nhẹ nhàng trở lại; Xịt thuốc chống mổ.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 205,
+      "name": "Bệnh bạch lỵ",
+      "latinName": "Bacillary White Diarrhea",
+      "category": "Vi khuẩn",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ"
+      ],
+      "symptoms": [
+        "Tiêu chảy trắng (phấn)",
+        "Ủ rũ / Trầm cảm",
+        "Chết đột ngột",
+        "Què quặt",
+        "Còi cọc",
+        "Thở há mồm / Khó thở"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Salmonella Pullorum. Lây truyền dọc (trứng) là chính.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Còn gọi là Tiêu chảy trắng. Bệnh hệ thống gây chết cao ở gà con non. Lây truyền dọc.",
+      "diagnosis": "Xét nghiệm máu toàn phần nhanh (cho gà giống); Nuôi cấy vi khuẩn.",
+      "controlPrevention": "Thanh toán (Xét nghiệm và Loại bỏ gà giống dương tính); Mua từ đàn sạch được chứng nhận.",
+      "treatment": "Không khuyến nghị điều trị (tạo gà mang trùng). Tập trung thanh toán.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 401,
+      "name": "Bệnh còi xương",
+      "latinName": "Soft Bones",
+      "category": "Dinh dưỡng",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà thịt",
+        "Gà giống"
+      ],
+      "symptoms": [
+        "Mỏ và xương mềm / cao su",
+        "Què quặt",
+        "Còi cọc",
+        "Ủ rũ / Trầm cảm",
+        "Thở há mồm / Khó thở"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Thiếu hoặc mất cân bằng Canxi, Photpho, hoặc Vitamin D3.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Bệnh xương chuyển hóa ở gia cầm non, tăng trưởng nhanh dẫn đến xương mềm và biến dạng.",
+      "diagnosis": "Phân tích thức ăn; Mô bệnh học xương; Triệu chứng lâm sàng.",
+      "controlPrevention": "Công thức thức ăn đúng; Đảm bảo tỷ lệ Ca:P đúng (2:1); Bổ sung Vitamin D3.",
+      "treatment": "Bổ sung Vitamin D3 hòa tan trong nước và Canxi.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 207,
+      "name": "Nhiễm Riemerella anatipestifer",
+      "latinName": "New Duck Disease",
+      "category": "Vi khuẩn",
+      "ageGroups": [
+        "Gà thịt",
+        "Gà giống"
+      ],
+      "symptoms": [
+        "Run rẩy",
+        "Què quặt",
+        "Tiêu chảy xanh",
+        "Chảy nước mũi",
+        "Chết đột ngột",
+        "Ngửa cổ ra sau"
+      ],
+      "mortality": "Cao",
+      "transmission": "Gây ra bởi Riemerella anatipestifer. Lây qua đường hô hấp hoặc tổn thương chân.",
+      "zoonotic": false,
+      "zoonoticNote": "Hiếm",
+      "description": "Còn gọi là Bệnh vịt mới. Bệnh nhiễm trùng huyết chủ yếu ảnh hưởng vịt non (1-8 tuần tuổi).",
+      "diagnosis": "Nuôi cấy vi khuẩn; PCR; Kết quả mổ khám.",
+      "controlPrevention": "Tiêm phòng (Bacterin); Quản lý chất độn tốt; Giảm căng thẳng.",
+      "treatment": "Kháng sinh (Penicillin, Cephalosporin, Enrofloxacin) - Điều trị sớm là chìa khóa.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 208,
+      "name": "Bệnh Salmonella",
+      "latinName": "Paratyphoid",
+      "category": "Vi khuẩn",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà thịt",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Tiêu chảy trắng (phấn)",
+        "Ủ rũ / Trầm cảm",
+        "Què quặt",
+        "Viêm kết mạc / Chảy nước mắt"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Gây ra bởi Salmonella Enteritidis/Typhimurium. Lây qua động vật gây hại, thức ăn, lây truyền dọc.",
+      "zoonotic": true,
+      "zoonoticNote": "Có",
+      "description": "Nhiễm khuẩn Paratyphoid do Salmonella không đặc hiệu vật chủ. Vấn đề sức khỏe cộng đồng (Zoonotic).",
+      "diagnosis": "Nuôi cấy; PCR; Quét môi trường.",
+      "controlPrevention": "Kiểm soát động vật gặm nhấm; Vệ sinh thức ăn; Chất acid hóa; Probiotic.",
+      "treatment": "Kháng sinh có thể giảm thải trùng nhưng hiếm khi loại bỏ trạng thái mang trùng.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 503,
+      "name": "Ngộ độc muối",
+      "latinName": "Sodium Toxicity",
+      "category": "Độc tố",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà thịt",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Sốt / Thân nhiệt cao",
+        "Run rẩy",
+        "Chảy nước mũi",
+        "Què quặt",
+        "Chết đột ngột"
+      ],
+      "mortality": "Thấp",
+      "transmission": "Lỗi phối trộn thức ăn ngẫu nhiên hoặc thiếu nước sạch.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Ngộ độc do hấp thụ quá nhiều Natri Clorua (Muối) hoặc thiếu nước sau đó uống quá nhiều.",
+      "diagnosis": "Phân tích thức ăn/nước; Mổ khám (Phù não).",
+      "controlPrevention": "Đảm bảo nguồn nước sạch liên tục; Kiểm tra phối trộn thức ăn.",
+      "treatment": "Hạn chế nước ban đầu (cho uống lượng nhỏ thường xuyên) để ngăn sưng não.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 602,
+      "name": "Bệnh gút nội tạng",
+      "latinName": "Uric Acid Deposition",
+      "category": "Khác",
+      "ageGroups": [
+        "Gà con mới nở (0-1 ngày)",
+        "Gà giò (2-8 tuần)",
+        "Gà đẻ",
+        "Gà thịt",
+        "Gà giống",
+        "Vịt"
+      ],
+      "symptoms": [
+        "Chết đột ngột",
+        "Mào và tích nhợt nhạt",
+        "Tiêu chảy trắng (phấn)",
+        "Còi cọc"
+      ],
+      "mortality": "Trung bình",
+      "transmission": "Mất nước; Khẩu phần nhiều Canxi ở gia cầm non (sỏi tiết niệu); Virus IB độc với thận.",
+      "zoonotic": false,
+      "zoonoticNote": "Không",
+      "description": "Tích tụ tinh thể acid uric trên cơ quan nội tạng do suy thận.",
+      "diagnosis": "Mổ khám (Cặn phấn).",
+      "controlPrevention": "Đảm bảo sẵn có nước; Khẩu phần ít đạm trong giai đoạn hồi phục.",
+      "treatment": "Điện giải; Chất acid hóa nước tiểu (Ammonium Chloride/Potassium Chloride).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    }
+  ],
+  "symptomCategories": {
+    "general": {
+      "label": "Chung / Toàn thân",
+      "symptoms": [
+        "Chết đột ngột",
+        "Ủ rũ / Trầm cảm",
+        "Gầy yếu / Sụt cân",
+        "Sốt / Thân nhiệt cao",
+        "Còi cọc"
+      ]
+    },
+    "respiratory": {
+      "label": "Hệ hô hấp",
+      "symptoms": [
+        "Thở há mồm / Khó thở",
+        "Hắt hơi / Khụt khịt",
+        "Khò khè (Ngáy)",
+        "Chảy nước mũi",
+        "Viêm kết mạc / Chảy nước mắt"
+      ]
+    },
+    "digestive": {
+      "label": "Hệ tiêu hóa",
+      "symptoms": [
+        "Tiêu chảy trắng (phấn)",
+        "Tiêu chảy xanh",
+        "Tiêu chảy ra máu",
+        "Tiêu chảy vàng / lưu huỳnh",
+        "Lòi trĩ / Sa huyệt"
+      ]
+    },
+    "nervous": {
+      "label": "Hệ thần kinh",
+      "symptoms": [
+        "Nghẹo cổ",
+        "Ngửa cổ ra sau",
+        "Run rẩy",
+        "Liệt (chân/cánh)",
+        "Cổ mềm"
+      ]
+    },
+    "musculoskeletal": {
+      "label": "Cơ xương (Chân/Cánh)",
+      "symptoms": [
+        "Què quặt",
+        "Sưng khớp (cựa)",
+        "Ngón chân cuộn",
+        "Mỏ và xương mềm / cao su",
+        "Trật gân"
+      ]
+    },
+    "integumentary": {
+      "label": "Da và lông (Đầu/Da/Lông)",
+      "symptoms": [
+        "Tím tái (Mào xanh)",
+        "Sưng đầu / mặt",
+        "Mào và tích nhợt nhạt",
+        "Mụn cóc / Nốt sần (vảy)",
+        "Sạm da"
+      ]
+    },
+    "reproductive": {
+      "label": "Hệ sinh sản",
+      "symptoms": [
+        "Giảm sản lượng trứng",
+        "Trứng mềm / Không vỏ",
+        "Trứng biến dạng / Nhăn",
+        "Trứng trắng / Mất sắc tố"
+      ]
+    }
+  },
+  "ageGroups": [
+    {
+      "id": "day-old",
+      "label": "Gà con mới nở (0-1 ngày)",
+      "shortLabel": "Gà con",
+      "icon": "🐣"
+    },
+    {
+      "id": "growers",
+      "label": "Gà giò (2-8 tuần)",
+      "shortLabel": "Gà giò",
+      "icon": "🐔"
+    },
+    {
+      "id": "layers",
+      "label": "Gà đẻ",
+      "shortLabel": "Gà đẻ",
+      "icon": "🥚"
+    },
+    {
+      "id": "broilers",
+      "label": "Gà thịt",
+      "shortLabel": "Gà thịt",
+      "icon": "🍗"
+    },
+    {
+      "id": "breeders",
+      "label": "Gà giống",
+      "shortLabel": "Gà giống",
+      "icon": "🐓"
+    },
+    {
+      "id": "ducks",
+      "label": "Vịt",
+      "shortLabel": "Vịt",
+      "icon": "🦆"
+    },
+    {
+      "id": "all",
+      "label": "Mọi lứa tuổi",
+      "shortLabel": "Mọi lứa tuổi",
+      "icon": "✨"
+    }
+  ]
+}

@@ -1,23 +1,41 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useTranslation } from '../hooks/useTranslation';
 
 const WelcomePage = () => {
     const navigate = useNavigate();
+    const { language, setLanguage } = useLanguage();
+    const { t } = useTranslation();
+
+    const languages = [
+        { code: 'en', name: 'English', flag: '/images/flags/flag_en.png' },
+        { code: 'id', name: 'Indonesia', flag: '/images/flags/flag_id.png' },
+        { code: 'vn', name: 'Tiếng Việt', flag: '/images/flags/flag_vn.png' }
+    ];
 
     const modules = [
         {
+            id: 'feed-additives',
+            title: t('welcome.feedAdditivesModule'),
+            description: t('welcome.feedAdditivesDescription'),
+            icon: '/images/PoultryWell_Logo.png',
+            color: 'purple',
+            path: '/feed-additives'
+        },
+        {
             id: 'swine',
-            title: 'Swine Module',
-            description: 'Identify swine diseases based on clinical signs and age group with high accuracy.',
+            title: t('welcome.swineModule'),
+            description: t('welcome.swineDescription'),
             icon: '/images/PigWell_Logo.png',
             color: 'blue',
             path: '/swine'
         },
         {
             id: 'poultry',
-            title: 'Poultry Module',
-            description: 'Advanced diagnostic algorithms for poultry health monitoring and disease identification.',
+            title: t('welcome.poultryModule'),
+            description: t('welcome.poultryDescription'),
             icon: '/images/PoultryWell_Logo.png',
             color: 'emerald',
             path: '/poultry'
@@ -34,8 +52,29 @@ const WelcomePage = () => {
                         className="main-logo"
                     />
                     <p className="text-gray-500 text-lg font-medium opacity-70">
-                        Livestock Diagnostic Tools
+                        {t('welcome.subtitle')}
                     </p>
+
+                    {/* Language Selector */}
+                    <div className="language-selector">
+                        <p className="language-label">{t('welcome.selectLanguage')}</p>
+                        <div className="language-flags">
+                            {languages.map((lang) => (
+                                <button
+                                    key={lang.code}
+                                    onClick={() => setLanguage(lang.code)}
+                                    className={`flag-button ${language === lang.code ? 'active' : ''}`}
+                                    title={lang.name}
+                                >
+                                    <img
+                                        src={lang.flag}
+                                        alt={lang.name}
+                                        className="flag-icon"
+                                    />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
 
                 <div className="module-grid">
@@ -55,8 +94,12 @@ const WelcomePage = () => {
                                 {module.description}
                             </p>
 
-                            <div className="flex items-center text-blue-600 font-bold group-hover:gap-2 transition-all">
-                                Launch Module <ChevronRight className="w-5 h-5 ml-1" />
+                            <div className={`flex items-center font-bold group-hover:gap-2 transition-all ${
+                                module.color === 'purple' ? 'text-purple-600' : 
+                                module.color === 'emerald' ? 'text-emerald-600' : 
+                                'text-blue-600'
+                            }`}>
+                                {t('welcome.launchModule')} <ChevronRight className="w-5 h-5 ml-1" />
                             </div>
                         </div>
                     ))}
@@ -64,7 +107,7 @@ const WelcomePage = () => {
 
                 <div className="footer-branding">
                     <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-                        Powered By
+                        {t('welcome.poweredBy')}
                     </p>
                     <div className="flex justify-center items-center">
                         <img

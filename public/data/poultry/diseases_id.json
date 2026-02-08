@@ -1,0 +1,1257 @@
+{
+  "diseases": [
+    {
+      "id": 501,
+      "name": "Aflatoksikosis",
+      "latinName": "Mycotoxicosis",
+      "category": "Racun/Toksin",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Pertumbuhan Terhambat",
+        "Pial dan Jengger Pucat",
+        "Lesu / Depresi",
+        "Pincang",
+        "Diare Berdarah",
+        "Kloaka Berdarah / Prolapsus"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Konsumsi Aflatoksin B1 pada pakan berjamur. Bebek lebih sensitif daripada ayam.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak Langsung",
+      "description": "Keracunan akibat toksin yang diproduksi jamur (Aspergillus flavus) dalam bahan pakan seperti jagung.",
+      "diagnosis": "Analisis pakan (ELISA/HPLC); Nekropsi (Kerusakan hati).",
+      "controlPrevention": "Kontrol kelembapan pada penyimpanan biji-bijian; Penggunaan pengikat toksin dalam pakan.",
+      "treatment": "Segera hentikan pakan terkontaminasi; Protein berkualitas tinggi; Pengikat toksin.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 303,
+      "name": "Askariasis",
+      "latinName": "Roundworms, Cacingan",
+      "category": "Parasit",
+      "ageGroups": [
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Kurus / Penurunan Bobot",
+        "Pertumbuhan Terhambat",
+        "Diare Hijau",
+        "Pial dan Jengger Pucat",
+        "Penurunan Produksi Telur"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Disebabkan oleh Ascaridia galli. Penularan fecal-oral melalui telur cacing.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Infestasi cacing gelang besar di usus halus. Bersaing nutrisi dan menyebabkan penyumbatan fisik.",
+      "diagnosis": "Pemeriksaan apung tinja (Telur cacing); Nekropsi (Cacing dewasa).",
+      "controlPrevention": "Program deworming rutin; Manajemen litter.",
+      "treatment": "Antelmintik (Levamisole, Albendazole, Piperazine, Ivermectin).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 601,
+      "name": "Sindrom Asites",
+      "latinName": "Water Belly",
+      "category": "Lainnya",
+      "ageGroups": [
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Breeder (Pembibit)"
+      ],
+      "symptoms": [
+        "Sianosis (Jengger Biru)",
+        "Megap-megap / Sesak Napas",
+        "Kematian Mendadak",
+        "Lesu / Depresi",
+        "Pial dan Jengger Pucat",
+        "Demam / Suhu Tubuh Tinggi",
+        "Pincang"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Stres metabolik pada broiler pertumbuhan cepat; Ketinggian tempat; Ventilasi buruk (debu/amonia).",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Perut air. Akumulasi cairan di rongga perut akibat hipertensi pulmonal dan gagal jantung.",
+      "diagnosis": "Nekropsi (Cairan jerami di perut, pembesaran jantung kanan).",
+      "controlPrevention": "Manajemen ventilasi; Program pencahayaan untuk memperlambat pertumbuhan; Pakan bentuk mash.",
+      "treatment": "Tidak ada obat. Aspirasi cairan memberi relief sementara tetapi tidak praktis.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 101,
+      "name": "Avian Influenza",
+      "latinName": "Bird Flu, AI, HPAI",
+      "category": "Viral",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Kematian Mendadak",
+        "Sianosis (Jengger Biru)",
+        "Pembengkakan Kepala / Wajah",
+        "Pincang",
+        "Megap-megap / Sesak Napas",
+        "Penurunan Produksi Telur",
+        "Diare Hijau",
+        "Konjungtivitis / Mata Berair",
+        "Tortikolis (Leher Terpuntir)",
+        "Ingus"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Orthomyxovirus (Tipe A). Menular melalui burung liar, feses terinfeksi, udara, pakan/air/kendaraan terkontaminasi.",
+      "zoonotic": true,
+      "zoonoticNote": "Ya",
+      "description": "Penyakit viral sangat menular yang memengaruhi sistem pernapasan, pencernaan, dan saraf. Dapat berupa Low Pathogenic (LPAI) atau High Pathogenic (HPAI). HPAI menyebabkan kematian massal mendadak dan bersifat zoonosis (dapat menginfeksi manusia).",
+      "diagnosis": "RT-PCR (gen H5/H7/H9); Uji HI; Uji Antigen Cepat; Nekropsi (Perdarahan di proventrikulus/lemak).",
+      "controlPrevention": "Biosekuriti ketat; Vaksinasi (di tempat yang legal); Eksklusi burung liar; Karantina stock baru.",
+      "treatment": "Tidak ada untuk infeksi viral. Perawatan suportif untuk LPAI. HPAI biasanya memerlukan depopulasi.",
+      "vaccines": [
+        {
+          "id": "V04",
+          "name": "Vaksimune AI H9",
+          "details": "- Vaksin inaktivasi terhadap Avian Influenza, strain H9N2.\r\n- Vaksin inaktivasi (emulsi minyak)"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 502,
+      "name": "Botulisme",
+      "latinName": "Limberneck",
+      "category": "Racun/Toksin",
+      "ageGroups": [
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Leher Lemah (Limberneck)",
+        "Paralisis (Kaki/Sayap)",
+        "Kematian Mendadak",
+        "Kutil / Nodul (Keropeng)",
+        "Konjungtivitis / Mata Berair"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Konsumsi toksin Clostridium botulinum dari bangkai membusuk, belatung, atau air tergenang.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Juga disebut Limberneck. Penyakit paralisis disebabkan oleh neurotoksin.",
+      "diagnosis": "Tanda klinis; Uji bioassay tikus.",
+      "controlPrevention": "Buang bangkai harian; Bersihkan saluran air; Hindari litter basah.",
+      "treatment": "Hilangkan sumber toksin; Selenium/Antibiotik (untuk sekunder); Pencahar (Molase).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 604,
+      "name": "Kanibalisme",
+      "latinName": "Feather Pecking",
+      "category": "Lainnya",
+      "ageGroups": [
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Kloaka Berdarah / Prolapsus",
+        "Kutil / Nodul (Keropeng)",
+        "Kematian Mendadak",
+        "Penurunan Produksi Telur"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Stres; Kepadatan tinggi; Intensitas cahaya tinggi; Defisiensi nutrisi (Natrium/Asam amino).",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Kebiasaan buruk dimana ayam mematuk bulu, jari kaki, atau kloaka ayam lain.",
+      "diagnosis": "Observasi perilaku/luka.",
+      "controlPrevention": "Pemotongan paruh; Lampu merah; Manajemen ruang; Garam dalam air.",
+      "treatment": "Isolasi ayam terluka; Oles ter/anti-peck spray; Koreksi stres lingkungan.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 202,
+      "name": "Penyakit Pernapasan Kronis",
+      "latinName": "CRD, Mycoplasmosis",
+      "category": "Bakterial",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Suara Napas Berdeguk (Mendengkur)",
+        "Ingus",
+        "Konjungtivitis / Mata Berair",
+        "Pertumbuhan Terhambat",
+        "Penurunan Produksi Telur",
+        "Pembengkakan Kepala / Wajah"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Mycoplasma gallisepticum (MG). Transmisi vertikal (dari breeder ke DOC) dan horizontal (melalui udara).",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit kronis yang memengaruhi sistem pernapasan. Sering berkomplikasi dengan E. coli membentuk CRD-Complex (CCD).",
+      "diagnosis": "Uji Aglutinasi Serum (SPA); ELISA; PCR; Kultur.",
+      "controlPrevention": "Sumber DOC bebas MG; Biosekuriti; Vaksinasi (Live/Inactivated).",
+      "treatment": "Antibiotik (Makrolida seperti Tylosin, Tilmicosin, atau Tetrasiklin).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 301,
+      "name": "Koksidiosis",
+      "latinName": "Cocci, Berak Darah",
+      "category": "Parasit",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Diare Berdarah",
+        "Diare Kuning / Belerang",
+        "Pial dan Jengger Pucat",
+        "Lesu / Depresi",
+        "Pertumbuhan Terhambat",
+        "Penurunan Produksi Telur",
+        "Pincang"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Eimeria spp. (misal: E. tenella, E. acervulina). Konsumsi ookista bersporulasi dari litter basah.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit protozoa yang merusak saluran usus. Salah satu penyakit paling penting secara ekonomi pada unggas.",
+      "diagnosis": "Pemeriksaan mikroskopis kerokan mukosa (Identifikasi ookista).",
+      "controlPrevention": "Penggunaan kokidiostat dalam pakan (rotasi); Manajemen litter kering; Vaksinasi.",
+      "treatment": "Sulfonamida (Sulfadiazine, Toltrazuril) atau Amprolium dalam air minum.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 201,
+      "name": "Kolibasilosis",
+      "latinName": "E. coli infection",
+      "category": "Bakterial",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Lesu / Depresi",
+        "Megap-megap / Sesak Napas",
+        "Diare Putih (Kapur)",
+        "Pembengkakan Sendi (Tumit)",
+        "Penurunan Produksi Telur",
+        "Diare Hijau",
+        "Kematian Mendadak"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Escherichia coli. Menular melalui kontaminasi feses (penetrasi kulit telur) atau inhalasi debu.",
+      "zoonotic": false,
+      "zoonoticNote": "Potensial",
+      "description": "Infeksi yang disebabkan E. coli, sering muncul sebagai infeksi sekunder setelah penyakit virus pernapasan atau stres lingkungan.",
+      "diagnosis": "Kultur bakteri (MacConkey Agar); Lesi nekropsi.",
+      "controlPrevention": "Sanitasi; Klorinasi air; Higiene hatchery; Minimalisasi stres/amonia.",
+      "treatment": "Antibiotik (berdasarkan uji sensitivitas); Asidifier dalam air; Probiotik.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 403,
+      "name": "Paralisis Jari Menggulung",
+      "latinName": "Riboflavin Deficiency",
+      "category": "Nutrisional",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)"
+      ],
+      "symptoms": [
+        "Jari Kaki Menggulung",
+        "Pincang",
+        "Pertumbuhan Terhambat",
+        "Diare Hijau"
+      ],
+      "mortality": "Rendah",
+      "transmission": "Defisiensi Vitamin B2 (Riboflavin).",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Degenerasi saraf menyebabkan paralisis spesifik pada jari kaki pada anak ayam muda.",
+      "diagnosis": "Tanda klinis; Respons terhadap pengobatan.",
+      "controlPrevention": "Suplementasi Riboflavin dalam pakan breeder dan starter.",
+      "treatment": "Suplementasi Vitamin B Complex segera.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 107,
+      "name": "Pes Bebek",
+      "latinName": "Duck Virus Enteritis, DVE",
+      "category": "Viral",
+      "ageGroups": [
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Diare Berdarah",
+        "Konjungtivitis / Mata Berair",
+        "Kloaka Berdarah / Prolapsus",
+        "Demam / Suhu Tubuh Tinggi",
+        "Ingus",
+        "Paralisis (Kaki/Sayap)"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Herpesvirus. Menular melalui kontak dengan bebek terinfeksi atau badan air terkontaminasi.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Juga dikenal sebagai Duck Virus Enteritis (DVE). Penyakit menular akut yang memengaruhi bebek dewasa, angsa, dan angsa berleher pendek.",
+      "diagnosis": "Nekropsi (Pita hemoragik di esofagus/usus); PCR; Isolasi Virus.",
+      "controlPrevention": "Vaksinasi dengan vaksin Live Attenuated; Mencegah kontak dengan unggas air liar.",
+      "treatment": "Tidak ada. Depopulasi sering direkomendasikan karena status karier.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 106,
+      "name": "Hepatitis Viral Bebek",
+      "latinName": "DVH",
+      "category": "Viral",
+      "ageGroups": [
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)"
+      ],
+      "symptoms": [
+        "Opistotonus (Leher Melengkung ke Belakang)",
+        "Kematian Mendadak",
+        "Paralisis (Kaki/Sayap)",
+        "Diare Hijau",
+        "Lesu / Depresi"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Duck Hepatitis Virus (Picornavirus). Menular melalui rute fecal-oral dan kontak langsung.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit akut, sangat fatal pada anak bebek (1-28 hari). Menyebabkan kematian cepat dengan nekrosis hati. Bebek dewasa resisten.",
+      "diagnosis": "Nekropsi (Pembesaran hati dengan bercak hemoragik); PCR; Netralisasi Virus.",
+      "controlPrevention": "Vaksinasi bebek breeder untuk memberikan imunitas maternal; Isolasi ketat anak bebek.",
+      "treatment": "Terapi serum (Serum hiperimun) disuntikkan ke anak bebek selama wabah awal.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 108,
+      "name": "Sindrom Penurunan Produksi Telur",
+      "latinName": "EDS '76",
+      "category": "Viral",
+      "ageGroups": [
+        "Layer (Petelur)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Telur Putih / Kehilangan Pigmen",
+        "Telur Lunak / Tanpa Cangkang",
+        "Penurunan Produksi Telur",
+        "Bersin / Bersin Kering"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Disebabkan oleh Duck Adenovirus A. Ditularkan secara vertikal (telur) dan horizontal (feses/air).",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit yang memengaruhi layer menyebabkan penurunan produksi telur mendadak dan kegagalan kualitas, sering pada ayam yang terlihat sehat.",
+      "diagnosis": "Uji HI (spesifik untuk EDS); PCR.",
+      "controlPrevention": "Vaksinasi (Inaktivasi) sebelum periode bertelur; Higiene.",
+      "treatment": "Tidak ada. Pemulihan spontan biasanya terjadi setelah 4-10 minggu.",
+      "vaccines": [
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Vaksin inaktivasi kombinasi virus Newcastle Disease strain LaSota, Infectious Bronchitis strain M-41 varian 771 dan QX, Egg Drop Syndrome'76 dalam emulsi minyak."
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Vaksin inaktivasi terhadap Newcastle Disease (strain LaSota), Egg Drop Syndrome’76, dan Infectious Bronchitis (strain M-41).\r\n- Vaksin inaktivasi (emulsi minyak)\r\n- Kemasan: 500 & 1000 Dosis"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 402,
+      "name": "Encephalomalacia",
+      "latinName": "Crazy Chick Disease",
+      "category": "Nutrisional",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)"
+      ],
+      "symptoms": [
+        "Tortikolis (Leher Terpuntir)",
+        "Gemetar",
+        "Pincang",
+        "Kematian Mendadak"
+      ],
+      "mortality": "Rendah",
+      "transmission": "Defisiensi Vitamin E atau Selenium. Sering karena lemak tengik dalam pakan menghancurkan Vit E.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Juga disebut Penyakit Ayam Gila. Degenerasi jaringan otak pada anak ayam muda.",
+      "diagnosis": "Histopatologi otak (perdarahan/edema); Analisis pakan.",
+      "controlPrevention": "Tambahkan Antioksidan ke pakan; Pastikan sumber lemak segar.",
+      "treatment": "Suplementasi Vitamin E dan Selenium dalam air.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 203,
+      "name": "Kolera Unggas",
+      "latinName": "Pasteurellosis",
+      "category": "Bakterial",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Pembengkakan Kepala / Wajah",
+        "Pincang",
+        "Kematian Mendadak",
+        "Diare Hijau",
+        "Suara Napas Berdeguk (Mendengkur)",
+        "Tortikolis (Leher Terpuntir)",
+        "Penurunan Produksi Telur"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Pasteurella multocida. Menular melalui rodentia, kucing, dan tanah/air terkontaminasi.",
+      "zoonotic": false,
+      "zoonoticNote": "Jarang",
+      "description": "Penyakit bakterial menular menyebabkan septikemia. Dapat akut (kematian mendadak) atau kronis (pembengkakan lokal). Memengaruhi ayam dan bebek.",
+      "diagnosis": "Kultur bakteri (Batang bipolar pada pewarnaan Gram); PCR.",
+      "controlPrevention": "Kontrol rodentia; Biosekuriti; Vaksinasi Bacterin.",
+      "treatment": "Antibiotik (Sulfonamida, Amoxicillin, Tetrasiklin) - tetapi rekurensi umum.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 109,
+      "name": "Fowl Pox",
+      "latinName": "Avian Pox, Cacar",
+      "category": "Viral",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Kutil / Nodul (Keropeng)",
+        "Megap-megap / Sesak Napas",
+        "Pertumbuhan Terhambat",
+        "Penurunan Produksi Telur",
+        "Konjungtivitis / Mata Berair"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Disebabkan oleh Avipoxvirus. Menular melalui nyamuk/tungau (vektor) atau kontak langsung melalui kulit rusak.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Infeksi viral menyebar lambat menyebabkan lesi kutaneus (kering) atau difterik (basah). Pox basah melibatkan saluran pernapasan atas dan lebih parah.",
+      "diagnosis": "Tanda klinis; Histopatologi (Badan Bollinger); PCR.",
+      "controlPrevention": "Vaksinasi sayap; Kontrol nyamuk.",
+      "treatment": "Tidak ada. Hapus membran difteri jika menghalangi pernapasan; Iodin pada lesi kulit.",
+      "vaccines": [
+        {
+          "id": "V18",
+          "name": "Vaksimune Pox",
+          "details": "Vaksin live Fowl Pox strain Beaudette, dikembangbiakkan dalam telur SPF, bentuk cair."
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 302,
+      "name": "Histomoniasis",
+      "latinName": "Blackhead Disease",
+      "category": "Parasit",
+      "ageGroups": [
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Diare Kuning / Belerang",
+        "Penggelapan Kulit",
+        "Kurus / Penurunan Bobot",
+        "Lesu / Depresi",
+        "Kematian Mendadak"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Disebabkan oleh Histomonas meleagridis. Ditularkan melalui telur cacing Heterakis (cacing sekum) atau cacing tanah.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Juga dikenal sebagai Penyakit Kepala Hitam. Penyakit protozoa yang memengaruhi sekum dan hati. Kalkun paling rentan, tetapi ayam membawanya.",
+      "diagnosis": "Nekropsi (Lesi target pada hati, inti caseous di sekum).",
+      "controlPrevention": "Deworming (Kontrol cacing Heterakis); Pisahkan ayam dan kalkun.",
+      "treatment": "Tidak ada pengobatan disetujui di banyak negara. Nitroimidazol (jika legal).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 104,
+      "name": "Bronchitis Infeksius",
+      "latinName": "IB",
+      "category": "Viral",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Telur Cacat / Keriput",
+        "Bersin / Bersin Kering",
+        "Ingus",
+        "Telur Putih / Kehilangan Pigmen",
+        "Pembengkakan Sendi (Tumit)",
+        "Lesu / Depresi"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Coronavirus. Menular melalui rute udara (angin) jarak jauh dan kontak langsung.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit pernapasan akut sangat menular. Virus juga merusak ginjal (nefrosis) dan saluran reproduksi, menyebabkan masalah produksi permanen.",
+      "diagnosis": "RT-PCR (sekuensing gen S1); ELISA (kenaikan titer); Isolasi Virus.",
+      "controlPrevention": "Vaksinasi menggunakan serotipe sesuai strain lapangan (Mass, 4/91, dll.); Biosekuriti.",
+      "treatment": "Tidak ada. Antibiotik hanya digunakan untuk mencegah infeksi bakteri sekunder (E. coli).",
+      "vaccines": [
+        {
+          "id": "V01",
+          "name": "Vaksimune \r\nND IB Inaktif",
+          "details": "- Vaksin inaktivasi terhadap Newcastle Disease (Sub-Genotype VIIh & VIIi) dan Infectious Bronchitis, strain M41\r\n- Vaksin inaktivasi (emulsi minyak)"
+        },
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Vaksin inaktivasi kombinasi virus Newcastle Disease strain LaSota, Infectious Bronchitis strain M-41 varian 771 dan QX, Egg Drop Syndrome'76 dalam emulsi minyak."
+        },
+        {
+          "id": "V11",
+          "name": "Vaksimune ND Clone IB",
+          "details": "- Vaksin live terhadap Newcastle Disease (strain clone) dan Infectious Bronchitis (strain H120 Massachusetts).\r\n- Vaksin live (freeze-dried)\r\n- Kemasan: 500, 1000 & 2000 Dosis"
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Vaksin inaktivasi terhadap Newcastle Disease (strain LaSota), Egg Drop Syndrome’76, dan Infectious Bronchitis (strain M-41).\r\n- Vaksin inaktivasi (emulsi minyak)\r\n- Kemasan: 500 & 1000 Dosis"
+        },
+        {
+          "id": "V15",
+          "name": "Vaksimune NDHV IB",
+          "details": "Vaksin live freeze-dried Newcastle Disease strain Ulster dan Infectious Bronchitis strain H120, dikembangbiakkan dalam telur SPF"
+        },
+        {
+          "id": "V17",
+          "name": "Vaksimune NDLS IB",
+          "details": "Vaksin live Newcastle Disease dan Infectious Bronchitis yang dilemahkan"
+        },
+        {
+          "id": "V19",
+          "name": "Vaksimune\r\nNDL IB Plus",
+          "details": "Vaksin inaktivasi Newcastle Disease Genotype VII strain N018 dan Infectious Bronchitis strain M-41 varian 771 dan Qx dalam emulsi minyak"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 103,
+      "name": "Penyakit Gumboro",
+      "latinName": "Gumboro, IBD",
+      "category": "Viral",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Diare Putih (Kapur)",
+        "Gemetar",
+        "Lesu / Depresi",
+        "Kloaka Berdarah / Prolapsus",
+        "Pial dan Jengger Pucat",
+        "Pembengkakan Sendi (Tumit)"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Birnavirus. Sangat resisten di lingkungan. Menular melalui rute fecal-oral.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Juga dikenal sebagai Gumboro. Infeksi viral akut sangat menular pada ayam muda yang menargetkan Bursa Fabricius, menyebabkan imunosupresi.",
+      "diagnosis": "Nekropsi (Bursa bengkak/hemoragik); PCR; ELISA; Presipitasi Agar Gel (AGP).",
+      "controlPrevention": "Vaksinasi breeder (Antibodi Maternal); Vaksinasi anak ayam (strain Intermediate/Hot); Disinfeksi.",
+      "treatment": "Tidak ada. Terapi suportif (elektrolit, flush ginjal) dan manajemen baik untuk meningkatkan kenyamanan.",
+      "vaccines": [
+        {
+          "id": "V07",
+          "name": "Vaksimune IBD D",
+          "details": "- Vaksin live freeze-dried terhadap Infectious Bursal Disease, strain LZD228\r\nVaksin live (freeze-dried)\r\n- Kemasan: 500, 1000 & 2000 Dosis"
+        },
+        {
+          "id": "V08",
+          "name": "Vaksimune IBD M+",
+          "details": "- Vaksin live terhadap Infectious Bursal Disease, strain Multrop,\r\nVaksin live (freeze-dried)\r\n- Kemasan: 500, 1000 & 2000 Dosis"
+        },
+        {
+          "id": "V09",
+          "name": "Vaksimune IBD MHV",
+          "details": "- Vaksin live freeze-dried Infectious Bursal Disease \r\n- Vaksin live (freeze-dried)\r\n- Pemberian: in-ovo atau injeksi subkutan "
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 204,
+      "name": "Korisza Infeksius",
+      "latinName": "Snot",
+      "category": "Bakterial",
+      "ageGroups": [
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Pembengkakan Kepala / Wajah",
+        "Ingus",
+        "Konjungtivitis / Mata Berair",
+        "Penurunan Produksi Telur",
+        "Suara Napas Berdeguk (Mendengkur)",
+        "Lesu / Depresi"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Disebabkan oleh Avibacterium paragallinarum. Menular melalui kontak langsung, droplet udara, dan air.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit pernapasan akut pada ayam ditandai pembengkakan wajah parah dan ingus berbau busuk.",
+      "diagnosis": "Kultur bakteri (Membutuhkan NAD/pertumbuhan satelit); PCR.",
+      "controlPrevention": "Vaksinasi (Bacterin); Manajemen all-in-all-out; Depopulasi karier.",
+      "treatment": "Antibiotik (Sulfonamida, Eritromisin, Fluoroquinolon).",
+      "vaccines": [
+        {
+          "id": "V05",
+          "name": "Vaksimune Coryza L",
+          "details": "Vaksin bakterial inaktivasi Avibacterium paragallinarum serovar A strain 0083, serotipe B strain SPROSS dan strain lokal, serotipe C strain Modesto dalam adjuvant AI(OH)3"
+        },
+        {
+          "id": "V06",
+          "name": "Vaksimune Coryza LE",
+          "details": "- Vaksin inaktivasi terhadap Avibacterium paragallinarum serotipe A, B, dan C\r\n- Vaksin inaktivasi (emulsi minyak-dalam-air)\r\n- Kemasan: 500, 1000 & 2000 Dosis"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 105,
+      "name": "Laringotrakeitis Infeksius",
+      "latinName": "ILT",
+      "category": "Viral",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Megap-megap / Sesak Napas",
+        "Ingus",
+        "Konjungtivitis / Mata Berair",
+        "Kematian Mendadak",
+        "Sianosis (Jengger Biru)",
+        "Penurunan Produksi Telur"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Disebabkan oleh Herpesvirus (Gallid herpesvirus 1). Menular melalui ayam karier (laten), droplet udara, dan fomites.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit pernapasan ditandai kesulitan bernapas parah dan lendir berdarah. Virus membentuk infeksi laten pada ayam sembuh.",
+      "diagnosis": "Histopatologi (Badan inklusi intranuklear); PCR; Isolasi Virus.",
+      "controlPrevention": "Vaksinasi (Tetes mata/Air/Vektor pox); Biosekuriti untuk mencegah masuk dari karier.",
+      "treatment": "Tidak ada. Antibiotik untuk infeksi sekunder. Pastikan ventilasi baik.",
+      "vaccines": [
+        {
+          "id": "V10",
+          "name": "Vaksimune ILT",
+          "details": "- Vaksin live terhadap Infectious Laryngotracheitis, strain Hudson\r\n- Vaksin live (freeze-dried)\r\n- Kemasan: 500, 1000 & 2000 Dosis"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 304,
+      "name": "Leukositoozonosis",
+      "latinName": "Avian Malaria",
+      "category": "Parasit",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Diare Hijau",
+        "Pial dan Jengger Pucat",
+        "Ingus",
+        "Kematian Mendadak"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Disebabkan oleh Leucocytozoon caulleryi. Ditularkan melalui lalat penggigit (Culicoides) atau lalat hitam.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit parasit darah menyerupai malaria. Menyebabkan anemia dan perdarahan parah.",
+      "diagnosis": "Apusan darah (pewarnaan Giemsa); Nekropsi.",
+      "controlPrevention": "Kontrol serangga vektor (kelambu, insektisida); Pencegahan Sulfonamida.",
+      "treatment": "Sulfonamida (Sulfamonomethoxine) + Pyrimethamine.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 110,
+      "name": "Penyakit Marek",
+      "latinName": "Fowl Paralysis",
+      "category": "Viral",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Paralisis (Kaki/Sayap)",
+        "Kurus / Penurunan Bobot",
+        "Pial dan Jengger Pucat",
+        "Megap-megap / Sesak Napas",
+        "Pembengkakan Kepala / Wajah",
+        "Kutil / Nodul (Keropeng)"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Herpesvirus (MDV). Menular melalui inhalasi debu terinfeksi dari folikel bulu.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit limfoproliferatif menyebabkan tumor pada saraf dan organ. Salah satu infeksi unggas paling umum di dunia.",
+      "diagnosis": "Histopatologi (Tumor limfoid); PCR; Temuan nekropsi.",
+      "controlPrevention": "Vaksinasi hatchery (HVT/Rispens) pada Hari 1 atau in-ovo; Higiene ketat untuk anak ayam muda.",
+      "treatment": "Tidak ada. Ayam terinfeksi menjadi karier seumur hidup. Culling ayam terpengaruh.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 206,
+      "name": "Enteritis Nekrotikans",
+      "latinName": "Clostridiosis, Rot Gut",
+      "category": "Bakterial",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)"
+      ],
+      "symptoms": [
+        "Diare Berdarah",
+        "Lesu / Depresi",
+        "Kematian Mendadak",
+        "Pertumbuhan Terhambat",
+        "Pial dan Jengger Pucat"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Clostridium perfringens (Toksin A/C). Dipicu kerusakan usus atau perubahan pakan.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Enterotoksemia akut menyebabkan nekrosis lapisan usus. Sering terkait kerusakan Koksidiosis atau pakan tepung ikan tinggi.",
+      "diagnosis": "Nekropsi (Usus berisi gas, membran nekrotik); Pewarnaan Gram kerokan mukosa.",
+      "controlPrevention": "Kontrol Koksidiosis; Probiotik; Asam organik; Hindari perubahan pakan drastis.",
+      "treatment": "Antibiotik (Penisilin, Amoxicillin, Bacitracin) dalam air.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 102,
+      "name": "Penyakit Newcastle",
+      "latinName": "ND, Ranikhet, Tetelo",
+      "category": "Viral",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Tortikolis (Leher Terpuntir)",
+        "Megap-megap / Sesak Napas",
+        "Diare Hijau",
+        "Paralisis (Kaki/Sayap)",
+        "Telur Lunak / Tanpa Cangkang",
+        "Suara Napas Berdeguk (Mendengkur)",
+        "Gemetar",
+        "Penurunan Produksi Telur",
+        "Konjungtivitis / Mata Berair"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Avian Paramyxovirus 1 (APMV-1). Menular melalui inhalasi (udara), konsumsi feses, dan peralatan/orang terkontaminasi.",
+      "zoonotic": true,
+      "zoonoticNote": "Ya (Ringan)",
+      "description": "Penyakit viral menular yang memengaruhi unggas semua usia. Dikategorikan berdasarkan patotipe: Velogenik (Kematian tinggi), Mesogenik (Sedang), dan Lentogenik (Ringan). Memengaruhi sistem pernapasan, saraf, dan pencernaan.",
+      "diagnosis": "Uji HI (Hemagglutination Inhibition); RT-PCR; Isolasi Virus dalam telur berembrio.",
+      "controlPrevention": "Program vaksinasi rutin (Vaksin Live & Inactivated); Biosekuriti baik.",
+      "treatment": "Tidak ada. Perawatan suportif (vitamin/elektrolit) untuk mengurangi stres dan infeksi bakteri sekunder.",
+      "vaccines": [
+        {
+          "id": "V01",
+          "name": "Vaksimune \r\nND IB Inaktif",
+          "details": "- Vaksin inaktivasi terhadap Newcastle Disease (Sub-Genotype VIIh & VIIi) dan Infectious Bronchitis, strain M41\r\n- Vaksin inaktivasi (emulsi minyak)"
+        },
+        {
+          "id": "V02",
+          "name": "Vaksimune \r\nND IB Plus EDS",
+          "details": "Vaksin inaktivasi kombinasi virus Newcastle Disease strain LaSota, Infectious Bronchitis strain M-41 varian 771 dan QX, Egg Drop Syndrome'76 dalam emulsi minyak."
+        },
+        {
+          "id": "V03",
+          "name": "Vaksimune \r\nND L Inaktif",
+          "details": "Vaksin Inaktivasi Newcastle Disease Genotype VII strain N018 dalam emulsi minyak."
+        },
+        {
+          "id": "V11",
+          "name": "Vaksimune ND Clone IB",
+          "details": "- Vaksin live terhadap Newcastle Disease (strain clone) dan Infectious Bronchitis (strain H120 Massachusetts).\r\n- Vaksin live (freeze-dried)\r\n- Kemasan: 500, 1000 & 2000 Dosis"
+        },
+        {
+          "id": "V12",
+          "name": "Vaksimune ND HV",
+          "details": "- Vaksin live attenuated untuk Newcastle disease, strain Ulster.\r\n- Vaksin live attenuated freeze-dried.\r\n- Kemasan: 500, 1.000, dan 2.000 dosis."
+        },
+        {
+          "id": "V13",
+          "name": "Vaksimune ND IB EDS",
+          "details": "- Vaksin inaktivasi terhadap Newcastle Disease (strain LaSota), Egg Drop Syndrome’76, dan Infectious Bronchitis (strain M-41).\r\n- Vaksin inaktivasi (emulsi minyak)\r\n- Kemasan: 500 & 1000 Dosis"
+        },
+        {
+          "id": "V14",
+          "name": "Vaksimune ND Inaktif",
+          "details": "Vaksin inaktivasi Newcastle Disease strain LaSota dalam emulsi minyak."
+        },
+        {
+          "id": "V15",
+          "name": "Vaksimune NDHV IB",
+          "details": "Vaksin live freeze-dried Newcastle Disease strain Ulster dan Infectious Bronchitis strain H120, dikembangbiakkan dalam telur SPF"
+        },
+        {
+          "id": "V16",
+          "name": "Vaksimune NDL Inaktif 0.1",
+          "details": "Vaksin Inaktivasi Newcastle Disease Genotype VII strain N018 dosis 0,1 dalam emulsi minyak."
+        },
+        {
+          "id": "V17",
+          "name": "Vaksimune NDLS IB",
+          "details": "Vaksin live Newcastle Disease dan Infectious Bronchitis yang dilemahkan"
+        },
+        {
+          "id": "V19",
+          "name": "Vaksimune\r\nNDL IB Plus",
+          "details": "Vaksin inaktivasi Newcastle Disease Genotype VII strain N018 dan Infectious Bronchitis strain M-41 varian 771 dan Qx dalam emulsi minyak"
+        }
+      ],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 404,
+      "name": "Perosis",
+      "latinName": "Slipped Tendon",
+      "category": "Nutrisional",
+      "ageGroups": [
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Breeder (Pembibit)"
+      ],
+      "symptoms": [
+        "Tendon Tergelincir",
+        "Pincang",
+        "Pertumbuhan Terhambat"
+      ],
+      "mortality": "Rendah",
+      "transmission": "Defisiensi Mangan atau Kolin; Defisiensi Biotin/Niasin/Asam Folat.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Tendon tergelincir. Deformitas tulang kaki menyebabkan tendon Achilles tergelincir dari alurnya.",
+      "diagnosis": "Tanda klinis; Nekropsi.",
+      "controlPrevention": "Pastikan kecukupan Mangan dan Kolin dalam pakan.",
+      "treatment": "Tidak ada. Deformitas tidak dapat dipulihkan.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 603,
+      "name": "Prolapsus",
+      "latinName": "Blowout",
+      "category": "Lainnya",
+      "ageGroups": [
+        "Layer (Petelur)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Kloaka Berdarah / Prolapsus",
+        "Kematian Mendadak",
+        "Telur Lunak / Tanpa Cangkang",
+        "Diare Berdarah"
+      ],
+      "mortality": "Rendah",
+      "transmission": "Bertelur besar/kuning ganda; Obesitas; Stimulasi cahaya dini; Intensitas cahaya tinggi.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Prolapsus. Penonjolan oviduk melalui kloaka.",
+      "diagnosis": "Observasi klinis.",
+      "controlPrevention": "Manajemen berat badan selama rearing; Kurangi intensitas cahaya.",
+      "treatment": "Isolasi ayam; Bersihkan dan dorong jaringan kembali dengan lembut; Semprot anti-peck.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 205,
+      "name": "Pullorum",
+      "latinName": "Bacillary White Diarrhea",
+      "category": "Bakterial",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)"
+      ],
+      "symptoms": [
+        "Diare Putih (Kapur)",
+        "Lesu / Depresi",
+        "Kematian Mendadak",
+        "Pincang",
+        "Pertumbuhan Terhambat",
+        "Megap-megap / Sesak Napas"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Salmonella Pullorum. Transmisi vertikal (telur) adalah utama.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Juga dikenal sebagai Diare Putih. Penyakit sistemik sangat fatal pada anak ayam/puyuh. Ditularkan secara vertikal.",
+      "diagnosis": "Uji Darah Lengkap Cepat (untuk breeder); Kultur bakteri.",
+      "controlPrevention": "Eradikasi (Tes dan Culling breeder positif); Pembelian dari flock bersih bersertifikat.",
+      "treatment": "Pengobatan tidak direkomendasikan (menciptakan karier). Fokus pada eradikasi.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 401,
+      "name": "Rakhitis",
+      "latinName": "Soft Bones",
+      "category": "Nutrisional",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)"
+      ],
+      "symptoms": [
+        "Paruh dan Tulang Lunak / Karet",
+        "Pincang",
+        "Pertumbuhan Terhambat",
+        "Lesu / Depresi",
+        "Megap-megap / Sesak Napas"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Defisiensi atau ketidakseimbangan Kalsium, Fosfor, atau Vitamin D3.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Penyakit tulang metabolik pada unggas muda, pertumbuhan cepat menyebabkan tulang lunak dan cacat.",
+      "diagnosis": "Analisis pakan; Histopatologi tulang; Tanda klinis.",
+      "controlPrevention": "Formulasi pakan benar; Pastikan rasio Ca:P tepat (2:1); Suplementasi Vitamin D3.",
+      "treatment": "Suplementasi Vitamin D3 larut air dan Kalsium.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 207,
+      "name": "Riemerella anatipestifer",
+      "latinName": "New Duck Disease",
+      "category": "Bakterial",
+      "ageGroups": [
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)"
+      ],
+      "symptoms": [
+        "Gemetar",
+        "Pincang",
+        "Diare Hijau",
+        "Ingus",
+        "Kematian Mendadak",
+        "Opistotonus (Leher Melengkung ke Belakang)"
+      ],
+      "mortality": "Tinggi",
+      "transmission": "Disebabkan oleh Riemerella anatipestifer. Menular melalui rute pernapasan atau lesi kaki.",
+      "zoonotic": false,
+      "zoonoticNote": "Jarang",
+      "description": "Juga disebut Penyakit Bebek Baru. Penyakit septikemia terutama memengaruhi bebek muda (1-8 minggu).",
+      "diagnosis": "Kultur bakteri; PCR; Temuan nekropsi.",
+      "controlPrevention": "Vaksinasi (Bacterin); Manajemen litter baik; Pengurangan stres.",
+      "treatment": "Antibiotik (Penisilin, Sefalosporin, Enrofloxacin) - Pengobatan dini kunci.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 208,
+      "name": "Salmonellosis",
+      "latinName": "Paratyphoid",
+      "category": "Bakterial",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Diare Putih (Kapur)",
+        "Lesu / Depresi",
+        "Pincang",
+        "Konjungtivitis / Mata Berair"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Disebabkan oleh Salmonella Enteritidis/Typhimurium. Menular melalui hama, pakan, transmisi vertikal.",
+      "zoonotic": true,
+      "zoonoticNote": "Ya",
+      "description": "Infeksi Paratyphoid disebabkan Salmonella non-host spesifik. Masalah kesehatan masyarakat (Zoonosis).",
+      "diagnosis": "Kultur; PCR; Swab lingkungan.",
+      "controlPrevention": "Kontrol rodentia; Higiene pakan; Asidifier; Probiotik.",
+      "treatment": "Antibiotik dapat mengurangi shedding tetapi jarang menghilangkan status karier.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 503,
+      "name": "Keracunan Garam",
+      "latinName": "Sodium Toxicity",
+      "category": "Racun/Toksin",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Demam / Suhu Tubuh Tinggi",
+        "Gemetar",
+        "Ingus",
+        "Pincang",
+        "Kematian Mendadak"
+      ],
+      "mortality": "Rendah",
+      "transmission": "Kesalahan pencampuran pakan tidak disengaja atau kurangnya air bersih.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Keracunan akibat asupan Natrium Klorida (Garam) berlebihan atau deprivasi air diikuti minum berlebihan.",
+      "diagnosis": "Analisis pakan/air; Nekropsi (Edema otak).",
+      "controlPrevention": "Pastikan pasokan air bersih konsisten; Periksa pencampuran pakan.",
+      "treatment": "Batasi air awal (beri jumlah kecil sering) untuk mencegah pembengkakan otak.",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    },
+    {
+      "id": 602,
+      "name": "Gut Viseral",
+      "latinName": "Uric Acid Deposition",
+      "category": "Lainnya",
+      "ageGroups": [
+        "DOC (0-1 hari)",
+        "Masa Pertumbuhan (2-8 minggu)",
+        "Layer (Petelur)",
+        "Broiler (Pedaging)",
+        "Breeder (Pembibit)",
+        "Bebek"
+      ],
+      "symptoms": [
+        "Kematian Mendadak",
+        "Pial dan Jengger Pucat",
+        "Diare Putih (Kapur)",
+        "Pertumbuhan Terhambat"
+      ],
+      "mortality": "Sedang",
+      "transmission": "Dehidrasi; Pakan tinggi Kalsium pada unggas muda (urolithiasis); Virus IB nefrotoksik.",
+      "zoonotic": false,
+      "zoonoticNote": "Tidak",
+      "description": "Akumulasi kristal asam urat pada organ internal akibat gagal ginjal.",
+      "diagnosis": "Nekropsi (Endapan kapur).",
+      "controlPrevention": "Pastikan ketersediaan air; Pakan rendah protein selama pemulihan.",
+      "treatment": "Elektrolit; Pengasam urin (Ammonium Chloride/Potassium Chloride).",
+      "vaccines": [],
+      "vaccineRecommendation": "",
+      "url": ""
+    }
+  ],
+  "symptomCategories": {
+    "general": {
+      "label": "Umum / Sistemik",
+      "symptoms": [
+        "Kematian Mendadak",
+        "Lesu / Depresi",
+        "Kurus / Penurunan Bobot",
+        "Demam / Suhu Tubuh Tinggi",
+        "Pertumbuhan Terhambat"
+      ]
+    },
+    "respiratory": {
+      "label": "Sistem Pernapasan",
+      "symptoms": [
+        "Megap-megap / Sesak Napas",
+        "Bersin / Bersin Kering",
+        "Suara Napas Berdeguk (Mendengkur)",
+        "Ingus",
+        "Konjungtivitis / Mata Berair"
+      ]
+    },
+    "digestive": {
+      "label": "Sistem Pencernaan",
+      "symptoms": [
+        "Diare Putih (Kapur)",
+        "Diare Hijau",
+        "Diare Berdarah",
+        "Diare Kuning / Belerang",
+        "Kloaka Berdarah / Prolapsus"
+      ]
+    },
+    "nervous": {
+      "label": "Sistem Saraf",
+      "symptoms": [
+        "Tortikolis (Leher Terpuntir)",
+        "Opistotonus (Leher Melengkung ke Belakang)",
+        "Gemetar",
+        "Paralisis (Kaki/Sayap)",
+        "Leher Lemah (Limberneck)"
+      ]
+    },
+    "musculoskeletal": {
+      "label": "Musculoskeletal (Kaki/Sayap)",
+      "symptoms": [
+        "Pincang",
+        "Pembengkakan Sendi (Tumit)",
+        "Jari Kaki Menggulung",
+        "Paruh dan Tulang Lunak / Karet",
+        "Tendon Tergelincir"
+      ]
+    },
+    "integumentary": {
+      "label": "Integumen (Kepala/Kulit/Bulu)",
+      "symptoms": [
+        "Sianosis (Jengger Biru)",
+        "Pembengkakan Kepala / Wajah",
+        "Pial dan Jengger Pucat",
+        "Kutil / Nodul (Keropeng)",
+        "Penggelapan Kulit"
+      ]
+    },
+    "reproductive": {
+      "label": "Sistem Reproduksi",
+      "symptoms": [
+        "Penurunan Produksi Telur",
+        "Telur Lunak / Tanpa Cangkang",
+        "Telur Cacat / Keriput",
+        "Telur Putih / Kehilangan Pigmen"
+      ]
+    }
+  },
+  "ageGroups": [
+    {
+      "id": "day-old",
+      "label": "DOC (0-1 hari)",
+      "shortLabel": "DOC",
+      "icon": "🐣"
+    },
+    {
+      "id": "growers",
+      "label": "Masa Pertumbuhan (2-8 minggu)",
+      "shortLabel": "Grower",
+      "icon": "🐔"
+    },
+    {
+      "id": "layers",
+      "label": "Layer (Petelur)",
+      "shortLabel": "Layer",
+      "icon": "🥚"
+    },
+    {
+      "id": "broilers",
+      "label": "Broiler (Pedaging)",
+      "shortLabel": "Broiler",
+      "icon": "🍗"
+    },
+    {
+      "id": "breeders",
+      "label": "Breeder (Pembibit)",
+      "shortLabel": "Breeder",
+      "icon": "🐓"
+    },
+    {
+      "id": "ducks",
+      "label": "Bebek",
+      "shortLabel": "Bebek",
+      "icon": "🦆"
+    },
+    {
+      "id": "all",
+      "label": "Semua usia",
+      "shortLabel": "Semua usia",
+      "icon": "✨"
+    }
+  ]
+}

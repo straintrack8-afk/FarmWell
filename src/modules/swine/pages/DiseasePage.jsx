@@ -49,7 +49,7 @@ function DiseasePage() {
 
     const handleNewDiagnosis = () => {
         resetDiagnosis();
-        navigate('../');
+        navigate('/swine/diagnosis/age');
     };
 
     return (
@@ -58,7 +58,7 @@ function DiseasePage() {
             <div style={{ padding: '1rem 0' }}>
                 <button
                     className="btn btn-secondary btn-sm"
-                    onClick={() => navigate(-1)}
+                    onClick={() => navigate('/swine/diagnosis/results')}
                 >
                     ← Back to Results
                 </button>
@@ -307,7 +307,7 @@ function DiseasePage() {
                 marginTop: '1.5rem',
                 flexWrap: 'wrap'
             }}>
-                <button className="btn btn-secondary" onClick={() => navigate('../results')}>
+                <button className="btn btn-secondary" onClick={() => navigate('/swine/diagnosis/results')}>
                     ← Back to Results
                 </button>
                 <button className="btn btn-outline" onClick={handleNewDiagnosis}>

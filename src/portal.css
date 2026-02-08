@@ -31,7 +31,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 0.5rem;
 }
 
 @media (max-width: 768px) {
@@ -59,7 +59,7 @@ body {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   border-radius: 2rem;
-  padding: 3rem;
+  padding: 0.75rem 3rem 3rem 3rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.8s ease-out;
   width: 100%;
@@ -137,6 +137,75 @@ body {
   }
 }
 
+/* Language Selector */
+.language-selector {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.language-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.language-flags {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.flag-button {
+  background: white;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.flag-button:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.flag-button.active {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  transform: scale(1.05);
+}
+
+.flag-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 480px) {
+  .flag-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .language-flags {
+    gap: 1rem;
+  }
+}
+
 .module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -173,6 +242,11 @@ body {
   border-color: #3b82f633;
 }
 
+/* Purple module styling for Feed Additives */
+.module-card:hover .text-purple-600 {
+  color: #7c3aed !important;
+}
+
 .module-icon {
   height: 120px;
   width: auto;
@@ -204,9 +278,11 @@ body {
   .module-card {
     padding: 1.5rem;
   }
+
   .module-icon {
     height: 80px;
   }
+
   .module-title {
     font-size: 1.5rem;
   }

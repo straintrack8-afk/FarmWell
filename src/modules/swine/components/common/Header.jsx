@@ -1,20 +1,48 @@
 import { useDiagnosis } from '../../contexts/DiagnosisContext';
+import { useLocation } from 'react-router-dom';
+import { useLanguage } from '../../../../contexts/LanguageContext';
 
 function Header() {
     const { isOnline, resetDiagnosis } = useDiagnosis();
+    const { language } = useLanguage();
+    const location = useLocation();
+
+    // Check if we're on any diagnosis or biosecurity page
+    const isPigWellPage = location.pathname.includes('/diagnosis') || location.pathname.includes('/biosecurity');
+    const logoSrc = isPigWellPage ? '/images/PigWell_Logo.png' : '/images/FarmWell_Logo.png';
+    const logoAlt = isPigWellPage ? 'PigWell Logo' : 'FarmWell Logo';
+    const logoHref = isPigWellPage ? '/swine' : '/';
 
     return (
         <header className="header">
-            <a href="/" className="header-logo" onClick={(e) => { e.preventDefault(); resetDiagnosis(); window.location.href = '/'; }}>
+            <a href={logoHref} className="header-logo" onClick={(e) => {
+                e.preventDefault();
+                // Don't reset diagnosis when navigating from PigWell pages to avoid flash
+                // The state will be reset when user starts a new diagnosis
+                if (!isPigWellPage) {
+                    resetDiagnosis();
+                }
+                window.location.href = logoHref;
+            }}>
                 <img
-                    src="/images/PigWell_Logo.png"
-                    alt="FarmWell Logo"
+                    src={logoSrc}
+                    alt={logoAlt}
                     style={{ height: '80px', width: 'auto' }}
                 />
             </a>
 
 
             <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div style={{
+                    padding: '0.5rem 1rem',
+                    background: '#f3f4f6',
+                    borderRadius: '8px',
+                    fontSize: '0.875rem',
+                    fontWeight: '600',
+                    color: '#374151'
+                }}>
+                    {language.toUpperCase()}
+                </div>
                 <div className={`offline-indicator ${isOnline ? 'online' : 'offline'}`}>
                     <span style={{
                         width: '8px',
@@ -24,22 +52,6 @@ function Header() {
                     }}></span>
                     {isOnline ? 'Online' : 'Offline'}
                 </div>
-                <a
-                    href="/"
-                    onClick={(e) => { e.preventDefault(); resetDiagnosis(); window.location.href = '/'; }}
-                    className="exit-link"
-                    style={{
-                        fontSize: '0.875rem',
-                        fontWeight: '600',
-                        color: '#EF4444',
-                        padding: '0.5rem 1rem',
-                        borderRadius: '0.5rem',
-                        background: '#FEF2F2',
-                        textDecoration: 'none'
-                    }}
-                >
-                    Exit Module
-                </a>
             </div>
         </header>
     );

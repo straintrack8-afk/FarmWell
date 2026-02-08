@@ -1,269 +1,209 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { calculateScore, generateRecommendations } from '../utils/biosecurityScoring';
-import { assessDiseaseRisks, getDiseaseRiskSummary } from '../utils/diseaseRisk';
+import { useLanguage } from '../../../contexts/LanguageContext';
+import {
+  getFarmProfile,
+  getCurrentAssessment,
+  startNewAssessment,
+  saveAnswer as saveAnswerToStorage,
+  completeFocusArea as completeFocusAreaInStorage,
+  completeAssessment as completeAssessmentInStorage,
+  clearCurrentAssessment
+} from '../utils/biosecurityStorage';
+import {
+  calculateFocusAreaScore,
+  calculateExternalScore,
+  calculateInternalScore,
+  calculateOverallScore,
+  getAllDiseaseRisks,
+  getCriticalItemsByPriority,
+  getHighPriorityRecommendations,
+  getScoreInterpretation
+} from '../utils/biosecurityScoring';
+import { detectFarmType, getFarmTypeDisplayName } from '../utils/farmTypeDetection';
+import { getFilteredFocusAreaQuestions, getPriorityRecommendations } from '../data/questions_data';
 
 const BiosecurityContext = createContext();
 
 export function useBiosecurity() {
   const context = useContext(BiosecurityContext);
   if (!context) {
-    throw new Error('useBiosecurity must be used within BiosecurityProvider');
+    throw new Error('useBiosecurity must be used within a BiosecurityProvider');
   }
   return context;
 }
 
 export function BiosecurityProvider({ children }) {
-  const [questions, setQuestions] = useState([]);
-  const [currentAssessment, setCurrentAssessment] = useState(null);
-  const [answers, setAnswers] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [assessmentHistory, setAssessmentHistory] = useState([]);
+  const { language } = useLanguage(); // Use global language context
+  const [farmProfile, setFarmProfile] = useState(getFarmProfile());
+  const [currentAssessment, setCurrentAssessment] = useState(getCurrentAssessment());
+  const [loading, setLoading] = useState(false);
+  const [farmType, setFarmType] = useState(null);
+  const [diseaseRisks, setDiseaseRisks] = useState({});
+  const [priorityRecommendations, setPriorityRecommendations] = useState(null);
 
+  // Detect farm type when farm profile changes
   useEffect(() => {
-    loadQuestions();
-    loadAssessmentHistory();
-  }, []);
-
-  useEffect(() => {
-    if (currentAssessment) {
-      saveAssessmentToStorage();
+    if (farmProfile && farmProfile.data) {
+      // Use farmType directly from farm profile if available
+      const detectedType = farmProfile.data.farmType || 'unknown';
+      setFarmType(detectedType);
+      console.log('[Farm Type] Detected from profile:', detectedType, '|', getFarmTypeDisplayName(detectedType, language));
+    } else if (farmProfile && farmProfile.pre_q1) {
+      // Fallback: try to detect from pre_q1 if available (old format)
+      const detected = detectFarmType(farmProfile.pre_q1);
+      setFarmType(detected);
+      console.log('[Farm Type] Detected from pre_q1:', detected, '|', getFarmTypeDisplayName(detected, language));
+    } else {
+      setFarmType(null);
+      console.log('[Farm Type] No farm profile data available');
     }
-  }, [currentAssessment, answers]);
+  }, [farmProfile, language]);
 
-  const loadQuestions = async () => {
-    try {
-      const response = await fetch('/data/swine/swine_questions_complete.json');
-      const data = await response.json();
-      
-      const allQuestions = [];
-      data.categories.forEach(category => {
-        category.questions.forEach(question => {
-          allQuestions.push({
-            ...question,
-            category: category.id,
-            categoryName: category.name,
-            categoryWeight: category.weight
-          });
-        });
-      });
-      
-      setQuestions(allQuestions);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error loading questions:', error);
-      setLoading(false);
-    }
-  };
-
-  const loadAssessmentHistory = () => {
-    try {
-      const history = localStorage.getItem('biosecurity_history');
-      if (history) {
-        setAssessmentHistory(JSON.parse(history));
-      }
-    } catch (error) {
-      console.error('Error loading assessment history:', error);
-    }
-  };
-
-  const saveAssessmentToStorage = () => {
-    try {
-      if (currentAssessment) {
-        localStorage.setItem('biosecurity_draft', JSON.stringify({
-          assessment: currentAssessment,
-          answers: answers,
-          currentQuestionIndex: currentQuestionIndex
-        }));
-      }
-    } catch (error) {
-      console.error('Error saving assessment:', error);
-    }
-  };
-
-  const loadDraftAssessment = () => {
-    try {
-      const draft = localStorage.getItem('biosecurity_draft');
-      if (draft) {
-        const data = JSON.parse(draft);
-        setCurrentAssessment(data.assessment);
-        setAnswers(data.answers);
-        setCurrentQuestionIndex(data.currentQuestionIndex);
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.error('Error loading draft:', error);
-      return false;
-    }
-  };
-
-  const startNewAssessment = () => {
-    const assessment = {
-      id: generateAssessmentId(),
-      started_at: new Date().toISOString(),
-      status: 'in_progress',
-      farm_name: '',
-      assessor_name: ''
-    };
-    
+  // Start new assessment
+  const startAssessment = () => {
+    const assessment = startNewAssessment(language);
     setCurrentAssessment(assessment);
-    setAnswers([]);
-    setCurrentQuestionIndex(0);
-    localStorage.removeItem('biosecurity_draft');
+    return assessment;
   };
 
-  const saveAnswer = (questionId, answerValue, notes = '', photos = []) => {
-    const question = questions.find(q => q.id === questionId);
-    if (!question) return;
-
-    let answerScore = 0;
-    if (question.type === 'single_select') {
-      const option = question.options.find(opt => opt.value === answerValue);
-      answerScore = option ? option.score : 0;
-    } else if (question.type === 'multi_select') {
-      const selectedValues = Array.isArray(answerValue) ? answerValue : [answerValue];
-      const scores = selectedValues.map(val => {
-        const option = question.options.find(opt => opt.value === val);
-        return option ? option.score : 0;
-      });
-      answerScore = scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
-    }
-
-    const newAnswer = {
-      question_id: questionId,
-      category: question.category,
-      question_text: question.text,
-      answer_value: answerValue,
-      answer_score: answerScore,
-      notes: notes,
-      photo_urls: photos,
-      answered_at: new Date().toISOString()
-    };
-
-    setAnswers(prev => {
-      const filtered = prev.filter(a => a.question_id !== questionId);
-      return [...filtered, newAnswer];
-    });
+  // Save answer
+  const saveAnswer = (focusArea, questionId, answer) => {
+    saveAnswerToStorage(focusArea, questionId, answer);
+    // Reload assessment from storage
+    setCurrentAssessment(getCurrentAssessment());
   };
 
-  const getAnswer = (questionId) => {
-    return answers.find(a => a.question_id === questionId);
+  // Complete focus area
+  const completeFocusArea = (focusArea) => {
+    const assessment = getCurrentAssessment();
+    if (!assessment) return;
+
+    const answers = assessment.focus_areas[focusArea]?.answers || {};
+    const score = calculateFocusAreaScore(focusArea, answers, language, farmType);
+
+    completeFocusAreaInStorage(focusArea, score);
+    setCurrentAssessment(getCurrentAssessment());
+
+    return score;
   };
 
-  const getCurrentQuestion = () => {
-    return questions[currentQuestionIndex];
-  };
-
-  const goToNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(prev => prev + 1);
-    }
-  };
-
-  const goToPreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(prev => prev - 1);
-    }
-  };
-
-  const goToQuestion = (index) => {
-    if (index >= 0 && index < questions.length) {
-      setCurrentQuestionIndex(index);
-    }
-  };
-
+  // Complete entire assessment
   const completeAssessment = () => {
-    const results = calculateScore(answers, questions);
-    const diseaseRisks = assessDiseaseRisks(answers);
-    const diseaseRiskSummary = getDiseaseRiskSummary(diseaseRisks);
-    const recommendations = generateRecommendations(answers, results.category_scores);
+    const assessment = getCurrentAssessment();
+    if (!assessment) return;
 
-    const completedAssessment = {
-      ...currentAssessment,
-      status: 'completed',
-      completed_at: new Date().toISOString(),
-      answers: answers,
-      results: results,
-      disease_risks: diseaseRisks,
-      disease_risk_summary: diseaseRiskSummary,
-      recommendations: recommendations,
-      total_questions: questions.length,
-      answered_questions: answers.length
-    };
+    const overallScore = calculateOverallScore(assessment, language);
+    const externalScore = calculateExternalScore(assessment, language);
+    const internalScore = calculateInternalScore(assessment, language);
 
-    const history = [...assessmentHistory, completedAssessment];
-    setAssessmentHistory(history);
-    localStorage.setItem('biosecurity_history', JSON.stringify(history));
-    localStorage.removeItem('biosecurity_draft');
+    // Calculate disease risks
+    const risks = getAllDiseaseRisks(assessment, language);
+    setDiseaseRisks(risks);
 
-    return completedAssessment;
-  };
+    // Calculate priority recommendations
+    const recommendations = getPriorityRecommendations(assessment, language);
+    setPriorityRecommendations(recommendations);
 
-  const getAssessmentById = (id) => {
-    return assessmentHistory.find(a => a.id === id);
-  };
+    const completed = completeAssessmentInStorage(overallScore, externalScore, internalScore);
+    setCurrentAssessment(completed);
 
-  const deleteAssessment = (id) => {
-    const filtered = assessmentHistory.filter(a => a.id !== id);
-    setAssessmentHistory(filtered);
-    localStorage.setItem('biosecurity_history', JSON.stringify(filtered));
-  };
-
-  const getProgress = () => {
-    const totalQuestions = questions.length;
-    const answeredQuestions = answers.length;
     return {
-      total: totalQuestions,
-      answered: answeredQuestions,
-      percentage: totalQuestions > 0 ? (answeredQuestions / totalQuestions) * 100 : 0,
-      current: currentQuestionIndex + 1
+      overall: overallScore,
+      external: externalScore,
+      internal: internalScore,
+      interpretation: getScoreInterpretation(overallScore, language),
+      diseaseRisks: risks,
+      priorityRecommendations: recommendations
     };
   };
 
-  const getCategoryProgress = () => {
-    const categoryProgress = {};
-    
-    questions.forEach(q => {
-      if (!categoryProgress[q.category]) {
-        categoryProgress[q.category] = {
-          name: q.categoryName,
-          total: 0,
-          answered: 0
-        };
-      }
-      categoryProgress[q.category].total++;
-    });
+  // Reset assessment
+  const resetAssessment = () => {
+    clearCurrentAssessment();
+    setCurrentAssessment(null);
+  };
 
-    answers.forEach(a => {
-      if (categoryProgress[a.category]) {
-        categoryProgress[a.category].answered++;
-      }
-    });
+  // Get current focus area progress
+  const getFocusAreaProgress = (focusArea) => {
+    if (!currentAssessment) return { answered: 0, total: 0, percentage: 0 };
 
-    return categoryProgress;
+    const answers = currentAssessment.focus_areas[focusArea]?.answers || {};
+    const answered = Object.keys(answers).length;
+
+    // TODO: Calculate total based on conditional logic
+    // For now, use a rough estimate
+    const totalEstimates = { 1: 44, 2: 29, 3: 23, 4: 20 };
+    const total = totalEstimates[focusArea] || 0;
+
+    return {
+      answered,
+      total,
+      percentage: total > 0 ? Math.round((answered / total) * 100) : 0
+    };
+  };
+
+  // Check if assessment is complete
+  const isComplete = () => {
+    if (!currentAssessment) return false;
+    return Object.values(currentAssessment.focus_areas).every(fa => fa.completed);
+  };
+
+  // Get disease risks (calculated on assessment completion)
+  const getDiseaseRisks = () => {
+    if (Object.keys(diseaseRisks).length === 0 && currentAssessment) {
+      // Calculate on-demand if not already calculated
+      const risks = getAllDiseaseRisks(currentAssessment, language);
+      setDiseaseRisks(risks);
+      return risks;
+    }
+    return diseaseRisks;
+  };
+
+  // Get priority recommendations (calculated on assessment completion)
+  const getPriorityRecommendationsData = () => {
+    if (!priorityRecommendations && currentAssessment) {
+      // Calculate on-demand if not already calculated
+      const recommendations = getPriorityRecommendations(currentAssessment, language);
+      setPriorityRecommendations(recommendations);
+      return recommendations;
+    }
+    return priorityRecommendations;
+  };
+
+  // Get high priority items count
+  const getHighPriorityCount = () => {
+    if (!currentAssessment) return 0;
+    const highPriority = getHighPriorityRecommendations(currentAssessment, language);
+    return highPriority.length;
+  };
+
+  // Get critical items by priority level
+  const getCriticalItems = (priority) => {
+    if (!currentAssessment) return [];
+    return getCriticalItemsByPriority(currentAssessment, priority, language);
   };
 
   const value = {
-    questions,
+    language,
+    farmProfile,
+    setFarmProfile,
+    farmType,
     currentAssessment,
-    answers,
-    currentQuestionIndex,
-    loading,
-    assessmentHistory,
-    startNewAssessment,
+    startAssessment,
     saveAnswer,
-    getAnswer,
-    getCurrentQuestion,
-    goToNextQuestion,
-    goToPreviousQuestion,
-    goToQuestion,
+    completeFocusArea,
     completeAssessment,
-    getAssessmentById,
-    deleteAssessment,
-    loadDraftAssessment,
-    getProgress,
-    getCategoryProgress
+    resetAssessment,
+    getFocusAreaProgress,
+    isComplete,
+    loading,
+    // Enhanced risk assessment features
+    diseaseRisks,
+    getDiseaseRisks,
+    priorityRecommendations,
+    getPriorityRecommendationsData,
+    getHighPriorityCount,
+    getCriticalItems
   };
 
   return (
@@ -273,6 +213,4 @@ export function BiosecurityProvider({ children }) {
   );
 }
 
-function generateAssessmentId() {
-  return `BSC-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-}
+export default BiosecurityContext;

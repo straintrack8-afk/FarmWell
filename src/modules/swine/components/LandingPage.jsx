@@ -2,6 +2,7 @@ import React from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { STEPS } from '../utils/constants';
 import Button from './common/Button';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import {
     Stethoscope,
     Database,
@@ -15,6 +16,7 @@ import {
 
 export default function LandingPage() {
     const { setStep, allDiseases, isOffline } = useDiagnosis();
+    const { language } = useLanguage();
 
     const handleStart = () => {
         setStep(STEPS.AGE);
@@ -87,6 +89,19 @@ export default function LandingPage() {
 
                         {/* Status badge */}
                         <div className="flex items-center justify-center gap-4 mb-8">
+                            <div style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                padding: '0.5rem 1rem',
+                                background: '#f3f4f6',
+                                borderRadius: '9999px',
+                                fontSize: '0.875rem',
+                                fontWeight: '600',
+                                color: '#374151',
+                                border: '1px solid #e5e7eb'
+                            }}>
+                                {language.toUpperCase()}
+                            </div>
                             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full shadow-sm border ${isOffline
                                 ? 'bg-amber-50 border-amber-200 text-amber-700'
                                 : 'bg-green-50 border-green-200 text-green-700'

@@ -42,7 +42,7 @@ function SymptomsPage() {
 
     // Redirect if no age selected
     if (!selectedAge) {
-        navigate('../age');
+        navigate('/swine/diagnosis/age');
         return null;
     }
 
@@ -55,7 +55,7 @@ function SymptomsPage() {
     };
 
     const handleShowResults = () => {
-        navigate('../results');
+        navigate('/swine/diagnosis/results');
     };
 
     // Filter symptoms by search term
@@ -213,7 +213,7 @@ function SymptomsPage() {
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button
                             className="btn btn-secondary"
-                            onClick={() => navigate('../age')}
+                            onClick={() => navigate('/swine/diagnosis/age')}
                         >
                             ← Change Age
                         </button>

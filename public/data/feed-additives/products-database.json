@@ -1,0 +1,280 @@
+{
+  "database_info": {
+    "name": "UAH Products Database",
+    "version": "1.0",
+    "last_updated": "2026-02-03",
+    "manufacturer": "United Animal Health, Inc.",
+    "distributor_vietnam": "Vaksindo Vietnam Animal Health Co., Ltd.",
+    "currency": "VND",
+    "base_price_per_kg": 3640000
+  },
+
+  "products": [
+    {
+      "id": "novela_ecl",
+      "name": "Novela ECL",
+      "product_code": "91681",
+      "category": "probiotic",
+      "target_species": ["poultry"],
+      "target_animals": ["broiler", "layer", "broiler_breeder", "layer_breeder"],
+      "application": {
+        "method": "feed",
+        "dosage": {
+          "amount": 100,
+          "unit": "g",
+          "per": "ton",
+          "basis": "complete_feed"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Controls E. coli (95% inhibition)",
+          "Controls Clostridium perfringens (97% inhibition)",
+          "Reduces mortality by 50%",
+          "Improves FCR by 3-5 points"
+        ]
+      },
+      "price_per_kg_vnd": 3640000,
+      "popular": true
+    },
+    {
+      "id": "novela_ecl_plus",
+      "name": "Novela ECL+",
+      "product_code": "91682",
+      "category": "probiotic",
+      "target_species": ["poultry"],
+      "target_animals": ["broiler", "layer"],
+      "application": {
+        "method": "water",
+        "dosage": {
+          "amount": 50,
+          "unit": "g",
+          "per": 1000,
+          "per_unit": "L",
+          "basis": "drinking_water"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Fast-acting water application",
+          "Controls E. coli and Clostridium",
+          "Reduces mortality",
+          "Easy to administer"
+        ]
+      },
+      "price_per_kg_vnd": 3640000
+    },
+    {
+      "id": "novela_100",
+      "name": "Novela 100",
+      "product_code": "91683",
+      "category": "probiotic",
+      "target_species": ["poultry"],
+      "target_animals": ["broiler", "layer", "broiler_breeder", "layer_breeder"],
+      "application": {
+        "method": "feed",
+        "dosage": {
+          "amount": 100,
+          "unit": "g",
+          "per": "ton",
+          "basis": "complete_feed"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Broad-spectrum probiotic",
+          "Improves gut health",
+          "Enhances feed efficiency",
+          "Supports immune system"
+        ]
+      },
+      "price_per_kg_vnd": 3640000
+    },
+    {
+      "id": "amnil_conc",
+      "name": "Amnil Conc",
+      "product_code": "91684",
+      "category": "environmental_health",
+      "target_species": ["poultry", "swine"],
+      "target_animals": ["broiler", "layer", "all_breeders", "nursery", "grower", "finisher", "sow", "boar"],
+      "application": {
+        "method": "feed",
+        "dosage": {
+          "amount": 50,
+          "unit": "g",
+          "per": "ton",
+          "basis": "complete_feed"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Reduces ammonia by 50%",
+          "Reduces H2S by 70%",
+          "Improves air quality",
+          "Better footpad health",
+          "Reduces fly populations"
+        ]
+      },
+      "price_per_kg_vnd": 3640000,
+      "popular": true
+    },
+    {
+      "id": "provent_ecl",
+      "name": "ProVent ECL",
+      "product_code": "91685",
+      "category": "probiotic",
+      "target_species": ["swine"],
+      "target_animals": ["nursery", "grower", "finisher", "sow", "boar"],
+      "application": {
+        "method": "feed",
+        "dosage": {
+          "amount": 500,
+          "unit": "g",
+          "per": "ton",
+          "basis": "complete_feed"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Controls E. coli in swine",
+          "Reduces scours",
+          "Improves growth rate",
+          "Better feed conversion"
+        ]
+      },
+      "price_per_kg_vnd": 3640000,
+      "popular": true
+    },
+    {
+      "id": "provent_ecl_plus",
+      "name": "ProVent ECL+",
+      "product_code": "91686",
+      "category": "probiotic",
+      "target_species": ["swine"],
+      "target_animals": ["nursery", "grower", "finisher"],
+      "application": {
+        "method": "water",
+        "dosage": {
+          "amount": 50,
+          "unit": "g",
+          "per": 128,
+          "per_unit": "L",
+          "basis": "drinking_water"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Fast-acting water application",
+          "Controls E. coli",
+          "Easy to administer",
+          "Reduces mortality"
+        ]
+      },
+      "price_per_kg_vnd": 3640000
+    },
+    {
+      "id": "visano_100",
+      "name": "Visano 100",
+      "product_code": "91687",
+      "category": "probiotic",
+      "target_species": ["swine"],
+      "target_animals": ["nursery", "grower", "finisher", "sow", "boar"],
+      "application": {
+        "method": "feed",
+        "dosage": {
+          "amount": 100,
+          "unit": "g",
+          "per": "ton",
+          "basis": "complete_feed"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Broad-spectrum probiotic for swine",
+          "Improves gut health",
+          "Better feed efficiency",
+          "Supports immune function"
+        ]
+      },
+      "price_per_kg_vnd": 3640000
+    },
+    {
+      "id": "enspira_plus",
+      "name": "Enspira+",
+      "product_code": "91688",
+      "category": "enzyme",
+      "target_species": ["poultry"],
+      "target_animals": ["broiler", "layer", "all_breeders"],
+      "application": {
+        "method": "feed",
+        "dosage": {
+          "amount": 100,
+          "unit": "g",
+          "per": "ton",
+          "basis": "complete_feed"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Improves nutrient digestibility",
+          "Better feed conversion",
+          "Reduces feed cost",
+          "Enhances performance"
+        ]
+      },
+      "price_per_kg_vnd": 3640000
+    },
+    {
+      "id": "enspira_phytase",
+      "name": "Enspira + Phytase 100",
+      "product_code": "91689",
+      "category": "enzyme",
+      "target_species": ["poultry"],
+      "target_animals": ["broiler", "layer", "all_breeders"],
+      "application": {
+        "method": "feed",
+        "dosage": {
+          "amount": 100,
+          "unit": "g",
+          "per": "ton",
+          "basis": "complete_feed"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Releases bound phosphorus",
+          "Improves mineral absorption",
+          "Better bone development",
+          "Reduces feed cost"
+        ]
+      },
+      "price_per_kg_vnd": 3640000
+    },
+    {
+      "id": "m_mobilize",
+      "name": "M-Mobilize",
+      "product_code": "91690",
+      "category": "enzyme",
+      "target_species": ["poultry", "swine"],
+      "target_animals": ["broiler", "layer", "all_breeders", "nursery", "grower", "finisher"],
+      "application": {
+        "method": "feed",
+        "dosage": {
+          "amount": 500,
+          "unit": "g",
+          "per": "ton",
+          "basis": "complete_feed"
+        }
+      },
+      "benefits": {
+        "primary": [
+          "Multi-enzyme complex",
+          "Improves feed efficiency",
+          "Better nutrient utilization",
+          "Cost-effective solution"
+        ]
+      },
+      "price_per_kg_vnd": 3640000
+    }
+  ]
+}

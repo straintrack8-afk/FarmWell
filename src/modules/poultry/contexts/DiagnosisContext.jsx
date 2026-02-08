@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
 import { STEPS, STORAGE_KEYS } from '../utils/constants';
 import { filterDiseases, countMatchingDiseases, filterByAge } from '../utils/filterDiseases';
+import { useLanguage } from '../../../contexts/LanguageContext';
 
 // Initial state
 const initialState = {
@@ -120,12 +121,26 @@ const DiagnosisContext = createContext(null);
 
 // Provider component
 export function DiagnosisProvider({ children }) {
-    const [state, dispatch] = useReducer(diagnosisReducer, initialState);
+    // Detect initial step from URL
+    const getInitialStep = () => {
+        const path = window.location.pathname;
+        if (path.includes('/age')) return STEPS.AGE;
+        if (path.includes('/symptoms')) return STEPS.SYMPTOMS;
+        if (path.includes('/results')) return STEPS.RESULTS;
+        return STEPS.LANDING;
+    };
 
-    // Load data on mount
+    const [state, dispatch] = useReducer(diagnosisReducer, {
+        ...initialState,
+        step: getInitialStep()
+    });
+
+    const { language } = useLanguage();
+
+    // Load data on mount and when language changes
     useEffect(() => {
-        loadData();
-    }, []);
+        loadData(language);
+    }, [language]);
 
     // Check online status
     useEffect(() => {
@@ -142,29 +157,48 @@ export function DiagnosisProvider({ children }) {
         };
     }, []);
 
-    const loadData = async () => {
+    const loadData = async (lang = 'en') => {
         dispatch({ type: ACTIONS.SET_LOADING, payload: true });
 
         try {
+            // Determine file path based on language
+            const fileName = lang === 'en' ? 'diseases.json' : `diseases_${lang}.json`;
+            const filePath = `/data/poultry/${fileName}`;
+
             // Try to load from network first
-            const response = await fetch('/data/poultry/diseases.json');
+            let response = await fetch(filePath);
+
+            // If language-specific file not found, fallback to English
+            if (!response.ok && lang !== 'en') {
+                console.warn(`Language file not found for ${lang}, falling back to English`);
+                response = await fetch('/data/poultry/diseases.json');
+            }
+
             if (!response.ok) throw new Error('Failed to fetch diseases');
 
             const data = await response.json();
 
-            // Cache in localStorage for offline use
+            // Cache in localStorage for offline use (language-specific cache)
             try {
-                localStorage.setItem(STORAGE_KEYS.DISEASES, JSON.stringify(data));
-                localStorage.setItem(STORAGE_KEYS.LAST_UPDATED, new Date().toISOString());
+                const cacheKey = `${STORAGE_KEYS.DISEASES}_${lang}`;
+                localStorage.setItem(cacheKey, JSON.stringify(data));
+                localStorage.setItem(`${STORAGE_KEYS.LAST_UPDATED}_${lang}`, new Date().toISOString());
             } catch (e) {
                 console.warn('Failed to cache data:', e);
             }
 
             dispatch({ type: ACTIONS.SET_DATA, payload: data });
         } catch (error) {
-            // Try to load from cache
+            // Try to load from cache (language-specific)
             try {
-                const cached = localStorage.getItem(STORAGE_KEYS.DISEASES);
+                const cacheKey = `${STORAGE_KEYS.DISEASES}_${lang}`;
+                let cached = localStorage.getItem(cacheKey);
+
+                // If no cache for this language, try English cache
+                if (!cached && lang !== 'en') {
+                    cached = localStorage.getItem(STORAGE_KEYS.DISEASES);
+                }
+
                 if (cached) {
                     const data = JSON.parse(cached);
                     dispatch({ type: ACTIONS.SET_DATA, payload: data });
@@ -207,7 +241,7 @@ export function DiagnosisProvider({ children }) {
     const goBack = useCallback(() => {
         switch (state.step) {
             case STEPS.AGE:
-                dispatch({ type: ACTIONS.SET_STEP, payload: STEPS.LANDING });
+                window.location.href = '/poultry';
                 break;
             case STEPS.SYMPTOMS:
                 dispatch({ type: ACTIONS.SET_STEP, payload: STEPS.AGE });
