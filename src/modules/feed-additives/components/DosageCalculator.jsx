@@ -7,10 +7,163 @@ const DosageCalculator = () => {
     const [showCustomProtocol, setShowCustomProtocol] = useState(false);
     const [showDailyDetails, setShowDailyDetails] = useState(false);
     const [showReferenceView, setShowReferenceView] = useState(false);
+
+    // Add print styles
+    React.useEffect(() => {
+        const style = document.createElement('style');
+        style.textContent = `
+            @media print {
+                /* Hide everything except results */
+                body * {
+                    visibility: hidden;
+                }
+                
+                /* Show only the print content */
+                .print-content, .print-content * {
+                    visibility: visible;
+                }
+                
+                .print-content {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                }
+                
+                /* Hide navigation, buttons, and non-essential elements */
+                .no-print,
+                button,
+                .step-indicator,
+                nav,
+                header,
+                .navigation-buttons {
+                    display: none !important;
+                }
+                
+                /* Print header */
+                .print-header {
+                    display: flex !important;
+                    align-items: center;
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 3px solid #667eea;
+                }
+                
+                .print-header img {
+                    width: 60px;
+                    height: 60px;
+                }
+                
+                .print-header h1 {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: #1f2937;
+                    margin: 0;
+                }
+                
+                .print-header p {
+                    font-size: 0.875rem;
+                    color: #6b7280;
+                    margin: 0;
+                }
+                
+                /* Page setup */
+                @page {
+                    size: A4;
+                    margin: 1.5cm;
+                }
+                
+                /* Ensure content fits */
+                .print-content {
+                    max-width: 100%;
+                    font-size: 10pt;
+                }
+                
+                /* Table styling for print */
+                table {
+                    page-break-inside: auto;
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+                
+                tr {
+                    page-break-inside: avoid;
+                    page-break-after: auto;
+                }
+                
+                thead {
+                    display: table-header-group;
+                }
+                
+                /* Avoid breaking these elements */
+                .period-breakdown,
+                .total-investment,
+                .expected-benefits {
+                    page-break-inside: avoid;
+                }
+                
+                /* Remove backgrounds and use borders for print */
+                * {
+                    background: white !important;
+                    color: black !important;
+                }
+                
+                .calculation-summary {
+                    border: 2px solid #333 !important;
+                    padding: 1rem !important;
+                    margin-bottom: 1rem !important;
+                }
+                
+                .total-investment {
+                    border: 3px solid #333 !important;
+                    padding: 1rem !important;
+                    margin: 1rem 0 !important;
+                }
+                
+                /* Print-specific spacing */
+                h2, h3, h4 {
+                    margin-top: 1rem;
+                    margin-bottom: 0.5rem;
+                    color: #000 !important;
+                }
+                
+                /* Daily details table */
+                .daily-details-table {
+                    font-size: 8pt;
+                    margin-top: 0.5rem;
+                }
+                
+                .daily-details-table th {
+                    background: #f3f4f6 !important;
+                    border: 1px solid #000 !important;
+                    padding: 0.25rem !important;
+                    font-weight: 700;
+                }
+                
+                .daily-details-table td {
+                    border: 1px solid #ccc !important;
+                    padding: 0.25rem !important;
+                }
+            }
+            
+            /* Hide print header on screen */
+            .print-header {
+                display: none;
+            }
+        `;
+        document.head.appendChild(style);
+        return () => document.head.removeChild(style);
+    }, []);
     const [referenceSelection, setReferenceSelection] = useState({
         animalType: '',
         productionCategory: '',
         specificCategory: ''
+    });
+    const [inquiryData, setInquiryData] = useState({
+        name: '',
+        email: '',
+        phone: ''
     });
     const [calculationData, setCalculationData] = useState({
         // Step 1: Animal Selection
@@ -185,6 +338,7 @@ const DosageCalculator = () => {
         setShowCustomProtocol(false);
         setShowDailyDetails(false);
         setShowReferenceView(false);
+        setInquiryData({ name: '', email: '', phone: '' });
         setCalculationData({
             animalType: '',
             productionCategory: '',
@@ -200,6 +354,72 @@ const DosageCalculator = () => {
             protocolPeriods: [{ startDay: 1, endDay: 5 }],
             results: null
         });
+    };
+
+    const exportToExcel = () => {
+        if (!calculationData.results) return;
+
+        // Create CSV content
+        let csvContent = "Feed Additives Dosage Calculation Report\n\n";
+        
+        // Summary Information
+        csvContent += "SUMMARY INFORMATION\n";
+        csvContent += `Product,${calculationData.selectedProduct.name}\n`;
+        csvContent += `Animal Type,${calculationData.specificCategory}\n`;
+        csvContent += `Population,${calculationData.population}\n`;
+        csvContent += `Current Age,${calculationData.age} ${calculationData.ageUnit}\n`;
+        csvContent += `Total Treatment Days,${calculationData.results.totalDays}\n`;
+        csvContent += `Number of Periods,${calculationData.protocolPeriods.length}\n\n`;
+
+        // Period Details
+        csvContent += "PERIOD BREAKDOWN\n";
+        csvContent += "Period,Start Day,End Day,Days,Total Water (L),Total Feed (kg),Product Needed (g),Cost (VND)\n";
+        calculationData.results.periods.forEach((period, index) => {
+            csvContent += `${index + 1},${period.startDay},${period.endDay},${period.days},${period.totalWaterL},${period.totalFeedKg},${period.productNeeded},${period.cost}\n`;
+        });
+
+        // Total Investment
+        csvContent += "\nTOTAL INVESTMENT\n";
+        csvContent += `Total Product (kg),${(calculationData.results.totalProductGrams / 1000).toFixed(2)}\n`;
+        csvContent += `Total Cost (VND),${calculationData.results.totalCost}\n`;
+        csvContent += `Cost per Animal (VND),${Math.round(calculationData.results.costPerAnimal)}\n\n`;
+
+        // Inquiry Information (if filled)
+        if (inquiryData.name || inquiryData.email || inquiryData.phone) {
+            csvContent += "INQUIRY INFORMATION\n";
+            csvContent += `Name,${inquiryData.name}\n`;
+            csvContent += `Email,${inquiryData.email}\n`;
+            csvContent += `Phone,${inquiryData.phone}\n`;
+        }
+
+        // Create download link
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', `Feed_Additives_Calculation_${Date.now()}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const printPDF = () => {
+        // Auto-expand daily details for print
+        const wasShowingDetails = showDailyDetails;
+        if (!showDailyDetails) {
+            setShowDailyDetails(true);
+        }
+        
+        // Wait for state update, then print
+        setTimeout(() => {
+            window.print();
+            
+            // Restore original state after print dialog closes
+            if (!wasShowingDetails) {
+                setTimeout(() => setShowDailyDetails(false), 100);
+            }
+        }, 100);
     };
 
     const calculateResults = () => {
@@ -1527,18 +1747,30 @@ const DosageCalculator = () => {
 
                             {/* Results Display */}
                             {calculationData.results && (
-                                <div style={{
+                                <div className="print-content" style={{
                                     background: '#f0fdf4',
                                     border: '2px solid #86efac',
                                     borderRadius: '12px',
                                     padding: '2rem'
                                 }}>
+                                    {/* Print Header - Only visible when printing */}
+                                    <div className="print-header">
+                                        <img src="/images/FarmWell_Logo.png" alt="FarmWell" />
+                                        <div>
+                                            <h1>FEED ADDITIVES CALCULATOR</h1>
+                                            <p>Vaksindo Vietnam - United Animal Health Products</p>
+                                            <p style={{ marginTop: '0.5rem', fontSize: '0.75rem' }}>
+                                                Generated: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
+                                            </p>
+                                        </div>
+                                    </div>
+
                                     <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#166534' }}>
                                         📊 Calculation Results
                                     </h3>
 
                                     {/* Summary */}
-                                    <div style={{
+                                    <div className="calculation-summary" style={{
                                         background: 'white',
                                         padding: '1.5rem',
                                         borderRadius: '8px',
@@ -1577,7 +1809,7 @@ const DosageCalculator = () => {
                                         Period Breakdown:
                                     </h4>
                                     {calculationData.results.periods.map((period, index) => (
-                                        <div key={index} style={{
+                                        <div key={index} className="period-breakdown" style={{
                                             background: 'white',
                                             padding: '1rem',
                                             borderRadius: '8px',
@@ -1600,7 +1832,7 @@ const DosageCalculator = () => {
                                     ))}
 
                                     {/* Total Investment */}
-                                    <div style={{
+                                    <div className="total-investment" style={{
                                         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                         color: 'white',
                                         padding: '1.5rem',
@@ -1633,7 +1865,7 @@ const DosageCalculator = () => {
                                     </div>
 
                                     {/* Expected Benefits */}
-                                    <div style={{
+                                    <div className="expected-benefits" style={{
                                         background: 'white',
                                         padding: '1.5rem',
                                         borderRadius: '8px',
@@ -1702,7 +1934,7 @@ const DosageCalculator = () => {
                                                         </div>
                                                         
                                                         <div style={{ overflowX: 'auto' }}>
-                                                            <table style={{
+                                                            <table className="daily-details-table" style={{
                                                                 width: '100%',
                                                                 background: 'white',
                                                                 borderCollapse: 'collapse',
@@ -1757,13 +1989,160 @@ const DosageCalculator = () => {
                                             </div>
                                         )}
                                     </div>
+
+                                    {/* Export Buttons */}
+                                    <div className="no-print" style={{
+                                        display: 'flex',
+                                        gap: '1rem',
+                                        marginTop: '2rem',
+                                        justifyContent: 'center'
+                                    }}>
+                                        <button
+                                            onClick={exportToExcel}
+                                            style={{
+                                                padding: '0.75rem 2rem',
+                                                background: '#10b981',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '8px',
+                                                cursor: 'pointer',
+                                                fontSize: '1rem',
+                                                fontWeight: '600',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem'
+                                            }}
+                                        >
+                                            📊 Export to Excel
+                                        </button>
+                                        <button
+                                            onClick={printPDF}
+                                            style={{
+                                                padding: '0.75rem 2rem',
+                                                background: '#ef4444',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '8px',
+                                                cursor: 'pointer',
+                                                fontSize: '1rem',
+                                                fontWeight: '600',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem'
+                                            }}
+                                        >
+                                            🖨️ Print PDF
+                                        </button>
+                                    </div>
+
+                                    {/* Request for Inquiry Form */}
+                                    <div className="no-print" style={{
+                                        background: '#f0f9ff',
+                                        border: '2px solid #0ea5e9',
+                                        borderRadius: '12px',
+                                        padding: '2rem',
+                                        marginTop: '2rem'
+                                    }}>
+                                        <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#0369a1' }}>
+                                            📧 Request for Inquiry
+                                        </h4>
+                                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+                                            Interested in this product? Fill in your contact information and our team will reach out to you.
+                                        </p>
+                                        
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+                                            <div>
+                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+                                                    Name *
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={inquiryData.name}
+                                                    onChange={(e) => setInquiryData(prev => ({ ...prev, name: e.target.value }))}
+                                                    placeholder="Enter your name"
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '0.75rem',
+                                                        border: '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        fontSize: '1rem'
+                                                    }}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+                                                    Email *
+                                                </label>
+                                                <input
+                                                    type="email"
+                                                    value={inquiryData.email}
+                                                    onChange={(e) => setInquiryData(prev => ({ ...prev, email: e.target.value }))}
+                                                    placeholder="Enter your email"
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '0.75rem',
+                                                        border: '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        fontSize: '1rem'
+                                                    }}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+                                                    Phone Number *
+                                                </label>
+                                                <input
+                                                    type="tel"
+                                                    value={inquiryData.phone}
+                                                    onChange={(e) => setInquiryData(prev => ({ ...prev, phone: e.target.value }))}
+                                                    placeholder="Enter your phone number"
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '0.75rem',
+                                                        border: '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        fontSize: '1rem'
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                        
+                                        <button
+                                            onClick={() => {
+                                                if (inquiryData.name && inquiryData.email && inquiryData.phone) {
+                                                    alert('Thank you for your inquiry! Our team will contact you soon.');
+                                                    // TODO: Implement actual inquiry submission logic here
+                                                } else {
+                                                    alert('Please fill in all required fields.');
+                                                }
+                                            }}
+                                            style={{
+                                                marginTop: '1.5rem',
+                                                padding: '0.75rem 2rem',
+                                                background: '#0ea5e9',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '8px',
+                                                cursor: 'pointer',
+                                                fontSize: '1rem',
+                                                fontWeight: '600',
+                                                width: '100%'
+                                            }}
+                                        >
+                                            Submit Inquiry
+                                        </button>
+                                        
+                                        <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '1rem', fontStyle: 'italic' }}>
+                                            * All fields are required. Your information will be kept confidential.
+                                        </p>
+                                    </div>
                                 </div>
                             )}
                         </div>
                     )}
 
                     {/* Navigation Buttons */}
-                    <div style={{ 
+                    <div className="navigation-buttons" style={{ 
                         display: 'flex', 
                         justifyContent: 'space-between', 
                         marginTop: '2rem',
