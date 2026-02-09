@@ -20,7 +20,7 @@ const WelcomePage = () => {
             id: 'feed-additives',
             title: t('welcome.feedAdditivesModule'),
             description: t('welcome.feedAdditivesDescription'),
-            icon: '/images/PoultryWell_Logo.png',
+            icon: '/images/feed_additives_logo.png',
             color: 'purple',
             path: '/feed-additives'
         },

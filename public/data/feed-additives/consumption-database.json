@@ -1,9 +1,9 @@
 {
   "database_info": {
     "name": "Animal Consumption Reference Database",
-    "version": "1.0",
-    "last_updated": "2026-02-03",
-    "purpose": "Reference data for water and feed consumption calculations in dosage calculator",
+    "version": "2.0",
+    "last_updated": "2026-02-09",
+    "purpose": "Complete reference data for water and feed consumption calculations with interpolation support",
     "units": {
       "water": "ml/animal/day or L/animal/day",
       "feed": "g/animal/day or kg/animal/day",
@@ -29,7 +29,7 @@
       "feed_formula": {
         "formula": "water / 1.77",
         "ratio": "water:feed = 1.77:1",
-        "unit": "ml/bird/day"
+        "unit": "g/bird/day"
       },
       "age_range": {
         "min_days": 1,
@@ -42,7 +42,7 @@
       }
     },
     "layer": {
-      "calculation_method": "table",
+      "calculation_method": "table_with_interpolation",
       "data_by_week": [
         { "week": 1, "water_ml": 30, "feed_g": 15 },
         { "week": 2, "water_ml": 50, "feed_g": 25 },
@@ -50,46 +50,166 @@
         { "week": 4, "water_ml": 90, "feed_g": 45 },
         { "week": 5, "water_ml": 110, "feed_g": 55 },
         { "week": 6, "water_ml": 130, "feed_g": 65 },
+        { "week": 7, "water_ml": 145, "feed_g": 72 },
+        { "week": 8, "water_ml": 155, "feed_g": 78 },
+        { "week": 9, "water_ml": 165, "feed_g": 83 },
+        { "week": 10, "water_ml": 175, "feed_g": 87 },
+        { "week": 11, "water_ml": 180, "feed_g": 91 },
+        { "week": 12, "water_ml": 185, "feed_g": 93 },
+        { "week": 13, "water_ml": 190, "feed_g": 95 },
+        { "week": 14, "water_ml": 195, "feed_g": 98 },
+        { "week": 15, "water_ml": 200, "feed_g": 100 },
+        { "week": 16, "water_ml": 205, "feed_g": 103 },
+        { "week": 17, "water_ml": 210, "feed_g": 105 },
         { "week": 18, "water_ml": 220, "feed_g": 110 },
+        { "week": 19, "water_ml": 225, "feed_g": 112 },
+        { "week": 20, "water_ml": 230, "feed_g": 113 },
+        { "week": 22, "water_ml": 235, "feed_g": 114 },
+        { "week": 24, "water_ml": 240, "feed_g": 114 },
+        { "week": 26, "water_ml": 242, "feed_g": 114 },
+        { "week": 28, "water_ml": 244, "feed_g": 115 },
+        { "week": 30, "water_ml": 246, "feed_g": 115 },
+        { "week": 35, "water_ml": 248, "feed_g": 115 },
         { "week": 40, "water_ml": 250, "feed_g": 115 },
+        { "week": 45, "water_ml": 252, "feed_g": 115 },
+        { "week": 50, "water_ml": 255, "feed_g": 115 },
+        { "week": 55, "water_ml": 257, "feed_g": 115 },
         { "week": 60, "water_ml": 260, "feed_g": 115 },
+        { "week": 65, "water_ml": 260, "feed_g": 113 },
+        { "week": 70, "water_ml": 260, "feed_g": 112 },
+        { "week": 75, "water_ml": 260, "feed_g": 111 },
         { "week": 80, "water_ml": 260, "feed_g": 110 }
       ],
-      "source": "Hy-Line International Management Guide"
+      "source": "Hy-Line International Management Guide",
+      "note": "Use linear interpolation for weeks not in table"
+    },
+    "color_chicken": {
+      "calculation_method": "formula_with_adjustment",
+      "base": "broiler",
+      "adjustment_factor": 0.70,
+      "water_formula": "5.28 * age_days * 0.70",
+      "feed_formula": "water / 1.77",
+      "note": "Native/village chicken, 70% of broiler consumption"
+    }
+  },
+
+  "poultry_breeding": {
+    "layer_breeder": {
+      "calculation_method": "phase_based",
+      "phases": {
+        "growing": {
+          "age_weeks_end": 20,
+          "method": "use_layer_data",
+          "note": "Use commercial layer data for growing phase"
+        },
+        "production": {
+          "age_weeks_start": 21,
+          "water_ml": 280,
+          "feed_g": 160,
+          "note": "Higher consumption due to breeding requirements"
+        }
+      },
+      "source": "Hy-Line W-80 Breeder Guide"
+    },
+    "broiler_breeder": {
+      "calculation_method": "phase_based",
+      "phases": {
+        "growing": {
+          "age_weeks_end": 20,
+          "method": "use_layer_data",
+          "note": "Use commercial layer data for growing phase"
+        },
+        "production": {
+          "age_weeks_start": 21,
+          "water_ml": 300,
+          "feed_g": 170,
+          "note": "Feed restriction crucial, adjust by body weight"
+        }
+      },
+      "source": "Cobb 500 Broiler Breeder Management Guide"
+    },
+    "color_breeder": {
+      "calculation_method": "phase_based_with_adjustment",
+      "phases": {
+        "growing": {
+          "age_weeks_end": 20,
+          "method": "use_layer_data_adjusted",
+          "adjustment_factor": 0.85,
+          "note": "85% of commercial layer data for growing phase"
+        },
+        "production": {
+          "age_weeks_start": 21,
+          "water_ml": 250,
+          "feed_g": 140,
+          "note": "Brown egg production, moderate consumption"
+        }
+      },
+      "source": "ISA Brown Commercial Management Guide"
     }
   },
 
   "swine_commercial": {
     "nursery": {
+      "calculation_method": "weight_based_with_interpolation",
       "weight_range_kg": { "min": 5, "max": 27 },
       "data_by_weight": [
-        { "weight_kg": 5, "water_L": 0.5, "feed_kg": 0.25 },
-        { "weight_kg": 10, "water_L": 1.0, "feed_kg": 0.50 },
-        { "weight_kg": 15, "water_L": 1.5, "feed_kg": 0.75 },
-        { "weight_kg": 20, "water_L": 2.0, "feed_kg": 1.00 },
-        { "weight_kg": 27, "water_L": 2.5, "feed_kg": 1.25 }
+        { "weight_kg": 5, "water_L": 0.50, "feed_kg": 0.20 },
+        { "weight_kg": 10, "water_L": 1.10, "feed_kg": 0.45 },
+        { "weight_kg": 15, "water_L": 1.70, "feed_kg": 0.70 },
+        { "weight_kg": 20, "water_L": 2.30, "feed_kg": 0.95 },
+        { "weight_kg": 25, "water_L": 2.80, "feed_kg": 1.15 },
+        { "weight_kg": 27, "water_L": 3.00, "feed_kg": 1.25 }
       ],
-      "source": "NRC Swine Nutrition Standards"
+      "source": "NRC Nutrient Requirements of Swine, 11th Edition"
     },
     "grower": {
+      "calculation_method": "weight_based_with_interpolation",
       "weight_range_kg": { "min": 27, "max": 60 },
       "data_by_weight": [
-        { "weight_kg": 30, "water_L": 3.0, "feed_kg": 1.5 },
-        { "weight_kg": 40, "water_L": 4.0, "feed_kg": 2.0 },
-        { "weight_kg": 50, "water_L": 5.0, "feed_kg": 2.5 },
-        { "weight_kg": 60, "water_L": 6.0, "feed_kg": 2.8 }
+        { "weight_kg": 30, "water_L": 3.30, "feed_kg": 1.35 },
+        { "weight_kg": 40, "water_L": 4.40, "feed_kg": 1.80 },
+        { "weight_kg": 50, "water_L": 5.30, "feed_kg": 2.20 },
+        { "weight_kg": 60, "water_L": 6.20, "feed_kg": 2.55 }
       ],
-      "source": "NRC Swine Nutrition Standards"
+      "source": "NRC Nutrient Requirements of Swine, 11th Edition"
     },
     "finisher": {
+      "calculation_method": "weight_based_with_interpolation",
       "weight_range_kg": { "min": 60, "max": 120 },
       "data_by_weight": [
-        { "weight_kg": 60, "water_L": 6.0, "feed_kg": 2.8 },
-        { "weight_kg": 80, "water_L": 7.5, "feed_kg": 3.2 },
-        { "weight_kg": 100, "water_L": 8.5, "feed_kg": 3.5 },
-        { "weight_kg": 120, "water_L": 9.0, "feed_kg": 3.6 }
+        { "weight_kg": 60, "water_L": 6.20, "feed_kg": 2.55 },
+        { "weight_kg": 70, "water_L": 6.80, "feed_kg": 2.80 },
+        { "weight_kg": 80, "water_L": 7.30, "feed_kg": 3.00 },
+        { "weight_kg": 90, "water_L": 7.60, "feed_kg": 3.15 },
+        { "weight_kg": 100, "water_L": 7.90, "feed_kg": 3.25 },
+        { "weight_kg": 110, "water_L": 8.00, "feed_kg": 3.30 },
+        { "weight_kg": 120, "water_L": 8.10, "feed_kg": 3.35 }
       ],
-      "source": "NRC Swine Nutrition Standards"
+      "source": "NRC Nutrient Requirements of Swine, 11th Edition"
+    }
+  },
+
+  "swine_breeding": {
+    "sow_gestation": {
+      "calculation_method": "fixed",
+      "water_L": 15,
+      "feed_kg": 2.5,
+      "note": "Adjust based on body condition score",
+      "source": "NRC Swine Nutrition"
+    },
+    "sow_lactation": {
+      "calculation_method": "fixed",
+      "water_L": 25,
+      "feed_kg": 6.0,
+      "note": "High water demand due to milk production",
+      "source": "NRC Swine Nutrition"
+    },
+    "boar": {
+      "calculation_method": "fixed",
+      "water_L": 15,
+      "feed_kg": 2.5,
+      "note": "Maintenance level, adjust for body condition",
+      "source": "NRC Swine Nutrition"
     }
   }
 }

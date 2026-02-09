@@ -16,7 +16,7 @@
       "product_code": "91681",
       "category": "probiotic",
       "target_species": ["poultry"],
-      "target_animals": ["broiler", "layer", "broiler_breeder", "layer_breeder"],
+      "target_animals": ["broiler", "layer", "broiler_breeder", "layer_breeder", "color_chicken", "color_breeder"],
       "application": {
         "method": "feed",
         "dosage": {
@@ -43,7 +43,7 @@
       "product_code": "91682",
       "category": "probiotic",
       "target_species": ["poultry"],
-      "target_animals": ["broiler", "layer"],
+      "target_animals": ["broiler", "layer", "color_chicken"],
       "application": {
         "method": "water",
         "dosage": {
@@ -70,7 +70,7 @@
       "product_code": "91683",
       "category": "probiotic",
       "target_species": ["poultry"],
-      "target_animals": ["broiler", "layer", "broiler_breeder", "layer_breeder"],
+      "target_animals": ["broiler", "layer", "broiler_breeder", "layer_breeder", "color_chicken", "color_breeder"],
       "application": {
         "method": "feed",
         "dosage": {
@@ -96,7 +96,7 @@
       "product_code": "91684",
       "category": "environmental_health",
       "target_species": ["poultry", "swine"],
-      "target_animals": ["broiler", "layer", "all_breeders", "nursery", "grower", "finisher", "sow", "boar"],
+      "target_animals": ["broiler", "layer", "color_chicken", "all_breeders", "nursery", "grower", "finisher", "sow", "boar"],
       "application": {
         "method": "feed",
         "dosage": {
@@ -204,7 +204,7 @@
       "product_code": "91688",
       "category": "enzyme",
       "target_species": ["poultry"],
-      "target_animals": ["broiler", "layer", "all_breeders"],
+      "target_animals": ["broiler", "layer", "color_chicken", "all_breeders"],
       "application": {
         "method": "feed",
         "dosage": {
@@ -230,7 +230,7 @@
       "product_code": "91689",
       "category": "enzyme",
       "target_species": ["poultry"],
-      "target_animals": ["broiler", "layer", "all_breeders"],
+      "target_animals": ["broiler", "layer", "color_chicken", "all_breeders"],
       "application": {
         "method": "feed",
         "dosage": {
@@ -256,7 +256,7 @@
       "product_code": "91690",
       "category": "enzyme",
       "target_species": ["poultry", "swine"],
-      "target_animals": ["broiler", "layer", "all_breeders", "nursery", "grower", "finisher"],
+      "target_animals": ["broiler", "layer", "color_chicken", "all_breeders", "nursery", "grower", "finisher"],
       "application": {
         "method": "feed",
         "dosage": {

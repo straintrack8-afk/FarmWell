@@ -6,6 +6,12 @@ const DosageCalculator = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [showCustomProtocol, setShowCustomProtocol] = useState(false);
     const [showDailyDetails, setShowDailyDetails] = useState(false);
+    const [showReferenceView, setShowReferenceView] = useState(false);
+    const [referenceSelection, setReferenceSelection] = useState({
+        animalType: '',
+        productionCategory: '',
+        specificCategory: ''
+    });
     const [calculationData, setCalculationData] = useState({
         // Step 1: Animal Selection
         animalType: '', // 'swine' or 'poultry'
@@ -81,6 +87,71 @@ const DosageCalculator = () => {
         setCalculationData(prev => ({ ...prev, [field]: value }));
     };
 
+    // Helper function for linear interpolation
+    const interpolateLayerData = (ageInWeeks, layerData, adjustmentFactor = 1.0) => {
+        if (!layerData || layerData.length === 0) {
+            return { waterL: 0.2 * adjustmentFactor, feedKg: 0.1 * adjustmentFactor };
+        }
+
+        // Find exact week data
+        let weekData = layerData.find(d => d.week === ageInWeeks);
+        
+        if (weekData) {
+            return {
+                waterL: (weekData.water_ml * adjustmentFactor) / 1000,
+                feedKg: (weekData.feed_g * adjustmentFactor) / 1000
+            };
+        }
+
+        // Interpolate between two closest weeks
+        if (ageInWeeks < layerData[0].week) {
+            weekData = layerData[0];
+            return {
+                waterL: (weekData.water_ml * adjustmentFactor) / 1000,
+                feedKg: (weekData.feed_g * adjustmentFactor) / 1000
+            };
+        }
+        
+        if (ageInWeeks > layerData[layerData.length - 1].week) {
+            weekData = layerData[layerData.length - 1];
+            return {
+                waterL: (weekData.water_ml * adjustmentFactor) / 1000,
+                feedKg: (weekData.feed_g * adjustmentFactor) / 1000
+            };
+        }
+
+        // Find two surrounding weeks for interpolation
+        let lowerWeek = null;
+        let upperWeek = null;
+        
+        for (let i = 0; i < layerData.length - 1; i++) {
+            if (layerData[i].week <= ageInWeeks && layerData[i + 1].week >= ageInWeeks) {
+                lowerWeek = layerData[i];
+                upperWeek = layerData[i + 1];
+                break;
+            }
+        }
+        
+        if (lowerWeek && upperWeek) {
+            const ratio = (ageInWeeks - lowerWeek.week) / (upperWeek.week - lowerWeek.week);
+            const waterMl = lowerWeek.water_ml + (upperWeek.water_ml - lowerWeek.water_ml) * ratio;
+            const feedG = lowerWeek.feed_g + (upperWeek.feed_g - lowerWeek.feed_g) * ratio;
+            return {
+                waterL: (waterMl * adjustmentFactor) / 1000,
+                feedKg: (feedG * adjustmentFactor) / 1000
+            };
+        }
+
+        // Fallback to closest week
+        weekData = layerData.reduce((prev, curr) => 
+            Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
+        );
+        return {
+            waterL: (weekData.water_ml * adjustmentFactor) / 1000,
+            feedKg: (weekData.feed_g * adjustmentFactor) / 1000
+        };
+    };
+
     const useTemplate = (templateType) => {
         let periods = [];
         if (templateType === 'standard') {
@@ -109,6 +180,28 @@ const DosageCalculator = () => {
         }
     };
 
+    const resetCalculation = () => {
+        setCurrentStep(1);
+        setShowCustomProtocol(false);
+        setShowDailyDetails(false);
+        setShowReferenceView(false);
+        setCalculationData({
+            animalType: '',
+            productionCategory: '',
+            specificCategory: '',
+            population: '',
+            age: '',
+            ageUnit: 'days',
+            gender: 'mixed',
+            femaleRatio: 10,
+            maleRatio: 1,
+            selectedProduct: null,
+            productPrice: 3640000,
+            protocolPeriods: [{ startDay: 1, endDay: 5 }],
+            results: null
+        });
+    };
+
     const calculateResults = () => {
         if (!consumptionData || !calculationData.selectedProduct) return;
 
@@ -124,8 +217,8 @@ const DosageCalculator = () => {
         calculationData.protocolPeriods.forEach(period => {
             const periodResult = calculatePeriod(period);
             results.periods.push(periodResult);
-            results.totalProductGrams += periodResult.productNeeded;
-            results.totalCost += periodResult.cost;
+            results.totalProductGrams += parseFloat(periodResult.productNeeded);
+            results.totalCost += parseInt(periodResult.cost);
         });
 
         results.totalDays = calculationData.protocolPeriods.reduce(
@@ -213,19 +306,23 @@ const DosageCalculator = () => {
     const getDailyConsumption = (dayNumber) => {
         const { specificCategory, age, ageUnit } = calculationData;
         
+        console.log('=== getDailyConsumption START ===');
+        console.log('Input:', { dayNumber, specificCategory, age, ageUnit });
+        console.log('consumptionData loaded?', !!consumptionData);
+        
         if (!consumptionData) {
-            console.warn('Consumption data not loaded yet');
+            console.error('❌ Consumption data not loaded yet');
             return { waterL: 0, feedKg: 0 };
         }
 
-        // Convert age to days if needed
-        let ageInDays = ageUnit === 'weeks' ? parseInt(age) * 7 : parseInt(age);
+        // Convert age to days with validation
+        let ageInDays = ageUnit === 'weeks' ? (parseInt(age) || 0) * 7 : (parseInt(age) || 0);
         ageInDays += (dayNumber - 1); // Add protocol day offset
 
         let waterL = 0;
         let feedKg = 0;
 
-        console.log('getDailyConsumption:', { specificCategory, ageInDays, dayNumber });
+        console.log('Calculated ageInDays:', ageInDays);
 
         // Broiler calculation (formula-based)
         if (specificCategory === 'broiler') {
@@ -234,30 +331,14 @@ const DosageCalculator = () => {
             feedKg = (waterMl / 1.77) / 1000;
             console.log('Broiler calculation:', { waterMl, waterL, feedKg });
         }
-        // Layer calculation (table-based)
+        // Layer calculation (table-based with interpolation)
         else if (specificCategory === 'layer') {
             const ageInWeeks = Math.floor(ageInDays / 7);
             const layerData = consumptionData?.poultry_commercial?.layer?.data_by_week || [];
-            
-            // Find closest week data
-            let weekData = layerData.find(d => d.week === ageInWeeks);
-            if (!weekData && layerData.length > 0) {
-                // If exact week not found, use interpolation or closest value
-                if (ageInWeeks < layerData[0].week) {
-                    weekData = layerData[0];
-                } else if (ageInWeeks > layerData[layerData.length - 1].week) {
-                    weekData = layerData[layerData.length - 1];
-                } else {
-                    // Find closest week
-                    weekData = layerData.reduce((prev, curr) => 
-                        Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
-                    );
-                }
-            }
-            
-            waterL = (weekData?.water_ml || 250) / 1000;
-            feedKg = (weekData?.feed_g || 115) / 1000;
-            console.log('Layer calculation:', { ageInWeeks, weekData, waterL, feedKg });
+            const result = interpolateLayerData(ageInWeeks, layerData);
+            waterL = result.waterL;
+            feedKg = result.feedKg;
+            console.log('Layer calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
         }
         // Swine calculation (weight-based approximation)
         else if (['nursery', 'grower', 'finisher'].includes(specificCategory)) {
@@ -269,17 +350,84 @@ const DosageCalculator = () => {
             }
             console.log('Swine calculation:', { swineData: swineData.length, waterL, feedKg });
         }
-        // Breeders - use default values for now
-        else if (['broiler_breeder', 'layer_breeder', 'sow_gestation', 'sow_lactation', 'boar'].includes(specificCategory)) {
-            // Default breeder values (simplified)
-            waterL = 0.3; // 300ml per bird/animal
-            feedKg = 0.15; // 150g per bird/animal
-            console.log('Breeder calculation (default):', { waterL, feedKg });
+        // Layer Breeder - use layer data for growing phase, breeder data for production phase
+        else if (specificCategory === 'layer_breeder') {
+            const ageInWeeks = Math.floor(ageInDays / 7);
+            
+            if (ageInWeeks < 20) {
+                // Before 20 weeks: use layer growing data
+                const layerData = consumptionData?.poultry_commercial?.layer?.data_by_week || [];
+                const result = interpolateLayerData(ageInWeeks, layerData);
+                waterL = result.waterL;
+                feedKg = result.feedKg;
+            } else {
+                // After 20 weeks: breeder production phase
+                waterL = 0.28; // 280ml per bird
+                feedKg = 0.16; // 160g per bird
+            }
+            
+            console.log('Layer breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
+        }
+        // Color Chicken (Commercial) - slower growth than broiler
+        else if (specificCategory === 'color_chicken') {
+            // Color/Kampung chicken grows slower, use modified formula
+            // Approximately 70% of broiler consumption
+            const waterMl = 5.28 * ageInDays * 0.7;
+            waterL = waterMl / 1000;
+            feedKg = (waterMl / 1.77) / 1000;
+            console.log('Color chicken calculation:', { ageInDays, waterMl, waterL, feedKg });
+        }
+        // Color Breeder - use layer data with adjustment factor
+        else if (specificCategory === 'color_breeder') {
+            const ageInWeeks = Math.floor(ageInDays / 7);
+            
+            if (ageInWeeks < 20) {
+                // Before 20 weeks: use layer data with 85% adjustment
+                const layerData = consumptionData?.poultry_commercial?.layer?.data_by_week || [];
+                const result = interpolateLayerData(ageInWeeks, layerData, 0.85);
+                waterL = result.waterL;
+                feedKg = result.feedKg;
+            } else {
+                // After 20 weeks: breeder production phase
+                waterL = 0.25; // 250ml per bird
+                feedKg = 0.14; // 140g per bird
+            }
+            
+            console.log('Color breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
+        }
+        // Broiler Breeder - use layer data for growing phase, breeder data for production phase
+        else if (specificCategory === 'broiler_breeder') {
+            const ageInWeeks = Math.floor(ageInDays / 7);
+            
+            if (ageInWeeks < 20) {
+                // Before 20 weeks: use layer growing data
+                const layerData = consumptionData?.poultry_commercial?.layer?.data_by_week || [];
+                const result = interpolateLayerData(ageInWeeks, layerData);
+                waterL = result.waterL;
+                feedKg = result.feedKg;
+            } else {
+                // After 20 weeks: breeder production phase
+                waterL = 0.30; // 300ml per bird
+                feedKg = 0.17; // 170g per bird
+            }
+            
+            console.log('Broiler breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
+        }
+        // Other breeders (swine) - use default values
+        else if (['sow_gestation', 'sow_lactation', 'boar'].includes(specificCategory)) {
+            // Default breeder values for swine
+            waterL = 0.3; // 300ml per animal
+            feedKg = 0.15; // 150g per animal
+            console.log('Swine breeder calculation (default):', { specificCategory, waterL, feedKg });
         }
         else {
-            console.warn('Unknown category:', specificCategory);
+            console.error('❌ Unknown category:', specificCategory);
+            console.log('Available categories: broiler, layer, layer_breeder, broiler_breeder, color_chicken, color_breeder, nursery, grower, finisher, sow_gestation, sow_lactation, boar');
         }
 
+        console.log('✅ Final result:', { waterL, feedKg, waterMl: waterL * 1000, feedG: feedKg * 1000 });
+        console.log('=== getDailyConsumption END ===\n');
+        
         return { waterL, feedKg };
     };
 
@@ -330,19 +478,36 @@ const DosageCalculator = () => {
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 {/* Header */}
                 <div style={{ 
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    color: 'white',
+                    background: '#f3f4f6',
+                    color: '#1f2937',
                     padding: '2rem',
                     borderRadius: '12px',
                     marginBottom: '2rem',
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1.5rem'
                 }}>
-                    <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                        FarmWell Dosage Calculator
-                    </h1>
-                    <p style={{ opacity: 0.9 }}>
-                        Vaksindo Vietnam - United Animal Health Products
-                    </p>
+                    <img
+                        src="/images/FarmWell_Logo.png"
+                        alt="FarmWell"
+                        onClick={() => window.location.href = '/'}
+                        style={{
+                            height: '80px',
+                            cursor: 'pointer',
+                            transition: 'transform 0.2s'
+                        }}
+                        onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
+                        onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                    />
+                    <div style={{ flex: 1 }}>
+                        <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem', color: '#1f2937' }}>
+                            FEED ADDITIVES CALCULATOR
+                        </h1>
+                        <p style={{ color: '#6b7280', fontSize: '1rem' }}>
+                            Vaksindo Vietnam - United Animal Health Products
+                        </p>
+                    </div>
                 </div>
 
                 {/* Progress Steps */}
@@ -389,6 +554,437 @@ const DosageCalculator = () => {
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                     minHeight: '400px'
                 }}>
+                    {/* Reference Data View Toggle */}
+                    {!showReferenceView && currentStep === 1 && (
+                        <div style={{ marginBottom: '1.5rem', textAlign: 'right' }}>
+                            <button
+                                onClick={() => setShowReferenceView(true)}
+                                style={{
+                                    padding: '0.5rem 1rem',
+                                    background: '#f59e0b',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.875rem',
+                                    fontWeight: '600'
+                                }}
+                            >
+                                📚 View Reference Data
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Reference Data Page */}
+                    {showReferenceView ? (
+                        <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                                <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>
+                                    📚 Feeding Program & Water Consumption Reference
+                                </h2>
+                                <button
+                                    onClick={() => setShowReferenceView(false)}
+                                    style={{
+                                        padding: '0.5rem 1rem',
+                                        background: '#6b7280',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '6px',
+                                        cursor: 'pointer',
+                                        fontSize: '0.875rem',
+                                        fontWeight: '600'
+                                    }}
+                                >
+                                    ← Back to Calculator
+                                </button>
+                            </div>
+
+                            {/* Animal Selection for Reference */}
+                            <div style={{ marginBottom: '2rem' }}>
+                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                    Select Animal Type:
+                                </label>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
+                                    {['swine', 'poultry'].map(type => (
+                                        <button
+                                            key={type}
+                                            onClick={() => {
+                                                setReferenceSelection({
+                                                    animalType: type,
+                                                    productionCategory: '',
+                                                    specificCategory: ''
+                                                });
+                                            }}
+                                            style={{
+                                                padding: '1rem',
+                                                border: referenceSelection.animalType === type ? '3px solid #667eea' : '2px solid #e5e7eb',
+                                                borderRadius: '8px',
+                                                background: referenceSelection.animalType === type ? '#f3f4ff' : 'white',
+                                                cursor: 'pointer',
+                                                fontSize: '1rem',
+                                                fontWeight: '600',
+                                                textTransform: 'capitalize',
+                                                transition: 'all 0.2s'
+                                            }}
+                                        >
+                                            {type === 'swine' ? '🐷 Swine' : '🐔 Poultry'}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {/* Production Category */}
+                                {referenceSelection.animalType && (
+                                    <div style={{ marginBottom: '1.5rem' }}>
+                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                            Production Category:
+                                        </label>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+                                            {['commercial', 'breeding'].map(cat => (
+                                                <button
+                                                    key={cat}
+                                                    onClick={() => {
+                                                        setReferenceSelection(prev => ({
+                                                            ...prev,
+                                                            productionCategory: cat,
+                                                            specificCategory: ''
+                                                        }));
+                                                    }}
+                                                    style={{
+                                                        padding: '1rem',
+                                                        border: referenceSelection.productionCategory === cat ? '3px solid #667eea' : '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        background: referenceSelection.productionCategory === cat ? '#f3f4ff' : 'white',
+                                                        cursor: 'pointer',
+                                                        fontSize: '1rem',
+                                                        fontWeight: '600',
+                                                        textTransform: 'capitalize',
+                                                        transition: 'all 0.2s'
+                                                    }}
+                                                >
+                                                    {cat}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Specific Category */}
+                                {referenceSelection.productionCategory && (
+                                    <div>
+                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                            Specific Category:
+                                        </label>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                                            {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].map(cat => (
+                                                <button
+                                                    key={cat.id}
+                                                    onClick={() => {
+                                                        setReferenceSelection(prev => ({
+                                                            ...prev,
+                                                            specificCategory: cat.id
+                                                        }));
+                                                    }}
+                                                    style={{
+                                                        padding: '1rem',
+                                                        border: referenceSelection.specificCategory === cat.id ? '3px solid #667eea' : '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        background: referenceSelection.specificCategory === cat.id ? '#f3f4ff' : 'white',
+                                                        cursor: 'pointer',
+                                                        fontSize: '1rem',
+                                                        fontWeight: '600',
+                                                        transition: 'all 0.2s',
+                                                        textAlign: 'center'
+                                                    }}
+                                                >
+                                                    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{cat.icon}</div>
+                                                    {cat.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Display Reference Data Table */}
+                            {referenceSelection.specificCategory && consumptionData && (
+                                <div style={{
+                                    background: '#f9fafb',
+                                    padding: '1.5rem',
+                                    borderRadius: '8px',
+                                    marginTop: '2rem'
+                                }}>
+                                    <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem', color: '#1f2937' }}>
+                                        Reference Data: {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label}
+                                    </h3>
+
+                                    {/* Broiler - Formula Based */}
+                                    {referenceSelection.specificCategory === 'broiler' && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Formula-Based</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Water (ml/bird/day) = 5.28 × Age (days)<br/>
+                                                    Feed (g/bird/day) = Water ÷ 1.77
+                                                </p>
+                                            </div>
+                                            <div style={{ overflowX: 'auto' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Age (days)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {[7, 14, 21, 28, 35, 42].map(day => {
+                                                            const water = 5.28 * day;
+                                                            const feed = water / 1.77;
+                                                            return (
+                                                                <tr key={day}>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{day}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{water.toFixed(1)}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{feed.toFixed(1)}</td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Layer - Table Based */}
+                                    {referenceSelection.specificCategory === 'layer' && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Table-Based with Interpolation</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Data from Hy-Line International Management Guide
+                                                </p>
+                                            </div>
+                                            <div style={{ overflowX: 'auto' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumptionData.poultry_commercial.layer.data_by_week.map(data => (
+                                                            <tr key={data.week}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_ml}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Color Chicken - Formula with Adjustment */}
+                                    {referenceSelection.specificCategory === 'color_chicken' && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Formula with 70% Adjustment</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Water (ml/bird/day) = 5.28 × Age (days) × 0.70<br/>
+                                                    Feed (g/bird/day) = Water ÷ 1.77
+                                                </p>
+                                            </div>
+                                            <div style={{ overflowX: 'auto' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Age (days)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {[7, 14, 21, 28, 35, 42, 49, 56, 63, 70].map(day => {
+                                                            const water = 5.28 * day * 0.7;
+                                                            const feed = water / 1.77;
+                                                            return (
+                                                                <tr key={day}>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{day}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{water.toFixed(1)}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{feed.toFixed(1)}</td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Breeders - Phase Based with Full Table */}
+                                    {['layer_breeder', 'broiler_breeder', 'color_breeder'].includes(referenceSelection.specificCategory) && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Phase-Based</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Growing Phase (Week 1-20): Uses layer data{referenceSelection.specificCategory === 'color_breeder' ? ' with 85% adjustment' : ''}<br/>
+                                                    Production Phase (Week 21+): Fixed consumption values
+                                                </p>
+                                            </div>
+                                            <div style={{ overflowX: 'auto' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Phase</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {(() => {
+                                                            const adjustmentFactor = referenceSelection.specificCategory === 'color_breeder' ? 0.85 : 1.0;
+                                                            const productionWater = referenceSelection.specificCategory === 'layer_breeder' ? 280 : 
+                                                                                   referenceSelection.specificCategory === 'broiler_breeder' ? 300 : 250;
+                                                            const productionFeed = referenceSelection.specificCategory === 'layer_breeder' ? 160 : 
+                                                                                  referenceSelection.specificCategory === 'broiler_breeder' ? 170 : 140;
+                                                            
+                                                            const rows = [];
+                                                            const layerData = consumptionData.poultry_commercial.layer.data_by_week;
+                                                            
+                                                            // Week 1-20: Growing phase (use layer data)
+                                                            for (let week = 1; week <= 20; week++) {
+                                                                const weekData = layerData.find(d => d.week === week);
+                                                                if (weekData) {
+                                                                    rows.push(
+                                                                        <tr key={week} style={{ background: week % 2 === 0 ? '#f9fafb' : 'white' }}>
+                                                                            <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{week}</td>
+                                                                            <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', color: '#059669', fontWeight: '600' }}>Growing</td>
+                                                                            <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>
+                                                                                {(weekData.water_ml * adjustmentFactor).toFixed(1)}
+                                                                            </td>
+                                                                            <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>
+                                                                                {(weekData.feed_g * adjustmentFactor).toFixed(1)}
+                                                                            </td>
+                                                                        </tr>
+                                                                    );
+                                                                }
+                                                            }
+                                                            
+                                                            // Week 21-65: Production phase (fixed values)
+                                                            for (let week = 21; week <= 65; week++) {
+                                                                rows.push(
+                                                                    <tr key={week} style={{ background: week % 2 === 0 ? '#fef3c7' : '#fffbeb' }}>
+                                                                        <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{week}</td>
+                                                                        <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', color: '#dc2626', fontWeight: '600' }}>Production</td>
+                                                                        <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>
+                                                                            {productionWater}
+                                                                        </td>
+                                                                        <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>
+                                                                            {productionFeed}
+                                                                        </td>
+                                                                    </tr>
+                                                                );
+                                                            }
+                                                            
+                                                            return rows;
+                                                        })()}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div style={{ marginTop: '1rem', padding: '1rem', background: '#fef3c7', borderRadius: '6px', fontSize: '0.875rem' }}>
+                                                <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}>📝 Notes:</p>
+                                                <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+                                                    <li>Growing phase (Week 1-20): Consumption increases with age following layer growth pattern</li>
+                                                    <li>Production phase (Week 21-65): Fixed consumption due to breeding management and feed restriction programs</li>
+                                                    <li>Typical cull age: 60-65 weeks depending on production performance</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Swine - Weight Based */}
+                                    {['nursery', 'grower', 'finisher'].includes(referenceSelection.specificCategory) && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Weight-Based with Interpolation</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Data from NRC Nutrient Requirements of Swine, 11th Edition
+                                                </p>
+                                            </div>
+                                            <div style={{ overflowX: 'auto' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Weight (kg)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (L/pig/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (kg/pig/day)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumptionData.swine_commercial[referenceSelection.specificCategory].data_by_weight.map(data => (
+                                                            <tr key={data.weight_kg}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.weight_kg}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_L}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_kg}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Swine Breeding - Fixed Values */}
+                                    {['sow_gestation', 'sow_lactation', 'boar'].includes(referenceSelection.specificCategory) && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Fixed Values</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Data from NRC Swine Nutrition Standards
+                                                </p>
+                                            </div>
+                                            <div style={{ background: 'white', padding: '1.5rem', borderRadius: '6px' }}>
+                                                {referenceSelection.specificCategory === 'sow_gestation' && (
+                                                    <div>
+                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>Sow - Gestation</p>
+                                                        <p>Water: 15 L/sow/day</p>
+                                                        <p>Feed: 2.5 kg/sow/day</p>
+                                                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
+                                                            Note: Adjust based on body condition score
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                {referenceSelection.specificCategory === 'sow_lactation' && (
+                                                    <div>
+                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>Sow - Lactation</p>
+                                                        <p>Water: 25 L/sow/day</p>
+                                                        <p>Feed: 6.0 kg/sow/day</p>
+                                                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
+                                                            Note: High water demand due to milk production
+                                                        </p>
+                                                    </div>
+                                                )}
+                                                {referenceSelection.specificCategory === 'boar' && (
+                                                    <div>
+                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>Boar</p>
+                                                        <p>Water: 15 L/boar/day</p>
+                                                        <p>Feed: 2.5 kg/boar/day</p>
+                                                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
+                                                            Note: Maintenance level, adjust for body condition
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <>
                     {/* Step 1: Animal Selection */}
                     {currentStep === 1 && (
                         <div>
@@ -1174,51 +1770,93 @@ const DosageCalculator = () => {
                         paddingTop: '2rem',
                         borderTop: '1px solid #e5e7eb'
                     }}>
-                        <button
-                            onClick={prevStep}
-                            disabled={currentStep === 1}
-                            style={{
-                                padding: '0.75rem 2rem',
-                                background: currentStep === 1 ? '#e5e7eb' : 'white',
-                                color: currentStep === 1 ? '#9ca3af' : '#374151',
-                                border: '2px solid #e5e7eb',
-                                borderRadius: '8px',
-                                cursor: currentStep === 1 ? 'not-allowed' : 'pointer',
-                                fontSize: '1rem',
-                                fontWeight: '600'
-                            }}
-                        >
-                            ← Previous
-                        </button>
-                        
-                        {currentStep < 4 && (
-                            <button
-                                onClick={nextStep}
-                                disabled={
-                                    (currentStep === 1 && !calculationData.specificCategory) ||
-                                    (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
-                                    (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
-                                }
-                                style={{
-                                    padding: '0.75rem 2rem',
-                                    background: '#667eea',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '8px',
-                                    cursor: 'pointer',
-                                    fontSize: '1rem',
-                                    fontWeight: '600',
-                                    opacity: (
-                                        (currentStep === 1 && !calculationData.specificCategory) ||
-                                        (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
-                                        (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
-                                    ) ? 0.5 : 1
-                                }}
-                            >
-                                Next →
-                            </button>
+                        {currentStep === 4 ? (
+                            // Results page navigation
+                            <div style={{ display: 'flex', gap: '1rem', width: '100%' }}>
+                                <button
+                                    onClick={prevStep}
+                                    style={{
+                                        padding: '0.75rem 2rem',
+                                        background: 'white',
+                                        color: '#374151',
+                                        border: '2px solid #e5e7eb',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer',
+                                        fontSize: '1rem',
+                                        fontWeight: '600'
+                                    }}
+                                >
+                                    ← Previous
+                                </button>
+                                <button
+                                    onClick={resetCalculation}
+                                    style={{
+                                        padding: '0.75rem 2rem',
+                                        background: '#10b981',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        marginLeft: 'auto'
+                                    }}
+                                >
+                                    🔄 New Calculation
+                                </button>
+                            </div>
+                        ) : (
+                            // Other pages navigation
+                            <>
+                                <button
+                                    onClick={prevStep}
+                                    disabled={currentStep === 1}
+                                    style={{
+                                        padding: '0.75rem 2rem',
+                                        background: currentStep === 1 ? '#e5e7eb' : 'white',
+                                        color: currentStep === 1 ? '#9ca3af' : '#374151',
+                                        border: '2px solid #e5e7eb',
+                                        borderRadius: '8px',
+                                        cursor: currentStep === 1 ? 'not-allowed' : 'pointer',
+                                        fontSize: '1rem',
+                                        fontWeight: '600'
+                                    }}
+                                >
+                                    ← Previous
+                                </button>
+                                
+                                {currentStep < 4 && (
+                                    <button
+                                        onClick={nextStep}
+                                        disabled={
+                                            (currentStep === 1 && !calculationData.specificCategory) ||
+                                            (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
+                                            (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
+                                        }
+                                        style={{
+                                            padding: '0.75rem 2rem',
+                                            background: '#667eea',
+                                            color: 'white',
+                                            border: 'none',
+                                            borderRadius: '8px',
+                                            cursor: 'pointer',
+                                            fontSize: '1rem',
+                                            fontWeight: '600',
+                                            opacity: (
+                                                (currentStep === 1 && !calculationData.specificCategory) ||
+                                                (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
+                                                (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
+                                            ) ? 0.5 : 1
+                                        }}
+                                    >
+                                        Next →
+                                    </button>
+                                )}
+                            </>
                         )}
                     </div>
+                    </>
+                    )}
                 </div>
             </div>
         </div>
