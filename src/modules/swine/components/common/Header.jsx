@@ -1,10 +1,10 @@
 import { useDiagnosis } from '../../contexts/DiagnosisContext';
 import { useLocation } from 'react-router-dom';
-import { useLanguage } from '../../../../contexts/LanguageContext';
+import { useTranslation } from '../../../../hooks/useTranslation';
 
 function Header() {
     const { isOnline, resetDiagnosis } = useDiagnosis();
-    const { language } = useLanguage();
+    const { t, language } = useTranslation();
     const location = useLocation();
 
     // Check if we're on any diagnosis or biosecurity page
@@ -50,7 +50,7 @@ function Header() {
                         borderRadius: '50%',
                         background: isOnline ? '#10B981' : '#F59E0B'
                     }}></span>
-                    {isOnline ? 'Online' : 'Offline'}
+                    {isOnline ? t('swine.diagnosis.landing.online') : t('swine.diagnosis.landing.offlineMode')}
                 </div>
             </div>
         </header>
