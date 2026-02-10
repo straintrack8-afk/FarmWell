@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBiosecurity } from '../contexts/BiosecurityContext';
+import { useTranslation } from '../../../hooks/useTranslation';
 import { Shield, CheckCircle, AlertTriangle, Clock, FileText } from 'lucide-react';
 
 function BiosecurityHomePage() {
   const navigate = useNavigate();
   const { assessmentHistory, loadDraftAssessment } = useBiosecurity();
+  const { t } = useTranslation();
 
   const lastAssessment = assessmentHistory.length > 0 
     ? assessmentHistory[assessmentHistory.length - 1] 
@@ -53,10 +55,10 @@ function BiosecurityHomePage() {
           <Shield size={40} color="white" />
         </div>
         <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '1rem' }}>
-          Farm Biosecurity Check
+          {t('swine.biosecurity.home.pageTitle')}
         </h1>
         <p style={{ fontSize: '1.125rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-          Comprehensive biosecurity assessment based on BIOCHECK PIG V4.0 from Ghent University
+          {t('swine.biosecurity.home.pageDescription')}
         </p>
       </div>
 
@@ -70,10 +72,10 @@ function BiosecurityHomePage() {
             <Clock size={24} color="#d97706" />
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: '600', color: '#92400e', marginBottom: '0.25rem' }}>
-                Draft Assessment Found
+                {t('swine.biosecurity.home.draftFound')}
               </div>
               <div style={{ fontSize: '0.875rem', color: '#78350f' }}>
-                You have an unfinished assessment. Continue where you left off.
+                {t('swine.biosecurity.home.draftDescription')}
               </div>
             </div>
             <button
@@ -81,7 +83,7 @@ function BiosecurityHomePage() {
               className="btn btn-primary"
               style={{ background: '#d97706', borderColor: '#d97706' }}
             >
-              Continue Draft
+              {t('swine.biosecurity.home.continueDraft')}
             </button>
           </div>
         </div>
@@ -91,10 +93,10 @@ function BiosecurityHomePage() {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '2rem' }}>
           <div style={{ flex: 1 }}>
             <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>
-              Start New Assessment
+              {t('swine.biosecurity.home.startNew')}
             </h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-              Complete a comprehensive 50-question biosecurity evaluation. Takes approximately 20-25 minutes.
+              {t('swine.biosecurity.home.startNewDescription')}
             </p>
             
             {lastAssessment && (
@@ -105,7 +107,7 @@ function BiosecurityHomePage() {
                 marginBottom: '1.5rem'
               }}>
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                  Last Assessment
+                  {t('swine.biosecurity.home.lastAssessment')}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                   <div>
@@ -126,7 +128,7 @@ function BiosecurityHomePage() {
                            lastAssessment.results?.risk_level.level === 'medium' ? '#92400e' :
                            lastAssessment.results?.risk_level.level === 'high' ? '#9a3412' : '#991b1b'
                   }}>
-                    {lastAssessment.results?.risk_level.level.toUpperCase()} RISK
+                    {lastAssessment.results?.risk_level.level.toUpperCase()} {t('swine.biosecurity.home.risk')}
                   </div>
                   <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
                     {new Date(lastAssessment.completed_at).toLocaleDateString()}
@@ -141,7 +143,7 @@ function BiosecurityHomePage() {
               style={{ width: '100%' }}
             >
               <Shield size={20} style={{ marginRight: '0.5rem' }} />
-              Start New Assessment
+              {t('swine.biosecurity.home.startNew')}
             </button>
           </div>
         </div>
@@ -149,22 +151,22 @@ function BiosecurityHomePage() {
 
       <div style={{ marginBottom: '2rem' }}>
         <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
-          What You'll Assess
+          {t('swine.biosecurity.home.whatYouAssess')}
         </h3>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
           {[
-            { icon: '🏭', title: 'Farm Infrastructure', desc: 'Location, fencing, and physical barriers' },
-            { icon: '🐷', title: 'Animal Management', desc: 'Purchase, quarantine, and transport' },
-            { icon: '👥', title: 'People & Visitors', desc: 'Worker protocols and hygiene locks' },
-            { icon: '🌾', title: 'Feed & Water', desc: 'Storage, quality, and contamination prevention' },
-            { icon: '🐀', title: 'Pest Control', desc: 'Rodents, birds, and wild animals' },
-            { icon: '🧼', title: 'Cleaning Protocols', desc: 'Disinfection and sanitation practices' }
+            { icon: '🏭', key: 'infrastructure' },
+            { icon: '🐷', key: 'animals' },
+            { icon: '👥', key: 'people' },
+            { icon: '🌾', key: 'feed' },
+            { icon: '🐀', key: 'pest' },
+            { icon: '🧼', key: 'cleaning' }
           ].map((item, idx) => (
             <div key={idx} className="card" style={{ padding: '1rem' }}>
               <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
-              <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>{item.title}</div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{item.desc}</div>
+              <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>{t(`swine.biosecurity.home.assessmentCategories.${item.key}.title`)}</div>
+              <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{t(`swine.biosecurity.home.assessmentCategories.${item.key}.desc`)}</div>
             </div>
           ))}
         </div>
@@ -173,7 +175,7 @@ function BiosecurityHomePage() {
       {assessmentHistory.length > 0 && (
         <div>
           <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
-            Assessment History
+            {t('swine.biosecurity.home.history')}
           </h3>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -208,10 +210,10 @@ function BiosecurityHomePage() {
                   
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>
-                      Assessment - {new Date(assessment.completed_at).toLocaleDateString()}
+                      {t('swine.biosecurity.home.assessment')} - {new Date(assessment.completed_at).toLocaleDateString()}
                     </div>
                     <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                      Grade: {assessment.results?.grade} • {assessment.results?.risk_level.level.toUpperCase()} Risk
+                      {t('swine.biosecurity.home.grade')}: {assessment.results?.grade} • {assessment.results?.risk_level.level.toUpperCase()} {t('swine.biosecurity.home.risk')}
                     </div>
                   </div>
                   
@@ -228,12 +230,10 @@ function BiosecurityHomePage() {
           <div style={{ color: '#1e40af', fontSize: '1.5rem' }}>ℹ️</div>
           <div>
             <div style={{ fontWeight: '600', color: '#1e3a8a', marginBottom: '0.5rem' }}>
-              About BIOCHECK PIG
+              {t('swine.biosecurity.home.aboutTitle')}
             </div>
             <div style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-              This assessment is based on the scientifically validated BIOCHECK PIG V4.0 system developed 
-              by Ghent University. It evaluates biosecurity across multiple critical areas to help protect 
-              your farm from disease outbreaks.
+              {t('swine.biosecurity.home.aboutDescription')}
             </div>
           </div>
         </div>
