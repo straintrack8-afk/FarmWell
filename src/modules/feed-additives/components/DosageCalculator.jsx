@@ -792,7 +792,7 @@ const DosageCalculator = () => {
                                     fontWeight: '600'
                                 }}
                             >
-                                📚 View Reference Data
+                                📚 {t('viewReferenceData')}
                             </button>
                         </div>
                     )}
@@ -802,7 +802,7 @@ const DosageCalculator = () => {
                         <div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                                 <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>
-                                    📚 Feeding Program & Water Consumption Reference
+                                    📚 {t('referenceData')}
                                 </h2>
                                 <button
                                     onClick={() => setShowReferenceView(false)}
@@ -817,14 +817,14 @@ const DosageCalculator = () => {
                                         fontWeight: '600'
                                     }}
                                 >
-                                    ← Back to Calculator
+                                    ← {t('backToCalculator')}
                                 </button>
                             </div>
 
                             {/* Animal Selection for Reference */}
                             <div style={{ marginBottom: '2rem' }}>
                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                    Select Animal Type:
+                                    {t('selectAnimalType')}
                                 </label>
                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
                                     {['swine', 'poultry'].map(type => (
@@ -858,7 +858,7 @@ const DosageCalculator = () => {
                                 {referenceSelection.animalType && (
                                     <div style={{ marginBottom: '1.5rem' }}>
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                            Production Category:
+                                            {t('selectProductionCategory')}
                                         </label>
                                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
                                             {['commercial', 'breeding'].map(cat => (
@@ -883,7 +883,7 @@ const DosageCalculator = () => {
                                                         transition: 'all 0.2s'
                                                     }}
                                                 >
-                                                    {cat}
+                                                    {t(cat)}
                                                 </button>
                                             ))}
                                         </div>
@@ -894,7 +894,7 @@ const DosageCalculator = () => {
                                 {referenceSelection.productionCategory && (
                                     <div>
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                            Specific Category:
+                                            {t('selectSpecificCategory')}
                                         </label>
                                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                                             {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].map(cat => (
@@ -1240,7 +1240,7 @@ const DosageCalculator = () => {
                                                 transition: 'all 0.2s'
                                             }}
                                         >
-                                            {type === 'swine' ? '🐷' : '🐔'} {type}
+                                            {type === 'swine' ? '🐷' : '🐔'} {t(type)}
                                         </button>
                                     ))}
                                 </div>
