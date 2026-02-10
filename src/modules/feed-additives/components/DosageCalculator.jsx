@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import { feedAdditivesTranslations } from '../translations';
 
 const DosageCalculator = () => {
     const { language } = useLanguage();
+    const t = (key) => feedAdditivesTranslations[language]?.[key] || feedAdditivesTranslations['en'][key];
     const [currentStep, setCurrentStep] = useState(1);
     const [showCustomProtocol, setShowCustomProtocol] = useState(false);
     const [showDailyDetails, setShowDailyDetails] = useState(false);
@@ -847,7 +849,7 @@ const DosageCalculator = () => {
                                                 transition: 'all 0.2s'
                                             }}
                                         >
-                                            {type === 'swine' ? '🐷 Swine' : '🐔 Poultry'}
+                                            {t(type)}
                                         </button>
                                     ))}
                                 </div>
@@ -1209,13 +1211,13 @@ const DosageCalculator = () => {
                     {currentStep === 1 && (
                         <div>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                Step 1: Select Animal Type
+                                {t('step1')}: {t('selectAnimalType').replace(':', '')}
                             </h2>
                             
                             {/* Animal Type Selection */}
                             <div style={{ marginBottom: '2rem' }}>
                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                    Animal Type:
+                                    {t('selectAnimalType')}
                                 </label>
                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
                                     {['swine', 'poultry'].map(type => (
@@ -1248,7 +1250,7 @@ const DosageCalculator = () => {
                             {calculationData.animalType && (
                                 <div style={{ marginBottom: '2rem' }}>
                                     <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                        Production Category:
+                                        {t('selectProductionCategory')}
                                     </label>
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
                                         {['breeding', 'commercial'].map(category => (
@@ -1281,7 +1283,7 @@ const DosageCalculator = () => {
                             {calculationData.productionCategory && (
                                 <div>
                                     <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                        Specific Category:
+                                        {t('selectSpecificCategory')}
                                     </label>
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                                         {animalCategories[calculationData.animalType][calculationData.productionCategory].map(cat => (
@@ -1314,20 +1316,20 @@ const DosageCalculator = () => {
                     {currentStep === 2 && (
                         <div>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                Step 2: Flock/Herd Information
+                                {t('step2')}: {t('flockHerdInfo')}
                             </h2>
                             
                             <div style={{ maxWidth: '600px' }}>
                                 {/* Population */}
                                 <div style={{ marginBottom: '1.5rem' }}>
                                     <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                        Population Size:
+                                        {t('populationSize')}
                                     </label>
                                     <input
                                         type="number"
                                         value={calculationData.population}
                                         onChange={(e) => updateData('population', e.target.value)}
-                                        placeholder="Enter number of animals"
+                                        placeholder={t('enterPopulation')}
                                         min="1"
                                         style={{
                                             width: '100%',
@@ -1342,14 +1344,14 @@ const DosageCalculator = () => {
                                 {/* Age */}
                                 <div style={{ marginBottom: '1.5rem' }}>
                                     <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                        Current Age:
+                                        {t('currentAge')}
                                     </label>
                                     <div style={{ display: 'flex', gap: '1rem' }}>
                                         <input
                                             type="number"
                                             value={calculationData.age}
                                             onChange={(e) => updateData('age', e.target.value)}
-                                            placeholder="Age"
+                                            placeholder={t('age')}
                                             min="1"
                                             style={{
                                                 flex: 2,
@@ -1370,8 +1372,8 @@ const DosageCalculator = () => {
                                                 fontSize: '1rem'
                                             }}
                                         >
-                                            <option value="days">Days</option>
-                                            <option value="weeks">Weeks</option>
+                                            <option value="days">{t('days')}</option>
+                                            <option value="weeks">{t('weeks')}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1442,7 +1444,7 @@ const DosageCalculator = () => {
                     {currentStep === 3 && (
                         <div>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                Step 3: Select Product
+                                {t('step3')}: {t('selectProduct')}
                             </h2>
                             
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
@@ -1500,11 +1502,11 @@ const DosageCalculator = () => {
                                     maxWidth: '500px'
                                 }}>
                                     <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                        💰 Harga Produk
+                                        💰 {t('productPrice').replace(' (VND/kg):', '')}
                                     </h3>
                                     <div>
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                            Harga per Kilogram:
+                                            {t('productPrice')}
                                         </label>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                             <input
@@ -1539,13 +1541,13 @@ const DosageCalculator = () => {
                     {currentStep === 4 && (
                         <div>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                Step 4: Treatment Protocol
+                                {t('step4')}: {t('treatmentProtocol')}
                             </h2>
                             
                             {/* Template Protocol Selection */}
                             <div style={{ marginBottom: '2rem' }}>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                    Template Protokol:
+                                    {t('templateProtocol')}
                                 </h3>
                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1rem' }}>
                                     <button
@@ -1742,7 +1744,7 @@ const DosageCalculator = () => {
                                     marginBottom: '2rem'
                                 }}
                             >
-                                🧮 Calculate Dosage & Cost
+                                🧮 {t('calculateDosage')}
                             </button>
 
                             {/* Results Display */}
@@ -1757,16 +1759,16 @@ const DosageCalculator = () => {
                                     <div className="print-header">
                                         <img src="/images/FarmWell_Logo.png" alt="FarmWell" />
                                         <div>
-                                            <h1>FEED ADDITIVES CALCULATOR</h1>
-                                            <p>Vaksindo Vietnam - United Animal Health Products</p>
+                                            <h1>{t('title')}</h1>
+                                            <p>{t('subtitle')}</p>
                                             <p style={{ marginTop: '0.5rem', fontSize: '0.75rem' }}>
-                                                Generated: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
+                                                {t('generated')} {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
                                             </p>
                                         </div>
                                     </div>
 
                                     <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#166534' }}>
-                                        📊 Calculation Results
+                                        📊 {t('calculationResults')}
                                     </h3>
 
                                     {/* Summary */}
@@ -1778,27 +1780,27 @@ const DosageCalculator = () => {
                                     }}>
                                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
                                             <div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>Product:</div>
+                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('product')}</div>
                                                 <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
                                                     {calculationData.selectedProduct.name}
                                                 </div>
                                             </div>
                                             <div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>Population:</div>
+                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('population')}</div>
                                                 <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                    {parseInt(calculationData.population).toLocaleString()} animals
+                                                    {parseInt(calculationData.population).toLocaleString()} {t('animals')}
                                                 </div>
                                             </div>
                                             <div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>Total Treatment Days:</div>
+                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('totalTreatmentDays')}</div>
                                                 <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                    {calculationData.results.totalDays} days
+                                                    {calculationData.results.totalDays} {t('days')}
                                                 </div>
                                             </div>
                                             <div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>Number of Periods:</div>
+                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('numberOfPeriods')}</div>
                                                 <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                    {calculationData.protocolPeriods.length} periods
+                                                    {calculationData.protocolPeriods.length} {t('numberOfPeriods').toLowerCase().includes('period') ? '' : 'periods'}
                                                 </div>
                                             </div>
                                         </div>
@@ -1806,7 +1808,7 @@ const DosageCalculator = () => {
 
                                     {/* Period Breakdown */}
                                     <h4 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                        Period Breakdown:
+                                        {t('periodBreakdown')}
                                     </h4>
                                     {calculationData.results.periods.map((period, index) => (
                                         <div key={index} className="period-breakdown" style={{
@@ -1816,16 +1818,16 @@ const DosageCalculator = () => {
                                             marginBottom: '1rem'
                                         }}>
                                             <div style={{ fontWeight: '700', marginBottom: '0.75rem' }}>
-                                                Period {index + 1}: Day {period.startDay}-{period.endDay} ({period.days} days)
+                                                {t('period')} {index + 1}: {t('day')} {period.startDay}-{period.endDay} ({period.days} {t('days')})
                                             </div>
                                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem', fontSize: '0.875rem' }}>
-                                                <div>Total Water: {parseFloat(period.totalWaterL).toLocaleString()} L</div>
-                                                <div>Total Feed: {parseFloat(period.totalFeedKg).toLocaleString()} kg</div>
+                                                <div>{t('totalWater')} {parseFloat(period.totalWaterL).toLocaleString()} L</div>
+                                                <div>{t('totalFeed')} {parseFloat(period.totalFeedKg).toLocaleString()} kg</div>
                                                 <div style={{ color: '#667eea', fontWeight: '600' }}>
-                                                    Product Needed: {parseFloat(period.productNeeded).toLocaleString()} g
+                                                    {t('productNeeded')} {parseFloat(period.productNeeded).toLocaleString()} g
                                                 </div>
                                                 <div style={{ color: '#f59e0b', fontWeight: '600' }}>
-                                                    Cost: {parseInt(period.cost).toLocaleString()} VND
+                                                    {t('cost')} {parseInt(period.cost).toLocaleString()} VND
                                                 </div>
                                             </div>
                                         </div>
@@ -1840,23 +1842,23 @@ const DosageCalculator = () => {
                                         marginTop: '1.5rem'
                                     }}>
                                         <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem' }}>
-                                            💰 TOTAL INVESTMENT
+                                            💰 {t('totalInvestment')}
                                         </h4>
                                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
                                             <div>
-                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>Total Product:</div>
+                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalProduct')}</div>
                                                 <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
                                                     {(calculationData.results.totalProductGrams / 1000).toFixed(2)} kg
                                                 </div>
                                             </div>
                                             <div>
-                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>Total Cost:</div>
+                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalCost')}</div>
                                                 <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
                                                     {calculationData.results.totalCost.toLocaleString()} VND
                                                 </div>
                                             </div>
                                             <div>
-                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>Cost per Animal:</div>
+                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('costPerAnimal')}</div>
                                                 <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
                                                     {Math.round(calculationData.results.costPerAnimal).toLocaleString()} VND
                                                 </div>
@@ -1872,7 +1874,7 @@ const DosageCalculator = () => {
                                         marginTop: '1.5rem'
                                     }}>
                                         <h4 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                            💡 Expected Benefits:
+                                            💡 {t('expectedBenefits')}
                                         </h4>
                                         {calculationData.selectedProduct.benefits.primary.map((benefit, i) => (
                                             <div key={i} style={{ marginBottom: '0.5rem', paddingLeft: '1.5rem', position: 'relative' }}>
@@ -1881,7 +1883,7 @@ const DosageCalculator = () => {
                                             </div>
                                         ))}
                                         <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#6b7280', fontStyle: 'italic' }}>
-                                            Note: Results may vary based on farm conditions and management practices.
+                                            {t('benefitsNote')}
                                         </div>
                                     </div>
 
@@ -1895,7 +1897,7 @@ const DosageCalculator = () => {
                                     }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                                             <h4 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1e40af' }}>
-                                                📋 Detail Perhitungan Harian
+                                                📋 {t('dailyCalculationDetails')}
                                             </h4>
                                             <button
                                                 onClick={() => setShowDailyDetails(!showDailyDetails)}
@@ -1910,14 +1912,14 @@ const DosageCalculator = () => {
                                                     fontWeight: '600'
                                                 }}
                                             >
-                                                {showDailyDetails ? '🔼 Sembunyikan Detail' : '🔽 Tampilkan Detail'}
+                                                {showDailyDetails ? '🔼 ' + t('hideDetails') : '🔽 ' + t('showDetails')}
                                             </button>
                                         </div>
 
                                         {showDailyDetails && (
                                             <div>
                                                 <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem' }}>
-                                                    Tabel di bawah menampilkan perhitungan detail untuk setiap hari dalam periode treatment yang dipilih.
+                                                    {t('dailyDetailsDescription')}
                                                 </p>
 
                                                 {calculationData.results.periods.map((period, periodIndex) => (
@@ -1930,7 +1932,7 @@ const DosageCalculator = () => {
                                                             fontWeight: '700',
                                                             fontSize: '1rem'
                                                         }}>
-                                                            Period {periodIndex + 1}
+                                                            {t('period')} {periodIndex + 1}
                                                         </div>
                                                         
                                                         <div style={{ overflowX: 'auto' }}>
@@ -1942,14 +1944,14 @@ const DosageCalculator = () => {
                                                             }}>
                                                                 <thead>
                                                                     <tr style={{ background: '#f3f4f6' }}>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #e5e7eb' }}>Hari</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>Umur (hari)</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>Air (ml/ekor)</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>Total Air (L)</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>Pakan (g/ekor)</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>Total Pakan (kg)</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#667eea' }}>Produk (g)</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#f59e0b' }}>Biaya (VND)</th>
+                                                                        <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #e5e7eb' }}>{t('dayColumn')}</th>
+                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('ageColumn')}</th>
+                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('waterPerAnimal')}</th>
+                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('totalWaterL')}</th>
+                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('feedPerAnimal')}</th>
+                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('totalFeedKg')}</th>
+                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#667eea' }}>{t('productG')}</th>
+                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#f59e0b' }}>{t('costVND')}</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1970,7 +1972,7 @@ const DosageCalculator = () => {
                                                                         </tr>
                                                                     ))}
                                                                     <tr style={{ background: '#fce7f3', fontWeight: '700' }}>
-                                                                        <td colSpan="3" style={{ padding: '0.75rem' }}>Total Period</td>
+                                                                        <td colSpan="3" style={{ padding: '0.75rem' }}>{t('totalPeriod')}</td>
                                                                         <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalWaterL).toLocaleString()}</td>
                                                                         <td style={{ padding: '0.75rem', textAlign: 'right' }}></td>
                                                                         <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalFeedKg).toLocaleString()}</td>
@@ -2013,7 +2015,7 @@ const DosageCalculator = () => {
                                                 gap: '0.5rem'
                                             }}
                                         >
-                                            📊 Export to Excel
+                                            📊 {t('exportToExcel')}
                                         </button>
                                         <button
                                             onClick={printPDF}
@@ -2031,7 +2033,7 @@ const DosageCalculator = () => {
                                                 gap: '0.5rem'
                                             }}
                                         >
-                                            🖨️ Print PDF
+                                            🖨️ {t('printPDF')}
                                         </button>
                                     </div>
 
@@ -2044,22 +2046,22 @@ const DosageCalculator = () => {
                                         marginTop: '2rem'
                                     }}>
                                         <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#0369a1' }}>
-                                            📧 Request for Inquiry
+                                            📧 {t('requestForInquiry')}
                                         </h4>
                                         <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1.5rem' }}>
-                                            Interested in this product? Fill in your contact information and our team will reach out to you.
+                                            {t('inquiryDescription')}
                                         </p>
                                         
                                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
                                             <div>
                                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                    Name *
+                                                    {t('name')} *
                                                 </label>
                                                 <input
                                                     type="text"
                                                     value={inquiryData.name}
                                                     onChange={(e) => setInquiryData(prev => ({ ...prev, name: e.target.value }))}
-                                                    placeholder="Enter your name"
+                                                    placeholder={t('enterName')}
                                                     style={{
                                                         width: '100%',
                                                         padding: '0.75rem',
@@ -2071,13 +2073,13 @@ const DosageCalculator = () => {
                                             </div>
                                             <div>
                                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                    Email *
+                                                    {t('email')} *
                                                 </label>
                                                 <input
                                                     type="email"
                                                     value={inquiryData.email}
                                                     onChange={(e) => setInquiryData(prev => ({ ...prev, email: e.target.value }))}
-                                                    placeholder="Enter your email"
+                                                    placeholder={t('enterEmail')}
                                                     style={{
                                                         width: '100%',
                                                         padding: '0.75rem',
@@ -2089,13 +2091,13 @@ const DosageCalculator = () => {
                                             </div>
                                             <div>
                                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                    Phone Number *
+                                                    {t('phoneNumber')} *
                                                 </label>
                                                 <input
                                                     type="tel"
                                                     value={inquiryData.phone}
                                                     onChange={(e) => setInquiryData(prev => ({ ...prev, phone: e.target.value }))}
-                                                    placeholder="Enter your phone number"
+                                                    placeholder={t('enterPhone')}
                                                     style={{
                                                         width: '100%',
                                                         padding: '0.75rem',
@@ -2110,10 +2112,10 @@ const DosageCalculator = () => {
                                         <button
                                             onClick={() => {
                                                 if (inquiryData.name && inquiryData.email && inquiryData.phone) {
-                                                    alert('Thank you for your inquiry! Our team will contact you soon.');
+                                                    alert(t('inquirySuccess'));
                                                     // TODO: Implement actual inquiry submission logic here
                                                 } else {
-                                                    alert('Please fill in all required fields.');
+                                                    alert(t('fillAllFields'));
                                                 }
                                             }}
                                             style={{
@@ -2129,11 +2131,11 @@ const DosageCalculator = () => {
                                                 width: '100%'
                                             }}
                                         >
-                                            Submit Inquiry
+                                            {t('submitInquiry')}
                                         </button>
                                         
                                         <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '1rem', fontStyle: 'italic' }}>
-                                            * All fields are required. Your information will be kept confidential.
+                                            {t('allFieldsRequired')}
                                         </p>
                                     </div>
                                 </div>
@@ -2181,7 +2183,7 @@ const DosageCalculator = () => {
                                         marginLeft: 'auto'
                                     }}
                                 >
-                                    🔄 New Calculation
+                                    🔄 {t('newCalculation')}
                                 </button>
                             </div>
                         ) : (
@@ -2228,7 +2230,7 @@ const DosageCalculator = () => {
                                             ) ? 0.5 : 1
                                         }}
                                     >
-                                        Next →
+                                        {t('next')} →
                                     </button>
                                 )}
                             </>
