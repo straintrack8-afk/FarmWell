@@ -635,12 +635,14 @@ const DosageCalculator = () => {
             
             console.log('Broiler breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
         }
-        // Other breeders (swine) - use default values
+        // Swine breeding - use database values
         else if (['sow_gestation', 'sow_lactation', 'boar'].includes(specificCategory)) {
-            // Default breeder values for swine
-            waterL = 0.3; // 300ml per animal
-            feedKg = 0.15; // 150g per animal
-            console.log('Swine breeder calculation (default):', { specificCategory, waterL, feedKg });
+            const swineBreedingData = consumptionData?.swine_breeding?.[specificCategory];
+            if (swineBreedingData) {
+                waterL = swineBreedingData.water_L || 0;
+                feedKg = swineBreedingData.feed_kg || 0;
+            }
+            console.log('Swine breeder calculation:', { specificCategory, waterL, feedKg });
         }
         else {
             console.error('❌ Unknown category:', specificCategory);
