@@ -2,10 +2,12 @@ import React from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { STEPS } from '../utils/constants';
 import Button from './common/Button';
+import { useTranslation } from '../../../hooks/useTranslation';
 import { ChevronRight, Check } from 'lucide-react';
 
 export default function AgeSelection() {
     const { setStep, setAge, selectedAge, ageGroups } = useDiagnosis();
+    const { t } = useTranslation();
 
     const handleSelect = (ageId) => {
         setAge(ageId);
@@ -46,8 +48,7 @@ export default function AgeSelection() {
             {/* Instructions */}
             <div className="bg-primary-50 border border-primary-100 rounded-xl p-4 mb-6">
                 <p className="text-primary-800 text-sm">
-                    <strong>Select the age group</strong> of the affected birds.
-                    This helps narrow down potential diseases to those most relevant for your flock.
+                    {t('swine.diagnosis.age.instruction')}
                 </p>
             </div>
 
@@ -105,7 +106,7 @@ export default function AgeSelection() {
                     icon={ChevronRight}
                     iconPosition="right"
                 >
-                    Continue
+                    {t('swine.diagnosis.age.continue')}
                 </Button>
             </div>
         </div>

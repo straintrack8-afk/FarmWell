@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import CategoryBadge from './common/CategoryBadge';
 import Button from './common/Button';
+import { useTranslation } from '../../../hooks/useTranslation';
 import {
     ChevronDown,
     ChevronUp,
@@ -19,14 +20,15 @@ import {
 
 export default function DiseaseDetail() {
     const { selectedDisease, goBack, reset } = useDiagnosis();
+    const { t } = useTranslation();
     const [expandedSections, setExpandedSections] = useState(['symptoms', 'description']);
 
     if (!selectedDisease) {
         return (
             <div className="max-w-4xl mx-auto px-4 py-12 text-center">
-                <p className="text-gray-600">No disease selected</p>
+                <p className="text-gray-600">{t('swine.diagnosis.detail.noDisease')}</p>
                 <Button onClick={goBack} className="mt-4">
-                    Go Back
+                    {t('swine.diagnosis.detail.goBack')}
                 </Button>
             </div>
         );
@@ -47,32 +49,32 @@ export default function DiseaseDetail() {
     const sections = [
         {
             id: 'description',
-            title: 'Description',
+            title: t('swine.diagnosis.detail.sections.description'),
             icon: FileText,
             content: selectedDisease.description
         },
         {
             id: 'symptoms',
-            title: 'Symptoms',
+            title: t('swine.diagnosis.detail.sections.symptoms'),
             icon: Activity,
             content: selectedDisease.symptoms,
             isList: true
         },
         {
             id: 'diagnosis',
-            title: 'Diagnosis',
+            title: t('swine.diagnosis.detail.sections.diagnosis'),
             icon: Microscope,
             content: selectedDisease.diagnosis
         },
         {
             id: 'control',
-            title: 'Control & Prevention',
+            title: t('swine.diagnosis.detail.sections.control'),
             icon: Shield,
             content: selectedDisease.controlPrevention
         },
         {
             id: 'treatment',
-            title: 'Treatment',
+            title: t('swine.diagnosis.detail.sections.treatment'),
             icon: Pill,
             content: selectedDisease.treatment
         }
