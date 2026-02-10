@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { STEPS } from '../utils/constants';
 import Button from './common/Button';
+import { useTranslation } from '../../../hooks/useTranslation';
 import {
     ChevronRight,
     ChevronDown,
@@ -24,6 +25,7 @@ export default function SymptomSelection() {
         selectedAge,
         ageGroups
     } = useDiagnosis();
+    const { t } = useTranslation();
 
     const [expandedCategories, setExpandedCategories] = useState(
         Object.keys(symptomCategories)
@@ -32,8 +34,8 @@ export default function SymptomSelection() {
     // Get selected age label
     const selectedAgeLabel = useMemo(() => {
         const age = ageGroups.find(a => a.id === selectedAge);
-        return age ? age.label : 'All ages';
-    }, [selectedAge, ageGroups]);
+        return age ? age.label : t('swine.diagnosis.symptoms.allAges');
+    }, [selectedAge, ageGroups, t]);
 
     const toggleCategory = (categoryKey) => {
         setExpandedCategories(prev =>
@@ -69,12 +71,12 @@ export default function SymptomSelection() {
                             : 'bg-primary-100 text-primary-800'
                             }`}>
                             <span className="text-2xl font-bold">{filteredDiseases.length}</span>
-                            <span className="text-sm">possible disease{filteredDiseases.length !== 1 ? 's' : ''}</span>
+                            <span className="text-sm">{filteredDiseases.length !== 1 ? t('swine.diagnosis.symptoms.possibleDiseasesPlural') : t('swine.diagnosis.symptoms.possibleDiseases')}</span>
                         </div>
 
                         {/* Selected age indicator */}
                         <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
-                            <span>Age:</span>
+                            <span>{t('swine.diagnosis.symptoms.age')}:</span>
                             <span className="font-medium text-gray-900">{selectedAgeLabel}</span>
                         </div>
                     </div>
@@ -83,7 +85,7 @@ export default function SymptomSelection() {
                         {/* Selected symptoms count */}
                         {selectedSymptoms.length > 0 && (
                             <span className="text-sm text-gray-600">
-                                {selectedSymptoms.length} symptom{selectedSymptoms.length !== 1 ? 's' : ''} selected
+                                {selectedSymptoms.length} {selectedSymptoms.length !== 1 ? t('swine.diagnosis.symptoms.symptomsSelectedPlural') : t('swine.diagnosis.symptoms.symptomsSelected')}
                             </span>
                         )}
 
@@ -95,7 +97,7 @@ export default function SymptomSelection() {
                                 onClick={clearSymptoms}
                                 icon={X}
                             >
-                                Clear
+                                {t('swine.diagnosis.symptoms.clear')}
                             </Button>
                         )}
 
@@ -107,7 +109,7 @@ export default function SymptomSelection() {
                             icon={ChevronRight}
                             iconPosition="right"
                         >
-                            Show Results
+                            {t('swine.diagnosis.symptoms.showResults')}
                         </Button>
                     </div>
                 </div>
@@ -118,9 +120,7 @@ export default function SymptomSelection() {
                 <div className="flex gap-3">
                     <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                     <div className="text-sm text-blue-800">
-                        <strong>Select the symptoms</strong> you observe in the affected birds.
-                        Start with the most obvious signs. The disease counter updates in real-time
-                        as you make selections.
+                        {t('swine.diagnosis.symptoms.instruction')}
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@ export default function SymptomSelection() {
                                             {category.label}
                                         </h3>
                                         <p className="text-xs text-gray-500">
-                                            {category.symptoms.length} symptoms
+                                            {category.symptoms.length} {t('swine.diagnosis.symptoms.symptoms')}
                                         </p>
                                     </div>
                                 </div>
@@ -242,7 +242,7 @@ export default function SymptomSelection() {
                             {filteredDiseases.length}
                         </span>
                         <span className="text-sm text-gray-600">
-                            disease{filteredDiseases.length !== 1 ? 's' : ''}
+                            {filteredDiseases.length !== 1 ? t('swine.diagnosis.symptoms.diseasePlural') : t('swine.diagnosis.symptoms.disease')}
                         </span>
                     </div>
 
@@ -252,7 +252,7 @@ export default function SymptomSelection() {
                         icon={ChevronRight}
                         iconPosition="right"
                     >
-                        Show Results
+                        {t('swine.diagnosis.symptoms.showResults')}
                     </Button>
                 </div>
             </div>

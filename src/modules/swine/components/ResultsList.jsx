@@ -4,6 +4,7 @@ import { STEPS } from '../utils/constants';
 import { groupByCategory, getMatchPercentage, countSymptomMatches } from '../utils/filterDiseases';
 import CategoryBadge from './common/CategoryBadge';
 import Button from './common/Button';
+import { useTranslation } from '../../../hooks/useTranslation';
 import {
     ChevronRight,
     Search,
@@ -22,12 +23,13 @@ export default function ResultsList() {
         setStep,
         reset
     } = useDiagnosis();
+    const { t } = useTranslation();
 
     // Get selected age label
     const selectedAgeLabel = useMemo(() => {
         const age = ageGroups.find(a => a.id === selectedAge);
-        return age ? age.shortLabel || age.label : 'All ages';
-    }, [selectedAge, ageGroups]);
+        return age ? age.shortLabel || age.label : t('swine.diagnosis.symptoms.allAges');
+    }, [selectedAge, ageGroups, t]);
 
     // Group diseases by category
     const groupedDiseases = useMemo(() => {
@@ -51,12 +53,11 @@ export default function ResultsList() {
                     </div>
 
                     <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                        No Matching Diseases Found
+                        {t('swine.diagnosis.results.noResults.title')}
                     </h2>
 
                     <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                        No diseases in our database match all your selected criteria.
-                        Try removing some symptoms to broaden your search.
+                        {t('swine.diagnosis.results.noResults.description')}
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -65,14 +66,14 @@ export default function ResultsList() {
                             onClick={() => setStep(STEPS.SYMPTOMS)}
                             icon={ArrowLeft}
                         >
-                            Modify Symptoms
+                            {t('swine.diagnosis.results.noResults.modifySymptoms')}
                         </Button>
 
                         <Button
                             onClick={reset}
                             icon={RefreshCw}
                         >
-                            Start New Diagnosis
+                            {t('swine.diagnosis.results.noResults.startNew')}
                         </Button>
                     </div>
                 </div>
@@ -87,10 +88,10 @@ export default function ResultsList() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                         <h2 className="text-lg font-semibold text-green-900">
-                            {filteredDiseases.length} Possible Disease{filteredDiseases.length !== 1 ? 's' : ''}
+                            {filteredDiseases.length} {filteredDiseases.length !== 1 ? t('swine.diagnosis.results.header.possibleDiseasePlural') : t('swine.diagnosis.results.header.possibleDisease')}
                         </h2>
                         <p className="text-sm text-green-700">
-                            Based on {selectedSymptoms.length} symptom{selectedSymptoms.length !== 1 ? 's' : ''} • Age: {selectedAgeLabel}
+                            {t('swine.diagnosis.results.header.basedOn')} {selectedSymptoms.length} {selectedSymptoms.length !== 1 ? t('swine.diagnosis.results.header.symptomPlural') : t('swine.diagnosis.results.header.symptom')} • {t('swine.diagnosis.results.header.age')}: {selectedAgeLabel}
                         </p>
                     </div>
 
@@ -100,14 +101,14 @@ export default function ResultsList() {
                         onClick={() => setStep(STEPS.SYMPTOMS)}
                         icon={ArrowLeft}
                     >
-                        Modify
+                        {t('swine.diagnosis.results.header.modify')}
                     </Button>
                 </div>
             </div>
 
             {/* Selected symptoms summary */}
             <div className="mb-6">
-                <h3 className="text-sm font-medium text-gray-700 mb-2">Selected Symptoms:</h3>
+                <h3 className="text-sm font-medium text-gray-700 mb-2">{t('swine.diagnosis.results.selectedSymptoms')}</h3>
                 <div className="flex flex-wrap gap-2">
                     {selectedSymptoms.map((symptom) => (
                         <span
@@ -132,7 +133,7 @@ export default function ResultsList() {
                             <div className="flex items-center gap-3 mb-3">
                                 <CategoryBadge category={category} size="md" />
                                 <span className="text-sm text-gray-500">
-                                    {diseases.length} disease{diseases.length !== 1 ? 's' : ''}
+                                    {diseases.length} {diseases.length !== 1 ? t('swine.diagnosis.results.diseasePlural') : t('swine.diagnosis.results.disease')}
                                 </span>
                             </div>
 
@@ -177,13 +178,13 @@ export default function ResultsList() {
                                                                 />
                                                             </div>
                                                             <span className="text-xs text-gray-500">
-                                                                {matchCount}/{selectedSymptoms.length} matched
+                                                                {matchCount}/{selectedSymptoms.length} {t('swine.diagnosis.results.matched')}
                                                             </span>
                                                         </div>
 
                                                         {disease.zoonotic && (
                                                             <span className="text-xs px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full">
-                                                                ⚠️ Zoonotic
+                                                                ⚠️ {t('swine.diagnosis.results.zoonotic')}
                                                             </span>
                                                         )}
                                                     </div>
@@ -204,8 +205,7 @@ export default function ResultsList() {
             {/* Disclaimer */}
             <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
                 <p className="text-sm text-gray-600 text-center">
-                    <strong>Note:</strong> This tool is for educational purposes only.
-                    Always consult a qualified veterinarian for accurate diagnosis and treatment.
+                    <strong>Note:</strong> {t('swine.diagnosis.results.disclaimer')}
                 </p>
             </div>
         </div>
