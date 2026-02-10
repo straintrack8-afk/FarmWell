@@ -24,7 +24,52 @@ export const translations = {
                     treatment: "Treatment recommendations",
                     offline: "Works offline"
                 },
-                button: "Start Diagnosis"
+                button: "Start Diagnosis",
+                landing: {
+                    heroTitle: "Swine",
+                    heroTitleHighlight: "E-Diagnostics",
+                    heroDescription: "A comprehensive diagnostic tool to help identify swine diseases based on clinical signs and pig age.",
+                    startButton: "Start Diagnosis",
+                    offlineMode: "Offline Mode",
+                    online: "Online",
+                    howItWorks: "How It Works",
+                    features: {
+                        database: {
+                            title: "Comprehensive Database",
+                            description: "swine diseases with detailed information"
+                        },
+                        instant: {
+                            title: "Instant Results",
+                            description: "Real-time filtering as you select symptoms"
+                        },
+                        offline: {
+                            title: "Works Offline",
+                            description: "Use anywhere, even without internet connection"
+                        },
+                        expert: {
+                            title: "Expert Guidance",
+                            description: "Clinical signs, diagnosis methods & treatment options"
+                        }
+                    },
+                    steps: {
+                        step1: {
+                            title: "Select Age Group",
+                            description: "Choose the age of affected pigs"
+                        },
+                        step2: {
+                            title: "Select Symptoms",
+                            description: "Check observed clinical signs"
+                        },
+                        step3: {
+                            title: "View Results",
+                            description: "See matching diseases ranked by relevance"
+                        }
+                    },
+                    footer: {
+                        poweredBy: "Powered by",
+                        disclaimer: "Designed for farmers and veterinarians. Always consult a veterinary professional for accurate diagnosis."
+                    }
+                }
             },
             biosecurity: {
                 title: "Biosecurity Assessment",
@@ -122,7 +167,52 @@ export const translations = {
                     treatment: "Rekomendasi pengobatan",
                     offline: "Bekerja offline"
                 },
-                button: "Mulai Diagnosis"
+                button: "Mulai Diagnosis",
+                landing: {
+                    heroTitle: "Babi",
+                    heroTitleHighlight: "E-Diagnostik",
+                    heroDescription: "Alat diagnostik komprehensif untuk membantu mengidentifikasi penyakit babi berdasarkan tanda klinis dan umur babi.",
+                    startButton: "Mulai Diagnosis",
+                    offlineMode: "Mode Offline",
+                    online: "Online",
+                    howItWorks: "Cara Kerja",
+                    features: {
+                        database: {
+                            title: "Database Komprehensif",
+                            description: "penyakit babi dengan informasi lengkap"
+                        },
+                        instant: {
+                            title: "Hasil Instan",
+                            description: "Penyaringan real-time saat Anda memilih gejala"
+                        },
+                        offline: {
+                            title: "Bekerja Offline",
+                            description: "Gunakan di mana saja, bahkan tanpa koneksi internet"
+                        },
+                        expert: {
+                            title: "Panduan Ahli",
+                            description: "Tanda klinis, metode diagnosis & opsi pengobatan"
+                        }
+                    },
+                    steps: {
+                        step1: {
+                            title: "Pilih Kelompok Umur",
+                            description: "Pilih umur babi yang terkena dampak"
+                        },
+                        step2: {
+                            title: "Pilih Gejala",
+                            description: "Centang tanda klinis yang diamati"
+                        },
+                        step3: {
+                            title: "Lihat Hasil",
+                            description: "Lihat penyakit yang cocok diurutkan berdasarkan relevansi"
+                        }
+                    },
+                    footer: {
+                        poweredBy: "Didukung oleh",
+                        disclaimer: "Dirancang untuk peternak dan dokter hewan. Selalu konsultasikan dengan profesional veteriner untuk diagnosis yang akurat."
+                    }
+                }
             },
             biosecurity: {
                 title: "Penilaian Biosekuriti",
@@ -220,7 +310,52 @@ export const translations = {
                     treatment: "Khuyến nghị điều trị",
                     offline: "Hoạt động ngoại tuyến"
                 },
-                button: "Bắt đầu Chẩn đoán"
+                button: "Bắt đầu Chẩn đoán",
+                landing: {
+                    heroTitle: "Lợn",
+                    heroTitleHighlight: "E-Chẩn đoán",
+                    heroDescription: "Công cụ chẩn đoán toàn diện giúp xác định bệnh lợn dựa trên dấu hiệu lâm sàng và độ tuổi lợn.",
+                    startButton: "Bắt đầu Chẩn đoán",
+                    offlineMode: "Chế độ Ngoại tuyến",
+                    online: "Trực tuyến",
+                    howItWorks: "Cách Hoạt động",
+                    features: {
+                        database: {
+                            title: "Cơ sở Dữ liệu Toàn diện",
+                            description: "bệnh lợn với thông tin chi tiết"
+                        },
+                        instant: {
+                            title: "Kết quả Tức thì",
+                            description: "Lọc theo thời gian thực khi bạn chọn triệu chứng"
+                        },
+                        offline: {
+                            title: "Hoạt động Ngoại tuyến",
+                            description: "Sử dụng ở bất kỳ đâu, ngay cả khi không có kết nối internet"
+                        },
+                        expert: {
+                            title: "Hướng dẫn Chuyên gia",
+                            description: "Dấu hiệu lâm sàng, phương pháp chẩn đoán & lựa chọn điều trị"
+                        }
+                    },
+                    steps: {
+                        step1: {
+                            title: "Chọn Nhóm Tuổi",
+                            description: "Chọn độ tuổi của lợn bị ảnh hưởng"
+                        },
+                        step2: {
+                            title: "Chọn Triệu chứng",
+                            description: "Đánh dấu các dấu hiệu lâm sàng quan sát được"
+                        },
+                        step3: {
+                            title: "Xem Kết quả",
+                            description: "Xem các bệnh phù hợp được xếp hạng theo mức độ liên quan"
+                        }
+                    },
+                    footer: {
+                        poweredBy: "Được hỗ trợ bởi",
+                        disclaimer: "Được thiết kế cho nông dân và bác sĩ thú y. Luôn tham khảo ý kiến chuyên gia thú y để chẩn đoán chính xác."
+                    }
+                }
             },
             biosecurity: {
                 title: "Đánh giá An toàn Sinh học",
