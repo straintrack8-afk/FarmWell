@@ -2,7 +2,7 @@ import React from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { STEPS } from '../utils/constants';
 import Button from './common/Button';
-import { useLanguage } from '../../../contexts/LanguageContext';
+import { useTranslation } from '../../../hooks/useTranslation';
 import {
     Stethoscope,
     Database,
@@ -16,7 +16,7 @@ import {
 
 export default function LandingPage() {
     const { setStep, allDiseases, isOffline } = useDiagnosis();
-    const { language } = useLanguage();
+    const { t, language } = useTranslation();
 
     const handleStart = () => {
         setStep(STEPS.AGE);
@@ -25,30 +25,30 @@ export default function LandingPage() {
     const features = [
         {
             icon: Database,
-            title: 'Comprehensive Database',
-            description: `${allDiseases.length}+ poultry diseases with detailed information`
+            title: t('swine.diagnosis.landing.features.database.title'),
+            description: `${allDiseases.length}+ ${t('swine.diagnosis.landing.features.database.description')}`
         },
         {
             icon: Zap,
-            title: 'Instant Results',
-            description: 'Real-time filtering as you select symptoms'
+            title: t('swine.diagnosis.landing.features.instant.title'),
+            description: t('swine.diagnosis.landing.features.instant.description')
         },
         {
             icon: WifiOff,
-            title: 'Works Offline',
-            description: 'Use anywhere, even without internet connection'
+            title: t('swine.diagnosis.landing.features.offline.title'),
+            description: t('swine.diagnosis.landing.features.offline.description')
         },
         {
             icon: Shield,
-            title: 'Expert Guidance',
-            description: 'Clinical signs, diagnosis methods & treatment options'
+            title: t('swine.diagnosis.landing.features.expert.title'),
+            description: t('swine.diagnosis.landing.features.expert.description')
         }
     ];
 
     const steps = [
-        { number: 1, title: 'Select Age Group', description: 'Choose the age of affected birds' },
-        { number: 2, title: 'Select Symptoms', description: 'Check observed clinical signs' },
-        { number: 3, title: 'View Results', description: 'See matching diseases ranked by relevance' }
+        { number: 1, title: t('swine.diagnosis.landing.steps.step1.title'), description: t('swine.diagnosis.landing.steps.step1.description') },
+        { number: 2, title: t('swine.diagnosis.landing.steps.step2.title'), description: t('swine.diagnosis.landing.steps.step2.description') },
+        { number: 3, title: t('swine.diagnosis.landing.steps.step3.title'), description: t('swine.diagnosis.landing.steps.step3.description') }
     ];
 
     return (
@@ -79,12 +79,11 @@ export default function LandingPage() {
                         </div>
 
                         <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-                            Poultry <span className="text-primary-500">E-Diagnostics</span>
+                            {t('swine.diagnosis.landing.heroTitle')} <span className="text-primary-500">{t('swine.diagnosis.landing.heroTitleHighlight')}</span>
                         </h1>
 
                         <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-                            A comprehensive diagnostic tool to help identify poultry diseases
-                            based on clinical signs and bird age.
+                            {t('swine.diagnosis.landing.heroDescription')}
                         </p>
 
                         {/* Status badge */}
@@ -109,12 +108,12 @@ export default function LandingPage() {
                                 {isOffline ? (
                                     <>
                                         <WifiOff className="w-4 h-4" />
-                                        <span className="text-sm font-medium">Offline Mode</span>
+                                        <span className="text-sm font-medium">{t('swine.diagnosis.landing.offlineMode')}</span>
                                     </>
                                 ) : (
                                     <>
                                         <Wifi className="w-4 h-4" />
-                                        <span className="text-sm font-medium">Online</span>
+                                        <span className="text-sm font-medium">{t('swine.diagnosis.landing.online')}</span>
                                     </>
                                 )}
                             </div>
@@ -128,7 +127,7 @@ export default function LandingPage() {
                             iconPosition="right"
                             className="shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 transform hover:-translate-y-0.5"
                         >
-                            Start Diagnosis
+                            {t('swine.diagnosis.landing.startButton')}
                         </Button>
                     </div>
 
@@ -136,7 +135,7 @@ export default function LandingPage() {
                     <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8 mb-12">
                         <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
                             <BookOpen className="w-5 h-5 text-primary-500" />
-                            How It Works
+                            {t('swine.diagnosis.landing.howItWorks')}
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -195,7 +194,7 @@ export default function LandingPage() {
                 <div className="max-w-6xl mx-auto px-4 text-center">
                     <div className="flex flex-col items-center justify-center gap-4">
                         <div className="flex flex-col items-center gap-2">
-                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Powered by</span>
+                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">{t('swine.diagnosis.landing.footer.poweredBy')}</span>
                             <img
                                 src="/images/Vaksindo_logo.png"
                                 alt="Vaksindo logo"
@@ -203,8 +202,7 @@ export default function LandingPage() {
                             />
                         </div>
                         <p className="text-sm text-gray-500 max-w-md mx-auto">
-                            Designed for farmers and veterinarians.
-                            Always consult a veterinary professional for accurate diagnosis.
+                            {t('swine.diagnosis.landing.footer.disclaimer')}
                         </p>
                     </div>
                 </div>
