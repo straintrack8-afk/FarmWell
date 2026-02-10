@@ -16,6 +16,8 @@ export const feedAdditivesTranslations = {
         selectSpecificCategory: "Specific Category:",
         commercial: "Commercial",
         breeding: "Breeding",
+        swine: "Swine",
+        poultry: "Poultry",
         
         // Animal categories
         broiler: "Broiler",
@@ -136,6 +138,28 @@ export const feedAdditivesTranslations = {
         
         // Print header
         generated: "Generated:",
+        
+        // Reference Data Table Headers
+        ageInDays: "Age (days)",
+        waterMlPerBird: "Water (ml/bird/day)",
+        feedGPerBird: "Feed (g/bird/day)",
+        calculationMethodFormula: "Calculation Method: Formula-Based",
+        calculationMethodTable: "Calculation Method: Table-Based with Interpolation",
+        calculationMethodPhase: "Calculation Method: Phase-Based",
+        calculationMethodFixed: "Calculation Method: Fixed Values",
+        dataSource: "Data from",
+        hyLineGuide: "Hy-Line International Management Guide",
+        nrcSwineStandards: "NRC Swine Nutrition Standards",
+        formulaDescription: "Water (ml/bird/day) = 5.28 × Age (days)\nFeed (g/bird/day) = Water ÷ 1.77",
+        colorChickenFormula: "Water (ml/bird/day) = 5.28 × Age (days) × 0.70\nFeed (g/bird/day) = Water ÷ 1.77",
+        breederPhaseDescription: "Growing Phase (Week 1-20): Uses layer data\nProduction Phase (Week 21+): Fixed consumption values",
+        colorBreederPhaseDescription: "Growing Phase (Week 1-20): Uses layer data with 85% adjustment\nProduction Phase (Week 21+): Fixed consumption values",
+        weightKg: "Weight (kg)",
+        waterLPerDay: "Water (L/day)",
+        feedKgPerDay: "Feed (kg/day)",
+        sowGestationNote: "Note: Adjust based on body condition score",
+        sowLactationNote: "Note: High water demand due to milk production",
+        boarNote: "Note: Maintenance level, adjust for body condition",
     },
     
     id: {
@@ -154,7 +178,9 @@ export const feedAdditivesTranslations = {
         selectProductionCategory: "Kategori Produksi:",
         selectSpecificCategory: "Kategori Spesifik:",
         commercial: "Komersial",
-        breeding: "Breeding",
+        breeding: "Pembibitan",
+        swine: "Babi",
+        poultry: "Unggas",
         
         // Animal categories
         broiler: "Broiler",
@@ -188,7 +214,7 @@ export const feedAdditivesTranslations = {
         treatmentProtocol: "Protokol Treatment",
         templateProtocol: "Template Protokol:",
         useTemplate: "Gunakan Template Protokol",
-        customProtocol: "Protokol Custom (Multiple Periode)",
+        customProtocol: "Protokol Kustom (Beberapa Periode)",
         period: "Periode",
         startDay: "Hari Mulai:",
         endDay: "Hari Selesai:",
@@ -275,6 +301,28 @@ export const feedAdditivesTranslations = {
         
         // Print header
         generated: "Dibuat:",
+        
+        // Reference Data Table Headers
+        ageInDays: "Umur (hari)",
+        waterMlPerBird: "Air (ml/ekor/hari)",
+        feedGPerBird: "Pakan (g/ekor/hari)",
+        calculationMethodFormula: "Metode Perhitungan: Berbasis Formula",
+        calculationMethodTable: "Metode Perhitungan: Berbasis Tabel dengan Interpolasi",
+        calculationMethodPhase: "Metode Perhitungan: Berbasis Fase",
+        calculationMethodFixed: "Metode Perhitungan: Nilai Tetap",
+        dataSource: "Data dari",
+        hyLineGuide: "Panduan Manajemen Hy-Line International",
+        nrcSwineStandards: "Standar Nutrisi Babi NRC",
+        formulaDescription: "Air (ml/ekor/hari) = 5.28 × Umur (hari)\nPakan (g/ekor/hari) = Air ÷ 1.77",
+        colorChickenFormula: "Air (ml/ekor/hari) = 5.28 × Umur (hari) × 0.70\nPakan (g/ekor/hari) = Air ÷ 1.77",
+        breederPhaseDescription: "Fase Pertumbuhan (Minggu 1-20): Menggunakan data layer\nFase Produksi (Minggu 21+): Nilai konsumsi tetap",
+        colorBreederPhaseDescription: "Fase Pertumbuhan (Minggu 1-20): Menggunakan data layer dengan penyesuaian 85%\nFase Produksi (Minggu 21+): Nilai konsumsi tetap",
+        weightKg: "Berat (kg)",
+        waterLPerDay: "Air (L/hari)",
+        feedKgPerDay: "Pakan (kg/hari)",
+        sowGestationNote: "Catatan: Sesuaikan berdasarkan skor kondisi tubuh",
+        sowLactationNote: "Catatan: Kebutuhan air tinggi karena produksi susu",
+        boarNote: "Catatan: Level pemeliharaan, sesuaikan dengan kondisi tubuh",
     },
     
     vn: {
@@ -294,6 +342,8 @@ export const feedAdditivesTranslations = {
         selectSpecificCategory: "Danh Mục Cụ Thể:",
         commercial: "Thương Mại",
         breeding: "Nhân Giống",
+        swine: "Lợn",
+        poultry: "Gia Cầm",
         
         // Animal categories
         broiler: "Gà Thịt",
@@ -414,5 +464,27 @@ export const feedAdditivesTranslations = {
         
         // Print header
         generated: "Được tạo:",
+        
+        // Reference Data Table Headers
+        ageInDays: "Tuổi (ngày)",
+        waterMlPerBird: "Nước (ml/con/ngày)",
+        feedGPerBird: "Thức Ăn (g/con/ngày)",
+        calculationMethodFormula: "Phương Pháp Tính: Dựa Trên Công Thức",
+        calculationMethodTable: "Phương Pháp Tính: Dựa Trên Bảng với Nội Suy",
+        calculationMethodPhase: "Phương Pháp Tính: Dựa Trên Giai Đoạn",
+        calculationMethodFixed: "Phương Pháp Tính: Giá Trị Cố Định",
+        dataSource: "Dữ liệu từ",
+        hyLineGuide: "Hướng Dẫn Quản Lý Hy-Line International",
+        nrcSwineStandards: "Tiêu Chuẩn Dinh Dưỡng Lợn NRC",
+        formulaDescription: "Nước (ml/con/ngày) = 5.28 × Tuổi (ngày)\nThức Ăn (g/con/ngày) = Nước ÷ 1.77",
+        colorChickenFormula: "Nước (ml/con/ngày) = 5.28 × Tuổi (ngày) × 0.70\nThức Ăn (g/con/ngày) = Nước ÷ 1.77",
+        breederPhaseDescription: "Giai Đoạn Phát Triển (Tuần 1-20): Sử dụng dữ liệu gà đẻ\nGiai Đoạn Sản Xuất (Tuần 21+): Giá trị tiêu thụ cố định",
+        colorBreederPhaseDescription: "Giai Đoạn Phát Triển (Tuần 1-20): Sử dụng dữ liệu gà đẻ với điều chỉnh 85%\nGiai Đoạn Sản Xuất (Tuần 21+): Giá trị tiêu thụ cố định",
+        weightKg: "Cân Nặng (kg)",
+        waterLPerDay: "Nước (L/ngày)",
+        feedKgPerDay: "Thức Ăn (kg/ngày)",
+        sowGestationNote: "Lưu ý: Điều chỉnh dựa trên điểm số tình trạng cơ thể",
+        sowLactationNote: "Lưu ý: Nhu cầu nước cao do sản xuất sữa",
+        boarNote: "Lưu ý: Mức duy trì, điều chỉnh theo tình trạng cơ thể",
     }
 };
