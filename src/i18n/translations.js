@@ -69,6 +69,61 @@ export const translations = {
                         poweredBy: "Powered by",
                         disclaimer: "Designed for farmers and veterinarians. Always consult a veterinary professional for accurate diagnosis."
                     }
+                },
+                age: {
+                    instruction: "Select the age group of the affected pigs. This helps narrow down potential diseases to those most relevant for your herd.",
+                    continue: "Continue"
+                },
+                symptoms: {
+                    instruction: "Select the symptoms you observe in the affected pigs. Start with the most obvious signs. The disease counter updates in real-time as you make selections.",
+                    possibleDiseases: "possible disease",
+                    possibleDiseasesPlural: "possible diseases",
+                    age: "Age",
+                    allAges: "All ages",
+                    symptomsSelected: "symptom selected",
+                    symptomsSelectedPlural: "symptoms selected",
+                    clear: "Clear",
+                    showResults: "Show Results",
+                    symptoms: "symptoms",
+                    disease: "disease",
+                    diseasePlural: "diseases"
+                },
+                results: {
+                    noResults: {
+                        title: "No Matching Diseases Found",
+                        description: "No diseases in our database match all your selected criteria. Try removing some symptoms to broaden your search.",
+                        modifySymptoms: "Modify Symptoms",
+                        startNew: "Start New Diagnosis"
+                    },
+                    header: {
+                        possibleDisease: "Possible Disease",
+                        possibleDiseasePlural: "Possible Diseases",
+                        basedOn: "Based on",
+                        symptom: "symptom",
+                        symptomPlural: "symptoms",
+                        age: "Age",
+                        modify: "Modify"
+                    },
+                    selectedSymptoms: "Selected Symptoms:",
+                    disease: "disease",
+                    diseasePlural: "diseases",
+                    matched: "matched",
+                    zoonotic: "Zoonotic",
+                    disclaimer: "This tool is for educational purposes only. Always consult a qualified veterinarian for accurate diagnosis and treatment."
+                },
+                detail: {
+                    noDisease: "No disease selected",
+                    goBack: "Go Back",
+                    print: "Print",
+                    sections: {
+                        description: "Description",
+                        symptoms: "Symptoms",
+                        diagnosis: "Diagnosis",
+                        control: "Control & Prevention",
+                        treatment: "Treatment"
+                    },
+                    backToResults: "Back to Results",
+                    startNew: "Start New Diagnosis"
                 }
             },
             biosecurity: {
@@ -212,6 +267,61 @@ export const translations = {
                         poweredBy: "Didukung oleh",
                         disclaimer: "Dirancang untuk peternak dan dokter hewan. Selalu konsultasikan dengan profesional veteriner untuk diagnosis yang akurat."
                     }
+                },
+                age: {
+                    instruction: "Pilih kelompok umur babi yang terkena dampak. Ini membantu mempersempit penyakit potensial yang paling relevan untuk ternak Anda.",
+                    continue: "Lanjutkan"
+                },
+                symptoms: {
+                    instruction: "Pilih gejala yang Anda amati pada babi yang terkena dampak. Mulai dengan tanda yang paling jelas. Penghitung penyakit diperbarui secara real-time saat Anda membuat pilihan.",
+                    possibleDiseases: "penyakit yang mungkin",
+                    possibleDiseasesPlural: "penyakit yang mungkin",
+                    age: "Umur",
+                    allAges: "Semua umur",
+                    symptomsSelected: "gejala dipilih",
+                    symptomsSelectedPlural: "gejala dipilih",
+                    clear: "Hapus",
+                    showResults: "Tampilkan Hasil",
+                    symptoms: "gejala",
+                    disease: "penyakit",
+                    diseasePlural: "penyakit"
+                },
+                results: {
+                    noResults: {
+                        title: "Tidak Ada Penyakit yang Cocok",
+                        description: "Tidak ada penyakit dalam database kami yang cocok dengan semua kriteria yang Anda pilih. Coba hapus beberapa gejala untuk memperluas pencarian Anda.",
+                        modifySymptoms: "Ubah Gejala",
+                        startNew: "Mulai Diagnosis Baru"
+                    },
+                    header: {
+                        possibleDisease: "Penyakit yang Mungkin",
+                        possibleDiseasePlural: "Penyakit yang Mungkin",
+                        basedOn: "Berdasarkan",
+                        symptom: "gejala",
+                        symptomPlural: "gejala",
+                        age: "Umur",
+                        modify: "Ubah"
+                    },
+                    selectedSymptoms: "Gejala yang Dipilih:",
+                    disease: "penyakit",
+                    diseasePlural: "penyakit",
+                    matched: "cocok",
+                    zoonotic: "Zoonosis",
+                    disclaimer: "Alat ini hanya untuk tujuan edukasi. Selalu konsultasikan dengan dokter hewan yang berkualifikasi untuk diagnosis dan pengobatan yang akurat."
+                },
+                detail: {
+                    noDisease: "Tidak ada penyakit yang dipilih",
+                    goBack: "Kembali",
+                    print: "Cetak",
+                    sections: {
+                        description: "Deskripsi",
+                        symptoms: "Gejala",
+                        diagnosis: "Diagnosis",
+                        control: "Kontrol & Pencegahan",
+                        treatment: "Pengobatan"
+                    },
+                    backToResults: "Kembali ke Hasil",
+                    startNew: "Mulai Diagnosis Baru"
                 }
             },
             biosecurity: {
@@ -355,6 +465,61 @@ export const translations = {
                         poweredBy: "Được hỗ trợ bởi",
                         disclaimer: "Được thiết kế cho nông dân và bác sĩ thú y. Luôn tham khảo ý kiến chuyên gia thú y để chẩn đoán chính xác."
                     }
+                },
+                age: {
+                    instruction: "Chọn nhóm tuổi của lợn bị ảnh hưởng. Điều này giúp thu hẹp các bệnh tiềm năng phù hợp nhất với đàn của bạn.",
+                    continue: "Tiếp tục"
+                },
+                symptoms: {
+                    instruction: "Chọn các triệu chứng bạn quan sát thấy ở lợn bị ảnh hưởng. Bắt đầu với các dấu hiệu rõ ràng nhất. Bộ đếm bệnh cập nhật theo thời gian thực khi bạn thực hiện lựa chọn.",
+                    possibleDiseases: "bệnh có thể",
+                    possibleDiseasesPlural: "bệnh có thể",
+                    age: "Tuổi",
+                    allAges: "Tất cả độ tuổi",
+                    symptomsSelected: "triệu chứng đã chọn",
+                    symptomsSelectedPlural: "triệu chứng đã chọn",
+                    clear: "Xóa",
+                    showResults: "Hiển thị Kết quả",
+                    symptoms: "triệu chứng",
+                    disease: "bệnh",
+                    diseasePlural: "bệnh"
+                },
+                results: {
+                    noResults: {
+                        title: "Không Tìm Thấy Bệnh Phù Hợp",
+                        description: "Không có bệnh nào trong cơ sở dữ liệu của chúng tôi phù hợp với tất cả các tiêu chí bạn đã chọn. Thử xóa một số triệu chứng để mở rộng tìm kiếm của bạn.",
+                        modifySymptoms: "Sửa Đổi Triệu chứng",
+                        startNew: "Bắt đầu Chẩn đoán Mới"
+                    },
+                    header: {
+                        possibleDisease: "Bệnh Có Thể",
+                        possibleDiseasePlural: "Bệnh Có Thể",
+                        basedOn: "Dựa trên",
+                        symptom: "triệu chứng",
+                        symptomPlural: "triệu chứng",
+                        age: "Tuổi",
+                        modify: "Sửa đổi"
+                    },
+                    selectedSymptoms: "Triệu chứng Đã Chọn:",
+                    disease: "bệnh",
+                    diseasePlural: "bệnh",
+                    matched: "khớp",
+                    zoonotic: "Lây từ động vật",
+                    disclaimer: "Công cụ này chỉ dành cho mục đích giáo dục. Luôn tham khảo ý kiến bác sĩ thú y có trình độ để chẩn đoán và điều trị chính xác."
+                },
+                detail: {
+                    noDisease: "Không có bệnh được chọn",
+                    goBack: "Quay lại",
+                    print: "In",
+                    sections: {
+                        description: "Mô tả",
+                        symptoms: "Triệu chứng",
+                        diagnosis: "Chẩn đoán",
+                        control: "Kiểm soát & Phòng ngừa",
+                        treatment: "Điều trị"
+                    },
+                    backToResults: "Quay lại Kết quả",
+                    startNew: "Bắt đầu Chẩn đoán Mới"
                 }
             },
             biosecurity: {
