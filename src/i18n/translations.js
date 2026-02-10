@@ -135,7 +135,32 @@ export const translations = {
                     reports: "Detailed PDF reports",
                     multilingual: "Multi-language support"
                 },
-                button: "Start Assessment"
+                button: "Start Assessment",
+                home: {
+                    pageTitle: "Farm Biosecurity Check",
+                    pageDescription: "Comprehensive biosecurity assessment based on BIOCHECK PIG V4.0 from Ghent University",
+                    draftFound: "Draft Assessment Found",
+                    draftDescription: "You have an unfinished assessment. Continue where you left off.",
+                    continueDraft: "Continue Draft",
+                    startNew: "Start New Assessment",
+                    startNewDescription: "Complete a comprehensive 50-question biosecurity evaluation. Takes approximately 20-25 minutes.",
+                    lastAssessment: "Last Assessment",
+                    risk: "RISK",
+                    whatYouAssess: "What You'll Assess",
+                    assessmentCategories: {
+                        infrastructure: { title: "Farm Infrastructure", desc: "Location, fencing, and physical barriers" },
+                        animals: { title: "Animal Management", desc: "Purchase, quarantine, and transport" },
+                        people: { title: "People & Visitors", desc: "Worker protocols and hygiene locks" },
+                        feed: { title: "Feed & Water", desc: "Storage, quality, and contamination prevention" },
+                        pest: { title: "Pest Control", desc: "Rodents, birds, and wild animals" },
+                        cleaning: { title: "Cleaning Protocols", desc: "Disinfection and sanitation practices" }
+                    },
+                    history: "Assessment History",
+                    assessment: "Assessment",
+                    grade: "Grade",
+                    aboutTitle: "About BIOCHECK PIG",
+                    aboutDescription: "This assessment is based on the scientifically validated BIOCHECK PIG V4.0 system developed by Ghent University. It evaluates biosecurity across multiple critical areas to help protect your farm from disease outbreaks."
+                }
             }
         },
         poultry: {
@@ -333,7 +358,32 @@ export const translations = {
                     reports: "Laporan PDF terperinci",
                     multilingual: "Dukungan multi-bahasa"
                 },
-                button: "Mulai Penilaian"
+                button: "Mulai Penilaian",
+                home: {
+                    pageTitle: "Pemeriksaan Biosekuriti Peternakan",
+                    pageDescription: "Penilaian biosekuriti komprehensif berdasarkan BIOCHECK PIG V4.0 dari Universitas Ghent",
+                    draftFound: "Draf Penilaian Ditemukan",
+                    draftDescription: "Anda memiliki penilaian yang belum selesai. Lanjutkan dari tempat Anda berhenti.",
+                    continueDraft: "Lanjutkan Draf",
+                    startNew: "Mulai Penilaian Baru",
+                    startNewDescription: "Selesaikan evaluasi biosekuriti 50 pertanyaan yang komprehensif. Membutuhkan waktu sekitar 20-25 menit.",
+                    lastAssessment: "Penilaian Terakhir",
+                    risk: "RISIKO",
+                    whatYouAssess: "Apa yang Akan Anda Nilai",
+                    assessmentCategories: {
+                        infrastructure: { title: "Infrastruktur Peternakan", desc: "Lokasi, pagar, dan penghalang fisik" },
+                        animals: { title: "Manajemen Hewan", desc: "Pembelian, karantina, dan transportasi" },
+                        people: { title: "Orang & Pengunjung", desc: "Protokol pekerja dan kunci kebersihan" },
+                        feed: { title: "Pakan & Air", desc: "Penyimpanan, kualitas, dan pencegahan kontaminasi" },
+                        pest: { title: "Pengendalian Hama", desc: "Tikus, burung, dan hewan liar" },
+                        cleaning: { title: "Protokol Pembersihan", desc: "Praktik desinfeksi dan sanitasi" }
+                    },
+                    history: "Riwayat Penilaian",
+                    assessment: "Penilaian",
+                    grade: "Nilai",
+                    aboutTitle: "Tentang BIOCHECK PIG",
+                    aboutDescription: "Penilaian ini didasarkan pada sistem BIOCHECK PIG V4.0 yang tervalidasi secara ilmiah yang dikembangkan oleh Universitas Ghent. Ini mengevaluasi biosekuriti di berbagai area kritis untuk membantu melindungi peternakan Anda dari wabah penyakit."
+                }
             }
         },
         poultry: {
@@ -531,7 +581,32 @@ export const translations = {
                     reports: "Báo cáo PDF chi tiết",
                     multilingual: "Hỗ trợ đa ngôn ngữ"
                 },
-                button: "Bắt đầu Đánh giá"
+                button: "Bắt đầu Đánh giá",
+                home: {
+                    pageTitle: "Kiểm tra An toàn Sinh học Trang trại",
+                    pageDescription: "Đánh giá an toàn sinh học toàn diện dựa trên BIOCHECK PIG V4.0 từ Đại học Ghent",
+                    draftFound: "Đã Tìm thấy Bản Nháp Đánh giá",
+                    draftDescription: "Bạn có một đánh giá chưa hoàn thành. Tiếp tục từ nơi bạn đã dừng lại.",
+                    continueDraft: "Tiếp tục Bản Nháp",
+                    startNew: "Bắt đầu Đánh giá Mới",
+                    startNewDescription: "Hoàn thành đánh giá an toàn sinh học toàn diện với 50 câu hỏi. Mất khoảng 20-25 phút.",
+                    lastAssessment: "Đánh giá Cuối cùng",
+                    risk: "RỦI RO",
+                    whatYouAssess: "Những gì Bạn Sẽ Đánh giá",
+                    assessmentCategories: {
+                        infrastructure: { title: "Cơ sở Hạ tầng Trang trại", desc: "Vị trí, hàng rào và rào cản vật lý" },
+                        animals: { title: "Quản lý Động vật", desc: "Mua, cách ly và vận chuyển" },
+                        people: { title: "Con người & Khách", desc: "Quy trình công nhân và khóa vệ sinh" },
+                        feed: { title: "Thức ăn & Nước", desc: "Lưu trữ, chất lượng và phòng ngừa ô nhiễm" },
+                        pest: { title: "Kiểm soát Dịch hại", desc: "Chuột, chim và động vật hoang dã" },
+                        cleaning: { title: "Quy trình Vệ sinh", desc: "Thực hành khử trùng và vệ sinh" }
+                    },
+                    history: "Lịch sử Đánh giá",
+                    assessment: "Đánh giá",
+                    grade: "Điểm",
+                    aboutTitle: "Về BIOCHECK PIG",
+                    aboutDescription: "Đánh giá này dựa trên hệ thống BIOCHECK PIG V4.0 được xác thực khoa học do Đại học Ghent phát triển. Nó đánh giá an toàn sinh học trên nhiều lĩnh vực quan trọng để giúp bảo vệ trang trại của bạn khỏi dịch bệnh."
+                }
             }
         },
         poultry: {
