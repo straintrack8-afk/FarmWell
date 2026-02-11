@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
+import { useLanguage } from '../../../contexts/LanguageContext';
+import { swineTranslations } from '../translations';
 
-function ProgressBar({ step }) {
+function ProgressBar({ step, t }) {
     const steps = [
-        { num: 1, label: 'Age' },
-        { num: 2, label: 'Symptoms' },
-        { num: 3, label: 'Results' }
+        { num: 1, label: t('stepAge') },
+        { num: 2, label: t('stepSymptoms') },
+        { num: 3, label: t('stepResults') }
     ];
 
     return (
@@ -27,6 +29,8 @@ function ProgressBar({ step }) {
 
 function AgePage() {
     const navigate = useNavigate();
+    const { language } = useLanguage();
+    const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
     const { selectedAge, setSelectedAge } = useDiagnosis();
 
     const handleSelectAge = (ageId) => {
@@ -54,7 +58,7 @@ function AgePage() {
             background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
             paddingBottom: selectedAge ? '120px' : '2rem'
         }}>
-            <ProgressBar step={1} />
+            <ProgressBar step={1} t={t} />
 
             <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -67,10 +71,10 @@ function AgePage() {
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text'
                     }}>
-                        Select Age Group
+                        {t('selectAgeGroup')}
                     </h1>
                     <p style={{ fontSize: '1.125rem', color: '#6B7280' }}>
-                        Choose the age group of the affected pig(s)
+                        {t('chooseAgeGroup')}
                     </p>
                 </div>
 
@@ -141,14 +145,14 @@ function AgePage() {
                                     marginBottom: '0.5rem',
                                     color: selectedAge === age.id ? 'white' : '#111827'
                                 }}>
-                                    {age.name}
+                                    {t(age.id)}
                                 </div>
                                 <div style={{
                                     fontSize: '0.875rem',
                                     color: selectedAge === age.id ? 'rgba(255, 255, 255, 0.9)' : '#6B7280',
                                     lineHeight: '1.5'
                                 }}>
-                                    {age.description}
+                                    {t(age.id + 'Desc')}
                                 </div>
                             </div>
 
@@ -199,7 +203,7 @@ function AgePage() {
                     }}>
                         <div style={{ fontSize: '1rem', color: '#6B7280' }}>
                             Selected: <strong style={{ color: '#111827' }}>
-                                {AGE_GROUPS.find(a => a.id === selectedAge)?.name}
+                                {t(selectedAge)}
                             </strong>
                         </div>
                         <button
@@ -225,7 +229,7 @@ function AgePage() {
                                 e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
                             }}
                         >
-                            Continue →
+                            {t('continueButton')} →
                         </button>
                     </div>
                 </div>
