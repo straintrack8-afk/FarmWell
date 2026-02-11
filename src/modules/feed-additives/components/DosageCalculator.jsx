@@ -621,17 +621,24 @@ const DosageCalculator = () => {
         // Layer Breeder - use layer data for growing phase, breeder data for production phase
         else if (specificCategory === 'layer_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
+            const layerBreederData = consumptionData?.poultry_breeding?.layer_breeder;
             
-            if (ageInWeeks < 20) {
-                // Before 20 weeks: use layer growing data
-                const layerData = consumptionData?.poultry_commercial?.layer?.data_by_week || [];
-                const result = interpolateLayerData(ageInWeeks, layerData);
-                waterL = result.waterL;
-                feedKg = result.feedKg;
+            if (ageInWeeks < 20 && layerBreederData?.calculation_method === 'use_layer_data_before_20_weeks') {
+                // Before 20 weeks: use layer rearing data
+                const layerCommercial = consumptionData?.poultry_commercial?.layer;
+                const rearingData = layerCommercial?.rearing_phase?.weekly_data || [];
+                const weekData = rearingData.find(d => d.week === ageInWeeks);
+                if (weekData) {
+                    waterL = (weekData.water_ml_day?.average || 0) / 1000;
+                    feedKg = (weekData.feed_g_day?.average || 0) / 1000;
+                }
             } else {
                 // After 20 weeks: breeder production phase
-                waterL = 0.28; // 280ml per bird
-                feedKg = 0.16; // 160g per bird
+                const productionData = layerBreederData?.production_phase;
+                if (productionData) {
+                    waterL = (productionData.water_ml || 0) / 1000;
+                    feedKg = (productionData.feed_g || 0) / 1000;
+                }
             }
             
             console.log('Layer breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
@@ -645,38 +652,82 @@ const DosageCalculator = () => {
             feedKg = (waterMl / 1.77) / 1000;
             console.log('Color chicken calculation:', { ageInDays, waterMl, waterL, feedKg });
         }
-        // Color Breeder - use layer data with adjustment factor
+        // Color Breeder - use detailed rearing and production data
         else if (specificCategory === 'color_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
+            const colorBreederData = consumptionData?.poultry_breeding?.color_breeder;
             
-            if (ageInWeeks < 20) {
-                // Before 20 weeks: use layer data with 85% adjustment
-                const layerData = consumptionData?.poultry_commercial?.layer?.data_by_week || [];
-                const result = interpolateLayerData(ageInWeeks, layerData, 0.85);
-                waterL = result.waterL;
-                feedKg = result.feedKg;
+            if (ageInWeeks <= 24 && colorBreederData?.female_rearing) {
+                // Rearing phase: use pullet_feeding data
+                const rearingData = colorBreederData.female_rearing.pullet_feeding || [];
+                const weekData = rearingData.find(d => d.age_weeks === ageInWeeks);
+                if (weekData) {
+                    waterL = (weekData.daily_ration_g * 1.8) / 1000; // Using water:feed ratio of 1.8
+                    feedKg = (weekData.daily_ration_g || 0) / 1000;
+                } else {
+                    // Interpolate between available weeks
+                    const sortedData = rearingData.sort((a, b) => a.age_weeks - b.age_weeks);
+                    for (let i = 0; i < sortedData.length - 1; i++) {
+                        if (ageInWeeks > sortedData[i].age_weeks && ageInWeeks < sortedData[i + 1].age_weeks) {
+                            const w1 = sortedData[i];
+                            const w2 = sortedData[i + 1];
+                            const ratio = (ageInWeeks - w1.age_weeks) / (w2.age_weeks - w1.age_weeks);
+                            const feedG = w1.daily_ration_g + ratio * (w2.daily_ration_g - w1.daily_ration_g);
+                            feedKg = feedG / 1000;
+                            waterL = (feedG * 1.8) / 1000;
+                            break;
+                        }
+                    }
+                }
             } else {
-                // After 20 weeks: breeder production phase
-                waterL = 0.25; // 250ml per bird
-                feedKg = 0.14; // 140g per bird
+                // Production phase: use production data
+                const productionData = colorBreederData?.female_production?.production_phase;
+                if (productionData) {
+                    waterL = (productionData.water_ml || 250) / 1000;
+                    feedKg = (productionData.feed_g || 140) / 1000;
+                }
             }
             
             console.log('Color breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
         }
-        // Broiler Breeder - use layer data for growing phase, breeder data for production phase
+        // Broiler Breeder - use detailed rearing and production data
         else if (specificCategory === 'broiler_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
+            const broilerBreederData = consumptionData?.poultry_breeding?.broiler_breeder;
             
-            if (ageInWeeks < 20) {
-                // Before 20 weeks: use layer growing data
-                const layerData = consumptionData?.poultry_commercial?.layer?.data_by_week || [];
-                const result = interpolateLayerData(ageInWeeks, layerData);
-                waterL = result.waterL;
-                feedKg = result.feedKg;
+            if (ageInWeeks <= 20 && broilerBreederData?.female_rearing) {
+                // Rearing phase: use phase_data
+                const rearingPhases = broilerBreederData.female_rearing.phase_data || [];
+                let foundData = false;
+                
+                for (const phase of rearingPhases) {
+                    // Check each week in the phase
+                    for (const [key, value] of Object.entries(phase)) {
+                        if (key.startsWith('week_') && value.age_days) {
+                            const weekNum = parseInt(key.split('_')[1]);
+                            if (weekNum === ageInWeeks) {
+                                feedKg = (value.feed_g_day || 0) / 1000;
+                                waterL = feedKg * 1.8; // Using water:feed ratio of 1.8
+                                foundData = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (foundData) break;
+                }
             } else {
-                // After 20 weeks: breeder production phase
-                waterL = 0.30; // 300ml per bird
-                feedKg = 0.17; // 170g per bird
+                // Production phase: use female_production data
+                const productionData = broilerBreederData?.female_production?.in_season?.key_milestones;
+                if (productionData && Array.isArray(productionData)) {
+                    const milestone = productionData.find(m => m.age_weeks === ageInWeeks) ||
+                                     productionData.reduce((prev, curr) => 
+                                         Math.abs(curr.age_weeks - ageInWeeks) < Math.abs(prev.age_weeks - ageInWeeks) ? curr : prev
+                                     );
+                    if (milestone) {
+                        feedKg = (milestone.feed_g_day || 0) / 1000;
+                        waterL = feedKg * 1.8; // Using water:feed ratio of 1.8
+                    }
+                }
             }
             
             console.log('Broiler breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
