@@ -1,215 +1,1102 @@
 {
   "database_info": {
-    "name": "Animal Consumption Reference Database",
+    "name": "FarmWell Animal Consumption Reference Database",
     "version": "2.0",
-    "last_updated": "2026-02-09",
-    "purpose": "Complete reference data for water and feed consumption calculations with interpolation support",
+    "last_updated": "2026-02-10",
+    "purpose": "Comprehensive reference data for water and feed consumption calculations in FarmWell dosage calculator",
+    "data_sources": [
+      "Indian River Broiler Performance Objectives 2022 (Aviagen)",
+      "ISA Brown Product Guide Cage Housing 2022 (Hendrix Genetics)",
+      "Indian River Parent Stock Performance Objectives 2021 (Aviagen)",
+      "Hubbard JA57Ki Parent Stock Female Performance Objectives 2025"
+    ],
     "units": {
       "water": "ml/animal/day or L/animal/day",
       "feed": "g/animal/day or kg/animal/day",
       "age_days": "days",
       "age_weeks": "weeks",
-      "body_weight": "kg"
+      "body_weight": "g or kg"
     }
   },
 
   "poultry_commercial": {
     "broiler": {
-      "calculation_method": "formula",
-      "water_formula": {
-        "formula": "5.28 * age_days",
-        "unit": "ml/bird/day",
-        "temperature_adjustment": {
-          "normal": 1.0,
-          "hot": 1.08,
-          "cold": 0.97,
-          "note": "Hot >27°C, Cold <21°C"
+      "breed": "Indian River / Indian River FF",
+      "source": "Indian River Broiler Performance Objectives 2022 (Aviagen)",
+      "calculation_method": "daily_table",
+      "note": "Complete daily data for as-hatched performance under good management and environmental conditions. Use this for precise day-by-day feed and water calculations.",
+      
+      "age_range": {
+        "min_days": 0,
+        "max_days": 56,
+        "typical_market_days": "35-42"
+      },
+
+      "daily_performance": [
+        {"day": 0, "body_weight_g": 44, "daily_gain_g": 0, "daily_feed_g": 0, "cumulative_feed_g": 0, "fcr": 0, "water_ml_day": 0},
+        {"day": 1, "body_weight_g": 62, "daily_gain_g": 18, "daily_feed_g": 13, "cumulative_feed_g": 13, "fcr": 0.205, "water_ml_day": 23},
+        {"day": 2, "body_weight_g": 80, "daily_gain_g": 18, "daily_feed_g": 17, "cumulative_feed_g": 29, "fcr": 0.365, "water_ml_day": 30},
+        {"day": 3, "body_weight_g": 101, "daily_gain_g": 21, "daily_feed_g": 20, "cumulative_feed_g": 50, "fcr": 0.491, "water_ml_day": 35},
+        {"day": 4, "body_weight_g": 124, "daily_gain_g": 23, "daily_feed_g": 24, "cumulative_feed_g": 73, "fcr": 0.591, "water_ml_day": 42},
+        {"day": 5, "body_weight_g": 150, "daily_gain_g": 26, "daily_feed_g": 27, "cumulative_feed_g": 101, "fcr": 0.670, "water_ml_day": 48},
+        {"day": 6, "body_weight_g": 179, "daily_gain_g": 29, "daily_feed_g": 31, "cumulative_feed_g": 132, "fcr": 0.735, "water_ml_day": 55},
+        {"day": 7, "body_weight_g": 211, "daily_gain_g": 32, "daily_feed_g": 35, "cumulative_feed_g": 167, "fcr": 0.788, "water_ml_day": 62},
+        {"day": 8, "body_weight_g": 247, "daily_gain_g": 35, "daily_feed_g": 39, "cumulative_feed_g": 205, "fcr": 0.832, "water_ml_day": 69},
+        {"day": 9, "body_weight_g": 286, "daily_gain_g": 39, "daily_feed_g": 43, "cumulative_feed_g": 248, "fcr": 0.869, "water_ml_day": 76},
+        {"day": 10, "body_weight_g": 328, "daily_gain_g": 42, "daily_feed_g": 47, "cumulative_feed_g": 296, "fcr": 0.902, "water_ml_day": 83},
+        {"day": 11, "body_weight_g": 373, "daily_gain_g": 46, "daily_feed_g": 52, "cumulative_feed_g": 347, "fcr": 0.930, "water_ml_day": 92},
+        {"day": 12, "body_weight_g": 422, "daily_gain_g": 49, "daily_feed_g": 57, "cumulative_feed_g": 404, "fcr": 0.956, "water_ml_day": 101},
+        {"day": 13, "body_weight_g": 475, "daily_gain_g": 52, "daily_feed_g": 61, "cumulative_feed_g": 465, "fcr": 0.980, "water_ml_day": 108},
+        {"day": 14, "body_weight_g": 531, "daily_gain_g": 56, "daily_feed_g": 67, "cumulative_feed_g": 532, "fcr": 1.003, "water_ml_day": 119},
+        {"day": 15, "body_weight_g": 590, "daily_gain_g": 59, "daily_feed_g": 72, "cumulative_feed_g": 604, "fcr": 1.024, "water_ml_day": 127},
+        {"day": 16, "body_weight_g": 652, "daily_gain_g": 62, "daily_feed_g": 77, "cumulative_feed_g": 681, "fcr": 1.045, "water_ml_day": 136},
+        {"day": 17, "body_weight_g": 718, "daily_gain_g": 66, "daily_feed_g": 83, "cumulative_feed_g": 764, "fcr": 1.065, "water_ml_day": 147},
+        {"day": 18, "body_weight_g": 786, "daily_gain_g": 69, "daily_feed_g": 89, "cumulative_feed_g": 852, "fcr": 1.084, "water_ml_day": 158},
+        {"day": 19, "body_weight_g": 858, "daily_gain_g": 72, "daily_feed_g": 94, "cumulative_feed_g": 947, "fcr": 1.103, "water_ml_day": 166},
+        {"day": 20, "body_weight_g": 933, "daily_gain_g": 75, "daily_feed_g": 100, "cumulative_feed_g": 1047, "fcr": 1.122, "water_ml_day": 177},
+        {"day": 21, "body_weight_g": 1010, "daily_gain_g": 77, "daily_feed_g": 106, "cumulative_feed_g": 1153, "fcr": 1.142, "water_ml_day": 188},
+        {"day": 22, "body_weight_g": 1090, "daily_gain_g": 80, "daily_feed_g": 112, "cumulative_feed_g": 1265, "fcr": 1.161, "water_ml_day": 198},
+        {"day": 23, "body_weight_g": 1172, "daily_gain_g": 82, "daily_feed_g": 118, "cumulative_feed_g": 1383, "fcr": 1.180, "water_ml_day": 209},
+        {"day": 24, "body_weight_g": 1257, "daily_gain_g": 85, "daily_feed_g": 124, "cumulative_feed_g": 1506, "fcr": 1.199, "water_ml_day": 219},
+        {"day": 25, "body_weight_g": 1344, "daily_gain_g": 87, "daily_feed_g": 130, "cumulative_feed_g": 1636, "fcr": 1.218, "water_ml_day": 230},
+        {"day": 26, "body_weight_g": 1433, "daily_gain_g": 89, "daily_feed_g": 136, "cumulative_feed_g": 1772, "fcr": 1.237, "water_ml_day": 241},
+        {"day": 27, "body_weight_g": 1524, "daily_gain_g": 91, "daily_feed_g": 141, "cumulative_feed_g": 1913, "fcr": 1.256, "water_ml_day": 250},
+        {"day": 28, "body_weight_g": 1616, "daily_gain_g": 92, "daily_feed_g": 147, "cumulative_feed_g": 2060, "fcr": 1.275, "water_ml_day": 260},
+        {"day": 29, "body_weight_g": 1710, "daily_gain_g": 94, "daily_feed_g": 153, "cumulative_feed_g": 2213, "fcr": 1.295, "water_ml_day": 271},
+        {"day": 30, "body_weight_g": 1805, "daily_gain_g": 95, "daily_feed_g": 158, "cumulative_feed_g": 2371, "fcr": 1.314, "water_ml_day": 280},
+        {"day": 31, "body_weight_g": 1901, "daily_gain_g": 96, "daily_feed_g": 163, "cumulative_feed_g": 2534, "fcr": 1.333, "water_ml_day": 289},
+        {"day": 32, "body_weight_g": 1999, "daily_gain_g": 97, "daily_feed_g": 169, "cumulative_feed_g": 2703, "fcr": 1.353, "water_ml_day": 299},
+        {"day": 33, "body_weight_g": 2097, "daily_gain_g": 98, "daily_feed_g": 174, "cumulative_feed_g": 2876, "fcr": 1.372, "water_ml_day": 308},
+        {"day": 34, "body_weight_g": 2196, "daily_gain_g": 99, "daily_feed_g": 179, "cumulative_feed_g": 3055, "fcr": 1.392, "water_ml_day": 317},
+        {"day": 35, "body_weight_g": 2295, "daily_gain_g": 99, "daily_feed_g": 183, "cumulative_feed_g": 3238, "fcr": 1.411, "water_ml_day": 324},
+        {"day": 36, "body_weight_g": 2395, "daily_gain_g": 100, "daily_feed_g": 188, "cumulative_feed_g": 3426, "fcr": 1.431, "water_ml_day": 333},
+        {"day": 37, "body_weight_g": 2495, "daily_gain_g": 100, "daily_feed_g": 192, "cumulative_feed_g": 3618, "fcr": 1.451, "water_ml_day": 340},
+        {"day": 38, "body_weight_g": 2595, "daily_gain_g": 100, "daily_feed_g": 196, "cumulative_feed_g": 3814, "fcr": 1.470, "water_ml_day": 347},
+        {"day": 39, "body_weight_g": 2695, "daily_gain_g": 100, "daily_feed_g": 200, "cumulative_feed_g": 4014, "fcr": 1.490, "water_ml_day": 354},
+        {"day": 40, "body_weight_g": 2795, "daily_gain_g": 100, "daily_feed_g": 204, "cumulative_feed_g": 4218, "fcr": 1.510, "water_ml_day": 361},
+        {"day": 41, "body_weight_g": 2895, "daily_gain_g": 100, "daily_feed_g": 207, "cumulative_feed_g": 4425, "fcr": 1.529, "water_ml_day": 366},
+        {"day": 42, "body_weight_g": 2995, "daily_gain_g": 99, "daily_feed_g": 211, "cumulative_feed_g": 4636, "fcr": 1.549, "water_ml_day": 374},
+        {"day": 43, "body_weight_g": 3093, "daily_gain_g": 99, "daily_feed_g": 214, "cumulative_feed_g": 4849, "fcr": 1.569, "water_ml_day": 379},
+        {"day": 44, "body_weight_g": 3192, "daily_gain_g": 98, "daily_feed_g": 217, "cumulative_feed_g": 5066, "fcr": 1.588, "water_ml_day": 384},
+        {"day": 45, "body_weight_g": 3289, "daily_gain_g": 98, "daily_feed_g": 219, "cumulative_feed_g": 5285, "fcr": 1.608, "water_ml_day": 388},
+        {"day": 46, "body_weight_g": 3386, "daily_gain_g": 97, "daily_feed_g": 222, "cumulative_feed_g": 5507, "fcr": 1.628, "water_ml_day": 393},
+        {"day": 47, "body_weight_g": 3482, "daily_gain_g": 96, "daily_feed_g": 224, "cumulative_feed_g": 5731, "fcr": 1.647, "water_ml_day": 396},
+        {"day": 48, "body_weight_g": 3577, "daily_gain_g": 95, "daily_feed_g": 226, "cumulative_feed_g": 5957, "fcr": 1.667, "water_ml_day": 400},
+        {"day": 49, "body_weight_g": 3671, "daily_gain_g": 94, "daily_feed_g": 228, "cumulative_feed_g": 6185, "fcr": 1.686, "water_ml_day": 404},
+        {"day": 50, "body_weight_g": 3764, "daily_gain_g": 93, "daily_feed_g": 230, "cumulative_feed_g": 6415, "fcr": 1.706, "water_ml_day": 407},
+        {"day": 51, "body_weight_g": 3856, "daily_gain_g": 92, "daily_feed_g": 231, "cumulative_feed_g": 6646, "fcr": 1.725, "water_ml_day": 409},
+        {"day": 52, "body_weight_g": 3947, "daily_gain_g": 91, "daily_feed_g": 233, "cumulative_feed_g": 6879, "fcr": 1.745, "water_ml_day": 412},
+        {"day": 53, "body_weight_g": 4037, "daily_gain_g": 90, "daily_feed_g": 234, "cumulative_feed_g": 7112, "fcr": 1.764, "water_ml_day": 414},
+        {"day": 54, "body_weight_g": 4125, "daily_gain_g": 88, "daily_feed_g": 235, "cumulative_feed_g": 7347, "fcr": 1.783, "water_ml_day": 416},
+        {"day": 55, "body_weight_g": 4212, "daily_gain_g": 87, "daily_feed_g": 235, "cumulative_feed_g": 7582, "fcr": 1.802, "water_ml_day": 416},
+        {"day": 56, "body_weight_g": 4297, "daily_gain_g": 86, "daily_feed_g": 236, "cumulative_feed_g": 7818, "fcr": 1.822, "water_ml_day": 418}
+      ],
+
+      "gender_performance": {
+        "male": {
+          "day_42": {
+            "body_weight_g": 3219,
+            "daily_feed_g": 229,
+            "cumulative_feed_g": 4940,
+            "fcr": 1.535
+          },
+          "day_56": {
+            "body_weight_g": 4692,
+            "daily_feed_g": 260,
+            "cumulative_feed_g": 8427,
+            "fcr": 1.796
+          }
+        },
+        "female": {
+          "day_42": {
+            "body_weight_g": 2770,
+            "daily_feed_g": 192,
+            "cumulative_feed_g": 4331,
+            "fcr": 1.564
+          },
+          "day_56": {
+            "body_weight_g": 3903,
+            "daily_feed_g": 213,
+            "cumulative_feed_g": 7209,
+            "fcr": 1.847
+          }
         }
       },
-      "feed_formula": {
-        "formula": "water / 1.77",
-        "ratio": "water:feed = 1.77:1",
-        "unit": "g/bird/day"
+
+      "water_feed_ratio": {
+        "ratio": 1.77,
+        "formula": "water_ml = feed_g * 1.77",
+        "temperature_adjustment": {
+          "normal_20_25C": 1.0,
+          "hot_above_27C": 1.08,
+          "cold_below_21C": 0.97
+        }
       },
-      "age_range": {
-        "min_days": 1,
-        "max_days": 56,
-        "typical_market": "35-42"
-      },
-      "source": {
-        "primary": "Pesti et al., 1985",
-        "secondary": "Cobb Management Guide, Ross Management Guide"
+
+      "key_milestones": {
+        "market_weights": [
+          {
+            "target_weight_g": 1800,
+            "age_days": 28,
+            "feed_g": 147,
+            "water_ml": 260
+          },
+          {
+            "target_weight_g": 2400,
+            "age_days": 35,
+            "feed_g": 183,
+            "water_ml": 324
+          },
+          {
+            "target_weight_g": 3000,
+            "age_days": 42,
+            "feed_g": 211,
+            "water_ml": 374
+          }
+        ]
       }
     },
+
     "layer": {
-      "calculation_method": "table_with_interpolation",
-      "data_by_week": [
-        { "week": 1, "water_ml": 30, "feed_g": 15 },
-        { "week": 2, "water_ml": 50, "feed_g": 25 },
-        { "week": 3, "water_ml": 70, "feed_g": 35 },
-        { "week": 4, "water_ml": 90, "feed_g": 45 },
-        { "week": 5, "water_ml": 110, "feed_g": 55 },
-        { "week": 6, "water_ml": 130, "feed_g": 65 },
-        { "week": 7, "water_ml": 145, "feed_g": 72 },
-        { "week": 8, "water_ml": 155, "feed_g": 78 },
-        { "week": 9, "water_ml": 165, "feed_g": 83 },
-        { "week": 10, "water_ml": 175, "feed_g": 87 },
-        { "week": 11, "water_ml": 180, "feed_g": 91 },
-        { "week": 12, "water_ml": 185, "feed_g": 93 },
-        { "week": 13, "water_ml": 190, "feed_g": 95 },
-        { "week": 14, "water_ml": 195, "feed_g": 98 },
-        { "week": 15, "water_ml": 200, "feed_g": 100 },
-        { "week": 16, "water_ml": 205, "feed_g": 103 },
-        { "week": 17, "water_ml": 210, "feed_g": 105 },
-        { "week": 18, "water_ml": 220, "feed_g": 110 },
-        { "week": 19, "water_ml": 225, "feed_g": 112 },
-        { "week": 20, "water_ml": 230, "feed_g": 113 },
-        { "week": 22, "water_ml": 235, "feed_g": 114 },
-        { "week": 24, "water_ml": 240, "feed_g": 114 },
-        { "week": 26, "water_ml": 242, "feed_g": 114 },
-        { "week": 28, "water_ml": 244, "feed_g": 115 },
-        { "week": 30, "water_ml": 246, "feed_g": 115 },
-        { "week": 35, "water_ml": 248, "feed_g": 115 },
-        { "week": 40, "water_ml": 250, "feed_g": 115 },
-        { "week": 45, "water_ml": 252, "feed_g": 115 },
-        { "week": 50, "water_ml": 255, "feed_g": 115 },
-        { "week": 55, "water_ml": 257, "feed_g": 115 },
-        { "week": 60, "water_ml": 260, "feed_g": 115 },
-        { "week": 65, "water_ml": 260, "feed_g": 113 },
-        { "week": 70, "water_ml": 260, "feed_g": 112 },
-        { "week": 75, "water_ml": 260, "feed_g": 111 },
-        { "week": 80, "water_ml": 260, "feed_g": 110 }
-      ],
-      "source": "Hy-Line International Management Guide",
-      "note": "Use linear interpolation for weeks not in table"
-    },
-    "color_chicken": {
-      "calculation_method": "formula_with_adjustment",
-      "base": "broiler",
-      "adjustment_factor": 0.70,
-      "water_formula": "5.28 * age_days * 0.70",
-      "feed_formula": "water / 1.77",
-      "note": "Native/village chicken, 70% of broiler consumption"
+      "breed": "ISA Brown",
+      "housing_system": "Cage",
+      "source": "ISA Brown Product Guide Cage Housing 2022 (Hendrix Genetics)",
+      "calculation_method": "phase_table_detailed",
+      "note": "Proven worldwide, efficient brown egg layer with excellent feed conversion",
+
+      "rearing_phase": {
+        "age_weeks": "0-18",
+        "weekly_data": [
+          {
+            "week": 1,
+            "age_days": "0-7",
+            "feed_g_day": {"min": 9, "max": 11, "average": 10},
+            "cumulative_feed_g": {"min": 66, "max": 80, "average": 73},
+            "body_weight_g": {"min": 59, "max": 62, "average": 60.5},
+            "water_ml_day": {"min": 18, "max": 26, "average": 22}
+          },
+          {
+            "week": 2,
+            "age_days": "8-14",
+            "feed_g_day": {"min": 15, "max": 17, "average": 16},
+            "cumulative_feed_g": {"min": 171, "max": 199, "average": 185},
+            "body_weight_g": {"min": 117, "max": 123, "average": 120},
+            "water_ml_day": {"min": 30, "max": 42, "average": 36}
+          },
+          {
+            "week": 4,
+            "age_days": "22-28",
+            "feed_g_day": {"min": 30, "max": 32, "average": 31},
+            "cumulative_feed_g": {"min": 542, "max": 598, "average": 570},
+            "body_weight_g": {"min": 239, "max": 251, "average": 245},
+            "water_ml_day": {"min": 54, "max": 64, "average": 59}
+          },
+          {
+            "week": 6,
+            "age_days": "36-42",
+            "feed_g_day": {"min": 40, "max": 42, "average": 41},
+            "cumulative_feed_g": {"min": 1067, "max": 1151, "average": 1109},
+            "body_weight_g": {"min": 429, "max": 451, "average": 440},
+            "water_ml_day": {"min": 72, "max": 84, "average": 78}
+          },
+          {
+            "week": 10,
+            "age_days": "64-70",
+            "feed_g_day": {"min": 56, "max": 58, "average": 57},
+            "cumulative_feed_g": {"min": 2467, "max": 2607, "average": 2537},
+            "body_weight_g": {"min": 790, "max": 830, "average": 810},
+            "water_ml_day": {"min": 101, "max": 116, "average": 108}
+          },
+          {
+            "week": 14,
+            "age_days": "92-98",
+            "feed_g_day": {"min": 68, "max": 70, "average": 69},
+            "cumulative_feed_g": {"min": 4245, "max": 4441, "average": 4343},
+            "body_weight_g": {"min": 1151, "max": 1210, "average": 1180},
+            "water_ml_day": {"min": 122, "max": 140, "average": 131}
+          },
+          {
+            "week": 18,
+            "age_days": "120-126",
+            "feed_g_day": {"min": 88, "max": 90, "average": 89},
+            "cumulative_feed_g": {"min": 6443, "max": 6695, "average": 6569},
+            "body_weight_g": {"min": 1438, "max": 1512, "average": 1475},
+            "water_ml_day": {"min": 158, "max": 180, "average": 169}
+          }
+        ]
+      },
+
+      "production_phase": {
+        "age_weeks": "18-100",
+        "production_summary": [
+          {
+            "age_weeks": 18,
+            "production_percent": 1.0,
+            "egg_weight_g": 42.5,
+            "feed_g_day": 89,
+            "body_weight_g": 1475,
+            "fcr": 209.45,
+            "water_ml_day": 187
+          },
+          {
+            "age_weeks": 20,
+            "production_percent": 40.5,
+            "egg_weight_g": 49.3,
+            "feed_g_day": 100,
+            "body_weight_g": 1605,
+            "fcr": 5.02,
+            "water_ml_day": 210
+          },
+          {
+            "age_weeks": 24,
+            "production_percent": 95.4,
+            "egg_weight_g": 57.3,
+            "feed_g_day": 111,
+            "body_weight_g": 1765,
+            "fcr": 2.03,
+            "water_ml_day": 233,
+            "note": "Approaching peak"
+          },
+          {
+            "age_weeks": 30,
+            "production_percent": 96.5,
+            "egg_weight_g": 61.6,
+            "feed_g_day": 115,
+            "body_weight_g": 1835,
+            "fcr": 1.94,
+            "water_ml_day": 242,
+            "note": "Peak production"
+          },
+          {
+            "age_weeks": 40,
+            "production_percent": 95.6,
+            "egg_weight_g": 63.3,
+            "feed_g_day": 115,
+            "body_weight_g": 1875,
+            "fcr": 1.90,
+            "water_ml_day": 242
+          },
+          {
+            "age_weeks": 50,
+            "production_percent": 93.2,
+            "egg_weight_g": 63.6,
+            "feed_g_day": 115,
+            "body_weight_g": 1890,
+            "fcr": 1.94,
+            "water_ml_day": 242
+          },
+          {
+            "age_weeks": 60,
+            "production_percent": 89.9,
+            "egg_weight_g": 63.8,
+            "feed_g_day": 115,
+            "body_weight_g": 1915,
+            "fcr": 2.00,
+            "water_ml_day": 242
+          },
+          {
+            "age_weeks": 70,
+            "production_percent": 85.8,
+            "egg_weight_g": 64.1,
+            "feed_g_day": 115,
+            "body_weight_g": 1925,
+            "fcr": 2.09,
+            "water_ml_day": 242
+          },
+          {
+            "age_weeks": 80,
+            "production_percent": 80.8,
+            "egg_weight_g": 64.4,
+            "feed_g_day": 115,
+            "body_weight_g": 1940,
+            "fcr": 2.21,
+            "water_ml_day": 242,
+            "livability_percent": 94
+          },
+          {
+            "age_weeks": 90,
+            "production_percent": 74.6,
+            "egg_weight_g": 64.7,
+            "feed_g_day": 115,
+            "body_weight_g": 1955,
+            "fcr": 2.38,
+            "water_ml_day": 242,
+            "livability_percent": 93
+          },
+          {
+            "age_weeks": 100,
+            "production_percent": 66.5,
+            "egg_weight_g": 65.0,
+            "feed_g_day": 115,
+            "body_weight_g": 1975,
+            "fcr": 2.66,
+            "water_ml_day": 242,
+            "livability_percent": 93
+          }
+        ],
+
+        "production_targets": {
+          "age_50_percent_production": 145,
+          "peak_production_percent": 96.5,
+          "eggs_hen_housed_80wks": 374,
+          "eggs_hen_housed_90wks": 425,
+          "eggs_hen_housed_100wks": 470,
+          "egg_mass_kg_80wks": 23.4,
+          "egg_mass_kg_90wks": 26.7,
+          "egg_mass_kg_100wks": 29.6,
+          "average_egg_weight_80wks_g": 62.6,
+          "average_egg_weight_90wks_g": 62.8,
+          "average_egg_weight_100wks_g": 63.0
+        }
+      },
+
+      "water_feed_ratio": {
+        "ratio": 2.1,
+        "range": "1.8 - 2.4",
+        "formula": "water_ml = feed_g * 2.1",
+        "note": "Higher than broilers due to egg production"
+      },
+
+      "egg_quality": {
+        "shell_strength_g_cm2": 4100,
+        "shell_color_lab": 14.0,
+        "haugh_units": 81
+      }
     }
   },
 
   "poultry_breeding": {
-    "layer_breeder": {
-      "calculation_method": "phase_based",
-      "phases": {
-        "growing": {
-          "age_weeks_end": 20,
-          "method": "use_layer_data",
-          "note": "Use commercial layer data for growing phase"
-        },
-        "production": {
-          "age_weeks_start": 21,
-          "water_ml": 280,
-          "feed_g": 160,
-          "note": "Higher consumption due to breeding requirements"
-        }
-      },
-      "source": "Hy-Line W-80 Breeder Guide"
-    },
     "broiler_breeder": {
-      "calculation_method": "phase_based",
-      "phases": {
-        "growing": {
-          "age_weeks_end": 20,
-          "method": "use_layer_data",
-          "note": "Use commercial layer data for growing phase"
+      "breed": "Indian River Parent Stock",
+      "source": "Indian River Parent Stock Performance Objectives 2021 (Aviagen)",
+      "calculation_method": "phase_table_with_gender",
+      "note": "Parent stock for commercial broiler production. Feed restriction crucial for optimal reproduction.",
+
+      "female_rearing": {
+        "age_weeks": "0-20",
+        "phase_data": [
+          {
+            "weeks": "1-4",
+            "phase": "Starter",
+            "week_1": {"age_days": "0-7", "feed_g_day": 22, "body_weight_g": 125, "cumulative_feed_kg": 0.15},
+            "week_4": {"age_days": "22-28", "feed_g_day": 36, "body_weight_g": 435, "cumulative_feed_kg": 0.80}
+          },
+          {
+            "weeks": "5-10",
+            "phase": "Grower Early",
+            "week_5": {"age_days": "29-35", "feed_g_day": 42, "body_weight_g": 555, "cumulative_feed_kg": 1.09},
+            "week_10": {"age_days": "64-70", "feed_g_day": 57, "body_weight_g": 1150, "cumulative_feed_kg": 3.14}
+          },
+          {
+            "weeks": "11-16",
+            "phase": "Grower Late",
+            "week_11": {"age_days": "71-77", "feed_g_day": 63, "body_weight_g": 1290, "cumulative_feed_kg": 3.58},
+            "week_16": {"age_days": "106-112", "feed_g_day": 81, "body_weight_g": 2000, "cumulative_feed_kg": 7.65}
+          },
+          {
+            "weeks": "17-20",
+            "phase": "Pre-Lay",
+            "week_17": {"age_days": "113-119", "feed_g_day": 90, "body_weight_g": 2110, "cumulative_feed_kg": 8.28},
+            "week_20": {"age_days": "134-140", "feed_g_day": 115, "body_weight_g": 2400, "cumulative_feed_kg": 11.10}
+          }
+        ]
+      },
+
+      "female_production": {
+        "in_season": {
+          "note": "Feed program for birds housed during natural photoperiod increase",
+          "key_milestones": [
+            {
+              "age_weeks": 21,
+              "age_days": 147,
+              "event": "First light stimulation",
+              "feed_g_day": 122,
+              "cumulative_feed_kg": 12.30,
+              "energy_kcal_day": 335
+            },
+            {
+              "age_weeks": 25,
+              "age_days": 175,
+              "event": "5% production",
+              "feed_g_day": 148,
+              "cumulative_feed_kg": 16.40,
+              "energy_kcal_day": 407
+            },
+            {
+              "age_weeks": 30,
+              "age_days": 210,
+              "event": "Peak production start",
+              "feed_g_day": 168,
+              "cumulative_feed_kg": 24.35,
+              "energy_kcal_day": 462
+            },
+            {
+              "age_weeks": 40,
+              "age_days": 280,
+              "event": "Mid production",
+              "feed_g_day": 168,
+              "cumulative_feed_kg": 36.15,
+              "energy_kcal_day": 462
+            },
+            {
+              "age_weeks": 50,
+              "age_days": 350,
+              "event": "Late production",
+              "feed_g_day": 165,
+              "cumulative_feed_kg": 47.80,
+              "energy_kcal_day": 454
+            },
+            {
+              "age_weeks": 60,
+              "age_days": 420,
+              "event": "End production",
+              "feed_g_day": 162,
+              "cumulative_feed_kg": 59.35,
+              "energy_kcal_day": 446
+            },
+            {
+              "age_weeks": 64,
+              "age_days": 448,
+              "event": "Depopulation",
+              "feed_g_day": 160,
+              "cumulative_feed_kg": 63.85,
+              "energy_kcal_day": 440
+            }
+          ],
+          "peak_feed_range_g": "168-170",
+          "production_targets": {
+            "eggs_hen_housed": 190,
+            "hatchable_eggs": 170,
+            "chicks_hen_housed": 150
+          }
         },
-        "production": {
-          "age_weeks_start": 21,
-          "water_ml": 300,
-          "feed_g": 170,
-          "note": "Feed restriction crucial, adjust by body weight"
+
+        "out_of_season": {
+          "note": "Higher feeding rates due to temperature stress and different photoperiod management",
+          "key_differences": [
+            {
+              "age_weeks": 21,
+              "in_season_g": 122,
+              "out_season_g": 125,
+              "difference": "+3g due to temperature"
+            },
+            {
+              "age_weeks": 30,
+              "in_season_g": 168,
+              "out_season_g": 172,
+              "difference": "+4g peak adjustment"
+            }
+          ],
+          "temperature_note": "Out-of-season birds require 2-5g more feed per day due to environmental stress"
+        },
+
+        "feeding_into_lay": {
+          "note": "Critical phase: feed increase must match production rise",
+          "protocol": [
+            {
+              "production_percent": 5,
+              "feed_g_day": 148,
+              "increment_from_previous": "+26g from pre-lay"
+            },
+            {
+              "production_percent": 10,
+              "feed_g_day": 152,
+              "increment_from_previous": "+4g"
+            },
+            {
+              "production_percent": 15,
+              "feed_g_day": 154,
+              "increment_from_previous": "+2g"
+            },
+            {
+              "production_percent": 30,
+              "feed_g_day": 162,
+              "increment_from_previous": "+8g (2g per 5% increase)"
+            },
+            {
+              "production_percent": 50,
+              "feed_g_day": 166,
+              "increment_from_previous": "+4g"
+            },
+            {
+              "production_percent": 75,
+              "feed_g_day": 168,
+              "increment_from_previous": "+2g (peak feed achieved)"
+            }
+          ],
+          "rules": {
+            "increment_size": "Typically 2g per 5% production increase",
+            "timing": "Adjust feed Monday based on previous week's production",
+            "monitoring": "Weekly production records essential"
+          }
         }
       },
-      "source": "Cobb 500 Broiler Breeder Management Guide"
+
+      "male_feeding": {
+        "note": "Males require different feeding program to maintain fertility",
+        "rearing": [
+          {
+            "age_weeks": 4,
+            "feed_g_day": 39,
+            "body_weight_g": 510
+          },
+          {
+            "age_weeks": 10,
+            "feed_g_day": 68,
+            "body_weight_g": 1420
+          },
+          {
+            "age_weeks": 16,
+            "feed_g_day": 95,
+            "body_weight_g": 2480
+          },
+          {
+            "age_weeks": 20,
+            "feed_g_day": 125,
+            "body_weight_g": 3050
+          }
+        ],
+        "production": [
+          {
+            "age_weeks": 25,
+            "feed_g_day": 145,
+            "body_weight_g": 4200
+          },
+          {
+            "age_weeks": 35,
+            "feed_g_day": 155,
+            "body_weight_g": 4900
+          },
+          {
+            "age_weeks": 50,
+            "feed_g_day": 150,
+            "body_weight_g": 5200
+          },
+          {
+            "age_weeks": 64,
+            "feed_g_day": 145,
+            "body_weight_g": 5300
+          }
+        ],
+        "male_female_ratio": {
+          "standard": "1:10",
+          "range": "1:9 to 1:11 depending on management"
+        }
+      },
+
+      "water_requirements": {
+        "water_feed_ratio": 1.8,
+        "formula": "water_L = feed_kg * 1.8",
+        "hot_weather_multiplier": {
+          "threshold_celsius": 30,
+          "multiplier": "2.0-3.0",
+          "note": "Water consumption can double or triple in heat stress"
+        },
+        "calculation_examples": [
+          {
+            "phase": "Peak production female",
+            "feed_g": 168,
+            "water_ml": 302,
+            "calculation": "168 × 1.8"
+          },
+          {
+            "phase": "Peak production male",
+            "feed_g": 155,
+            "water_ml": 279,
+            "calculation": "155 × 1.8"
+          }
+        ]
+      }
     },
+
     "color_breeder": {
-      "calculation_method": "phase_based_with_adjustment",
-      "phases": {
-        "growing": {
-          "age_weeks_end": 20,
-          "method": "use_layer_data_adjusted",
-          "adjustment_factor": 0.85,
-          "note": "85% of commercial layer data for growing phase"
+      "breed": "Hubbard JA57Ki Female Parent Stock",
+      "type": "Color/Colored broiler breeder",
+      "source": "Hubbard JA57Ki Parent Stock Female Performance Objectives 2025",
+      "calculation_method": "phase_table_with_temperature",
+      "note": "Colored broiler breeder with moderate growth rate. Lower feed requirements than white broiler breeders.",
+
+      "female_rearing": {
+        "age_weeks": "0-24",
+        "pullet_feeding": [
+          {
+            "age_weeks": 1,
+            "age_days": 7,
+            "body_weight_g": 75,
+            "daily_ration_g": 13,
+            "me_kcal_day": 36,
+            "growth_rate_g_week": 33
+          },
+          {
+            "age_weeks": 2,
+            "age_days": 14,
+            "body_weight_g": 108,
+            "daily_ration_g": 18,
+            "me_kcal_day": 50,
+            "growth_rate_g_week": 33
+          },
+          {
+            "age_weeks": 4,
+            "age_days": 28,
+            "body_weight_g": 235,
+            "daily_ration_g": 28,
+            "me_kcal_day": 77,
+            "growth_rate_g_week": 64
+          },
+          {
+            "age_weeks": 6,
+            "age_days": 42,
+            "body_weight_g": 395,
+            "daily_ration_g": 35,
+            "me_kcal_day": 96,
+            "growth_rate_g_week": 80
+          },
+          {
+            "age_weeks": 8,
+            "age_days": 56,
+            "body_weight_g": 565,
+            "daily_ration_g": 40,
+            "me_kcal_day": 110,
+            "growth_rate_g_week": 85
+          },
+          {
+            "age_weeks": 10,
+            "age_days": 70,
+            "body_weight_g": 740,
+            "daily_ration_g": 46,
+            "me_kcal_day": 126,
+            "growth_rate_g_week": 87
+          },
+          {
+            "age_weeks": 12,
+            "age_days": 84,
+            "body_weight_g": 915,
+            "daily_ration_g": 51,
+            "me_kcal_day": 140,
+            "growth_rate_g_week": 88
+          },
+          {
+            "age_weeks": 14,
+            "age_days": 98,
+            "body_weight_g": 1085,
+            "daily_ration_g": 57,
+            "me_kcal_day": 157,
+            "growth_rate_g_week": 85
+          },
+          {
+            "age_weeks": 16,
+            "age_days": 112,
+            "body_weight_g": 1245,
+            "daily_ration_g": 63,
+            "me_kcal_day": 173,
+            "growth_rate_g_week": 80
+          },
+          {
+            "age_weeks": 18,
+            "age_days": 126,
+            "body_weight_g": 1395,
+            "daily_ration_g": 69,
+            "me_kcal_day": 190,
+            "growth_rate_g_week": 75
+          },
+          {
+            "age_weeks": 20,
+            "age_days": 140,
+            "body_weight_g": 1535,
+            "daily_ration_g": 75,
+            "me_kcal_day": 206,
+            "growth_rate_g_week": 70
+          },
+          {
+            "age_weeks": 22,
+            "age_days": 154,
+            "body_weight_g": 1665,
+            "daily_ration_g": 80,
+            "me_kcal_day": 220,
+            "growth_rate_g_week": 65
+          },
+          {
+            "age_weeks": 24,
+            "age_days": 168,
+            "body_weight_g": 1775,
+            "daily_ration_g": 84,
+            "me_kcal_day": 231,
+            "growth_rate_g_week": 55,
+            "note": "End of rearing, ready for light stimulation"
+          }
+        ]
+      },
+
+      "female_production": {
+        "onset_of_production": {
+          "note": "Critical 6-week period from light stimulation to peak",
+          "light_stimulation_age_weeks": 24,
+          "light_stimulation_body_weight_g": 1775,
+          
+          "progression_data": [
+            {
+              "days_after_stimulation": 0,
+              "production_percent": 0,
+              "feed_intake_g": 80,
+              "egg_weight_g": 0,
+              "body_weight_g": 1775
+            },
+            {
+              "days_after_stimulation": 7,
+              "production_percent": 5,
+              "feed_intake_g": 95,
+              "egg_weight_g": 44,
+              "body_weight_g": 1850
+            },
+            {
+              "days_after_stimulation": 14,
+              "production_percent": 30,
+              "feed_intake_g": 108,
+              "egg_weight_g": 50,
+              "body_weight_g": 1950
+            },
+            {
+              "days_after_stimulation": 21,
+              "production_percent": 60,
+              "feed_intake_g": 120,
+              "egg_weight_g": 55,
+              "body_weight_g": 2050
+            },
+            {
+              "days_after_stimulation": 28,
+              "production_percent": 80,
+              "feed_intake_g": 135,
+              "egg_weight_g": 60,
+              "body_weight_g": 2150
+            },
+            {
+              "days_after_stimulation": 35,
+              "production_percent": 90,
+              "feed_intake_g": 150,
+              "egg_weight_g": 63,
+              "body_weight_g": 2230
+            },
+            {
+              "days_after_stimulation": 42,
+              "production_percent": 92,
+              "feed_intake_g": 168,
+              "egg_weight_g": 66,
+              "body_weight_g": 2300,
+              "note": "Peak production achieved"
+            }
+          ],
+
+          "feeding_guideline": "Increase feed by 3-5g per day each week as production rises. Monitor body weight closely."
         },
-        "production": {
-          "age_weeks_start": 21,
-          "water_ml": 250,
-          "feed_g": 140,
-          "note": "Brown egg production, moderate consumption"
+
+        "floor_feeding_schedule": {
+          "note": "Temperature-adjusted feeding programs",
+          
+          "temperature_20C": {
+            "diet_energy": "2750 kcal/kg ME",
+            "feeding_program": [
+              {
+                "production_percent": 1,
+                "age_weeks": 24,
+                "feed_g_day": 80,
+                "note": "Start of production"
+              },
+              {
+                "production_percent": 5,
+                "age_weeks": 25,
+                "feed_g_day": 90,
+                "increment": "+10g"
+              },
+              {
+                "production_percent": 10,
+                "age_weeks": 26,
+                "feed_g_day": 95,
+                "increment": "+5g"
+              },
+              {
+                "production_percent": 30,
+                "age_weeks": 28,
+                "feed_g_day": 105,
+                "increment": "+5g per week"
+              },
+              {
+                "production_percent": 60,
+                "age_weeks": 30,
+                "feed_g_day": 115,
+                "increment": "+5g"
+              },
+              {
+                "production_percent": 92,
+                "age_weeks": 32,
+                "feed_g_day": 125,
+                "increment": "+5g (peak feed at 20°C)"
+              }
+            ],
+            "maintenance_feeding": [
+              {
+                "age_weeks": 40,
+                "production_percent": 90,
+                "feed_g_day": 125
+              },
+              {
+                "age_weeks": 50,
+                "production_percent": 87,
+                "feed_g_day": 123
+              },
+              {
+                "age_weeks": 60,
+                "production_percent": 82,
+                "feed_g_day": 120
+              },
+              {
+                "age_weeks": 70,
+                "production_percent": 75,
+                "feed_g_day": 115
+              }
+            ]
+          },
+
+          "temperature_25_28C": {
+            "diet_energy": "2850 kcal/kg ME",
+            "note": "Higher energy diet compensates for reduced feed intake in hot conditions",
+            "feeding_program": [
+              {
+                "production_percent": 1,
+                "age_weeks": 24,
+                "feed_g_day": 75,
+                "note": "Start lower due to heat"
+              },
+              {
+                "production_percent": 5,
+                "age_weeks": 25,
+                "feed_g_day": 82,
+                "increment": "+7g"
+              },
+              {
+                "production_percent": 10,
+                "age_weeks": 26,
+                "feed_g_day": 86,
+                "increment": "+4g"
+              },
+              {
+                "production_percent": 30,
+                "age_weeks": 28,
+                "feed_g_day": 93,
+                "increment": "+3-4g per week"
+              },
+              {
+                "production_percent": 60,
+                "age_weeks": 30,
+                "feed_g_day": 100,
+                "increment": "+3-4g"
+              },
+              {
+                "production_percent": 92,
+                "age_weeks": 32,
+                "feed_g_day": 107,
+                "increment": "+3-4g (peak feed at 25-28°C)"
+              }
+            ],
+            "comparison_with_20C": "Feed intake 15-18g lower at peak due to temperature. Higher energy density compensates."
+          },
+
+          "increment_rules": {
+            "cool_conditions_20C": {
+              "range_production_percent": "10-60",
+              "increment_g_per_week": 5,
+              "frequency": "Weekly adjustments"
+            },
+            "hot_conditions_25_28C": {
+              "range_production_percent": "10-60",
+              "increment_g_per_week": "3-4",
+              "frequency": "Weekly adjustments",
+              "note": "Smaller increments due to reduced appetite"
+            }
+          }
+        },
+
+        "production_targets": {
+          "peak_production_percent": 92,
+          "peak_egg_weight_g": 66,
+          "eggs_hen_housed_60wks": 155,
+          "hatchable_eggs_60wks": 140,
+          "chicks_hen_housed_60wks": 125
         }
       },
-      "source": "ISA Brown Commercial Management Guide"
+
+      "male_feeding": {
+        "note": "Multiple male types available with different growth rates",
+        "male_types": [
+          {
+            "type": "Conventional males",
+            "growth_rate": "Fast",
+            "feed_requirement": "Similar to white broiler breeder males",
+            "peak_feed_g": 155
+          },
+          {
+            "type": "Intermediate growth (ColorYield, Redbro, New Hampshire)",
+            "growth_rate": "Moderate",
+            "feed_requirement": "15% lower than conventional",
+            "peak_feed_g": 132
+          },
+          {
+            "type": "Slow growth (I66, G66N, S77)",
+            "growth_rate": "Slow",
+            "feed_requirement": "25% lower than conventional",
+            "peak_feed_g": 116
+          }
+        ],
+        "recommendation": "Match male type to flock management capabilities and feed budget"
+      },
+
+      "water_requirements": {
+        "water_feed_ratio": {
+          "cool_20C": 2.0,
+          "hot_25_28C": 2.5,
+          "extreme_above_30C": 3.0
+        },
+        "formula": "water_ml = feed_g * ratio",
+        "examples": [
+          {
+            "condition": "Peak production at 20°C",
+            "feed_g": 125,
+            "water_ml": 250,
+            "calculation": "125 × 2.0"
+          },
+          {
+            "condition": "Peak production at 25-28°C",
+            "feed_g": 107,
+            "water_ml": 268,
+            "calculation": "107 × 2.5"
+          }
+        ],
+        "hot_weather_note": "Water consumption actually increases in hot weather despite lower feed intake"
+      },
+
+      "key_differences_vs_white_breeder": {
+        "body_weight": "15-20% lighter",
+        "feed_consumption": "15-20% lower",
+        "peak_feed_20C": "125g vs 168g for white breeder",
+        "production_pattern": "Similar peak % but longer persistency",
+        "egg_weight": "Slightly smaller eggs (66g vs 68g)",
+        "temperature_sensitivity": "Better heat tolerance"
+      }
     }
   },
 
-  "swine_commercial": {
-    "nursery": {
-      "calculation_method": "weight_based_with_interpolation",
-      "weight_range_kg": { "min": 5, "max": 27 },
-      "data_by_weight": [
-        { "weight_kg": 5, "water_L": 0.50, "feed_kg": 0.20 },
-        { "weight_kg": 10, "water_L": 1.10, "feed_kg": 0.45 },
-        { "weight_kg": 15, "water_L": 1.70, "feed_kg": 0.70 },
-        { "weight_kg": 20, "water_L": 2.30, "feed_kg": 0.95 },
-        { "weight_kg": 25, "water_L": 2.80, "feed_kg": 1.15 },
-        { "weight_kg": 27, "water_L": 3.00, "feed_kg": 1.25 }
-      ],
-      "source": "NRC Nutrient Requirements of Swine, 11th Edition"
+  "calculation_notes": {
+    "temperature_effects": {
+      "heat_stress": {
+        "threshold_celsius": 27,
+        "water_increase_percent": "50-200",
+        "feed_decrease_percent": "10-30",
+        "critical_note": "Adequate cool water availability is life-threatening issue in heat",
+        "color_breeder_advantage": "Better adapted to hot climates than white breeders"
+      },
+      "cold_stress": {
+        "threshold_celsius": 15,
+        "feed_increase_percent": "10-20",
+        "water_stable": true,
+        "note": "Energy requirements increase for thermoregulation"
+      },
+      "optimal_temperature": {
+        "broiler": "18-24°C",
+        "layer": "18-22°C",
+        "breeder": "18-21°C"
+      }
     },
-    "grower": {
-      "calculation_method": "weight_based_with_interpolation",
-      "weight_range_kg": { "min": 27, "max": 60 },
-      "data_by_weight": [
-        { "weight_kg": 30, "water_L": 3.30, "feed_kg": 1.35 },
-        { "weight_kg": 40, "water_L": 4.40, "feed_kg": 1.80 },
-        { "weight_kg": 50, "water_L": 5.30, "feed_kg": 2.20 },
-        { "weight_kg": 60, "water_L": 6.20, "feed_kg": 2.55 }
+
+    "production_monitoring": {
+      "weekly_checks": [
+        "Body weight (sample 50-100 birds)",
+        "Feed consumption (per house/pen)",
+        "Water consumption (meter readings)",
+        "Production percentage",
+        "Egg weight (sample 100 eggs)",
+        "Mortality count"
       ],
-      "source": "NRC Nutrient Requirements of Swine, 11th Edition"
+      "key_ratios": {
+        "water_feed_commercial": "1.8-2.1",
+        "water_feed_breeder": "1.8-2.5 (temperature dependent)",
+        "feed_conversion_broiler_day42": "1.50-1.65",
+        "feed_conversion_layer_peak": "1.90-2.10",
+        "feed_conversion_breeder": "Not applicable (breeding focus)"
+      }
     },
-    "finisher": {
-      "calculation_method": "weight_based_with_interpolation",
-      "weight_range_kg": { "min": 60, "max": 120 },
-      "data_by_weight": [
-        { "weight_kg": 60, "water_L": 6.20, "feed_kg": 2.55 },
-        { "weight_kg": 70, "water_L": 6.80, "feed_kg": 2.80 },
-        { "weight_kg": 80, "water_L": 7.30, "feed_kg": 3.00 },
-        { "weight_kg": 90, "water_L": 7.60, "feed_kg": 3.15 },
-        { "weight_kg": 100, "water_L": 7.90, "feed_kg": 3.25 },
-        { "weight_kg": 110, "water_L": 8.00, "feed_kg": 3.30 },
-        { "weight_kg": 120, "water_L": 8.10, "feed_kg": 3.35 }
-      ],
-      "source": "NRC Nutrient Requirements of Swine, 11th Edition"
+
+    "data_quality": {
+      "indian_river_broiler": "Official Aviagen performance objectives 2022, highly accurate",
+      "isa_brown_layer": "Hendrix Genetics standard guide 2022, cage housing specific",
+      "indian_river_breeder": "Aviagen parent stock guide 2021, comprehensive feeding protocols",
+      "hubbard_color_breeder": "Hubbard/Hendrix Genetics 2025 guide, temperature-adjusted feeding",
+      "validation": "All data from official breed company publications",
+      "usage_note": "Values are genetic potential under optimal conditions. Actual results vary with management, health, climate, and nutrition quality."
+    },
+
+    "interpolation_methods": {
+      "between_weeks": "Linear interpolation for values between weekly data points",
+      "between_temperatures": "Linear adjustment for temperatures between reference points (20°C and 25-28°C)",
+      "body_weight_based": "For breeders, feed can be adjusted based on actual vs target body weight",
+      "production_based": "For laying birds, feed adjustments based on production rate",
+      "rounding": "Display to 0 decimal for grams, 1 decimal for ml/L"
     }
   },
 
-  "swine_breeding": {
-    "sow_gestation": {
-      "calculation_method": "fixed",
-      "water_L": 15,
-      "feed_kg": 2.5,
-      "note": "Adjust based on body condition score",
-      "source": "NRC Swine Nutrition"
+  "usage_guidelines": {
+    "commercial_broiler": {
+      "primary_use": "Calculate daily feed and water needs for market broiler production",
+      "age_input": "Use days of age (0-56)",
+      "adjustment_factors": ["ambient temperature", "genetics", "health status", "feed quality"],
+      "critical_periods": ["Day 0-7 (brooding)", "Day 7-21 (rapid growth)", "Day 21+ (finisher)"]
     },
-    "sow_lactation": {
-      "calculation_method": "fixed",
-      "water_L": 25,
-      "feed_kg": 6.0,
-      "note": "High water demand due to milk production",
-      "source": "NRC Swine Nutrition"
+
+    "commercial_layer": {
+      "primary_use": "Calculate rearing and production phase requirements for brown egg layers",
+      "rearing_input": "Use weeks of age (1-18)",
+      "production_input": "Use weeks of age (18-100) and production percentage",
+      "adjustment_factors": ["temperature", "egg production rate", "egg size", "body weight"],
+      "critical_periods": ["Week 1-4 (starter)", "Week 16-20 (pre-lay)", "Week 24-30 (peak)"]
     },
-    "boar": {
-      "calculation_method": "fixed",
-      "water_L": 15,
-      "feed_kg": 2.5,
-      "note": "Maintenance level, adjust for body condition",
-      "source": "NRC Swine Nutrition"
+
+    "broiler_breeder": {
+      "primary_use": "Calculate breeding flock requirements with gender separation",
+      "complexity": "High - requires feed restriction management",
+      "inputs_needed": ["age in weeks", "gender", "production status", "season/temperature"],
+      "adjustment_factors": ["body weight vs target", "production rate", "male:female ratio", "climate"],
+      "critical_periods": ["Week 5-20 (controlled growth)", "Week 21-25 (lighting and feed increase)", "Week 25-40 (peak production)"],
+      "special_notes": "Feed restriction essential. Feeding program must be adjusted based on body weight and production monitoring."
+    },
+
+    "color_breeder": {
+      "primary_use": "Calculate colored broiler breeder requirements with temperature adjustment",
+      "complexity": "High - temperature-dependent feeding programs",
+      "inputs_needed": ["age in weeks", "temperature range", "production percentage"],
+      "adjustment_factors": ["ambient temperature", "diet energy density", "male type", "production rate"],
+      "critical_periods": ["Week 24 (light stimulation)", "Week 24-30 (feeding into lay)", "Week 32+ (peak production)"],
+      "special_notes": "Use 20°C program for temperate climates, 25-28°C program for tropical climates. Lower feed requirements than white breeders."
+    }
+  },
+
+  "references": {
+    "primary_sources": [
+      "Aviagen (2022). Indian River / Indian River FF Broiler Performance Objectives 2022.",
+      "Hendrix Genetics (2022). ISA Brown Product Guide - Cage Housing (L1211-1-2022).",
+      "Aviagen (2021). Indian River Parent Stock Performance Objectives 2021.",
+      "Hendrix Genetics (2025). Hubbard JA57Ki Parent Stock Female Performance Objectives 2025.",
+      "Pesti, G.M., et al. (1985). Chicken water consumption model.",
+      "NRC (1994). Nutrient Requirements of Poultry, 9th Edition."
+    ],
+    "secondary_sources": [
+      "Cobb-Vantress. Broiler Management Guide.",
+      "Ross. Broiler Management Handbook.",
+      "Hy-Line International. Management Guides.",
+      "Commercial Chicken Meat and Egg Production (Bell & Weaver)."
+    ],
+    "data_compilation": {
+      "compiled_by": "FarmWell Development Team",
+      "compilation_date": "2026-02-10",
+      "quality_assurance": "Cross-referenced with multiple official breed company publications",
+      "intended_use": "FarmWell platform dosage calculator and feed planning modules"
     }
   }
 }
