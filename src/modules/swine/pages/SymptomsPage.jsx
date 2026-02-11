@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
+import { useLanguage } from '../../../contexts/LanguageContext';
+import { swineTranslations } from '../translations';
 
-function ProgressBar({ step }) {
+function ProgressBar({ step, t }) {
     const steps = [
-        { num: 1, label: 'Age' },
-        { num: 2, label: 'Symptoms' },
-        { num: 3, label: 'Results' }
+        { num: 1, label: t('stepAge') },
+        { num: 2, label: t('stepSymptoms') },
+        { num: 3, label: t('stepResults') }
     ];
 
     return (
@@ -28,6 +30,8 @@ function ProgressBar({ step }) {
 
 function SymptomsPage() {
     const navigate = useNavigate();
+    const { language } = useLanguage();
+    const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
     const {
         selectedAge,
         symptoms,
@@ -85,13 +89,13 @@ function SymptomsPage() {
 
     return (
         <div className="has-action-bar">
-            <ProgressBar step={2} />
+            <ProgressBar step={2} t={t} />
 
             <div className="container">
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
-                    <h1 className="page-title">Select Symptoms</h1>
+                    <h1 className="page-title">{t('selectSymptoms')}</h1>
                     <p className="page-subtitle">
-                        Age: <strong>{selectedAgeGroup?.name}</strong>
+                        {t('age')}: <strong>{t(selectedAge)}</strong>
                     </p>
                 </div>
 
@@ -104,7 +108,7 @@ function SymptomsPage() {
                     <input
                         type="text"
                         className="search-input"
-                        placeholder="Search symptoms..."
+                        placeholder={t('searchSymptoms')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -123,13 +127,13 @@ function SymptomsPage() {
                         borderRadius: 'var(--radius-md)'
                     }}>
                         <span>
-                            <strong>{selectedSymptoms.length}</strong> symptom(s) selected
+                            <strong>{selectedSymptoms.length}</strong> {t('symptomsSelected')}
                         </span>
                         <button
                             className="btn btn-sm btn-secondary"
                             onClick={clearSymptoms}
                         >
-                            Clear All
+                            {t('clearAll')}
                         </button>
                     </div>
                 )}
@@ -208,14 +212,14 @@ function SymptomsPage() {
             <div className="action-bar">
                 <div className="action-bar-content">
                     <div className="action-bar-info">
-                        <span className="action-bar-count">{filteredDiseases.length}</span> possible diseases
+                        <span className="action-bar-count">{filteredDiseases.length}</span> {t('possibleDiseases')}
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button
                             className="btn btn-secondary"
                             onClick={() => navigate('/swine/diagnosis/age')}
                         >
-                            ← Change Age
+                            ← {t('backButton')}
                         </button>
                         <button
                             className="btn btn-primary"
@@ -223,7 +227,7 @@ function SymptomsPage() {
                             disabled={selectedSymptoms.length === 0}
                             style={{ opacity: selectedSymptoms.length === 0 ? 0.5 : 1 }}
                         >
-                            Show Results →
+                            {t('getDiagnosisButton')} →
                         </button>
                     </div>
                 </div>

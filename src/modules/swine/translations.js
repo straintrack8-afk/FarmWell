@@ -25,6 +25,8 @@ export const swineTranslations = {
         sowsDesc: 'Breeding females',
         boars: 'Boars',
         boarsDesc: 'Breeding males',
+        all: 'All Ages',
+        allDesc: 'Any age group',
         allAges: 'All Ages',
         allAgesDesc: 'Any age group',
         
@@ -39,8 +41,11 @@ export const swineTranslations = {
         excretionDischargeSigns: 'Excretion/discharge signs',
         skinBodySigns: 'Skin/body signs',
         symptomsSelected: 'symptoms selected',
+        clearAll: 'Clear All',
         backButton: 'Back',
         getDiagnosisButton: 'Get Diagnosis',
+        refineSymptoms: 'Refine Symptoms',
+        newDiagnosis: 'New Diagnosis',
         
         // Mortality Options
         increaseLessThan5: 'Increase by less than 5%',
@@ -88,6 +93,14 @@ export const swineTranslations = {
         high: 'High',
         veryHigh: 'Very High',
         
+        // Zoonotic Warning
+        zoonoticWarning: 'Zoonotic Disease Warning',
+        zoonoticWarningText: 'Some results can spread to humans. Use proper PPE and hygiene.',
+        
+        // Empty State
+        noDiseases: 'No Diseases Found',
+        noDiseasesText: 'No diseases match all your selected symptoms. Try removing some symptoms.',
+        
         // Common Terms
         loading: 'Loading...',
         error: 'Error',
@@ -121,6 +134,8 @@ export const swineTranslations = {
         sowsDesc: 'Betina pembibit',
         boars: 'Pejantan',
         boarsDesc: 'Jantan pembibit',
+        all: 'Semua Umur',
+        allDesc: 'Kelompok umur apa saja',
         allAges: 'Semua Umur',
         allAgesDesc: 'Kelompok umur apa saja',
         
@@ -135,8 +150,11 @@ export const swineTranslations = {
         excretionDischargeSigns: 'Tanda ekskresi/cairan',
         skinBodySigns: 'Tanda kulit/tubuh',
         symptomsSelected: 'gejala dipilih',
+        clearAll: 'Hapus Semua',
         backButton: 'Kembali',
         getDiagnosisButton: 'Dapatkan Diagnosis',
+        refineSymptoms: 'Perbaiki Gejala',
+        newDiagnosis: 'Diagnosis Baru',
         
         // Mortality Options
         increaseLessThan5: 'Peningkatan kurang dari 5%',
@@ -184,6 +202,14 @@ export const swineTranslations = {
         high: 'Tinggi',
         veryHigh: 'Sangat Tinggi',
         
+        // Zoonotic Warning
+        zoonoticWarning: 'Peringatan Penyakit Zoonosis',
+        zoonoticWarningText: 'Beberapa hasil dapat menular ke manusia. Gunakan APD dan kebersihan yang tepat.',
+        
+        // Empty State
+        noDiseases: 'Tidak Ada Penyakit Ditemukan',
+        noDiseasesText: 'Tidak ada penyakit yang cocok dengan semua gejala yang dipilih. Coba kurangi beberapa gejala.',
+        
         // Common Terms
         loading: 'Memuat...',
         error: 'Kesalahan',
@@ -217,6 +243,8 @@ export const swineTranslations = {
         sowsDesc: 'Lợn cái giống',
         boars: 'Đực giống',
         boarsDesc: 'Lợn đực giống',
+        all: 'Mọi lứa tuổi',
+        allDesc: 'Bất kỳ nhóm tuổi nào',
         allAges: 'Mọi lứa tuổi',
         allAgesDesc: 'Bất kỳ nhóm tuổi nào',
         
@@ -231,8 +259,11 @@ export const swineTranslations = {
         excretionDischargeSigns: 'Dấu hiệu bài tiết/tiết dịch',
         skinBodySigns: 'Dấu hiệu da/cơ thể',
         symptomsSelected: 'triệu chứng đã chọn',
+        clearAll: 'Xóa tất cả',
         backButton: 'Quay lại',
         getDiagnosisButton: 'Chẩn đoán',
+        refineSymptoms: 'Điều chỉnh triệu chứng',
+        newDiagnosis: 'Chẩn đoán mới',
         
         // Mortality Options
         increaseLessThan5: 'Tăng dưới 5%',
@@ -279,6 +310,14 @@ export const swineTranslations = {
         moderate: 'Trung bình',
         high: 'Cao',
         veryHigh: 'Rất cao',
+        
+        // Zoonotic Warning
+        zoonoticWarning: 'Cảnh báo Bệnh lây từ động vật',
+        zoonoticWarningText: 'Một số kết quả có thể lây sang người. Sử dụng PPE và vệ sinh thích hợp.',
+        
+        // Empty State
+        noDiseases: 'Không tìm thấy bệnh',
+        noDiseasesText: 'Không có bệnh nào khớp với tất cả các triệu chứng đã chọn. Thử bỏ bớt một số triệu chứng.',
         
         // Common Terms
         loading: 'Đang tải...',
