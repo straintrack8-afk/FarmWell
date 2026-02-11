@@ -546,33 +546,36 @@ const DosageCalculator = () => {
 
         console.log('Calculated ageInDays:', ageInDays);
 
-        // Broiler calculation (use daily performance data from database)
+        // Broiler calculation (use daily data from comprehensive database)
         if (specificCategory === 'broiler') {
-            const broilerData = consumptionData?.poultry_commercial?.broiler?.daily_performance;
+            const broilerData = consumptionData?.poultry_commercial?.broiler?.daily_data;
             if (broilerData && Array.isArray(broilerData)) {
                 // Find exact day or use closest day
                 const dayData = broilerData.find(d => d.day === ageInDays) || 
                                broilerData[Math.min(ageInDays, broilerData.length - 1)];
                 if (dayData) {
-                    waterL = (dayData.water_ml_day || 0) / 1000;
-                    feedKg = (dayData.daily_feed_g || 0) / 1000;
+                    waterL = (dayData.water_ml || 0) / 1000;
+                    feedKg = (dayData.feed_g || 0) / 1000;
                 }
             }
             console.log('Broiler calculation:', { ageInDays, waterL, feedKg });
         }
-        // Layer calculation (use new database structure)
+        // Layer calculation (use comprehensive database v2.1)
         else if (specificCategory === 'layer') {
             const ageInWeeks = Math.floor(ageInDays / 7);
             const layerCommercial = consumptionData?.poultry_commercial?.layer;
             
             if (layerCommercial) {
                 if (ageInWeeks <= 18) {
-                    // Rearing phase - use weekly_data
-                    const rearingData = layerCommercial.rearing_phase?.weekly_data || [];
+                    // Rearing phase - use rearing_weeks_1_18
+                    const rearingData = layerCommercial.rearing_weeks_1_18 || [];
                     const weekData = rearingData.find(d => d.week === ageInWeeks);
                     if (weekData) {
-                        waterL = (weekData.water_ml_day?.average || 0) / 1000;
-                        feedKg = (weekData.feed_g_day?.average || 0) / 1000;
+                        // Use average of min and max
+                        const avgWater = (weekData.water_ml_min + weekData.water_ml_max) / 2;
+                        const avgFeed = (weekData.feed_g_min + weekData.feed_g_max) / 2;
+                        waterL = avgWater / 1000;
+                        feedKg = avgFeed / 1000;
                     } else {
                         // Interpolate between available weeks
                         const sortedData = rearingData.sort((a, b) => a.week - b.week);
@@ -581,27 +584,31 @@ const DosageCalculator = () => {
                                 const w1 = sortedData[i];
                                 const w2 = sortedData[i + 1];
                                 const ratio = (ageInWeeks - w1.week) / (w2.week - w1.week);
-                                waterL = ((w1.water_ml_day.average + ratio * (w2.water_ml_day.average - w1.water_ml_day.average)) / 1000);
-                                feedKg = ((w1.feed_g_day.average + ratio * (w2.feed_g_day.average - w1.feed_g_day.average)) / 1000);
+                                const avgWater1 = (w1.water_ml_min + w1.water_ml_max) / 2;
+                                const avgWater2 = (w2.water_ml_min + w2.water_ml_max) / 2;
+                                const avgFeed1 = (w1.feed_g_min + w1.feed_g_max) / 2;
+                                const avgFeed2 = (w2.feed_g_min + w2.feed_g_max) / 2;
+                                waterL = (avgWater1 + ratio * (avgWater2 - avgWater1)) / 1000;
+                                feedKg = (avgFeed1 + ratio * (avgFeed2 - avgFeed1)) / 1000;
                                 break;
                             }
                         }
                     }
                 } else {
-                    // Production phase - use production_summary
-                    const productionData = layerCommercial.production_phase?.production_summary || [];
-                    const weekData = productionData.find(d => d.age_weeks === ageInWeeks);
+                    // Production phase - use production_weeks_18_100_per_hen_day
+                    const productionData = layerCommercial.production_weeks_18_100_per_hen_day || [];
+                    const weekData = productionData.find(d => d.week === ageInWeeks);
                     if (weekData) {
-                        waterL = (weekData.water_ml_day || 0) / 1000;
-                        feedKg = (weekData.feed_g_day || 0) / 1000;
+                        waterL = (weekData.water_ml || 0) / 1000;
+                        feedKg = (weekData.feed_g || 0) / 1000;
                     } else {
-                        // Use closest available data or interpolate
+                        // Use closest available data
                         const closestData = productionData.reduce((prev, curr) => 
-                            Math.abs(curr.age_weeks - ageInWeeks) < Math.abs(prev.age_weeks - ageInWeeks) ? curr : prev
+                            Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
                         );
                         if (closestData) {
-                            waterL = (closestData.water_ml_day || 0) / 1000;
-                            feedKg = (closestData.feed_g_day || 0) / 1000;
+                            waterL = (closestData.water_ml || 0) / 1000;
+                            feedKg = (closestData.feed_g || 0) / 1000;
                         }
                     }
                 }
@@ -618,27 +625,25 @@ const DosageCalculator = () => {
             }
             console.log('Swine calculation:', { swineData: swineData.length, waterL, feedKg });
         }
-        // Layer Breeder - use layer data for growing phase, breeder data for production phase
+        // Layer Breeder - use layer rearing data, then fixed production values
         else if (specificCategory === 'layer_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
-            const layerBreederData = consumptionData?.poultry_breeding?.layer_breeder;
             
-            if (ageInWeeks < 20 && layerBreederData?.calculation_method === 'use_layer_data_before_20_weeks') {
+            if (ageInWeeks < 20) {
                 // Before 20 weeks: use layer rearing data
                 const layerCommercial = consumptionData?.poultry_commercial?.layer;
-                const rearingData = layerCommercial?.rearing_phase?.weekly_data || [];
+                const rearingData = layerCommercial?.rearing_weeks_1_18 || [];
                 const weekData = rearingData.find(d => d.week === ageInWeeks);
                 if (weekData) {
-                    waterL = (weekData.water_ml_day?.average || 0) / 1000;
-                    feedKg = (weekData.feed_g_day?.average || 0) / 1000;
+                    const avgWater = (weekData.water_ml_min + weekData.water_ml_max) / 2;
+                    const avgFeed = (weekData.feed_g_min + weekData.feed_g_max) / 2;
+                    waterL = avgWater / 1000;
+                    feedKg = avgFeed / 1000;
                 }
             } else {
-                // After 20 weeks: breeder production phase
-                const productionData = layerBreederData?.production_phase;
-                if (productionData) {
-                    waterL = (productionData.water_ml || 0) / 1000;
-                    feedKg = (productionData.feed_g || 0) / 1000;
-                }
+                // After 20 weeks: breeder production phase (fixed values)
+                waterL = 0.28; // 280ml per bird
+                feedKg = 0.16; // 160g per bird
             }
             
             console.log('Layer breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
@@ -652,80 +657,82 @@ const DosageCalculator = () => {
             feedKg = (waterMl / 1.77) / 1000;
             console.log('Color chicken calculation:', { ageInDays, waterMl, waterL, feedKg });
         }
-        // Color Breeder - use detailed rearing and production data
+        // Color Breeder - use comprehensive weekly data with temperature selection
         else if (specificCategory === 'color_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
             const colorBreederData = consumptionData?.poultry_breeding?.color_breeder;
             
-            if (ageInWeeks <= 24 && colorBreederData?.female_rearing) {
-                // Rearing phase: use pullet_feeding data
-                const rearingData = colorBreederData.female_rearing.pullet_feeding || [];
-                const weekData = rearingData.find(d => d.age_weeks === ageInWeeks);
+            if (ageInWeeks <= 24) {
+                // Rearing phase: use female_pullet_rearing_weeks_0_24
+                const rearingData = colorBreederData?.female_pullet_rearing_weeks_0_24 || [];
+                const weekData = rearingData.find(d => d.week === ageInWeeks);
                 if (weekData) {
-                    waterL = (weekData.daily_ration_g * 1.8) / 1000; // Using water:feed ratio of 1.8
-                    feedKg = (weekData.daily_ration_g || 0) / 1000;
+                    feedKg = (weekData.feed_g || 0) / 1000;
+                    waterL = feedKg * 2.0; // Using water:feed ratio of 2.0 for color breeder
                 } else {
                     // Interpolate between available weeks
-                    const sortedData = rearingData.sort((a, b) => a.age_weeks - b.age_weeks);
+                    const sortedData = rearingData.sort((a, b) => a.week - b.week);
                     for (let i = 0; i < sortedData.length - 1; i++) {
-                        if (ageInWeeks > sortedData[i].age_weeks && ageInWeeks < sortedData[i + 1].age_weeks) {
+                        if (ageInWeeks > sortedData[i].week && ageInWeeks < sortedData[i + 1].week) {
                             const w1 = sortedData[i];
                             const w2 = sortedData[i + 1];
-                            const ratio = (ageInWeeks - w1.age_weeks) / (w2.age_weeks - w1.age_weeks);
-                            const feedG = w1.daily_ration_g + ratio * (w2.daily_ration_g - w1.daily_ration_g);
+                            const ratio = (ageInWeeks - w1.week) / (w2.week - w1.week);
+                            const feedG = w1.feed_g + ratio * (w2.feed_g - w1.feed_g);
                             feedKg = feedG / 1000;
-                            waterL = (feedG * 1.8) / 1000;
+                            waterL = feedKg * 2.0;
                             break;
                         }
                     }
                 }
             } else {
-                // Production phase: use production data
-                const productionData = colorBreederData?.female_production?.production_phase;
-                if (productionData) {
-                    waterL = (productionData.water_ml || 250) / 1000;
-                    feedKg = (productionData.feed_g || 140) / 1000;
+                // Production phase: use female_production_20C_weeks_24_70 (default to 20C)
+                const productionData = colorBreederData?.female_production_20C_weeks_24_70 || [];
+                const weekData = productionData.find(d => d.week === ageInWeeks);
+                if (weekData) {
+                    feedKg = (weekData.feed_g || 0) / 1000;
+                    waterL = feedKg * 2.0;
+                } else {
+                    // Use closest available data
+                    const closestData = productionData.reduce((prev, curr) => 
+                        Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
+                    );
+                    if (closestData) {
+                        feedKg = (closestData.feed_g || 0) / 1000;
+                        waterL = feedKg * 2.0;
+                    }
                 }
             }
             
             console.log('Color breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
         }
-        // Broiler Breeder - use detailed rearing and production data
+        // Broiler Breeder - use comprehensive weekly data
         else if (specificCategory === 'broiler_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
             const broilerBreederData = consumptionData?.poultry_breeding?.broiler_breeder;
             
-            if (ageInWeeks <= 20 && broilerBreederData?.female_rearing) {
-                // Rearing phase: use phase_data
-                const rearingPhases = broilerBreederData.female_rearing.phase_data || [];
-                let foundData = false;
-                
-                for (const phase of rearingPhases) {
-                    // Check each week in the phase
-                    for (const [key, value] of Object.entries(phase)) {
-                        if (key.startsWith('week_') && value.age_days) {
-                            const weekNum = parseInt(key.split('_')[1]);
-                            if (weekNum === ageInWeeks) {
-                                feedKg = (value.feed_g_day || 0) / 1000;
-                                waterL = feedKg * 1.8; // Using water:feed ratio of 1.8
-                                foundData = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (foundData) break;
+            if (ageInWeeks <= 20) {
+                // Rearing phase: use female_rearing_weeks_0_20
+                const rearingData = broilerBreederData?.female_rearing_weeks_0_20 || [];
+                const weekData = rearingData.find(d => d.week === ageInWeeks);
+                if (weekData) {
+                    feedKg = (weekData.feed_g || 0) / 1000;
+                    waterL = feedKg * 1.8; // Using water:feed ratio of 1.8
                 }
             } else {
-                // Production phase: use female_production data
-                const productionData = broilerBreederData?.female_production?.in_season?.key_milestones;
-                if (productionData && Array.isArray(productionData)) {
-                    const milestone = productionData.find(m => m.age_weeks === ageInWeeks) ||
-                                     productionData.reduce((prev, curr) => 
-                                         Math.abs(curr.age_weeks - ageInWeeks) < Math.abs(prev.age_weeks - ageInWeeks) ? curr : prev
-                                     );
-                    if (milestone) {
-                        feedKg = (milestone.feed_g_day || 0) / 1000;
-                        waterL = feedKg * 1.8; // Using water:feed ratio of 1.8
+                // Production phase: use female_production_in_season_weeks_21_64
+                const productionData = broilerBreederData?.female_production_in_season_weeks_21_64 || [];
+                const weekData = productionData.find(d => d.week === ageInWeeks);
+                if (weekData) {
+                    feedKg = (weekData.feed_g || 0) / 1000;
+                    waterL = feedKg * 1.8; // Using water:feed ratio of 1.8
+                } else {
+                    // Use closest available data
+                    const closestData = productionData.reduce((prev, curr) => 
+                        Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
+                    );
+                    if (closestData) {
+                        feedKg = (closestData.feed_g || 0) / 1000;
+                        waterL = feedKg * 1.8;
                     }
                 }
             }
@@ -1038,11 +1045,11 @@ const DosageCalculator = () => {
                                         Reference Data: {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label}
                                     </h3>
 
-                                    {/* Broiler - Daily Performance Data */}
+                                    {/* Broiler - Daily Data from Comprehensive Database */}
                                     {referenceSelection.specificCategory === 'broiler' && (
                                         <div>
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Daily Performance Data</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Daily Performance Data (Day 0-56)</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
                                                     Source: {consumptionData.poultry_commercial.broiler.source}<br/>
                                                     Breed: {consumptionData.poultry_commercial.broiler.breed}
@@ -1060,12 +1067,12 @@ const DosageCalculator = () => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {consumptionData.poultry_commercial.broiler.daily_performance.map(dayData => (
+                                                        {consumptionData.poultry_commercial.broiler.daily_data.map(dayData => (
                                                             <tr key={dayData.day} style={{ background: dayData.day % 7 === 0 ? '#f3f4f6' : 'white' }}>
                                                                 <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb', fontWeight: dayData.day % 7 === 0 ? '600' : 'normal' }}>{dayData.day}</td>
-                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.body_weight_g}</td>
-                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.daily_feed_g}</td>
-                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.water_ml_day}</td>
+                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.bw_g}</td>
+                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.feed_g}</td>
+                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.water_ml}</td>
                                                                 <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.fcr.toFixed(3)}</td>
                                                             </tr>
                                                         ))}
@@ -1075,19 +1082,19 @@ const DosageCalculator = () => {
                                         </div>
                                     )}
 
-                                    {/* Layer - Rearing and Production Phases */}
+                                    {/* Layer - Complete Weekly Data from Comprehensive Database */}
                                     {referenceSelection.specificCategory === 'layer' && (
                                         <div>
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Phase-Based Data</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 1-100)</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
                                                     Source: {consumptionData.poultry_commercial.layer.source}<br/>
-                                                    Breed: {consumptionData.poultry_commercial.layer.breed} ({consumptionData.poultry_commercial.layer.housing_system})
+                                                    Breed: {consumptionData.poultry_commercial.layer.breed} - {consumptionData.poultry_commercial.layer.housing}
                                                 </p>
                                             </div>
                                             
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 0-18)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 1-18)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
                                                     <thead>
@@ -1099,23 +1106,28 @@ const DosageCalculator = () => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {consumptionData.poultry_commercial.layer.rearing_phase.weekly_data.map(data => (
-                                                            <tr key={data.week}>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g_day.average}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_ml_day.average}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.body_weight_g.average}</td>
-                                                            </tr>
-                                                        ))}
+                                                        {consumptionData.poultry_commercial.layer.rearing_weeks_1_18.map(data => {
+                                                            const avgFeed = ((data.feed_g_min + data.feed_g_max) / 2).toFixed(1);
+                                                            const avgWater = ((data.water_ml_min + data.water_ml_max) / 2).toFixed(1);
+                                                            const avgBW = ((data.bw_g_min + data.bw_g_max) / 2).toFixed(0);
+                                                            return (
+                                                                <tr key={data.week}>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgFeed}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgWater}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgBW}</td>
+                                                                </tr>
+                                                            );
+                                                        })}
                                                     </tbody>
                                                 </table>
                                             </div>
 
                                             {/* Production Phase */}
                                             <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase (Weeks 18-100)</h5>
-                                            <div style={{ overflowX: 'auto' }}>
+                                            <div style={{ overflowX: 'auto', maxHeight: '600px', overflowY: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
-                                                    <thead>
+                                                    <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                                                         <tr style={{ background: '#3b82f6', color: 'white' }}>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Production %</th>
@@ -1125,13 +1137,13 @@ const DosageCalculator = () => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {consumptionData.poultry_commercial.layer.production_phase.production_summary.map(data => (
-                                                            <tr key={data.age_weeks}>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.age_weeks}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.production_percent.toFixed(1)}%</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g_day}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_ml_day}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.egg_weight_g}</td>
+                                                        {consumptionData.poultry_commercial.layer.production_weeks_18_100_per_hen_day.map(data => (
+                                                            <tr key={data.week} style={{ background: data.week % 10 === 0 ? '#f3f4f6' : 'white' }}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontWeight: data.week % 10 === 0 ? '600' : 'normal' }}>{data.week}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.prod_pct.toFixed(1)}%</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_ml}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.egg_wt_g}</td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
