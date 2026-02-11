@@ -46,7 +46,7 @@ const DosageCalculator = () => {
                         'Water Min (ml/day)': d.water_ml_min,
                         'Water Max (ml/day)': d.water_ml_max
                     }));
-                    const productionData = consumptionData.poultry_commercial.layer.production_weeks_18_100_per_hen_day.map(d => ({
+                    const productionData = consumptionData.poultry_commercial.layer.production_weeks_18_100.map(d => ({
                         'Week': d.week,
                         'Phase': 'Production',
                         'Production (%)': d.prod_pct,
@@ -722,8 +722,8 @@ const DosageCalculator = () => {
                         }
                     }
                 } else {
-                    // Production phase - use production_weeks_18_100_per_hen_day
-                    const productionData = layerCommercial.production_weeks_18_100_per_hen_day || [];
+                    // Production phase - use production_weeks_18_100
+                    const productionData = layerCommercial.production_weeks_18_100 || [];
                     const weekData = productionData.find(d => d.week === ageInWeeks);
                     if (weekData) {
                         waterL = (weekData.water_ml || 0) / 1000;
@@ -1296,7 +1296,7 @@ const DosageCalculator = () => {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {consumptionData.poultry_commercial.layer.production_weeks_18_100_per_hen_day.map(data => (
+                                                        {consumptionData.poultry_commercial.layer.production_weeks_18_100.map(data => (
                                                             <tr key={data.week} style={{ background: data.week % 10 === 0 ? '#f3f4f6' : 'white' }}>
                                                                 <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontWeight: data.week % 10 === 0 ? '600' : 'normal' }}>{data.week}</td>
                                                                 <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.prod_pct.toFixed(1)}%</td>
