@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
+import { useLanguage } from '../../../contexts/LanguageContext';
+import { swineTranslations } from '../translations';
 
-function ProgressBar({ step }) {
+function ProgressBar({ step, t }) {
     const steps = [
-        { num: 1, label: 'Age' },
-        { num: 2, label: 'Symptoms' },
-        { num: 3, label: 'Results' }
+        { num: 1, label: t('stepAge') },
+        { num: 2, label: t('stepSymptoms') },
+        { num: 3, label: t('stepResults') }
     ];
 
     return (
@@ -88,6 +90,8 @@ function DiseaseCard({ disease, onClick }) {
 
 function ResultsPage() {
     const navigate = useNavigate();
+    const { language } = useLanguage();
+    const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
     const {
         selectedAge,
         selectedSymptoms,
@@ -118,15 +122,15 @@ function ResultsPage() {
 
     return (
         <div>
-            <ProgressBar step={3} />
+            <ProgressBar step={3} t={t} />
 
             <div className="container">
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
                     <h1 className="page-title">
-                        {filteredDiseases.length} Possible Disease{filteredDiseases.length !== 1 ? 's' : ''}
+                        {filteredDiseases.length} {t('possibleDiseases')}
                     </h1>
                     <p className="page-subtitle">
-                        Based on your selections
+                        {t('basedOnSymptoms')}
                     </p>
                 </div>
 
@@ -139,10 +143,10 @@ function ResultsPage() {
                     borderRadius: 'var(--radius-lg)'
                 }}>
                     <div style={{ marginBottom: '0.75rem' }}>
-                        <strong>Age Group:</strong> {selectedAgeGroup?.name}
+                        <strong>{t('age')}:</strong> {t(selectedAge)}
                     </div>
                     <div style={{ marginBottom: '0.75rem' }}>
-                        <strong>Symptoms ({selectedSymptoms.length}):</strong>
+                        <strong>{t('stepSymptoms')} ({selectedSymptoms.length}):</strong>
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                         {selectedSymptoms.map(symptom => (
@@ -168,10 +172,10 @@ function ResultsPage() {
                         flexWrap: 'wrap'
                     }}>
                         <button className="btn btn-secondary btn-sm" onClick={handleRefineSymptoms}>
-                            ← Refine Symptoms
+                            ← {t('refineSymptoms')}
                         </button>
                         <button className="btn btn-outline btn-sm" onClick={handleNewDiagnosis}>
-                            🔄 New Diagnosis
+                            🔄 {t('newDiagnosis')}
                         </button>
                     </div>
                 </div>
@@ -181,9 +185,9 @@ function ResultsPage() {
                     <div className="zoonotic-warning" style={{ maxWidth: '700px', margin: '0 auto 1.5rem' }}>
                         <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}>⚠️</div>
                         <div className="zoonotic-warning-content">
-                            <div className="zoonotic-warning-title">Zoonotic Disease Warning</div>
+                            <div className="zoonotic-warning-title">{t('zoonoticWarning')}</div>
                             <div className="zoonotic-warning-text">
-                                Some results can spread to humans. Use proper PPE and hygiene.
+                                {t('zoonoticWarningText')}
                             </div>
                         </div>
                     </div>
@@ -194,12 +198,12 @@ function ResultsPage() {
                     {filteredDiseases.length === 0 ? (
                         <div className="empty-state">
                             <div className="empty-state-icon" style={{ fontSize: '3rem' }}>🔍</div>
-                            <h3 className="empty-state-title">No Diseases Found</h3>
+                            <h3 className="empty-state-title">{t('noDiseases')}</h3>
                             <p className="empty-state-text">
-                                No diseases match all your selected symptoms. Try removing some symptoms.
+                                {t('noDiseasesText')}
                             </p>
                             <button className="btn btn-primary" onClick={handleRefineSymptoms}>
-                                Refine Symptoms
+                                {t('refineSymptoms')}
                             </button>
                         </div>
                     ) : (
