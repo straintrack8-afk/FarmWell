@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { swineTranslations } from '../translations';
+import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
 
 function ProgressBar({ step, t }) {
     const steps = [
@@ -53,12 +54,13 @@ function AgePage() {
     ];
 
     return (
-        <div style={{
-            minHeight: '100vh',
-            background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-            paddingBottom: selectedAge ? '120px' : '2rem'
-        }}>
-            <ProgressBar step={1} t={t} />
+        <DiagnosisWrapper>
+            <div style={{
+                minHeight: '100vh',
+                background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+                paddingBottom: selectedAge ? '120px' : '2rem'
+            }}>
+                <ProgressBar step={1} t={t} />
 
             <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -247,7 +249,8 @@ function AgePage() {
                     }
                 }
             `}</style>
-        </div>
+            </div>
+        </DiagnosisWrapper>
     );
 }
 

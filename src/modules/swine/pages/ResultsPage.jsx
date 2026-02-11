@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { swineTranslations } from '../translations';
+import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
+import { DiagnosisResultDisclaimer } from '../components/disease-diagnosis/DiagnosisResultDisclaimer';
 
 function ProgressBar({ step, t }) {
     const steps = [
@@ -107,6 +109,9 @@ function ResultsPage() {
 
     const selectedAgeGroup = AGE_GROUPS.find(a => a.id === selectedAge);
 
+    // Map app language to disclaimer language
+    const disclaimerLanguage = language === 'en' ? 'en' : language === 'id' ? 'id' : language === 'vi' ? 'vi' : 'en';
+
     const handleDiseaseClick = (diseaseId) => {
         navigate(`/swine/diagnosis/disease/${diseaseId}`);
     };
@@ -121,8 +126,9 @@ function ResultsPage() {
     };
 
     return (
-        <div>
-            <ProgressBar step={3} t={t} />
+        <DiagnosisWrapper>
+            <div>
+                <ProgressBar step={3} t={t} />
 
             <div className="container">
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
@@ -207,17 +213,28 @@ function ResultsPage() {
                             </button>
                         </div>
                     ) : (
-                        filteredDiseases.map(disease => (
-                            <DiseaseCard
-                                key={disease.id}
-                                disease={disease}
-                                onClick={() => handleDiseaseClick(disease.id)}
-                            />
-                        ))
+                        <>
+                            {filteredDiseases.map(disease => (
+                                <DiseaseCard
+                                    key={disease.id}
+                                    disease={disease}
+                                    onClick={() => handleDiseaseClick(disease.id)}
+                                />
+                            ))}
+                            
+                            {/* Diagnosis Result Disclaimer */}
+                            {filteredDiseases.length > 0 && (
+                                <DiagnosisResultDisclaimer
+                                    language={disclaimerLanguage}
+                                    diseaseIndicated={filteredDiseases[0]?.name || 'Multiple conditions'}
+                                />
+                            )}
+                        </>
                     )}
                 </div>
             </div>
-        </div>
+            </div>
+        </DiagnosisWrapper>
     );
 }
 
