@@ -1,16 +1,141 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { feedAdditivesTranslations } from '../translations';
+import * as XLSX from 'xlsx';
 
 const DosageCalculator = () => {
-    const navigate = useNavigate();
     const { language } = useLanguage();
     const t = (key) => feedAdditivesTranslations[language]?.[key] || feedAdditivesTranslations['en'][key];
     const [currentStep, setCurrentStep] = useState(1);
     const [showCustomProtocol, setShowCustomProtocol] = useState(false);
     const [showDailyDetails, setShowDailyDetails] = useState(false);
     const [showReferenceView, setShowReferenceView] = useState(false);
+
+    // Export Reference Data to Excel
+    const exportReferenceToExcel = () => {
+        if (!consumptionData || !referenceSelection.specificCategory) return;
+
+        const wb = XLSX.utils.book_new();
+        let data = [];
+        let sheetName = '';
+
+        const { animalType, productionCategory, specificCategory } = referenceSelection;
+
+        if (animalType === 'poultry') {
+            if (productionCategory === 'commercial') {
+                if (specificCategory === 'broiler') {
+                    const broilerData = consumptionData.poultry_commercial.broiler.daily_data;
+                    data = broilerData.map(d => ({
+                        'Day': d.day,
+                        'Body Weight (g)': d.bw_g,
+                        'Daily Gain (g)': d.gain_g,
+                        'Feed (g/day)': d.feed_g,
+                        'Cumulative Feed (g)': d.cum_feed_g,
+                        'FCR': d.fcr,
+                        'Water (ml/day)': d.water_ml
+                    }));
+                    sheetName = 'Broiler Daily Data';
+                } else if (specificCategory === 'layer') {
+                    const rearingData = consumptionData.poultry_commercial.layer.rearing_weeks_1_18.map(d => ({
+                        'Week': d.week,
+                        'Phase': 'Rearing',
+                        'BW Min (g)': d.bw_g_min,
+                        'BW Max (g)': d.bw_g_max,
+                        'Feed Min (g/day)': d.feed_g_min,
+                        'Feed Max (g/day)': d.feed_g_max,
+                        'Water Min (ml/day)': d.water_ml_min,
+                        'Water Max (ml/day)': d.water_ml_max
+                    }));
+                    const productionData = consumptionData.poultry_commercial.layer.production_weeks_18_100_per_hen_day.map(d => ({
+                        'Week': d.week,
+                        'Phase': 'Production',
+                        'Production (%)': d.prod_pct,
+                        'Egg Weight (g)': d.egg_wt_g,
+                        'Feed (g/day)': d.feed_g,
+                        'Water (ml/day)': d.water_ml,
+                        'Body Weight (g)': d.bw_g
+                    }));
+                    data = [...rearingData, ...productionData];
+                    sheetName = 'Layer Complete Data';
+                }
+            } else if (productionCategory === 'breeding') {
+                if (specificCategory === 'broiler_breeder') {
+                    const breederData = consumptionData.poultry_breeding.broiler_breeder.female_complete_weeks_0_64;
+                    data = breederData.map(d => ({
+                        'Week': d.week,
+                        'Days': d.days,
+                        'Body Weight (g)': d.bw_g,
+                        'Weekly Gain (g)': d.gain_g,
+                        'Feed (g/day)': d.feed_g,
+                        'Water (ml/day)': (d.feed_g * 1.8).toFixed(0),
+                        'Cumulative Feed (kg)': d.cum_feed_kg,
+                        'Energy (kcal/day)': d.energy_kcal,
+                        'Note': d.note || ''
+                    }));
+                    sheetName = 'Broiler Breeder Female';
+                } else if (specificCategory === 'color_breeder') {
+                    const rearingData = consumptionData.poultry_breeding.color_breeder.female_pullet_rearing_weeks_0_24.map(d => ({
+                        'Week': d.week,
+                        'Phase': 'Rearing',
+                        'Body Weight (g)': d.bw_g,
+                        'Feed (g/day)': d.feed_g,
+                        'Water (ml/day)': (d.feed_g * 2.0).toFixed(0),
+                        'ME (kcal/day)': d.me_kcal
+                    }));
+                    const productionData = consumptionData.poultry_breeding.color_breeder.female_production_20C_weeks_24_70.map(d => ({
+                        'Week': d.week,
+                        'Phase': 'Production',
+                        'Production (%)': d.prod_pct,
+                        'Feed (g/day)': d.feed_g,
+                        'Water (ml/day)': (d.feed_g * 2.0).toFixed(0),
+                        'ME (kcal/day)': d.me_kcal
+                    }));
+                    data = [...rearingData, ...productionData];
+                    sheetName = 'Color Breeder Female';
+                } else if (specificCategory === 'layer_breeder') {
+                    const rearingData = consumptionData.poultry_commercial.layer.rearing_weeks_1_18.map(d => ({
+                        'Week': d.week,
+                        'Phase': 'Rearing',
+                        'Feed Avg (g/day)': ((d.feed_g_min + d.feed_g_max) / 2).toFixed(1),
+                        'Water Avg (ml/day)': ((d.water_ml_min + d.water_ml_max) / 2).toFixed(1),
+                        'BW Avg (g)': ((d.bw_g_min + d.bw_g_max) / 2).toFixed(0)
+                    }));
+                    data = rearingData;
+                    sheetName = 'Layer Breeder';
+                }
+            }
+        } else if (animalType === 'swine') {
+            if (productionCategory === 'commercial') {
+                const swineData = consumptionData.swine_commercial[specificCategory].data_by_weight;
+                data = swineData.map(d => ({
+                    'Weight (kg)': d.weight_kg,
+                    'Water (L/day)': d.water_L,
+                    'Feed (kg/day)': d.feed_kg
+                }));
+                sheetName = specificCategory.charAt(0).toUpperCase() + specificCategory.slice(1);
+            }
+        }
+
+        if (data.length === 0) {
+            alert('No data available for export');
+            return;
+        }
+
+        const ws = XLSX.utils.json_to_sheet(data);
+        const colWidths = Object.keys(data[0]).map(key => ({
+            wch: Math.max(key.length, ...data.map(row => String(row[key] || '').length)) + 2
+        }));
+        ws['!cols'] = colWidths;
+
+        XLSX.utils.book_append_sheet(wb, ws, sheetName);
+        const fileName = `FarmWell_${sheetName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.xlsx`;
+        XLSX.writeFile(wb, fileName);
+    };
+
+    // Print Reference Data
+    const printReferenceData = () => {
+        window.print();
+    };
 
     // Add print styles
     React.useEffect(() => {
@@ -828,37 +953,6 @@ const DosageCalculator = () => {
                             Vaksindo Vietnam - United Animal Health Products
                         </p>
                     </div>
-                    <button
-                        onClick={() => navigate('/feed-additives/reference-data')}
-                        style={{
-                            padding: '0.75rem 1.5rem',
-                            background: '#10b981',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontSize: '0.875rem',
-                            fontWeight: '600',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            transition: 'all 0.2s',
-                            boxShadow: '0 2px 4px rgba(16, 185, 129, 0.3)'
-                        }}
-                        onMouseOver={(e) => {
-                            e.target.style.background = '#059669';
-                            e.target.style.transform = 'translateY(-2px)';
-                            e.target.style.boxShadow = '0 4px 8px rgba(16, 185, 129, 0.4)';
-                        }}
-                        onMouseOut={(e) => {
-                            e.target.style.background = '#10b981';
-                            e.target.style.transform = 'translateY(0)';
-                            e.target.style.boxShadow = '0 2px 4px rgba(16, 185, 129, 0.3)';
-                        }}
-                    >
-                        <span style={{ fontSize: '1.25rem' }}>📊</span>
-                        View Full Reference Data
-                    </button>
                 </div>
 
                 {/* Progress Steps */}
@@ -1064,9 +1158,51 @@ const DosageCalculator = () => {
                                     borderRadius: '8px',
                                     marginTop: '2rem'
                                 }}>
-                                    <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem', color: '#1f2937' }}>
-                                        Reference Data: {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label}
-                                    </h3>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                                        <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1f2937', margin: 0 }}>
+                                            Reference Data: {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label}
+                                        </h3>
+                                        <div style={{ display: 'flex', gap: '0.75rem' }}>
+                                            <button
+                                                onClick={exportReferenceToExcel}
+                                                className="no-print"
+                                                style={{
+                                                    padding: '0.5rem 1rem',
+                                                    background: '#10b981',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '6px',
+                                                    cursor: 'pointer',
+                                                    fontSize: '0.875rem',
+                                                    fontWeight: '600',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.5rem'
+                                                }}
+                                            >
+                                                📊 Export Excel
+                                            </button>
+                                            <button
+                                                onClick={printReferenceData}
+                                                className="no-print"
+                                                style={{
+                                                    padding: '0.5rem 1rem',
+                                                    background: '#3b82f6',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '6px',
+                                                    cursor: 'pointer',
+                                                    fontSize: '0.875rem',
+                                                    fontWeight: '600',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.5rem'
+                                                }}
+                                            >
+                                                🖨️ Print PDF
+                                            </button>
+                                        </div>
+                                    </div>
 
                                     {/* Broiler - Daily Data from Comprehensive Database */}
                                     {referenceSelection.specificCategory === 'broiler' && (
@@ -1078,9 +1214,9 @@ const DosageCalculator = () => {
                                                     Breed: {consumptionData.poultry_commercial.broiler.breed}
                                                 </p>
                                             </div>
-                                            <div style={{ overflowX: 'auto', maxHeight: '600px', overflowY: 'auto' }}>
+                                            <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
-                                                    <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                                    <thead>
                                                         <tr style={{ background: '#3b82f6', color: 'white' }}>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Day</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
@@ -1148,9 +1284,9 @@ const DosageCalculator = () => {
 
                                             {/* Production Phase */}
                                             <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase (Weeks 18-100)</h5>
-                                            <div style={{ overflowX: 'auto', maxHeight: '600px', overflowY: 'auto' }}>
+                                            <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
-                                                    <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                                    <thead>
                                                         <tr style={{ background: '#3b82f6', color: 'white' }}>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Production %</th>
@@ -1185,9 +1321,9 @@ const DosageCalculator = () => {
                                                     Feed (g/bird/day) = Water ÷ 1.77
                                                 </p>
                                             </div>
-                                            <div style={{ overflowX: 'auto', maxHeight: '600px', overflowY: 'auto' }}>
+                                            <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
-                                                    <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                                    <thead>
                                                         <tr style={{ background: '#3b82f6', color: 'white' }}>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Day</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
@@ -1225,9 +1361,9 @@ const DosageCalculator = () => {
                                             </div>
                                             
                                             {/* Complete Table - All Weeks */}
-                                            <div style={{ overflowX: 'auto', maxHeight: '600px', overflowY: 'auto' }}>
+                                            <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
-                                                    <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                                    <thead>
                                                         <tr style={{ background: '#3b82f6', color: 'white' }}>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Days</th>
