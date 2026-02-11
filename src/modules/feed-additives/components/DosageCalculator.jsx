@@ -546,20 +546,66 @@ const DosageCalculator = () => {
 
         console.log('Calculated ageInDays:', ageInDays);
 
-        // Broiler calculation (formula-based)
+        // Broiler calculation (use daily performance data from database)
         if (specificCategory === 'broiler') {
-            const waterMl = 5.28 * ageInDays;
-            waterL = waterMl / 1000;
-            feedKg = (waterMl / 1.77) / 1000;
-            console.log('Broiler calculation:', { waterMl, waterL, feedKg });
+            const broilerData = consumptionData?.poultry_commercial?.broiler?.daily_performance;
+            if (broilerData && Array.isArray(broilerData)) {
+                // Find exact day or use closest day
+                const dayData = broilerData.find(d => d.day === ageInDays) || 
+                               broilerData[Math.min(ageInDays, broilerData.length - 1)];
+                if (dayData) {
+                    waterL = (dayData.water_ml_day || 0) / 1000;
+                    feedKg = (dayData.daily_feed_g || 0) / 1000;
+                }
+            }
+            console.log('Broiler calculation:', { ageInDays, waterL, feedKg });
         }
-        // Layer calculation (table-based with interpolation)
+        // Layer calculation (use new database structure)
         else if (specificCategory === 'layer') {
             const ageInWeeks = Math.floor(ageInDays / 7);
-            const layerData = consumptionData?.poultry_commercial?.layer?.data_by_week || [];
-            const result = interpolateLayerData(ageInWeeks, layerData);
-            waterL = result.waterL;
-            feedKg = result.feedKg;
+            const layerCommercial = consumptionData?.poultry_commercial?.layer;
+            
+            if (layerCommercial) {
+                if (ageInWeeks <= 18) {
+                    // Rearing phase - use weekly_data
+                    const rearingData = layerCommercial.rearing_phase?.weekly_data || [];
+                    const weekData = rearingData.find(d => d.week === ageInWeeks);
+                    if (weekData) {
+                        waterL = (weekData.water_ml_day?.average || 0) / 1000;
+                        feedKg = (weekData.feed_g_day?.average || 0) / 1000;
+                    } else {
+                        // Interpolate between available weeks
+                        const sortedData = rearingData.sort((a, b) => a.week - b.week);
+                        for (let i = 0; i < sortedData.length - 1; i++) {
+                            if (ageInWeeks > sortedData[i].week && ageInWeeks < sortedData[i + 1].week) {
+                                const w1 = sortedData[i];
+                                const w2 = sortedData[i + 1];
+                                const ratio = (ageInWeeks - w1.week) / (w2.week - w1.week);
+                                waterL = ((w1.water_ml_day.average + ratio * (w2.water_ml_day.average - w1.water_ml_day.average)) / 1000);
+                                feedKg = ((w1.feed_g_day.average + ratio * (w2.feed_g_day.average - w1.feed_g_day.average)) / 1000);
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    // Production phase - use production_summary
+                    const productionData = layerCommercial.production_phase?.production_summary || [];
+                    const weekData = productionData.find(d => d.age_weeks === ageInWeeks);
+                    if (weekData) {
+                        waterL = (weekData.water_ml_day || 0) / 1000;
+                        feedKg = (weekData.feed_g_day || 0) / 1000;
+                    } else {
+                        // Use closest available data or interpolate
+                        const closestData = productionData.reduce((prev, curr) => 
+                            Math.abs(curr.age_weeks - ageInWeeks) < Math.abs(prev.age_weeks - ageInWeeks) ? curr : prev
+                        );
+                        if (closestData) {
+                            waterL = (closestData.water_ml_day || 0) / 1000;
+                            feedKg = (closestData.feed_g_day || 0) / 1000;
+                        }
+                    }
+                }
+            }
             console.log('Layer calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
         }
         // Swine calculation (weight-based approximation)
@@ -941,67 +987,35 @@ const DosageCalculator = () => {
                                         Reference Data: {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label}
                                     </h3>
 
-                                    {/* Broiler - Formula Based */}
+                                    {/* Broiler - Daily Performance Data */}
                                     {referenceSelection.specificCategory === 'broiler' && (
                                         <div>
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Formula-Based</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Daily Performance Data</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Water (ml/bird/day) = 5.28 × Age (days)<br/>
-                                                    Feed (g/bird/day) = Water ÷ 1.77
+                                                    Source: {consumptionData.poultry_commercial.broiler.source}<br/>
+                                                    Breed: {consumptionData.poultry_commercial.broiler.breed}
                                                 </p>
                                             </div>
-                                            <div style={{ overflowX: 'auto' }}>
+                                            <div style={{ overflowX: 'auto', maxHeight: '600px', overflowY: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
-                                                    <thead>
+                                                    <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                                                         <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Age (days)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Day</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>FCR</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {[7, 14, 21, 28, 35, 42].map(day => {
-                                                            const water = 5.28 * day;
-                                                            const feed = water / 1.77;
-                                                            return (
-                                                                <tr key={day}>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{day}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{water.toFixed(1)}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{feed.toFixed(1)}</td>
-                                                                </tr>
-                                                            );
-                                                        })}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Layer - Table Based */}
-                                    {referenceSelection.specificCategory === 'layer' && (
-                                        <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Table-Based with Interpolation</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Data from Hy-Line International Management Guide
-                                                </p>
-                                            </div>
-                                            <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
-                                                    <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {consumptionData.poultry_commercial.layer.data_by_week.map(data => (
-                                                            <tr key={data.week}>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_ml}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
+                                                        {consumptionData.poultry_commercial.broiler.daily_performance.map(dayData => (
+                                                            <tr key={dayData.day} style={{ background: dayData.day % 7 === 0 ? '#f3f4f6' : 'white' }}>
+                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb', fontWeight: dayData.day % 7 === 0 ? '600' : 'normal' }}>{dayData.day}</td>
+                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.body_weight_g}</td>
+                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.daily_feed_g}</td>
+                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.water_ml_day}</td>
+                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.fcr.toFixed(3)}</td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
@@ -1010,7 +1024,72 @@ const DosageCalculator = () => {
                                         </div>
                                     )}
 
-                                    {/* Color Chicken - Formula with Adjustment */}
+                                    {/* Layer - Rearing and Production Phases */}
+                                    {referenceSelection.specificCategory === 'layer' && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Phase-Based Data</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Source: {consumptionData.poultry_commercial.layer.source}<br/>
+                                                    Breed: {consumptionData.poultry_commercial.layer.breed} ({consumptionData.poultry_commercial.layer.housing_system})
+                                                </p>
+                                            </div>
+                                            
+                                            {/* Rearing Phase */}
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 0-18)</h5>
+                                            <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumptionData.poultry_commercial.layer.rearing_phase.weekly_data.map(data => (
+                                                            <tr key={data.week}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g_day.average}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_ml_day.average}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.body_weight_g.average}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            {/* Production Phase */}
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase (Weeks 18-100)</h5>
+                                            <div style={{ overflowX: 'auto' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Production %</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Egg Weight (g)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumptionData.poultry_commercial.layer.production_phase.production_summary.map(data => (
+                                                            <tr key={data.age_weeks}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.age_weeks}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.production_percent.toFixed(1)}%</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g_day}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_ml_day}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.egg_weight_g}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Color Chicken - Formula with Adjustment and Daily Details */}
                                     {referenceSelection.specificCategory === 'color_chicken' && (
                                         <div>
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
@@ -1020,24 +1099,24 @@ const DosageCalculator = () => {
                                                     Feed (g/bird/day) = Water ÷ 1.77
                                                 </p>
                                             </div>
-                                            <div style={{ overflowX: 'auto' }}>
+                                            <div style={{ overflowX: 'auto', maxHeight: '600px', overflowY: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
-                                                    <thead>
+                                                    <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                                                         <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Age (days)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Day</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {[7, 14, 21, 28, 35, 42, 49, 56, 63, 70].map(day => {
+                                                        {Array.from({ length: 71 }, (_, i) => i).map(day => {
                                                             const water = 5.28 * day * 0.7;
                                                             const feed = water / 1.77;
                                                             return (
-                                                                <tr key={day}>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{day}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{water.toFixed(1)}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{feed.toFixed(1)}</td>
+                                                                <tr key={day} style={{ background: day % 7 === 0 ? '#f3f4f6' : 'white' }}>
+                                                                    <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb', fontWeight: day % 7 === 0 ? '600' : 'normal' }}>{day}</td>
+                                                                    <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{water.toFixed(1)}</td>
+                                                                    <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{feed.toFixed(1)}</td>
                                                                 </tr>
                                                             );
                                                         })}
