@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { swineTranslations } from '../translations';
+import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
 
 function ProgressBar({ step, t }) {
     const steps = [
@@ -88,8 +89,9 @@ function SymptomsPage() {
     const selectedAgeGroup = AGE_GROUPS.find(a => a.id === selectedAge);
 
     return (
-        <div className="has-action-bar">
-            <ProgressBar step={2} t={t} />
+        <DiagnosisWrapper>
+            <div className="has-action-bar">
+                <ProgressBar step={2} t={t} />
 
             <div className="container">
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
@@ -232,7 +234,8 @@ function SymptomsPage() {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </DiagnosisWrapper>
     );
 }
 
