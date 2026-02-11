@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { feedAdditivesTranslations } from '../translations';
 
 const DosageCalculator = () => {
+    const navigate = useNavigate();
     const { language } = useLanguage();
     const t = (key) => feedAdditivesTranslations[language]?.[key] || feedAdditivesTranslations['en'][key];
     const [currentStep, setCurrentStep] = useState(1);
@@ -826,6 +828,37 @@ const DosageCalculator = () => {
                             Vaksindo Vietnam - United Animal Health Products
                         </p>
                     </div>
+                    <button
+                        onClick={() => navigate('/feed-additives/reference-data')}
+                        style={{
+                            padding: '0.75rem 1.5rem',
+                            background: '#10b981',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontSize: '0.875rem',
+                            fontWeight: '600',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            transition: 'all 0.2s',
+                            boxShadow: '0 2px 4px rgba(16, 185, 129, 0.3)'
+                        }}
+                        onMouseOver={(e) => {
+                            e.target.style.background = '#059669';
+                            e.target.style.transform = 'translateY(-2px)';
+                            e.target.style.boxShadow = '0 4px 8px rgba(16, 185, 129, 0.4)';
+                        }}
+                        onMouseOut={(e) => {
+                            e.target.style.background = '#10b981';
+                            e.target.style.transform = 'translateY(0)';
+                            e.target.style.boxShadow = '0 2px 4px rgba(16, 185, 129, 0.3)';
+                        }}
+                    >
+                        <span style={{ fontSize: '1.25rem' }}>📊</span>
+                        View Full Reference Data
+                    </button>
                 </div>
 
                 {/* Progress Steps */}
