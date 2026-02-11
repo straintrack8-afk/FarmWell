@@ -1189,84 +1189,188 @@ const DosageCalculator = () => {
                                         </div>
                                     )}
 
-                                    {/* Breeders - Phase Based with Full Table */}
-                                    {['layer_breeder', 'broiler_breeder', 'color_breeder'].includes(referenceSelection.specificCategory) && (
+                                    {/* Broiler Breeder - Complete Weekly Data */}
+                                    {referenceSelection.specificCategory === 'broiler_breeder' && (
                                         <div>
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Phase-Based</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 1-64)</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Growing Phase (Week 1-20): Uses layer data{referenceSelection.specificCategory === 'color_breeder' ? ' with 85% adjustment' : ''}<br/>
-                                                    Production Phase (Week 21+): Fixed consumption values
+                                                    Source: {consumptionData.poultry_breeding.broiler_breeder.source}<br/>
+                                                    Breed: {consumptionData.poultry_breeding.broiler_breeder.breed}
                                                 </p>
                                             </div>
+                                            
+                                            {/* Rearing Phase */}
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 1-20)</h5>
+                                            <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumptionData.poultry_breeding.broiler_breeder.female_rearing_weeks_0_20.map(data => (
+                                                            <tr key={data.week}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{(data.feed_g * 1.8).toFixed(0)}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.bw_g}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            {/* Production Phase */}
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase (Weeks 21-64)</h5>
                                             <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
                                                     <thead>
                                                         <tr style={{ background: '#3b82f6', color: 'white' }}>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Phase</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Event</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {(() => {
-                                                            const adjustmentFactor = referenceSelection.specificCategory === 'color_breeder' ? 0.85 : 1.0;
-                                                            const productionWater = referenceSelection.specificCategory === 'layer_breeder' ? 280 : 
-                                                                                   referenceSelection.specificCategory === 'broiler_breeder' ? 300 : 250;
-                                                            const productionFeed = referenceSelection.specificCategory === 'layer_breeder' ? 160 : 
-                                                                                  referenceSelection.specificCategory === 'broiler_breeder' ? 170 : 140;
-                                                            
-                                                            const rows = [];
-                                                            const layerData = consumptionData.poultry_commercial.layer.data_by_week;
-                                                            
-                                                            // Week 1-20: Growing phase (use layer data)
-                                                            for (let week = 1; week <= 20; week++) {
-                                                                const weekData = layerData.find(d => d.week === week);
-                                                                if (weekData) {
-                                                                    rows.push(
-                                                                        <tr key={week} style={{ background: week % 2 === 0 ? '#f9fafb' : 'white' }}>
-                                                                            <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{week}</td>
-                                                                            <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', color: '#059669', fontWeight: '600' }}>Growing</td>
-                                                                            <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>
-                                                                                {(weekData.water_ml * adjustmentFactor).toFixed(1)}
-                                                                            </td>
-                                                                            <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>
-                                                                                {(weekData.feed_g * adjustmentFactor).toFixed(1)}
-                                                                            </td>
-                                                                        </tr>
-                                                                    );
-                                                                }
-                                                            }
-                                                            
-                                                            // Week 21-65: Production phase (fixed values)
-                                                            for (let week = 21; week <= 65; week++) {
-                                                                rows.push(
-                                                                    <tr key={week} style={{ background: week % 2 === 0 ? '#fef3c7' : '#fffbeb' }}>
-                                                                        <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{week}</td>
-                                                                        <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', color: '#dc2626', fontWeight: '600' }}>Production</td>
-                                                                        <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>
-                                                                            {productionWater}
-                                                                        </td>
-                                                                        <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>
-                                                                            {productionFeed}
-                                                                        </td>
-                                                                    </tr>
-                                                                );
-                                                            }
-                                                            
-                                                            return rows;
-                                                        })()}
+                                                        {consumptionData.poultry_breeding.broiler_breeder.female_production_in_season_weeks_21_64.map(data => (
+                                                            <tr key={data.week} style={{ background: data.event ? '#fef3c7' : 'white' }}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{(data.feed_g * 1.8).toFixed(0)}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontSize: '0.875rem', color: '#059669' }}>
+                                                                    {data.event || '-'}
+                                                                </td>
+                                                            </tr>
+                                                        ))}
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div style={{ marginTop: '1rem', padding: '1rem', background: '#fef3c7', borderRadius: '6px', fontSize: '0.875rem' }}>
-                                                <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}>📝 Notes:</p>
-                                                <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-                                                    <li>Growing phase (Week 1-20): Consumption increases with age following layer growth pattern</li>
-                                                    <li>Production phase (Week 21-65): Fixed consumption due to breeding management and feed restriction programs</li>
-                                                    <li>Typical cull age: 60-65 weeks depending on production performance</li>
-                                                </ul>
+                                        </div>
+                                    )}
+
+                                    {/* Color Breeder - Complete Weekly Data */}
+                                    {referenceSelection.specificCategory === 'color_breeder' && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 1-70)</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Source: {consumptionData.poultry_breeding.color_breeder.source}<br/>
+                                                    Breed: {consumptionData.poultry_breeding.color_breeder.breed}
+                                                </p>
+                                            </div>
+                                            
+                                            {/* Rearing Phase */}
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Pullet Rearing Phase (Weeks 1-24)</h5>
+                                            <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumptionData.poultry_breeding.color_breeder.female_pullet_rearing_weeks_0_24.map(data => (
+                                                            <tr key={data.week}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{(data.feed_g * 2.0).toFixed(0)}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.bw_g}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            {/* Production Phase */}
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase - 20°C (Weeks 24-70)</h5>
+                                            <div style={{ overflowX: 'auto' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Production %</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Note</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumptionData.poultry_breeding.color_breeder.female_production_20C_weeks_24_70.map(data => (
+                                                            <tr key={data.week} style={{ background: data.note ? '#fef3c7' : 'white' }}>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.prod_pct}%</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{(data.feed_g * 2.0).toFixed(0)}</td>
+                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontSize: '0.875rem', color: '#059669' }}>
+                                                                    {data.note || '-'}
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Layer Breeder - Using Layer Data + Fixed Production */}
+                                    {referenceSelection.specificCategory === 'layer_breeder' && (
+                                        <div>
+                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Layer Breeder Data</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                                    Rearing Phase: Uses layer commercial data<br/>
+                                                    Production Phase: Fixed breeding values
+                                                </p>
+                                            </div>
+                                            
+                                            {/* Rearing Phase */}
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 1-18)</h5>
+                                            <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                    <thead>
+                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {consumptionData.poultry_commercial.layer.rearing_weeks_1_18.map(data => {
+                                                            const avgFeed = ((data.feed_g_min + data.feed_g_max) / 2).toFixed(1);
+                                                            const avgWater = ((data.water_ml_min + data.water_ml_max) / 2).toFixed(1);
+                                                            const avgBW = ((data.bw_g_min + data.bw_g_max) / 2).toFixed(0);
+                                                            return (
+                                                                <tr key={data.week}>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgFeed}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgWater}</td>
+                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgBW}</td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            {/* Production Phase */}
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase (Week 20+)</h5>
+                                            <div style={{ background: 'white', padding: '1.5rem', borderRadius: '6px' }}>
+                                                <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>Fixed Breeding Values</p>
+                                                <p>Feed: 160 g/bird/day</p>
+                                                <p>Water: 280 ml/bird/day</p>
+                                                <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
+                                                    Note: Feed restriction management for optimal breeding performance
+                                                </p>
                                             </div>
                                         </div>
                                     )}
