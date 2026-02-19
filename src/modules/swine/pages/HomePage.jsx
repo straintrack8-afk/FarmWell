@@ -122,29 +122,11 @@ function HomePage() {
                     <h3 className="action-card-title">
                         {t('swine.calculator.title')}
                     </h3>
-                    <p className="action-card-description">
+                    <p className="action-card-description" style={{ marginBottom: '1.5rem' }}>
                         {t('swine.calculator.description')}
                     </p>
-                    <ul className="action-card-features">
-                        <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
-                            <span>{t('swine.calculator.features.feedConsumption')}</span>
-                        </li>
-                        <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
-                            <span>{t('swine.calculator.features.breedingCycle')}</span>
-                        </li>
-                        <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
-                            <span>{t('swine.calculator.features.multiMode')}</span>
-                        </li>
-                        <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
-                            <span>{t('swine.calculator.features.online')}</span>
-                        </li>
-                    </ul>
-                    <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
-                        {t('swine.calculator.button')} →
+                    <button className="btn btn-primary" style={{ width: '100%', marginTop: 'auto' }}>
+                        {t('swine.calculator.button')}
                     </button>
                 </div>
             </div>
