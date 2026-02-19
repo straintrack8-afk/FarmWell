@@ -161,6 +161,11 @@ export const translations = {
                     aboutTitle: "About BIOCHECK PIG",
                     aboutDescription: "This assessment is based on the scientifically validated BIOCHECK PIG V4.0 system developed by Ghent University. It evaluates biosecurity across multiple critical areas to help protect your farm from disease outbreaks."
                 }
+            },
+            calculator: {
+                title: 'Pig Farm Feasibility Suite',
+                description: 'Integrated platform for production modeling, financial projection, and investment analysis — built for breeding, fattening, and integrated pig farming operations.',
+                button: 'Start Calculate'
             }
         },
         poultry: {
@@ -384,6 +389,11 @@ export const translations = {
                     aboutTitle: "Tentang BIOCHECK PIG",
                     aboutDescription: "Penilaian ini didasarkan pada sistem BIOCHECK PIG V4.0 yang tervalidasi secara ilmiah yang dikembangkan oleh Universitas Ghent. Ini mengevaluasi biosekuriti di berbagai area kritis untuk membantu melindungi peternakan Anda dari wabah penyakit."
                 }
+            },
+            calculator: {
+                title: 'Pig Farm Feasibility Suite',
+                description: 'Platform terintegrasi untuk pemodelan produksi, proyeksi keuangan, dan analisis investasi — dibangun untuk operasi peternakan babi breeding, fattening, dan terintegrasi.',
+                button: 'Mulai Hitung'
             }
         },
         poultry: {
@@ -607,6 +617,11 @@ export const translations = {
                     aboutTitle: "Về BIOCHECK PIG",
                     aboutDescription: "Đánh giá này dựa trên hệ thống BIOCHECK PIG V4.0 được xác thực khoa học do Đại học Ghent phát triển. Nó đánh giá an toàn sinh học trên nhiều lĩnh vực quan trọng để giúp bảo vệ trang trại của bạn khỏi dịch bệnh."
                 }
+            },
+            calculator: {
+                title: 'Pig Farm Feasibility Suite',
+                description: 'Nền tảng tích hợp cho mô hình hóa sản xuất, dự báo tài chính và phân tích đầu tư — được xây dựng cho hoạt động chăn nuôi lợn nhân giống, vỗ béo và tích hợp.',
+                button: 'Bắt đầu Tính toán'
             }
         },
         poultry: {
