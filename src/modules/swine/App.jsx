@@ -21,6 +21,9 @@ import BiosecurityResultsPage from './pages/biosecurity/ResultsPage';
 import BiosecurityReportPage from './pages/biosecurity/BiosecurityReportPage';
 import BiosecurityHistoryPage from './pages/biosecurity/BiosecurityHistoryPage';
 
+// Farm Calculator page
+import PigFarmCalculatorPage from './pages/PigFarmCalculatorPage';
+
 import './index.css';
 
 function App() {
@@ -51,6 +54,9 @@ function App() {
                   <Route path="/biosecurity/results" element={<BiosecurityResultsPage />} />
                   <Route path="/biosecurity/report" element={<BiosecurityReportPage />} />
                   <Route path="/biosecurity/history" element={<BiosecurityHistoryPage />} />
+
+                  {/* Farm Calculator Route */}
+                  <Route path="/farm-calculator" element={<PigFarmCalculatorPage />} />
 
                   {/* Fallback */}
                   <Route path="*" element={<Navigate to="/swine" replace />} />
