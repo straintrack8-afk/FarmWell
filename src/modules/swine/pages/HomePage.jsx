@@ -15,6 +15,10 @@ function HomePage() {
         navigate('biosecurity');
     };
 
+    const handleOpenCalculator = () => {
+        navigate('farm-calculator');
+    };
+
     if (loading) {
         return (
             <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
@@ -109,6 +113,38 @@ function HomePage() {
                     </ul>
                     <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
                         {t('swine.biosecurity.button')} →
+                    </button>
+                </div>
+
+                {/* Farm Calculator Feature */}
+                <div className="action-card" onClick={handleOpenCalculator}>
+                    <span className="action-card-icon">🧮</span>
+                    <h3 className="action-card-title">
+                        {t('swine.calculator.title')}
+                    </h3>
+                    <p className="action-card-description">
+                        {t('swine.calculator.description')}
+                    </p>
+                    <ul className="action-card-features">
+                        <li className="action-card-feature">
+                            <span className="action-card-feature-icon">✓</span>
+                            <span>{t('swine.calculator.features.feedConsumption')}</span>
+                        </li>
+                        <li className="action-card-feature">
+                            <span className="action-card-feature-icon">✓</span>
+                            <span>{t('swine.calculator.features.breedingCycle')}</span>
+                        </li>
+                        <li className="action-card-feature">
+                            <span className="action-card-feature-icon">✓</span>
+                            <span>{t('swine.calculator.features.multiMode')}</span>
+                        </li>
+                        <li className="action-card-feature">
+                            <span className="action-card-feature-icon">✓</span>
+                            <span>{t('swine.calculator.features.online')}</span>
+                        </li>
+                    </ul>
+                    <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                        {t('swine.calculator.button')} →
                     </button>
                 </div>
             </div>

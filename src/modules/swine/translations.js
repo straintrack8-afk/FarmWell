@@ -105,7 +105,20 @@ export const swineTranslations = {
         loading: 'Loading...',
         error: 'Error',
         offline: 'Offline',
-        online: 'Online'
+        online: 'Online',
+        
+        // Farm Calculator
+        calculator: {
+            title: 'Farm Calculator',
+            description: 'Feed consumption & breeding calculator for your pig farm',
+            features: {
+                feedConsumption: 'Feed consumption calculator',
+                breedingCycle: 'Breeding cycle tracker',
+                multiMode: 'Multi-mode calculation',
+                online: 'Works online'
+            },
+            button: 'Open Calculator'
+        }
     },
     
     id: {
@@ -213,8 +226,21 @@ export const swineTranslations = {
         // Common Terms
         loading: 'Memuat...',
         error: 'Kesalahan',
-        offline: 'Offline',
-        online: 'Online'
+        offline: 'Luring',
+        online: 'Daring',
+        
+        // Farm Calculator
+        calculator: {
+            title: 'Kalkulator Peternakan',
+            description: 'Kalkulator konsumsi pakan & siklus breeding untuk peternakan babi Anda',
+            features: {
+                feedConsumption: 'Kalkulator konsumsi pakan',
+                breedingCycle: 'Pelacak siklus breeding',
+                multiMode: 'Perhitungan multi-mode',
+                online: 'Bekerja online'
+            },
+            button: 'Buka Kalkulator'
+        }
     },
     
     vi: {
@@ -323,6 +349,19 @@ export const swineTranslations = {
         loading: 'Đang tải...',
         error: 'Lỗi',
         offline: 'Ngoại tuyến',
-        online: 'Trực tuyến'
+        online: 'Trực tuyến',
+        
+        // Farm Calculator
+        calculator: {
+            title: 'Máy tính Trang trại',
+            description: 'Máy tính tiêu thụ thức ăn & chu kỳ nhân giống cho trang trại lợn của bạn',
+            features: {
+                feedConsumption: 'Máy tính tiêu thụ thức ăn',
+                breedingCycle: 'Theo dõi chu kỳ nhân giống',
+                multiMode: 'Tính toán đa chế độ',
+                online: 'Hoạt động trực tuyến'
+            },
+            button: 'Mở Máy tính'
+        }
     }
 };
