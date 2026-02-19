@@ -109,15 +109,9 @@ export const swineTranslations = {
         
         // Farm Calculator
         calculator: {
-            title: 'Farm Calculator',
-            description: 'Feed consumption & breeding calculator for your pig farm',
-            features: {
-                feedConsumption: 'Feed consumption calculator',
-                breedingCycle: 'Breeding cycle tracker',
-                multiMode: 'Multi-mode calculation',
-                online: 'Works online'
-            },
-            button: 'Open Calculator'
+            title: 'Pig Farm Feasibility Suite',
+            description: 'Integrated platform for production modeling, financial projection, and investment analysis — built for breeding, fattening, and integrated pig farming operations.',
+            button: 'Start Calculate'
         }
     },
     
@@ -231,15 +225,9 @@ export const swineTranslations = {
         
         // Farm Calculator
         calculator: {
-            title: 'Kalkulator Peternakan',
-            description: 'Kalkulator konsumsi pakan & siklus breeding untuk peternakan babi Anda',
-            features: {
-                feedConsumption: 'Kalkulator konsumsi pakan',
-                breedingCycle: 'Pelacak siklus breeding',
-                multiMode: 'Perhitungan multi-mode',
-                online: 'Bekerja online'
-            },
-            button: 'Buka Kalkulator'
+            title: 'Pig Farm Feasibility Suite',
+            description: 'Platform terintegrasi untuk pemodelan produksi, proyeksi keuangan, dan analisis investasi — dibangun untuk operasi peternakan babi breeding, fattening, dan terintegrasi.',
+            button: 'Mulai Hitung'
         }
     },
     
@@ -353,15 +341,9 @@ export const swineTranslations = {
         
         // Farm Calculator
         calculator: {
-            title: 'Máy tính Trang trại',
-            description: 'Máy tính tiêu thụ thức ăn & chu kỳ nhân giống cho trang trại lợn của bạn',
-            features: {
-                feedConsumption: 'Máy tính tiêu thụ thức ăn',
-                breedingCycle: 'Theo dõi chu kỳ nhân giống',
-                multiMode: 'Tính toán đa chế độ',
-                online: 'Hoạt động trực tuyến'
-            },
-            button: 'Mở Máy tính'
+            title: 'Pig Farm Feasibility Suite',
+            description: 'Nền tảng tích hợp cho mô hình hóa sản xuất, dự báo tài chính và phân tích đầu tư — được xây dựng cho hoạt động chăn nuôi lợn nhân giống, vỗ béo và tích hợp.',
+            button: 'Bắt đầu Tính toán'
         }
     }
 };
