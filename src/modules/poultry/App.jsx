@@ -5,6 +5,7 @@ import { BroilerAssessmentProvider } from './contexts/BroilerAssessmentContext';
 import '../../portal.css';
 import './poultry.css';
 import { STEPS } from './utils/constants';
+import PoultryDiagnosisWrapper from './components/disease-diagnosis/PoultryDiagnosisWrapper';
 import Header from './components/common/Header';
 import PoultryLanding from './components/PoultryLanding';
 import LandingPage from './components/LandingPage';
@@ -72,13 +73,15 @@ function DiagnosticApp() {
         <div className="portal-layout">
             <div className="portal-container">
                 <div className="portal-card" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
-                    <Header isOffline={isOffline} onBack={reset} />
-                    <main style={{ flex: 1, padding: '2rem 0' }}>
-                        {step === STEPS.AGE && <AgeSelection />}
-                        {step === STEPS.SYMPTOMS && <SymptomSelection />}
-                        {step === STEPS.RESULTS && <ResultsList />}
-                        {step === STEPS.DETAIL && <DiseaseDetail />}
-                    </main>
+                    <PoultryDiagnosisWrapper language="en">
+                        <Header isOffline={isOffline} onBack={reset} />
+                        <main style={{ flex: 1, padding: '2rem 0' }}>
+                            {step === STEPS.AGE && <AgeSelection />}
+                            {step === STEPS.SYMPTOMS && <SymptomSelection />}
+                            {step === STEPS.RESULTS && <ResultsList />}
+                            {step === STEPS.DETAIL && <DiseaseDetail />}
+                        </main>
+                    </PoultryDiagnosisWrapper>
                 </div>
             </div>
         </div>

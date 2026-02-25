@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { STEPS } from '../utils/constants';
+import DiagnosisDisclaimer from './disease-diagnosis/DiagnosisDisclaimer';
 
 function ProgressBar({ step }) {
     const steps = [
@@ -183,13 +184,21 @@ function ResultsList() {
                             </button>
                         </div>
                     ) : (
-                        filteredDiseases.map(disease => (
-                            <DiseaseCard
-                                key={disease.id}
-                                disease={disease}
-                                onClick={() => handleDiseaseClick(disease)}
+                        <>
+                            {filteredDiseases.map(disease => (
+                                <DiseaseCard
+                                    key={disease.id}
+                                    disease={disease}
+                                    onClick={() => handleDiseaseClick(disease)}
+                                />
+                            ))}
+
+                            {/* Diagnosis Result Disclaimer */}
+                            <DiagnosisDisclaimer
+                                language="en"
+                                diseaseIndicated={filteredDiseases[0]?.name || 'Multiple conditions'}
                             />
-                        ))
+                        </>
                     )}
                 </div>
 
