@@ -3,13 +3,13 @@ export const feedAdditivesTranslations = {
         // Header
         title: "FEED ADDITIVES CALCULATOR",
         subtitle: "Vaksindo Vietnam - United Animal Health Products",
-        
+
         // Steps
         step1: "Select Animal",
         step2: "Flock Info",
         step3: "Select Product",
         step4: "Protocol & Results",
-        
+
         // Step 1: Animal Selection
         selectAnimalType: "Select Animal Type:",
         selectProductionCategory: "Production Category:",
@@ -18,7 +18,7 @@ export const feedAdditivesTranslations = {
         breeding: "Breeding",
         swine: "Swine",
         poultry: "Poultry",
-        
+
         // Animal categories
         broiler: "Broiler",
         layer: "Layer",
@@ -32,7 +32,7 @@ export const feedAdditivesTranslations = {
         sowGestation: "Sow Gestation",
         sowLactation: "Sow Lactation",
         boar: "Boar",
-        
+
         // Step 2: Flock/Herd Information
         flockHerdInfo: "Flock/Herd Information",
         populationSize: "Population Size:",
@@ -41,12 +41,12 @@ export const feedAdditivesTranslations = {
         age: "Age",
         days: "days",
         weeks: "weeks",
-        
+
         // Step 3: Product Selection
         selectProduct: "Select Product",
         availableProducts: "Available Products:",
         productPrice: "Product Price (VND/kg):",
-        
+
         // Step 4: Treatment Protocol
         treatmentProtocol: "Treatment Protocol",
         templateProtocol: "Template Protocol:",
@@ -59,7 +59,15 @@ export const feedAdditivesTranslations = {
         addPeriod: "Add Period",
         removePeriod: "Remove Period",
         calculateDosage: "Calculate Dosage & Cost",
-        
+        enterPriceHint: "Enter price per kilogram of product",
+        standardPreventionTitle: "Standard Prevention (10 days)",
+        standardPreventionDesc: "Day 1-5 + Day 25-29",
+        intensiveTreatmentTitle: "Intensive Treatment (7 days)",
+        intensiveTreatmentDesc: "Day 1-7 continuous",
+        createCustomProtocol: "+ Or Create Custom Protocol",
+        hideCustomProtocol: "− Hide Custom Protocol",
+        customProtocolLabel: "Custom Protocol:",
+
         // Results
         calculationResults: "Calculation Results",
         product: "Product:",
@@ -73,17 +81,17 @@ export const feedAdditivesTranslations = {
         totalFeed: "Total Feed:",
         productNeeded: "Product Needed:",
         cost: "Cost:",
-        
+
         // Total Investment
         totalInvestment: "TOTAL INVESTMENT",
         totalProduct: "Total Product:",
         totalCost: "Total Cost:",
         costPerAnimal: "Cost per Animal:",
-        
+
         // Expected Benefits
         expectedBenefits: "Expected Benefits:",
         benefitsNote: "Note: Results may vary based on farm conditions and management practices.",
-        
+
         // Daily Details
         dailyCalculationDetails: "Daily Calculation Details",
         showDetails: "Show Details",
@@ -98,7 +106,7 @@ export const feedAdditivesTranslations = {
         productG: "Product (g)",
         costVND: "Cost (VND)",
         totalPeriod: "Total Period",
-        
+
         // Export & Inquiry
         exportToExcel: "Export to Excel",
         printPDF: "Print PDF",
@@ -114,12 +122,12 @@ export const feedAdditivesTranslations = {
         allFieldsRequired: "* All fields are required. Your information will be kept confidential.",
         inquirySuccess: "Thank you for your inquiry! Our team will contact you soon.",
         fillAllFields: "Please fill in all required fields.",
-        
+
         // Navigation
         previous: "Previous",
         next: "Next",
         newCalculation: "New Calculation",
-        
+
         // Reference Data
         referenceData: "Reference Data",
         viewReferenceData: "View Reference Data",
@@ -135,10 +143,10 @@ export const feedAdditivesTranslations = {
         productionPhase: "Production Phase",
         calculationMethod: "Calculation Method:",
         methodDescription: "Values are calculated using linear interpolation between data points for accurate age-specific consumption.",
-        
+
         // Print header
         generated: "Generated:",
-        
+
         // Reference Data Table Headers
         ageInDays: "Age (days)",
         waterMlPerBird: "Water (ml/bird/day)",
@@ -161,18 +169,18 @@ export const feedAdditivesTranslations = {
         sowLactationNote: "Note: High water demand due to milk production",
         boarNote: "Note: Maintenance level, adjust for body condition",
     },
-    
+
     id: {
         // Header
         title: "KALKULATOR FEED ADDITIVES",
         subtitle: "Vaksindo Vietnam - United Animal Health Products",
-        
+
         // Steps
         step1: "Pilih Hewan",
         step2: "Info Populasi",
         step3: "Pilih Produk",
         step4: "Protokol & Hasil",
-        
+
         // Step 1: Animal Selection
         selectAnimalType: "Pilih Jenis Hewan:",
         selectProductionCategory: "Kategori Produksi:",
@@ -181,7 +189,7 @@ export const feedAdditivesTranslations = {
         breeding: "Pembibitan",
         swine: "Babi",
         poultry: "Unggas",
-        
+
         // Animal categories
         broiler: "Broiler",
         layer: "Layer",
@@ -195,7 +203,7 @@ export const feedAdditivesTranslations = {
         sowGestation: "Induk Bunting",
         sowLactation: "Induk Laktasi",
         boar: "Pejantan",
-        
+
         // Step 2: Flock/Herd Information
         flockHerdInfo: "Informasi Populasi",
         populationSize: "Jumlah Populasi:",
@@ -204,12 +212,12 @@ export const feedAdditivesTranslations = {
         age: "Umur",
         days: "hari",
         weeks: "minggu",
-        
+
         // Step 3: Product Selection
         selectProduct: "Pilih Produk",
         availableProducts: "Produk yang Tersedia:",
         productPrice: "Harga Produk (VND/kg):",
-        
+
         // Step 4: Treatment Protocol
         treatmentProtocol: "Protokol Treatment",
         templateProtocol: "Template Protokol:",
@@ -222,7 +230,15 @@ export const feedAdditivesTranslations = {
         addPeriod: "Tambah Periode",
         removePeriod: "Hapus Periode",
         calculateDosage: "Hitung Dosis & Biaya",
-        
+        enterPriceHint: "Masukkan harga per kilogram produk",
+        standardPreventionTitle: "Standard Prevention (10 hari)",
+        standardPreventionDesc: "Hari 1-5 + Hari 25-29",
+        intensiveTreatmentTitle: "Intensive Treatment (7 hari)",
+        intensiveTreatmentDesc: "Hari 1-7 kontinyu",
+        createCustomProtocol: "+ Atau Buat Protokol Custom",
+        hideCustomProtocol: "− Sembunyikan Protokol Custom",
+        customProtocolLabel: "Protokol Custom:",
+
         // Results
         calculationResults: "Hasil Perhitungan",
         product: "Produk:",
@@ -236,17 +252,17 @@ export const feedAdditivesTranslations = {
         totalFeed: "Total Pakan:",
         productNeeded: "Produk Dibutuhkan:",
         cost: "Biaya:",
-        
+
         // Total Investment
         totalInvestment: "TOTAL INVESTASI",
         totalProduct: "Total Produk:",
         totalCost: "Total Biaya:",
         costPerAnimal: "Biaya per Ekor:",
-        
+
         // Expected Benefits
         expectedBenefits: "Manfaat yang Diharapkan:",
         benefitsNote: "Catatan: Hasil dapat bervariasi berdasarkan kondisi farm dan praktek manajemen.",
-        
+
         // Daily Details
         dailyCalculationDetails: "Detail Perhitungan Harian",
         showDetails: "Tampilkan Detail",
@@ -261,7 +277,7 @@ export const feedAdditivesTranslations = {
         productG: "Produk (g)",
         costVND: "Biaya (VND)",
         totalPeriod: "Total Periode",
-        
+
         // Export & Inquiry
         exportToExcel: "Export ke Excel",
         printPDF: "Cetak PDF",
@@ -277,12 +293,12 @@ export const feedAdditivesTranslations = {
         allFieldsRequired: "* Semua field wajib diisi. Informasi Anda akan dijaga kerahasiaannya.",
         inquirySuccess: "Terima kasih atas permintaan Anda! Tim kami akan menghubungi Anda segera.",
         fillAllFields: "Mohon isi semua field yang diperlukan.",
-        
+
         // Navigation
         previous: "Sebelumnya",
         next: "Selanjutnya",
         newCalculation: "Perhitungan Baru",
-        
+
         // Reference Data
         referenceData: "Data Referensi",
         viewReferenceData: "Lihat Data Referensi",
@@ -298,10 +314,10 @@ export const feedAdditivesTranslations = {
         productionPhase: "Fase Produksi",
         calculationMethod: "Metode Perhitungan:",
         methodDescription: "Nilai dihitung menggunakan interpolasi linear antara data point untuk konsumsi yang akurat sesuai umur.",
-        
+
         // Print header
         generated: "Dibuat:",
-        
+
         // Reference Data Table Headers
         ageInDays: "Umur (hari)",
         waterMlPerBird: "Air (ml/ekor/hari)",
@@ -324,18 +340,18 @@ export const feedAdditivesTranslations = {
         sowLactationNote: "Catatan: Kebutuhan air tinggi karena produksi susu",
         boarNote: "Catatan: Level pemeliharaan, sesuaikan dengan kondisi tubuh",
     },
-    
+
     vn: {
         // Header
         title: "MÁY TÍNH PHỤ GIA THỨC ĂN",
         subtitle: "Vaksindo Vietnam - United Animal Health Products",
-        
+
         // Steps
         step1: "Chọn Động Vật",
         step2: "Thông Tin Đàn",
         step3: "Chọn Sản Phẩm",
         step4: "Giao Thức & Kết Quả",
-        
+
         // Step 1: Animal Selection
         selectAnimalType: "Chọn Loại Động Vật:",
         selectProductionCategory: "Danh Mục Sản Xuất:",
@@ -344,7 +360,7 @@ export const feedAdditivesTranslations = {
         breeding: "Nhân Giống",
         swine: "Lợn",
         poultry: "Gia Cầm",
-        
+
         // Animal categories
         broiler: "Gà Thịt",
         layer: "Gà Đẻ",
@@ -358,7 +374,7 @@ export const feedAdditivesTranslations = {
         sowGestation: "Nái Mang Thai",
         sowLactation: "Nái Cho Con Bú",
         boar: "Heo Đực",
-        
+
         // Step 2: Flock/Herd Information
         flockHerdInfo: "Thông Tin Đàn",
         populationSize: "Quy Mô Đàn:",
@@ -367,12 +383,12 @@ export const feedAdditivesTranslations = {
         age: "Tuổi",
         days: "ngày",
         weeks: "tuần",
-        
+
         // Step 3: Product Selection
         selectProduct: "Chọn Sản Phẩm",
         availableProducts: "Sản Phẩm Có Sẵn:",
         productPrice: "Giá Sản Phẩm (VND/kg):",
-        
+
         // Step 4: Treatment Protocol
         treatmentProtocol: "Giao Thức Điều Trị",
         templateProtocol: "Mẫu Giao Thức:",
@@ -385,7 +401,15 @@ export const feedAdditivesTranslations = {
         addPeriod: "Thêm Giai Đoạn",
         removePeriod: "Xóa Giai Đoạn",
         calculateDosage: "Tính Liều Lượng & Chi Phí",
-        
+        enterPriceHint: "Nhập giá mỗi kilogram sản phẩm",
+        standardPreventionTitle: "Phòng Ngừa Tiêu Chuẩn (10 ngày)",
+        standardPreventionDesc: "Ngày 1-5 + Ngày 25-29",
+        intensiveTreatmentTitle: "Điều Trị Tích Cực (7 ngày)",
+        intensiveTreatmentDesc: "Ngày 1-7 liên tục",
+        createCustomProtocol: "+ Hoặc Tạo Giao Thức Tùy Chỉnh",
+        hideCustomProtocol: "− Ẩn Giao Thức Tùy Chỉnh",
+        customProtocolLabel: "Giao Thức Tùy Chỉnh:",
+
         // Results
         calculationResults: "Kết Quả Tính Toán",
         product: "Sản Phẩm:",
@@ -399,17 +423,17 @@ export const feedAdditivesTranslations = {
         totalFeed: "Tổng Thức Ăn:",
         productNeeded: "Sản Phẩm Cần:",
         cost: "Chi Phí:",
-        
+
         // Total Investment
         totalInvestment: "TỔNG ĐẦU TƯ",
         totalProduct: "Tổng Sản Phẩm:",
         totalCost: "Tổng Chi Phí:",
         costPerAnimal: "Chi Phí Mỗi Con:",
-        
+
         // Expected Benefits
         expectedBenefits: "Lợi Ích Dự Kiến:",
         benefitsNote: "Lưu ý: Kết quả có thể thay đổi dựa trên điều kiện trang trại và thực hành quản lý.",
-        
+
         // Daily Details
         dailyCalculationDetails: "Chi Tiết Tính Toán Hàng Ngày",
         showDetails: "Hiển Thị Chi Tiết",
@@ -424,7 +448,7 @@ export const feedAdditivesTranslations = {
         productG: "Sản Phẩm (g)",
         costVND: "Chi Phí (VND)",
         totalPeriod: "Tổng Giai Đoạn",
-        
+
         // Export & Inquiry
         exportToExcel: "Xuất ra Excel",
         printPDF: "In PDF",
@@ -440,12 +464,12 @@ export const feedAdditivesTranslations = {
         allFieldsRequired: "* Tất cả các trường đều bắt buộc. Thông tin của bạn sẽ được bảo mật.",
         inquirySuccess: "Cảm ơn bạn đã yêu cầu! Đội ngũ của chúng tôi sẽ liên hệ với bạn sớm.",
         fillAllFields: "Vui lòng điền tất cả các trường bắt buộc.",
-        
+
         // Navigation
         previous: "Trước",
         next: "Tiếp Theo",
         newCalculation: "Tính Toán Mới",
-        
+
         // Reference Data
         referenceData: "Dữ Liệu Tham Khảo",
         viewReferenceData: "Xem Dữ Liệu Tham Khảo",
@@ -461,10 +485,10 @@ export const feedAdditivesTranslations = {
         productionPhase: "Giai Đoạn Sản Xuất",
         calculationMethod: "Phương Pháp Tính:",
         methodDescription: "Giá trị được tính bằng nội suy tuyến tính giữa các điểm dữ liệu để tiêu thụ chính xác theo tuổi.",
-        
+
         // Print header
         generated: "Được tạo:",
-        
+
         // Reference Data Table Headers
         ageInDays: "Tuổi (ngày)",
         waterMlPerBird: "Nước (ml/con/ngày)",

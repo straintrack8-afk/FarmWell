@@ -299,7 +299,7 @@ const DosageCalculator = () => {
         animalType: '', // 'swine' or 'poultry'
         productionCategory: '', // 'breeding' or 'commercial'
         specificCategory: '', // e.g., 'broiler', 'nursery', etc.
-        
+
         // Step 2: Flock/Herd Info
         population: '',
         age: '',
@@ -307,16 +307,16 @@ const DosageCalculator = () => {
         gender: 'mixed', // 'female', 'male', 'mixed'
         femaleRatio: 10,
         maleRatio: 1,
-        
+
         // Step 3: Product Selection
         selectedProduct: null,
         productPrice: 3640000, // Default price per kg in VND
-        
+
         // Step 4: Protocol
         protocolPeriods: [
             { startDay: 1, endDay: 5 }
         ],
-        
+
         // Results
         results: null
     });
@@ -377,7 +377,7 @@ const DosageCalculator = () => {
 
         // Find exact week data
         let weekData = layerData.find(d => d.week === ageInWeeks);
-        
+
         if (weekData) {
             return {
                 waterL: (weekData.water_ml * adjustmentFactor) / 1000,
@@ -393,7 +393,7 @@ const DosageCalculator = () => {
                 feedKg: (weekData.feed_g * adjustmentFactor) / 1000
             };
         }
-        
+
         if (ageInWeeks > layerData[layerData.length - 1].week) {
             weekData = layerData[layerData.length - 1];
             return {
@@ -405,7 +405,7 @@ const DosageCalculator = () => {
         // Find two surrounding weeks for interpolation
         let lowerWeek = null;
         let upperWeek = null;
-        
+
         for (let i = 0; i < layerData.length - 1; i++) {
             if (layerData[i].week <= ageInWeeks && layerData[i + 1].week >= ageInWeeks) {
                 lowerWeek = layerData[i];
@@ -413,7 +413,7 @@ const DosageCalculator = () => {
                 break;
             }
         }
-        
+
         if (lowerWeek && upperWeek) {
             const ratio = (ageInWeeks - lowerWeek.week) / (upperWeek.week - lowerWeek.week);
             const waterMl = lowerWeek.water_ml + (upperWeek.water_ml - lowerWeek.water_ml) * ratio;
@@ -425,7 +425,7 @@ const DosageCalculator = () => {
         }
 
         // Fallback to closest week
-        weekData = layerData.reduce((prev, curr) => 
+        weekData = layerData.reduce((prev, curr) =>
             Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
         );
         return {
@@ -490,7 +490,7 @@ const DosageCalculator = () => {
 
         // Create CSV content
         let csvContent = "Feed Additives Dosage Calculation Report\n\n";
-        
+
         // Summary Information
         csvContent += "SUMMARY INFORMATION\n";
         csvContent += `Product,${calculationData.selectedProduct.name}\n`;
@@ -539,11 +539,11 @@ const DosageCalculator = () => {
         if (!showDailyDetails) {
             setShowDailyDetails(true);
         }
-        
+
         // Wait for state update, then print
         setTimeout(() => {
             window.print();
-            
+
             // Restore original state after print dialog closes
             if (!wasShowingDetails) {
                 setTimeout(() => setShowDailyDetails(false), 100);
@@ -582,7 +582,7 @@ const DosageCalculator = () => {
         const { startDay, endDay } = period;
         const days = endDay - startDay + 1;
         const population = parseInt(calculationData.population);
-        
+
         let totalWaterL = 0;
         let totalFeedKg = 0;
         const dailyBreakdown = [];
@@ -592,7 +592,7 @@ const DosageCalculator = () => {
             const consumption = getDailyConsumption(day);
             const dayWaterL = consumption.waterL * population;
             const dayFeedKg = consumption.feedKg * population;
-            
+
             totalWaterL += dayWaterL;
             totalFeedKg += dayFeedKg;
 
@@ -654,11 +654,11 @@ const DosageCalculator = () => {
 
     const getDailyConsumption = (dayNumber) => {
         const { specificCategory, age, ageUnit } = calculationData;
-        
+
         console.log('=== getDailyConsumption START ===');
         console.log('Input:', { dayNumber, specificCategory, age, ageUnit });
         console.log('consumptionData loaded?', !!consumptionData);
-        
+
         if (!consumptionData) {
             console.error('❌ Consumption data not loaded yet');
             return { waterL: 0, feedKg: 0 };
@@ -678,8 +678,8 @@ const DosageCalculator = () => {
             const broilerData = consumptionData?.poultry_commercial?.broiler?.daily_data;
             if (broilerData && Array.isArray(broilerData)) {
                 // Find exact day or use closest day
-                const dayData = broilerData.find(d => d.day === ageInDays) || 
-                               broilerData[Math.min(ageInDays, broilerData.length - 1)];
+                const dayData = broilerData.find(d => d.day === ageInDays) ||
+                    broilerData[Math.min(ageInDays, broilerData.length - 1)];
                 if (dayData) {
                     waterL = (dayData.water_ml || 0) / 1000;
                     feedKg = (dayData.feed_g || 0) / 1000;
@@ -691,7 +691,7 @@ const DosageCalculator = () => {
         else if (specificCategory === 'layer') {
             const ageInWeeks = Math.floor(ageInDays / 7);
             const layerCommercial = consumptionData?.poultry_commercial?.layer;
-            
+
             if (layerCommercial) {
                 if (ageInWeeks <= 18) {
                     // Rearing phase - use rearing_weeks_1_18
@@ -730,7 +730,7 @@ const DosageCalculator = () => {
                         feedKg = (weekData.feed_g || 0) / 1000;
                     } else {
                         // Use closest available data
-                        const closestData = productionData.reduce((prev, curr) => 
+                        const closestData = productionData.reduce((prev, curr) =>
                             Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
                         );
                         if (closestData) {
@@ -755,7 +755,7 @@ const DosageCalculator = () => {
         // Layer Breeder - use layer rearing data, then fixed production values
         else if (specificCategory === 'layer_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
-            
+
             if (ageInWeeks < 20) {
                 // Before 20 weeks: use layer rearing data
                 const layerCommercial = consumptionData?.poultry_commercial?.layer;
@@ -772,7 +772,7 @@ const DosageCalculator = () => {
                 waterL = 0.28; // 280ml per bird
                 feedKg = 0.16; // 160g per bird
             }
-            
+
             console.log('Layer breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
         }
         // Color Chicken (Commercial) - slower growth than broiler
@@ -788,7 +788,7 @@ const DosageCalculator = () => {
         else if (specificCategory === 'color_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
             const colorBreederData = consumptionData?.poultry_breeding?.color_breeder;
-            
+
             if (ageInWeeks <= 24) {
                 // Rearing phase: use female_pullet_rearing_weeks_0_24
                 const rearingData = colorBreederData?.female_pullet_rearing_weeks_0_24 || [];
@@ -820,7 +820,7 @@ const DosageCalculator = () => {
                     waterL = feedKg * 2.0;
                 } else {
                     // Use closest available data
-                    const closestData = productionData.reduce((prev, curr) => 
+                    const closestData = productionData.reduce((prev, curr) =>
                         Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
                     );
                     if (closestData) {
@@ -829,14 +829,14 @@ const DosageCalculator = () => {
                     }
                 }
             }
-            
+
             console.log('Color breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
         }
         // Broiler Breeder - use complete weekly data (v2.2)
         else if (specificCategory === 'broiler_breeder') {
             const ageInWeeks = Math.floor(ageInDays / 7);
             const broilerBreederData = consumptionData?.poultry_breeding?.broiler_breeder;
-            
+
             // Use single complete table for weeks 0-64
             const completeData = broilerBreederData?.female_complete_weeks_0_64 || [];
             const weekData = completeData.find(d => d.week === ageInWeeks);
@@ -845,7 +845,7 @@ const DosageCalculator = () => {
                 waterL = feedKg * 1.8; // Using water:feed ratio of 1.8
             } else {
                 // Use closest available data if exact week not found
-                const closestData = completeData.reduce((prev, curr) => 
+                const closestData = completeData.reduce((prev, curr) =>
                     Math.abs(curr.week - ageInWeeks) < Math.abs(prev.week - ageInWeeks) ? curr : prev
                 );
                 if (closestData) {
@@ -853,7 +853,7 @@ const DosageCalculator = () => {
                     waterL = feedKg * 1.8;
                 }
             }
-            
+
             console.log('Broiler breeder calculation:', { ageInWeeks, ageInDays, waterL, feedKg });
         }
         // Swine breeding - use database values
@@ -872,7 +872,7 @@ const DosageCalculator = () => {
 
         console.log('✅ Final result:', { waterL, feedKg, waterMl: waterL * 1000, feedG: feedKg * 1000 });
         console.log('=== getDailyConsumption END ===\n');
-        
+
         return { waterL, feedKg };
     };
 
@@ -900,7 +900,7 @@ const DosageCalculator = () => {
     const updatePeriod = (index, field, value) => {
         setCalculationData(prev => ({
             ...prev,
-            protocolPeriods: prev.protocolPeriods.map((period, i) => 
+            protocolPeriods: prev.protocolPeriods.map((period, i) =>
                 i === index ? { ...period, [field]: parseInt(value) } : period
             )
         }));
@@ -909,11 +909,11 @@ const DosageCalculator = () => {
     // Get filtered products based on animal selection
     const getAvailableProducts = () => {
         if (!productsData || !calculationData.specificCategory) return [];
-        
+
         return productsData.products.filter(product => {
             const matchesSpecies = product.target_species.includes(calculationData.animalType);
             const matchesAnimal = product.target_animals.includes(calculationData.specificCategory) ||
-                                 product.target_animals.includes('all_breeders');
+                product.target_animals.includes('all_breeders');
             return matchesSpecies && matchesAnimal;
         });
     };
@@ -922,7 +922,7 @@ const DosageCalculator = () => {
         <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', padding: '2rem' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 {/* Header */}
-                <div style={{ 
+                <div style={{
                     background: '#f3f4f6',
                     color: '#1f2937',
                     padding: '2rem',
@@ -956,7 +956,7 @@ const DosageCalculator = () => {
                 </div>
 
                 {/* Progress Steps */}
-                <div style={{ 
+                <div style={{
                     background: 'white',
                     padding: '1.5rem',
                     borderRadius: '12px',
@@ -1210,7 +1210,7 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Daily Performance Data (Day 0-56)</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Source: {consumptionData.poultry_commercial.broiler.source}<br/>
+                                                    Source: {consumptionData.poultry_commercial.broiler.source}<br />
                                                     Breed: {consumptionData.poultry_commercial.broiler.breed}
                                                 </p>
                                             </div>
@@ -1247,11 +1247,11 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 1-100)</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Source: {consumptionData.poultry_commercial.layer.source}<br/>
+                                                    Source: {consumptionData.poultry_commercial.layer.source}<br />
                                                     Breed: {consumptionData.poultry_commercial.layer.breed} - {consumptionData.poultry_commercial.layer.housing}
                                                 </p>
                                             </div>
-                                            
+
                                             {/* Rearing Phase */}
                                             <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 1-18)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
@@ -1317,7 +1317,7 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Formula with 70% Adjustment</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Water (ml/bird/day) = 5.28 × Age (days) × 0.70<br/>
+                                                    Water (ml/bird/day) = 5.28 × Age (days) × 0.70<br />
                                                     Feed (g/bird/day) = Water ÷ 1.77
                                                 </p>
                                             </div>
@@ -1354,12 +1354,12 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 0-64)</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Source: {consumptionData.poultry_breeding.broiler_breeder.source}<br/>
-                                                    Breed: {consumptionData.poultry_breeding.broiler_breeder.breed}<br/>
+                                                    Source: {consumptionData.poultry_breeding.broiler_breeder.source}<br />
+                                                    Breed: {consumptionData.poultry_breeding.broiler_breeder.breed}<br />
                                                     Note: {consumptionData.poultry_breeding.broiler_breeder.note}
                                                 </p>
                                             </div>
-                                            
+
                                             {/* Complete Table - All Weeks */}
                                             <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
@@ -1380,7 +1380,7 @@ const DosageCalculator = () => {
                                                             const isRearing = data.week <= 20;
                                                             const hasNote = data.note && data.note !== '';
                                                             return (
-                                                                <tr key={data.week} style={{ 
+                                                                <tr key={data.week} style={{
                                                                     background: hasNote ? '#fef3c7' : (isRearing ? '#f0fdf4' : 'white')
                                                                 }}>
                                                                     <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontWeight: data.week % 10 === 0 ? '600' : 'normal' }}>{data.week}</td>
@@ -1399,7 +1399,7 @@ const DosageCalculator = () => {
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            
+
                                             <div style={{ marginTop: '1rem', padding: '1rem', background: '#fef3c7', borderRadius: '6px', fontSize: '0.875rem' }}>
                                                 <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}>📝 Key Milestones:</p>
                                                 <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
@@ -1419,11 +1419,11 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 1-70)</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Source: {consumptionData.poultry_breeding.color_breeder.source}<br/>
+                                                    Source: {consumptionData.poultry_breeding.color_breeder.source}<br />
                                                     Breed: {consumptionData.poultry_breeding.color_breeder.breed}
                                                 </p>
                                             </div>
-                                            
+
                                             {/* Rearing Phase */}
                                             <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Pullet Rearing Phase (Weeks 1-24)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
@@ -1486,11 +1486,11 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Layer Breeder Data</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Rearing Phase: Uses layer commercial data<br/>
+                                                    Rearing Phase: Uses layer commercial data<br />
                                                     Production Phase: Fixed breeding values
                                                 </p>
                                             </div>
-                                            
+
                                             {/* Rearing Phase */}
                                             <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 1-18)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
@@ -1614,800 +1614,970 @@ const DosageCalculator = () => {
                         </div>
                     ) : (
                         <>
-                    {/* Step 1: Animal Selection */}
-                    {currentStep === 1 && (
-                        <div>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                {t('step1')}: {t('selectAnimalType').replace(':', '')}
-                            </h2>
-                            
-                            {/* Animal Type Selection */}
-                            <div style={{ marginBottom: '2rem' }}>
-                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                    {t('selectAnimalType')}
-                                </label>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
-                                    {['swine', 'poultry'].map(type => (
-                                        <button
-                                            key={type}
-                                            onClick={() => {
-                                                updateData('animalType', type);
-                                                updateData('productionCategory', '');
-                                                updateData('specificCategory', '');
-                                            }}
-                                            style={{
-                                                padding: '1.5rem',
-                                                border: calculationData.animalType === type ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                borderRadius: '8px',
-                                                background: calculationData.animalType === type ? '#f3f4ff' : 'white',
-                                                cursor: 'pointer',
-                                                fontSize: '1.125rem',
-                                                fontWeight: '600',
-                                                textTransform: 'capitalize',
-                                                transition: 'all 0.2s'
-                                            }}
-                                        >
-                                            {type === 'swine' ? '🐷' : '🐔'} {t(type)}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Production Category */}
-                            {calculationData.animalType && (
-                                <div style={{ marginBottom: '2rem' }}>
-                                    <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                        {t('selectProductionCategory')}
-                                    </label>
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
-                                        {['breeding', 'commercial'].map(category => (
-                                            <button
-                                                key={category}
-                                                onClick={() => {
-                                                    updateData('productionCategory', category);
-                                                    updateData('specificCategory', '');
-                                                }}
-                                                style={{
-                                                    padding: '1.5rem',
-                                                    border: calculationData.productionCategory === category ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                    borderRadius: '8px',
-                                                    background: calculationData.productionCategory === category ? '#f3f4ff' : 'white',
-                                                    cursor: 'pointer',
-                                                    fontSize: '1.125rem',
-                                                    fontWeight: '600',
-                                                    textTransform: 'capitalize',
-                                                    transition: 'all 0.2s'
-                                                }}
-                                            >
-                                                {category}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Specific Category */}
-                            {calculationData.productionCategory && (
+                            {/* Step 1: Animal Selection */}
+                            {currentStep === 1 && (
                                 <div>
-                                    <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
-                                        {t('selectSpecificCategory')}
-                                    </label>
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                                        {animalCategories[calculationData.animalType][calculationData.productionCategory].map(cat => (
-                                            <button
-                                                key={cat.id}
-                                                onClick={() => updateData('specificCategory', cat.id)}
-                                                style={{
-                                                    padding: '1rem',
-                                                    border: calculationData.specificCategory === cat.id ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                    borderRadius: '8px',
-                                                    background: calculationData.specificCategory === cat.id ? '#f3f4ff' : 'white',
-                                                    cursor: 'pointer',
-                                                    fontSize: '1rem',
-                                                    fontWeight: '600',
-                                                    transition: 'all 0.2s',
-                                                    textAlign: 'center'
-                                                }}
-                                            >
-                                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{cat.icon}</div>
-                                                {cat.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
+                                        {t('step1')}: {t('selectAnimalType').replace(':', '')}
+                                    </h2>
 
-                    {/* Step 2: Flock/Herd Information */}
-                    {currentStep === 2 && (
-                        <div>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                {t('step2')}: {t('flockHerdInfo')}
-                            </h2>
-                            
-                            <div style={{ maxWidth: '600px' }}>
-                                {/* Population */}
-                                <div style={{ marginBottom: '1.5rem' }}>
-                                    <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                        {t('populationSize')}
-                                    </label>
-                                    <input
-                                        type="number"
-                                        value={calculationData.population}
-                                        onChange={(e) => updateData('population', e.target.value)}
-                                        placeholder={t('enterPopulation')}
-                                        min="1"
-                                        style={{
-                                            width: '100%',
-                                            padding: '0.75rem',
-                                            border: '2px solid #e5e7eb',
-                                            borderRadius: '8px',
-                                            fontSize: '1rem'
-                                        }}
-                                    />
-                                </div>
-
-                                {/* Age */}
-                                <div style={{ marginBottom: '1.5rem' }}>
-                                    <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                        {t('currentAge')}
-                                    </label>
-                                    <div style={{ display: 'flex', gap: '1rem' }}>
-                                        <input
-                                            type="number"
-                                            value={calculationData.age}
-                                            onChange={(e) => updateData('age', e.target.value)}
-                                            placeholder={t('age')}
-                                            min="1"
-                                            style={{
-                                                flex: 2,
-                                                padding: '0.75rem',
-                                                border: '2px solid #e5e7eb',
-                                                borderRadius: '8px',
-                                                fontSize: '1rem'
-                                            }}
-                                        />
-                                        <select
-                                            value={calculationData.ageUnit}
-                                            onChange={(e) => updateData('ageUnit', e.target.value)}
-                                            style={{
-                                                flex: 1,
-                                                padding: '0.75rem',
-                                                border: '2px solid #e5e7eb',
-                                                borderRadius: '8px',
-                                                fontSize: '1rem'
-                                            }}
-                                        >
-                                            <option value="days">{t('days')}</option>
-                                            <option value="weeks">{t('weeks')}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                {/* Gender (for breeders only) */}
-                                {calculationData.productionCategory === 'breeding' && (
-                                    <div style={{ marginBottom: '1.5rem' }}>
-                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                            Gender:
+                                    {/* Animal Type Selection */}
+                                    <div style={{ marginBottom: '2rem' }}>
+                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                            {t('selectAnimalType')}
                                         </label>
-                                        <select
-                                            value={calculationData.gender}
-                                            onChange={(e) => updateData('gender', e.target.value)}
-                                            style={{
-                                                width: '100%',
-                                                padding: '0.75rem',
-                                                border: '2px solid #e5e7eb',
-                                                borderRadius: '8px',
-                                                fontSize: '1rem'
-                                            }}
-                                        >
-                                            <option value="female">Female only</option>
-                                            <option value="male">Male only</option>
-                                            <option value="mixed">Mixed flock</option>
-                                        </select>
-
-                                        {calculationData.gender === 'mixed' && (
-                                            <div style={{ marginTop: '1rem', padding: '1rem', background: '#f9fafb', borderRadius: '8px' }}>
-                                                <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
-                                                    Ratio (Female : Male):
-                                                </label>
-                                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                                                    <input
-                                                        type="number"
-                                                        value={calculationData.femaleRatio}
-                                                        onChange={(e) => updateData('femaleRatio', e.target.value)}
-                                                        min="1"
-                                                        style={{
-                                                            flex: 1,
-                                                            padding: '0.5rem',
-                                                            border: '1px solid #e5e7eb',
-                                                            borderRadius: '4px'
-                                                        }}
-                                                    />
-                                                    <span>:</span>
-                                                    <input
-                                                        type="number"
-                                                        value={calculationData.maleRatio}
-                                                        onChange={(e) => updateData('maleRatio', e.target.value)}
-                                                        min="1"
-                                                        style={{
-                                                            flex: 1,
-                                                            padding: '0.5rem',
-                                                            border: '1px solid #e5e7eb',
-                                                            borderRadius: '4px'
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Step 3: Product Selection */}
-                    {currentStep === 3 && (
-                        <div>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                {t('step3')}: {t('selectProduct')}
-                            </h2>
-                            
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
-                                {getAvailableProducts().map(product => (
-                                    <div
-                                        key={product.id}
-                                        onClick={() => updateData('selectedProduct', product)}
-                                        style={{
-                                            padding: '1.5rem',
-                                            border: calculationData.selectedProduct?.id === product.id ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                            borderRadius: '8px',
-                                            background: calculationData.selectedProduct?.id === product.id ? '#f3f4ff' : 'white',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.2s'
-                                        }}
-                                    >
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.75rem' }}>
-                                            <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1f2937' }}>
-                                                {product.name}
-                                            </h3>
-                                            {product.popular && (
-                                                <span style={{
-                                                    background: '#fef3c7',
-                                                    color: '#92400e',
-                                                    padding: '0.25rem 0.5rem',
-                                                    borderRadius: '4px',
-                                                    fontSize: '0.75rem',
-                                                    fontWeight: '600'
-                                                }}>
-                                                    ★ Popular
-                                                </span>
-                                            )}
-                                        </div>
-                                        <div style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '0.75rem' }}>
-                                            {product.application.method === 'feed' ? '🥣 Feed' : '💧 Water'} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
-                                        </div>
-                                        <div style={{ fontSize: '0.875rem', color: '#374151' }}>
-                                            {product.benefits.primary.slice(0, 2).map((benefit, i) => (
-                                                <div key={i} style={{ marginBottom: '0.25rem' }}>
-                                                    ✓ {benefit}
-                                                </div>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+                                            {['swine', 'poultry'].map(type => (
+                                                <button
+                                                    key={type}
+                                                    onClick={() => {
+                                                        updateData('animalType', type);
+                                                        updateData('productionCategory', '');
+                                                        updateData('specificCategory', '');
+                                                    }}
+                                                    style={{
+                                                        padding: '1.5rem',
+                                                        border: calculationData.animalType === type ? '3px solid #667eea' : '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        background: calculationData.animalType === type ? '#f3f4ff' : 'white',
+                                                        cursor: 'pointer',
+                                                        fontSize: '1.125rem',
+                                                        fontWeight: '600',
+                                                        textTransform: 'capitalize',
+                                                        transition: 'all 0.2s'
+                                                    }}
+                                                >
+                                                    {type === 'swine' ? '🐷' : '🐔'} {t(type)}
+                                                </button>
                                             ))}
                                         </div>
                                     </div>
-                                ))}
-                            </div>
 
-                            {/* Price Input */}
-                            {calculationData.selectedProduct && (
-                                <div style={{
-                                    background: '#f0fdf4',
-                                    border: '2px solid #86efac',
-                                    borderRadius: '12px',
-                                    padding: '1.5rem',
-                                    maxWidth: '500px'
-                                }}>
-                                    <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                        💰 {t('productPrice').replace(' (VND/kg):', '')}
-                                    </h3>
-                                    <div>
-                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                            {t('productPrice')}
-                                        </label>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    {/* Production Category */}
+                                    {calculationData.animalType && (
+                                        <div style={{ marginBottom: '2rem' }}>
+                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                                {t('selectProductionCategory')}
+                                            </label>
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+                                                {['breeding', 'commercial'].map(category => (
+                                                    <button
+                                                        key={category}
+                                                        onClick={() => {
+                                                            updateData('productionCategory', category);
+                                                            updateData('specificCategory', '');
+                                                        }}
+                                                        style={{
+                                                            padding: '1.5rem',
+                                                            border: calculationData.productionCategory === category ? '3px solid #667eea' : '2px solid #e5e7eb',
+                                                            borderRadius: '8px',
+                                                            background: calculationData.productionCategory === category ? '#f3f4ff' : 'white',
+                                                            cursor: 'pointer',
+                                                            fontSize: '1.125rem',
+                                                            fontWeight: '600',
+                                                            textTransform: 'capitalize',
+                                                            transition: 'all 0.2s'
+                                                        }}
+                                                    >
+                                                        {category}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Specific Category */}
+                                    {calculationData.productionCategory && (
+                                        <div>
+                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                                {t('selectSpecificCategory')}
+                                            </label>
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                                                {animalCategories[calculationData.animalType][calculationData.productionCategory].map(cat => (
+                                                    <button
+                                                        key={cat.id}
+                                                        onClick={() => updateData('specificCategory', cat.id)}
+                                                        style={{
+                                                            padding: '1rem',
+                                                            border: calculationData.specificCategory === cat.id ? '3px solid #667eea' : '2px solid #e5e7eb',
+                                                            borderRadius: '8px',
+                                                            background: calculationData.specificCategory === cat.id ? '#f3f4ff' : 'white',
+                                                            cursor: 'pointer',
+                                                            fontSize: '1rem',
+                                                            fontWeight: '600',
+                                                            transition: 'all 0.2s',
+                                                            textAlign: 'center'
+                                                        }}
+                                                    >
+                                                        <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{cat.icon}</div>
+                                                        {cat.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Step 2: Flock/Herd Information */}
+                            {currentStep === 2 && (
+                                <div>
+                                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
+                                        {t('step2')}: {t('flockHerdInfo')}
+                                    </h2>
+
+                                    <div style={{ maxWidth: '600px' }}>
+                                        {/* Population */}
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
+                                                {t('populationSize')}
+                                            </label>
                                             <input
                                                 type="number"
-                                                value={calculationData.productPrice}
-                                                onChange={(e) => updateData('productPrice', e.target.value)}
-                                                min="0"
-                                                step="1000"
+                                                value={calculationData.population}
+                                                onChange={(e) => updateData('population', e.target.value)}
+                                                placeholder={t('enterPopulation')}
+                                                min="1"
                                                 style={{
-                                                    flex: 1,
+                                                    width: '100%',
                                                     padding: '0.75rem',
-                                                    border: '2px solid #d1d5db',
+                                                    border: '2px solid #e5e7eb',
                                                     borderRadius: '8px',
-                                                    fontSize: '1rem',
-                                                    fontWeight: '600'
+                                                    fontSize: '1rem'
                                                 }}
                                             />
-                                            <span style={{ fontSize: '1rem', fontWeight: '600', color: '#6b7280' }}>
-                                                VND/kg
-                                            </span>
                                         </div>
-                                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem' }}>
-                                            Masukkan harga per kilogram produk
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
 
-                    {/* Step 4: Protocol & Results */}
-                    {currentStep === 4 && (
-                        <div>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                {t('step4')}: {t('treatmentProtocol')}
-                            </h2>
-                            
-                            {/* Template Protocol Selection */}
-                            <div style={{ marginBottom: '2rem' }}>
-                                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                    {t('templateProtocol')}
-                                </h3>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1rem' }}>
-                                    <button
-                                        onClick={() => useTemplate('standard')}
-                                        style={{
-                                            padding: '1.5rem',
-                                            border: '2px solid #e5e7eb',
-                                            borderRadius: '8px',
-                                            background: 'white',
-                                            cursor: 'pointer',
-                                            textAlign: 'left',
-                                            transition: 'all 0.2s'
-                                        }}
-                                        onMouseOver={(e) => {
-                                            e.currentTarget.style.borderColor = '#667eea';
-                                            e.currentTarget.style.background = '#f3f4ff';
-                                        }}
-                                        onMouseOut={(e) => {
-                                            e.currentTarget.style.borderColor = '#e5e7eb';
-                                            e.currentTarget.style.background = 'white';
-                                        }}
-                                    >
-                                        <div style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                                            📋 Standard Prevention (10 hari)
-                                        </div>
-                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                            Hari 1-5 + Hari 25-29
-                                        </div>
-                                    </button>
-                                    
-                                    <button
-                                        onClick={() => useTemplate('intensive')}
-                                        style={{
-                                            padding: '1.5rem',
-                                            border: '2px solid #e5e7eb',
-                                            borderRadius: '8px',
-                                            background: 'white',
-                                            cursor: 'pointer',
-                                            textAlign: 'left',
-                                            transition: 'all 0.2s'
-                                        }}
-                                        onMouseOver={(e) => {
-                                            e.currentTarget.style.borderColor = '#667eea';
-                                            e.currentTarget.style.background = '#f3f4ff';
-                                        }}
-                                        onMouseOut={(e) => {
-                                            e.currentTarget.style.borderColor = '#e5e7eb';
-                                            e.currentTarget.style.background = 'white';
-                                        }}
-                                    >
-                                        <div style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                                            🏥 Intensive Treatment (7 hari)
-                                        </div>
-                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                            Hari 1-7 kontinyu
-                                        </div>
-                                    </button>
-                                </div>
-                                
-                                <button
-                                    onClick={() => setShowCustomProtocol(!showCustomProtocol)}
-                                    style={{
-                                        color: '#667eea',
-                                        background: 'none',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        padding: '0.5rem 0'
-                                    }}
-                                >
-                                    {showCustomProtocol ? '− Sembunyikan Protokol Custom' : '+ Atau Buat Protokol Custom'}
-                                </button>
-                            </div>
-
-                            {/* Custom Protocol Builder */}
-                            {showCustomProtocol && (
-                                <div style={{ marginBottom: '2rem', paddingTop: '1rem', borderTop: '1px solid #e5e7eb' }}>
-                                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                        Custom Protocol:
-                                    </h3>
-                                
-                                {calculationData.protocolPeriods.map((period, index) => (
-                                    <div key={index} style={{
-                                        background: '#f9fafb',
-                                        padding: '1rem',
-                                        borderRadius: '8px',
-                                        marginBottom: '1rem'
-                                    }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                                            <strong>Period {index + 1}</strong>
-                                            {calculationData.protocolPeriods.length > 1 && (
-                                                <button
-                                                    onClick={() => removePeriod(index)}
-                                                    style={{
-                                                        background: '#fee2e2',
-                                                        color: '#dc2626',
-                                                        border: 'none',
-                                                        padding: '0.25rem 0.75rem',
-                                                        borderRadius: '4px',
-                                                        cursor: 'pointer',
-                                                        fontSize: '0.875rem'
-                                                    }}
-                                                >
-                                                    Remove
-                                                </button>
-                                            )}
-                                        </div>
-                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-                                            <div>
-                                                <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
-                                                    Start Day:
-                                                </label>
+                                        {/* Age */}
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
+                                                {t('currentAge')}
+                                            </label>
+                                            <div style={{ display: 'flex', gap: '1rem' }}>
                                                 <input
                                                     type="number"
-                                                    value={period.startDay}
-                                                    onChange={(e) => updatePeriod(index, 'startDay', e.target.value)}
+                                                    value={calculationData.age}
+                                                    onChange={(e) => updateData('age', e.target.value)}
+                                                    placeholder={t('age')}
                                                     min="1"
                                                     style={{
-                                                        width: '100%',
-                                                        padding: '0.5rem',
-                                                        border: '1px solid #e5e7eb',
-                                                        borderRadius: '4px'
+                                                        flex: 2,
+                                                        padding: '0.75rem',
+                                                        border: '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        fontSize: '1rem'
                                                     }}
                                                 />
+                                                <select
+                                                    value={calculationData.ageUnit}
+                                                    onChange={(e) => updateData('ageUnit', e.target.value)}
+                                                    style={{
+                                                        flex: 1,
+                                                        padding: '0.75rem',
+                                                        border: '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        fontSize: '1rem'
+                                                    }}
+                                                >
+                                                    <option value="days">{t('days')}</option>
+                                                    <option value="weeks">{t('weeks')}</option>
+                                                </select>
                                             </div>
-                                            <div>
-                                                <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
-                                                    End Day:
+                                        </div>
+
+                                        {/* Gender (for breeders only) */}
+                                        {calculationData.productionCategory === 'breeding' && (
+                                            <div style={{ marginBottom: '1.5rem' }}>
+                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
+                                                    Gender:
                                                 </label>
-                                                <input
-                                                    type="number"
-                                                    value={period.endDay}
-                                                    onChange={(e) => updatePeriod(index, 'endDay', e.target.value)}
-                                                    min={period.startDay}
+                                                <select
+                                                    value={calculationData.gender}
+                                                    onChange={(e) => updateData('gender', e.target.value)}
                                                     style={{
                                                         width: '100%',
-                                                        padding: '0.5rem',
-                                                        border: '1px solid #e5e7eb',
-                                                        borderRadius: '4px'
+                                                        padding: '0.75rem',
+                                                        border: '2px solid #e5e7eb',
+                                                        borderRadius: '8px',
+                                                        fontSize: '1rem'
                                                     }}
-                                                />
-                                            </div>
-                                            <div>
-                                                <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
-                                                    Duration:
-                                                </label>
-                                                <div style={{
-                                                    padding: '0.5rem',
-                                                    background: 'white',
-                                                    border: '1px solid #e5e7eb',
-                                                    borderRadius: '4px',
-                                                    fontWeight: '600'
-                                                }}>
-                                                    {period.endDay - period.startDay + 1} days
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
+                                                >
+                                                    <option value="female">Female only</option>
+                                                    <option value="male">Male only</option>
+                                                    <option value="mixed">Mixed flock</option>
+                                                </select>
 
-                                <button
-                                    onClick={addPeriod}
-                                    style={{
-                                        padding: '0.75rem 1.5rem',
-                                        background: '#667eea',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        marginTop: '0.5rem'
-                                    }}
-                                >
-                                    ➕ Add Another Period
-                                </button>
-                                </div>
-                            )}
-
-                            {/* Calculate Button */}
-                            <button
-                                onClick={calculateResults}
-                                style={{
-                                    width: '100%',
-                                    padding: '1rem',
-                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '8px',
-                                    cursor: 'pointer',
-                                    fontSize: '1.125rem',
-                                    fontWeight: '700',
-                                    marginBottom: '2rem'
-                                }}
-                            >
-                                🧮 {t('calculateDosage')}
-                            </button>
-
-                            {/* Results Display */}
-                            {calculationData.results && (
-                                <div className="print-content" style={{
-                                    background: '#f0fdf4',
-                                    border: '2px solid #86efac',
-                                    borderRadius: '12px',
-                                    padding: '2rem'
-                                }}>
-                                    {/* Print Header - Only visible when printing */}
-                                    <div className="print-header">
-                                        <img src="/images/FarmWell_Logo.png" alt="FarmWell" />
-                                        <div>
-                                            <h1>{t('title')}</h1>
-                                            <p>{t('subtitle')}</p>
-                                            <p style={{ marginTop: '0.5rem', fontSize: '0.75rem' }}>
-                                                {t('generated')} {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#166534' }}>
-                                        📊 {t('calculationResults')}
-                                    </h3>
-
-                                    {/* Summary */}
-                                    <div className="calculation-summary" style={{
-                                        background: 'white',
-                                        padding: '1.5rem',
-                                        borderRadius: '8px',
-                                        marginBottom: '1.5rem'
-                                    }}>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
-                                            <div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('product')}</div>
-                                                <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                    {calculationData.selectedProduct.name}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('population')}</div>
-                                                <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                    {parseInt(calculationData.population).toLocaleString()} {t('animals')}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('totalTreatmentDays')}</div>
-                                                <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                    {calculationData.results.totalDays} {t('days')}
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('numberOfPeriods')}</div>
-                                                <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                    {calculationData.protocolPeriods.length} {t('numberOfPeriods').toLowerCase().includes('period') ? '' : 'periods'}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Period Breakdown */}
-                                    <h4 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                        {t('periodBreakdown')}
-                                    </h4>
-                                    {calculationData.results.periods.map((period, index) => (
-                                        <div key={index} className="period-breakdown" style={{
-                                            background: 'white',
-                                            padding: '1rem',
-                                            borderRadius: '8px',
-                                            marginBottom: '1rem'
-                                        }}>
-                                            <div style={{ fontWeight: '700', marginBottom: '0.75rem' }}>
-                                                {t('period')} {index + 1}: {t('day')} {period.startDay}-{period.endDay} ({period.days} {t('days')})
-                                            </div>
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem', fontSize: '0.875rem' }}>
-                                                <div>{t('totalWater')} {parseFloat(period.totalWaterL).toLocaleString()} L</div>
-                                                <div>{t('totalFeed')} {parseFloat(period.totalFeedKg).toLocaleString()} kg</div>
-                                                <div style={{ color: '#667eea', fontWeight: '600' }}>
-                                                    {t('productNeeded')} {parseFloat(period.productNeeded).toLocaleString()} g
-                                                </div>
-                                                <div style={{ color: '#f59e0b', fontWeight: '600' }}>
-                                                    {t('cost')} {parseInt(period.cost).toLocaleString()} VND
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-
-                                    {/* Total Investment */}
-                                    <div className="total-investment" style={{
-                                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                        color: 'white',
-                                        padding: '1.5rem',
-                                        borderRadius: '8px',
-                                        marginTop: '1.5rem'
-                                    }}>
-                                        <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem' }}>
-                                            💰 {t('totalInvestment')}
-                                        </h4>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-                                            <div>
-                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalProduct')}</div>
-                                                <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
-                                                    {(calculationData.results.totalProductGrams / 1000).toFixed(2)} kg
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalCost')}</div>
-                                                <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
-                                                    {calculationData.results.totalCost.toLocaleString()} VND
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('costPerAnimal')}</div>
-                                                <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
-                                                    {Math.round(calculationData.results.costPerAnimal).toLocaleString()} VND
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Expected Benefits */}
-                                    <div className="expected-benefits" style={{
-                                        background: 'white',
-                                        padding: '1.5rem',
-                                        borderRadius: '8px',
-                                        marginTop: '1.5rem'
-                                    }}>
-                                        <h4 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                            💡 {t('expectedBenefits')}
-                                        </h4>
-                                        {calculationData.selectedProduct.benefits.primary.map((benefit, i) => (
-                                            <div key={i} style={{ marginBottom: '0.5rem', paddingLeft: '1.5rem', position: 'relative' }}>
-                                                <span style={{ position: 'absolute', left: 0 }}>✓</span>
-                                                {benefit}
-                                            </div>
-                                        ))}
-                                        <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#6b7280', fontStyle: 'italic' }}>
-                                            {t('benefitsNote')}
-                                        </div>
-                                    </div>
-
-                                    {/* Daily Calculation Details */}
-                                    <div style={{
-                                        background: '#eff6ff',
-                                        border: '2px solid #93c5fd',
-                                        borderRadius: '12px',
-                                        padding: '1.5rem',
-                                        marginTop: '1.5rem'
-                                    }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                                            <h4 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1e40af' }}>
-                                                📋 {t('dailyCalculationDetails')}
-                                            </h4>
-                                            <button
-                                                onClick={() => setShowDailyDetails(!showDailyDetails)}
-                                                style={{
-                                                    background: '#3b82f6',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    padding: '0.5rem 1rem',
-                                                    borderRadius: '6px',
-                                                    cursor: 'pointer',
-                                                    fontSize: '0.875rem',
-                                                    fontWeight: '600'
-                                                }}
-                                            >
-                                                {showDailyDetails ? '🔼 ' + t('hideDetails') : '🔽 ' + t('showDetails')}
-                                            </button>
-                                        </div>
-
-                                        {showDailyDetails && (
-                                            <div>
-                                                <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem' }}>
-                                                    {t('dailyDetailsDescription')}
-                                                </p>
-
-                                                {calculationData.results.periods.map((period, periodIndex) => (
-                                                    <div key={periodIndex} style={{ marginBottom: '2rem' }}>
-                                                        <div style={{
-                                                            background: '#3b82f6',
-                                                            color: 'white',
-                                                            padding: '0.75rem 1rem',
-                                                            borderRadius: '8px 8px 0 0',
-                                                            fontWeight: '700',
-                                                            fontSize: '1rem'
-                                                        }}>
-                                                            {t('period')} {periodIndex + 1}
-                                                        </div>
-                                                        
-                                                        <div style={{ overflowX: 'auto' }}>
-                                                            <table className="daily-details-table" style={{
-                                                                width: '100%',
-                                                                background: 'white',
-                                                                borderCollapse: 'collapse',
-                                                                fontSize: '0.875rem'
-                                                            }}>
-                                                                <thead>
-                                                                    <tr style={{ background: '#f3f4f6' }}>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #e5e7eb' }}>{t('dayColumn')}</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('ageColumn')}</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('waterPerAnimal')}</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('totalWaterL')}</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('feedPerAnimal')}</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('totalFeedKg')}</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#667eea' }}>{t('productG')}</th>
-                                                                        <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#f59e0b' }}>{t('costVND')}</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {period.dailyBreakdown.map((day, dayIndex) => (
-                                                                        <tr key={dayIndex} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                                                            <td style={{ padding: '0.75rem' }}>{day.day}</td>
-                                                                            <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.ageInDays}</td>
-                                                                            <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.waterPerAnimal.toFixed(1)}</td>
-                                                                            <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(day.totalWaterL).toLocaleString()}</td>
-                                                                            <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.feedPerAnimal.toFixed(1)}</td>
-                                                                            <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(day.totalFeedKg).toLocaleString()}</td>
-                                                                            <td style={{ padding: '0.75rem', textAlign: 'right', color: '#667eea', fontWeight: '600' }}>
-                                                                                {parseFloat(day.productNeeded).toLocaleString()}
-                                                                            </td>
-                                                                            <td style={{ padding: '0.75rem', textAlign: 'right', color: '#f59e0b', fontWeight: '600' }}>
-                                                                                {day.cost.toLocaleString()}
-                                                                            </td>
-                                                                        </tr>
-                                                                    ))}
-                                                                    <tr style={{ background: '#fce7f3', fontWeight: '700' }}>
-                                                                        <td colSpan="3" style={{ padding: '0.75rem' }}>{t('totalPeriod')}</td>
-                                                                        <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalWaterL).toLocaleString()}</td>
-                                                                        <td style={{ padding: '0.75rem', textAlign: 'right' }}></td>
-                                                                        <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalFeedKg).toLocaleString()}</td>
-                                                                        <td style={{ padding: '0.75rem', textAlign: 'right', color: '#667eea' }}>
-                                                                            {parseFloat(period.productNeeded).toLocaleString()}
-                                                                        </td>
-                                                                        <td style={{ padding: '0.75rem', textAlign: 'right', color: '#f59e0b' }}>
-                                                                            {parseInt(period.cost).toLocaleString()}
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                {calculationData.gender === 'mixed' && (
+                                                    <div style={{ marginTop: '1rem', padding: '1rem', background: '#f9fafb', borderRadius: '8px' }}>
+                                                        <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
+                                                            Ratio (Female : Male):
+                                                        </label>
+                                                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                                            <input
+                                                                type="number"
+                                                                value={calculationData.femaleRatio}
+                                                                onChange={(e) => updateData('femaleRatio', e.target.value)}
+                                                                min="1"
+                                                                style={{
+                                                                    flex: 1,
+                                                                    padding: '0.5rem',
+                                                                    border: '1px solid #e5e7eb',
+                                                                    borderRadius: '4px'
+                                                                }}
+                                                            />
+                                                            <span>:</span>
+                                                            <input
+                                                                type="number"
+                                                                value={calculationData.maleRatio}
+                                                                onChange={(e) => updateData('maleRatio', e.target.value)}
+                                                                min="1"
+                                                                style={{
+                                                                    flex: 1,
+                                                                    padding: '0.5rem',
+                                                                    border: '1px solid #e5e7eb',
+                                                                    borderRadius: '4px'
+                                                                }}
+                                                            />
                                                         </div>
                                                     </div>
-                                                ))}
+                                                )}
                                             </div>
                                         )}
                                     </div>
+                                </div>
+                            )}
 
-                                    {/* Export Buttons */}
-                                    <div className="no-print" style={{
-                                        display: 'flex',
-                                        gap: '1rem',
-                                        marginTop: '2rem',
-                                        justifyContent: 'center'
-                                    }}>
+                            {/* Step 3: Product Selection */}
+                            {currentStep === 3 && (
+                                <div>
+                                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
+                                        {t('step3')}: {t('selectProduct')}
+                                    </h2>
+
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+                                        {getAvailableProducts().map(product => (
+                                            <div
+                                                key={product.id}
+                                                onClick={() => updateData('selectedProduct', product)}
+                                                style={{
+                                                    padding: '1.5rem',
+                                                    border: calculationData.selectedProduct?.id === product.id ? '3px solid #667eea' : '2px solid #e5e7eb',
+                                                    borderRadius: '8px',
+                                                    background: calculationData.selectedProduct?.id === product.id ? '#f3f4ff' : 'white',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.2s'
+                                                }}
+                                            >
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.75rem' }}>
+                                                    <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1f2937' }}>
+                                                        {product.name}
+                                                    </h3>
+                                                    {product.popular && (
+                                                        <span style={{
+                                                            background: '#fef3c7',
+                                                            color: '#92400e',
+                                                            padding: '0.25rem 0.5rem',
+                                                            borderRadius: '4px',
+                                                            fontSize: '0.75rem',
+                                                            fontWeight: '600'
+                                                        }}>
+                                                            ★ Popular
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <div style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '0.75rem' }}>
+                                                    {product.application.method === 'feed' ? '🥣 Feed' : '💧 Water'} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
+                                                </div>
+                                                <div style={{ fontSize: '0.875rem', color: '#374151' }}>
+                                                    {product.benefits.primary.slice(0, 2).map((benefit, i) => (
+                                                        <div key={i} style={{ marginBottom: '0.25rem' }}>
+                                                            ✓ {benefit}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Price Input */}
+                                    {calculationData.selectedProduct && (
+                                        <div style={{
+                                            background: '#f0fdf4',
+                                            border: '2px solid #86efac',
+                                            borderRadius: '12px',
+                                            padding: '1.5rem',
+                                            maxWidth: '500px'
+                                        }}>
+                                            <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
+                                                💰 {t('productPrice').replace(' (VND/kg):', '')}
+                                            </h3>
+                                            <div>
+                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
+                                                    {t('productPrice')}
+                                                </label>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                    <input
+                                                        type="number"
+                                                        value={calculationData.productPrice}
+                                                        onChange={(e) => updateData('productPrice', e.target.value)}
+                                                        min="0"
+                                                        step="1000"
+                                                        style={{
+                                                            flex: 1,
+                                                            padding: '0.75rem',
+                                                            border: '2px solid #d1d5db',
+                                                            borderRadius: '8px',
+                                                            fontSize: '1rem',
+                                                            fontWeight: '600'
+                                                        }}
+                                                    />
+                                                    <span style={{ fontSize: '1rem', fontWeight: '600', color: '#6b7280' }}>
+                                                        VND/kg
+                                                    </span>
+                                                </div>
+                                                <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem' }}>
+                                                    {t('enterPriceHint')}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Step 4: Protocol & Results */}
+                            {currentStep === 4 && (
+                                <div>
+                                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
+                                        {t('step4')}: {t('treatmentProtocol')}
+                                    </h2>
+
+                                    {/* Template Protocol Selection */}
+                                    <div style={{ marginBottom: '2rem' }}>
+                                        <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
+                                            {t('templateProtocol')}
+                                        </h3>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1rem' }}>
+                                            <button
+                                                onClick={() => useTemplate('standard')}
+                                                style={{
+                                                    padding: '1.5rem',
+                                                    border: '2px solid #e5e7eb',
+                                                    borderRadius: '8px',
+                                                    background: 'white',
+                                                    cursor: 'pointer',
+                                                    textAlign: 'left',
+                                                    transition: 'all 0.2s'
+                                                }}
+                                                onMouseOver={(e) => {
+                                                    e.currentTarget.style.borderColor = '#667eea';
+                                                    e.currentTarget.style.background = '#f3f4ff';
+                                                }}
+                                                onMouseOut={(e) => {
+                                                    e.currentTarget.style.borderColor = '#e5e7eb';
+                                                    e.currentTarget.style.background = 'white';
+                                                }}
+                                            >
+                                                <div style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem' }}>
+                                                    📋 {t('standardPreventionTitle')}
+                                                </div>
+                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                                                    {t('standardPreventionDesc')}
+                                                </div>
+                                            </button>
+
+                                            <button
+                                                onClick={() => useTemplate('intensive')}
+                                                style={{
+                                                    padding: '1.5rem',
+                                                    border: '2px solid #e5e7eb',
+                                                    borderRadius: '8px',
+                                                    background: 'white',
+                                                    cursor: 'pointer',
+                                                    textAlign: 'left',
+                                                    transition: 'all 0.2s'
+                                                }}
+                                                onMouseOver={(e) => {
+                                                    e.currentTarget.style.borderColor = '#667eea';
+                                                    e.currentTarget.style.background = '#f3f4ff';
+                                                }}
+                                                onMouseOut={(e) => {
+                                                    e.currentTarget.style.borderColor = '#e5e7eb';
+                                                    e.currentTarget.style.background = 'white';
+                                                }}
+                                            >
+                                                <div style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem' }}>
+                                                    🏥 {t('intensiveTreatmentTitle')}
+                                                </div>
+                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                                                    {t('intensiveTreatmentDesc')}
+                                                </div>
+                                            </button>
+                                        </div>
+
                                         <button
-                                            onClick={exportToExcel}
+                                            onClick={() => setShowCustomProtocol(!showCustomProtocol)}
+                                            style={{
+                                                color: '#667eea',
+                                                background: 'none',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                                fontSize: '1rem',
+                                                fontWeight: '600',
+                                                padding: '0.5rem 0'
+                                            }}
+                                        >
+                                            {showCustomProtocol ? t('hideCustomProtocol') : t('createCustomProtocol')}
+                                        </button>
+                                    </div>
+
+                                    {/* Custom Protocol Builder */}
+                                    {showCustomProtocol && (
+                                        <div style={{ marginBottom: '2rem', paddingTop: '1rem', borderTop: '1px solid #e5e7eb' }}>
+                                            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
+                                                {t('customProtocolLabel')}
+                                            </h3>
+
+                                            {calculationData.protocolPeriods.map((period, index) => (
+                                                <div key={index} style={{
+                                                    background: '#f9fafb',
+                                                    padding: '1rem',
+                                                    borderRadius: '8px',
+                                                    marginBottom: '1rem'
+                                                }}>
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                                                        <strong>Period {index + 1}</strong>
+                                                        {calculationData.protocolPeriods.length > 1 && (
+                                                            <button
+                                                                onClick={() => removePeriod(index)}
+                                                                style={{
+                                                                    background: '#fee2e2',
+                                                                    color: '#dc2626',
+                                                                    border: 'none',
+                                                                    padding: '0.25rem 0.75rem',
+                                                                    borderRadius: '4px',
+                                                                    cursor: 'pointer',
+                                                                    fontSize: '0.875rem'
+                                                                }}
+                                                            >
+                                                                Remove
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                                                        <div>
+                                                            <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
+                                                                Start Day:
+                                                            </label>
+                                                            <input
+                                                                type="number"
+                                                                value={period.startDay}
+                                                                onChange={(e) => updatePeriod(index, 'startDay', e.target.value)}
+                                                                min="1"
+                                                                style={{
+                                                                    width: '100%',
+                                                                    padding: '0.5rem',
+                                                                    border: '1px solid #e5e7eb',
+                                                                    borderRadius: '4px'
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
+                                                                End Day:
+                                                            </label>
+                                                            <input
+                                                                type="number"
+                                                                value={period.endDay}
+                                                                onChange={(e) => updatePeriod(index, 'endDay', e.target.value)}
+                                                                min={period.startDay}
+                                                                style={{
+                                                                    width: '100%',
+                                                                    padding: '0.5rem',
+                                                                    border: '1px solid #e5e7eb',
+                                                                    borderRadius: '4px'
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
+                                                                Duration:
+                                                            </label>
+                                                            <div style={{
+                                                                padding: '0.5rem',
+                                                                background: 'white',
+                                                                border: '1px solid #e5e7eb',
+                                                                borderRadius: '4px',
+                                                                fontWeight: '600'
+                                                            }}>
+                                                                {period.endDay - period.startDay + 1} days
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+
+                                            <button
+                                                onClick={addPeriod}
+                                                style={{
+                                                    padding: '0.75rem 1.5rem',
+                                                    background: '#667eea',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '8px',
+                                                    cursor: 'pointer',
+                                                    fontSize: '1rem',
+                                                    fontWeight: '600',
+                                                    marginTop: '0.5rem'
+                                                }}
+                                            >
+                                                ➕ Add Another Period
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* Calculate Button */}
+                                    <button
+                                        onClick={calculateResults}
+                                        style={{
+                                            width: '100%',
+                                            padding: '1rem',
+                                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                            color: 'white',
+                                            border: 'none',
+                                            borderRadius: '8px',
+                                            cursor: 'pointer',
+                                            fontSize: '1.125rem',
+                                            fontWeight: '700',
+                                            marginBottom: '2rem'
+                                        }}
+                                    >
+                                        🧮 {t('calculateDosage')}
+                                    </button>
+
+                                    {/* Results Display */}
+                                    {calculationData.results && (
+                                        <div className="print-content" style={{
+                                            background: '#f0fdf4',
+                                            border: '2px solid #86efac',
+                                            borderRadius: '12px',
+                                            padding: '2rem'
+                                        }}>
+                                            {/* Print Header - Only visible when printing */}
+                                            <div className="print-header">
+                                                <img src="/images/FarmWell_Logo.png" alt="FarmWell" />
+                                                <div>
+                                                    <h1>{t('title')}</h1>
+                                                    <p>{t('subtitle')}</p>
+                                                    <p style={{ marginTop: '0.5rem', fontSize: '0.75rem' }}>
+                                                        {t('generated')} {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#166534' }}>
+                                                📊 {t('calculationResults')}
+                                            </h3>
+
+                                            {/* Summary */}
+                                            <div className="calculation-summary" style={{
+                                                background: 'white',
+                                                padding: '1.5rem',
+                                                borderRadius: '8px',
+                                                marginBottom: '1.5rem'
+                                            }}>
+                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+                                                    <div>
+                                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('product')}</div>
+                                                        <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
+                                                            {calculationData.selectedProduct.name}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('population')}</div>
+                                                        <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
+                                                            {parseInt(calculationData.population).toLocaleString()} {t('animals')}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('totalTreatmentDays')}</div>
+                                                        <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
+                                                            {calculationData.results.totalDays} {t('days')}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('numberOfPeriods')}</div>
+                                                        <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
+                                                            {calculationData.protocolPeriods.length} {t('numberOfPeriods').toLowerCase().includes('period') ? '' : 'periods'}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Period Breakdown */}
+                                            <h4 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
+                                                {t('periodBreakdown')}
+                                            </h4>
+                                            {calculationData.results.periods.map((period, index) => (
+                                                <div key={index} className="period-breakdown" style={{
+                                                    background: 'white',
+                                                    padding: '1rem',
+                                                    borderRadius: '8px',
+                                                    marginBottom: '1rem'
+                                                }}>
+                                                    <div style={{ fontWeight: '700', marginBottom: '0.75rem' }}>
+                                                        {t('period')} {index + 1}: {t('day')} {period.startDay}-{period.endDay} ({period.days} {t('days')})
+                                                    </div>
+                                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem', fontSize: '0.875rem' }}>
+                                                        <div>{t('totalWater')} {parseFloat(period.totalWaterL).toLocaleString()} L</div>
+                                                        <div>{t('totalFeed')} {parseFloat(period.totalFeedKg).toLocaleString()} kg</div>
+                                                        <div style={{ color: '#667eea', fontWeight: '600' }}>
+                                                            {t('productNeeded')} {parseFloat(period.productNeeded).toLocaleString()} g
+                                                        </div>
+                                                        <div style={{ color: '#f59e0b', fontWeight: '600' }}>
+                                                            {t('cost')} {parseInt(period.cost).toLocaleString()} VND
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+
+                                            {/* Total Investment */}
+                                            <div className="total-investment" style={{
+                                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                                color: 'white',
+                                                padding: '1.5rem',
+                                                borderRadius: '8px',
+                                                marginTop: '1.5rem'
+                                            }}>
+                                                <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem' }}>
+                                                    💰 {t('totalInvestment')}
+                                                </h4>
+                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                                                    <div>
+                                                        <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalProduct')}</div>
+                                                        <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
+                                                            {(calculationData.results.totalProductGrams / 1000).toFixed(2)} kg
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalCost')}</div>
+                                                        <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
+                                                            {calculationData.results.totalCost.toLocaleString()} VND
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('costPerAnimal')}</div>
+                                                        <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
+                                                            {Math.round(calculationData.results.costPerAnimal).toLocaleString()} VND
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Expected Benefits */}
+                                            <div className="expected-benefits" style={{
+                                                background: 'white',
+                                                padding: '1.5rem',
+                                                borderRadius: '8px',
+                                                marginTop: '1.5rem'
+                                            }}>
+                                                <h4 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
+                                                    💡 {t('expectedBenefits')}
+                                                </h4>
+                                                {calculationData.selectedProduct.benefits.primary.map((benefit, i) => (
+                                                    <div key={i} style={{ marginBottom: '0.5rem', paddingLeft: '1.5rem', position: 'relative' }}>
+                                                        <span style={{ position: 'absolute', left: 0 }}>✓</span>
+                                                        {benefit}
+                                                    </div>
+                                                ))}
+                                                <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#6b7280', fontStyle: 'italic' }}>
+                                                    {t('benefitsNote')}
+                                                </div>
+                                            </div>
+
+                                            {/* Daily Calculation Details */}
+                                            <div style={{
+                                                background: '#eff6ff',
+                                                border: '2px solid #93c5fd',
+                                                borderRadius: '12px',
+                                                padding: '1.5rem',
+                                                marginTop: '1.5rem'
+                                            }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                                    <h4 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1e40af' }}>
+                                                        📋 {t('dailyCalculationDetails')}
+                                                    </h4>
+                                                    <button
+                                                        onClick={() => setShowDailyDetails(!showDailyDetails)}
+                                                        style={{
+                                                            background: '#3b82f6',
+                                                            color: 'white',
+                                                            border: 'none',
+                                                            padding: '0.5rem 1rem',
+                                                            borderRadius: '6px',
+                                                            cursor: 'pointer',
+                                                            fontSize: '0.875rem',
+                                                            fontWeight: '600'
+                                                        }}
+                                                    >
+                                                        {showDailyDetails ? '🔼 ' + t('hideDetails') : '🔽 ' + t('showDetails')}
+                                                    </button>
+                                                </div>
+
+                                                {showDailyDetails && (
+                                                    <div>
+                                                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem' }}>
+                                                            {t('dailyDetailsDescription')}
+                                                        </p>
+
+                                                        {calculationData.results.periods.map((period, periodIndex) => (
+                                                            <div key={periodIndex} style={{ marginBottom: '2rem' }}>
+                                                                <div style={{
+                                                                    background: '#3b82f6',
+                                                                    color: 'white',
+                                                                    padding: '0.75rem 1rem',
+                                                                    borderRadius: '8px 8px 0 0',
+                                                                    fontWeight: '700',
+                                                                    fontSize: '1rem'
+                                                                }}>
+                                                                    {t('period')} {periodIndex + 1}
+                                                                </div>
+
+                                                                <div style={{ overflowX: 'auto' }}>
+                                                                    <table className="daily-details-table" style={{
+                                                                        width: '100%',
+                                                                        background: 'white',
+                                                                        borderCollapse: 'collapse',
+                                                                        fontSize: '0.875rem'
+                                                                    }}>
+                                                                        <thead>
+                                                                            <tr style={{ background: '#f3f4f6' }}>
+                                                                                <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #e5e7eb' }}>{t('dayColumn')}</th>
+                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('ageColumn')}</th>
+                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('waterPerAnimal')}</th>
+                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('totalWaterL')}</th>
+                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('feedPerAnimal')}</th>
+                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('totalFeedKg')}</th>
+                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#667eea' }}>{t('productG')}</th>
+                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#f59e0b' }}>{t('costVND')}</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {period.dailyBreakdown.map((day, dayIndex) => (
+                                                                                <tr key={dayIndex} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                                                                                    <td style={{ padding: '0.75rem' }}>{day.day}</td>
+                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.ageInDays}</td>
+                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.waterPerAnimal.toFixed(1)}</td>
+                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(day.totalWaterL).toLocaleString()}</td>
+                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.feedPerAnimal.toFixed(1)}</td>
+                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(day.totalFeedKg).toLocaleString()}</td>
+                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right', color: '#667eea', fontWeight: '600' }}>
+                                                                                        {parseFloat(day.productNeeded).toLocaleString()}
+                                                                                    </td>
+                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right', color: '#f59e0b', fontWeight: '600' }}>
+                                                                                        {day.cost.toLocaleString()}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            ))}
+                                                                            <tr style={{ background: '#fce7f3', fontWeight: '700' }}>
+                                                                                <td colSpan="3" style={{ padding: '0.75rem' }}>{t('totalPeriod')}</td>
+                                                                                <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalWaterL).toLocaleString()}</td>
+                                                                                <td style={{ padding: '0.75rem', textAlign: 'right' }}></td>
+                                                                                <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalFeedKg).toLocaleString()}</td>
+                                                                                <td style={{ padding: '0.75rem', textAlign: 'right', color: '#667eea' }}>
+                                                                                    {parseFloat(period.productNeeded).toLocaleString()}
+                                                                                </td>
+                                                                                <td style={{ padding: '0.75rem', textAlign: 'right', color: '#f59e0b' }}>
+                                                                                    {parseInt(period.cost).toLocaleString()}
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Export Buttons */}
+                                            <div className="no-print" style={{
+                                                display: 'flex',
+                                                gap: '1rem',
+                                                marginTop: '2rem',
+                                                justifyContent: 'center'
+                                            }}>
+                                                <button
+                                                    onClick={exportToExcel}
+                                                    style={{
+                                                        padding: '0.75rem 2rem',
+                                                        background: '#10b981',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        borderRadius: '8px',
+                                                        cursor: 'pointer',
+                                                        fontSize: '1rem',
+                                                        fontWeight: '600',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '0.5rem'
+                                                    }}
+                                                >
+                                                    📊 {t('exportToExcel')}
+                                                </button>
+                                                <button
+                                                    onClick={printPDF}
+                                                    style={{
+                                                        padding: '0.75rem 2rem',
+                                                        background: '#ef4444',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        borderRadius: '8px',
+                                                        cursor: 'pointer',
+                                                        fontSize: '1rem',
+                                                        fontWeight: '600',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '0.5rem'
+                                                    }}
+                                                >
+                                                    🖨️ {t('printPDF')}
+                                                </button>
+                                            </div>
+
+                                            {/* Request for Inquiry Form */}
+                                            <div className="no-print" style={{
+                                                background: '#f0f9ff',
+                                                border: '2px solid #0ea5e9',
+                                                borderRadius: '12px',
+                                                padding: '2rem',
+                                                marginTop: '2rem'
+                                            }}>
+                                                <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#0369a1' }}>
+                                                    📧 {t('requestForInquiry')}
+                                                </h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+                                                    {t('inquiryDescription')}
+                                                </p>
+
+                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+                                                    <div>
+                                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+                                                            {t('name')} *
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            value={inquiryData.name}
+                                                            onChange={(e) => setInquiryData(prev => ({ ...prev, name: e.target.value }))}
+                                                            placeholder={t('enterName')}
+                                                            style={{
+                                                                width: '100%',
+                                                                padding: '0.75rem',
+                                                                border: '2px solid #e5e7eb',
+                                                                borderRadius: '8px',
+                                                                fontSize: '1rem'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+                                                            {t('email')} *
+                                                        </label>
+                                                        <input
+                                                            type="email"
+                                                            value={inquiryData.email}
+                                                            onChange={(e) => setInquiryData(prev => ({ ...prev, email: e.target.value }))}
+                                                            placeholder={t('enterEmail')}
+                                                            style={{
+                                                                width: '100%',
+                                                                padding: '0.75rem',
+                                                                border: '2px solid #e5e7eb',
+                                                                borderRadius: '8px',
+                                                                fontSize: '1rem'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+                                                            {t('phoneNumber')} *
+                                                        </label>
+                                                        <input
+                                                            type="tel"
+                                                            value={inquiryData.phone}
+                                                            onChange={(e) => setInquiryData(prev => ({ ...prev, phone: e.target.value }))}
+                                                            placeholder={t('enterPhone')}
+                                                            style={{
+                                                                width: '100%',
+                                                                padding: '0.75rem',
+                                                                border: '2px solid #e5e7eb',
+                                                                borderRadius: '8px',
+                                                                fontSize: '1rem'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <button
+                                                    onClick={() => {
+                                                        if (inquiryData.name && inquiryData.email && inquiryData.phone) {
+                                                            alert(t('inquirySuccess'));
+                                                            // TODO: Implement actual inquiry submission logic here
+                                                        } else {
+                                                            alert(t('fillAllFields'));
+                                                        }
+                                                    }}
+                                                    style={{
+                                                        marginTop: '1.5rem',
+                                                        padding: '0.75rem 2rem',
+                                                        background: '#0ea5e9',
+                                                        color: 'white',
+                                                        border: 'none',
+                                                        borderRadius: '8px',
+                                                        cursor: 'pointer',
+                                                        fontSize: '1rem',
+                                                        fontWeight: '600',
+                                                        width: '100%'
+                                                    }}
+                                                >
+                                                    {t('submitInquiry')}
+                                                </button>
+
+                                                <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '1rem', fontStyle: 'italic' }}>
+                                                    {t('allFieldsRequired')}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Navigation Buttons */}
+                            <div className="navigation-buttons" style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                marginTop: '2rem',
+                                paddingTop: '2rem',
+                                borderTop: '1px solid #e5e7eb'
+                            }}>
+                                {currentStep === 4 ? (
+                                    // Results page navigation
+                                    <div style={{ display: 'flex', gap: '1rem', width: '100%' }}>
+                                        <button
+                                            onClick={prevStep}
+                                            style={{
+                                                padding: '0.75rem 2rem',
+                                                background: 'white',
+                                                color: '#374151',
+                                                border: '2px solid #e5e7eb',
+                                                borderRadius: '8px',
+                                                cursor: 'pointer',
+                                                fontSize: '1rem',
+                                                fontWeight: '600'
+                                            }}
+                                        >
+                                            ← Previous
+                                        </button>
+                                        <button
+                                            onClick={resetCalculation}
                                             style={{
                                                 padding: '0.75rem 2rem',
                                                 background: '#10b981',
@@ -2417,233 +2587,63 @@ const DosageCalculator = () => {
                                                 cursor: 'pointer',
                                                 fontSize: '1rem',
                                                 fontWeight: '600',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '0.5rem'
+                                                marginLeft: 'auto'
                                             }}
                                         >
-                                            📊 {t('exportToExcel')}
-                                        </button>
-                                        <button
-                                            onClick={printPDF}
-                                            style={{
-                                                padding: '0.75rem 2rem',
-                                                background: '#ef4444',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '8px',
-                                                cursor: 'pointer',
-                                                fontSize: '1rem',
-                                                fontWeight: '600',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '0.5rem'
-                                            }}
-                                        >
-                                            🖨️ {t('printPDF')}
+                                            🔄 {t('newCalculation')}
                                         </button>
                                     </div>
-
-                                    {/* Request for Inquiry Form */}
-                                    <div className="no-print" style={{
-                                        background: '#f0f9ff',
-                                        border: '2px solid #0ea5e9',
-                                        borderRadius: '12px',
-                                        padding: '2rem',
-                                        marginTop: '2rem'
-                                    }}>
-                                        <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#0369a1' }}>
-                                            📧 {t('requestForInquiry')}
-                                        </h4>
-                                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1.5rem' }}>
-                                            {t('inquiryDescription')}
-                                        </p>
-                                        
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
-                                            <div>
-                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                    {t('name')} *
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    value={inquiryData.name}
-                                                    onChange={(e) => setInquiryData(prev => ({ ...prev, name: e.target.value }))}
-                                                    placeholder={t('enterName')}
-                                                    style={{
-                                                        width: '100%',
-                                                        padding: '0.75rem',
-                                                        border: '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        fontSize: '1rem'
-                                                    }}
-                                                />
-                                            </div>
-                                            <div>
-                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                    {t('email')} *
-                                                </label>
-                                                <input
-                                                    type="email"
-                                                    value={inquiryData.email}
-                                                    onChange={(e) => setInquiryData(prev => ({ ...prev, email: e.target.value }))}
-                                                    placeholder={t('enterEmail')}
-                                                    style={{
-                                                        width: '100%',
-                                                        padding: '0.75rem',
-                                                        border: '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        fontSize: '1rem'
-                                                    }}
-                                                />
-                                            </div>
-                                            <div>
-                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                    {t('phoneNumber')} *
-                                                </label>
-                                                <input
-                                                    type="tel"
-                                                    value={inquiryData.phone}
-                                                    onChange={(e) => setInquiryData(prev => ({ ...prev, phone: e.target.value }))}
-                                                    placeholder={t('enterPhone')}
-                                                    style={{
-                                                        width: '100%',
-                                                        padding: '0.75rem',
-                                                        border: '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        fontSize: '1rem'
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-                                        
+                                ) : (
+                                    // Other pages navigation
+                                    <>
                                         <button
-                                            onClick={() => {
-                                                if (inquiryData.name && inquiryData.email && inquiryData.phone) {
-                                                    alert(t('inquirySuccess'));
-                                                    // TODO: Implement actual inquiry submission logic here
-                                                } else {
-                                                    alert(t('fillAllFields'));
+                                            onClick={prevStep}
+                                            disabled={currentStep === 1}
+                                            style={{
+                                                padding: '0.75rem 2rem',
+                                                background: currentStep === 1 ? '#e5e7eb' : 'white',
+                                                color: currentStep === 1 ? '#9ca3af' : '#374151',
+                                                border: '2px solid #e5e7eb',
+                                                borderRadius: '8px',
+                                                cursor: currentStep === 1 ? 'not-allowed' : 'pointer',
+                                                fontSize: '1rem',
+                                                fontWeight: '600'
+                                            }}
+                                        >
+                                            ← Previous
+                                        </button>
+
+                                        {currentStep < 4 && (
+                                            <button
+                                                onClick={nextStep}
+                                                disabled={
+                                                    (currentStep === 1 && !calculationData.specificCategory) ||
+                                                    (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
+                                                    (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
                                                 }
-                                            }}
-                                            style={{
-                                                marginTop: '1.5rem',
-                                                padding: '0.75rem 2rem',
-                                                background: '#0ea5e9',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '8px',
-                                                cursor: 'pointer',
-                                                fontSize: '1rem',
-                                                fontWeight: '600',
-                                                width: '100%'
-                                            }}
-                                        >
-                                            {t('submitInquiry')}
-                                        </button>
-                                        
-                                        <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '1rem', fontStyle: 'italic' }}>
-                                            {t('allFieldsRequired')}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {/* Navigation Buttons */}
-                    <div className="navigation-buttons" style={{ 
-                        display: 'flex', 
-                        justifyContent: 'space-between', 
-                        marginTop: '2rem',
-                        paddingTop: '2rem',
-                        borderTop: '1px solid #e5e7eb'
-                    }}>
-                        {currentStep === 4 ? (
-                            // Results page navigation
-                            <div style={{ display: 'flex', gap: '1rem', width: '100%' }}>
-                                <button
-                                    onClick={prevStep}
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        background: 'white',
-                                        color: '#374151',
-                                        border: '2px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        fontSize: '1rem',
-                                        fontWeight: '600'
-                                    }}
-                                >
-                                    ← Previous
-                                </button>
-                                <button
-                                    onClick={resetCalculation}
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        background: '#10b981',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        marginLeft: 'auto'
-                                    }}
-                                >
-                                    🔄 {t('newCalculation')}
-                                </button>
-                            </div>
-                        ) : (
-                            // Other pages navigation
-                            <>
-                                <button
-                                    onClick={prevStep}
-                                    disabled={currentStep === 1}
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        background: currentStep === 1 ? '#e5e7eb' : 'white',
-                                        color: currentStep === 1 ? '#9ca3af' : '#374151',
-                                        border: '2px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        cursor: currentStep === 1 ? 'not-allowed' : 'pointer',
-                                        fontSize: '1rem',
-                                        fontWeight: '600'
-                                    }}
-                                >
-                                    ← Previous
-                                </button>
-                                
-                                {currentStep < 4 && (
-                                    <button
-                                        onClick={nextStep}
-                                        disabled={
-                                            (currentStep === 1 && !calculationData.specificCategory) ||
-                                            (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
-                                            (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
-                                        }
-                                        style={{
-                                            padding: '0.75rem 2rem',
-                                            background: '#667eea',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '8px',
-                                            cursor: 'pointer',
-                                            fontSize: '1rem',
-                                            fontWeight: '600',
-                                            opacity: (
-                                                (currentStep === 1 && !calculationData.specificCategory) ||
-                                                (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
-                                                (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
-                                            ) ? 0.5 : 1
-                                        }}
-                                    >
-                                        {t('next')} →
-                                    </button>
+                                                style={{
+                                                    padding: '0.75rem 2rem',
+                                                    background: '#667eea',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '8px',
+                                                    cursor: 'pointer',
+                                                    fontSize: '1rem',
+                                                    fontWeight: '600',
+                                                    opacity: (
+                                                        (currentStep === 1 && !calculationData.specificCategory) ||
+                                                        (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
+                                                        (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
+                                                    ) ? 0.5 : 1
+                                                }}
+                                            >
+                                                {t('next')} →
+                                            </button>
+                                        )}
+                                    </>
                                 )}
-                            </>
-                        )}
-                    </div>
-                    </>
+                            </div>
+                        </>
                     )}
                 </div>
             </div>
