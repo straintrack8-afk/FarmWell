@@ -2,7 +2,7 @@ export const translations = {
     en: {
         welcome: {
             title: "FarmWell",
-            subtitle: "Livestock Diagnostic Tools",
+            subtitle: "Integrated Livestock Diagnostic & Performance Platform",
             selectLanguage: "Select Language",
             feedAdditivesModule: "Feed Additives",
             feedAdditivesDescription: "Comprehensive feed additive analysis and optimization for livestock nutrition management.",
@@ -230,7 +230,7 @@ export const translations = {
     id: {
         welcome: {
             title: "FarmWell",
-            subtitle: "Alat Diagnostik Ternak",
+            subtitle: "Platform Diagnostik dan Performa Ternak Terintegrasi",
             selectLanguage: "Pilih Bahasa",
             feedAdditivesModule: "Aditif Pakan",
             feedAdditivesDescription: "Analisis dan optimasi aditif pakan komprehensif untuk manajemen nutrisi ternak.",
@@ -458,7 +458,7 @@ export const translations = {
     vn: {
         welcome: {
             title: "FarmWell",
-            subtitle: "Công cụ Chẩn đoán Chăn nuôi",
+            subtitle: "Nền tảng chẩn đoán & hiệu suất chăn nuôi tích hợp",
             selectLanguage: "Chọn Ngôn ngữ",
             feedAdditivesModule: "Chất bổ sung Thức ăn",
             feedAdditivesDescription: "Phân tích và tối ưu hóa chất bổ sung thức ăn toàn diện cho quản lý dinh dưỡng vật nuôi.",
