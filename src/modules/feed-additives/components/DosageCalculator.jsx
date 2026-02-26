@@ -1906,7 +1906,9 @@ const DosageCalculator = () => {
                                             border: '2px solid #86efac',
                                             borderRadius: '12px',
                                             padding: '1.5rem',
-                                            maxWidth: '500px'
+                                            maxWidth: '500px',
+                                            width: '100%',
+                                            boxSizing: 'border-box'
                                         }}>
                                             <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
                                                 💰 {t('productPrice').replace(' (VND/kg):', '')}
@@ -1915,7 +1917,7 @@ const DosageCalculator = () => {
                                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
                                                     {t('productPrice')}
                                                 </label>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: 0 }}>
                                                     <input
                                                         type="number"
                                                         value={calculationData.productPrice}
@@ -1924,6 +1926,7 @@ const DosageCalculator = () => {
                                                         step="1000"
                                                         style={{
                                                             flex: 1,
+                                                            minWidth: 0,
                                                             padding: '0.75rem',
                                                             border: '2px solid #d1d5db',
                                                             borderRadius: '8px',
@@ -1931,7 +1934,7 @@ const DosageCalculator = () => {
                                                             fontWeight: '600'
                                                         }}
                                                     />
-                                                    <span style={{ fontSize: '1rem', fontWeight: '600', color: '#6b7280' }}>
+                                                    <span style={{ fontSize: '1rem', fontWeight: '600', color: '#6b7280', whiteSpace: 'nowrap', flexShrink: 0 }}>
                                                         VND/kg
                                                     </span>
                                                 </div>
@@ -2251,7 +2254,7 @@ const DosageCalculator = () => {
                                                 <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem' }}>
                                                     💰 {t('totalInvestment')}
                                                 </h4>
-                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '1rem' }}>
                                                     <div>
                                                         <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalProduct')}</div>
                                                         <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
@@ -2554,24 +2557,28 @@ const DosageCalculator = () => {
                             <div className="navigation-buttons" style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
+                                flexWrap: 'wrap',
+                                gap: '0.75rem',
                                 marginTop: '2rem',
                                 paddingTop: '2rem',
                                 borderTop: '1px solid #e5e7eb'
                             }}>
                                 {currentStep === 4 ? (
                                     // Results page navigation
-                                    <div style={{ display: 'flex', gap: '1rem', width: '100%' }}>
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', width: '100%' }}>
                                         <button
                                             onClick={prevStep}
                                             style={{
-                                                padding: '0.75rem 2rem',
+                                                padding: '0.75rem 1rem',
                                                 background: 'white',
                                                 color: '#374151',
                                                 border: '2px solid #e5e7eb',
                                                 borderRadius: '8px',
                                                 cursor: 'pointer',
                                                 fontSize: '1rem',
-                                                fontWeight: '600'
+                                                fontWeight: '600',
+                                                flexShrink: 0,
+                                                whiteSpace: 'nowrap'
                                             }}
                                         >
                                             ← Previous
@@ -2579,7 +2586,7 @@ const DosageCalculator = () => {
                                         <button
                                             onClick={resetCalculation}
                                             style={{
-                                                padding: '0.75rem 2rem',
+                                                padding: '0.75rem 1rem',
                                                 background: '#10b981',
                                                 color: 'white',
                                                 border: 'none',
@@ -2587,7 +2594,9 @@ const DosageCalculator = () => {
                                                 cursor: 'pointer',
                                                 fontSize: '1rem',
                                                 fontWeight: '600',
-                                                marginLeft: 'auto'
+                                                marginLeft: 'auto',
+                                                flexShrink: 0,
+                                                whiteSpace: 'nowrap'
                                             }}
                                         >
                                             🔄 {t('newCalculation')}
@@ -2600,14 +2609,16 @@ const DosageCalculator = () => {
                                             onClick={prevStep}
                                             disabled={currentStep === 1}
                                             style={{
-                                                padding: '0.75rem 2rem',
+                                                padding: '0.75rem 1rem',
                                                 background: currentStep === 1 ? '#e5e7eb' : 'white',
                                                 color: currentStep === 1 ? '#9ca3af' : '#374151',
                                                 border: '2px solid #e5e7eb',
                                                 borderRadius: '8px',
                                                 cursor: currentStep === 1 ? 'not-allowed' : 'pointer',
                                                 fontSize: '1rem',
-                                                fontWeight: '600'
+                                                fontWeight: '600',
+                                                flexShrink: 0,
+                                                whiteSpace: 'nowrap'
                                             }}
                                         >
                                             ← Previous
@@ -2622,7 +2633,7 @@ const DosageCalculator = () => {
                                                     (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
                                                 }
                                                 style={{
-                                                    padding: '0.75rem 2rem',
+                                                    padding: '0.75rem 1rem',
                                                     background: '#667eea',
                                                     color: 'white',
                                                     border: 'none',
@@ -2630,6 +2641,8 @@ const DosageCalculator = () => {
                                                     cursor: 'pointer',
                                                     fontSize: '1rem',
                                                     fontWeight: '600',
+                                                    flexShrink: 0,
+                                                    whiteSpace: 'nowrap',
                                                     opacity: (
                                                         (currentStep === 1 && !calculationData.specificCategory) ||
                                                         (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
