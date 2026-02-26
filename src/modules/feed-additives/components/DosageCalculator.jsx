@@ -931,25 +931,27 @@ const DosageCalculator = () => {
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '1.5rem'
+                    gap: '1rem',
+                    flexWrap: 'wrap'
                 }}>
                     <img
                         src="/images/FarmWell_Logo.png"
                         alt="FarmWell"
                         onClick={() => window.location.href = '/'}
                         style={{
-                            height: '80px',
+                            height: 'clamp(48px, 10vw, 80px)',
                             cursor: 'pointer',
-                            transition: 'transform 0.2s'
+                            transition: 'transform 0.2s',
+                            flexShrink: 0
                         }}
                         onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
                         onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
                     />
-                    <div style={{ flex: 1 }}>
-                        <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem', color: '#1f2937' }}>
+                    <div style={{ flex: 1, minWidth: '160px' }}>
+                        <h1 style={{ fontSize: 'clamp(1.1rem, 5vw, 2rem)', fontWeight: '700', marginBottom: '0.25rem', color: '#1f2937', lineHeight: 1.2 }}>
                             FEED ADDITIVES CALCULATOR
                         </h1>
-                        <p style={{ color: '#6b7280', fontSize: '1rem' }}>
+                        <p style={{ color: '#6b7280', fontSize: 'clamp(0.75rem, 2.5vw, 1rem)' }}>
                             Vaksindo Vietnam - United Animal Health Products
                         </p>
                     </div>
@@ -958,17 +960,17 @@ const DosageCalculator = () => {
                 {/* Progress Steps */}
                 <div style={{
                     background: 'white',
-                    padding: '1.5rem',
+                    padding: '1rem',
                     borderRadius: '12px',
                     marginBottom: '2rem',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         {[1, 2, 3, 4].map(step => (
-                            <div key={step} style={{ flex: 1, textAlign: 'center' }}>
+                            <div key={step} style={{ flex: 1, textAlign: 'center', padding: '0 2px' }}>
                                 <div style={{
-                                    width: '40px',
-                                    height: '40px',
+                                    width: 'clamp(28px, 8vw, 40px)',
+                                    height: 'clamp(28px, 8vw, 40px)',
                                     borderRadius: '50%',
                                     background: currentStep >= step ? '#667eea' : '#e5e7eb',
                                     color: 'white',
@@ -976,11 +978,12 @@ const DosageCalculator = () => {
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     fontWeight: '700',
-                                    marginBottom: '0.5rem'
+                                    fontSize: 'clamp(0.75rem, 3vw, 1rem)',
+                                    marginBottom: '0.35rem'
                                 }}>
                                     {step}
                                 </div>
-                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                                <div style={{ fontSize: 'clamp(0.6rem, 2.5vw, 0.875rem)', color: '#6b7280', lineHeight: 1.2 }}>
                                     {step === 1 && 'Select Animal'}
                                     {step === 2 && 'Flock Info'}
                                     {step === 3 && 'Select Product'}
