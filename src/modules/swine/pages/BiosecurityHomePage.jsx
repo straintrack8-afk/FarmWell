@@ -9,8 +9,8 @@ function BiosecurityHomePage() {
   const { assessmentHistory, loadDraftAssessment } = useBiosecurity();
   const { t } = useTranslation();
 
-  const lastAssessment = assessmentHistory.length > 0 
-    ? assessmentHistory[assessmentHistory.length - 1] 
+  const lastAssessment = assessmentHistory.length > 0
+    ? assessmentHistory[assessmentHistory.length - 1]
     : null;
 
   const handleStartNew = () => {
@@ -42,9 +42,9 @@ function BiosecurityHomePage() {
   return (
     <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem 1rem' }}>
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <div style={{ 
-          display: 'inline-flex', 
-          alignItems: 'center', 
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
           justifyContent: 'center',
           width: '80px',
           height: '80px',
@@ -63,8 +63,8 @@ function BiosecurityHomePage() {
       </div>
 
       {hasDraft && (
-        <div className="card" style={{ 
-          marginBottom: '2rem', 
+        <div className="card" style={{
+          marginBottom: '2rem',
           background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
           border: '2px solid #f59e0b'
         }}>
@@ -90,7 +90,7 @@ function BiosecurityHomePage() {
       )}
 
       <div className="card" style={{ marginBottom: '2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '2rem', flexWrap: 'wrap' }}>
           <div style={{ flex: 1 }}>
             <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>
               {t('swine.biosecurity.home.startNew')}
@@ -98,11 +98,11 @@ function BiosecurityHomePage() {
             <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
               {t('swine.biosecurity.home.startNewDescription')}
             </p>
-            
+
             {lastAssessment && (
-              <div style={{ 
-                padding: '1rem', 
-                background: 'var(--bg-secondary)', 
+              <div style={{
+                padding: '1rem',
+                background: 'var(--bg-secondary)',
                 borderRadius: '8px',
                 marginBottom: '1.5rem'
               }}>
@@ -122,11 +122,11 @@ function BiosecurityHomePage() {
                     fontSize: '0.875rem',
                     fontWeight: '600',
                     background: lastAssessment.results?.risk_level.level === 'low' ? '#d1fae5' :
-                               lastAssessment.results?.risk_level.level === 'medium' ? '#fef3c7' :
-                               lastAssessment.results?.risk_level.level === 'high' ? '#fed7aa' : '#fecaca',
+                      lastAssessment.results?.risk_level.level === 'medium' ? '#fef3c7' :
+                        lastAssessment.results?.risk_level.level === 'high' ? '#fed7aa' : '#fecaca',
                     color: lastAssessment.results?.risk_level.level === 'low' ? '#065f46' :
-                           lastAssessment.results?.risk_level.level === 'medium' ? '#92400e' :
-                           lastAssessment.results?.risk_level.level === 'high' ? '#9a3412' : '#991b1b'
+                      lastAssessment.results?.risk_level.level === 'medium' ? '#92400e' :
+                        lastAssessment.results?.risk_level.level === 'high' ? '#9a3412' : '#991b1b'
                   }}>
                     {lastAssessment.results?.risk_level.level.toUpperCase()} {t('swine.biosecurity.home.risk')}
                   </div>
@@ -153,7 +153,7 @@ function BiosecurityHomePage() {
         <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
           {t('swine.biosecurity.home.whatYouAssess')}
         </h3>
-        
+
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
           {[
             { icon: '🏭', key: 'infrastructure' },
@@ -177,11 +177,11 @@ function BiosecurityHomePage() {
           <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
             {t('swine.biosecurity.home.history')}
           </h3>
-          
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {assessmentHistory.slice().reverse().slice(0, 5).map((assessment) => (
-              <div 
-                key={assessment.id} 
+              <div
+                key={assessment.id}
                 className="card"
                 style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
                 onClick={() => handleViewReport(assessment.id)}
@@ -199,15 +199,15 @@ function BiosecurityHomePage() {
                     fontSize: '1.5rem',
                     fontWeight: '700',
                     background: assessment.results?.risk_level.level === 'low' ? '#d1fae5' :
-                               assessment.results?.risk_level.level === 'medium' ? '#fef3c7' :
-                               assessment.results?.risk_level.level === 'high' ? '#fed7aa' : '#fecaca',
+                      assessment.results?.risk_level.level === 'medium' ? '#fef3c7' :
+                        assessment.results?.risk_level.level === 'high' ? '#fed7aa' : '#fecaca',
                     color: assessment.results?.risk_level.level === 'low' ? '#065f46' :
-                           assessment.results?.risk_level.level === 'medium' ? '#92400e' :
-                           assessment.results?.risk_level.level === 'high' ? '#9a3412' : '#991b1b'
+                      assessment.results?.risk_level.level === 'medium' ? '#92400e' :
+                        assessment.results?.risk_level.level === 'high' ? '#9a3412' : '#991b1b'
                   }}>
                     {assessment.results?.overall_score || 0}
                   </div>
-                  
+
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>
                       {t('swine.biosecurity.home.assessment')} - {new Date(assessment.completed_at).toLocaleDateString()}
@@ -216,7 +216,7 @@ function BiosecurityHomePage() {
                       {t('swine.biosecurity.home.grade')}: {assessment.results?.grade} • {assessment.results?.risk_level.level.toUpperCase()} {t('swine.biosecurity.home.risk')}
                     </div>
                   </div>
-                  
+
                   <FileText size={20} color="var(--text-muted)" />
                 </div>
               </div>

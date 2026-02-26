@@ -224,18 +224,21 @@ function BiosecurityMainDashboard() {
                 <div style={{ marginBottom: '2.5rem' }}>
                     <div>
                         <h1 style={{
-                            fontSize: '2.25rem',
+                            fontSize: 'clamp(1.5rem, 5vw, 2.25rem)',
                             fontWeight: '800',
                             marginBottom: '0.5rem',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '0.75rem'
+                            flexWrap: 'wrap',
+                            gap: '0.5rem'
                         }}>
-                            🛡️ {getTranslation('title')}
+                            <span style={{ flexShrink: 0 }}>🛡️</span>
+                            <span style={{
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text'
+                            }}>{getTranslation('title')}</span>
                         </h1>
                         <p style={{ color: 'var(--text-muted)', fontSize: '0.9375rem' }}>
                             {getTranslation('subtitle')}
@@ -246,8 +249,8 @@ function BiosecurityMainDashboard() {
                 {/* Statistics Cards */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '1.5rem',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+                    gap: '1rem',
                     marginBottom: '2.5rem'
                 }}>
                     {/* Total Assessments */}
@@ -360,7 +363,7 @@ function BiosecurityMainDashboard() {
                             ].filter(item => item.value > 0);
 
                             return (
-                                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', justifyContent: 'center' }}>
                                     <SimplePieChart data={pieData} size={160} />
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                         {pieData.map((d, i) => (

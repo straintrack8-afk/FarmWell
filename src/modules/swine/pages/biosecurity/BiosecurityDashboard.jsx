@@ -179,15 +179,21 @@ function BiosecurityDashboard() {
                 <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                     <div>
                         <h1 style={{
-                            fontSize: '2.25rem',
+                            fontSize: 'clamp(1.3rem, 4.5vw, 2.25rem)',
                             fontWeight: '800',
                             marginBottom: '0.5rem',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text'
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            flexWrap: 'wrap'
                         }}>
-                            🛡️ {getTranslation('title')}
+                            <span>🛡️</span>
+                            <span style={{
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text'
+                            }}>{getTranslation('title')}</span>
                         </h1>
                         <p style={{ fontSize: '0.9375rem', color: 'var(--text-muted)' }}>
                             {getTranslation('subtitle')}
@@ -426,7 +432,7 @@ function BiosecurityDashboard() {
                     }}>
                         📥 {getTranslation('externalSection')}
                     </h2>
-                    <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))' }}>
+                    <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
                         {focusAreas.filter(fa => fa.category.includes('external') || fa.category.includes('eksternal') || fa.category.includes('ngoài')).map(fa => (
                             <FocusAreaCard
                                 key={fa.number}
@@ -463,7 +469,7 @@ function BiosecurityDashboard() {
                 </div>
 
                 {/* Action Buttons */}
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '2.5rem', paddingBottom: '2rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '2.5rem', paddingBottom: '2rem', flexWrap: 'wrap' }}>
 
                     {/* Complete Assessment Button - Only show when all areas are completed */}
                     {completedCount === 4 && (
