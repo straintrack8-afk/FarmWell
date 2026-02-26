@@ -1815,7 +1815,7 @@ const DosageCalculator = () => {
                                                         <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
                                                             Ratio (Female : Male):
                                                         </label>
-                                                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                                             <input
                                                                 type="number"
                                                                 value={calculationData.femaleRatio}
@@ -1823,12 +1823,13 @@ const DosageCalculator = () => {
                                                                 min="1"
                                                                 style={{
                                                                     flex: 1,
+                                                                    minWidth: 0,
                                                                     padding: '0.5rem',
                                                                     border: '1px solid #e5e7eb',
                                                                     borderRadius: '4px'
                                                                 }}
                                                             />
-                                                            <span>:</span>
+                                                            <span style={{ flexShrink: 0 }}>:</span>
                                                             <input
                                                                 type="number"
                                                                 value={calculationData.maleRatio}
@@ -1836,6 +1837,7 @@ const DosageCalculator = () => {
                                                                 min="1"
                                                                 style={{
                                                                     flex: 1,
+                                                                    minWidth: 0,
                                                                     padding: '0.5rem',
                                                                     border: '1px solid #e5e7eb',
                                                                     borderRadius: '4px'
