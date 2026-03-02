@@ -60,7 +60,7 @@ function DiseasePage() {
                     className="btn btn-secondary btn-sm"
                     onClick={() => navigate('/swine/diagnosis/results')}
                 >
-                    ← Back to Results
+                    Back to Results
                 </button>
             </div>
 
@@ -143,7 +143,7 @@ function DiseasePage() {
                         </h3>
                         <div style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))',
                             gap: '0.75rem'
                         }}>
                             {disease.symptoms.map((symptom, idx) => (
@@ -267,7 +267,7 @@ function DiseasePage() {
                     </h3>
                     <div style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
                         gap: '1rem'
                     }}>
                         <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
@@ -301,23 +301,31 @@ function DiseasePage() {
             </div>
 
             {/* Action Buttons */}
-            <div style={{
-                display: 'flex',
-                gap: '1rem',
-                marginTop: '1.5rem',
-                flexWrap: 'wrap'
-            }}>
-                <button className="btn btn-secondary" onClick={() => navigate('/swine/diagnosis/results')}>
-                    ← Back to Results
-                </button>
-                <button className="btn btn-outline" onClick={handleNewDiagnosis}>
-                    🔄 New Diagnosis
-                </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.5rem' }}>
+                {/* Back to Results + New Diagnosis side by side */}
+                <div style={{ display: 'flex', gap: '0.75rem' }}>
+                    <button
+                        className="btn btn-secondary"
+                        style={{ flex: 1, minWidth: 0 }}
+                        onClick={() => navigate('/swine/diagnosis/results')}
+                    >
+                        Back to Results
+                    </button>
+                    <button
+                        className="btn btn-outline"
+                        style={{ flex: 1, minWidth: 0 }}
+                        onClick={handleNewDiagnosis}
+                    >
+                        🔄 New Diagnosis
+                    </button>
+                </div>
+                {/* Print full-width below */}
                 <button
                     className="btn btn-primary"
+                    style={{ width: '100%' }}
                     onClick={() => window.print()}
                 >
-                    🖨️ Print
+                    Print
                 </button>
             </div>
         </div>

@@ -224,7 +224,7 @@ function BiosecurityDashboard() {
                                 e.currentTarget.style.transform = 'translateY(0)';
                             }}
                         >
-                            ← {getTranslation('backToDashboard')}
+                            {getTranslation('backToDashboard')}
                         </button>
                     </div>
                 </div>
@@ -371,7 +371,7 @@ function BiosecurityDashboard() {
                                         e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
                                     }}
                                 >
-                                    📊 {getTranslation('viewReport')}
+                                    {getTranslation('viewReport')}
                                 </button>
                             </div>
                         </div>
@@ -390,7 +390,7 @@ function BiosecurityDashboard() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
                             <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.25rem' }}>
-                                📋 {getTranslation('farmProfile')}
+                                {getTranslation('farmProfile')}
                             </h3>
                             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
                                 ✓ {getTranslation('completed')}
@@ -514,7 +514,7 @@ function BiosecurityDashboard() {
                                 e.currentTarget.style.boxShadow = '0 4px 6px rgba(16, 185, 129, 0.3)';
                             }}
                         >
-                            ✅ {language === 'id' ? 'Selesai & Simpan' : (language === 'vt' ? 'Hoàn thành & Lưu' : 'Complete & Save')}
+                            {language === 'id' ? 'Selesai & Simpan' : (language === 'vt' ? 'Hoàn thành & Lưu' : 'Complete & Save')}
                         </button>
                     )}
 
@@ -544,7 +544,7 @@ function BiosecurityDashboard() {
                             e.currentTarget.style.boxShadow = '0 4px 6px rgba(124, 58, 237, 0.2)';
                         }}
                     >
-                        📊 {getTranslation('viewAnalysis') || 'View Analysis & Improvements'}
+                        {getTranslation('viewAnalysis') || 'View Analysis & Improvements'}
                     </button>
 
                     <button

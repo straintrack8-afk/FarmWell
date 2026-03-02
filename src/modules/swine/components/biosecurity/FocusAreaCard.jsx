@@ -240,7 +240,7 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                         e.currentTarget.style.transform = 'scale(1)';
                     }}
                 >
-                    {getButtonText()} →
+                    {getButtonText()}
                 </button>
             </div>
         </div>

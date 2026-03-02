@@ -53,19 +53,19 @@ function getMortalityClass(level) {
 function DiseaseCard({ disease, onClick }) {
     return (
         <div className="disease-card" onClick={onClick}>
-            <div className="disease-card-header">
-                <div>
-                    <div className="disease-name">{disease.name}</div>
-                    {disease.latinName && (
-                        <div className="disease-latin">{disease.latinName}</div>
-                    )}
-                </div>
-                {disease.zoonoticRisk && (
+            {/* Top row: empty left side + ZOONOTIC badge right-aligned. Only renders if zoonotic. */}
+            {disease.zoonoticRisk && (
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.375rem' }}>
                     <span className="badge badge-zoonotic" title="Can spread to humans">
-                        ⚠️ Zoonotic
+                        Zoonotic
                     </span>
-                )}
-            </div>
+                </div>
+            )}
+            {/* Disease name — full width */}
+            <div className="disease-name">{disease.name}</div>
+            {disease.latinName && (
+                <div className="disease-latin">{disease.latinName}</div>
+            )}
 
             <div className="disease-meta">
                 <span className={`badge ${getCategoryClass(disease.category)}`}>
@@ -130,109 +130,108 @@ function ResultsPage() {
             <div>
                 <ProgressBar step={3} t={t} />
 
-            <div className="container">
-                <div className="page-header" style={{ paddingBottom: '1rem' }}>
-                    <h1 className="page-title">
-                        {filteredDiseases.length} {t('possibleDiseases')}
-                    </h1>
-                    <p className="page-subtitle">
-                        {t('basedOnSymptoms')}
-                    </p>
-                </div>
-
-                {/* Selection Summary */}
-                <div style={{
-                    maxWidth: '700px',
-                    margin: '0 auto 1.5rem',
-                    padding: '1rem',
-                    background: 'var(--bg-tertiary)',
-                    borderRadius: 'var(--radius-lg)'
-                }}>
-                    <div style={{ marginBottom: '0.75rem' }}>
-                        <strong>{t('age')}:</strong> {t(selectedAge)}
-                    </div>
-                    <div style={{ marginBottom: '0.75rem' }}>
-                        <strong>{t('stepSymptoms')} ({selectedSymptoms.length}):</strong>
-                    </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                        {selectedSymptoms.map(symptom => (
-                            <span
-                                key={symptom}
-                                style={{
-                                    padding: '0.25rem 0.75rem',
-                                    background: 'var(--bg-secondary)',
-                                    border: '1px solid var(--border-color)',
-                                    borderRadius: 'var(--radius-full)',
-                                    fontSize: '0.8125rem'
-                                }}
-                            >
-                                {symptom}
-                            </span>
-                        ))}
+                <div className="container">
+                    <div className="page-header" style={{ paddingBottom: '1rem' }}>
+                        <h1 className="page-title">
+                            {filteredDiseases.length} {t('possibleDiseases')}
+                        </h1>
+                        <p className="page-subtitle">
+                            {t('basedOnSymptoms')}
+                        </p>
                     </div>
 
+                    {/* Selection Summary */}
                     <div style={{
-                        display: 'flex',
-                        gap: '0.5rem',
-                        marginTop: '1rem',
-                        flexWrap: 'wrap'
+                        maxWidth: '700px',
+                        margin: '0 auto 1.5rem',
+                        padding: '1rem',
+                        background: 'var(--bg-tertiary)',
+                        borderRadius: 'var(--radius-lg)'
                     }}>
-                        <button className="btn btn-secondary btn-sm" onClick={handleRefineSymptoms}>
-                            ← {t('refineSymptoms')}
-                        </button>
-                        <button className="btn btn-outline btn-sm" onClick={handleNewDiagnosis}>
-                            🔄 {t('newDiagnosis')}
-                        </button>
-                    </div>
-                </div>
-
-                {/* Zoonotic Warning */}
-                {filteredDiseases.some(d => d.zoonoticRisk) && (
-                    <div className="zoonotic-warning" style={{ maxWidth: '700px', margin: '0 auto 1.5rem' }}>
-                        <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}>⚠️</div>
-                        <div className="zoonotic-warning-content">
-                            <div className="zoonotic-warning-title">{t('zoonoticWarning')}</div>
-                            <div className="zoonotic-warning-text">
-                                {t('zoonoticWarningText')}
-                            </div>
+                        <div style={{ marginBottom: '0.75rem' }}>
+                            <strong>{t('age')}:</strong> {t(selectedAge)}
                         </div>
-                    </div>
-                )}
+                        <div style={{ marginBottom: '0.75rem' }}>
+                            <strong>{t('stepSymptoms')} ({selectedSymptoms.length}):</strong>
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                            {selectedSymptoms.map(symptom => (
+                                <span
+                                    key={symptom}
+                                    style={{
+                                        padding: '0.25rem 0.75rem',
+                                        background: 'var(--bg-secondary)',
+                                        border: '1px solid var(--border-color)',
+                                        borderRadius: 'var(--radius-full)',
+                                        fontSize: '0.8125rem'
+                                    }}
+                                >
+                                    {symptom}
+                                </span>
+                            ))}
+                        </div>
 
-                {/* Disease List */}
-                <div style={{ maxWidth: '700px', margin: '0 auto', paddingBottom: '2rem' }}>
-                    {filteredDiseases.length === 0 ? (
-                        <div className="empty-state">
-                            <div className="empty-state-icon" style={{ fontSize: '3rem' }}>🔍</div>
-                            <h3 className="empty-state-title">{t('noDiseases')}</h3>
-                            <p className="empty-state-text">
-                                {t('noDiseasesText')}
-                            </p>
-                            <button className="btn btn-primary" onClick={handleRefineSymptoms}>
+                        <div style={{
+                            display: 'flex',
+                            gap: '0.5rem',
+                            marginTop: '1rem'
+                        }}>
+                            <button className="btn btn-secondary btn-sm" style={{ flex: 1, minWidth: 0 }} onClick={handleRefineSymptoms}>
                                 {t('refineSymptoms')}
                             </button>
+                            <button className="btn btn-outline btn-sm" style={{ flex: 1, minWidth: 0 }} onClick={handleNewDiagnosis}>
+                                {t('newDiagnosis')}
+                            </button>
                         </div>
-                    ) : (
-                        <>
-                            {filteredDiseases.map(disease => (
-                                <DiseaseCard
-                                    key={disease.id}
-                                    disease={disease}
-                                    onClick={() => handleDiseaseClick(disease.id)}
-                                />
-                            ))}
-                            
-                            {/* Diagnosis Result Disclaimer */}
-                            {filteredDiseases.length > 0 && (
-                                <DiagnosisResultDisclaimer
-                                    language={disclaimerLanguage}
-                                    diseaseIndicated={filteredDiseases[0]?.name || 'Multiple conditions'}
-                                />
-                            )}
-                        </>
+                    </div>
+
+                    {/* Zoonotic Warning */}
+                    {filteredDiseases.some(d => d.zoonoticRisk) && (
+                        <div className="zoonotic-warning" style={{ maxWidth: '700px', margin: '0 auto 1.5rem' }}>
+                            <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}>⚠️</div>
+                            <div className="zoonotic-warning-content">
+                                <div className="zoonotic-warning-title">{t('zoonoticWarning')}</div>
+                                <div className="zoonotic-warning-text">
+                                    {t('zoonoticWarningText')}
+                                </div>
+                            </div>
+                        </div>
                     )}
+
+                    {/* Disease List */}
+                    <div style={{ maxWidth: '700px', margin: '0 auto', paddingBottom: '2rem' }}>
+                        {filteredDiseases.length === 0 ? (
+                            <div className="empty-state">
+                                <div className="empty-state-icon" style={{ fontSize: '3rem' }}>🔍</div>
+                                <h3 className="empty-state-title">{t('noDiseases')}</h3>
+                                <p className="empty-state-text">
+                                    {t('noDiseasesText')}
+                                </p>
+                                <button className="btn btn-primary" onClick={handleRefineSymptoms}>
+                                    {t('refineSymptoms')}
+                                </button>
+                            </div>
+                        ) : (
+                            <>
+                                {filteredDiseases.map(disease => (
+                                    <DiseaseCard
+                                        key={disease.id}
+                                        disease={disease}
+                                        onClick={() => handleDiseaseClick(disease.id)}
+                                    />
+                                ))}
+
+                                {/* Diagnosis Result Disclaimer */}
+                                {filteredDiseases.length > 0 && (
+                                    <DiagnosisResultDisclaimer
+                                        language={disclaimerLanguage}
+                                        diseaseIndicated={filteredDiseases[0]?.name || 'Multiple conditions'}
+                                    />
+                                )}
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
             </div>
         </DiagnosisWrapper>
     );

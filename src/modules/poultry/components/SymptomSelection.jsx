@@ -207,7 +207,7 @@ function SymptomSelection() {
                             disabled={selectedSymptoms.length === 0}
                             style={{ opacity: selectedSymptoms.length === 0 ? 0.5 : 1 }}
                         >
-                            Show Results →
+                            Show Results
                         </button>
                     </div>
                 </div>

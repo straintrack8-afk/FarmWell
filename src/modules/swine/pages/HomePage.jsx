@@ -47,10 +47,10 @@ function HomePage() {
             <div className="feature-grid" style={{
                 maxWidth: '900px',
                 margin: '0 auto',
-                padding: '0 1rem 2rem',
+                padding: '0 0 2rem',
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '2rem'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
+                gap: '1.25rem'
             }}>
                 {/* Disease Diagnosis Feature */}
                 <div className="action-card" onClick={handleStartDiagnosis}>
@@ -80,7 +80,7 @@ function HomePage() {
                         </li>
                     </ul>
                     <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
-                        {t('swine.diagnosis.button')} →
+                        {t('swine.diagnosis.button')}
                     </button>
                 </div>
 
@@ -112,7 +112,7 @@ function HomePage() {
                         </li>
                     </ul>
                     <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
-                        {t('swine.biosecurity.button')} →
+                        {t('swine.biosecurity.button')}
                     </button>
                 </div>
 

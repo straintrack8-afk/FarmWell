@@ -229,7 +229,7 @@ function ResultsPage() {
                         gap: '0.5rem'
                     }}
                 >
-                    ← {getTranslation('backToDashboard')}
+                    {getTranslation('backToDashboard')}
                 </button>
                 <button
                     onClick={() => window.print()}
@@ -240,7 +240,7 @@ function ResultsPage() {
                         gap: '0.5rem'
                     }}
                 >
-                    🖨️ {getTranslation('print')}
+                    {getTranslation('print')}
                 </button>
             </div>
 

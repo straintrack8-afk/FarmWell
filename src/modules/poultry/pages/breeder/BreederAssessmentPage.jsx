@@ -102,7 +102,7 @@ function BreederAssessmentPage() {
                     <div style={{ padding: '1rem 2rem', background: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                             <button onClick={handleBackToDashboard} style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', fontSize: '0.875rem' }}>
-                                ← Back to Dashboard
+                                Back to Dashboard
                             </button>
                             <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
                                 Question {currentQuestionIndex + 1} of {visibleQuestions.length}
@@ -294,7 +294,7 @@ function BreederAssessmentPage() {
                                     cursor: currentQuestionIndex === 0 ? 'not-allowed' : 'pointer'
                                 }}
                             >
-                                ← Previous
+                                Previous
                             </button>
                             <div style={{ display: 'flex', gap: '1rem' }}>
                                 {!isLastQuestion && (
@@ -320,7 +320,7 @@ function BreederAssessmentPage() {
                                         background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)'
                                     }}
                                 >
-                                    {isLastQuestion ? '✅ Complete & Save' : 'Next →'}
+                                    {isLastQuestion ? 'Complete & Save' : 'Next'}
                                 </button>
                             </div>
                         </div>

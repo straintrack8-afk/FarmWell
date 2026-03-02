@@ -205,146 +205,122 @@ function BiosecurityMainDashboard() {
         return '#EF4444';
     };
 
-    // Gradient colors for stat cards
-    const gradients = {
-        blue: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        purple: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-        green: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-        orange: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+    // Neutral accent colors for stat cards
+    const accents = {
+        blue: '#366092',
+        green: '#10B981',
+        amber: '#F59E0B',
+        red: '#EF4444'
     };
 
     return (
         <div style={{
             minHeight: '100vh',
-            background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-            padding: '2rem 0'
+            background: '#f8fafc',
+            padding: '1.5rem 0',
+            overflowX: 'hidden'
         }}>
             <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
                 {/* Header */}
-                <div style={{ marginBottom: '2.5rem' }}>
+                <div style={{ marginBottom: '2rem' }}>
                     <div>
                         <h1 style={{
-                            fontSize: 'clamp(1.5rem, 5vw, 2.25rem)',
-                            fontWeight: '800',
-                            marginBottom: '0.5rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            flexWrap: 'wrap',
-                            gap: '0.5rem'
+                            fontSize: 'clamp(1.25rem, 4vw, 1.75rem)',
+                            fontWeight: '700',
+                            marginBottom: '0.25rem',
+                            color: '#1e293b'
                         }}>
-                            <span style={{ flexShrink: 0 }}>🛡️</span>
-                            <span style={{
-                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text'
-                            }}>{getTranslation('title')}</span>
+                            {getTranslation('title')}
                         </h1>
-                        <p style={{ color: 'var(--text-muted)', fontSize: '0.9375rem' }}>
+                        <p style={{ color: '#64748b', fontSize: '0.875rem' }}>
                             {getTranslation('subtitle')}
                         </p>
                     </div>
                 </div>
 
-                {/* Statistics Cards */}
+                {/* Statistics Cards — 2×2 grid, all simple metric cards */}
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-                    gap: '1rem',
-                    marginBottom: '2.5rem'
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '0.75rem',
+                    marginBottom: '1.5rem'
                 }}>
-                    {/* Total Assessments */}
-                    <div style={{
-                        background: gradients.blue,
-                        borderRadius: '1.5rem',
-                        padding: '1.125rem',
-                        color: 'white',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        boxShadow: '0 10px 30px rgba(102, 126, 234, 0.3)',
-                        transition: 'transform 0.3s ease',
-                        cursor: 'pointer'
-                    }}
-                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                    >
-                        <div style={{
-                            position: 'absolute',
-                            top: '-30px',
-                            right: '-30px',
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50%',
-                            background: 'rgba(255, 255, 255, 0.1)'
-                        }} />
-                        <div style={{ position: 'relative', zIndex: 1 }}>
-                            <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>📊</div>
-                            <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: '600' }}>
-                                {getTranslation('totalAssessments')}
-                            </div>
-                            <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1 }}>
-                                {stats.total}
-                            </div>
-                            <div style={{ fontSize: '0.875rem', opacity: 0.85, marginTop: '0.5rem' }}>
-                                {stats.total} {getTranslation('completed')}
-                            </div>
+                    {/* Card 1: Total Assessments */}
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #366092', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
+                            {getTranslation('totalAssessments')}
+                        </div>
+                        <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>
+                            {stats.total}
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
+                            {stats.total} {getTranslation('completed')}
                         </div>
                     </div>
 
-                    {/* Last Score */}
-                    <div style={{
-                        background: gradients.purple,
-                        borderRadius: '1.5rem',
-                        padding: '1.125rem',
-                        color: 'white',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        boxShadow: '0 10px 30px rgba(240, 147, 251, 0.3)',
-                        transition: 'transform 0.3s ease',
-                        cursor: 'pointer'
-                    }}
-                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                    >
-                        <div style={{
-                            position: 'absolute',
-                            top: '-30px',
-                            right: '-30px',
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50%',
-                            background: 'rgba(255, 255, 255, 0.1)'
-                        }} />
-                        <div style={{ position: 'relative', zIndex: 1 }}>
-                            <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>⭐</div>
-                            <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: '600' }}>
-                                {getTranslation(stats.scoreLabelKey || 'lastScore')}
-                            </div>
-                            <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1 }}>
-                                {stats.lastScore !== null ? stats.lastScore : 'N/A'}
-                            </div>
-                            <div style={{ fontSize: '0.875rem', opacity: 0.85, marginTop: '0.5rem' }}>
-                                {stats.lastScore ? getScoreInterpretation(stats.lastScore, language).label : '-'}
-                            </div>
+                    {/* Card 2: Last Score */}
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>
+                            {getTranslation(stats.scoreLabelKey || 'lastScore')}
+                        </div>
+                        <div style={{ fontSize: '2rem', fontWeight: '800', color: stats.lastScore ? getScoreColor(stats.lastScore) : '#94a3b8', lineHeight: 1 }}>
+                            {stats.lastScore !== null ? stats.lastScore : 'N/A'}
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
+                            {stats.lastScore ? getScoreInterpretation(stats.lastScore, language).label : '-'}
                         </div>
                     </div>
 
-                    {/* Charts Section */}
+                    {/* Card 3: Good Assessments */}
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #F59E0B', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
+                            {getTranslation('goodAssessments')}
+                        </div>
+                        <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>
+                            {stats.goodAssessments || 0}
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
+                            {getTranslation('ofTotal')} {stats.total}
+                        </div>
+                    </div>
+
+                    {/* Card 4: Poor Assessments */}
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #EF4444', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
+                            {getTranslation('poorAssessments')}
+                        </div>
+                        <div style={{ fontSize: '2rem', fontWeight: '800', color: '#EF4444', lineHeight: 1 }}>
+                            {stats.poorAssessments || 0}
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
+                            {getTranslation('requiresAttention')}
+                        </div>
+                    </div>
+                </div>
+
+
+                {/* Charts Section — separate full-width grid */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+                    gap: '0.75rem',
+                    marginBottom: '1.5rem'
+                }}>
                     {/* Distribution Pie Chart */}
                     <div style={{
                         background: 'white',
-                        borderRadius: '1.5rem',
-                        padding: '1.5rem',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                        borderRadius: '0.75rem',
+                        padding: '1.25rem',
+                        boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
                         display: 'flex',
                         flexDirection: 'column',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        overflow: 'hidden'
                     }}>
-                        <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '1.5rem', width: '100%', textAlign: 'left' }}>
+                        <h3 style={{ fontSize: '0.9rem', fontWeight: '700', marginBottom: '1rem', width: '100%', textAlign: 'left' }}>
                             {language === 'id' ? 'Distribusi Hasil' : 'Results Distribution'}
                         </h3>
                         {(() => {
-                            // Prepare Pie Data
                             const pieData = [
                                 { label: 'Excellent (80-100)', value: assessmentHistory.filter(a => calculateOverallScore(a, language) >= 80).length, color: '#10B981' },
                                 {
@@ -363,12 +339,12 @@ function BiosecurityMainDashboard() {
                             ].filter(item => item.value > 0);
 
                             return (
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', justifyContent: 'center' }}>
-                                    <SimplePieChart data={pieData} size={160} />
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                                    <SimplePieChart data={pieData} size={140} />
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                         {pieData.map((d, i) => (
-                                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}>
-                                                <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: d.color }}></div>
+                                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8125rem' }}>
+                                                <div style={{ width: '10px', height: '10px', borderRadius: '3px', background: d.color, flexShrink: 0 }}></div>
                                                 <span>{d.label}</span>
                                                 <span style={{ fontWeight: '600' }}>({d.value})</span>
                                             </div>
@@ -382,25 +358,24 @@ function BiosecurityMainDashboard() {
                     {/* Progress Line Chart */}
                     <div style={{
                         background: 'white',
-                        borderRadius: '1.5rem',
-                        padding: '1.5rem',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                        borderRadius: '0.75rem',
+                        padding: '1.25rem',
+                        boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+                        overflow: 'hidden'
                     }}>
-                        <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '1.5rem' }}>
+                        <h3 style={{ fontSize: '0.9rem', fontWeight: '700', marginBottom: '1rem' }}>
                             {language === 'id' ? 'Tren Penilaian' : 'Assessment Trend'}
                         </h3>
                         {(() => {
-                            // Prepare Line Data (Sort chronological)
                             const lineData = [...assessmentHistory]
                                 .sort((a, b) => new Date(a.completed_at) - new Date(b.completed_at))
                                 .map(a => ({
                                     label: new Date(a.completed_at).toLocaleDateString(),
                                     value: calculateOverallScore(a, language)
                                 }));
-
-                            return <SimpleLineChart data={lineData} height={160} />;
+                            return <SimpleLineChart data={lineData} height={140} />;
                         })()}
-                        <div style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                        <div style={{ textAlign: 'center', marginTop: '0.75rem', fontSize: '0.8rem', color: '#94a3b8' }}>
                             {language === 'id' ? 'Riwayat Skor Biosekuriti' : 'Biosecurity Score History'}
                         </div>
                     </div>
@@ -409,151 +384,107 @@ function BiosecurityMainDashboard() {
                 {/* Quick Actions */}
                 <div style={{
                     background: 'white',
-                    borderRadius: '1.5rem',
-                    padding: '2rem',
-                    marginBottom: '2.5rem',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                    borderRadius: '0.75rem',
+                    padding: '1.5rem',
+                    marginBottom: '1.5rem',
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.07)'
                 }}>
                     <h2 style={{ fontSize: '1.375rem', fontWeight: '700', marginBottom: '1.5rem' }}>
                         {getTranslation('quickActions')}
                     </h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
                         <button
                             style={{
-                                padding: '1.25rem',
-                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                padding: '0.875rem',
+                                background: '#1e293b',
                                 border: 'none',
                                 borderRadius: '0.75rem',
                                 color: 'white',
-                                fontSize: '1rem',
+                                fontSize: '0.9375rem',
                                 fontWeight: '600',
                                 cursor: 'pointer',
                                 transition: 'all 0.2s ease',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: '0.75rem',
-                                boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)'
+                                gap: '0.5rem'
                             }}
                             onClick={handleStartNewAssessment}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'translateY(-3px)';
-                                e.currentTarget.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
+                                e.currentTarget.style.background = '#334155';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
+                                e.currentTarget.style.background = '#1e293b';
                             }}
                         >
-                            <span style={{ fontSize: '1.5rem' }}>{stats.hasActive ? '▶️' : '➕'}</span>
                             {getTranslation(stats.hasActive ? 'continueAssessment' : 'startNew')}
                         </button>
                         <button
                             style={{
-                                padding: '1.25rem',
+                                padding: '0.875rem',
                                 background: 'white',
-                                border: '2px solid #e5e7eb',
+                                border: '1.5px solid #e2e8f0',
                                 borderRadius: '0.75rem',
-                                color: '#1f2937',
-                                fontSize: '1rem',
+                                color: '#374151',
+                                fontSize: '0.9375rem',
                                 fontWeight: '600',
                                 cursor: 'pointer',
                                 transition: 'all 0.2s ease',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: '0.75rem'
+                                gap: '0.5rem'
                             }}
                             onClick={handleViewHistory}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = '#667eea';
-                                e.currentTarget.style.transform = 'translateY(-3px)';
+                                e.currentTarget.style.borderColor = '#366092';
+                                e.currentTarget.style.color = '#366092';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = '#e5e7eb';
-                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.borderColor = '#e2e8f0';
+                                e.currentTarget.style.color = '#374151';
                             }}
                         >
-                            <span style={{ fontSize: '1.5rem' }}>📋</span>
                             {getTranslation('viewHistory')}
                         </button>
-                        <button
-                            style={{
-                                padding: '1.25rem',
-                                background: 'white',
-                                border: '2px solid #e5e7eb',
-                                borderRadius: '0.75rem',
-                                color: '#1f2937',
-                                fontSize: '1rem',
-                                fontWeight: '600',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s ease',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '0.75rem'
-                            }}
-                            onClick={() => navigate('/swine/biosecurity/language', { state: { returnTo: '/swine/biosecurity' } })}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = '#667eea';
-                                e.currentTarget.style.transform = 'translateY(-3px)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = '#e5e7eb';
-                                e.currentTarget.style.transform = 'translateY(0)';
-                            }}
-                        >
-                            <span style={{ fontSize: '1.5rem' }}>🌐</span>
-                            {getTranslation('changeLanguage')}
-                        </button>
+
                     </div>
                 </div>
 
                 {/* Recent Assessments */}
                 <div style={{
                     background: 'white',
-                    borderRadius: '1.5rem',
-                    padding: '2rem',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                    borderRadius: '0.75rem',
+                    padding: '1.5rem',
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.07)'
                 }} id="recent-assessments">
                     <h2 style={{ fontSize: '1.375rem', fontWeight: '700', marginBottom: '1.5rem' }}>
                         {getTranslation('recentAssessments')}
                     </h2>
 
                     {assessmentHistory.length === 0 ? (
-                        <div style={{
-                            textAlign: 'center',
-                            padding: '4rem 2rem'
-                        }}>
-                            <div style={{ fontSize: '5rem', marginBottom: '1rem' }}>📊</div>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.75rem' }}>
+                        <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
+                            <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>
                                 {getTranslation('noAssessments')}
                             </h3>
-                            <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', maxWidth: '500px', margin: '0 auto 2rem' }}>
+                            <p style={{ color: '#64748b', marginBottom: '1.5rem', maxWidth: '440px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
                                 {getTranslation('noAssessmentsDesc')}
                             </p>
                             <button
                                 style={{
-                                    padding: '1rem 2.5rem',
-                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                    padding: '0.75rem 2rem',
+                                    background: '#1e293b',
                                     border: 'none',
                                     borderRadius: '0.75rem',
                                     color: 'white',
-                                    fontSize: '1.0625rem',
-                                    fontWeight: '700',
+                                    fontSize: '0.9375rem',
+                                    fontWeight: '600',
                                     cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
-                                    boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)'
+                                    transition: 'background 0.2s ease'
                                 }}
                                 onClick={handleStartNewAssessment}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'scale(1.05)';
-                                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'scale(1)';
-                                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
-                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
                             >
                                 {getTranslation('startFirst')}
                             </button>
@@ -615,28 +546,27 @@ function BiosecurityMainDashboard() {
                                                 <td style={{ padding: '1.25rem', textAlign: 'right', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
                                                     <button
                                                         style={{
-                                                            padding: '0.625rem 1.25rem',
-                                                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                                            border: 'none',
+                                                            padding: '0.5rem 1rem',
+                                                            background: 'white',
+                                                            border: '1.5px solid #e2e8f0',
                                                             borderRadius: '0.5rem',
-                                                            color: 'white',
-                                                            fontSize: '0.875rem',
+                                                            color: '#374151',
+                                                            fontSize: '0.8125rem',
                                                             fontWeight: '600',
                                                             cursor: 'pointer',
-                                                            transition: 'all 0.2s ease',
-                                                            boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)'
+                                                            transition: 'all 0.15s ease'
                                                         }}
                                                         onClick={() => handleDownloadPDF(assessment)}
                                                         onMouseEnter={(e) => {
-                                                            e.currentTarget.style.transform = 'translateY(-2px)';
-                                                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)';
+                                                            e.currentTarget.style.borderColor = '#366092';
+                                                            e.currentTarget.style.color = '#366092';
                                                         }}
                                                         onMouseLeave={(e) => {
-                                                            e.currentTarget.style.transform = 'translateY(0)';
-                                                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(102, 126, 234, 0.3)';
+                                                            e.currentTarget.style.borderColor = '#e2e8f0';
+                                                            e.currentTarget.style.color = '#374151';
                                                         }}
                                                     >
-                                                        📄 {getTranslation('downloadPDF')}
+                                                        {getTranslation('downloadPDF')}
                                                     </button>
                                                 </td>
                                             </tr>

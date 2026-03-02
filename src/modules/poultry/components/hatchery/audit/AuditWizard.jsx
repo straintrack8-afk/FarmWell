@@ -185,7 +185,7 @@ function AuditWizard() {
                             onClick={handleNext}
                             className="btn-hatchery btn-primary"
                         >
-                            Next →
+                            Next
                         </button>
                     )}
                 </div>

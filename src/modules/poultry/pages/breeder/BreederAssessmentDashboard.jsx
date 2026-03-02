@@ -117,7 +117,7 @@ function BreederAssessmentDashboard() {
                                     gap: '0.5rem'
                                 }}
                             >
-                                ← Back
+                                Back
                             </button>
                             <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
                                 Breeder Farm Biosecurity Assessment
@@ -125,58 +125,27 @@ function BreederAssessmentDashboard() {
                             <p style={{ color: '#6b7280' }}>Select a category to begin or continue your assessment</p>
                         </div>
 
-                        {/* Progress Overview */}
-                        <div style={{
-                            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-                            borderRadius: '12px',
-                            padding: '2rem',
-                            color: 'white',
-                            marginBottom: '2rem'
-                        }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-                                <div>
-                                    <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem' }}>Overall Progress</div>
-                                    <div style={{ fontSize: '2.5rem', fontWeight: '700' }}>
-                                        {progressStats?.answeredCount || 0} / {progressStats?.totalCount || 0}
-                                    </div>
-                                    <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>
-                                        {progressStats?.percentage?.toFixed(1) || 0}% Complete
-                                    </div>
-                                </div>
-                                {overallScore > 0 && (
-                                    <div style={{ textAlign: 'right' }}>
-                                        <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem' }}>Current Score</div>
-                                        <div style={{ fontSize: '2.5rem', fontWeight: '700' }}>
-                                            {overallScore.toFixed(1)}%
-                                        </div>
-                                        <div style={{
-                                            display: 'inline-block',
-                                            padding: '0.25rem 0.75rem',
-                                            borderRadius: '999px',
-                                            background: 'rgba(255,255,255,0.2)',
-                                            fontSize: '0.875rem',
-                                            fontWeight: '600'
-                                        }}>
-                                            {riskConfig?.icon} {riskConfig?.labelText}
-                                        </div>
-                                    </div>
-                                )}
+                        {/* Progress Overview — 2×2 metric cards */}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #366092', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Total Questions</div>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{progressStats?.totalCount || 0}</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>across all categories</div>
                             </div>
-                            {/* Progress Bar */}
-                            <div style={{
-                                marginTop: '1.5rem',
-                                height: '8px',
-                                background: 'rgba(255,255,255,0.3)',
-                                borderRadius: '999px',
-                                overflow: 'hidden'
-                            }}>
-                                <div style={{
-                                    height: '100%',
-                                    width: `${progressStats?.percentage || 0}%`,
-                                    background: 'white',
-                                    borderRadius: '999px',
-                                    transition: 'width 0.3s ease'
-                                }}></div>
+                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Answered</div>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{progressStats?.answeredCount || 0}</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>questions completed</div>
+                            </div>
+                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #F59E0B', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Progress</div>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#F59E0B', lineHeight: 1 }}>{progressStats?.percentage?.toFixed(0) || 0}%</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>overall completion</div>
+                            </div>
+                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #8B5CF6', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Current Score</div>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: overallScore > 0 ? '#8B5CF6' : '#94a3b8', lineHeight: 1 }}>{overallScore > 0 ? `${overallScore.toFixed(0)}%` : 'N/A'}</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{riskConfig?.labelText || '-'}</div>
                             </div>
                         </div>
 
@@ -318,7 +287,7 @@ function BreederAssessmentDashboard() {
                                             color: '#f59e0b',
                                             fontWeight: '500'
                                         }}>
-                                            {isCompleted ? 'Review answers →' : isStarted ? 'Continue →' : 'Start →'}
+                                            {isCompleted ? 'Review answers' : isStarted ? 'Continue' : 'Start'}
                                         </div>
                                     </div>
                                 );
@@ -339,7 +308,7 @@ function BreederAssessmentDashboard() {
                                             boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
                                         }}
                                     >
-                                        🖨️ Print Assessment Summary
+                                        Print Assessment Summary
                                     </button>
                                     <button
                                         onClick={() => navigate('/poultry/breeder-assessment')}
@@ -351,7 +320,7 @@ function BreederAssessmentDashboard() {
                                             color: '#374151'
                                         }}
                                     >
-                                        ← Back to Main Dashboard
+                                        Back to Main Dashboard
                                     </button>
                                 </>
                             )}

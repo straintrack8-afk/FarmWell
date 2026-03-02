@@ -26,12 +26,12 @@ function Dashboard() {
         navigate(`/poultry/hatchery-audit/report/${auditId}`);
     };
 
-    // Gradient colors for stat cards
-    const gradients = {
-        blue: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        purple: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-        green: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-        orange: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+    // Neutral accent colors for stat cards
+    const accents = {
+        blue: '#366092',
+        green: '#10B981',
+        amber: '#F59E0B',
+        red: '#EF4444'
     };
 
 
@@ -42,19 +42,11 @@ function Dashboard() {
                     <Header />
 
                     {/* Page Title */}
-                    <div style={{ marginBottom: '2.5rem', marginTop: '2rem' }}>
-                        <h1 style={{
-                            fontSize: '2.5rem',
-                            fontWeight: '800',
-                            marginBottom: '0.5rem',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text'
-                        }}>
+                    <div style={{ marginBottom: '1.5rem', marginTop: '1.5rem' }}>
+                        <h1 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.375rem', color: '#1e293b' }}>
                             Hatchery Audit Dashboard
                         </h1>
-                        <p style={{ color: '#6B7280', fontSize: '1.125rem' }}>
+                        <p style={{ color: '#64748b', fontSize: '0.9375rem' }}>
                             Comprehensive quarterly assessment of hatchery operations
                         </p>
                     </div>
@@ -62,16 +54,15 @@ function Dashboard() {
                     {/* Storage Warning */}
                     {storageInfo && storageInfo.isNearLimit && (
                         <div style={{
-                            background: 'linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)',
+                            background: '#fef3c7',
                             border: '1px solid #F59E0B',
-                            borderRadius: '1rem',
-                            padding: '1rem 1.5rem',
-                            marginBottom: '2rem',
+                            borderRadius: '0.75rem',
+                            padding: '0.875rem 1.25rem',
+                            marginBottom: '1.25rem',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '1rem'
+                            gap: '0.75rem'
                         }}>
-                            <span style={{ fontSize: '1.5rem' }}>⚠️</span>
                             <div>
                                 <strong>Storage Warning:</strong> You're using {storageInfo.percentUsed}% of available storage ({storageInfo.sizeMB} MB).
                                 Consider exporting old audits to free up space.
@@ -79,300 +70,80 @@ function Dashboard() {
                         </div>
                     )}
 
-                    {/* Statistics Cards */}
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                        gap: '1.5rem',
-                        marginBottom: '2.5rem'
-                    }}>
+                    {/* Statistics Cards — 2×2 */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
                         {/* Total Audits */}
-                        <div style={{
-                            background: gradients.blue,
-                            borderRadius: '1.5rem',
-                            padding: '2rem',
-                            color: 'white',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            boxShadow: '0 10px 30px rgba(102, 126, 234, 0.3)',
-                            transition: 'transform 0.3s ease',
-                            cursor: 'pointer'
-                        }}
-                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                        >
-                            <div style={{
-                                position: 'absolute',
-                                top: '-30px',
-                                right: '-30px',
-                                width: '100px',
-                                height: '100px',
-                                borderRadius: '50%',
-                                background: 'rgba(255, 255, 255, 0.1)'
-                            }} />
-                            <div style={{ position: 'relative', zIndex: 1 }}>
-                                <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>📊</div>
-                                <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: '600' }}>
-                                    Total Audits
-                                </div>
-                                <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1 }}>
-                                    {statistics?.totalAudits || 0}
-                                </div>
-                                <div style={{ fontSize: '0.875rem', opacity: 0.85, marginTop: '0.5rem' }}>
-                                    {statistics?.completedAudits || 0} completed
-                                </div>
-                            </div>
+                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.blue}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Total Audits</div>
+                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{statistics?.totalAudits || 0}</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{statistics?.completedAudits || 0} completed</div>
                         </div>
 
                         {/* Last Audit Score */}
-                        <div style={{
-                            background: gradients.purple,
-                            borderRadius: '1.5rem',
-                            padding: '2rem',
-                            color: 'white',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            boxShadow: '0 10px 30px rgba(240, 147, 251, 0.3)',
-                            transition: 'transform 0.3s ease',
-                            cursor: 'pointer'
-                        }}
-                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                        >
-                            <div style={{
-                                position: 'absolute',
-                                top: '-30px',
-                                right: '-30px',
-                                width: '100px',
-                                height: '100px',
-                                borderRadius: '50%',
-                                background: 'rgba(255, 255, 255, 0.1)'
-                            }} />
-                            <div style={{ position: 'relative', zIndex: 1 }}>
-                                <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>⭐</div>
-                                <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: '600' }}>
-                                    Last Audit Score
-                                </div>
-                                <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1 }}>
-                                    {lastAudit?.summary?.environmental?.score || 'N/A'}
-                                </div>
-                                {lastAudit && (
-                                    <div style={{ fontSize: '0.875rem', opacity: 0.85, marginTop: '0.5rem' }}>
-                                        {lastAudit.summary?.environmental?.classification || '-'}
-                                    </div>
-                                )}
-                            </div>
+                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.green}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>Last Score</div>
+                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{lastAudit?.summary?.environmental?.score || 'N/A'}</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{lastAudit ? (lastAudit.summary?.environmental?.classification || '-') : '-'}</div>
                         </div>
 
                         {/* Good Audits */}
-                        <div style={{
-                            background: gradients.green,
-                            borderRadius: '1.5rem',
-                            padding: '2rem',
-                            color: 'white',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            boxShadow: '0 10px 30px rgba(67, 233, 123, 0.3)',
-                            transition: 'transform 0.3s ease',
-                            cursor: 'pointer'
-                        }}
-                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                        >
-                            <div style={{
-                                position: 'absolute',
-                                top: '-30px',
-                                right: '-30px',
-                                width: '100px',
-                                height: '100px',
-                                borderRadius: '50%',
-                                background: 'rgba(255, 255, 255, 0.1)'
-                            }} />
-                            <div style={{ position: 'relative', zIndex: 1 }}>
-                                <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>✅</div>
-                                <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: '600' }}>
-                                    Good Audits
-                                </div>
-                                <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1 }}>
-                                    {statistics?.goodCount || 0}
-                                </div>
-                                <div style={{ fontSize: '0.875rem', opacity: 0.85, marginTop: '0.5rem' }}>
-                                    {statistics?.totalAudits > 0
-                                        ? Math.round((statistics.goodCount / statistics.completedAudits) * 100)
-                                        : 0}% of total
-                                </div>
+                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.amber}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Good Audits</div>
+                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{statistics?.goodCount || 0}</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
+                                {statistics?.totalAudits > 0 ? Math.round((statistics.goodCount / statistics.completedAudits) * 100) : 0}% of total
                             </div>
                         </div>
 
                         {/* Poor Audits */}
-                        <div style={{
-                            background: gradients.orange,
-                            borderRadius: '1.5rem',
-                            padding: '2rem',
-                            color: 'white',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            boxShadow: '0 10px 30px rgba(250, 112, 154, 0.3)',
-                            transition: 'transform 0.3s ease',
-                            cursor: 'pointer'
-                        }}
-                            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                        >
-                            <div style={{
-                                position: 'absolute',
-                                top: '-30px',
-                                right: '-30px',
-                                width: '100px',
-                                height: '100px',
-                                borderRadius: '50%',
-                                background: 'rgba(255, 255, 255, 0.1)'
-                            }} />
-                            <div style={{ position: 'relative', zIndex: 1 }}>
-                                <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>⚠️</div>
-                                <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: '600' }}>
-                                    Poor Audits
-                                </div>
-                                <div style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1 }}>
-                                    {statistics?.poorCount || 0}
-                                </div>
-                                <div style={{ fontSize: '0.875rem', opacity: 0.85, marginTop: '0.5rem' }}>
-                                    Requires attention
-                                </div>
-                            </div>
+                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.red}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Poor Audits</div>
+                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#EF4444', lineHeight: 1 }}>{statistics?.poorCount || 0}</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>Requires attention</div>
                         </div>
                     </div>
 
                     {/* Quick Actions */}
-                    <div style={{
-                        background: 'white',
-                        borderRadius: '1.5rem',
-                        padding: '2rem',
-                        marginBottom: '2.5rem',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
-                    }}>
-                        <h2 style={{ fontSize: '1.375rem', fontWeight: '700', marginBottom: '1.5rem' }}>
-                            Quick Actions
-                        </h2>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
+                        <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>Quick Actions</h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
                             <button
-                                style={{
-                                    padding: '1.25rem',
-                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                    border: 'none',
-                                    borderRadius: '0.75rem',
-                                    color: 'white',
-                                    fontSize: '1rem',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '0.75rem',
-                                    boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)'
-                                }}
+                                style={{ padding: '0.875rem', background: '#1e293b', border: 'none', borderRadius: '0.75rem', color: 'white', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
                                 onClick={handleStartNewAudit}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(-3px)';
-                                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
-                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
                             >
-                                <span style={{ fontSize: '1.5rem' }}>➕</span>
-                                <span>Start New Audit</span>
+                                Start New Audit
                             </button>
                             <button
-                                style={{
-                                    padding: '1.25rem',
-                                    background: 'white',
-                                    border: '2px solid #e5e7eb',
-                                    borderRadius: '0.75rem',
-                                    color: '#1f2937',
-                                    fontSize: '1rem',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '0.75rem'
-                                }}
+                                style={{ padding: '0.875rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.75rem', color: '#374151', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' }}
                                 onClick={handleViewHistory}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.borderColor = '#667eea';
-                                    e.currentTarget.style.transform = 'translateY(-3px)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.borderColor = '#e5e7eb';
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#366092'; e.currentTarget.style.color = '#366092'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#374151'; }}
                             >
-                                <span style={{ fontSize: '1.5rem' }}>📋</span>
-                                <span>View Audit History</span>
+                                View Audit History
                             </button>
                             <button
-                                style={{
-                                    padding: '1.25rem',
-                                    background: 'white',
-                                    border: '2px solid #e5e7eb',
-                                    borderRadius: '0.75rem',
-                                    color: '#1f2937',
-                                    fontSize: '1rem',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '0.75rem'
-                                }}
+                                style={{ padding: '0.875rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.75rem', color: '#374151', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' }}
                                 onClick={() => navigate('/poultry/hatchery-audit/settings')}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.borderColor = '#667eea';
-                                    e.currentTarget.style.transform = 'translateY(-3px)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.borderColor = '#e5e7eb';
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#366092'; e.currentTarget.style.color = '#366092'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#374151'; }}
                             >
-                                <span style={{ fontSize: '1.5rem' }}>⚙️</span>
-                                <span>Settings</span>
+                                Settings
                             </button>
                         </div>
                     </div>
 
                     {/* Recent Audits */}
-                    <div style={{
-                        background: 'white',
-                        borderRadius: '1.5rem',
-                        padding: '2rem',
-                        marginBottom: '2.5rem',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                            <h2 style={{ fontSize: '1.375rem', fontWeight: '700' }}>
-                                Recent Audits
-                            </h2>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }} id="recent-audits">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                            <h2 style={{ fontSize: '1.1rem', fontWeight: '700' }}>Recent Audits</h2>
                             {completedAudits.length > 0 && (
                                 <button
                                     onClick={handleViewHistory}
-                                    style={{
-                                        padding: '0.625rem 1.25rem',
-                                        background: 'white',
-                                        border: '2px solid #e5e7eb',
-                                        borderRadius: '0.5rem',
-                                        fontSize: '0.875rem',
-                                        fontWeight: '600',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s ease'
-                                    }}
-                                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#667eea'}
-                                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e5e7eb'}
+                                    style={{ padding: '0.5rem 1rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.5rem', fontSize: '0.8125rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease', color: '#374151' }}
+                                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#366092'}
+                                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e2e8f0'}
                                 >
                                     View All
                                 </button>
@@ -380,43 +151,21 @@ function Dashboard() {
                         </div>
 
                         {completedAudits.length === 0 ? (
-                            <div style={{
-                                textAlign: 'center',
-                                padding: '4rem 2rem'
-                            }}>
-                                <div style={{ fontSize: '5rem', marginBottom: '1rem' }}>📊</div>
-                                <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.75rem' }}>
-                                    No Audits Yet
-                                </h3>
-                                <p style={{ color: '#6B7280', marginBottom: '2rem', maxWidth: '500px', margin: '0 auto 2rem' }}>
+                            <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>No Audits Yet</h3>
+                                <p style={{ color: '#64748b', marginBottom: '1.5rem', maxWidth: '440px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
                                     Start your first hatchery audit to track compliance and environmental quality
                                 </p>
                                 <button
-                                    style={{
-                                        padding: '1rem 2.5rem',
-                                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                        border: 'none',
-                                        borderRadius: '0.75rem',
-                                        color: 'white',
-                                        fontSize: '1.0625rem',
-                                        fontWeight: '700',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s ease',
-                                        boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)'
-                                    }}
+                                    style={{ padding: '0.75rem 2rem', background: '#1e293b', border: 'none', borderRadius: '0.75rem', color: 'white', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
                                     onClick={handleStartNewAudit}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1.05)';
-                                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
-                                    }}
+                                    onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
+                                    onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
                                 >
                                     Start First Audit
                                 </button>
                             </div>
+
                         ) : (
                             <div style={{ overflowX: 'auto' }}>
                                 <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0.75rem' }}>
