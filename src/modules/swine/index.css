@@ -593,6 +593,7 @@ a:hover {
   margin-bottom: var(--space-3);
   cursor: pointer;
   transition: all var(--transition-fast);
+  position: relative;
 }
 
 .disease-card:hover {
@@ -1553,6 +1554,36 @@ a:hover {
   }
 }
 
+/* Narrow screen fixes (e.g. 314px) */
+@media (max-width: 400px) {
+  .action-card {
+    padding: 0.625rem;
+  }
+
+  .action-card-icon {
+    font-size: 2.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .action-card-title {
+    font-size: 1.1rem;
+  }
+
+  .action-card-description {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .action-card-feature {
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+  }
+
+  .page-header img {
+    height: 140px !important;
+  }
+}
+
 /* Print Styles */
 @media print {
 
@@ -1588,18 +1619,25 @@ a:hover {
   .card {
     box-shadow: none !important;
     border: 1px solid #e5e7eb !important;
-    page-break-inside: avoid;
+    /* Do NOT use page-break-inside: avoid here — it pushes the whole card to page 2 */
   }
 
-  /* Ensure Vaksindo logo and branding are included */
+  /* Each section inside the disease detail card should try to stay together */
+  .card>div {
+    break-inside: avoid;
+  }
+
+  /* Show Powered By Vaksindo in print */
   .footer-branding {
     display: block !important;
-    page-break-inside: avoid;
-    margin-top: 2rem !important;
+    margin-top: 1.5rem !important;
+    padding-bottom: 0.5rem !important;
+    text-align: center;
+    break-inside: avoid;
   }
 
   .vaksindo-logo {
-    max-width: 200px !important;
+    max-width: 160px !important;
   }
 
   /* Optimize page breaks */
@@ -1611,7 +1649,7 @@ a:hover {
 
   /* Remove unnecessary spacing */
   .container {
-    padding: 1rem !important;
+    padding: 0.5rem !important;
   }
 
   /* Improvement Plan Print Styles */

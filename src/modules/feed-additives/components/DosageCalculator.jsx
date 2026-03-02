@@ -500,18 +500,30 @@ const DosageCalculator = () => {
         csvContent += `Total Treatment Days,${calculationData.results.totalDays}\n`;
         csvContent += `Number of Periods,${calculationData.protocolPeriods.length}\n\n`;
 
-        // Period Details
+        // Period Summary
         csvContent += "PERIOD BREAKDOWN\n";
         csvContent += "Period,Start Day,End Day,Days,Total Water (L),Total Feed (kg),Product Needed (g),Cost (VND)\n";
         calculationData.results.periods.forEach((period, index) => {
-            csvContent += `${index + 1},${period.startDay},${period.endDay},${period.days},${period.totalWaterL},${period.totalFeedKg},${period.productNeeded},${period.cost}\n`;
+            csvContent += `${index + 1},${period.startDay},${period.endDay},${period.days},${parseFloat(period.totalWaterL).toLocaleString()},${parseFloat(period.totalFeedKg).toLocaleString()},${parseFloat(period.productNeeded).toLocaleString()},${parseInt(period.cost).toLocaleString()}\n`;
+        });
+
+        // Daily Detail Breakdown
+        csvContent += "\nDAILY CALCULATION DETAILS\n";
+        calculationData.results.periods.forEach((period, periodIndex) => {
+            csvContent += `\nPeriod ${periodIndex + 1}: Day ${period.startDay}-${period.endDay} (${period.days} days)\n`;
+            csvContent += "Day,Age (days),Water (ml/animal),Total Water (L),Feed (g/animal),Total Feed (kg),Product (g),Cost (VND)\n";
+            period.dailyBreakdown.forEach(day => {
+                csvContent += `${day.day},${day.ageInDays},${day.waterPerAnimal.toFixed(1)},${parseFloat(day.totalWaterL).toLocaleString()},${day.feedPerAnimal.toFixed(1)},${parseFloat(day.totalFeedKg).toLocaleString()},${parseFloat(day.productNeeded).toLocaleString()},${day.cost.toLocaleString()}\n`;
+            });
+            // Total row for this period
+            csvContent += `Total Period,,,${parseFloat(period.totalWaterL).toLocaleString()},,${parseFloat(period.totalFeedKg).toLocaleString()},${parseFloat(period.productNeeded).toLocaleString()},${parseInt(period.cost).toLocaleString()}\n`;
         });
 
         // Total Investment
         csvContent += "\nTOTAL INVESTMENT\n";
         csvContent += `Total Product (kg),${(calculationData.results.totalProductGrams / 1000).toFixed(2)}\n`;
-        csvContent += `Total Cost (VND),${calculationData.results.totalCost}\n`;
-        csvContent += `Cost per Animal (VND),${Math.round(calculationData.results.costPerAnimal)}\n\n`;
+        csvContent += `Total Cost (VND),${calculationData.results.totalCost.toLocaleString()}\n`;
+        csvContent += `Cost per Animal (VND),${Math.round(calculationData.results.costPerAnimal).toLocaleString()}\n\n`;
 
         // Inquiry Information (if filled)
         if (inquiryData.name || inquiryData.email || inquiryData.phone) {
@@ -522,7 +534,7 @@ const DosageCalculator = () => {
         }
 
         // Create download link
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         const url = URL.createObjectURL(blob);
         link.setAttribute('href', url);
@@ -919,13 +931,13 @@ const DosageCalculator = () => {
     };
 
     return (
-        <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', padding: '2rem' }}>
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', padding: 'clamp(0.5rem, 3vw, 2rem)' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 {/* Header */}
                 <div style={{
                     background: '#f3f4f6',
                     color: '#1f2937',
-                    padding: '2rem',
+                    padding: 'clamp(1rem, 4vw, 2rem)',
                     borderRadius: '12px',
                     marginBottom: '2rem',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
@@ -951,9 +963,7 @@ const DosageCalculator = () => {
                         <h1 style={{ fontSize: 'clamp(1.1rem, 5vw, 2rem)', fontWeight: '700', marginBottom: '0.25rem', color: '#1f2937', lineHeight: 1.2 }}>
                             FEED ADDITIVES CALCULATOR
                         </h1>
-                        <p style={{ color: '#6b7280', fontSize: 'clamp(0.75rem, 2.5vw, 1rem)' }}>
-                            Vaksindo Vietnam - United Animal Health Products
-                        </p>
+
                     </div>
                 </div>
 
@@ -997,7 +1007,7 @@ const DosageCalculator = () => {
                 {/* Step Content */}
                 <div style={{
                     background: 'white',
-                    padding: '2rem',
+                    padding: 'clamp(0.625rem, 3vw, 2rem)',
                     borderRadius: '12px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                     minHeight: '400px'
@@ -1620,8 +1630,8 @@ const DosageCalculator = () => {
                             {/* Step 1: Animal Selection */}
                             {currentStep === 1 && (
                                 <div>
-                                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                        {t('step1')}: {t('selectAnimalType').replace(':', '')}
+                                    <h2 style={{ fontSize: 'clamp(1.125rem, 4vw, 1.5rem)', fontWeight: '600', marginBottom: '1.5rem' }}>
+                                        {t('step1')}
                                     </h2>
 
                                     {/* Animal Type Selection */}
@@ -1629,7 +1639,7 @@ const DosageCalculator = () => {
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
                                             {t('selectAnimalType')}
                                         </label>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
                                             {['swine', 'poultry'].map(type => (
                                                 <button
                                                     key={type}
@@ -1639,12 +1649,12 @@ const DosageCalculator = () => {
                                                         updateData('specificCategory', '');
                                                     }}
                                                     style={{
-                                                        padding: '1.5rem',
+                                                        padding: 'clamp(0.75rem, 3vw, 1.5rem)',
                                                         border: calculationData.animalType === type ? '3px solid #667eea' : '2px solid #e5e7eb',
                                                         borderRadius: '8px',
                                                         background: calculationData.animalType === type ? '#f3f4ff' : 'white',
                                                         cursor: 'pointer',
-                                                        fontSize: '1.125rem',
+                                                        fontSize: 'clamp(1rem, 3vw, 1.125rem)',
                                                         fontWeight: '600',
                                                         textTransform: 'capitalize',
                                                         transition: 'all 0.2s'
@@ -1662,7 +1672,7 @@ const DosageCalculator = () => {
                                             <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
                                                 {t('selectProductionCategory')}
                                             </label>
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
                                                 {['breeding', 'commercial'].map(category => (
                                                     <button
                                                         key={category}
@@ -1671,12 +1681,12 @@ const DosageCalculator = () => {
                                                             updateData('specificCategory', '');
                                                         }}
                                                         style={{
-                                                            padding: '1.5rem',
+                                                            padding: 'clamp(0.75rem, 3vw, 1.5rem)',
                                                             border: calculationData.productionCategory === category ? '3px solid #667eea' : '2px solid #e5e7eb',
                                                             borderRadius: '8px',
                                                             background: calculationData.productionCategory === category ? '#f3f4ff' : 'white',
                                                             cursor: 'pointer',
-                                                            fontSize: '1.125rem',
+                                                            fontSize: 'clamp(1rem, 3vw, 1.125rem)',
                                                             fontWeight: '600',
                                                             textTransform: 'capitalize',
                                                             transition: 'all 0.2s'
@@ -1725,8 +1735,8 @@ const DosageCalculator = () => {
                             {/* Step 2: Flock/Herd Information */}
                             {currentStep === 2 && (
                                 <div>
-                                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                        {t('step2')}: {t('flockHerdInfo')}
+                                    <h2 style={{ fontSize: 'clamp(1.125rem, 4vw, 1.5rem)', fontWeight: '600', marginBottom: '1.5rem' }}>
+                                        {t('step2')}
                                     </h2>
 
                                     <div style={{ maxWidth: '600px' }}>
@@ -1756,7 +1766,7 @@ const DosageCalculator = () => {
                                             <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
                                                 {t('currentAge')}
                                             </label>
-                                            <div style={{ display: 'flex', gap: '1rem' }}>
+                                            <div style={{ display: 'flex', gap: '0.75rem' }}>
                                                 <input
                                                     type="number"
                                                     value={calculationData.age}
@@ -1765,10 +1775,12 @@ const DosageCalculator = () => {
                                                     min="1"
                                                     style={{
                                                         flex: 2,
+                                                        minWidth: 0,
                                                         padding: '0.75rem',
                                                         border: '2px solid #e5e7eb',
                                                         borderRadius: '8px',
-                                                        fontSize: '1rem'
+                                                        fontSize: '1rem',
+                                                        boxSizing: 'border-box'
                                                     }}
                                                 />
                                                 <select
@@ -1776,10 +1788,12 @@ const DosageCalculator = () => {
                                                     onChange={(e) => updateData('ageUnit', e.target.value)}
                                                     style={{
                                                         flex: 1,
+                                                        minWidth: 0,
                                                         padding: '0.75rem',
                                                         border: '2px solid #e5e7eb',
                                                         borderRadius: '8px',
-                                                        fontSize: '1rem'
+                                                        fontSize: '1rem',
+                                                        boxSizing: 'border-box'
                                                     }}
                                                 >
                                                     <option value="days">{t('days')}</option>
@@ -1855,11 +1869,11 @@ const DosageCalculator = () => {
                             {/* Step 3: Product Selection */}
                             {currentStep === 3 && (
                                 <div>
-                                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
+                                    <h2 style={{ fontSize: 'clamp(1.125rem, 4vw, 1.5rem)', fontWeight: '600', marginBottom: '1.5rem' }}>
                                         {t('step3')}: {t('selectProduct')}
                                     </h2>
 
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(300px, 100%), 1fr))', gap: '1rem', marginBottom: '2rem' }}>
                                         {getAvailableProducts().map(product => (
                                             <div
                                                 key={product.id}
@@ -1955,8 +1969,8 @@ const DosageCalculator = () => {
                             {/* Step 4: Protocol & Results */}
                             {currentStep === 4 && (
                                 <div>
-                                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                        {t('step4')}: {t('treatmentProtocol')}
+                                    <h2 style={{ fontSize: 'clamp(1.125rem, 4vw, 1.5rem)', fontWeight: '600', marginBottom: '1.5rem' }}>
+                                        {t('step4')}
                                     </h2>
 
                                     {/* Template Protocol Selection */}
@@ -1964,60 +1978,70 @@ const DosageCalculator = () => {
                                         <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
                                             {t('templateProtocol')}
                                         </h3>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1rem' }}>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
+                                            {/* Standard Prevention Card */}
                                             <button
                                                 onClick={() => useTemplate('standard')}
                                                 style={{
-                                                    padding: '1.5rem',
-                                                    border: '2px solid #e5e7eb',
-                                                    borderRadius: '8px',
-                                                    background: 'white',
+                                                    padding: 'clamp(0.75rem, 3vw, 1rem)',
+                                                    border: '2px solid #d1fae5',
+                                                    borderRadius: '12px',
+                                                    background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
                                                     cursor: 'pointer',
                                                     textAlign: 'left',
-                                                    transition: 'all 0.2s'
+                                                    transition: 'all 0.2s',
+                                                    boxShadow: '0 2px 8px rgba(16,185,129,0.1)'
                                                 }}
                                                 onMouseOver={(e) => {
-                                                    e.currentTarget.style.borderColor = '#667eea';
-                                                    e.currentTarget.style.background = '#f3f4ff';
+                                                    e.currentTarget.style.borderColor = '#10b981';
+                                                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(16,185,129,0.2)';
+                                                    e.currentTarget.style.transform = 'translateY(-2px)';
                                                 }}
                                                 onMouseOut={(e) => {
-                                                    e.currentTarget.style.borderColor = '#e5e7eb';
-                                                    e.currentTarget.style.background = 'white';
+                                                    e.currentTarget.style.borderColor = '#d1fae5';
+                                                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(16,185,129,0.1)';
+                                                    e.currentTarget.style.transform = 'translateY(0)';
                                                 }}
                                             >
-                                                <div style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                                                    📋 {t('standardPreventionTitle')}
+                                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🛡️</div>
+                                                <div style={{ fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', fontWeight: '700', color: '#065f46', marginBottom: '0.35rem', lineHeight: 1.3 }}>
+                                                    {t('standardPreventionTitle')}
                                                 </div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                                    {t('standardPreventionDesc')}
+                                                <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#059669', fontWeight: '500' }}>
+                                                    📅 {t('standardPreventionDesc')}
                                                 </div>
                                             </button>
 
+                                            {/* Intensive Treatment Card */}
                                             <button
                                                 onClick={() => useTemplate('intensive')}
                                                 style={{
-                                                    padding: '1.5rem',
-                                                    border: '2px solid #e5e7eb',
-                                                    borderRadius: '8px',
-                                                    background: 'white',
+                                                    padding: 'clamp(0.75rem, 3vw, 1rem)',
+                                                    border: '2px solid #e0e7ff',
+                                                    borderRadius: '12px',
+                                                    background: 'linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)',
                                                     cursor: 'pointer',
                                                     textAlign: 'left',
-                                                    transition: 'all 0.2s'
+                                                    transition: 'all 0.2s',
+                                                    boxShadow: '0 2px 8px rgba(102,126,234,0.1)'
                                                 }}
                                                 onMouseOver={(e) => {
                                                     e.currentTarget.style.borderColor = '#667eea';
-                                                    e.currentTarget.style.background = '#f3f4ff';
+                                                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(102,126,234,0.2)';
+                                                    e.currentTarget.style.transform = 'translateY(-2px)';
                                                 }}
                                                 onMouseOut={(e) => {
-                                                    e.currentTarget.style.borderColor = '#e5e7eb';
-                                                    e.currentTarget.style.background = 'white';
+                                                    e.currentTarget.style.borderColor = '#e0e7ff';
+                                                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(102,126,234,0.1)';
+                                                    e.currentTarget.style.transform = 'translateY(0)';
                                                 }}
                                             >
-                                                <div style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                                                    🏥 {t('intensiveTreatmentTitle')}
+                                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🏥</div>
+                                                <div style={{ fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', fontWeight: '700', color: '#3730a3', marginBottom: '0.35rem', lineHeight: 1.3 }}>
+                                                    {t('intensiveTreatmentTitle')}
                                                 </div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                                    {t('intensiveTreatmentDesc')}
+                                                <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#4f46e5', fontWeight: '500' }}>
+                                                    📅 {t('intensiveTreatmentDesc')}
                                                 </div>
                                             </button>
                                         </div>
@@ -2168,7 +2192,7 @@ const DosageCalculator = () => {
                                             background: '#f0fdf4',
                                             border: '2px solid #86efac',
                                             borderRadius: '12px',
-                                            padding: '2rem'
+                                            padding: 'clamp(0.75rem, 3vw, 2rem)'
                                         }}>
                                             {/* Print Header - Only visible when printing */}
                                             <div className="print-header">
@@ -2193,7 +2217,7 @@ const DosageCalculator = () => {
                                                 borderRadius: '8px',
                                                 marginBottom: '1.5rem'
                                             }}>
-                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
+                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))', gap: '1rem' }}>
                                                     <div>
                                                         <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('product')}</div>
                                                         <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
@@ -2235,7 +2259,7 @@ const DosageCalculator = () => {
                                                     <div style={{ fontWeight: '700', marginBottom: '0.75rem' }}>
                                                         {t('period')} {index + 1}: {t('day')} {period.startDay}-{period.endDay} ({period.days} {t('days')})
                                                     </div>
-                                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem', fontSize: '0.875rem' }}>
+                                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))', gap: '0.5rem', fontSize: '0.875rem' }}>
                                                         <div>{t('totalWater')} {parseFloat(period.totalWaterL).toLocaleString()} L</div>
                                                         <div>{t('totalFeed')} {parseFloat(period.totalFeedKg).toLocaleString()} kg</div>
                                                         <div style={{ color: '#667eea', fontWeight: '600' }}>
@@ -2310,8 +2334,8 @@ const DosageCalculator = () => {
                                                 padding: '1.5rem',
                                                 marginTop: '1.5rem'
                                             }}>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                                                    <h4 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1e40af' }}>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                                                    <h4 style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: '700', color: '#1e40af', flex: 1, minWidth: '120px' }}>
                                                         📋 {t('dailyCalculationDetails')}
                                                     </h4>
                                                     <button
@@ -2320,11 +2344,13 @@ const DosageCalculator = () => {
                                                             background: '#3b82f6',
                                                             color: 'white',
                                                             border: 'none',
-                                                            padding: '0.5rem 1rem',
+                                                            padding: '0.4rem 0.75rem',
                                                             borderRadius: '6px',
                                                             cursor: 'pointer',
-                                                            fontSize: '0.875rem',
-                                                            fontWeight: '600'
+                                                            fontSize: '0.8rem',
+                                                            fontWeight: '600',
+                                                            flexShrink: 0,
+                                                            whiteSpace: 'nowrap'
                                                         }}
                                                     >
                                                         {showDailyDetails ? '🔼 ' + t('hideDetails') : '🔽 ' + t('showDetails')}
@@ -2359,29 +2385,29 @@ const DosageCalculator = () => {
                                                                     }}>
                                                                         <thead>
                                                                             <tr style={{ background: '#f3f4f6' }}>
-                                                                                <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #e5e7eb' }}>{t('dayColumn')}</th>
-                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('ageColumn')}</th>
-                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('waterPerAnimal')}</th>
-                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('totalWaterL')}</th>
-                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('feedPerAnimal')}</th>
-                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb' }}>{t('totalFeedKg')}</th>
-                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#667eea' }}>{t('productG')}</th>
-                                                                                <th style={{ padding: '0.75rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', color: '#f59e0b' }}>{t('costVND')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'left', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('dayColumn')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('ageColumn')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('waterPerAnimal')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('totalWaterL')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('feedPerAnimal')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('totalFeedKg')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem', color: '#667eea' }}>{t('productG')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem', color: '#f59e0b' }}>{t('costVND')}</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             {period.dailyBreakdown.map((day, dayIndex) => (
                                                                                 <tr key={dayIndex} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                                                                    <td style={{ padding: '0.75rem' }}>{day.day}</td>
-                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.ageInDays}</td>
-                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.waterPerAnimal.toFixed(1)}</td>
-                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(day.totalWaterL).toLocaleString()}</td>
-                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{day.feedPerAnimal.toFixed(1)}</td>
-                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(day.totalFeedKg).toLocaleString()}</td>
-                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right', color: '#667eea', fontWeight: '600' }}>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', fontSize: '0.75rem' }}>{day.day}</td>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{day.ageInDays}</td>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{day.waterPerAnimal.toFixed(1)}</td>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{parseFloat(day.totalWaterL).toLocaleString()}</td>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{day.feedPerAnimal.toFixed(1)}</td>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{parseFloat(day.totalFeedKg).toLocaleString()}</td>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem', color: '#667eea', fontWeight: '600' }}>
                                                                                         {parseFloat(day.productNeeded).toLocaleString()}
                                                                                     </td>
-                                                                                    <td style={{ padding: '0.75rem', textAlign: 'right', color: '#f59e0b', fontWeight: '600' }}>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem', color: '#f59e0b', fontWeight: '600' }}>
                                                                                         {day.cost.toLocaleString()}
                                                                                     </td>
                                                                                 </tr>
@@ -2410,24 +2436,27 @@ const DosageCalculator = () => {
                                             {/* Export Buttons */}
                                             <div className="no-print" style={{
                                                 display: 'flex',
-                                                gap: '1rem',
+                                                gap: '0.75rem',
                                                 marginTop: '2rem',
                                                 justifyContent: 'center'
                                             }}>
                                                 <button
                                                     onClick={exportToExcel}
                                                     style={{
-                                                        padding: '0.75rem 2rem',
-                                                        background: '#10b981',
+                                                        flex: 1,
+                                                        padding: '0.75rem 0.5rem',
+                                                        background: 'linear-gradient(135deg, #10b981, #059669)',
                                                         color: 'white',
                                                         border: 'none',
                                                         borderRadius: '8px',
                                                         cursor: 'pointer',
-                                                        fontSize: '1rem',
+                                                        fontSize: 'clamp(0.8rem, 3vw, 1rem)',
                                                         fontWeight: '600',
                                                         display: 'flex',
                                                         alignItems: 'center',
-                                                        gap: '0.5rem'
+                                                        justifyContent: 'center',
+                                                        gap: '0.4rem',
+                                                        textAlign: 'center'
                                                     }}
                                                 >
                                                     📊 {t('exportToExcel')}
@@ -2435,17 +2464,20 @@ const DosageCalculator = () => {
                                                 <button
                                                     onClick={printPDF}
                                                     style={{
-                                                        padding: '0.75rem 2rem',
-                                                        background: '#ef4444',
+                                                        flex: 1,
+                                                        padding: '0.75rem 0.5rem',
+                                                        background: 'linear-gradient(135deg, #ef4444, #dc2626)',
                                                         color: 'white',
                                                         border: 'none',
                                                         borderRadius: '8px',
                                                         cursor: 'pointer',
-                                                        fontSize: '1rem',
+                                                        fontSize: 'clamp(0.8rem, 3vw, 1rem)',
                                                         fontWeight: '600',
                                                         display: 'flex',
                                                         alignItems: 'center',
-                                                        gap: '0.5rem'
+                                                        justifyContent: 'center',
+                                                        gap: '0.4rem',
+                                                        textAlign: 'center'
                                                     }}
                                                 >
                                                     🖨️ {t('printPDF')}
@@ -2457,8 +2489,9 @@ const DosageCalculator = () => {
                                                 background: '#f0f9ff',
                                                 border: '2px solid #0ea5e9',
                                                 borderRadius: '12px',
-                                                padding: '2rem',
-                                                marginTop: '2rem'
+                                                padding: 'clamp(1rem, 4vw, 2rem)',
+                                                marginTop: '2rem',
+                                                boxSizing: 'border-box'
                                             }}>
                                                 <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#0369a1' }}>
                                                     📧 {t('requestForInquiry')}
@@ -2467,7 +2500,7 @@ const DosageCalculator = () => {
                                                     {t('inquiryDescription')}
                                                 </p>
 
-                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
+                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))', gap: '1rem' }}>
                                                     <div>
                                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
                                                             {t('name')} *
@@ -2482,7 +2515,8 @@ const DosageCalculator = () => {
                                                                 padding: '0.75rem',
                                                                 border: '2px solid #e5e7eb',
                                                                 borderRadius: '8px',
-                                                                fontSize: '1rem'
+                                                                fontSize: '1rem',
+                                                                boxSizing: 'border-box'
                                                             }}
                                                         />
                                                     </div>
@@ -2500,7 +2534,8 @@ const DosageCalculator = () => {
                                                                 padding: '0.75rem',
                                                                 border: '2px solid #e5e7eb',
                                                                 borderRadius: '8px',
-                                                                fontSize: '1rem'
+                                                                fontSize: '1rem',
+                                                                boxSizing: 'border-box'
                                                             }}
                                                         />
                                                     </div>
@@ -2518,7 +2553,8 @@ const DosageCalculator = () => {
                                                                 padding: '0.75rem',
                                                                 border: '2px solid #e5e7eb',
                                                                 borderRadius: '8px',
-                                                                fontSize: '1rem'
+                                                                fontSize: '1rem',
+                                                                boxSizing: 'border-box'
                                                             }}
                                                         />
                                                     </div>
@@ -2535,7 +2571,7 @@ const DosageCalculator = () => {
                                                     }}
                                                     style={{
                                                         marginTop: '1.5rem',
-                                                        padding: '0.75rem 2rem',
+                                                        padding: '0.75rem 1rem',
                                                         background: '#0ea5e9',
                                                         color: 'white',
                                                         border: 'none',
@@ -2570,20 +2606,21 @@ const DosageCalculator = () => {
                             }}>
                                 {currentStep === 4 ? (
                                     // Results page navigation
-                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', width: '100%' }}>
+                                    <div style={{ display: 'flex', gap: '0.75rem', width: '100%' }}>
                                         <button
                                             onClick={prevStep}
                                             style={{
-                                                padding: '0.75rem 1rem',
+                                                flex: 1,
+                                                minWidth: 0,
+                                                padding: '0.75rem 0.5rem',
                                                 background: 'white',
                                                 color: '#374151',
                                                 border: '2px solid #e5e7eb',
                                                 borderRadius: '8px',
                                                 cursor: 'pointer',
-                                                fontSize: '1rem',
+                                                fontSize: 'clamp(0.8rem, 3vw, 1rem)',
                                                 fontWeight: '600',
-                                                flexShrink: 0,
-                                                whiteSpace: 'nowrap'
+                                                textAlign: 'center'
                                             }}
                                         >
                                             ← Previous
@@ -2591,17 +2628,17 @@ const DosageCalculator = () => {
                                         <button
                                             onClick={resetCalculation}
                                             style={{
-                                                padding: '0.75rem 1rem',
-                                                background: '#10b981',
+                                                flex: 1,
+                                                minWidth: 0,
+                                                padding: '0.75rem 0.5rem',
+                                                background: 'linear-gradient(135deg, #10b981, #059669)',
                                                 color: 'white',
                                                 border: 'none',
                                                 borderRadius: '8px',
                                                 cursor: 'pointer',
-                                                fontSize: '1rem',
+                                                fontSize: 'clamp(0.8rem, 3vw, 1rem)',
                                                 fontWeight: '600',
-                                                marginLeft: 'auto',
-                                                flexShrink: 0,
-                                                whiteSpace: 'nowrap'
+                                                textAlign: 'center'
                                             }}
                                         >
                                             🔄 {t('newCalculation')}
@@ -2655,7 +2692,7 @@ const DosageCalculator = () => {
                                                     ) ? 0.5 : 1
                                                 }}
                                             >
-                                                {t('next')} →
+                                                {t('next')}
                                             </button>
                                         )}
                                     </>

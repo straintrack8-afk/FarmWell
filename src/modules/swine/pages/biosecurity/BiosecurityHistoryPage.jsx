@@ -104,7 +104,7 @@ function BiosecurityHistoryPage() {
                             fontWeight: '600'
                         }}
                     >
-                        ← {getTranslation('backToDashboard')}
+                        {getTranslation('backToDashboard')}
                     </button>
                 </div>
 

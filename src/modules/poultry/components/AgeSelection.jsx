@@ -225,7 +225,7 @@ function AgeSelection() {
                                 e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
                             }}
                         >
-                            Continue →
+                            Continue
                         </button>
                     </div>
                 </div>

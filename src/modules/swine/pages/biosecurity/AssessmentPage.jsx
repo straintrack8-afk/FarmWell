@@ -396,7 +396,7 @@ function AssessmentPage() {
                     onClick={() => navigate('/swine/biosecurity/dashboard')}
                     style={{ marginBottom: '1rem' }}
                 >
-                    ← {getTranslation('backToDashboard')}
+                    {getTranslation('backToDashboard')}
                 </button>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.25rem' }}>
                     Focus Area {focusAreaNumber}: {focusAreaInfo.name}
@@ -450,7 +450,7 @@ function AssessmentPage() {
                     disabled={currentQuestionIndex === 0}
                     style={{ flex: 1 }}
                 >
-                    ← {getTranslation('previous')}
+                    {getTranslation('previous')}
                 </button>
 
                 <button
@@ -469,7 +469,7 @@ function AssessmentPage() {
                 >
                     {currentQuestionIndex === applicableQuestions.length - 1
                         ? getTranslation('complete')
-                        : `${getTranslation('next')} →`
+                        : `${getTranslation('next')}`
                     }
                 </button>
             </div>

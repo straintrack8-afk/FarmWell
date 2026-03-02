@@ -16,7 +16,7 @@ function BroilerAssessmentDashboard() {
         isLoading,
         error
     } = useBroilerAssessment();
-    
+
     const [hasSavedProgress, setHasSavedProgress] = useState(false);
 
     useEffect(() => {
@@ -120,12 +120,12 @@ function BroilerAssessmentDashboard() {
         return { answered, total };
     };
 
-    // Focus area colors
-    const focusAreaColors = [
-        { bg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', shadow: 'rgba(102, 126, 234, 0.3)' }, // Purple
-        { bg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', shadow: 'rgba(240, 147, 251, 0.3)' }, // Pink
-        { bg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', shadow: 'rgba(79, 172, 254, 0.3)' }, // Blue
-        { bg: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', shadow: 'rgba(67, 233, 123, 0.3)' }  // Green
+    // Focus area accent border colors (neutral)
+    const focusAreaBorders = [
+        '#366092', // Navy blue
+        '#10B981', // Green
+        '#F59E0B', // Amber
+        '#8B5CF6'  // Purple
     ];
 
     return (
@@ -177,53 +177,40 @@ function BroilerAssessmentDashboard() {
                                     gap: '0.5rem'
                                 }}
                             >
-                                ← Back
+                                Back
                             </button>
                             <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
                                 Broiler Farm Biosecurity Assessment
                             </h1>
                             <p style={{ color: '#6b7280' }}>
-                                {hasSavedProgress 
+                                {hasSavedProgress
                                     ? 'Select a category to continue your assessment'
                                     : 'Select a category to begin your assessment'
                                 }
                             </p>
                         </div>
 
-                        {/* Progress Overview */}
-                        <div style={{
-                            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-                            borderRadius: '12px',
-                            padding: '2rem',
-                            color: 'white',
-                            marginBottom: '2rem'
-                        }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-                                <div>
-                                    <div style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem' }}>Overall Progress</div>
-                                    <div style={{ fontSize: '2.5rem', fontWeight: '700' }}>
-                                        {progressStats?.answeredQuestions || 0} / {progressStats?.totalQuestions || 0}
-                                    </div>
-                                    <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>
-                                        {progressStats?.percentage?.toFixed(1) || 0}% Complete
-                                    </div>
-                                </div>
+                        {/* Progress Overview — 2×2 metric cards */}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #366092', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Total Questions</div>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{progressStats?.totalQuestions || 0}</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>across all areas</div>
                             </div>
-                            {/* Progress Bar */}
-                            <div style={{
-                                marginTop: '1.5rem',
-                                height: '8px',
-                                background: 'rgba(255,255,255,0.3)',
-                                borderRadius: '999px',
-                                overflow: 'hidden'
-                            }}>
-                                <div style={{
-                                    height: '100%',
-                                    width: `${progressStats?.percentage || 0}%`,
-                                    background: 'white',
-                                    borderRadius: '999px',
-                                    transition: 'width 0.3s ease'
-                                }}></div>
+                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Answered</div>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{progressStats?.answeredQuestions || 0}</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>questions completed</div>
+                            </div>
+                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #F59E0B', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Progress</div>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#F59E0B', lineHeight: 1 }}>{progressStats?.percentage?.toFixed(0) || 0}%</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>overall completion</div>
+                            </div>
+                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #8B5CF6', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Focus Areas</div>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#8B5CF6', lineHeight: 1 }}>{allAreas.length}</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>total assessment areas</div>
                             </div>
                         </div>
 
@@ -342,144 +329,78 @@ function BroilerAssessmentDashboard() {
                                 {getLocalizedText(focusAreas.external_biosecurity?.name, language)}
                             </h2>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: '1.5rem'
-                    }}>
-                        {externalAreas.map((area, index) => {
-                            const progress = getFocusAreaProgress(area);
-                            const percentage = progress.total > 0 ? Math.round((progress.answered / progress.total) * 100) : 0;
-                            const color = focusAreaColors[index];
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                                gap: '1.5rem'
+                            }}>
+                                {externalAreas.map((area, index) => {
+                                    const progress = getFocusAreaProgress(area);
+                                    const percentage = progress.total > 0 ? Math.round((progress.answered / progress.total) * 100) : 0;
+                                    const color = focusAreaColors[index];
 
-                            return (
-                                <div key={area.id} style={{
-                                    background: color.bg,
-                                    borderRadius: '1.5rem',
-                                    padding: '1.5rem',
-                                    color: 'white',
-                                    position: 'relative',
-                                    overflow: 'hidden',
-                                    boxShadow: `0 10px 30px ${color.shadow}`,
-                                    transition: 'transform 0.3s ease',
-                                    cursor: 'pointer'
-                                }}
-                                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                                >
-                                    {/* Background decoration */}
-                                    <div style={{
-                                        position: 'absolute',
-                                        top: '-30px',
-                                        right: '-30px',
-                                        width: '100px',
-                                        height: '100px',
-                                        borderRadius: '50%',
-                                        background: 'rgba(255, 255, 255, 0.1)'
-                                    }} />
-
-                                    <div style={{ position: 'relative', zIndex: 1 }}>
-                                        {/* Header */}
-                                        <div style={{ marginBottom: '1rem' }}>
-                                            <div style={{
-                                                fontSize: '0.75rem',
-                                                fontWeight: '600',
-                                                opacity: 0.9,
-                                                marginBottom: '0.25rem'
-                                            }}>
-                                                FOCUS AREA {index + 1}
-                                            </div>
-                                            <h3 style={{
-                                                fontSize: '1.25rem',
-                                                fontWeight: '700',
-                                                margin: '0 0 0.5rem 0'
-                                            }}>
-                                                {getLocalizedText(area.name, language)}
-                                            </h3>
-                                            <p style={{
-                                                fontSize: '0.875rem',
-                                                opacity: 0.9,
-                                                margin: 0
-                                            }}>
-                                                {getLocalizedText(area.subtitle, language)}
-                                            </p>
-                                        </div>
-
-                                        {/* Stats */}
-                                        <div style={{
-                                            display: 'flex',
-                                            gap: '1rem',
-                                            marginBottom: '1rem',
-                                            fontSize: '0.875rem'
-                                        }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                                <span>📝</span>
-                                                <span>{area.question_count} questions</span>
-                                            </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                                <span>⏱️</span>
-                                                <span>~{area.estimated_time}</span>
-                                            </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                                <span>✓</span>
-                                                <span>{progress.answered} answered</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Progress */}
-                                        <div style={{ marginBottom: '1rem' }}>
-                                            <div style={{
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                fontSize: '0.75rem',
-                                                marginBottom: '0.5rem',
-                                                opacity: 0.9
-                                            }}>
-                                                <span>Progress</span>
-                                                <span>{percentage}%</span>
-                                            </div>
-                                            <div style={{
-                                                height: '8px',
-                                                background: 'rgba(255, 255, 255, 0.2)',
-                                                borderRadius: '4px',
-                                                overflow: 'hidden'
-                                            }}>
-                                                <div style={{
-                                                    height: '100%',
-                                                    width: `${percentage}%`,
-                                                    background: 'white',
-                                                    borderRadius: '4px',
-                                                    transition: 'width 0.3s ease'
-                                                }} />
-                                            </div>
-                                        </div>
-
-                                        {/* Button */}
-                                        <button
-                                            style={{
-                                                width: '100%',
-                                                padding: '0.75rem',
-                                                background: 'white',
-                                                color: '#1f2937',
-                                                border: 'none',
-                                                borderRadius: '0.75rem',
-                                                fontSize: '0.9375rem',
-                                                fontWeight: '600',
-                                                cursor: 'pointer',
-                                                transition: 'all 0.2s ease'
-                                            }}
-                                            onClick={() => handleStartFocusArea('external', index)}
-                                            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                                            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    return (
+                                        <div key={area.id} style={{
+                                            background: 'white',
+                                            borderRadius: '0.75rem',
+                                            padding: '1.25rem',
+                                            borderLeft: `4px solid ${focusAreaBorders[index] || '#366092'}`,
+                                            boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+                                            transition: 'box-shadow 0.2s ease',
+                                            cursor: 'pointer',
+                                            minWidth: 0,
+                                            overflow: 'hidden'
+                                        }}
+                                            onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)'}
+                                            onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.07)'}
                                         >
-                                            {progress.answered > 0 ? 'Continue →' : 'Start →'}
-                                        </button>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+                                            <div>
+                                                {/* Header */}
+                                                <div style={{ marginBottom: '0.75rem' }}>
+                                                    <div style={{ fontSize: '0.65rem', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>
+                                                        FOCUS AREA {index + 1}
+                                                    </div>
+                                                    <h3 style={{ fontSize: '1rem', fontWeight: '700', margin: '0 0 0.25rem 0', color: '#1e293b' }}>
+                                                        {getLocalizedText(area.name, language)}
+                                                    </h3>
+                                                    <p style={{ fontSize: '0.8125rem', color: '#64748b', margin: 0 }}>
+                                                        {getLocalizedText(area.subtitle, language)}
+                                                    </p>
+                                                </div>
+
+                                                {/* Stats */}
+                                                <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', fontSize: '0.75rem', color: '#64748b' }}>
+                                                    <span>{area.question_count} questions</span>
+                                                    <span>·</span>
+                                                    <span>{progress.answered} answered</span>
+                                                </div>
+
+                                                {/* Progress */}
+                                                <div style={{ marginBottom: '0.75rem' }}>
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                                                        <span>Progress</span>
+                                                        <span>{percentage}%</span>
+                                                    </div>
+                                                    <div style={{ height: '6px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
+                                                        <div style={{ height: '100%', width: `${percentage}%`, background: focusAreaBorders[index] || '#366092', borderRadius: '4px', transition: 'width 0.3s ease' }} />
+                                                    </div>
+                                                </div>
+
+                                                {/* Button */}
+                                                <button
+                                                    style={{ width: '100%', padding: '0.625rem', background: '#1e293b', color: 'white', border: 'none', borderRadius: '0.5rem', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
+                                                    onClick={() => handleStartFocusArea('external', index)}
+                                                    onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
+                                                    onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
+                                                >
+                                                    {progress.answered > 0 ? 'Continue' : 'Start'}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
 
                         {/* Internal Biosecurity */}
                         <div style={{ marginBottom: '2rem' }}>
@@ -492,144 +413,78 @@ function BroilerAssessmentDashboard() {
                                 {getLocalizedText(focusAreas.internal_biosecurity?.name, language)}
                             </h2>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: '1.5rem'
-                    }}>
-                        {internalAreas.map((area, index) => {
-                            const progress = getFocusAreaProgress(area);
-                            const percentage = progress.total > 0 ? Math.round((progress.answered / progress.total) * 100) : 0;
-                            const color = focusAreaColors[index + 2];
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                                gap: '1.5rem'
+                            }}>
+                                {internalAreas.map((area, index) => {
+                                    const progress = getFocusAreaProgress(area);
+                                    const percentage = progress.total > 0 ? Math.round((progress.answered / progress.total) * 100) : 0;
+                                    const color = focusAreaColors[index + 2];
 
-                            return (
-                                <div key={area.id} style={{
-                                    background: color.bg,
-                                    borderRadius: '1.5rem',
-                                    padding: '1.5rem',
-                                    color: 'white',
-                                    position: 'relative',
-                                    overflow: 'hidden',
-                                    boxShadow: `0 10px 30px ${color.shadow}`,
-                                    transition: 'transform 0.3s ease',
-                                    cursor: 'pointer'
-                                }}
-                                    onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-                                    onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                                >
-                                    {/* Background decoration */}
-                                    <div style={{
-                                        position: 'absolute',
-                                        top: '-30px',
-                                        right: '-30px',
-                                        width: '100px',
-                                        height: '100px',
-                                        borderRadius: '50%',
-                                        background: 'rgba(255, 255, 255, 0.1)'
-                                    }} />
-
-                                    <div style={{ position: 'relative', zIndex: 1 }}>
-                                        {/* Header */}
-                                        <div style={{ marginBottom: '1rem' }}>
-                                            <div style={{
-                                                fontSize: '0.75rem',
-                                                fontWeight: '600',
-                                                opacity: 0.9,
-                                                marginBottom: '0.25rem'
-                                            }}>
-                                                FOCUS AREA {index + 3}
-                                            </div>
-                                            <h3 style={{
-                                                fontSize: '1.25rem',
-                                                fontWeight: '700',
-                                                margin: '0 0 0.5rem 0'
-                                            }}>
-                                                {getLocalizedText(area.name, language)}
-                                            </h3>
-                                            <p style={{
-                                                fontSize: '0.875rem',
-                                                opacity: 0.9,
-                                                margin: 0
-                                            }}>
-                                                {getLocalizedText(area.subtitle, language)}
-                                            </p>
-                                        </div>
-
-                                        {/* Stats */}
-                                        <div style={{
-                                            display: 'flex',
-                                            gap: '1rem',
-                                            marginBottom: '1rem',
-                                            fontSize: '0.875rem'
-                                        }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                                <span>📝</span>
-                                                <span>{area.question_count} questions</span>
-                                            </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                                <span>⏱️</span>
-                                                <span>~{area.estimated_time}</span>
-                                            </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                                <span>✓</span>
-                                                <span>{progress.answered} answered</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Progress */}
-                                        <div style={{ marginBottom: '1rem' }}>
-                                            <div style={{
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                fontSize: '0.75rem',
-                                                marginBottom: '0.5rem',
-                                                opacity: 0.9
-                                            }}>
-                                                <span>Progress</span>
-                                                <span>{percentage}%</span>
-                                            </div>
-                                            <div style={{
-                                                height: '8px',
-                                                background: 'rgba(255, 255, 255, 0.2)',
-                                                borderRadius: '4px',
-                                                overflow: 'hidden'
-                                            }}>
-                                                <div style={{
-                                                    height: '100%',
-                                                    width: `${percentage}%`,
-                                                    background: 'white',
-                                                    borderRadius: '4px',
-                                                    transition: 'width 0.3s ease'
-                                                }} />
-                                            </div>
-                                        </div>
-
-                                        {/* Button */}
-                                        <button
-                                            style={{
-                                                width: '100%',
-                                                padding: '0.75rem',
-                                                background: 'white',
-                                                color: '#1f2937',
-                                                border: 'none',
-                                                borderRadius: '0.75rem',
-                                                fontSize: '0.9375rem',
-                                                fontWeight: '600',
-                                                cursor: 'pointer',
-                                                transition: 'all 0.2s ease'
-                                            }}
-                                            onClick={() => handleStartFocusArea('internal', index)}
-                                            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-                                            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                    return (
+                                        <div key={area.id} style={{
+                                            background: 'white',
+                                            borderRadius: '0.75rem',
+                                            padding: '1.25rem',
+                                            borderLeft: `4px solid ${focusAreaBorders[(index + 2) % 4] || '#366092'}`,
+                                            boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+                                            transition: 'box-shadow 0.2s ease',
+                                            cursor: 'pointer',
+                                            minWidth: 0,
+                                            overflow: 'hidden'
+                                        }}
+                                            onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)'}
+                                            onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.07)'}
                                         >
-                                            {progress.answered > 0 ? 'Continue →' : 'Start →'}
-                                        </button>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+                                            <div>
+                                                {/* Header */}
+                                                <div style={{ marginBottom: '0.75rem' }}>
+                                                    <div style={{ fontSize: '0.65rem', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>
+                                                        FOCUS AREA {index + 3}
+                                                    </div>
+                                                    <h3 style={{ fontSize: '1rem', fontWeight: '700', margin: '0 0 0.25rem 0', color: '#1e293b' }}>
+                                                        {getLocalizedText(area.name, language)}
+                                                    </h3>
+                                                    <p style={{ fontSize: '0.8125rem', color: '#64748b', margin: 0 }}>
+                                                        {getLocalizedText(area.subtitle, language)}
+                                                    </p>
+                                                </div>
+
+                                                {/* Stats */}
+                                                <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', fontSize: '0.75rem', color: '#64748b' }}>
+                                                    <span>{area.question_count} questions</span>
+                                                    <span>·</span>
+                                                    <span>{progress.answered} answered</span>
+                                                </div>
+
+                                                {/* Progress */}
+                                                <div style={{ marginBottom: '0.75rem' }}>
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
+                                                        <span>Progress</span>
+                                                        <span>{percentage}%</span>
+                                                    </div>
+                                                    <div style={{ height: '6px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
+                                                        <div style={{ height: '100%', width: `${percentage}%`, background: focusAreaBorders[(index + 2) % 4] || '#366092', borderRadius: '4px', transition: 'width 0.3s ease' }} />
+                                                    </div>
+                                                </div>
+
+                                                {/* Button */}
+                                                <button
+                                                    style={{ width: '100%', padding: '0.625rem', background: '#1e293b', color: 'white', border: 'none', borderRadius: '0.5rem', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
+                                                    onClick={() => handleStartFocusArea('internal', index)}
+                                                    onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
+                                                    onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
+                                                >
+                                                    {progress.answered > 0 ? 'Continue' : 'Start'}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
 
                         {/* Action Buttons */}
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '2rem' }}>
@@ -645,7 +500,7 @@ function BroilerAssessmentDashboard() {
                                             boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
                                         }}
                                     >
-                                        🖨️ Print Assessment Summary
+                                        Print Assessment Summary
                                     </button>
                                     <button
                                         onClick={() => navigate('/poultry/biosecurity')}

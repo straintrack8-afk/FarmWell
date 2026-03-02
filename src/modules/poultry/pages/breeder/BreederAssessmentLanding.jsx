@@ -264,7 +264,7 @@ function BreederAssessmentLanding() {
                                     marginBottom: '1rem',
                                     color: '#1f2937'
                                 }}>
-                                    📋 Saved Assessments
+                                    Saved Assessments
                                 </h3>
                                 <div style={{
                                     display: 'flex',
@@ -276,9 +276,9 @@ function BreederAssessmentLanding() {
                                         const totalQuestions = 140;
                                         const percentage = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
                                         const lastModified = new Date(assessment.lastModified);
-                                        const dateStr = lastModified.toLocaleDateString('en-US', { 
-                                            month: 'short', 
-                                            day: 'numeric', 
+                                        const dateStr = lastModified.toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
                                             year: 'numeric',
                                             hour: '2-digit',
                                             minute: '2-digit'
@@ -368,7 +368,7 @@ function BreederAssessmentLanding() {
                                                                 boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)'
                                                             }}
                                                         >
-                                                            📊 View Summary
+                                                            View Summary
                                                         </button>
                                                     ) : (
                                                         <button

@@ -538,7 +538,7 @@ function BreederResultsPage() {
                                     onMouseEnter={(e) => e.currentTarget.style.background = '#4f46e5'}
                                     onMouseLeave={(e) => e.currentTarget.style.background = '#6366f1'}
                                 >
-                                    🖨️ Print Report
+                                    Print Report
                                 </button>
                                 <button
                                     onClick={handleBackToLanding}
@@ -556,7 +556,7 @@ function BreederResultsPage() {
                                     onMouseEnter={(e) => e.currentTarget.style.borderColor = '#9ca3af'}
                                     onMouseLeave={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                                 >
-                                    ← Back to Dashboard
+                                    Back to Dashboard
                                 </button>
                                 <button
                                     onClick={handleNewAssessment}

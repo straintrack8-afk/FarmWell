@@ -132,7 +132,7 @@ function BroilerAssessmentPage() {
     };
 
     const isFirstQuestion = currentQuestionIndex === 0 && currentCategoryId === (focusAreas?.external_biosecurity?.areas?.[0]?.categories?.[0]);
-    
+
     // Check if this is the last question in the entire assessment
     const isLastQuestion = () => {
         if (!progressStats) return false;
@@ -160,7 +160,7 @@ function BroilerAssessmentPage() {
                                     onClick={() => setShowProgress(!showProgress)}
                                     className="btn btn-outline btn-small"
                                 >
-                                    {showProgress ? '📝' : '📊'} {showProgress ? 'Hide Progress' : 'Show Progress'}
+                                    {showProgress ? 'Hide Progress' : 'Show Progress'}
                                 </button>
                             </div>
                         </div>
@@ -217,7 +217,7 @@ function BroilerAssessmentPage() {
                                                 onClick={handlePrevious}
                                                 className="btn btn-outline"
                                             >
-                                                ← Previous
+                                                Previous
                                             </button>
                                         )}
                                     </div>
@@ -250,7 +250,7 @@ function BroilerAssessmentPage() {
                                                 onClick={handleNext}
                                                 className="btn btn-primary"
                                             >
-                                                Next →
+                                                Next
                                             </button>
                                         )}
                                     </div>

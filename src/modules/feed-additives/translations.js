@@ -2,7 +2,7 @@ export const feedAdditivesTranslations = {
     en: {
         // Header
         title: "FEED ADDITIVES CALCULATOR",
-        subtitle: "Vaksindo Vietnam - United Animal Health Products",
+        subtitle: "",
 
         // Steps
         step1: "Select Animal",
