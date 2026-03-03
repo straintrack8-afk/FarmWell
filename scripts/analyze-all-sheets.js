@@ -47,4 +47,4 @@ Object.entries(sheetsData).forEach(([name, info]) => {
     console.log(`${name}: ${info.rowCount} rows, ${info.columns.length} columns`);
 });
 
-console.log('\n✅ Full analysis saved to scripts/excel-full-analysis.json');
+console.log('\n Full analysis saved to scripts/excel-full-analysis.json');

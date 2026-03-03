@@ -68,7 +68,7 @@ function Step5_SamplePlan() {
             </div>
 
             <div className="alert info" style={{ marginBottom: '2rem' }}>
-                <span>📋</span>
+                <span></span>
                 <div>
                     <strong>Total Samples: {totalSamples}</strong>
                     <br />
@@ -118,7 +118,7 @@ function Step5_SamplePlan() {
             </div>
 
             <div className="alert warning" style={{ marginTop: '2rem' }}>
-                <span>⚠</span>
+                <span></span>
                 <div>
                     <strong>Note:</strong> Once you proceed to collection, the sampling plan cannot be modified.
                 </div>

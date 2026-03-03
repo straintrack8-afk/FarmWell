@@ -57,8 +57,8 @@ function Step2_VaccineStorage() {
                         color: vaccineStorage.currentTemperature >= 2 && vaccineStorage.currentTemperature <= 8 ? '#10B981' : '#EF4444'
                     }}>
                         {vaccineStorage.currentTemperature >= 2 && vaccineStorage.currentTemperature <= 8
-                            ? '✓ Temperature within acceptable range'
-                            : '⚠ Temperature out of range (+2°C to +8°C)'}
+                            ? ' Temperature within acceptable range'
+                            : ' Temperature out of range (+2°C to +8°C)'}
                     </p>
                 )}
             </div>
@@ -84,12 +84,12 @@ function Step2_VaccineStorage() {
 
             {/* Compliance Score */}
             <div className="alert info" style={{ marginBottom: '2rem' }}>
-                <span>📊</span>
+                <span></span>
                 <div>
                     <strong>Compliance Score:</strong> {passedCount} / {checklist.length} ({percentage}%)
                     <br />
                     <span style={{ fontSize: '0.875rem' }}>
-                        {percentage >= 95 ? '✓ Excellent' : percentage >= 85 ? '⚠ Good' : percentage >= 75 ? '⚠ Fair' : '✗ Poor'}
+                        {percentage >= 95 ? ' Excellent' : percentage >= 85 ? ' Good' : percentage >= 75 ? ' Fair' : ' Poor'}
                     </span>
                 </div>
             </div>

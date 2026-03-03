@@ -70,7 +70,7 @@ function Step3_Equipment() {
             {/* Overall Score */}
             {equipment.length > 0 && (
                 <div className="alert info" style={{ marginBottom: '2rem' }}>
-                    <span>📊</span>
+                    <span></span>
                     <div>
                         <strong>Overall Equipment Score:</strong> {totalScore}%
                         <br />
@@ -233,12 +233,12 @@ function Step3_Equipment() {
                 className="btn-hatchery btn-primary"
                 style={{ width: '100%', justifyContent: 'center' }}
             >
-                ➕ Add Equipment
+                 Add Equipment
             </button>
 
             {equipment.length === 0 && (
                 <div className="alert info" style={{ marginTop: '1rem' }}>
-                    <span>ℹ️</span>
+                    <span></span>
                     <div>
                         Click "Add Equipment" to start assessing vaccination equipment.
                     </div>

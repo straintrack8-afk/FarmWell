@@ -5,7 +5,7 @@ A comprehensive biosecurity assessment module for pig farms based on BIOCHECK PI
 
 ## Features
 
-### ✅ Implemented Features
+###  Implemented Features
 1. **Complete Question Bank** - 116 questions across 13 biosecurity categories
 2. **Smart Assessment Flow** - Progressive questionnaire with conditional logic
 3. **Real-time Scoring** - Weighted scoring system based on scientific standards
@@ -85,10 +85,10 @@ public/data/swine/
 - Final score = Σ(Category Score × Category Weight)
 
 ### Risk Levels
-- **85-100**: Low Risk (Grade A) - ✅ Excellent biosecurity
-- **70-84**: Medium Risk (Grade B) - ⚠️ Good with room for improvement
-- **50-69**: High Risk (Grade C-D) - 🟠 Significant gaps detected
-- **0-49**: Critical Risk (Grade F) - 🔴 Critical deficiencies
+- **85-100**: Low Risk (Grade A) -  Excellent biosecurity
+- **70-84**: Medium Risk (Grade B) -  Good with room for improvement
+- **50-69**: High Risk (Grade C-D) -  Significant gaps detected
+- **0-49**: Critical Risk (Grade F) -  Critical deficiencies
 
 ## Disease Risk Assessment
 
@@ -208,7 +208,7 @@ Based on **BIOCHECK PIG V4.0** developed by:
 ## License
 
 Part of the FarmWell application suite.
-© 2026 FarmWell - Powered by Vaksindo
+ 2026 FarmWell - Powered by Vaksindo
 
 ## Support
 

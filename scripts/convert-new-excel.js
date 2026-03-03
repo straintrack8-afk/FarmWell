@@ -23,7 +23,7 @@ console.log('Available sheets:', wb.SheetNames);
 // Read the comprehensive disease summary sheet
 const diseaseSheet = wb.Sheets['Disease_Summary_All104'];
 if (!diseaseSheet) {
-    console.error('❌ Disease_Summary_All104 sheet not found!');
+    console.error(' Disease_Summary_All104 sheet not found!');
     console.log('Available sheets:', wb.SheetNames);
     process.exit(1);
 }
@@ -231,7 +231,7 @@ if (!fs.existsSync(dataDir)) {
 // Write diseases JSON
 const outputPath = path.join(dataDir, 'pig-diseases.json');
 fs.writeFileSync(outputPath, JSON.stringify(validDiseases, null, 2));
-console.log(`✅ Wrote ${validDiseases.length} diseases to ${outputPath}`);
+console.log(` Wrote ${validDiseases.length} diseases to ${outputPath}`);
 
 // Build symptom categories
 const symptomCounts = {};
@@ -306,7 +306,7 @@ const symptomsData = {
 
 const symptomsOutputPath = path.join(dataDir, 'symptoms.json');
 fs.writeFileSync(symptomsOutputPath, JSON.stringify(symptomsData, null, 2));
-console.log(`✅ Wrote ${Object.keys(symptomCounts).length} symptoms to ${symptomsOutputPath}`);
+console.log(` Wrote ${Object.keys(symptomCounts).length} symptoms to ${symptomsOutputPath}`);
 
 // Print summary
 console.log('\n=== CONVERSION SUMMARY ===');
@@ -318,4 +318,4 @@ symptomCategories.forEach(cat => {
     console.log(`  ${cat.name}: ${cat.symptoms.length} symptoms`);
 });
 
-console.log('\n✅ Conversion complete!');
+console.log('\n Conversion complete!');

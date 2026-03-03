@@ -20,7 +20,7 @@ function ProgressBar({ step, t }) {
                     className={`progress-step ${step === s.num ? 'active' : ''} ${step > s.num ? 'completed' : ''}`}
                 >
                     <div className="step-number">
-                        {step > s.num ? '✓' : s.num}
+                        {step > s.num ? '' : s.num}
                     </div>
                     <span>{s.label}</span>
                 </div>
@@ -73,17 +73,17 @@ function SymptomsPage() {
 
     const getCategoryIcon = (iconName) => {
         const icons = {
-            'skull': '☠️',
-            'droplet': '💧',
-            'wind': '🫁',
-            'brain': '🧠',
-            'heart': '❤️',
-            'palette': '🎨',
-            'thermometer': '🌡️',
-            'bone': '🦴',
-            'eye': '👁️'
+            'skull': '',
+            'droplet': '',
+            'wind': '',
+            'brain': '',
+            'heart': '',
+            'palette': '',
+            'thermometer': '',
+            'bone': '',
+            'eye': ''
         };
-        return icons[iconName] || '📋';
+        return icons[iconName] || '';
     };
 
     const selectedAgeGroup = AGE_GROUPS.find(a => a.id === selectedAge);

@@ -34,7 +34,7 @@ function LandingPage() {
                     onClick={handleStartDiagnosis}
                     style={{ marginBottom: '2rem' }}
                 >
-                    🔍 Start Diagnosis
+                     Start Diagnosis
                 </button>
             </div>
 

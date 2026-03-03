@@ -23,7 +23,7 @@ function AuditReport() {
             <div className="hatchery-container">
                 <div className="hatchery-card">
                     <div style={{ textAlign: 'center', padding: '3rem' }}>
-                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📋</div>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                         <h2>Audit Not Found</h2>
                         <p style={{ color: '#6B7280', marginBottom: '2rem' }}>
                             The requested audit could not be found.
@@ -66,10 +66,10 @@ function AuditReport() {
                             ← Back
                         </button>
                         <button onClick={handleExportPDF} className="btn-hatchery btn-primary">
-                            📄 Export PDF
+                             Export PDF
                         </button>
                         <button onClick={handleExportExcel} className="btn-hatchery btn-success">
-                            📊 Export Excel
+                             Export Excel
                         </button>
                     </div>
                 </div>
@@ -146,7 +146,7 @@ function AuditReport() {
                         ].map(item => (
                             <div key={item.key} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                 <span style={{ color: audit.vaccineStorage[item.key] ? '#10B981' : '#EF4444', fontSize: '1.25rem' }}>
-                                    {audit.vaccineStorage[item.key] ? '✓' : '✗'}
+                                    {audit.vaccineStorage[item.key] ? '' : ''}
                                 </span>
                                 <span style={{ fontSize: '0.875rem' }}>{item.label}</span>
                             </div>
@@ -169,13 +169,13 @@ function AuditReport() {
                                 </div>
                                 <div style={{ display: 'flex', gap: '1rem', fontSize: '0.875rem', flexWrap: 'wrap' }}>
                                     <span style={{ color: eq.conditionGood ? '#10B981' : '#EF4444' }}>
-                                        {eq.conditionGood ? '✓' : '✗'} Condition
+                                        {eq.conditionGood ? '' : ''} Condition
                                     </span>
                                     <span style={{ color: eq.maintenanceCurrent ? '#10B981' : '#EF4444' }}>
-                                        {eq.maintenanceCurrent ? '✓' : '✗'} Maintenance
+                                        {eq.maintenanceCurrent ? '' : ''} Maintenance
                                     </span>
                                     <span style={{ color: eq.dosesSufficient ? '#10B981' : '#EF4444' }}>
-                                        {eq.dosesSufficient ? '✓' : '✗'} Doses
+                                        {eq.dosesSufficient ? '' : ''} Doses
                                     </span>
                                 </div>
                             </div>

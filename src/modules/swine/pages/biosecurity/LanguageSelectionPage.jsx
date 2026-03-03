@@ -86,7 +86,7 @@ function LanguageSelectionPage() {
 
             <div style={{ marginTop: '2rem', padding: '1rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
                 <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', textAlign: 'center', margin: 0 }}>
-                    💡 Note: You can change language anytime in Settings
+                     Note: You can change language anytime in Settings
                 </p>
             </div>
         </div>

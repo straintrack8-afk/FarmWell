@@ -14,10 +14,10 @@ console.log('File exists:', fs.existsSync(INPUT_FILE));
 try {
     const rawData = fs.readFileSync(INPUT_FILE, 'utf8');
     const data = JSON.parse(rawData);
-    console.log('✅ File loaded successfully');
+    console.log(' File loaded successfully');
     console.log('Categories:', data.categories?.length);
     console.log('Total questions:', data.total_questions);
 } catch (error) {
-    console.error('❌ Error:', error.message);
+    console.error(' Error:', error.message);
     console.error(error.stack);
 }

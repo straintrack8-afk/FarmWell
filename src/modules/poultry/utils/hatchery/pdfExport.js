@@ -171,7 +171,7 @@ function addVaccineStorageSection(doc, data, yPos) {
     ];
 
     checks.forEach(check => {
-        const status = data[check.key] ? '✓' : '✗';
+        const status = data[check.key] ? '' : '';
         const color = data[check.key] ? [16, 185, 129] : [239, 68, 68];
         doc.setTextColor(...color);
         doc.text(status, 15, yPos);
@@ -193,8 +193,8 @@ function addEquipmentSection(doc, equipment, yPos) {
     const tableData = equipment.map(eq => [
         eq.name || eq.type,
         eq.quantity || 1,
-        eq.conditionGood ? '✓' : '✗',
-        eq.maintenanceCurrent ? '✓' : '✗',
+        eq.conditionGood ? '' : '',
+        eq.maintenanceCurrent ? '' : '',
         eq.notes || '-'
     ]);
 

@@ -183,7 +183,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Rủi ro Nghiêm trọng',
                 id: 'Risiko Kritis'
             },
-            icon: '🔴'
+            icon: ''
         },
         high: {
             color: '#f59e0b',
@@ -193,7 +193,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Rủi ro Cao',
                 id: 'Risiko Tinggi'
             },
-            icon: '🟠'
+            icon: ''
         },
         medium: {
             color: '#eab308',
@@ -203,7 +203,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Rủi ro Trung bình',
                 id: 'Risiko Sedang'
             },
-            icon: '🟡'
+            icon: ''
         },
         low: {
             color: '#10b981',
@@ -213,7 +213,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Rủi ro Thấp',
                 id: 'Risiko Rendah'
             },
-            icon: '🟢'
+            icon: ''
         }
     };
 

@@ -371,7 +371,7 @@ function BroilerResultsPage() {
                                 }}></div>
                                 <div style={{ position: 'relative', zIndex: 1 }}>
                                     <div style={{ fontSize: '2.1rem', marginBottom: '0.25rem' }}>
-                                        {overallScore > 95 ? '🎯' : overallScore > 85 ? '✅' : overallScore > 75 ? '⚠️' : overallScore >= 50 ? '🔴' : '❌'}
+                                        {overallScore > 95 ? '' : overallScore > 85 ? '' : overallScore > 75 ? '' : overallScore >= 50 ? '' : ''}
                                     </div>
                                     <div style={{
                                         fontSize: '1.96875rem',

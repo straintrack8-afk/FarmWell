@@ -17,7 +17,7 @@ function ProgressBar({ step }) {
                     className={`progress-step ${step === s.num ? 'active' : ''} ${step > s.num ? 'completed' : ''}`}
                 >
                     <div className="step-number">
-                        {step > s.num ? '✓' : s.num}
+                        {step > s.num ? '' : s.num}
                     </div>
                     <span>{s.label}</span>
                 </div>
@@ -57,15 +57,15 @@ function SymptomSelection() {
     const selectedAgeGroup = ageGroups.find(a => a.id === selectedAge);
 
     const categoryIcons = {
-        mortality: '☠️',
-        fever: '🌡️',
-        locomotion: '🦿',
-        excretion: '💧',
-        skin: '🔴',
-        production: '🥚',
-        respiratory: '🫁',
-        nervous: '🧠',
-        digestive: '📋'
+        mortality: '',
+        fever: '',
+        locomotion: '',
+        excretion: '',
+        skin: '',
+        production: '',
+        respiratory: '',
+        nervous: '',
+        digestive: ''
     };
 
     return (
@@ -140,7 +140,7 @@ function SymptomSelection() {
                                     onClick={() => toggleCategory(key)}
                                 >
                                     <div className="collapsible-title">
-                                        <span style={{ fontSize: '1.25rem' }}>{categoryIcons[key] || '📋'}</span>
+                                        <span style={{ fontSize: '1.25rem' }}>{categoryIcons[key] || ''}</span>
                                         {category.label}
                                         <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 'normal' }}>
                                             ({filteredSympts.length})

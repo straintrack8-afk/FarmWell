@@ -54,7 +54,7 @@ function DiagnosticApp() {
             <div className="portal-layout">
                 <div className="portal-container">
                     <div className="portal-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '1rem', textAlign: 'center' }}>
-                        <div style={{ fontSize: '3rem' }}>⚠️</div>
+                        <div style={{ fontSize: '3rem' }}></div>
                         <h2 className="text-danger">Failed to Load</h2>
                         <p className="text-muted" style={{ maxWidth: '400px' }}>{error}</p>
                         <button

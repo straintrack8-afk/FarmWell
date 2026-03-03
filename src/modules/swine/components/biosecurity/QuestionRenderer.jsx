@@ -44,7 +44,7 @@ function QuestionRenderer({ question, value, onChange, language = 'en' }) {
                         borderRadius: '6px',
                         borderLeft: '3px solid var(--primary)'
                     }}>
-                        ℹ️ {help_text}
+                         {help_text}
                     </p>
                 )}
             </div>

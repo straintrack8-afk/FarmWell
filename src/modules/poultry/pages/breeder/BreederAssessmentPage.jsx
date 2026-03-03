@@ -245,7 +245,7 @@ function BreederAssessmentPage() {
                                                     justifyContent: 'center',
                                                     flexShrink: 0
                                                 }}>
-                                                    {isSelected && <span style={{ color: 'white', fontSize: '0.75rem' }}>✓</span>}
+                                                    {isSelected && <span style={{ color: 'white', fontSize: '0.75rem' }}></span>}
                                                 </div>
                                                 <span style={{ fontSize: '1rem', fontWeight: isSelected ? '600' : '400' }}>
                                                     {option.label?.[language] || option.label?.en}
@@ -267,7 +267,7 @@ function BreederAssessmentPage() {
                                 marginBottom: '2rem'
                             }}>
                                 <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'start' }}>
-                                    <span style={{ fontSize: '1.5rem' }}>⚠️</span>
+                                    <span style={{ fontSize: '1.5rem' }}></span>
                                     <div>
                                         <div style={{ fontWeight: '600', color: '#991b1b', marginBottom: '0.5rem' }}>
                                             Risk Identified
@@ -309,7 +309,7 @@ function BreederAssessmentPage() {
                                             fontWeight: '600'
                                         }}
                                     >
-                                        💾 Save & Exit
+                                         Save & Exit
                                     </button>
                                 )}
                                 <button

@@ -10,12 +10,12 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-console.log('🚀 Starting conversion...\n');
+console.log(' Starting conversion...\n');
 
 try {
     // Step 1: Load input file
     const inputPath = join(__dirname, '..', '..', 'Pig_commercial_final.json');
-    console.log('📂 Loading:', inputPath);
+    console.log(' Loading:', inputPath);
 
     if (!existsSync(inputPath)) {
         throw new Error(`File not found: ${inputPath}`);
@@ -24,7 +24,7 @@ try {
     const rawData = readFileSync(inputPath, 'utf8');
     const sourceData = JSON.parse(rawData);
 
-    console.log(`✅ Loaded ${sourceData.total_questions} questions from ${sourceData.categories.length} categories\n`);
+    console.log(` Loaded ${sourceData.total_questions} questions from ${sourceData.categories.length} categories\n`);
 
     // Step 2: Process each language
     const languages = [
@@ -34,7 +34,7 @@ try {
     ];
 
     for (const lang of languages) {
-        console.log(`🔄 Processing ${lang.name}...`);
+        console.log(` Processing ${lang.name}...`);
 
         const output = {
             language: lang.code,
@@ -240,22 +240,22 @@ try {
         if (existsSync(outputPath)) {
             const backupPath = outputPath + '.backup';
             copyFileSync(outputPath, backupPath);
-            console.log(`   📋 Backup: ${backupPath}`);
+            console.log(`    Backup: ${backupPath}`);
         }
 
         writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf8');
-        console.log(`   ✅ Written: ${outputPath}`);
-        console.log(`   📊 ${output.farm_profile.questions.length} farm profile + ${output.assessment.total_questions} assessment questions\n`);
+        console.log(`    Written: ${outputPath}`);
+        console.log(`    ${output.farm_profile.questions.length} farm profile + ${output.assessment.total_questions} assessment questions\n`);
     }
 
-    console.log('✅ Conversion completed successfully!\n');
+    console.log(' Conversion completed successfully!\n');
     console.log('Next steps:');
     console.log('  1. Review generated files');
     console.log('  2. Run: npm run dev');
     console.log('  3. Test assessment flow');
 
 } catch (error) {
-    console.error('\n❌ Error:', error.message);
+    console.error('\n Error:', error.message);
     console.error(error.stack);
     process.exit(1);
 }

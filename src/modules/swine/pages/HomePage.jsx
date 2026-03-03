@@ -54,7 +54,7 @@ function HomePage() {
             }}>
                 {/* Disease Diagnosis Feature */}
                 <div className="action-card" onClick={handleStartDiagnosis}>
-                    <span className="action-card-icon">🔍</span>
+                    <span className="action-card-icon"></span>
                     <h3 className="action-card-title">
                         {t('swine.diagnosis.title')}
                     </h3>
@@ -63,19 +63,19 @@ function HomePage() {
                     </p>
                     <ul className="action-card-features">
                         <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
+                            <span className="action-card-feature-icon"></span>
                             <span>{t('swine.diagnosis.features.ageSpecific')}</span>
                         </li>
                         <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
+                            <span className="action-card-feature-icon"></span>
                             <span>{t('swine.diagnosis.features.symptomBased')}</span>
                         </li>
                         <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
+                            <span className="action-card-feature-icon"></span>
                             <span>{t('swine.diagnosis.features.treatment')}</span>
                         </li>
                         <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
+                            <span className="action-card-feature-icon"></span>
                             <span>{t('swine.diagnosis.features.offline')}</span>
                         </li>
                     </ul>
@@ -95,19 +95,19 @@ function HomePage() {
                     </p>
                     <ul className="action-card-features">
                         <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
+                            <span className="action-card-feature-icon"></span>
                             <span>{t('swine.biosecurity.features.questions')}</span>
                         </li>
                         <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
+                            <span className="action-card-feature-icon"></span>
                             <span>{t('swine.biosecurity.features.scores')}</span>
                         </li>
                         <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
+                            <span className="action-card-feature-icon"></span>
                             <span>{t('swine.biosecurity.features.reports')}</span>
                         </li>
                         <li className="action-card-feature">
-                            <span className="action-card-feature-icon">✓</span>
+                            <span className="action-card-feature-icon"></span>
                             <span>{t('swine.biosecurity.features.multilingual')}</span>
                         </li>
                     </ul>
@@ -118,7 +118,7 @@ function HomePage() {
 
                 {/* Farm Calculator Feature */}
                 <div className="action-card" onClick={handleOpenCalculator}>
-                    <span className="action-card-icon">🧮</span>
+                    <span className="action-card-icon"></span>
                     <h3 className="action-card-title">
                         {t('swine.calculator.title')}
                     </h3>

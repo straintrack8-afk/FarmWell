@@ -34,7 +34,7 @@ function DiseasePage() {
         return (
             <div className="container">
                 <div className="empty-state">
-                    <div className="empty-state-icon" style={{ fontSize: '3rem' }}>❓</div>
+                    <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
                     <h3 className="empty-state-title">Disease Not Found</h3>
                     <p className="empty-state-text">
                         The disease you're looking for doesn't exist.
@@ -109,7 +109,7 @@ function DiseasePage() {
             {/* Zoonotic Warning */}
             {disease.zoonoticRisk && (
                 <div className="zoonotic-warning" style={{ marginBottom: '1.5rem' }}>
-                    <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}>⚠️</div>
+                    <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}></div>
                     <div className="zoonotic-warning-content">
                         <div className="zoonotic-warning-title">Zoonotic Disease</div>
                         <div className="zoonotic-warning-text">
@@ -125,7 +125,7 @@ function DiseasePage() {
                 {disease.description && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            📋 Description
+                             Description
                         </h3>
                         <div style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
                             {formatDescription(disease.description)}
@@ -139,7 +139,7 @@ function DiseasePage() {
                 {disease.symptoms?.length > 0 && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            🩺 Clinical Signs
+                             Clinical Signs
                         </h3>
                         <div style={{
                             display: 'grid',
@@ -172,7 +172,7 @@ function DiseasePage() {
                 {disease.transmission && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            🔄 Transmission
+                             Transmission
                         </h3>
                         <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                             {textToBullets(disease.transmission).map((item, i) => (
@@ -190,7 +190,7 @@ function DiseasePage() {
                 {disease.diagnosisMethod && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            🔬 Diagnosis Methods
+                             Diagnosis Methods
                         </h3>
                         <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                             {textToBullets(disease.diagnosisMethod).map((item, i) => (
@@ -208,7 +208,7 @@ function DiseasePage() {
                 {disease.treatmentOptions && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            💊 Treatment Options
+                             Treatment Options
                         </h3>
                         <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                             {textToBullets(disease.treatmentOptions).map((item, i) => (
@@ -244,7 +244,7 @@ function DiseasePage() {
                         <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                         <div style={{ marginBottom: '1rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                💉 Vaccine Recommendation
+                                 Vaccine Recommendation
                             </h3>
                             <div style={{
                                 padding: '1rem',
@@ -263,7 +263,7 @@ function DiseasePage() {
                 <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                 <div style={{ marginBottom: '1rem' }}>
                     <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        📊 Key Facts
+                         Key Facts
                     </h3>
                     <div style={{
                         display: 'grid',
@@ -316,7 +316,7 @@ function DiseasePage() {
                         style={{ flex: 1, minWidth: 0 }}
                         onClick={handleNewDiagnosis}
                     >
-                        🔄 New Diagnosis
+                         New Diagnosis
                     </button>
                 </div>
                 {/* Print full-width below */}

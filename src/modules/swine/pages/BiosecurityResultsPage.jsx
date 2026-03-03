@@ -190,7 +190,7 @@ function BiosecurityResultsPage() {
             {/* Category Breakdown */}
             <div className="card" style={{ marginBottom: '2rem' }}>
               <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                📊 Category Breakdown
+                 Category Breakdown
               </h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -254,7 +254,7 @@ function BiosecurityResultsPage() {
             {disease_risks.critical.length > 0 && (
               <div style={{ marginBottom: '2rem' }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#dc2626', marginBottom: '1rem' }}>
-                  🔴 CRITICAL RISKS
+                   CRITICAL RISKS
                 </h3>
                 {disease_risks.critical.map((risk, idx) => (
                   <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #dc2626' }}>
@@ -305,7 +305,7 @@ function BiosecurityResultsPage() {
             {disease_risks.high.length > 0 && (
               <div style={{ marginBottom: '2rem' }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#f97316', marginBottom: '1rem' }}>
-                  🟠 HIGH RISKS
+                   HIGH RISKS
                 </h3>
                 {disease_risks.high.map((risk, idx) => (
                   <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #f97316' }}>
@@ -337,7 +337,7 @@ function BiosecurityResultsPage() {
             {disease_risks.medium.length > 0 && (
               <div>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#f59e0b', marginBottom: '1rem' }}>
-                  ⚠️ MEDIUM RISKS
+                   MEDIUM RISKS
                 </h3>
                 {disease_risks.medium.map((risk, idx) => (
                   <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #f59e0b' }}>
@@ -374,7 +374,7 @@ function BiosecurityResultsPage() {
                 {recommendations.filter(r => r.priority === 'high').length > 0 && (
                   <div style={{ marginBottom: '2rem' }}>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#dc2626', marginBottom: '1rem' }}>
-                      🔴 High Priority Actions
+                       High Priority Actions
                     </h3>
                     {recommendations.filter(r => r.priority === 'high').map((rec, idx) => (
                       <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #dc2626' }}>
@@ -414,7 +414,7 @@ function BiosecurityResultsPage() {
                 {recommendations.filter(r => r.priority === 'medium').length > 0 && (
                   <div>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#f59e0b', marginBottom: '1rem' }}>
-                      ⚠️ Medium Priority Actions
+                       Medium Priority Actions
                     </h3>
                     {recommendations.filter(r => r.priority === 'medium').map((rec, idx) => (
                       <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #f59e0b' }}>

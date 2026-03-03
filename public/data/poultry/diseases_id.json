@@ -1215,7 +1215,7 @@
       "id": "day-old",
       "label": "DOC (0-1 hari)",
       "shortLabel": "DOC",
-      "icon": "🐣"
+      "icon": ""
     },
     {
       "id": "growers",
@@ -1227,31 +1227,31 @@
       "id": "layers",
       "label": "Layer (Petelur)",
       "shortLabel": "Layer",
-      "icon": "🥚"
+      "icon": ""
     },
     {
       "id": "broilers",
       "label": "Broiler (Pedaging)",
       "shortLabel": "Broiler",
-      "icon": "🍗"
+      "icon": ""
     },
     {
       "id": "breeders",
       "label": "Breeder (Pembibit)",
       "shortLabel": "Breeder",
-      "icon": "🐓"
+      "icon": ""
     },
     {
       "id": "ducks",
       "label": "Bebek",
       "shortLabel": "Bebek",
-      "icon": "🦆"
+      "icon": ""
     },
     {
       "id": "all",
       "label": "Semua usia",
       "shortLabel": "Semua usia",
-      "icon": "✨"
+      "icon": ""
     }
   ]
 }

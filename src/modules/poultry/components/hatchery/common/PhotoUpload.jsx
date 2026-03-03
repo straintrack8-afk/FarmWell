@@ -80,7 +80,7 @@ function PhotoUpload({ photos = [], onPhotosChange, maxPhotos = 10 }) {
                     className="btn-hatchery btn-outline"
                     disabled={uploading || photos.length >= maxPhotos}
                 >
-                    {uploading ? '📤 Uploading...' : '📷 Add Photos'}
+                    {uploading ? ' Uploading...' : ' Add Photos'}
                 </button>
                 <span style={{ marginLeft: '1rem', fontSize: '0.875rem', color: '#6B7280' }}>
                     {photos.length} / {maxPhotos} photos
@@ -89,7 +89,7 @@ function PhotoUpload({ photos = [], onPhotosChange, maxPhotos = 10 }) {
 
             {error && (
                 <div className="alert error" style={{ marginBottom: '1rem' }}>
-                    <span>⚠️</span>
+                    <span></span>
                     <span>{error}</span>
                 </div>
             )}

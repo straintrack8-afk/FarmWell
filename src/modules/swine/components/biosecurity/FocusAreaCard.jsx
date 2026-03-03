@@ -189,19 +189,19 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                     borderTop: '1px solid rgba(255, 255, 255, 0.2)'
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.125rem' }}>📝</span>
+                        <span style={{ fontSize: '1.125rem' }}></span>
                         <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.95)', fontWeight: '500' }}>
                             {total_questions} {getTranslation('questions')}
                         </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.125rem' }}>⏱️</span>
+                        <span style={{ fontSize: '1.125rem' }}></span>
                         <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.95)', fontWeight: '500' }}>
                             ~{estimated_time_minutes} {getTranslation('min')}
                         </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.125rem' }}>✓</span>
+                        <span style={{ fontSize: '1.125rem' }}></span>
                         <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.95)', fontWeight: '500' }}>
                             {answeredCount} {getTranslation('answered')}
                         </span>

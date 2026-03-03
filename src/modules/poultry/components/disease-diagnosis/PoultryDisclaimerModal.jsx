@@ -76,7 +76,7 @@ function PoultryDisclaimerModal({ language = 'en', onAccept }) {
                             fontSize: '1.5rem'
                         }}
                     >
-                        ⚠️
+                        
                     </div>
                     <h2
                         id="poultry-disclaimer-title"

@@ -82,9 +82,9 @@ function CategoryProgress({
                                         >
                                             <div className="category-indicator">
                                                 {isCompleted ? (
-                                                    <span className="check-icon">✓</span>
+                                                    <span className="check-icon"></span>
                                                 ) : isCurrent ? (
-                                                    <span className="current-icon">▶</span>
+                                                    <span className="current-icon"></span>
                                                 ) : (
                                                     <span className="pending-icon">○</span>
                                                 )}

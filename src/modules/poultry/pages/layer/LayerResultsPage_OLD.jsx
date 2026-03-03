@@ -193,7 +193,7 @@ function BreederResultsPage() {
                                         marginBottom: '1rem'
                                     }}>
                                         <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#991b1b' }}>
-                                            🔴 Critical Priority ({criticalRecs.length})
+                                             Critical Priority ({criticalRecs.length})
                                         </h3>
                                     </div>
                                     {criticalRecs.map((rec, index) => (
@@ -236,7 +236,7 @@ function BreederResultsPage() {
                                         marginBottom: '1rem'
                                     }}>
                                         <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#92400e' }}>
-                                            🟠 High Priority ({highRecs.length})
+                                             High Priority ({highRecs.length})
                                         </h3>
                                     </div>
                                     {highRecs.slice(0, 5).map((rec, index) => (
@@ -282,7 +282,7 @@ function BreederResultsPage() {
                                     borderRadius: '12px',
                                     textAlign: 'center'
                                 }}>
-                                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎉</div>
+                                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                                     <h3 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#065f46', marginBottom: '0.5rem' }}>
                                         Excellent Biosecurity!
                                     </h3>
@@ -296,7 +296,7 @@ function BreederResultsPage() {
                         {/* Action Buttons */}
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '3rem' }} className="no-print">
                             <button onClick={handlePrint} className="btn btn-primary" style={{ padding: '1rem 2rem' }}>
-                                🖨️ Print Report
+                                 Print Report
                             </button>
                             <button onClick={handleBackToDashboard} className="btn" style={{ padding: '1rem 2rem', background: 'white', border: '2px solid #e5e7eb' }}>
                                 ← Back to Dashboard

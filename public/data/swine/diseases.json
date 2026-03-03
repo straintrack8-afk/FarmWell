@@ -2661,7 +2661,7 @@
       "id": "age-1",
       "label": "Sows / gilts / boars",
       "shortLabel": "Sows / gilts / ...",
-      "icon": "🐖"
+      "icon": ""
     },
     {
       "id": "age-2",
@@ -2679,13 +2679,13 @@
       "id": "age-4",
       "label": "Weaners: weaning to 14 days",
       "shortLabel": "Weaners: weanin...",
-      "icon": "🥩"
+      "icon": ""
     },
     {
       "id": "age-5",
       "label": "Weaners: 15 to 56 days",
       "shortLabel": "Weaners: 15 to ...",
-      "icon": "🥩"
+      "icon": ""
     },
     {
       "id": "age-6",
@@ -2697,7 +2697,7 @@
       "id": "all",
       "label": "All ages",
       "shortLabel": "All ages",
-      "icon": "✨"
+      "icon": ""
     }
   ]
 }

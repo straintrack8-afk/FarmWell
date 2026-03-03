@@ -303,22 +303,22 @@ export function calculateCategoryBreakdown(assessment, language = 'en') {
 export function getCertificationStatus(score, language = 'en') {
   const statuses = {
     en: {
-      excellence: { status: 'Excellence Level', badge: '🏆', description: 'Outstanding biosecurity practices' },
-      eligible: { status: 'Certification Eligible', badge: '✅', description: 'Meets certification requirements' },
-      pass: { status: 'Pass', badge: '✓', description: 'Acceptable biosecurity level' },
-      fail: { status: 'Not Eligible', badge: '⚠️', description: 'Improvements required for certification' }
+      excellence: { status: 'Excellence Level', badge: '', description: 'Outstanding biosecurity practices' },
+      eligible: { status: 'Certification Eligible', badge: '', description: 'Meets certification requirements' },
+      pass: { status: 'Pass', badge: '', description: 'Acceptable biosecurity level' },
+      fail: { status: 'Not Eligible', badge: '', description: 'Improvements required for certification' }
     },
     id: {
-      excellence: { status: 'Tingkat Keunggulan', badge: '🏆', description: 'Praktik biosekuriti luar biasa' },
-      eligible: { status: 'Memenuhi Sertifikasi', badge: '✅', description: 'Memenuhi persyaratan sertifikasi' },
-      pass: { status: 'Lulus', badge: '✓', description: 'Tingkat biosekuriti dapat diterima' },
-      fail: { status: 'Tidak Memenuhi', badge: '⚠️', description: 'Diperlukan perbaikan untuk sertifikasi' }
+      excellence: { status: 'Tingkat Keunggulan', badge: '', description: 'Praktik biosekuriti luar biasa' },
+      eligible: { status: 'Memenuhi Sertifikasi', badge: '', description: 'Memenuhi persyaratan sertifikasi' },
+      pass: { status: 'Lulus', badge: '', description: 'Tingkat biosekuriti dapat diterima' },
+      fail: { status: 'Tidak Memenuhi', badge: '', description: 'Diperlukan perbaikan untuk sertifikasi' }
     },
     vt: {
-      excellence: { status: 'Mức Xuất Sắc', badge: '🏆', description: 'Thực hành an ninh sinh học xuất sắc' },
-      eligible: { status: 'Đủ Điều Kiện', badge: '✅', description: 'Đáp ứng yêu cầu chứng nhận' },
-      pass: { status: 'Đạt', badge: '✓', description: 'Mức an ninh sinh học chấp nhận được' },
-      fail: { status: 'Không Đủ Điều Kiện', badge: '⚠️', description: 'Cần cải thiện để được chứng nhận' }
+      excellence: { status: 'Mức Xuất Sắc', badge: '', description: 'Thực hành an ninh sinh học xuất sắc' },
+      eligible: { status: 'Đủ Điều Kiện', badge: '', description: 'Đáp ứng yêu cầu chứng nhận' },
+      pass: { status: 'Đạt', badge: '', description: 'Mức an ninh sinh học chấp nhận được' },
+      fail: { status: 'Không Đủ Điều Kiện', badge: '', description: 'Cần cải thiện để được chứng nhận' }
     }
   };
 
@@ -484,22 +484,22 @@ export function getHighPriorityRecommendations(assessment, language = 'en') {
 export function getDiseaseRiskLevel(riskScore, language = 'en') {
   const levels = {
     en: {
-      critical: { label: 'Critical Risk', color: '#DC2626', icon: '🔴' },
-      high: { label: 'High Risk', color: '#EA580C', icon: '🟠' },
-      moderate: { label: 'Moderate Risk', color: '#F59E0B', icon: '🟡' },
-      low: { label: 'Low Risk', color: '#10B981', icon: '🟢' }
+      critical: { label: 'Critical Risk', color: '#DC2626', icon: '' },
+      high: { label: 'High Risk', color: '#EA580C', icon: '' },
+      moderate: { label: 'Moderate Risk', color: '#F59E0B', icon: '' },
+      low: { label: 'Low Risk', color: '#10B981', icon: '' }
     },
     id: {
-      critical: { label: 'Risiko Kritis', color: '#DC2626', icon: '🔴' },
-      high: { label: 'Risiko Tinggi', color: '#EA580C', icon: '🟠' },
-      moderate: { label: 'Risiko Sedang', color: '#F59E0B', icon: '🟡' },
-      low: { label: 'Risiko Rendah', color: '#10B981', icon: '🟢' }
+      critical: { label: 'Risiko Kritis', color: '#DC2626', icon: '' },
+      high: { label: 'Risiko Tinggi', color: '#EA580C', icon: '' },
+      moderate: { label: 'Risiko Sedang', color: '#F59E0B', icon: '' },
+      low: { label: 'Risiko Rendah', color: '#10B981', icon: '' }
     },
     vt: {
-      critical: { label: 'Rủi Ro Nghiêm Trọng', color: '#DC2626', icon: '🔴' },
-      high: { label: 'Rủi Ro Cao', color: '#EA580C', icon: '🟠' },
-      moderate: { label: 'Rủi Ro Trung Bình', color: '#F59E0B', icon: '🟡' },
-      low: { label: 'Rủi Ro Thấp', color: '#10B981', icon: '🟢' }
+      critical: { label: 'Rủi Ro Nghiêm Trọng', color: '#DC2626', icon: '' },
+      high: { label: 'Rủi Ro Cao', color: '#EA580C', icon: '' },
+      moderate: { label: 'Rủi Ro Trung Bình', color: '#F59E0B', icon: '' },
+      low: { label: 'Rủi Ro Thấp', color: '#10B981', icon: '' }
     }
   };
 

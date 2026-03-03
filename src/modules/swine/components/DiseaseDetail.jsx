@@ -119,7 +119,7 @@ export default function DiseaseDetail() {
                     <div className="p-4 border-r border-gray-100">
                         <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Zoonotic Risk</p>
                         <p className={`text-sm font-medium ${selectedDisease.zoonotic ? 'text-amber-600' : 'text-green-600'}`}>
-                            {selectedDisease.zoonotic ? '⚠️ Yes' : '✓ No'}
+                            {selectedDisease.zoonotic ? ' Yes' : ' No'}
                         </p>
                     </div>
 
@@ -215,7 +215,7 @@ export default function DiseaseDetail() {
                         <div className="px-6 py-4 bg-green-100 border-b border-green-200">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                                    <span className="text-xl">💉</span>
+                                    <span className="text-xl"></span>
                                 </div>
                                 <div>
                                     <h2 className="font-semibold text-green-900">Vaccine Recommendation</h2>
@@ -248,7 +248,7 @@ export default function DiseaseDetail() {
                                             {/* Vaccine Name */}
                                             <div className="p-4">
                                                 <p className="text-sm font-medium text-green-800 text-center">
-                                                    💉 {vaccine.name}
+                                                     {vaccine.name}
                                                 </p>
                                             </div>
                                         </div>
@@ -262,7 +262,7 @@ export default function DiseaseDetail() {
                                             key={index}
                                             className="inline-flex items-center px-4 py-2 bg-white border border-green-300 text-green-800 rounded-lg text-sm font-medium shadow-sm"
                                         >
-                                            💉 {vaccine}
+                                             {vaccine}
                                         </span>
                                     ))}
                                 </div>

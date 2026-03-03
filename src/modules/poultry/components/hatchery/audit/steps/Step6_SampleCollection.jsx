@@ -101,11 +101,11 @@ function Step6_SampleCollection() {
                                             {config.name}
                                         </h3>
                                         <div style={{ fontSize: '0.75rem', color: '#6B7280' }}>
-                                            {config.type === SAMPLE_TYPES.AIR_PLATE ? '🧫 Air Plates' : '🧪 Swabs'} • {groupCollected}/{groupSamples.length} collected
+                                            {config.type === SAMPLE_TYPES.AIR_PLATE ? ' Air Plates' : ' Swabs'} • {groupCollected}/{groupSamples.length} collected
                                         </div>
                                     </div>
                                 </div>
-                                {isComplete && <span style={{ color: '#059669', fontWeight: '600' }}>✓ Complete</span>}
+                                {isComplete && <span style={{ color: '#059669', fontWeight: '600' }}> Complete</span>}
                             </div>
 
                             {/* Group Content */}

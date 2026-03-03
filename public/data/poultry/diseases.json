@@ -1215,7 +1215,7 @@
       "id": "day-old",
       "label": "Day-old chicks (0-1 days)",
       "shortLabel": "Day-old",
-      "icon": "🐣"
+      "icon": ""
     },
     {
       "id": "growers",
@@ -1227,31 +1227,31 @@
       "id": "layers",
       "label": "Layers",
       "shortLabel": "Layers",
-      "icon": "🥚"
+      "icon": ""
     },
     {
       "id": "broilers",
       "label": "Broilers",
       "shortLabel": "Broilers",
-      "icon": "🍗"
+      "icon": ""
     },
     {
       "id": "breeders",
       "label": "Breeders",
       "shortLabel": "Breeders",
-      "icon": "🐓"
+      "icon": ""
     },
     {
       "id": "ducks",
       "label": "Ducks",
       "shortLabel": "Ducks",
-      "icon": "🦆"
+      "icon": ""
     },
     {
       "id": "all",
       "label": "All ages",
       "shortLabel": "All ages",
-      "icon": "✨"
+      "icon": ""
     }
   ]
 }

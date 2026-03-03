@@ -51,12 +51,12 @@ export default function SymptomSelection() {
 
     // Category icons
     const categoryIcons = {
-        mortality: '💀',
-        fever: '🌡️',
-        locomotion: '🦿',
-        excretion: '💧',
-        skin: '🔴',
-        production: '🥚'
+        mortality: '',
+        fever: '',
+        locomotion: '',
+        excretion: '',
+        skin: '',
+        production: ''
     };
 
     return (
@@ -129,7 +129,7 @@ export default function SymptomSelection() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {Object.entries(symptomCategories).map(([categoryKey, category]) => {
                     const isExpanded = expandedCategories.includes(categoryKey);
-                    const icon = categoryIcons[categoryKey] || '📋';
+                    const icon = categoryIcons[categoryKey] || '';
                     const selectedInCategory = category.symptoms.filter(s =>
                         selectedSymptoms.includes(s)
                     ).length;

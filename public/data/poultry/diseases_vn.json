@@ -1215,7 +1215,7 @@
       "id": "day-old",
       "label": "Gà con mới nở (0-1 ngày)",
       "shortLabel": "Gà con",
-      "icon": "🐣"
+      "icon": ""
     },
     {
       "id": "growers",
@@ -1227,31 +1227,31 @@
       "id": "layers",
       "label": "Gà đẻ",
       "shortLabel": "Gà đẻ",
-      "icon": "🥚"
+      "icon": ""
     },
     {
       "id": "broilers",
       "label": "Gà thịt",
       "shortLabel": "Gà thịt",
-      "icon": "🍗"
+      "icon": ""
     },
     {
       "id": "breeders",
       "label": "Gà giống",
       "shortLabel": "Gà giống",
-      "icon": "🐓"
+      "icon": ""
     },
     {
       "id": "ducks",
       "label": "Vịt",
       "shortLabel": "Vịt",
-      "icon": "🦆"
+      "icon": ""
     },
     {
       "id": "all",
       "label": "Mọi lứa tuổi",
       "shortLabel": "Mọi lứa tuổi",
-      "icon": "✨"
+      "icon": ""
     }
   ]
 }

@@ -393,7 +393,7 @@ function BiosecurityDashboard() {
                                 {getTranslation('farmProfile')}
                             </h3>
                             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                                ✓ {getTranslation('completed')}
+                                 {getTranslation('completed')}
                             </p>
                         </div>
                         <button
@@ -430,7 +430,7 @@ function BiosecurityDashboard() {
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase'
                     }}>
-                        📥 {getTranslation('externalSection')}
+                         {getTranslation('externalSection')}
                     </h2>
                     <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
                         {focusAreas.filter(fa => fa.category.includes('external') || fa.category.includes('eksternal') || fa.category.includes('ngoài')).map(fa => (
@@ -454,7 +454,7 @@ function BiosecurityDashboard() {
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase'
                     }}>
-                        🏠 {getTranslation('internalSection')}
+                         {getTranslation('internalSection')}
                     </h2>
                     <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))' }}>
                         {focusAreas.filter(fa => fa.category.includes('internal') || fa.category.includes('trong')).map(fa => (
@@ -581,7 +581,7 @@ function BiosecurityDashboard() {
                             e.currentTarget.style.boxShadow = 'none';
                         }}
                     >
-                        🗑️ {getTranslation('discardAssessment')}
+                         {getTranslation('discardAssessment')}
                     </button>
                 </div>
             </div>

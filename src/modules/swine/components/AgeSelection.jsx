@@ -21,14 +21,14 @@ export default function AgeSelection() {
 
     // Icons for each age group
     const ageIcons = {
-        'day-old': '🐣',
-        'chicks': '🐤',
-        'young-chicks': '🐥',
+        'day-old': '',
+        'chicks': '',
+        'young-chicks': '',
         'growers': '',
-        'layers': '🥚',
-        'broilers': '🍗',
-        'breeders': '🐓',
-        'all': '✨'
+        'layers': '',
+        'broilers': '',
+        'breeders': '',
+        'all': ''
     };
 
     // Descriptions for each age group

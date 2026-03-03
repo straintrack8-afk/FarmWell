@@ -222,7 +222,7 @@ function AuditHistory() {
             <div className="hatchery-card" style={{ padding: 0, overflow: 'auto' }}>
                 {filteredAudits.length === 0 ? (
                     <div style={{ padding: '3rem', textAlign: 'center' }}>
-                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📋</div>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                         <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                             No Audits Found
                         </h3>

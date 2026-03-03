@@ -41,7 +41,7 @@ function BreederAssessmentDashboard() {
                 <div className="portal-container">
                     <div className="portal-card" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⚠️</div>
+                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                             <h2 style={{ color: '#ef4444', marginBottom: '0.5rem' }}>Error Loading Assessment</h2>
                             <p style={{ color: '#6b7280' }}>{error}</p>
                             <button
@@ -201,7 +201,7 @@ function BreederAssessmentDashboard() {
                                                 fontSize: '0.75rem',
                                                 fontWeight: '600'
                                             }}>
-                                                ✓ Complete
+                                                 Complete
                                             </div>
                                         )}
 
@@ -215,16 +215,16 @@ function BreederAssessmentDashboard() {
                                                 marginBottom: '0.75rem'
                                             }}>
                                                 <span style={{ fontSize: '1.5rem' }}>
-                                                    {categoryId === 'A' && 'ℹ️'}
-                                                    {categoryId === 'B' && '🏢'}
-                                                    {categoryId === 'C' && '🐾'}
+                                                    {categoryId === 'A' && ''}
+                                                    {categoryId === 'B' && ''}
+                                                    {categoryId === 'C' && ''}
                                                     {categoryId === 'D' && ''}
-                                                    {categoryId === 'E' && '👥'}
-                                                    {categoryId === 'F' && '💊'}
-                                                    {categoryId === 'G' && '🧼'}
-                                                    {categoryId === 'I' && '🌡️'}
-                                                    {categoryId === 'J' && '🧽'}
-                                                    {categoryId === 'K' && '🥚'}
+                                                    {categoryId === 'E' && ''}
+                                                    {categoryId === 'F' && ''}
+                                                    {categoryId === 'G' && ''}
+                                                    {categoryId === 'I' && ''}
+                                                    {categoryId === 'J' && ''}
+                                                    {categoryId === 'K' && ''}
                                                 </span>
                                             </div>
                                             <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.25rem' }}>
@@ -360,7 +360,7 @@ function BreederAssessmentDashboard() {
                                     e.currentTarget.style.color = '#ef4444';
                                 }}
                             >
-                                🗑️ Discard Assessment
+                                 Discard Assessment
                             </button>
                         </div>
                     </div>
