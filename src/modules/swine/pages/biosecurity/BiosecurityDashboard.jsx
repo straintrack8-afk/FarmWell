@@ -187,7 +187,7 @@ function BiosecurityDashboard() {
                             gap: '0.5rem',
                             flexWrap: 'wrap'
                         }}>
-                            <span>🛡️</span>
+                            <span></span>
                             <span style={{
                                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                 WebkitBackgroundClip: 'text',

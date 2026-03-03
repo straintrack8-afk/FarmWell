@@ -2667,13 +2667,13 @@
       "id": "age-2",
       "label": "Piglets: 0 to 7 days",
       "shortLabel": "Piglets: 0 to 7...",
-      "icon": "🐷"
+      "icon": ""
     },
     {
       "id": "age-3",
       "label": "Piglets: 8 days to weaning",
       "shortLabel": "Piglets: 8 days...",
-      "icon": "🐷"
+      "icon": ""
     },
     {
       "id": "age-4",
@@ -2691,7 +2691,7 @@
       "id": "age-6",
       "label": "Growers / finishers",
       "shortLabel": "Growers / finis...",
-      "icon": "🐗"
+      "icon": ""
     },
     {
       "id": "all",

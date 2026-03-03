@@ -226,7 +226,7 @@ function DiseasePage() {
                 {disease.controlPrevention && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            🛡️ Control & Prevention
+                             Control & Prevention
                         </h3>
                         <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                             {textToBullets(disease.controlPrevention).map((item, i) => (

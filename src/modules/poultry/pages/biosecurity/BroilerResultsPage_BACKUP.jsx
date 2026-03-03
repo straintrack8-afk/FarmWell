@@ -121,7 +121,7 @@ function BroilerResultsPage() {
                                 padding: '1.5rem',
                                 textAlign: 'center'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🛡️</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#991b1b', marginBottom: '0.5rem' }}>
                                     {getLocalizedText(focusAreas?.external_biosecurity?.name, language)}
                                 </h3>

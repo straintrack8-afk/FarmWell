@@ -218,7 +218,7 @@ function BreederAssessmentDashboard() {
                                                     {categoryId === 'A' && 'ℹ️'}
                                                     {categoryId === 'B' && '🏢'}
                                                     {categoryId === 'C' && '🐾'}
-                                                    {categoryId === 'D' && '🌾'}
+                                                    {categoryId === 'D' && ''}
                                                     {categoryId === 'E' && '👥'}
                                                     {categoryId === 'F' && '💊'}
                                                     {categoryId === 'G' && '🧼'}

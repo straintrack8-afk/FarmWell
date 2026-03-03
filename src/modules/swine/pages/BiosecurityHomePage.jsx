@@ -157,9 +157,9 @@ function BiosecurityHomePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
           {[
             { icon: '🏭', key: 'infrastructure' },
-            { icon: '🐷', key: 'animals' },
+            { icon: '', key: 'animals' },
             { icon: '👥', key: 'people' },
-            { icon: '🌾', key: 'feed' },
+            { icon: '', key: 'feed' },
             { icon: '🐀', key: 'pest' },
             { icon: '🧼', key: 'cleaning' }
           ].map((item, idx) => (
