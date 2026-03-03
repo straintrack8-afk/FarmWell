@@ -209,7 +209,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Xuất sắc',
                 id: 'Luar Biasa'
             },
-            icon: '🟢'
+            icon: ''
         },
         good: {
             color: '#4CAF50',
@@ -219,7 +219,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Tốt',
                 id: 'Baik'
             },
-            icon: '🟢'
+            icon: ''
         },
         moderate: {
             color: '#FFC107',
@@ -229,7 +229,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Trung bình',
                 id: 'Sedang'
             },
-            icon: '🟡'
+            icon: ''
         },
         poor: {
             color: '#FF9800',
@@ -239,7 +239,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Yếu',
                 id: 'Buruk'
             },
-            icon: '🟠'
+            icon: ''
         },
         critical: {
             color: '#F44336',
@@ -249,7 +249,7 @@ export function getRiskConfig(riskLevel, language = 'en') {
                 vi: 'Nguy kịch',
                 id: 'Kritis'
             },
-            icon: '🔴'
+            icon: ''
         }
     };
 

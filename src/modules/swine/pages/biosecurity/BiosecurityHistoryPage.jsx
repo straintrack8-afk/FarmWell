@@ -91,7 +91,7 @@ function BiosecurityHistoryPage() {
                 {/* Header */}
                 <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h1 style={{ fontSize: '2rem', fontWeight: '800', color: '#1f2937' }}>
-                        📋 {getTranslation('title')}
+                         {getTranslation('title')}
                     </h1>
                     <button
                         onClick={() => navigate('/swine/biosecurity')}
@@ -172,7 +172,7 @@ function BiosecurityHistoryPage() {
                                                 onMouseEnter={(e) => e.target.style.background = '#059669'}
                                                 onMouseLeave={(e) => e.target.style.background = '#10b981'}
                                             >
-                                                👁️ {getTranslation('viewReport')}
+                                                 {getTranslation('viewReport')}
                                             </button>
                                             <button
                                                 onClick={() => downloadBiosecurityReport(assessment, language)}
@@ -192,7 +192,7 @@ function BiosecurityHistoryPage() {
                                                 onMouseEnter={(e) => e.target.style.background = '#4f46e5'}
                                                 onMouseLeave={(e) => e.target.style.background = '#6366f1'}
                                             >
-                                                📄 PDF
+                                                 PDF
                                             </button>
                                             <button
                                                 onClick={(e) => handleDelete(assessment.assessment_id, e)}
@@ -214,7 +214,7 @@ function BiosecurityHistoryPage() {
                                                 onMouseLeave={(e) => e.target.style.background = '#fee2e2'}
                                                 title={getTranslation('delete')}
                                             >
-                                                🗑️
+                                                
                                             </button>
                                         </div>
                                     </div>

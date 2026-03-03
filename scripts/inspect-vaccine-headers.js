@@ -15,9 +15,9 @@ const sheetName = 'Vaccine_recommendation';
 const sheet = workbook.Sheets[sheetName];
 
 if (!sheet) {
-    console.log(`❌ Sheet "${sheetName}" not found!`);
+    console.log(` Sheet "${sheetName}" not found!`);
 } else {
-    console.log(`✅ Sheet "${sheetName}" found.`);
+    console.log(` Sheet "${sheetName}" found.`);
     console.log('Range (!ref):', sheet['!ref']);
 
     // Dump first few keys

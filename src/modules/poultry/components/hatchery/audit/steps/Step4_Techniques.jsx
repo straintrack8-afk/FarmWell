@@ -53,7 +53,7 @@ function Step4_Techniques() {
                     ))}
                 </div>
                 <div className="alert info" style={{ marginTop: '1rem' }}>
-                    <span>📊</span>
+                    <span></span>
                     <div>
                         <strong>Preparation Score:</strong> {prepPassed} / {preparationChecks.length} ({prepPercentage}%)
                     </div>
@@ -110,7 +110,7 @@ function Step4_Techniques() {
                             marginTop: '0.5rem',
                             color: techniques.trayCoverage >= 90 ? '#10B981' : '#F59E0B'
                         }}>
-                            {techniques.trayCoverage >= 90 ? '✓ Good coverage' : '⚠ Coverage below 90%'}
+                            {techniques.trayCoverage >= 90 ? ' Good coverage' : ' Coverage below 90%'}
                         </p>
                     )}
                 </div>
@@ -161,7 +161,7 @@ function Step4_Techniques() {
                         />
                         {techniques.bleedingPercent > 5 && (
                             <p style={{ fontSize: '0.75rem', marginTop: '0.5rem', color: '#EF4444' }}>
-                                ⚠ Exceeds 5% threshold
+                                 Exceeds 5% threshold
                             </p>
                         )}
                     </div>
@@ -179,7 +179,7 @@ function Step4_Techniques() {
                         />
                         {techniques.wetNeckPercent > 5 && (
                             <p style={{ fontSize: '0.75rem', marginTop: '0.5rem', color: '#EF4444' }}>
-                                ⚠ Exceeds 5% threshold
+                                 Exceeds 5% threshold
                             </p>
                         )}
                     </div>

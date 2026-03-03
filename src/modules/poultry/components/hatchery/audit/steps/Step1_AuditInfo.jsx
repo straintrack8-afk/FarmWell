@@ -122,7 +122,7 @@ function Step1_AuditInfo() {
             </div>
 
             <div className="alert info">
-                <span>ℹ️</span>
+                <span></span>
                 <div>
                     <strong>Audit Reference:</strong> {currentAudit?.auditNumber || 'Will be generated on save'}
                 </div>

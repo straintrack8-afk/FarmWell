@@ -184,7 +184,7 @@ export default function ResultsList() {
 
                                                         {disease.zoonotic && (
                                                             <span className="text-xs px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full">
-                                                                ⚠️ {t('swine.diagnosis.results.zoonotic')}
+                                                                 {t('swine.diagnosis.results.zoonotic')}
                                                             </span>
                                                         )}
                                                     </div>

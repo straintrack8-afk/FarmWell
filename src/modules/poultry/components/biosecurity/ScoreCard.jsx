@@ -9,13 +9,13 @@ function ScoreCard({ score, grade, language, showDetails = true }) {
 
     const getGradeIcon = (level) => {
         const icons = {
-            'A': '🏆',
-            'B': '👍',
-            'C': '⚠️',
-            'D': '❌',
-            'F': '🚨'
+            'A': '',
+            'B': '',
+            'C': '',
+            'D': '',
+            'F': ''
         };
-        return icons[level] || '📊';
+        return icons[level] || '';
     };
 
     return (

@@ -13,7 +13,7 @@ const OUTPUT_PATH = path.join(__dirname, '..', 'public', 'data', 'poultry', 'dis
 console.log('Reading NEW Poultry Excel file:', EXCEL_PATH);
 
 if (!fs.existsSync(EXCEL_PATH)) {
-    console.error('❌ Excel file not found at:', EXCEL_PATH);
+    console.error(' Excel file not found at:', EXCEL_PATH);
     process.exit(1);
 }
 
@@ -60,13 +60,13 @@ const ageGroupMap = {
 
 // UI Age Groups format
 const ageGroups = [
-    { id: "day-old", label: "Day-old chicks (0-1 days)", shortLabel: "Day-old", icon: "🐣" },
-    { id: "growers", label: "Growers (2-8 weeks)", shortLabel: "Growers", icon: "" },
-    { id: "layers", label: "Layers", shortLabel: "Layers", icon: "🥚" },
-    { id: "broilers", label: "Broilers", shortLabel: "Broilers", icon: "🍗" },
-    { id: "breeders", label: "Breeders", shortLabel: "Breeders", icon: "🐓" },
-    { id: "ducks", label: "Ducks", shortLabel: "Ducks", icon: "🦆" },
-    { id: "all", label: "All ages", shortLabel: "All ages", icon: "✨" }
+    { id: "day-old", label: "Day-old chicks (0-1 days)", shortLabel: "Day-old", icon: '' },
+    { id: "growers", label: "Growers (2-8 weeks)", shortLabel: "Growers", icon: '' },
+    { id: "layers", label: "Layers", shortLabel: "Layers", icon: '' },
+    { id: "broilers", label: "Broilers", shortLabel: "Broilers", icon: '' },
+    { id: "breeders", label: "Breeders", shortLabel: "Breeders", icon: '' },
+    { id: "ducks", label: "Ducks", shortLabel: "Ducks", icon: '' },
+    { id: "all", label: "All ages", shortLabel: "All ages", icon: '' }
 ];
 
 // 2. Process Symptom Categories and Symptoms
@@ -186,4 +186,4 @@ fs.writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));
 
 console.log('\n=== PROCESSED NEW POULTRY DISEASES ===');
 console.log('Total diseases:', diseases.length);
-console.log(`✅ Saved to ${OUTPUT_PATH}`);
+console.log(` Saved to ${OUTPUT_PATH}`);

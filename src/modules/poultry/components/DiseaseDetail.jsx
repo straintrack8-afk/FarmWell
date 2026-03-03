@@ -33,7 +33,7 @@ function DiseaseDetail() {
         return (
             <div className="container">
                 <div className="empty-state">
-                    <div className="empty-state-icon" style={{ fontSize: '3rem' }}>❓</div>
+                    <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
                     <h3 className="empty-state-title">Disease Not Found</h3>
                     <p className="empty-state-text">
                         Please start a new diagnosis to view disease details.
@@ -108,7 +108,7 @@ function DiseaseDetail() {
             {/* Zoonotic Warning */}
             {disease.zoonotic && (
                 <div className="zoonotic-warning" style={{ marginBottom: '1.5rem' }}>
-                    <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}>⚠️</div>
+                    <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}></div>
                     <div className="zoonotic-warning-content">
                         <div className="zoonotic-warning-title">Zoonotic Disease Hazard</div>
                         <div className="zoonotic-warning-text">
@@ -124,7 +124,7 @@ function DiseaseDetail() {
                 {disease.description && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            📋 Description
+                             Description
                         </h3>
                         <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)' }}>
                             {disease.description}
@@ -138,7 +138,7 @@ function DiseaseDetail() {
                 {disease.symptoms?.length > 0 && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            🩺 Clinical Signs
+                             Clinical Signs
                         </h3>
                         <div style={{
                             display: 'grid',
@@ -171,7 +171,7 @@ function DiseaseDetail() {
                         <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                🔄 Transmission
+                                 Transmission
                             </h3>
                             <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                 {textToBullets(disease.transmission).map((item, i) => (
@@ -190,7 +190,7 @@ function DiseaseDetail() {
                         <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                🔬 Diagnosis Methods
+                                 Diagnosis Methods
                             </h3>
                             <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                 {textToBullets(disease.diagnosis).map((item, i) => (
@@ -209,7 +209,7 @@ function DiseaseDetail() {
                         <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                💊 Treatment Options
+                                 Treatment Options
                             </h3>
                             <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                 {textToBullets(disease.treatment).map((item, i) => (
@@ -247,7 +247,7 @@ function DiseaseDetail() {
                         <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                         <div style={{ marginBottom: '1rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                💉 Vaccine Recommendations
+                                 Vaccine Recommendations
                             </h3>
                             <div style={{
                                 display: 'grid',
@@ -318,7 +318,7 @@ function DiseaseDetail() {
                     ← Back to Results
                 </button>
                 <button className="btn btn-outline" onClick={handleNewDiagnosis}>
-                    🔄 New Diagnosis
+                     New Diagnosis
                 </button>
             </div>
         </div>

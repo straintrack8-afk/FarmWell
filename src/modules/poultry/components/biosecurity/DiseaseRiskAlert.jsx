@@ -19,7 +19,7 @@ function DiseaseRiskAlert({ triggeredRisks }) {
                     padding: '3rem 2rem',
                     color: '#6b7280'
                 }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✅</div>
+                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                     <h4 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem', color: '#10b981' }}>
                         No Critical Risks Detected
                     </h4>
@@ -50,7 +50,7 @@ function DiseaseRiskAlert({ triggeredRisks }) {
             >
                 <div className="risk-alert-header">
                     <div className="risk-alert-icon" style={{ color }}>
-                        {riskLevel === 'critical' ? '🔴' : riskLevel === 'high' ? '🟠' : riskLevel === 'medium' ? '🟡' : '🟢'}
+                        {riskLevel === 'critical' ? '' : riskLevel === 'high' ? '' : riskLevel === 'medium' ? '' : ''}
                     </div>
                     <div className="risk-alert-title">
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -65,7 +65,7 @@ function DiseaseRiskAlert({ triggeredRisks }) {
                             </span>
                             {disease.zoonotic && (
                                 <span className="zoonotic-badge">
-                                    ⚠️ Zoonotic
+                                     Zoonotic
                                 </span>
                             )}
                         </div>
@@ -149,7 +149,7 @@ function DiseaseRiskAlert({ triggeredRisks }) {
                 {/* Zoonotic Warning */}
                 {disease.zoonotic && (
                     <div className="zoonotic-warning">
-                        <div className="warning-icon">⚠️</div>
+                        <div className="warning-icon"></div>
                         <div className="warning-text">
                             <strong>Zoonotic Disease Warning:</strong> This disease can be transmitted to humans.
                             Implement strict personal protective equipment (PPE) protocols and hygiene measures.
@@ -187,7 +187,7 @@ function DiseaseRiskAlert({ triggeredRisks }) {
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em'
                         }}>
-                            🔴 Critical Risks ({criticalRisks.length})
+                             Critical Risks ({criticalRisks.length})
                         </div>
                         {criticalRisks.map(renderRiskCard)}
                     </>
@@ -205,7 +205,7 @@ function DiseaseRiskAlert({ triggeredRisks }) {
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em'
                         }}>
-                            🟠 High Risks ({highRisks.length})
+                             High Risks ({highRisks.length})
                         </div>
                         {highRisks.map(renderRiskCard)}
                     </>
@@ -223,7 +223,7 @@ function DiseaseRiskAlert({ triggeredRisks }) {
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em'
                         }}>
-                            🟡 Medium Risks ({mediumRisks.length})
+                             Medium Risks ({mediumRisks.length})
                         </div>
                         {mediumRisks.map(renderRiskCard)}
                     </>
@@ -241,7 +241,7 @@ function DiseaseRiskAlert({ triggeredRisks }) {
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em'
                         }}>
-                            🟢 Low Risks ({lowRisks.length})
+                             Low Risks ({lowRisks.length})
                         </div>
                         {lowRisks.map(renderRiskCard)}
                     </>

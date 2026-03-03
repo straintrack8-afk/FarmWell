@@ -141,7 +141,7 @@ function BroilerResultsPage() {
                                 padding: '1.5rem',
                                 textAlign: 'center'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🏠</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#1e40af', marginBottom: '0.5rem' }}>
                                     {getLocalizedText(focusAreas?.internal_biosecurity?.name, language)}
                                 </h3>
@@ -208,7 +208,7 @@ function BroilerResultsPage() {
                         <h2 className="section-title">Assessment Summary</h2>
                         <div className="summary-stats">
                             <div className="summary-stat">
-                                <div className="stat-icon">📝</div>
+                                <div className="stat-icon"></div>
                                 <div className="stat-content">
                                     <div className="stat-value">{progressStats?.answeredQuestions || 0}</div>
                                     <div className="stat-label">Questions Answered</div>
@@ -216,7 +216,7 @@ function BroilerResultsPage() {
                             </div>
 
                             <div className="summary-stat">
-                                <div className="stat-icon">✅</div>
+                                <div className="stat-icon"></div>
                                 <div className="stat-content">
                                     <div className="stat-value">{progressStats?.percentage || 0}%</div>
                                     <div className="stat-label">Completion Rate</div>
@@ -224,7 +224,7 @@ function BroilerResultsPage() {
                             </div>
 
                             <div className="summary-stat">
-                                <div className="stat-icon">⚠️</div>
+                                <div className="stat-icon"></div>
                                 <div className="stat-content">
                                     <div className="stat-value">{triggeredRisks?.length || 0}</div>
                                     <div className="stat-label">Risks Identified</div>
@@ -232,7 +232,7 @@ function BroilerResultsPage() {
                             </div>
 
                             <div className="summary-stat">
-                                <div className="stat-icon">🎯</div>
+                                <div className="stat-icon"></div>
                                 <div className="stat-content">
                                     <div className="stat-value">{grade || 'N/A'}</div>
                                     <div className="stat-label">Overall Grade</div>
@@ -247,7 +247,7 @@ function BroilerResultsPage() {
                             className="btn btn-secondary no-print"
                             onClick={handlePrint}
                         >
-                            🖨️ Print Results
+                             Print Results
                         </button>
 
                         <button
@@ -255,7 +255,7 @@ function BroilerResultsPage() {
                             onClick={handleNewAssessment}
                             style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}
                         >
-                            🔄 Start New Assessment
+                             Start New Assessment
                         </button>
                     </div>
 

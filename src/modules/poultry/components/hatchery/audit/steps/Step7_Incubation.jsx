@@ -47,7 +47,7 @@ function Step7_Incubation() {
 
             {!isIncubating ? (
                 <div className="hatchery-card" style={{ textAlign: 'center', padding: '3rem' }}>
-                    <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>🌡️</div>
+                    <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}></div>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
                         Ready to Incubate?
                     </h3>
@@ -65,7 +65,7 @@ function Step7_Incubation() {
             ) : (
                 <div>
                     <div className="alert info" style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <div style={{ fontSize: '2rem' }}>🌡️</div>
+                        <div style={{ fontSize: '2rem' }}></div>
                         <div>
                             <strong>Incubation In Progress</strong>
                             <br />
@@ -107,7 +107,7 @@ function Step7_Incubation() {
 
                     {progress >= 100 && (
                         <div className="alert success" style={{ marginTop: '2rem' }}>
-                            <span>✓</span>
+                            <span></span>
                             <div>
                                 <strong>Incubation Complete</strong>
                                 <br />

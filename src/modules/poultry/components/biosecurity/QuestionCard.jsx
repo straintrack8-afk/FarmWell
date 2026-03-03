@@ -31,7 +31,7 @@ function QuestionCard({ question, answer, onAnswerChange, language, showValidati
                 </h3>
                 {hasRisks && (
                     <div className="risk-badge">
-                        <span className="risk-icon">⚠️</span>
+                        <span className="risk-icon"></span>
                         <span className="risk-text">Disease Risk Factor</span>
                     </div>
                 )}
@@ -99,7 +99,7 @@ function QuestionCard({ question, answer, onAnswerChange, language, showValidati
 
             {showValidation && isRequired && !isAnswered && (
                 <div className="validation-message">
-                    <span className="validation-icon">⚠️</span>
+                    <span className="validation-icon"></span>
                     <span className="validation-text">
                         {language === 'vi' && 'Câu hỏi này bắt buộc phải trả lời'}
                         {language === 'en' && 'This question is required'}
@@ -133,7 +133,7 @@ function QuestionCard({ question, answer, onAnswerChange, language, showValidati
                         marginTop: '1rem'
                     }}>
                         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'start' }}>
-                            <span style={{ fontSize: '1.5rem' }}>⚠️</span>
+                            <span style={{ fontSize: '1.5rem' }}></span>
                             <div>
                                 <div style={{ fontWeight: '600', color: '#991b1b', marginBottom: '0.5rem' }}>
                                     {language === 'vi' && 'Nguy cơ đã xác định'}

@@ -90,7 +90,7 @@ function PoultryLanding() {
                     }}>
                         {/* Diagnostic Tool Card */}
                         <div className="action-card" onClick={handleDiagnosticTool}>
-                            <span className="action-card-icon">🔍</span>
+                            <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.diagnosis.title')}
                             </h3>
@@ -99,19 +99,19 @@ function PoultryLanding() {
                             </p>
                             <ul className="action-card-features">
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.diagnosis.features.ageSpecific')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.diagnosis.features.symptomBased')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.diagnosis.features.treatment')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.diagnosis.features.offline')}</span>
                                 </li>
                             </ul>
@@ -122,7 +122,7 @@ function PoultryLanding() {
 
                         {/* Hatchery Audit Card */}
                         <div className="action-card" onClick={handleHatcheryAudit}>
-                            <span className="action-card-icon">🧫</span>
+                            <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.hatchery.title')}
                             </h3>
@@ -131,19 +131,19 @@ function PoultryLanding() {
                             </p>
                             <ul className="action-card-features">
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.hatchery.features.vaccine')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.hatchery.features.environmental')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.hatchery.features.reports')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.hatchery.features.quarterly')}</span>
                                 </li>
                             </ul>
@@ -154,7 +154,7 @@ function PoultryLanding() {
 
                         {/* Broiler Assessment Card */}
                         <div className="action-card" onClick={handleBroilerAssessment}>
-                            <span className="action-card-icon">📋</span>
+                            <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.biosecurity.title')}
                             </h3>
@@ -163,19 +163,19 @@ function PoultryLanding() {
                             </p>
                             <ul className="action-card-features">
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.biosecurity.features.comprehensive')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.biosecurity.features.scoring')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.biosecurity.features.risks')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.biosecurity.features.biocheck')}</span>
                                 </li>
                             </ul>
@@ -186,7 +186,7 @@ function PoultryLanding() {
 
                         {/* Breeder Assessment Card */}
                         <div className="action-card" onClick={() => navigate('/poultry/breeder-assessment')}>
-                            <span className="action-card-icon">🏭</span>
+                            <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.breeder.title')}
                             </h3>
@@ -195,19 +195,19 @@ function PoultryLanding() {
                             </p>
                             <ul className="action-card-features">
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.breeder.features.assessment')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.breeder.features.priority')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.breeder.features.risks')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.breeder.features.multilingual')}</span>
                                 </li>
                             </ul>
@@ -218,7 +218,7 @@ function PoultryLanding() {
 
                         {/* Layer Assessment Card */}
                         <div className="action-card" onClick={() => navigate('/poultry/layer-assessment')}>
-                            <span className="action-card-icon">🥚</span>
+                            <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.layer.title')}
                             </h3>
@@ -227,19 +227,19 @@ function PoultryLanding() {
                             </p>
                             <ul className="action-card-features">
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.layer.features.assessment')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.layer.features.categories')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.layer.features.risks')}</span>
                                 </li>
                                 <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
+                                    <span className="action-card-feature-icon"></span>
                                     <span>{t('poultry.layer.features.multilingual')}</span>
                                 </li>
                             </ul>

@@ -117,7 +117,7 @@ if (!fs.existsSync(dataDir)) {
 // Write diseases
 const outputPath = path.join(dataDir, 'pig-diseases.json');
 fs.writeFileSync(outputPath, JSON.stringify(validDiseases, null, 2));
-console.log(`✅ Wrote ${validDiseases.length} diseases to pig-diseases.json`);
+console.log(` Wrote ${validDiseases.length} diseases to pig-diseases.json`);
 
 // Build symptoms from master list
 const symptomCounts = {};
@@ -195,11 +195,11 @@ const symptomsData = {
 
 const symptomsOutputPath = path.join(dataDir, 'symptoms.json');
 fs.writeFileSync(symptomsOutputPath, JSON.stringify(symptomsData, null, 2));
-console.log(`✅ Wrote ${Object.keys(symptomCounts).length} symptoms to symptoms.json`);
+console.log(` Wrote ${Object.keys(symptomCounts).length} symptoms to symptoms.json`);
 
 console.log('\n=== SUMMARY ===');
 console.log(`Diseases: ${validDiseases.length}`);
 console.log(`Symptoms: ${Object.keys(symptomCounts).length}`);
 console.log(`Zoonotic: ${validDiseases.filter(d => d.zoonoticRisk).length}`);
 console.log(`With detailed descriptions: ${validDiseases.filter(d => d.description).length}`);
-console.log('\n✅ Database updated with enhanced Disease_Details_Complete data!');
+console.log('\n Database updated with enhanced Disease_Details_Complete data!');

@@ -78,7 +78,7 @@ function DiagnosisDisclaimer({ language = 'en', diseaseIndicated }) {
                         fontSize: '1.25rem'
                     }}
                 >
-                    🩺
+                    
                 </div>
                 <div>
                     <h3
@@ -192,7 +192,7 @@ function DiagnosisDisclaimer({ language = 'en', diseaseIndicated }) {
                     onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#2563EB'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#3B82F6'; }}
                 >
-                    📞 {lang.contactVet}
+                     {lang.contactVet}
                 </button>
                 <button
                     onClick={() => window.print()}
@@ -222,7 +222,7 @@ function DiagnosisDisclaimer({ language = 'en', diseaseIndicated }) {
                         e.currentTarget.style.borderColor = '#D1D5DB';
                     }}
                 >
-                    📄 {lang.saveReport}
+                     {lang.saveReport}
                 </button>
             </div>
 

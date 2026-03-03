@@ -126,7 +126,7 @@ function Settings() {
 
             {showSaveSuccess && (
                 <div className="alert success" style={{ marginBottom: '1rem' }}>
-                    <span>✓</span>
+                    <span></span>
                     Settings saved successfully
                 </div>
             )}

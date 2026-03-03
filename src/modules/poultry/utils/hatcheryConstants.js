@@ -135,27 +135,27 @@ export const AUDIT_COLORS = {
         text: 'text-green-800',
         border: 'border-green-200',
         solid: '#10B981',
-        icon: '✓'
+        icon: ''
     },
     FAIR: {
         bg: 'bg-yellow-100',
         text: 'text-yellow-800',
         border: 'border-yellow-200',
         solid: '#F59E0B',
-        icon: '⚠'
+        icon: ''
     },
     POOR: {
         bg: 'bg-red-100',
         text: 'text-red-800',
         border: 'border-red-200',
         solid: '#EF4444',
-        icon: '✗'
+        icon: ''
     },
     INFO: {
         bg: 'bg-blue-100',
         text: 'text-blue-800',
         border: 'border-blue-200',
         solid: '#3B82F6',
-        icon: 'ℹ'
+        icon: ''
     }
 };

@@ -49,7 +49,7 @@ function BroilerAssessmentDashboard() {
             <div className="portal-layout">
                 <div className="portal-container">
                     <div className="portal-card" style={{ textAlign: 'center', padding: '4rem' }}>
-                        <div style={{ fontSize: '3rem' }}>⚠️</div>
+                        <div style={{ fontSize: '3rem' }}></div>
                         <h2 className="text-danger">Failed to Load</h2>
                         <p className="text-muted">{error}</p>
                         <button onClick={() => window.location.reload()} className="btn btn-primary">
@@ -66,7 +66,7 @@ function BroilerAssessmentDashboard() {
             <div className="portal-layout">
                 <div className="portal-container">
                     <div className="portal-card" style={{ textAlign: 'center', padding: '4rem' }}>
-                        <div style={{ fontSize: '3rem' }}>❓</div>
+                        <div style={{ fontSize: '3rem' }}></div>
                         <h2>Data Unavailable</h2>
                         <p className="text-muted">Assessment data could not be found.</p>
                         <button onClick={() => window.location.reload()} className="btn btn-primary">
@@ -551,7 +551,7 @@ function BroilerAssessmentDashboard() {
                                     e.currentTarget.style.color = '#ef4444';
                                 }}
                             >
-                                🗑️ Discard Assessment
+                                 Discard Assessment
                             </button>
                         </div>
                     </div>

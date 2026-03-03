@@ -68,11 +68,11 @@
 
 ## Known Issues
 
-1. ✅ FIXED: Layer data incomplete - added complete data for weeks 1-80
-2. ✅ FIXED: Layer breeder using static values - now uses layer data for <20 weeks
-3. ✅ FIXED: NaN in Total Product - added parseFloat() conversion
-4. 🔍 INVESTIGATING: Broiler calculation not updating with age changes
-5. 🔍 INVESTIGATING: Need to verify all categories work correctly
+1.  FIXED: Layer data incomplete - added complete data for weeks 1-80
+2.  FIXED: Layer breeder using static values - now uses layer data for <20 weeks
+3.  FIXED: NaN in Total Product - added parseFloat() conversion
+4.  INVESTIGATING: Broiler calculation not updating with age changes
+5.  INVESTIGATING: Need to verify all categories work correctly
 
 ## Debug Steps
 
@@ -85,7 +85,7 @@
    - Input values (dayNumber, specificCategory, age, ageUnit)
    - Calculated ageInDays
    - Category-specific calculation logs
-   - "✅ Final result" with waterL and feedKg
+   - " Final result" with waterL and feedKg
    - "=== getDailyConsumption END ==="
 
 ## Next Steps

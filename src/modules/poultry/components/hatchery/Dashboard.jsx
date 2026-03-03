@@ -359,7 +359,7 @@ function Dashboard() {
                                                 alignItems: 'center',
                                                 gap: '1rem'
                                             }}>
-                                                <span style={{ fontSize: '1.5rem' }}>{issue.priority === 'critical' ? '🔴' : '⚠️'}</span>
+                                                <span style={{ fontSize: '1.5rem' }}>{issue.priority === 'critical' ? '' : ''}</span>
                                                 <div>
                                                     <strong>{issue.category}:</strong> {issue.issue}
                                                 </div>

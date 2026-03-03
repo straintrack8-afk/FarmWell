@@ -10,25 +10,25 @@ export default function PriorityBadge({ priority, language = 'en' }) {
             label: { en: 'Critical', id: 'Kritis', vt: 'Nghiêm Trọng' },
             color: '#DC2626',
             bgColor: '#FEE2E2',
-            icon: '🔴'
+            icon: ''
         },
         high: {
             label: { en: 'High', id: 'Tinggi', vt: 'Cao' },
             color: '#EA580C',
             bgColor: '#FFEDD5',
-            icon: '🟠'
+            icon: ''
         },
         medium: {
             label: { en: 'Medium', id: 'Sedang', vt: 'Trung Bình' },
             color: '#F59E0B',
             bgColor: '#FEF3C7',
-            icon: '🟡'
+            icon: ''
         },
         low: {
             label: { en: 'Low', id: 'Rendah', vt: 'Thấp' },
             color: '#10B981',
             bgColor: '#D1FAE5',
-            icon: '🟢'
+            icon: ''
         }
     };
 

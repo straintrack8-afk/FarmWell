@@ -346,21 +346,21 @@ const DosageCalculator = () => {
                 { id: 'boar', label: 'Boar', icon: '' }
             ],
             commercial: [
-                { id: 'nursery', label: 'Nursery/Weaner (5-27 kg)', icon: '🐖' },
-                { id: 'grower', label: 'Grower (27-60 kg)', icon: '🐖' },
-                { id: 'finisher', label: 'Finisher (60-120 kg)', icon: '🐖' }
+                { id: 'nursery', label: 'Nursery/Weaner (5-27 kg)', icon: '' },
+                { id: 'grower', label: 'Grower (27-60 kg)', icon: '' },
+                { id: 'finisher', label: 'Finisher (60-120 kg)', icon: '' }
             ]
         },
         poultry: {
             breeding: [
                 { id: 'broiler_breeder', label: 'Broiler Breeder', icon: '' },
                 { id: 'layer_breeder', label: 'Layer Breeder', icon: '' },
-                { id: 'color_breeder', label: 'Color Breeder', icon: '🐓' }
+                { id: 'color_breeder', label: 'Color Breeder', icon: '' }
             ],
             commercial: [
                 { id: 'broiler', label: 'Broiler', icon: '' },
                 { id: 'layer', label: 'Layer (Commercial)', icon: '' },
-                { id: 'color_chicken', label: 'Color/Kampung Chicken', icon: '🐓' }
+                { id: 'color_chicken', label: 'Color/Kampung Chicken', icon: '' }
             ]
         }
     };
@@ -672,7 +672,7 @@ const DosageCalculator = () => {
         console.log('consumptionData loaded?', !!consumptionData);
 
         if (!consumptionData) {
-            console.error('❌ Consumption data not loaded yet');
+            console.error(' Consumption data not loaded yet');
             return { waterL: 0, feedKg: 0 };
         }
 
@@ -878,11 +878,11 @@ const DosageCalculator = () => {
             console.log('Swine breeder calculation:', { specificCategory, waterL, feedKg });
         }
         else {
-            console.error('❌ Unknown category:', specificCategory);
+            console.error(' Unknown category:', specificCategory);
             console.log('Available categories: broiler, layer, layer_breeder, broiler_breeder, color_chicken, color_breeder, nursery, grower, finisher, sow_gestation, sow_lactation, boar');
         }
 
-        console.log('✅ Final result:', { waterL, feedKg, waterMl: waterL * 1000, feedG: feedKg * 1000 });
+        console.log(' Final result:', { waterL, feedKg, waterMl: waterL * 1000, feedG: feedKg * 1000 });
         console.log('=== getDailyConsumption END ===\n');
 
         return { waterL, feedKg };
@@ -1193,7 +1193,7 @@ const DosageCalculator = () => {
                                                     gap: '0.5rem'
                                                 }}
                                             >
-                                                📊 Export Excel
+                                                 Export Excel
                                             </button>
                                             <button
                                                 onClick={printReferenceData}
@@ -1212,7 +1212,7 @@ const DosageCalculator = () => {
                                                     gap: '0.5rem'
                                                 }}
                                             >
-                                                🖨️ Print PDF
+                                                 Print PDF
                                             </button>
                                         </div>
                                     </div>
@@ -1414,7 +1414,7 @@ const DosageCalculator = () => {
                                             </div>
 
                                             <div style={{ marginTop: '1rem', padding: '1rem', background: '#fef3c7', borderRadius: '6px', fontSize: '0.875rem' }}>
-                                                <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}>📝 Key Milestones:</p>
+                                                <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}> Key Milestones:</p>
                                                 <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
                                                     <li><strong>Week 0</strong>: Day old ad lib feeding</li>
                                                     <li><strong>Week 21</strong>: First light stimulation</li>
@@ -1900,17 +1900,17 @@ const DosageCalculator = () => {
                                                             fontSize: '0.75rem',
                                                             fontWeight: '600'
                                                         }}>
-                                                            ★ Popular
+                                                             Popular
                                                         </span>
                                                     )}
                                                 </div>
                                                 <div style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '0.75rem' }}>
-                                                    {product.application.method === 'feed' ? '🥣 Feed' : '💧 Water'} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
+                                                    {product.application.method === 'feed' ? ' Feed' : ' Water'} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
                                                 </div>
                                                 <div style={{ fontSize: '0.875rem', color: '#374151' }}>
                                                     {product.benefits.primary.slice(0, 2).map((benefit, i) => (
                                                         <div key={i} style={{ marginBottom: '0.25rem' }}>
-                                                            ✓ {benefit}
+                                                             {benefit}
                                                         </div>
                                                     ))}
                                                 </div>
@@ -1930,7 +1930,7 @@ const DosageCalculator = () => {
                                             boxSizing: 'border-box'
                                         }}>
                                             <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                                💰 {t('productPrice').replace(' (VND/kg):', '')}
+                                                 {t('productPrice').replace(' (VND/kg):', '')}
                                             </h3>
                                             <div>
                                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
@@ -2008,7 +2008,7 @@ const DosageCalculator = () => {
                                                     {t('standardPreventionTitle')}
                                                 </div>
                                                 <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#059669', fontWeight: '500' }}>
-                                                    📅 {t('standardPreventionDesc')}
+                                                     {t('standardPreventionDesc')}
                                                 </div>
                                             </button>
 
@@ -2036,12 +2036,12 @@ const DosageCalculator = () => {
                                                     e.currentTarget.style.transform = 'translateY(0)';
                                                 }}
                                             >
-                                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🏥</div>
+                                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}></div>
                                                 <div style={{ fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', fontWeight: '700', color: '#3730a3', marginBottom: '0.35rem', lineHeight: 1.3 }}>
                                                     {t('intensiveTreatmentTitle')}
                                                 </div>
                                                 <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#4f46e5', fontWeight: '500' }}>
-                                                    📅 {t('intensiveTreatmentDesc')}
+                                                     {t('intensiveTreatmentDesc')}
                                                 </div>
                                             </button>
                                         </div>
@@ -2162,7 +2162,7 @@ const DosageCalculator = () => {
                                                     marginTop: '0.5rem'
                                                 }}
                                             >
-                                                ➕ Add Another Period
+                                                 Add Another Period
                                             </button>
                                         </div>
                                     )}
@@ -2183,7 +2183,7 @@ const DosageCalculator = () => {
                                             marginBottom: '2rem'
                                         }}
                                     >
-                                        🧮 {t('calculateDosage')}
+                                         {t('calculateDosage')}
                                     </button>
 
                                     {/* Results Display */}
@@ -2207,7 +2207,7 @@ const DosageCalculator = () => {
                                             </div>
 
                                             <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#166534' }}>
-                                                📊 {t('calculationResults')}
+                                                 {t('calculationResults')}
                                             </h3>
 
                                             {/* Summary */}
@@ -2281,7 +2281,7 @@ const DosageCalculator = () => {
                                                 marginTop: '1.5rem'
                                             }}>
                                                 <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem' }}>
-                                                    💰 {t('totalInvestment')}
+                                                     {t('totalInvestment')}
                                                 </h4>
                                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '1rem' }}>
                                                     <div>
@@ -2313,11 +2313,11 @@ const DosageCalculator = () => {
                                                 marginTop: '1.5rem'
                                             }}>
                                                 <h4 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                                    💡 {t('expectedBenefits')}
+                                                     {t('expectedBenefits')}
                                                 </h4>
                                                 {calculationData.selectedProduct.benefits.primary.map((benefit, i) => (
                                                     <div key={i} style={{ marginBottom: '0.5rem', paddingLeft: '1.5rem', position: 'relative' }}>
-                                                        <span style={{ position: 'absolute', left: 0 }}>✓</span>
+                                                        <span style={{ position: 'absolute', left: 0 }}></span>
                                                         {benefit}
                                                     </div>
                                                 ))}
@@ -2336,7 +2336,7 @@ const DosageCalculator = () => {
                                             }}>
                                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'flex-start', marginBottom: '1rem' }}>
                                                     <h4 style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: '700', color: '#1e40af', flex: 1, minWidth: '120px' }}>
-                                                        📋 {t('dailyCalculationDetails')}
+                                                         {t('dailyCalculationDetails')}
                                                     </h4>
                                                     <button
                                                         onClick={() => setShowDailyDetails(!showDailyDetails)}
@@ -2353,7 +2353,7 @@ const DosageCalculator = () => {
                                                             whiteSpace: 'nowrap'
                                                         }}
                                                     >
-                                                        {showDailyDetails ? '🔼 ' + t('hideDetails') : '🔽 ' + t('showDetails')}
+                                                        {showDailyDetails ? ' ' + t('hideDetails') : ' ' + t('showDetails')}
                                                     </button>
                                                 </div>
 
@@ -2459,7 +2459,7 @@ const DosageCalculator = () => {
                                                         textAlign: 'center'
                                                     }}
                                                 >
-                                                    📊 {t('exportToExcel')}
+                                                     {t('exportToExcel')}
                                                 </button>
                                                 <button
                                                     onClick={printPDF}
@@ -2480,7 +2480,7 @@ const DosageCalculator = () => {
                                                         textAlign: 'center'
                                                     }}
                                                 >
-                                                    🖨️ {t('printPDF')}
+                                                     {t('printPDF')}
                                                 </button>
                                             </div>
 
@@ -2494,7 +2494,7 @@ const DosageCalculator = () => {
                                                 boxSizing: 'border-box'
                                             }}>
                                                 <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#0369a1' }}>
-                                                    📧 {t('requestForInquiry')}
+                                                     {t('requestForInquiry')}
                                                 </h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1.5rem' }}>
                                                     {t('inquiryDescription')}
@@ -2641,7 +2641,7 @@ const DosageCalculator = () => {
                                                 textAlign: 'center'
                                             }}
                                         >
-                                            🔄 {t('newCalculation')}
+                                             {t('newCalculation')}
                                         </button>
                                     </div>
                                 ) : (

@@ -127,7 +127,7 @@ function BroilerAssessmentLanding() {
                     <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
                         {/* Title Section */}
                         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🍗</div>
+                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                             <h1 style={{
                                 fontSize: '2.5rem',
                                 fontWeight: '700',
@@ -162,7 +162,7 @@ function BroilerAssessmentLanding() {
                                 borderRadius: '12px',
                                 border: '2px solid #fbbf24'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📋</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                                     83 Questions
                                 </h3>
@@ -177,7 +177,7 @@ function BroilerAssessmentLanding() {
                                 borderRadius: '12px',
                                 border: '2px solid #f87171'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>⚠️</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                                     Risk Assessment
                                 </h3>
@@ -192,7 +192,7 @@ function BroilerAssessmentLanding() {
                                 borderRadius: '12px',
                                 border: '2px solid #60a5fa'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌐</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                                     Multi-Language
                                 </h3>
@@ -207,7 +207,7 @@ function BroilerAssessmentLanding() {
                                 borderRadius: '12px',
                                 border: '2px solid #34d399'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🦠</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                                     Disease Mapping
                                 </h3>
@@ -233,15 +233,15 @@ function BroilerAssessmentLanding() {
                                 gap: '1rem'
                             }}>
                                 {[
-                                    { icon: 'ℹ️', name: 'Farm Background', count: 4 },
-                                    { icon: '🐣', name: 'Chick Management', count: 11 },
+                                    { icon: '', name: 'Farm Background', count: 4 },
+                                    { icon: '', name: 'Chick Management', count: 11 },
                                     { icon: '', name: 'Feed & Water', count: 11 },
                                     { icon: '', name: 'Flock Management', count: 10 },
-                                    { icon: '🚜', name: 'Equipment & Materials', count: 9 },
-                                    { icon: '👥', name: 'Personnel & Visitors', count: 13 },
-                                    { icon: '🐭', name: 'Pest Control', count: 8 },
-                                    { icon: '🧼', name: 'Cleaning & Disinfection', count: 11 },
-                                    { icon: '🏥', name: 'Health Management', count: 6 }
+                                    { icon: '', name: 'Equipment & Materials', count: 9 },
+                                    { icon: '', name: 'Personnel & Visitors', count: 13 },
+                                    { icon: '', name: 'Pest Control', count: 8 },
+                                    { icon: '', name: 'Cleaning & Disinfection', count: 11 },
+                                    { icon: '', name: 'Health Management', count: 6 }
                                 ].map((category, index) => (
                                     <div key={index} style={{
                                         padding: '1rem',
@@ -283,7 +283,7 @@ function BroilerAssessmentLanding() {
                                     boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)'
                                 }}
                             >
-                                🆕 Start New Assessment
+                                 Start New Assessment
                             </button>
                         </div>
 
@@ -296,7 +296,7 @@ function BroilerAssessmentLanding() {
                                     marginBottom: '1rem',
                                     color: '#1f2937'
                                 }}>
-                                    📋 Saved Assessments
+                                     Saved Assessments
                                 </h3>
                                 <div style={{
                                     display: 'flex',
@@ -436,7 +436,7 @@ function BroilerAssessmentLanding() {
                                                                 e.currentTarget.style.boxShadow = '0 2px 8px rgba(16, 185, 129, 0.3)';
                                                             }}
                                                         >
-                                                            📊 View Summary
+                                                             View Summary
                                                         </button>
                                                     ) : (
                                                         <button
@@ -462,7 +462,7 @@ function BroilerAssessmentLanding() {
                                                                 e.currentTarget.style.boxShadow = '0 2px 8px rgba(6, 182, 212, 0.3)';
                                                             }}
                                                         >
-                                                            ▶️ Continue
+                                                             Continue
                                                         </button>
                                                     )}
                                                     <button
@@ -487,7 +487,7 @@ function BroilerAssessmentLanding() {
                                                             e.currentTarget.style.color = '#ef4444';
                                                         }}
                                                     >
-                                                        🗑️
+                                                        
                                                     </button>
                                                 </div>
                                             </div>
@@ -507,7 +507,7 @@ function BroilerAssessmentLanding() {
                             textAlign: 'center'
                         }}>
                             <p style={{ fontSize: '0.875rem', color: '#1e40af', margin: 0 }}>
-                                💡 <strong>Estimated time:</strong> 25-35 minutes | Your progress is automatically saved
+                                 <strong>Estimated time:</strong> 25-35 minutes | Your progress is automatically saved
                             </p>
                         </div>
                     </div>

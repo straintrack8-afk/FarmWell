@@ -433,7 +433,7 @@ function ResultsPage() {
             {categoryBreakdown && (
                 <div style={{ marginBottom: '3rem' }}>
                     <h2 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem' }}>
-                        📊 Category Breakdown
+                         Category Breakdown
                     </h2>
                     <div style={{
                         display: 'grid',
@@ -643,7 +643,7 @@ function ResultsPage() {
             {/* Critical Action Items */}
             <div>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    🚨 {getTranslation('improvementPlan')}
+                     {getTranslation('improvementPlan')}
                 </h2>
 
                 {criticalItems.length === 0 ? (
@@ -696,7 +696,7 @@ function ResultsPage() {
                                         <strong>Your Answer:</strong> {item.answer.toString()}
                                     </p>
                                     <div style={{ marginTop: '0.75rem', color: '#059669', fontSize: '0.9rem' }}>
-                                        <strong>💡 Recommendation:</strong> Implement standard biosecurity procedure to address this risk. Ensure compliance with biosecurity manual section {item.focusArea}.{item.questionNumber}.
+                                        <strong> Recommendation:</strong> Implement standard biosecurity procedure to address this risk. Ensure compliance with biosecurity manual section {item.focusArea}.{item.questionNumber}.
                                     </div>
                                 </div>
                             </div>

@@ -16,10 +16,10 @@ function ScoreBadge({ classification, score, showIcon = true }) {
 
     const getIcon = () => {
         const classif = String(classification || '').toUpperCase();
-        if (classif === 'GOOD' || classif === 'EXCELLENT') return '✓';
-        if (classif === 'FAIR') return '⚠';
-        if (classif === 'POOR') return '✗';
-        return 'ℹ';
+        if (classif === 'GOOD' || classif === 'EXCELLENT') return '';
+        if (classif === 'FAIR') return '';
+        if (classif === 'POOR') return '';
+        return '';
     };
 
     const badgeClass = getClassificationClass();

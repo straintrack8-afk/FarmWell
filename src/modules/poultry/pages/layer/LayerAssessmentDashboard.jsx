@@ -41,7 +41,7 @@ function LayerAssessmentDashboard() {
                 <div className="portal-container">
                     <div className="portal-card" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⚠️</div>
+                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                             <h2 style={{ color: '#ef4444', marginBottom: '0.5rem' }}>Error Loading Assessment</h2>
                             <p style={{ color: '#6b7280' }}>{error}</p>
                             <button
@@ -200,7 +200,7 @@ function LayerAssessmentDashboard() {
                                                 fontSize: '0.75rem',
                                                 fontWeight: '600'
                                             }}>
-                                                ✓ Complete
+                                                 Complete
                                             </div>
                                         )}
 
@@ -214,7 +214,7 @@ function LayerAssessmentDashboard() {
                                                 marginBottom: '0.75rem'
                                             }}>
                                                 <span style={{ fontSize: '1.5rem' }}>
-                                                    {['ℹ️', '🐣', '', '🐦', '🚜', '👥', '🐭', '🧼', '🏥', '🥚', '🗑️', '🌡️', '📊'][categoryIndex] || '📋'}
+                                                    {['', '', '', '', '', '', '', '', '', '', '', '', ''][categoryIndex] || ''}
                                                 </span>
                                             </div>
                                             <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.25rem' }}>
@@ -350,7 +350,7 @@ function LayerAssessmentDashboard() {
                                     e.currentTarget.style.color = '#ef4444';
                                 }}
                             >
-                                🗑️ Discard Assessment
+                                 Discard Assessment
                             </button>
                         </div>
                     </div>

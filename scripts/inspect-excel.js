@@ -44,4 +44,4 @@ fs.writeFileSync(
     }, null, 2)
 );
 
-console.log('\n✅ Saved structure to scripts/excel-structure.json');
+console.log('\n Saved structure to scripts/excel-structure.json');

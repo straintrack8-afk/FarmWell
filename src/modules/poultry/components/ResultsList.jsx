@@ -18,7 +18,7 @@ function ProgressBar({ step }) {
                     className={`progress-step ${step === s.num ? 'active' : ''} ${step > s.num ? 'completed' : ''}`}
                 >
                     <div className="step-number">
-                        {step > s.num ? '✓' : s.num}
+                        {step > s.num ? '' : s.num}
                     </div>
                     <span>{s.label}</span>
                 </div>
@@ -55,7 +55,7 @@ function DiseaseCard({ disease, onClick }) {
                 </div>
                 {disease.zoonotic && (
                     <span className="badge badge-zoonotic" title="Can spread to humans">
-                        ⚠️ Zoonotic
+                         Zoonotic
                     </span>
                 )}
             </div>
@@ -76,7 +76,7 @@ function DiseaseCard({ disease, onClick }) {
 
             {disease.matchCount > 0 && (
                 <div className="match-indicator" style={{ color: 'var(--primary)', fontWeight: 'bold', marginTop: '0.5rem' }}>
-                    ✓ Matches {disease.matchCount} symptom(s)
+                     Matches {disease.matchCount} symptom(s)
                 </div>
             )}
         </div>
@@ -165,7 +165,7 @@ function ResultsList() {
                             ← Refine Symptoms
                         </button>
                         <button className="btn btn-outline btn-sm" onClick={handleNewDiagnosis}>
-                            🔄 New Diagnosis
+                             New Diagnosis
                         </button>
                     </div>
                 </div>
@@ -174,7 +174,7 @@ function ResultsList() {
                 <div style={{ maxWidth: '700px', margin: '0 auto', paddingBottom: '2rem' }}>
                     {filteredDiseases.length === 0 ? (
                         <div className="empty-state">
-                            <div className="empty-state-icon" style={{ fontSize: '3rem' }}>🔍</div>
+                            <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
                             <h3 className="empty-state-title">No Diseases Found</h3>
                             <p className="empty-state-text">
                                 No diseases match all your selected symptoms. Try removing some symptoms.

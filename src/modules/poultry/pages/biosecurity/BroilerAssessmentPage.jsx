@@ -53,7 +53,7 @@ function BroilerAssessmentPage() {
             <div className="portal-layout">
                 <div className="portal-container">
                     <div className="portal-card" style={{ textAlign: 'center', padding: '4rem' }}>
-                        <div style={{ fontSize: '3rem' }}>⚠️</div>
+                        <div style={{ fontSize: '3rem' }}></div>
                         <h2 className="text-danger">Failed to Load</h2>
                         <p className="text-muted">{error}</p>
                         <button onClick={() => window.location.reload()} className="btn btn-primary">
@@ -74,7 +74,7 @@ function BroilerAssessmentPage() {
             <div className="portal-layout">
                 <div className="portal-container">
                     <div className="portal-card" style={{ textAlign: 'center', padding: '4rem' }}>
-                        <div style={{ fontSize: '3rem' }}>📝</div>
+                        <div style={{ fontSize: '3rem' }}></div>
                         <h2>No Question Available</h2>
                         <p className="text-muted">Please return to dashboard</p>
                         <button onClick={() => navigate('/poultry/biosecurity/assessment')} className="btn btn-primary">
@@ -228,7 +228,7 @@ function BroilerAssessmentPage() {
                                                 onClick={handleSaveAndExit}
                                                 className="btn btn-secondary"
                                             >
-                                                💾 Save & Exit
+                                                 Save & Exit
                                             </button>
                                         </div>
                                     )}
@@ -243,7 +243,7 @@ function BroilerAssessmentPage() {
                                                     boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
                                                 }}
                                             >
-                                                ✓ Complete & Save
+                                                 Complete & Save
                                             </button>
                                         ) : (
                                             <button

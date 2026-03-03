@@ -19,7 +19,7 @@ function ProgressBar({ step, t }) {
                     className={`progress-step ${step === s.num ? 'active' : ''} ${step > s.num ? 'completed' : ''}`}
                 >
                     <div className="step-number">
-                        {step > s.num ? '✓' : s.num}
+                        {step > s.num ? '' : s.num}
                     </div>
                     <span>{s.label}</span>
                 </div>
@@ -173,7 +173,7 @@ function AgePage() {
                                         justifyContent: 'center',
                                         fontSize: '1.25rem'
                                     }}>
-                                        ✓
+                                        
                                     </div>
                                 )}
                             </div>

@@ -102,11 +102,11 @@ export default function PriorityRecommendationsSection() {
                                     <div className="question-text">{item.questionText}</div>
 
                                     <div className="risk-description">
-                                        <strong>⚠️ Risk:</strong> {item.riskDescription}
+                                        <strong> Risk:</strong> {item.riskDescription}
                                     </div>
 
                                     <div className="recommendation-text">
-                                        <strong>💡 Recommendation:</strong>
+                                        <strong> Recommendation:</strong>
                                         <div className="recommendation-content">
                                             {item.recommendation.split('\n').map((line, i) => (
                                                 <div key={i}>{line}</div>

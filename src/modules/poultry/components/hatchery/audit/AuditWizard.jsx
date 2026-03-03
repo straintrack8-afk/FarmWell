@@ -21,7 +21,7 @@ function AuditWizard() {
             <div className="hatchery-container">
                 <div className="hatchery-card">
                     <div style={{ textAlign: 'center', padding: '3rem' }}>
-                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⚠️</div>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                         <h2>No Active Audit</h2>
                         <p style={{ color: '#6B7280', marginBottom: '2rem' }}>
                             Please start a new audit from the dashboard.
@@ -131,10 +131,10 @@ function AuditWizard() {
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button onClick={handleSaveDraft} className="btn-hatchery btn-outline">
-                            💾 Save Draft
+                             Save Draft
                         </button>
                         <button onClick={handleDiscard} className="btn-hatchery btn-danger">
-                            🗑️ Discard
+                             Discard
                         </button>
                     </div>
                 </div>
@@ -149,7 +149,7 @@ function AuditWizard() {
                             style={{ cursor: 'pointer' }}
                         >
                             <div className="step-circle">
-                                {index < currentStepIndex ? '✓' : step.number}
+                                {index < currentStepIndex ? '' : step.number}
                             </div>
                             <div className="step-label">{step.label}</div>
                         </div>
@@ -178,7 +178,7 @@ function AuditWizard() {
                             onClick={handleComplete}
                             className="btn-hatchery btn-success"
                         >
-                            ✓ Complete Audit
+                             Complete Audit
                         </button>
                     ) : (
                         <button

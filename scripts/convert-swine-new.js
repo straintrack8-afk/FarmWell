@@ -12,7 +12,7 @@ const EXCEL_PATH = path.join(__dirname, '..', '..', 'Pig_E_Diagnostic.xlsx');
 console.log('Reading NEW Swine Excel file:', EXCEL_PATH);
 
 if (!fs.existsSync(EXCEL_PATH)) {
-    console.error('❌ Excel file not found at:', EXCEL_PATH);
+    console.error(' Excel file not found at:', EXCEL_PATH);
     process.exit(1);
 }
 
@@ -125,5 +125,5 @@ fs.writeFileSync(SYMPTOMS_OUTPUT_PATH, JSON.stringify(symptomsOutput, null, 2));
 
 console.log('\n=== PROCESSED NEW SWINE DISEASES ===');
 console.log('Total diseases:', diseases.length);
-console.log(`✅ Saved to ${DISEASES_OUTPUT_PATH}`);
-console.log(`✅ Saved to ${SYMPTOMS_OUTPUT_PATH}`);
+console.log(` Saved to ${DISEASES_OUTPUT_PATH}`);
+console.log(` Saved to ${SYMPTOMS_OUTPUT_PATH}`);

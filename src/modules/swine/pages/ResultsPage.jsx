@@ -20,7 +20,7 @@ function ProgressBar({ step, t }) {
                     className={`progress-step ${step === s.num ? 'active' : ''} ${step > s.num ? 'completed' : ''}`}
                 >
                     <div className="step-number">
-                        {step > s.num ? '✓' : s.num}
+                        {step > s.num ? '' : s.num}
                     </div>
                     <span>{s.label}</span>
                 </div>
@@ -83,7 +83,7 @@ function DiseaseCard({ disease, onClick }) {
 
             {disease.matchCount > 0 && (
                 <div className="match-indicator">
-                    ✓ Matches {disease.matchCount} symptom(s)
+                     Matches {disease.matchCount} symptom(s)
                 </div>
             )}
         </div>
@@ -188,7 +188,7 @@ function ResultsPage() {
                     {/* Zoonotic Warning */}
                     {filteredDiseases.some(d => d.zoonoticRisk) && (
                         <div className="zoonotic-warning" style={{ maxWidth: '700px', margin: '0 auto 1.5rem' }}>
-                            <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}>⚠️</div>
+                            <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}></div>
                             <div className="zoonotic-warning-content">
                                 <div className="zoonotic-warning-title">{t('zoonoticWarning')}</div>
                                 <div className="zoonotic-warning-text">
@@ -202,7 +202,7 @@ function ResultsPage() {
                     <div style={{ maxWidth: '700px', margin: '0 auto', paddingBottom: '2rem' }}>
                         {filteredDiseases.length === 0 ? (
                             <div className="empty-state">
-                                <div className="empty-state-icon" style={{ fontSize: '3rem' }}>🔍</div>
+                                <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
                                 <h3 className="empty-state-title">{t('noDiseases')}</h3>
                                 <p className="empty-state-text">
                                     {t('noDiseasesText')}

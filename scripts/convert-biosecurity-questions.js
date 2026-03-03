@@ -143,7 +143,7 @@ fs.writeFileSync(
     'utf8'
 );
 
-console.log('✅ Created questions_en.json');
+console.log(' Created questions_en.json');
 console.log(`   - Farm Profile: ${farmProfileQuestions.length} questions`);
 console.log(`   - Focus Area 1: ${focusAreas[1].total_questions} questions`);
 console.log(`   - Focus Area 2: ${focusAreas[2].total_questions} questions`);
@@ -162,7 +162,7 @@ fs.writeFileSync(
     'utf8'
 );
 
-console.log('✅ Created questions_id.json');
+console.log(' Created questions_id.json');
 
 // Create Vietnamese version (copy structure, translate later if needed)
 const outputVT = JSON.parse(JSON.stringify(outputEN));
@@ -175,5 +175,5 @@ fs.writeFileSync(
     'utf8'
 );
 
-console.log('✅ Created questions_vt.json');
-console.log('\n🎉 All question files generated successfully!');
+console.log(' Created questions_vt.json');
+console.log('\n All question files generated successfully!');

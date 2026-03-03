@@ -156,12 +156,12 @@ function BiosecurityHomePage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
           {[
-            { icon: '🏭', key: 'infrastructure' },
+            { icon: '', key: 'infrastructure' },
             { icon: '', key: 'animals' },
-            { icon: '👥', key: 'people' },
+            { icon: '', key: 'people' },
             { icon: '', key: 'feed' },
-            { icon: '🐀', key: 'pest' },
-            { icon: '🧼', key: 'cleaning' }
+            { icon: '', key: 'pest' },
+            { icon: '', key: 'cleaning' }
           ].map((item, idx) => (
             <div key={idx} className="card" style={{ padding: '1rem' }}>
               <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
@@ -227,7 +227,7 @@ function BiosecurityHomePage() {
 
       <div className="card" style={{ marginTop: '2rem', background: '#eff6ff', border: '1px solid #3b82f6' }}>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <div style={{ color: '#1e40af', fontSize: '1.5rem' }}>ℹ️</div>
+          <div style={{ color: '#1e40af', fontSize: '1.5rem' }}></div>
           <div>
             <div style={{ fontWeight: '600', color: '#1e3a8a', marginBottom: '0.5rem' }}>
               {t('swine.biosecurity.home.aboutTitle')}

@@ -90,7 +90,7 @@ function BreederAssessmentLanding() {
                     <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
                         {/* Title Section */}
                         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🐓</div>
+                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
                             <h1 style={{
                                 fontSize: '2.5rem',
                                 fontWeight: '700',
@@ -125,7 +125,7 @@ function BreederAssessmentLanding() {
                                 borderRadius: '12px',
                                 border: '2px solid #c4b5fd'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📋</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                                     140 Questions
                                 </h3>
@@ -140,7 +140,7 @@ function BreederAssessmentLanding() {
                                 borderRadius: '12px',
                                 border: '2px solid #f87171'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>⚠️</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                                     Risk Assessment
                                 </h3>
@@ -155,7 +155,7 @@ function BreederAssessmentLanding() {
                                 borderRadius: '12px',
                                 border: '2px solid #60a5fa'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌐</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                                     Multi-Language
                                 </h3>
@@ -170,7 +170,7 @@ function BreederAssessmentLanding() {
                                 borderRadius: '12px',
                                 border: '2px solid #34d399'
                             }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🦠</div>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                                     Disease Mapping
                                 </h3>
@@ -196,20 +196,20 @@ function BreederAssessmentLanding() {
                                 gap: '1rem'
                             }}>
                                 {[
-                                    { icon: 'ℹ️', name: 'General Farm Info', count: 7 },
-                                    { icon: '🐣', name: 'Chick Supply', count: 11 },
+                                    { icon: '', name: 'General Farm Info', count: 7 },
+                                    { icon: '', name: 'Chick Supply', count: 11 },
                                     { icon: '', name: 'Feed & Water', count: 10 },
-                                    { icon: '🐦', name: 'Bird Management', count: 8 },
-                                    { icon: '🚜', name: 'Equipment & Materials', count: 9 },
-                                    { icon: '👥', name: 'Personnel & Visitors', count: 15 },
-                                    { icon: '🐭', name: 'Pest Control', count: 8 },
-                                    { icon: '🧼', name: 'Cleaning & Disinfection', count: 14 },
-                                    { icon: '🏥', name: 'Health Management', count: 12 },
-                                    { icon: '🥚', name: 'Egg Handling', count: 13 },
-                                    { icon: '🐣', name: 'Hatchery Management', count: 10 },
-                                    { icon: '🗑️', name: 'Waste Management', count: 10 },
-                                    { icon: '🌡️', name: 'Environment Control', count: 7 },
-                                    { icon: '📊', name: 'Record Keeping', count: 6 }
+                                    { icon: '', name: 'Bird Management', count: 8 },
+                                    { icon: '', name: 'Equipment & Materials', count: 9 },
+                                    { icon: '', name: 'Personnel & Visitors', count: 15 },
+                                    { icon: '', name: 'Pest Control', count: 8 },
+                                    { icon: '', name: 'Cleaning & Disinfection', count: 14 },
+                                    { icon: '', name: 'Health Management', count: 12 },
+                                    { icon: '', name: 'Egg Handling', count: 13 },
+                                    { icon: '', name: 'Hatchery Management', count: 10 },
+                                    { icon: '', name: 'Waste Management', count: 10 },
+                                    { icon: '', name: 'Environment Control', count: 7 },
+                                    { icon: '', name: 'Record Keeping', count: 6 }
                                 ].map((category, index) => (
                                     <div key={index} style={{
                                         padding: '1rem',
@@ -251,7 +251,7 @@ function BreederAssessmentLanding() {
                                     boxShadow: '0 4px 12px rgba(139, 92, 246, 0.3)'
                                 }}
                             >
-                                🆕 Start New Assessment
+                                 Start New Assessment
                             </button>
                         </div>
 
@@ -385,7 +385,7 @@ function BreederAssessmentLanding() {
                                                                 boxShadow: '0 2px 8px rgba(6, 182, 212, 0.3)'
                                                             }}
                                                         >
-                                                            ▶️ Continue
+                                                             Continue
                                                         </button>
                                                     )}
                                                     <button
@@ -401,7 +401,7 @@ function BreederAssessmentLanding() {
                                                             fontWeight: '600'
                                                         }}
                                                     >
-                                                        🗑️
+                                                        
                                                     </button>
                                                 </div>
                                             </div>
@@ -421,7 +421,7 @@ function BreederAssessmentLanding() {
                             textAlign: 'center'
                         }}>
                             <p style={{ fontSize: '0.875rem', color: '#1e40af', margin: 0 }}>
-                                💡 <strong>Estimated time:</strong> 40-55 minutes | Your progress is automatically saved
+                                 <strong>Estimated time:</strong> 40-55 minutes | Your progress is automatically saved
                             </p>
                         </div>
                     </div>
