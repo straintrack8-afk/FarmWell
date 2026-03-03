@@ -134,7 +134,7 @@ function AgeSelection() {
                                 marginBottom: '1rem',
                                 filter: selectedAge === age.id ? 'brightness(1.2)' : 'none'
                             }}>
-                                {age.icon || '🐔'}
+                                {age.icon || ''}
                             </div>
                             <div style={{
                                 fontSize: '1.25rem',

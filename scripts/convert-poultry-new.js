@@ -61,7 +61,7 @@ const ageGroupMap = {
 // UI Age Groups format
 const ageGroups = [
     { id: "day-old", label: "Day-old chicks (0-1 days)", shortLabel: "Day-old", icon: "🐣" },
-    { id: "growers", label: "Growers (2-8 weeks)", shortLabel: "Growers", icon: "🐔" },
+    { id: "growers", label: "Growers (2-8 weeks)", shortLabel: "Growers", icon: "" },
     { id: "layers", label: "Layers", shortLabel: "Layers", icon: "🥚" },
     { id: "broilers", label: "Broilers", shortLabel: "Broilers", icon: "🍗" },
     { id: "breeders", label: "Breeders", shortLabel: "Breeders", icon: "🐓" },

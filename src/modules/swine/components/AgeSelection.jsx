@@ -24,7 +24,7 @@ export default function AgeSelection() {
         'day-old': '🐣',
         'chicks': '🐤',
         'young-chicks': '🐥',
-        'growers': '🐔',
+        'growers': '',
         'layers': '🥚',
         'broilers': '🍗',
         'breeders': '🐓',

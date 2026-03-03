@@ -86,7 +86,7 @@ function HomePage() {
 
                 {/* Biosecurity Assessment Feature */}
                 <div className="action-card" onClick={handleStartBiosecurity}>
-                    <span className="action-card-icon">🛡️</span>
+                    <span className="action-card-icon"></span>
                     <h3 className="action-card-title">
                         {t('swine.biosecurity.title')}
                     </h3>

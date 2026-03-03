@@ -235,8 +235,8 @@ function BroilerAssessmentLanding() {
                                 {[
                                     { icon: 'ℹ️', name: 'Farm Background', count: 4 },
                                     { icon: '🐣', name: 'Chick Management', count: 11 },
-                                    { icon: '🌾', name: 'Feed & Water', count: 11 },
-                                    { icon: '🐔', name: 'Flock Management', count: 10 },
+                                    { icon: '', name: 'Feed & Water', count: 11 },
+                                    { icon: '', name: 'Flock Management', count: 10 },
                                     { icon: '🚜', name: 'Equipment & Materials', count: 9 },
                                     { icon: '👥', name: 'Personnel & Visitors', count: 13 },
                                     { icon: '🐭', name: 'Pest Control', count: 8 },

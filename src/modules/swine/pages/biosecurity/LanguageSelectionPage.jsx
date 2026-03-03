@@ -20,7 +20,7 @@ function LanguageSelectionPage() {
         <div className="container" style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem 1rem' }}>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                 <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>
-                    🌾🐷
+                    
                 </div>
                 <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
                     FarmWell - PigWell

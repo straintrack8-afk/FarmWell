@@ -341,9 +341,9 @@ const DosageCalculator = () => {
     const animalCategories = {
         swine: {
             breeding: [
-                { id: 'sow_gestation', label: 'Sow - Gestation', icon: '🐷' },
-                { id: 'sow_lactation', label: 'Sow - Lactation', icon: '🐷' },
-                { id: 'boar', label: 'Boar', icon: '🐗' }
+                { id: 'sow_gestation', label: 'Sow - Gestation', icon: '' },
+                { id: 'sow_lactation', label: 'Sow - Lactation', icon: '' },
+                { id: 'boar', label: 'Boar', icon: '' }
             ],
             commercial: [
                 { id: 'nursery', label: 'Nursery/Weaner (5-27 kg)', icon: '🐖' },
@@ -353,13 +353,13 @@ const DosageCalculator = () => {
         },
         poultry: {
             breeding: [
-                { id: 'broiler_breeder', label: 'Broiler Breeder', icon: '🐔' },
-                { id: 'layer_breeder', label: 'Layer Breeder', icon: '🐔' },
+                { id: 'broiler_breeder', label: 'Broiler Breeder', icon: '' },
+                { id: 'layer_breeder', label: 'Layer Breeder', icon: '' },
                 { id: 'color_breeder', label: 'Color Breeder', icon: '🐓' }
             ],
             commercial: [
-                { id: 'broiler', label: 'Broiler', icon: '🐔' },
-                { id: 'layer', label: 'Layer (Commercial)', icon: '🐔' },
+                { id: 'broiler', label: 'Broiler', icon: '' },
+                { id: 'layer', label: 'Layer (Commercial)', icon: '' },
                 { id: 'color_chicken', label: 'Color/Kampung Chicken', icon: '🐓' }
             ]
         }
@@ -1028,7 +1028,7 @@ const DosageCalculator = () => {
                                     fontWeight: '600'
                                 }}
                             >
-                                📚 {t('viewReferenceData')}
+                                 {t('viewReferenceData')}
                             </button>
                         </div>
                     )}
@@ -1038,7 +1038,7 @@ const DosageCalculator = () => {
                         <div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                                 <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>
-                                    📚 {t('referenceData')}
+                                     {t('referenceData')}
                                 </h2>
                                 <button
                                     onClick={() => setShowReferenceView(false)}
@@ -1660,7 +1660,7 @@ const DosageCalculator = () => {
                                                         transition: 'all 0.2s'
                                                     }}
                                                 >
-                                                    {type === 'swine' ? '🐷' : '🐔'} {t(type)}
+                                                    {type === 'swine' ? '' : ''} {t(type)}
                                                 </button>
                                             ))}
                                         </div>
@@ -2003,7 +2003,7 @@ const DosageCalculator = () => {
                                                     e.currentTarget.style.transform = 'translateY(0)';
                                                 }}
                                             >
-                                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🛡️</div>
+                                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}></div>
                                                 <div style={{ fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', fontWeight: '700', color: '#065f46', marginBottom: '0.35rem', lineHeight: 1.3 }}>
                                                     {t('standardPreventionTitle')}
                                                 </div>

@@ -214,7 +214,7 @@ function LayerAssessmentDashboard() {
                                                 marginBottom: '0.75rem'
                                             }}>
                                                 <span style={{ fontSize: '1.5rem' }}>
-                                                    {['ℹ️', '🐣', '🌾', '🐦', '🚜', '👥', '🐭', '🧼', '🏥', '🥚', '🗑️', '🌡️', '📊'][categoryIndex] || '📋'}
+                                                    {['ℹ️', '🐣', '', '🐦', '🚜', '👥', '🐭', '🧼', '🏥', '🥚', '🗑️', '🌡️', '📊'][categoryIndex] || '📋'}
                                                 </span>
                                             </div>
                                             <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.25rem' }}>

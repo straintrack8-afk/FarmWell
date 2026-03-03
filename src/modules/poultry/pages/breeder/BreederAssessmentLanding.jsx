@@ -198,7 +198,7 @@ function BreederAssessmentLanding() {
                                 {[
                                     { icon: 'ℹ️', name: 'General Farm Info', count: 7 },
                                     { icon: '🐣', name: 'Chick Supply', count: 11 },
-                                    { icon: '🌾', name: 'Feed & Water', count: 10 },
+                                    { icon: '', name: 'Feed & Water', count: 10 },
                                     { icon: '🐦', name: 'Bird Management', count: 8 },
                                     { icon: '🚜', name: 'Equipment & Materials', count: 9 },
                                     { icon: '👥', name: 'Personnel & Visitors', count: 15 },

@@ -6,11 +6,11 @@ const DiagnosisContext = createContext(null);
 export const AGE_GROUPS = [
     { id: 'newborn', name: 'Newborn (0-7 days)', icon: '🐽', description: 'Neonatal piglets' },
     { id: 'suckling', name: 'Suckling (0-3 weeks)', icon: '🍼', description: 'Pre-weaning phase' },
-    { id: 'weaned', name: 'Weaned (3-8 weeks)', icon: '🐷', description: 'Post-weaning' },
+    { id: 'weaned', name: 'Weaned (3-8 weeks)', icon: '', description: 'Post-weaning' },
     { id: 'growers', name: 'Growers (2-4 months)', icon: '📈', description: 'Growing phase' },
     { id: 'finishers', name: 'Finishers (4-6 months)', icon: '🏁', description: 'Near market weight' },
     { id: 'sows', name: 'Sows / Gilts', icon: '🐖', description: 'Breeding females' },
-    { id: 'boars', name: 'Boars', icon: '🐗', description: 'Breeding males' },
+    { id: 'boars', name: 'Boars', icon: '', description: 'Breeding males' },
     { id: 'all', name: 'All Ages', icon: '✨', description: 'Any age group' },
 ];
 
