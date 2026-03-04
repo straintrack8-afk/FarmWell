@@ -5,6 +5,7 @@ import { groupByCategory, getMatchPercentage, countSymptomMatches } from '../uti
 import CategoryBadge from './common/CategoryBadge';
 import Button from './common/Button';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import {
     ChevronRight,
     Search,
@@ -24,6 +25,7 @@ export default function ResultsList() {
         reset
     } = useDiagnosis();
     const { t } = useTranslation();
+    const { language } = useLanguage();
 
     // Get selected age label
     const selectedAgeLabel = useMemo(() => {
@@ -153,7 +155,7 @@ export default function ResultsList() {
                                                 <div className="flex-1 min-w-0">
                                                     {/* Disease name */}
                                                     <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
-                                                        {disease.name}
+                                                        {typeof disease.name === 'object' ? (disease.name[language] || disease.name.en || disease.name) : disease.name}
                                                     </h3>
 
                                                     {/* Latin name */}
@@ -165,7 +167,9 @@ export default function ResultsList() {
 
                                                     {/* Brief description */}
                                                     <p className="text-sm text-gray-600 line-clamp-2">
-                                                        {disease.description.substring(0, 150)}...
+                                                        {typeof disease.description === 'object' ?
+                                                            (disease.description[language] || disease.description.en || disease.description).substring(0, 150) :
+                                                            disease.description.substring(0, 150)}...
                                                     </p>
 
                                                     {/* Matched symptoms indicator */}
@@ -184,7 +188,7 @@ export default function ResultsList() {
 
                                                         {disease.zoonotic && (
                                                             <span className="text-xs px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full">
-                                                                 {t('swine.diagnosis.results.zoonotic')}
+                                                                {t('swine.diagnosis.results.zoonotic')}
                                                             </span>
                                                         )}
                                                     </div>

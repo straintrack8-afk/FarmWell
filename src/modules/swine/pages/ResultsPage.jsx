@@ -50,7 +50,10 @@ function getMortalityClass(level) {
     return mapping[level] || 'mortality-moderate';
 }
 
-function DiseaseCard({ disease, onClick }) {
+function DiseaseCard({ disease, onClick, language }) {
+    const dName = typeof disease.name === 'object' ? (disease.name[language] || disease.name.en || disease.name) : disease.name;
+    const dDesc = typeof disease.description === 'object' ? (disease.description[language] || disease.description.en || disease.description) : disease.description;
+
     return (
         <div className="disease-card" onClick={onClick}>
             {/* Top row: empty left side + ZOONOTIC badge right-aligned. Only renders if zoonotic. */}
@@ -62,7 +65,7 @@ function DiseaseCard({ disease, onClick }) {
                 </div>
             )}
             {/* Disease name — full width */}
-            <div className="disease-name">{disease.name}</div>
+            <div className="disease-name">{dName}</div>
             {disease.latinName && (
                 <div className="disease-latin">{disease.latinName}</div>
             )}
@@ -77,13 +80,13 @@ function DiseaseCard({ disease, onClick }) {
                 </div>
             </div>
 
-            {disease.description && (
-                <p className="disease-description">{disease.description}</p>
+            {dDesc && (
+                <p className="disease-description">{dDesc}</p>
             )}
 
             {disease.matchCount > 0 && (
                 <div className="match-indicator">
-                     Matches {disease.matchCount} symptom(s)
+                    Matches {disease.matchCount} symptom(s)
                 </div>
             )}
         </div>
@@ -97,9 +100,24 @@ function ResultsPage() {
     const {
         selectedAge,
         selectedSymptoms,
+        symptoms,
         filteredDiseases,
         resetDiagnosis
     } = useDiagnosis();
+
+    // Helper to get translated symptom name
+    const getTranslatedSymptom = (symptomEnStr) => {
+        if (!symptoms || !symptoms.categories) return symptomEnStr;
+        for (const cat of symptoms.categories) {
+            const sym = cat.symptoms?.find(s =>
+                (typeof s.label === 'object' ? (s.label.en || s.label) : s.label) === symptomEnStr
+            );
+            if (sym) {
+                return typeof sym.label === 'object' ? (sym.label[language] || sym.label.en || sym.label) : sym.label;
+            }
+        }
+        return symptomEnStr;
+    };
 
     // Redirect if no age selected
     if (!selectedAge) {
@@ -166,7 +184,7 @@ function ResultsPage() {
                                         fontSize: '0.8125rem'
                                     }}
                                 >
-                                    {symptom}
+                                    {getTranslatedSymptom(symptom)}
                                 </span>
                             ))}
                         </div>
@@ -218,6 +236,7 @@ function ResultsPage() {
                                         key={disease.id}
                                         disease={disease}
                                         onClick={() => handleDiseaseClick(disease.id)}
+                                        language={language}
                                     />
                                 ))}
 
@@ -225,7 +244,11 @@ function ResultsPage() {
                                 {filteredDiseases.length > 0 && (
                                     <DiagnosisResultDisclaimer
                                         language={disclaimerLanguage}
-                                        diseaseIndicated={filteredDiseases[0]?.name || 'Multiple conditions'}
+                                        diseaseIndicated={
+                                            filteredDiseases[0]?.name
+                                                ? (typeof filteredDiseases[0].name === 'object' ? (filteredDiseases[0].name[language] || filteredDiseases[0].name.en || filteredDiseases[0].name) : filteredDiseases[0].name)
+                                                : 'Multiple conditions'
+                                        }
                                     />
                                 )}
                             </>

@@ -1,44 +1,96 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../../contexts/LanguageContext';
-import { getAllSavedAssessments, generateAssessmentId, setCurrentAssessmentId, clearAssessment, saveAssessment, shouldShowQuestion } from '../../utils/layerAssessmentUtils';
+import {
+    getAllSavedAssessments,
+    generateAssessmentId,
+    setCurrentAssessmentId,
+    clearAssessment,
+    saveAssessment,
+    shouldShowQuestion,
+    calculateOverallScore
+} from '../../utils/layerAssessmentUtils';
 import '../../poultry.css';
 
 function LayerAssessmentLanding() {
     const navigate = useNavigate();
     const { language } = useLanguage();
-    const [savedAssessments, setSavedAssessments] = useState([]);
     const [assessmentData, setAssessmentData] = useState(null);
+    const [savedAssessments, setSavedAssessments] = useState([]);
+    const [stats, setStats] = useState({
+        total: 0,
+        completed: 0,
+        lastScore: null,
+        goodAssessments: 0,
+        poorAssessments: 0
+    });
 
     useEffect(() => {
-        loadSavedAssessments();
-        // Load assessment data to calculate visible questions
+        // Load assessment data
         fetch('/data/poultry/layer_assessment_complete.json')
             .then(res => res.json())
-            .then(data => setAssessmentData(data))
+            .then(data => {
+                setAssessmentData(data);
+                loadSavedAssessments(data);
+            })
             .catch(err => console.error('Failed to load assessment data:', err));
     }, []);
 
-    const getVisibleQuestionCount = (answers) => {
-        if (!assessmentData) return 128;
+    const getVisibleQuestionCount = (data, answers) => {
+        if (!data) return 128;
 
         let visibleCount = 0;
-        assessmentData.categories.forEach(category => {
+        data.categories.forEach(category => {
             category.questions.forEach(question => {
                 if (shouldShowQuestion(question, answers)) {
                     visibleCount++;
                 }
             });
         });
-        console.log('Visible questions count:', visibleCount, 'Answered count:', Object.keys(answers || {}).length);
         return visibleCount;
     };
 
-    const loadSavedAssessments = () => {
+    const loadSavedAssessments = (data) => {
         const allAssessments = getAllSavedAssessments();
         const assessmentList = Object.values(allAssessments);
+
+        // Sort by last modified (most recent first)
         assessmentList.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
         setSavedAssessments(assessmentList);
+
+        // Calculate Statistics
+        if (data) {
+            let completedCount = 0;
+            let goodCount = 0;
+            let poorCount = 0;
+            let latestScore = null;
+
+            assessmentList.forEach(assessment => {
+                const totalQuestions = getVisibleQuestionCount(data, assessment.answers || {});
+                const answeredCount = Object.keys(assessment.answers || {}).length;
+
+                const isCompleted = answeredCount === totalQuestions && totalQuestions > 0;
+
+                if (isCompleted) {
+                    completedCount++;
+                    const scoreResult = calculateOverallScore(data, assessment.answers || {});
+                    const score = scoreResult.percentage;
+
+                    if (latestScore === null) latestScore = score;
+
+                    if (score >= 60) goodCount++;
+                    else poorCount++;
+                }
+            });
+
+            setStats({
+                total: assessmentList.length,
+                completed: completedCount,
+                lastScore: latestScore,
+                goodAssessments: goodCount,
+                poorAssessments: poorCount
+            });
+        }
     };
 
     const handleStartNewAssessment = () => {
@@ -55,11 +107,36 @@ function LayerAssessmentLanding() {
 
     const handleDeleteAssessment = (assessmentId, e) => {
         e.stopPropagation();
-        if (confirm('Delete this assessment? This action cannot be undone.')) {
+        if (window.confirm('Delete this assessment? This action cannot be undone.')) {
             clearAssessment(assessmentId);
-            loadSavedAssessments();
+            loadSavedAssessments(assessmentData);
         }
     };
+
+    // Neutral accent colors for stat cards
+    const accents = {
+        pink: '#EC4899',
+        green: '#10B981',
+        amber: '#F59E0B',
+        red: '#EF4444'
+    };
+
+    if (!assessmentData) {
+        return (
+            <div style={{
+                minHeight: '100vh',
+                background: '#f8fafc',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
+                <div style={{ textAlign: 'center', padding: '4rem' }}>
+                    <div className="spinner"></div>
+                    <p style={{ marginTop: '1rem', color: '#6b7280' }}>Loading assessment...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="portal-layout">
@@ -107,348 +184,253 @@ function LayerAssessmentLanding() {
                         </div>
                     </div>
 
-                    {/* Main Content */}
-                    <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
-                        {/* Title Section */}
-                        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
-                            <h1 style={{
-                                fontSize: '2.5rem',
-                                fontWeight: '700',
-                                marginBottom: '1rem',
-                                background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent'
-                            }}>
-                                Layer Farm Biosecurity Assessment
-                            </h1>
-                            <p style={{
-                                fontSize: '1.125rem',
-                                color: '#6b7280',
-                                maxWidth: '700px',
-                                margin: '0 auto',
-                                lineHeight: '1.6'
-                            }}>
-                                Comprehensive biosecurity evaluation for layer farms
-                            </p>
+                    {/* Page Title */}
+                    <div style={{ marginBottom: '1.5rem', marginTop: '1.5rem' }}>
+                        <h1 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.375rem', color: '#1e293b' }}>
+                            Layer Farm Assessment Dashboard
+                        </h1>
+                        <p style={{ color: '#64748b', fontSize: '0.9375rem' }}>
+                            Comprehensive biosecurity evaluation for layer farms
+                        </p>
+                    </div>
+
+                    {/* Statistics Cards — 2×2 */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                        {/* Total Audits */}
+                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.pink}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Total Assessments</div>
+                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{stats.total}</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{stats.completed} completed</div>
                         </div>
 
-                        {/* Features Grid */}
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                            gap: '1.5rem',
-                            marginBottom: '3rem'
-                        }}>
-                            <div style={{
-                                padding: '1.5rem',
-                                background: 'linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)',
-                                borderRadius: '12px',
-                                border: '2px solid #f9a8d4'
-                            }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
-                                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                    128 Questions
-                                </h3>
-                                <p style={{ fontSize: '0.875rem', color: '#831843' }}>
-                                    Comprehensive assessment across 13 biosecurity categories
-                                </p>
+                        {/* Last Score */}
+                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.green}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>Last Score</div>
+                            <div style={{ fontSize: '2rem', fontWeight: '800', color: stats.lastScore !== null ? (stats.lastScore >= 80 ? '#10B981' : stats.lastScore >= 60 ? '#3B82F6' : stats.lastScore >= 40 ? '#F59E0B' : '#EF4444') : '#1e293b', lineHeight: 1 }}>
+                                {stats.lastScore !== null ? stats.lastScore : 'N/A'}
                             </div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>Latest completed assessment</div>
+                        </div>
 
-                            <div style={{
-                                padding: '1.5rem',
-                                background: 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)',
-                                borderRadius: '12px',
-                                border: '2px solid #f87171'
-                            }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
-                                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                    Risk Assessment
-                                </h3>
-                                <p style={{ fontSize: '0.875rem', color: '#7f1d1d' }}>
-                                    5-tier risk scale (Excellent to Critical)
-                                </p>
-                            </div>
-
-                            <div style={{
-                                padding: '1.5rem',
-                                background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
-                                borderRadius: '12px',
-                                border: '2px solid #60a5fa'
-                            }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
-                                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                    Multi-Language
-                                </h3>
-                                <p style={{ fontSize: '0.875rem', color: '#1e3a8a' }}>
-                                    Available in English, Vietnamese, and Indonesian
-                                </p>
-                            </div>
-
-                            <div style={{
-                                padding: '1.5rem',
-                                background: 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)',
-                                borderRadius: '12px',
-                                border: '2px solid #34d399'
-                            }}>
-                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
-                                <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                    Disease Mapping
-                                </h3>
-                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                    Links biosecurity gaps to specific disease risks
-                                </p>
+                        {/* Good Audits */}
+                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.amber}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Good Assessments</div>
+                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{stats.goodAssessments}</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
+                                {stats.completed > 0 ? Math.round((stats.goodAssessments / stats.completed) * 100) : 0}% of completed
                             </div>
                         </div>
 
-                        {/* Assessment Categories */}
-                        <div style={{
-                            background: '#f9fafb',
-                            borderRadius: '12px',
-                            padding: '2rem',
-                            marginBottom: '2rem'
-                        }}>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem', textAlign: 'center' }}>
-                                Assessment Categories
-                            </h2>
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                                gap: '1rem'
-                            }}>
-                                {[
-                                    { icon: '', name: 'General Farm Info', count: 7 },
-                                    { icon: '', name: 'Chick Supply', count: 11 },
-                                    { icon: '', name: 'Feed & Water', count: 10 },
-                                    { icon: '', name: 'Bird Management', count: 8 },
-                                    { icon: '', name: 'Equipment & Materials', count: 9 },
-                                    { icon: '', name: 'Personnel & Visitors', count: 15 },
-                                    { icon: '', name: 'Pest Control', count: 8 },
-                                    { icon: '', name: 'Cleaning & Disinfection', count: 14 },
-                                    { icon: '', name: 'Health Management', count: 12 },
-                                    { icon: '', name: 'Egg Handling', count: 11 },
-                                    { icon: '', name: 'Waste Management', count: 10 },
-                                    { icon: '', name: 'Environment Control', count: 7 },
-                                    { icon: '', name: 'Record Keeping', count: 6 }
-                                ].map((category, index) => (
-                                    <div key={index} style={{
-                                        padding: '1rem',
-                                        background: 'white',
-                                        borderRadius: '8px',
-                                        border: '1px solid #e5e7eb',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.75rem'
-                                    }}>
-                                        <span style={{ fontSize: '1.5rem' }}>{category.icon}</span>
-                                        <div>
-                                            <div style={{ fontSize: '0.875rem', fontWeight: '600' }}>{category.name}</div>
-                                            <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>{category.count} questions</div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Start New Assessment Button */}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            marginBottom: '2rem'
-                        }}>
-                            <button
-                                onClick={handleStartNewAssessment}
-                                className="btn btn-primary"
-                                style={{
-                                    padding: '1rem 2rem',
-                                    fontSize: '1.125rem',
-                                    fontWeight: '600',
-                                    background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
-                                    minWidth: '220px',
-                                    border: 'none',
-                                    borderRadius: '999px',
-                                    color: 'white',
-                                    boxShadow: '0 4px 12px rgba(236, 72, 153, 0.3)'
-                                }}
-                            >
-                                 Start New Assessment
-                            </button>
-                        </div>
-
-                        {/* Saved Assessments List */}
-                        {savedAssessments.length > 0 && (
-                            <div style={{ marginTop: '2rem' }}>
-                                <h3 style={{
-                                    fontSize: '1.25rem',
-                                    fontWeight: '700',
-                                    marginBottom: '1rem',
-                                    color: '#1f2937'
-                                }}>
-                                    Saved Assessments
-                                </h3>
-                                <div style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '1rem'
-                                }}>
-                                    {savedAssessments.map((assessment) => {
-                                        const answeredCount = Object.keys(assessment.answers || {}).length;
-                                        // Calculate total visible questions (excluding skipped ones)
-                                        const totalQuestions = getVisibleQuestionCount(assessment.answers || {});
-                                        const percentage = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
-                                        const lastModified = new Date(assessment.lastModified);
-                                        const dateStr = lastModified.toLocaleDateString('en-US', {
-                                            month: 'short',
-                                            day: 'numeric',
-                                            year: 'numeric',
-                                            hour: '2-digit',
-                                            minute: '2-digit'
-                                        });
-
-                                        return (
-                                            <div
-                                                key={assessment.id}
-                                                style={{
-                                                    background: 'white',
-                                                    border: '2px solid #e5e7eb',
-                                                    borderRadius: '12px',
-                                                    padding: '1.5rem',
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    alignItems: 'center',
-                                                    gap: '1rem',
-                                                    transition: 'all 0.2s'
-                                                }}
-                                            >
-                                                <div style={{ flex: 1 }}>
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        gap: '1rem',
-                                                        marginBottom: '0.5rem'
-                                                    }}>
-                                                        <div style={{
-                                                            fontSize: '0.875rem',
-                                                            color: '#6b7280'
-                                                        }}>
-                                                            Last modified: {dateStr}
-                                                        </div>
-                                                        <div style={{
-                                                            fontSize: '0.875rem',
-                                                            fontWeight: '600',
-                                                            color: '#3b82f6',
-                                                            fontFamily: 'monospace',
-                                                            background: '#eff6ff',
-                                                            padding: '0.25rem 0.5rem',
-                                                            borderRadius: '4px'
-                                                        }}>
-                                                            ID: {assessment.metadata?.assessmentId || assessment.id}
-                                                        </div>
-                                                    </div>
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        gap: '1rem',
-                                                        marginBottom: '0.75rem'
-                                                    }}>
-                                                        <div style={{
-                                                            fontSize: '1rem',
-                                                            fontWeight: '600',
-                                                            color: '#1f2937'
-                                                        }}>
-                                                            {answeredCount} / {totalQuestions} questions answered
-                                                        </div>
-                                                        <div style={{
-                                                            padding: '0.25rem 0.75rem',
-                                                            background: percentage === 100 ? '#dcfce7' : '#fef3c7',
-                                                            color: percentage === 100 ? '#166534' : '#92400e',
-                                                            borderRadius: '999px',
-                                                            fontSize: '0.75rem',
-                                                            fontWeight: '600'
-                                                        }}>
-                                                            {percentage}% Complete
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div style={{
-                                                    display: 'flex',
-                                                    gap: '0.5rem'
-                                                }}>
-                                                    {percentage === 100 ? (
-                                                        <button
-                                                            onClick={() => navigate(`/poultry/layer-assessment/results?id=${assessment.id}`)}
-                                                            className="btn"
-                                                            style={{
-                                                                padding: '0.75rem 1.5rem',
-                                                                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                                                                border: 'none',
-                                                                borderRadius: '999px',
-                                                                color: 'white',
-                                                                fontSize: '0.9375rem',
-                                                                fontWeight: '600',
-                                                                boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)'
-                                                            }}
-                                                        >
-                                                            View Summary
-                                                        </button>
-                                                    ) : (
-                                                        <button
-                                                            onClick={() => handleContinueAssessment(assessment.id)}
-                                                            className="btn"
-                                                            style={{
-                                                                padding: '0.75rem 1.5rem',
-                                                                background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
-                                                                border: 'none',
-                                                                borderRadius: '999px',
-                                                                color: 'white',
-                                                                fontSize: '0.9375rem',
-                                                                fontWeight: '600',
-                                                                boxShadow: '0 2px 8px rgba(6, 182, 212, 0.3)'
-                                                            }}
-                                                        >
-                                                             Continue
-                                                        </button>
-                                                    )}
-                                                    <button
-                                                        onClick={(e) => handleDeleteAssessment(assessment.id, e)}
-                                                        className="btn"
-                                                        style={{
-                                                            padding: '0.75rem',
-                                                            background: 'white',
-                                                            border: '2px solid #ef4444',
-                                                            borderRadius: '999px',
-                                                            color: '#ef4444',
-                                                            fontSize: '0.9375rem',
-                                                            fontWeight: '600'
-                                                        }}
-                                                    >
-                                                        
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Info Note */}
-                        <div style={{
-                            marginTop: '2rem',
-                            padding: '1rem',
-                            background: '#eff6ff',
-                            borderRadius: '8px',
-                            border: '1px solid #3b82f6',
-                            textAlign: 'center'
-                        }}>
-                            <p style={{ fontSize: '0.875rem', color: '#1e40af', margin: 0 }}>
-                                 <strong>Estimated time:</strong> 35-50 minutes | Your progress is automatically saved
-                            </p>
+                        {/* Poor Audits */}
+                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.red}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Poor Assessments</div>
+                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#EF4444', lineHeight: 1 }}>{stats.poorAssessments}</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>Requires attention</div>
                         </div>
                     </div>
 
+                    {/* Quick Actions */}
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
+                        <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>Quick Actions</h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
+                            <button
+                                style={{ padding: '0.875rem', background: '#1e293b', border: 'none', borderRadius: '0.75rem', color: 'white', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
+                                onClick={handleStartNewAssessment}
+                                onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
+                            >
+                                Start New Assessment
+                            </button>
+                            <button
+                                style={{ padding: '0.875rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.75rem', color: '#374151', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                                onClick={() => {
+                                    const recentAuditsSection = document.getElementById('recent-assessments');
+                                    if (recentAuditsSection) {
+                                        recentAuditsSection.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#EC4899'; e.currentTarget.style.color = '#EC4899'; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#374151'; }}
+                            >
+                                View Assessment History
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Recent Assessments */}
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }} id="recent-assessments">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                            <h2 style={{ fontSize: '1.1rem', fontWeight: '700' }}>Recent Assessments</h2>
+                        </div>
+
+                        {savedAssessments.length === 0 ? (
+                            <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>No Assessments Yet</h3>
+                                <p style={{ color: '#64748b', marginBottom: '1.5rem', maxWidth: '440px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
+                                    Start your first layer farm biosecurity assessment to track compliance and health quality
+                                </p>
+                                <button
+                                    style={{ padding: '0.75rem 2rem', background: '#1e293b', border: 'none', borderRadius: '0.75rem', color: 'white', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
+                                    onClick={handleStartNewAssessment}
+                                    onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
+                                    onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
+                                >
+                                    Start First Assessment
+                                </button>
+                            </div>
+
+                        ) : (
+                            <div style={{ overflowX: 'auto' }}>
+                                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0.75rem' }}>
+                                    <thead>
+                                        <tr style={{ textAlign: 'left' }}>
+                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                                ID / Date
+                                            </th>
+                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                                Progress / Score
+                                            </th>
+                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                                                Status
+                                            </th>
+                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>
+                                                Actions
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {savedAssessments.map(assessment => {
+                                            const answeredCount = Object.keys(assessment.answers || {}).length;
+                                            const totalQuestions = getVisibleQuestionCount(assessmentData, assessment.answers || {});
+                                            const percentage = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+                                            const isCompleted = answeredCount === totalQuestions && totalQuestions > 0;
+
+                                            const scoreResult = isCompleted ? calculateOverallScore(assessmentData, assessment.answers || {}) : null;
+                                            const score = scoreResult ? scoreResult.percentage : null;
+
+                                            const lastModified = new Date(assessment.lastModified);
+                                            const dateStr = lastModified.toLocaleDateString('en-US', {
+                                                month: 'short',
+                                                day: 'numeric',
+                                                year: 'numeric'
+                                            });
+
+                                            return (
+                                                <tr key={assessment.id} style={{
+                                                    background: '#f9fafb',
+                                                    borderRadius: '0.75rem'
+                                                }}>
+                                                    <td style={{ padding: '1.25rem', borderTopLeftRadius: '0.75rem', borderBottomLeftRadius: '0.75rem' }}>
+                                                        <div style={{ fontWeight: '600', color: '#1e293b', fontSize: '0.9375rem', marginBottom: '0.2rem' }}>
+                                                            {assessment.metadata?.assessmentId || assessment.id}
+                                                        </div>
+                                                        <div style={{ color: '#64748b', fontSize: '0.8125rem' }}>
+                                                            {dateStr}
+                                                        </div>
+                                                    </td>
+                                                    <td style={{ padding: '1.25rem' }}>
+                                                        {isCompleted ? (
+                                                            <div style={{ fontWeight: '700', fontSize: '1.25rem', color: score >= 80 ? '#10B981' : score >= 60 ? '#3B82F6' : score >= 40 ? '#F59E0B' : '#EF4444' }}>
+                                                                {score}
+                                                            </div>
+                                                        ) : (
+                                                            <div>
+                                                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.3rem' }}>
+                                                                    {answeredCount} / {totalQuestions} answered
+                                                                </div>
+                                                                <div style={{ height: '6px', background: '#e5e7eb', borderRadius: '999px', overflow: 'hidden', width: '120px' }}>
+                                                                    <div style={{ height: '100%', width: `${percentage}%`, background: '#ec4899', borderRadius: '999px' }}></div>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </td>
+                                                    <td style={{ padding: '1.25rem' }}>
+                                                        <span style={{
+                                                            padding: '0.375rem 0.875rem',
+                                                            borderRadius: '9999px',
+                                                            fontSize: '0.75rem',
+                                                            fontWeight: '600',
+                                                            backgroundColor: isCompleted ? '#D1FAE5' : '#FEF3C7',
+                                                            color: isCompleted ? '#065F46' : '#92400E'
+                                                        }}>
+                                                            {isCompleted ? 'Completed' : 'In Progress'}
+                                                        </span>
+                                                    </td>
+                                                    <td style={{ padding: '1.25rem', textAlign: 'right', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
+                                                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', alignItems: 'center' }}>
+                                                            <button
+                                                                onClick={() => {
+                                                                    if (isCompleted) {
+                                                                        setCurrentAssessmentId(assessment.id);
+                                                                        navigate(`/poultry/layer-assessment/results?id=${assessment.id}`);
+                                                                    } else {
+                                                                        handleContinueAssessment(assessment.id);
+                                                                    }
+                                                                }}
+                                                                style={{
+                                                                    padding: '0.5rem 1rem',
+                                                                    background: isCompleted ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'white',
+                                                                    border: isCompleted ? 'none' : '1.5px solid #e2e8f0',
+                                                                    borderRadius: '0.5rem',
+                                                                    color: isCompleted ? 'white' : '#374151',
+                                                                    fontSize: '0.8125rem',
+                                                                    fontWeight: '600',
+                                                                    cursor: 'pointer',
+                                                                    transition: 'all 0.2s ease',
+                                                                    boxShadow: isCompleted ? '0 2px 8px rgba(16, 185, 129, 0.3)' : 'none'
+                                                                }}
+                                                                onMouseEnter={(e) => {
+                                                                    if (!isCompleted) {
+                                                                        e.currentTarget.style.borderColor = '#ec4899';
+                                                                        e.currentTarget.style.color = '#ec4899';
+                                                                    }
+                                                                }}
+                                                                onMouseLeave={(e) => {
+                                                                    if (!isCompleted) {
+                                                                        e.currentTarget.style.borderColor = '#e2e8f0';
+                                                                        e.currentTarget.style.color = '#374151';
+                                                                    }
+                                                                }}
+                                                            >
+                                                                {isCompleted ? 'View Report' : 'Continue'}
+                                                            </button>
+                                                            <button
+                                                                onClick={(e) => handleDeleteAssessment(assessment.id, e)}
+                                                                style={{
+                                                                    padding: '0.5rem',
+                                                                    background: 'transparent',
+                                                                    border: 'none',
+                                                                    borderRadius: '0.5rem',
+                                                                    color: '#94a3b8',
+                                                                    fontSize: '0.8125rem',
+                                                                    cursor: 'pointer',
+                                                                    transition: 'all 0.2s ease'
+                                                                }}
+                                                                onMouseEnter={(e) => {
+                                                                    e.currentTarget.style.background = '#FEE2E2';
+                                                                    e.currentTarget.style.color = '#EF4444';
+                                                                }}
+                                                                onMouseLeave={(e) => {
+                                                                    e.currentTarget.style.background = 'transparent';
+                                                                    e.currentTarget.style.color = '#94a3b8';
+                                                                }}
+                                                                title="Delete Assessment"
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                    </div>
+
                     {/* Footer */}
-                    <div className="footer-branding" style={{ marginTop: '3rem', paddingBottom: '2rem' }}>
+                    <div className="footer-branding" style={{ marginTop: '2rem', paddingBottom: '2rem' }}>
                         <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
                             Powered By
                         </p>
