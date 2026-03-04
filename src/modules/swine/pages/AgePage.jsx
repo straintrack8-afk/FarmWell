@@ -145,9 +145,18 @@ function AgePage() {
                                         fontSize: '1.25rem',
                                         fontWeight: '700',
                                         marginBottom: '0.5rem',
-                                        color: selectedAge === age.id ? 'white' : '#111827'
+                                        color: selectedAge === age.id ? 'white' : '#111827',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        gap: '0.25rem'
                                     }}>
-                                        {t(age.id)}
+                                        {t(age.id).split(' (')[0]}
+                                        {t(age.id).includes('(') && (
+                                            <span style={{ fontSize: '1rem', fontWeight: '500', opacity: 0.9 }}>
+                                                ({t(age.id).split(' (')[1]}
+                                            </span>
+                                        )}
                                     </div>
                                     <div style={{
                                         fontSize: '0.875rem',
@@ -173,7 +182,7 @@ function AgePage() {
                                         justifyContent: 'center',
                                         fontSize: '1.25rem'
                                     }}>
-                                        
+
                                     </div>
                                 )}
                             </div>

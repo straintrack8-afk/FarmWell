@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import { formatDescription, cleanText, textToBullets } from '../utils/formatters';
 
 function getCategoryClass(category) {
@@ -26,7 +27,8 @@ function getMortalityClass(level) {
 function DiseasePage() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { diseases, resetDiagnosis } = useDiagnosis();
+    const { diseases, resetDiagnosis, symptoms: contextSymptoms } = useDiagnosis();
+    const { language } = useLanguage();
 
     const disease = diseases.find(d => d.id === parseInt(id));
 
@@ -46,6 +48,27 @@ function DiseasePage() {
             </div>
         );
     }
+
+    const dName = typeof disease.name === 'object' ? (disease.name[language] || disease.name.en || disease.name) : disease.name;
+    const dDesc = typeof disease.description === 'object' ? (disease.description[language] || disease.description.en || disease.description) : disease.description;
+    const dTransmission = typeof disease.transmission === 'object' ? (disease.transmission[language] || disease.transmission.en || disease.transmission) : disease.transmission;
+    const dDiagnosis = typeof disease.diagnosisMethod === 'object' ? (disease.diagnosisMethod[language] || disease.diagnosisMethod.en || disease.diagnosisMethod) : disease.diagnosisMethod;
+    const dTreatment = typeof disease.treatmentOptions === 'object' ? (disease.treatmentOptions[language] || disease.treatmentOptions.en || disease.treatmentOptions) : disease.treatmentOptions;
+    const dPrevention = typeof disease.controlPrevention === 'object' ? (disease.controlPrevention[language] || disease.controlPrevention.en || disease.controlPrevention) : disease.controlPrevention;
+
+    // Helper to get translated symptom name
+    const getTranslatedSymptom = (symptomEnStr) => {
+        if (!contextSymptoms || !contextSymptoms.categories) return symptomEnStr;
+        for (const cat of contextSymptoms.categories) {
+            const sym = cat.symptoms?.find(s =>
+                (typeof s.label === 'object' ? (s.label.en || s.label) : s.label) === symptomEnStr
+            );
+            if (sym) {
+                return typeof sym.label === 'object' ? (sym.label[language] || sym.label.en || sym.label) : sym.label;
+            }
+        }
+        return symptomEnStr;
+    };
 
     const handleNewDiagnosis = () => {
         resetDiagnosis();
@@ -67,7 +90,7 @@ function DiseasePage() {
             {/* Disease Header */}
             <div style={{ marginBottom: '1.5rem' }}>
                 <h1 style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>
-                    {disease.name}
+                    {dName}
                 </h1>
                 {disease.latinName && (
                     <p style={{
@@ -122,13 +145,13 @@ function DiseasePage() {
             {/* Single Scroll Content */}
             <div className="card" style={{ padding: '1.5rem' }}>
                 {/* Description */}
-                {disease.description && (
+                {dDesc && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                             Description
+                            Description
                         </h3>
                         <div style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
-                            {formatDescription(disease.description)}
+                            {formatDescription(dDesc)}
                         </div>
                     </div>
                 )}
@@ -139,7 +162,7 @@ function DiseasePage() {
                 {disease.symptoms?.length > 0 && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                             Clinical Signs
+                            Clinical Signs
                         </h3>
                         <div style={{
                             display: 'grid',
@@ -159,7 +182,7 @@ function DiseasePage() {
                                     }}
                                 >
                                     <span style={{ color: 'var(--primary)' }}>•</span>
-                                    {symptom}
+                                    {getTranslatedSymptom(symptom)}
                                 </div>
                             ))}
                         </div>
@@ -169,13 +192,13 @@ function DiseasePage() {
                 <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                 {/* Transmission */}
-                {disease.transmission && (
+                {dTransmission && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                             Transmission
+                            Transmission
                         </h3>
                         <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                            {textToBullets(disease.transmission).map((item, i) => (
+                            {textToBullets(dTransmission).map((item, i) => (
                                 <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                                     {item}
                                 </li>
@@ -187,13 +210,13 @@ function DiseasePage() {
                 <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                 {/* Diagnosis Methods */}
-                {disease.diagnosisMethod && (
+                {dDiagnosis && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                             Diagnosis Methods
+                            Diagnosis Methods
                         </h3>
                         <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                            {textToBullets(disease.diagnosisMethod).map((item, i) => (
+                            {textToBullets(dDiagnosis).map((item, i) => (
                                 <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                                     {item}
                                 </li>
@@ -205,13 +228,13 @@ function DiseasePage() {
                 <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                 {/* Treatment Options */}
-                {disease.treatmentOptions && (
+                {dTreatment && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                             Treatment Options
+                            Treatment Options
                         </h3>
                         <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                            {textToBullets(disease.treatmentOptions).map((item, i) => (
+                            {textToBullets(dTreatment).map((item, i) => (
                                 <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                                     {item}
                                 </li>
@@ -223,13 +246,13 @@ function DiseasePage() {
                 <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                 {/* Control & Prevention */}
-                {disease.controlPrevention && (
+                {dPrevention && (
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                             Control & Prevention
+                            Control & Prevention
                         </h3>
                         <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                            {textToBullets(disease.controlPrevention).map((item, i) => (
+                            {textToBullets(dPrevention).map((item, i) => (
                                 <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                                     {item}
                                 </li>
@@ -244,7 +267,7 @@ function DiseasePage() {
                         <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                         <div style={{ marginBottom: '1rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                 Vaccine Recommendation
+                                Vaccine Recommendation
                             </h3>
                             <div style={{
                                 padding: '1rem',
@@ -263,7 +286,7 @@ function DiseasePage() {
                 <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                 <div style={{ marginBottom: '1rem' }}>
                     <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                         Key Facts
+                        Key Facts
                     </h3>
                     <div style={{
                         display: 'grid',
@@ -316,7 +339,7 @@ function DiseasePage() {
                         style={{ flex: 1, minWidth: 0 }}
                         onClick={handleNewDiagnosis}
                     >
-                         New Diagnosis
+                        New Diagnosis
                     </button>
                 </div>
                 {/* Print full-width below */}

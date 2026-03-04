@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTranslation } from '../hooks/useTranslation';
 
@@ -10,114 +9,215 @@ const WelcomePage = () => {
     const { t } = useTranslation();
 
     const languages = [
-        { code: 'en', name: 'English', flag: '/images/flags/flag_en.png' },
-        { code: 'id', name: 'Indonesia', flag: '/images/flags/flag_id.png' },
-        { code: 'vn', name: 'Tiếng Việt', flag: '/images/flags/flag_vn.png' }
+        { code: 'en', flag: '/images/flags/flag_en.png', label: 'English' },
+        { code: 'id', flag: '/images/flags/flag_id.png', label: 'Indonesia' },
+        { code: 'vn', flag: '/images/flags/flag_vn.png', label: 'Tiếng Việt' },
     ];
 
-    const modules = [
+    const features = [
+        { icon: '🏥', title: t('welcome.featureDiagnostics') || 'Disease Diagnostics', sub: t('welcome.featureMultiSpecies') || 'Multi-species' },
+        { icon: '📊', title: t('welcome.featurePerformance') || 'Performance Monitor', sub: t('welcome.featureRealtime') || 'Real-time tracking' },
+        { icon: '📋', title: t('welcome.featureBiosecurity') || 'Biosecurity Audit', sub: t('welcome.featureFarmHatchery') || 'Farm & Hatchery' },
+        { icon: '🤖', title: t('welcome.featureAI') || 'AI Advisory', sub: t('welcome.featureAIPowered') || 'Powered by Claude' },
+    ];
+
+    const topModules = [
         {
             id: 'feed-additives',
-            title: t('welcome.feedAdditivesModule'),
-            description: t('welcome.feedAdditivesDescription'),
+            name: t('welcome.feedAdditivesModule') || 'Feed Additives',
+            desc: t('welcome.feedAdditivesDescription') || 'Comprehensive feed additive analysis & optimization for livestock nutrition management.',
             icon: '/images/feed_additives_logo.png',
-            color: 'purple',
-            path: '/feed-additives'
+            tags: ['Nutrition', 'Optimization', 'Formula'],
+            status: 'live',
+            ctaLabel: t('welcome.launchModule') || 'Open Module',
+            colorClass: 'mc-feed',
+            path: '/feed-additives',
         },
         {
             id: 'swine',
-            title: t('welcome.swineModule'),
-            description: t('welcome.swineDescription'),
+            name: t('welcome.swineModule') || 'PigWell — Swine Module',
+            desc: t('welcome.swineDescription') || 'Integrated swine farm management for disease diagnostics, production analytics, and biosecurity.',
             icon: '/images/PigWell_Logo.png',
-            color: 'blue',
-            path: '/swine'
+            tags: ['Diagnosis', 'Production', 'Biosecurity'],
+            status: 'live',
+            ctaLabel: t('welcome.launchModule') || 'Open Module',
+            colorClass: 'mc-pig',
+            path: '/swine',
         },
-        {
-            id: 'poultry',
-            title: t('welcome.poultryModule'),
-            description: t('welcome.poultryDescription'),
-            icon: '/images/PoultryWell_Logo.png',
-            color: 'emerald',
-            path: '/poultry'
-        }
     ];
 
-    return (
-        <div className="portal-container">
-            <div className="farmwell-card">
-                <div className="logo-section">
-                    <img
-                        src="/images/FarmWell_Logo.png"
-                        alt="FarmWell"
-                        className="main-logo"
-                    />
-                    <p className="text-gray-500 text-lg font-medium opacity-70">
-                        {t('welcome.subtitle')}
-                    </p>
+    const midModules = [
+        {
+            id: 'poultry',
+            name: t('welcome.poultryModule') || 'PoultryWell — Poultry Module',
+            desc: t('welcome.poultryDescription') || 'Integrated poultry management platform for disease diagnostics, biosecurity audits, and farm support.',
+            icon: '/images/PoultryWell_Logo.png',
+            tags: ['Diagnostics', 'Audit', 'Hatchery'],
+            status: 'live',
+            ctaLabel: t('welcome.launchModule') || 'Open Module',
+            colorClass: 'mc-poultry',
+            path: '/poultry',
+        },
+        {
+            id: 'farmguide',
+            name: 'FarmGuide — Breed Monitor',
+            desc: 'Panduan manajemen breed berbasis Aviagen 2025. Monitor BW aktual vs standard, growth curve, AI advisory, dan proyeksi panen.',
+            icon: null,
+            iconEmoji: '📱',
+            tags: ['Broiler', 'Parent Stock', 'AI Advisory'],
+            status: 'new',
+            ctaLabel: 'Open FarmGuide',
+            colorClass: 'mc-guide',
+            path: null,
+        },
+    ];
 
-                    {/* Language Selector */}
-                    <div className="language-selector">
-                        <p className="language-label">{t('welcome.selectLanguage')}</p>
-                        <div className="language-flags">
-                            {languages.map((lang) => (
-                                <button
-                                    key={lang.code}
-                                    onClick={() => setLanguage(lang.code)}
-                                    className={`flag-button ${language === lang.code ? 'active' : ''}`}
-                                    title={lang.name}
-                                >
-                                    <img
-                                        src={lang.flag}
-                                        alt={lang.name}
-                                        className="flag-icon"
-                                    />
-                                </button>
-                            ))}
-                        </div>
+    const aiModule = {
+        id: 'ai-assistant',
+        name: 'FarmWell AI Assistant',
+        desc: 'Asisten AI terintegrasi untuk semua modul FarmWell. Tanyakan apa saja tentang ternak kamu — dijawab real-time.',
+        icon: null,
+        iconEmoji: '🤖',
+        tags: ['AI Chat', 'Multi-Module', 'Bahasa Indonesia'],
+        status: 'soon',
+        ctaLabel: 'Join Waitlist',
+        colorClass: 'mc-ai',
+        path: null,
+    };
+
+    const moduleStatusLabel = (status) => {
+        if (status === 'live') return <span className="mc-badge mb-live">✓ {t('welcome.active') || 'Active'}</span>;
+        if (status === 'new') return <span className="mc-badge mb-new">✦ {t('welcome.new') || 'New'}</span>;
+        if (status === 'soon') return <span className="mc-badge mb-soon">Coming Soon</span>;
+        return null;
+    };
+
+    const handleModuleClick = (path) => {
+        if (path) navigate(path);
+    };
+
+    const renderCard = (mod) => (
+        <div
+            key={mod.id}
+            className={`fw-module-card ${mod.colorClass}`}
+            onClick={() => handleModuleClick(mod.path)}
+            style={{ cursor: mod.path ? 'pointer' : 'default' }}
+        >
+            <div className="fmc-header">
+                <div className="fmc-icon-wrap">
+                    {mod.icon
+                        ? <img src={mod.icon} alt={mod.name} className="fmc-logo-img" />
+                        : <span className="fmc-emoji">{mod.iconEmoji}</span>
+                    }
+                </div>
+                {moduleStatusLabel(mod.status)}
+            </div>
+            <div className="fmc-body">
+                <div className="fmc-name">{mod.name}</div>
+                <div className="fmc-desc">{mod.desc}</div>
+                <div className="fmc-tags">
+                    {mod.tags.map(tag => <span key={tag} className="fmc-tag">{tag}</span>)}
+                </div>
+                <button className="fmc-cta" onClick={(e) => { e.stopPropagation(); handleModuleClick(mod.path); }}>
+                    {mod.ctaLabel}
+                    <div className="fmc-cta-arrow">›</div>
+                </button>
+            </div>
+        </div>
+    );
+
+    return (
+        <div className="fw-page">
+            {/* ── TOPNAV ── */}
+            <nav className="fw-topnav">
+                <div className="fw-nav-logo">
+                    <img src="/images/FarmWell_Logo.png" alt="FarmWell" className="fw-nav-logo-img" />
+                </div>
+                <div className="fw-nav-right">
+                    <div className="fw-lang-switcher">
+                        {languages.map(lang => (
+                            <button
+                                key={lang.code}
+                                className={`fw-lang-btn ${language === lang.code ? 'active' : ''}`}
+                                onClick={() => setLanguage(lang.code)}
+                                title={lang.label}
+                            >
+                                <img src={lang.flag} alt={lang.label} className="fw-flag-img" />
+                            </button>
+                        ))}
                     </div>
                 </div>
+            </nav>
 
-                <div className="module-grid">
-                    {modules.map((module) => (
-                        <div
-                            key={module.id}
-                            onClick={() => navigate(module.path)}
-                            className="module-card group cursor-pointer"
-                        >
-                            <img
-                                src={module.icon}
-                                alt={module.title}
-                                className="module-icon"
-                            />
-                            <h2 className="module-title">{module.title}</h2>
-                            <p className="module-desc mb-6">
-                                {module.description}
-                            </p>
+            {/* ── HERO HEADER  (light bg, logo centered) ── */}
+            <section className="fw-header-light">
+                <div className="fw-header-logo-wrap">
+                    <img src="/images/FarmWell_Logo.png" alt="FarmWell" className="fw-header-logo" />
+                </div>
+                <p className="fw-header-sub">
+                    {t('welcome.subtitle') || 'Integrated Livestock Diagnostic & Performance Platform'}
+                </p>
+            </section>
 
-                            <div className={`flex items-center font-bold group-hover:gap-2 transition-all ${
-                                module.color === 'purple' ? 'text-purple-600' : 
-                                module.color === 'emerald' ? 'text-emerald-600' : 
-                                'text-blue-600'
-                            }`}>
-                                {t('welcome.launchModule')} <ChevronRight className="w-5 h-5 ml-1" />
+            {/* ── FEATURE STRIP ── */}
+            <div className="fw-feature-strip">
+                <div className="fw-features-row">
+                    {features.map((feat, i) => (
+                        <div key={i} className="fw-feat" style={{ animationDelay: `${(i + 1) * 0.1}s` }}>
+                            <div className="fw-feat-icon">{feat.icon}</div>
+                            <div>
+                                <div className="fw-feat-title">{feat.title}</div>
+                                <div className="fw-feat-sub">{feat.sub}</div>
                             </div>
                         </div>
                     ))}
                 </div>
+            </div>
 
-                <div className="footer-branding">
-                    <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-                        {t('welcome.poweredBy')}
-                    </p>
-                    <div className="flex justify-center items-center">
-                        <img
-                            src="/images/Vaksindo_logo.png"
-                            alt="Vaksindo"
-                            className="vaksindo-logo"
-                        />
-                    </div>
+            {/* ── MODULES SECTION ── */}
+            <div className="fw-section">
+                <div className="fw-sec-header">
+                    <div className="fw-sec-eyebrow">🧩 {t('welcome.allModules') || 'All Modules'}</div>
+                    <div className="fw-sec-title">{t('welcome.chooseModule') || 'Choose the module you need'}</div>
+                    <div className="fw-sec-sub">{t('welcome.moduleSubtitle') || 'Each module is designed specifically for livestock management needs.'}</div>
+                </div>
+
+                {/* Row 1: Feed + Pig */}
+                <div className="fw-modules-grid-2">
+                    {topModules.map(renderCard)}
+                </div>
+
+                {/* Row 2: Poultry + FarmGuide */}
+                <div className="fw-modules-grid-2">
+                    {midModules.map(renderCard)}
+                </div>
+
+                {/* Row 3: AI Assistant — full width */}
+                <div className="fw-modules-grid-1">
+                    {renderCard(aiModule)}
                 </div>
             </div>
+
+            {/* ── SUPPORTED BY ── */}
+            <div className="fw-supported">
+                <div className="fw-sup-label">{t('welcome.poweredBy') || 'Powered By'}</div>
+                <div className="fw-sup-logos">
+                    <img src="/images/Vaksindo_logo.png" alt="Vaksindo" className="fw-vaksindo-logo" />
+                </div>
+            </div>
+
+            {/* ── STATS BAR — above footer ── */}
+            <div className="fw-stats-bar">
+                <div className="fw-hs"><div className="fw-hs-num">3</div><div className="fw-hs-lbl">{t('welcome.statModules') || 'Active Modules'}</div></div>
+                <div className="fw-hs"><div className="fw-hs-num">3</div><div className="fw-hs-lbl">{t('welcome.statLanguages') || 'Languages'}</div></div>
+                <div className="fw-hs"><div className="fw-hs-num">AI</div><div className="fw-hs-lbl">{t('welcome.statAI') || 'Powered'}</div></div>
+                <div className="fw-hs"><div className="fw-hs-num">24/7</div><div className="fw-hs-lbl">{t('welcome.statAccess') || 'Access'}</div></div>
+            </div>
+
+            {/* ── FOOTER ── */}
+            <footer className="fw-footer">
+                <div className="fw-footer-copy">© 2025 FarmWell · Integrated Livestock Platform</div>
+            </footer>
         </div>
     );
 };

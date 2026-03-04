@@ -66,9 +66,10 @@ function SymptomsPage() {
     // Filter symptoms by search term
     const getFilteredSymptoms = (categorySymptoms) => {
         if (!searchTerm) return categorySymptoms;
-        return categorySymptoms.filter(s =>
-            s.label.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        return categorySymptoms.filter(s => {
+            const labelStr = typeof s.label === 'object' ? (s.label[language] || s.label.en) : s.label;
+            return labelStr.toLowerCase().includes(searchTerm.toLowerCase());
+        });
     };
 
     const getCategoryIcon = (iconName) => {
@@ -145,6 +146,7 @@ function SymptomsPage() {
                         {symptoms.categories?.map(category => {
                             const filteredSymptoms = getFilteredSymptoms(category.symptoms);
                             if (filteredSymptoms.length === 0 && searchTerm) return null;
+                            const catName = typeof category.name === 'object' ? (category.name[language] || category.name.en) : category.name;
 
                             return (
                                 <div
@@ -157,7 +159,7 @@ function SymptomsPage() {
                                     >
                                         <div className="collapsible-title">
                                             <span style={{ fontSize: '1.25rem' }}>{getCategoryIcon(category.icon)}</span>
-                                            {category.name}
+                                            {catName}
                                             <span style={{
                                                 fontSize: '0.75rem',
                                                 color: 'var(--text-muted)',
@@ -179,20 +181,24 @@ function SymptomsPage() {
 
                                     <div className="collapsible-content">
                                         <div className="collapsible-body">
-                                            {filteredSymptoms.slice(0, 20).map(symptom => (
-                                                <label
-                                                    key={symptom.id}
-                                                    className="checkbox-group"
-                                                >
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={selectedSymptoms.includes(symptom.label)}
-                                                        onChange={() => toggleSymptom(symptom.label)}
-                                                    />
-                                                    <span className="checkbox-label">{symptom.label}</span>
-                                                    <span className="checkbox-count">{symptom.count}</span>
-                                                </label>
-                                            ))}
+                                            {filteredSymptoms.slice(0, 20).map(symptom => {
+                                                const symLabelEn = typeof symptom.label === 'object' ? (symptom.label.en || symptom.label) : symptom.label;
+                                                const symLabelLocal = typeof symptom.label === 'object' ? (symptom.label[language] || symLabelEn) : symptom.label;
+                                                return (
+                                                    <label
+                                                        key={symptom.id}
+                                                        className="checkbox-group"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedSymptoms.includes(symLabelEn)}
+                                                            onChange={() => toggleSymptom(symLabelEn)}
+                                                        />
+                                                        <span className="checkbox-label">{symLabelLocal}</span>
+                                                        <span className="checkbox-count">{symptom.count}</span>
+                                                    </label>
+                                                )
+                                            })}
                                             {filteredSymptoms.length > 20 && (
                                                 <div style={{
                                                     padding: '0.5rem',

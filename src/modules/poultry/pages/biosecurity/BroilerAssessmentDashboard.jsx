@@ -18,7 +18,6 @@ function BroilerAssessmentDashboard() {
     } = useBroilerAssessment();
 
     const [hasSavedProgress, setHasSavedProgress] = useState(false);
-
     useEffect(() => {
         // Check if there's saved progress
         const saved = loadAssessment();
@@ -126,6 +125,14 @@ function BroilerAssessmentDashboard() {
         '#10B981', // Green
         '#F59E0B', // Amber
         '#8B5CF6'  // Purple
+    ];
+
+    // Background colors for focus areas
+    const focusAreaColors = [
+        '#eff6ff',
+        '#f0fdf4',
+        '#fefce8',
+        '#fdf2f8'
     ];
 
     return (
@@ -551,7 +558,7 @@ function BroilerAssessmentDashboard() {
                                     e.currentTarget.style.color = '#ef4444';
                                 }}
                             >
-                                 Discard Assessment
+                                Discard Assessment
                             </button>
                         </div>
                     </div>
