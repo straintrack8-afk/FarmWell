@@ -114,13 +114,13 @@ function Dashboard() {
                                 Start New Audit
                             </button>
                             <button
-                                className="btn-hatchery btn-outline"
+                                className="btn btn-outline"
                                 onClick={handleViewHistory}
                             >
                                 View Audit History
                             </button>
                             <button
-                                className="btn-hatchery btn-outline"
+                                className="btn btn-outline"
                                 onClick={() => navigate('/poultry/hatchery-audit/settings')}
                             >
                                 Settings
@@ -135,7 +135,7 @@ function Dashboard() {
                             {completedAudits.length > 0 && (
                                 <button
                                     onClick={handleViewHistory}
-                                    className="btn-hatchery btn-outline"
+                                    className="btn btn-outline"
                                     style={{ padding: '0.5rem 1rem', fontSize: '0.8125rem' }}
                                 >
                                     View All
