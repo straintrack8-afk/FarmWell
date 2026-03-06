@@ -77,7 +77,13 @@ function BreederAssessmentDashboard() {
                     {/* Main Content */}
                     <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
                         {/* Title */}
-                        <div style={{ marginBottom: '2rem' }}>
+                        <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                            <div>
+                                <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
+                                    Breeder Farm Biosecurity Assessment
+                                </h1>
+                                <p style={{ color: '#6b7280' }}>Select a category to begin or continue your assessment</p>
+                            </div>
                             <button
                                 onClick={handleBackToLanding}
                                 style={{
@@ -89,18 +95,13 @@ function BreederAssessmentDashboard() {
                                     cursor: 'pointer',
                                     fontSize: '0.875rem',
                                     fontWeight: '500',
-                                    marginBottom: '1rem',
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: '0.5rem'
                                 }}
                             >
-                                Back
+                                Back to Dashboard
                             </button>
-                            <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                                Breeder Farm Biosecurity Assessment
-                            </h1>
-                            <p style={{ color: '#6b7280' }}>Select a category to begin or continue your assessment</p>
                         </div>
 
                         {/* Progress Overview — 2×2 metric cards */}
@@ -290,7 +291,7 @@ function BreederAssessmentDashboard() {
                                     </button>
                                     <button
                                         onClick={() => navigate('/poultry/breeder-assessment')}
-                                        className="btn btn-outline"
+                                        className="btn btn-primary"
                                         style={{
                                             padding: '1rem 2rem',
                                             fontSize: '1.125rem',

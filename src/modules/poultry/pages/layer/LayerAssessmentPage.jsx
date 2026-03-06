@@ -288,12 +288,9 @@ function LayerAssessmentPage() {
                                 {!isLastQuestion && (
                                     <button
                                         onClick={handleSaveAndExit}
-                                        className="btn"
+                                        className="btn btn-primary"
                                         style={{
                                             padding: '0.75rem 1.5rem',
-                                            background: 'white',
-                                            border: '2px solid #ec4899',
-                                            color: '#ec4899',
                                             fontWeight: '600'
                                         }}
                                     >

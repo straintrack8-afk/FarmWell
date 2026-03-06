@@ -23,7 +23,7 @@ function PoultryLanding() {
     return (
         <div className="portal-layout">
             <div className="portal-container">
-                <div className="portal-card">
+                <div className="portal-card" style={{ background: 'none' }}>
                     {/* PoultryWell Logo (centered) */}
                     <div className="page-header" style={{
                         padding: '0.1875rem 1rem 2rem',
@@ -37,14 +37,6 @@ function PoultryLanding() {
                             alt="PoultryWell"
                             style={{ height: '200px', width: 'auto', marginBottom: '1.5rem' }}
                         />
-                        <h2 style={{
-                            fontSize: '2rem',
-                            fontWeight: '700',
-                            color: '#111827',
-                            marginBottom: '0.75rem'
-                        }}>
-                            Poultry Module
-                        </h2>
                         <p style={{
                             fontSize: '1.125rem',
                             color: '#4B5563',
@@ -226,20 +218,7 @@ function PoultryLanding() {
                         </div>
                     </div>
 
-                    {/* Footer Branding */}
-                    <div className="footer-branding" style={{ marginTop: '4rem', paddingBottom: '2rem' }}>
-                        <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-                            Powered By
-                        </p>
-                        <div className="flex justify-center items-center">
-                            <img
-                                src="/images/Vaksindo_logo.png"
-                                alt="Vaksindo"
-                                className="vaksindo-logo"
-                            />
-                        </div>
                     </div>
-                </div>
             </div>
         </div>
     );

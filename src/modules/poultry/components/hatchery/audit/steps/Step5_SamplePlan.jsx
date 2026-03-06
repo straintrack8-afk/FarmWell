@@ -60,7 +60,7 @@ function Step5_SamplePlan() {
                 </div>
                 <button
                     onClick={handleReset}
-                    className="btn-hatchery btn-outline"
+                    className="btn-hatchery btn-primary"
                     style={{ fontSize: '0.875rem' }}
                 >
                     Reset to Default

@@ -114,7 +114,7 @@ function Step6_SampleCollection() {
                                     {groupCollected < groupSamples.length && (
                                         <button
                                             onClick={() => handleCollectAll(key)}
-                                            className="btn-hatchery btn-outline"
+                                            className="btn-hatchery btn-primary"
                                             style={{ marginBottom: '1rem', fontSize: '0.75rem', width: '100%' }}
                                         >
                                             Mark All as Collected

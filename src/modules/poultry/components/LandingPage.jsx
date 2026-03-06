@@ -110,19 +110,6 @@ function LandingPage() {
                     </div>
                 </div>
             </div>
-
-            <div className="footer-branding" style={{ marginTop: '4rem', paddingBottom: '2rem' }}>
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-                    Powered By
-                </p>
-                <div className="flex justify-center items-center">
-                    <img
-                        src="/images/Vaksindo_logo.png"
-                        alt="Vaksindo"
-                        className="vaksindo-logo"
-                    />
-                </div>
-            </div>
         </div>
     );
 }
