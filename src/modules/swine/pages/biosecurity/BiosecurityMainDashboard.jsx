@@ -83,22 +83,15 @@ function BiosecurityMainDashboard() {
             resetBiosecuritySession();
         }
 
-        // Check if language is already set
-        const savedLanguage = localStorage.getItem('pigwell_language');
-
-        // If no language is set, go to language selection
-        if (!savedLanguage) {
-            navigate('/swine/biosecurity/language');
+        // Language is already handled by ribbon selection, skip language page
+        // Check if farm profile exists
+        const farmProfile = getFarmProfile();
+        if (!farmProfile) {
+            // Go to farm profile page
+            navigate('/swine/biosecurity/farm-profile');
         } else {
-            // If language is set, check if farm profile exists
-            const farmProfile = getFarmProfile();
-            if (!farmProfile) {
-                // Go to farm profile page
-                navigate('/swine/biosecurity/farm-profile');
-            } else {
-                // Go to dashboard
-                navigate('/swine/biosecurity/dashboard');
-            }
+            // Go to dashboard
+            navigate('/swine/biosecurity/dashboard');
         }
     };
 
