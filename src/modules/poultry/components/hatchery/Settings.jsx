@@ -118,7 +118,7 @@ function Settings() {
                 </div>
                 <button
                     onClick={() => navigate('/poultry/hatchery-audit')}
-                    className="btn-hatchery btn-outline"
+                    className="btn-hatchery btn-primary"
                 >
                     Back to Dashboard
                 </button>
