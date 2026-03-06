@@ -247,7 +247,7 @@ function Settings() {
                                     />
                                 </div>
                                 <div className="flex items-end">
-                                    <button type="submit" className="btn-hatchery btn-secondary">
+                                    <button type="submit" className="btn-hatchery btn-primary">
                                         Add
                                     </button>
                                 </div>
@@ -321,7 +321,7 @@ function Settings() {
                                     </select>
                                 </div>
                                 <div className="flex items-end">
-                                    <button type="submit" className="btn-hatchery btn-secondary">
+                                    <button type="submit" className="btn-hatchery btn-primary">
                                         Add
                                     </button>
                                 </div>
@@ -470,7 +470,7 @@ function Settings() {
                                         </p>
                                         <button
                                             onClick={handleExportData}
-                                            className="btn-hatchery btn-secondary w-full"
+                                            className="btn-hatchery btn-primary w-full"
                                         >
                                             Export JSON
                                         </button>
