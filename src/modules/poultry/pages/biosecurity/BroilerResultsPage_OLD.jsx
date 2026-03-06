@@ -253,7 +253,6 @@ function BroilerResultsPage() {
                         <button
                             className="btn btn-primary no-print"
                             onClick={handleNewAssessment}
-                            style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}
                         >
                              Start New Assessment
                         </button>
