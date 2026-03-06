@@ -310,7 +310,7 @@ function DiseaseDetail() {
                     </button>
                     <button
                         className="btn btn-primary"
-                        style={{ flex: 1, minWidth: 0, background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)', border: 'none', color: 'white' }}
+                        style={{ flex: 1, minWidth: 0 }}
                         onClick={handleNewDiagnosis}
                     >
                         New Diagnosis

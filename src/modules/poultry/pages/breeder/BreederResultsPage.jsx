@@ -521,22 +521,10 @@ function BreederResultsPage() {
                             }}>
                                 <button
                                     onClick={handlePrint}
+                                    className="btn btn-primary"
                                     style={{
-                                        padding: '0.75rem 2rem',
-                                        background: '#6366f1',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '8px',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.5rem',
-                                        transition: 'all 0.2s'
+                                        padding: '0.75rem 2rem'
                                     }}
-                                    onMouseEnter={(e) => e.currentTarget.style.background = '#4f46e5'}
-                                    onMouseLeave={(e) => e.currentTarget.style.background = '#6366f1'}
                                 >
                                     Print Report
                                 </button>
@@ -560,13 +548,10 @@ function BreederResultsPage() {
                                 </button>
                                 <button
                                     onClick={handleNewAssessment}
+                                    className="btn btn-primary"
                                     style={{
                                         padding: '0.75rem 2rem',
-                                        background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-                                        color: 'white',
-                                        border: 'none',
                                         borderRadius: '8px',
-                                        fontSize: '1rem',
                                         fontWeight: '600',
                                         cursor: 'pointer',
                                         transition: 'all 0.2s'

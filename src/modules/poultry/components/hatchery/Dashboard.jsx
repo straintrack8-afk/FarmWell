@@ -108,10 +108,8 @@ function Dashboard() {
                         <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>Quick Actions</h2>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
                             <button
-                                style={{ padding: '0.875rem', background: '#1e293b', border: 'none', borderRadius: '0.75rem', color: 'white', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
+                                className="btn btn-primary"
                                 onClick={handleStartNewAudit}
-                                onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
-                                onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
                             >
                                 Start New Audit
                             </button>
@@ -157,10 +155,8 @@ function Dashboard() {
                                     Start your first hatchery audit to track compliance and environmental quality
                                 </p>
                                 <button
-                                    style={{ padding: '0.75rem 2rem', background: '#1e293b', border: 'none', borderRadius: '0.75rem', color: 'white', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
+                                    className="btn btn-primary"
                                     onClick={handleStartNewAudit}
-                                    onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
-                                    onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
                                 >
                                     Start First Audit
                                 </button>
@@ -232,12 +228,10 @@ function Dashboard() {
                                                 <td style={{ padding: '1.25rem', textAlign: 'right', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
                                                     <button
                                                         onClick={() => handleViewReport(audit.id)}
+                                                        className="btn btn-primary"
                                                         style={{
                                                             padding: '0.625rem 1.25rem',
-                                                            background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                                                            border: 'none',
                                                             borderRadius: '0.5rem',
-                                                            color: 'white',
                                                             fontSize: '0.875rem',
                                                             fontWeight: '600',
                                                             cursor: 'pointer',

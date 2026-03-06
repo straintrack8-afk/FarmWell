@@ -124,7 +124,7 @@ function PoultryLanding() {
                                     <span>{t('poultry.hatchery.features.quarterly')}</span>
                                 </li>
                             </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
                                 {t('poultry.hatchery.button')}
                             </button>
                         </div>
@@ -156,7 +156,7 @@ function PoultryLanding() {
                                     <span>{t('poultry.biosecurity.features.biocheck')}</span>
                                 </li>
                             </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
                                 {t('poultry.biosecurity.button')}
                             </button>
                         </div>
@@ -188,7 +188,7 @@ function PoultryLanding() {
                                     <span>{t('poultry.breeder.features.multilingual')}</span>
                                 </li>
                             </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
                                 {t('poultry.breeder.button')}
                             </button>
                         </div>
@@ -220,7 +220,7 @@ function PoultryLanding() {
                                     <span>{t('poultry.layer.features.multilingual')}</span>
                                 </li>
                             </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
                                 {t('poultry.layer.button')}
                             </button>
                         </div>
