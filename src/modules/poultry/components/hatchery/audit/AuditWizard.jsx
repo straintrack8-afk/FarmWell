@@ -130,7 +130,7 @@ function AuditWizard() {
                         </p>
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
-                        <button onClick={handleSaveDraft} className="btn-hatchery btn-outline">
+                        <button onClick={handleSaveDraft} className="btn-hatchery btn-primary">
                             Save Draft
                         </button>
                         <button onClick={handleDiscard} className="btn-hatchery btn-danger">
