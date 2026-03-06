@@ -114,13 +114,13 @@ function Dashboard() {
                                 Start New Audit
                             </button>
                             <button
-                                className="btn btn-outline"
+                                className="btn btn-primary"
                                 onClick={handleViewHistory}
                             >
                                 View Audit History
                             </button>
                             <button
-                                className="btn btn-outline"
+                                className="btn btn-primary"
                                 onClick={() => navigate('/poultry/hatchery-audit/settings')}
                             >
                                 Settings
