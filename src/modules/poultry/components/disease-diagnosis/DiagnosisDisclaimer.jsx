@@ -78,7 +78,7 @@ function DiagnosisDisclaimer({ language = 'en', diseaseIndicated }) {
                         fontSize: '1.25rem'
                     }}
                 >
-                    
+
                 </div>
                 <div>
                     <h3
@@ -176,7 +176,7 @@ function DiagnosisDisclaimer({ language = 'en', diseaseIndicated }) {
                         flex: '1 1 auto',
                         minWidth: '150px',
                         padding: '0.75rem 1.5rem',
-                        backgroundColor: '#3B82F6',
+                        backgroundColor: '#10B981',
                         color: 'white',
                         border: 'none',
                         borderRadius: '8px',
@@ -189,10 +189,10 @@ function DiagnosisDisclaimer({ language = 'en', diseaseIndicated }) {
                         gap: '0.5rem',
                         transition: 'background-color 0.2s'
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#2563EB'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#3B82F6'; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#059669'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#10B981'; }}
                 >
-                     {lang.contactVet}
+                    {lang.contactVet}
                 </button>
                 <button
                     onClick={() => window.print()}
@@ -200,9 +200,9 @@ function DiagnosisDisclaimer({ language = 'en', diseaseIndicated }) {
                         flex: '1 1 auto',
                         minWidth: '150px',
                         padding: '0.75rem 1.5rem',
-                        backgroundColor: 'white',
-                        color: '#374151',
-                        border: '2px solid #D1D5DB',
+                        backgroundColor: '#10B981',
+                        color: 'white',
+                        border: 'none',
                         borderRadius: '8px',
                         fontSize: '0.875rem',
                         fontWeight: '600',
@@ -214,15 +214,13 @@ function DiagnosisDisclaimer({ language = 'en', diseaseIndicated }) {
                         transition: 'all 0.2s'
                     }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#F9FAFB';
-                        e.currentTarget.style.borderColor = '#9CA3AF';
+                        e.currentTarget.style.backgroundColor = '#059669';
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'white';
-                        e.currentTarget.style.borderColor = '#D1D5DB';
+                        e.currentTarget.style.backgroundColor = '#10B981';
                     }}
                 >
-                     {lang.saveReport}
+                    {lang.saveReport}
                 </button>
             </div>
 

@@ -63,13 +63,13 @@ function AuditReport() {
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button onClick={() => navigate('/poultry/hatchery-audit/history')} className="btn-hatchery btn-outline">
-                            ← Back
+                            Back
                         </button>
                         <button onClick={handleExportPDF} className="btn-hatchery btn-primary">
-                             Export PDF
+                            Export PDF
                         </button>
                         <button onClick={handleExportExcel} className="btn-hatchery btn-success">
-                             Export Excel
+                            Export Excel
                         </button>
                     </div>
                 </div>

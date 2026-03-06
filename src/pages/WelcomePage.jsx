@@ -1,18 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../contexts/LanguageContext';
 import { useTranslation } from '../hooks/useTranslation';
+import SharedTopNav from '../components/SharedTopNav';
 
 const WelcomePage = () => {
     const navigate = useNavigate();
-    const { language, setLanguage } = useLanguage();
     const { t } = useTranslation();
-
-    const languages = [
-        { code: 'en', flag: '/images/flags/flag_en.png', label: 'English' },
-        { code: 'id', flag: '/images/flags/flag_id.png', label: 'Indonesia' },
-        { code: 'vn', flag: '/images/flags/flag_vn.png', label: 'Tiếng Việt' },
-    ];
 
     const features = [
         { icon: '🏥', title: t('welcome.featureDiagnostics') || 'Disease Diagnostics', sub: t('welcome.featureMultiSpecies') || 'Multi-species' },
@@ -129,25 +122,7 @@ const WelcomePage = () => {
     return (
         <div className="fw-page">
             {/* ── TOPNAV ── */}
-            <nav className="fw-topnav">
-                <div className="fw-nav-logo">
-                    <img src="/images/FarmWell_Logo.png" alt="FarmWell" className="fw-nav-logo-img" />
-                </div>
-                <div className="fw-nav-right">
-                    <div className="fw-lang-switcher">
-                        {languages.map(lang => (
-                            <button
-                                key={lang.code}
-                                className={`fw-lang-btn ${language === lang.code ? 'active' : ''}`}
-                                onClick={() => setLanguage(lang.code)}
-                                title={lang.label}
-                            >
-                                <img src={lang.flag} alt={lang.label} className="fw-flag-img" />
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            </nav>
+            <SharedTopNav hideLogo />
 
             {/* ── HERO HEADER  (light bg, logo centered) ── */}
             <section className="fw-header-light">

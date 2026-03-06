@@ -5,25 +5,40 @@ import { swineTranslations } from '../translations';
 import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
 
 function ProgressBar({ step, t }) {
-    const steps = [
-        { num: 1, label: t('stepAge') },
-        { num: 2, label: t('stepSymptoms') },
-        { num: 3, label: t('stepResults') }
-    ];
-
     return (
-        <div className="progress-steps">
-            {steps.map(s => (
-                <div
-                    key={s.num}
-                    className={`progress-step ${step === s.num ? 'active' : ''} ${step > s.num ? 'completed' : ''}`}
-                >
-                    <div className="step-number">
-                        {step > s.num ? '' : s.num}
+        <div style={{
+            background: 'white',
+            padding: '1rem',
+            borderRadius: '12px',
+            marginBottom: '2rem',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                {[1, 2, 3].map(s => (
+                    <div key={s} style={{ flex: 1, textAlign: 'center', padding: '0 2px' }}>
+                        <div style={{
+                            width: 'clamp(28px, 8vw, 40px)',
+                            height: 'clamp(28px, 8vw, 40px)',
+                            borderRadius: '50%',
+                            background: step >= s ? '#10b981' : '#e5e7eb',
+                            color: 'white',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: '700',
+                            fontSize: 'clamp(0.75rem, 3vw, 1rem)',
+                            marginBottom: '0.35rem'
+                        }}>
+                            {s}
+                        </div>
+                        <div style={{ fontSize: 'clamp(0.6rem, 2.5vw, 0.875rem)', color: '#6b7280', lineHeight: 1.2 }}>
+                            {s === 1 && t('stepAge')}
+                            {s === 2 && t('stepSymptoms')}
+                            {s === 3 && t('stepResults')}
+                        </div>
                     </div>
-                    <span>{s.label}</span>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 }
@@ -44,31 +59,25 @@ function AgePage() {
         }
     };
 
-    // Gradient colors for age cards
-    const gradients = [
-        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-        'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-        'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-        'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
-    ];
+    // Green theme color for selected age cards
+    const themeGradient = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
 
     return (
         <DiagnosisWrapper>
             <div style={{
                 minHeight: '100vh',
-                background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+                background: 'var(--bg-primary)',
                 paddingBottom: selectedAge ? '120px' : '2rem'
             }}>
-                <ProgressBar step={1} t={t} />
-
                 <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
+                    <ProgressBar step={1} t={t} />
+
                     <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                         <h1 style={{
                             fontSize: '2.5rem',
                             fontWeight: '800',
                             marginBottom: '1rem',
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            background: 'var(--primary)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text'
@@ -90,15 +99,15 @@ function AgePage() {
                             <div
                                 key={age.id}
                                 style={{
-                                    background: selectedAge === age.id ? gradients[index % gradients.length] : 'white',
+                                    background: selectedAge === age.id ? themeGradient : 'white',
                                     borderRadius: '1.5rem',
                                     padding: '2.5rem 1.5rem',
                                     cursor: 'pointer',
                                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                                     boxShadow: selectedAge === age.id
-                                        ? '0 20px 40px rgba(102, 126, 234, 0.3)'
-                                        : '0 4px 12px rgba(0, 0, 0, 0.05)',
-                                    border: selectedAge === age.id ? 'none' : '2px solid #e5e7eb',
+                                        ? '0 20px 40px rgba(16, 185, 129, 0.25)'
+                                        : '0 4px 20px rgba(16, 185, 129, 0.05)',
+                                    border: selectedAge === age.id ? '2px solid transparent' : '2px solid rgba(16, 185, 129, 0.15)',
                                     textAlign: 'center',
                                     position: 'relative',
                                     overflow: 'hidden'
@@ -107,15 +116,15 @@ function AgePage() {
                                 onMouseEnter={(e) => {
                                     if (selectedAge !== age.id) {
                                         e.currentTarget.style.transform = 'translateY(-8px)';
-                                        e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.1)';
-                                        e.currentTarget.style.borderColor = '#667eea';
+                                        e.currentTarget.style.boxShadow = '0 12px 30px rgba(16, 185, 129, 0.15)';
+                                        e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.5)';
                                     }
                                 }}
                                 onMouseLeave={(e) => {
                                     if (selectedAge !== age.id) {
                                         e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
-                                        e.currentTarget.style.borderColor = '#e5e7eb';
+                                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(16, 185, 129, 0.05)';
+                                        e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.15)';
                                     }
                                 }}
                             >
@@ -191,54 +200,16 @@ function AgePage() {
                 </div>
 
                 {selectedAge && (
-                    <div style={{
-                        position: 'fixed',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        padding: '1.5rem 2rem',
-                        background: 'rgba(255, 255, 255, 0.95)',
-                        backdropFilter: 'blur(10px)',
-                        borderTop: '1px solid #e5e7eb',
-                        boxShadow: '0 -4px 12px rgba(0, 0, 0, 0.05)',
-                        zIndex: 1000,
-                        animation: 'slideUp 0.3s ease-out'
-                    }}>
-                        <div style={{
-                            maxWidth: '1200px',
-                            margin: '0 auto',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            gap: '1rem'
-                        }}>
-                            <div style={{ fontSize: '1rem', color: '#6B7280' }}>
-                                Selected: <strong style={{ color: '#111827' }}>
+                    <div className="action-bar" style={{ animation: 'slideUp 0.3s ease-out' }}>
+                        <div className="action-bar-content">
+                            <div className="action-bar-info">
+                                Selected: <strong style={{ color: 'white' }}>
                                     {t(selectedAge)}
                                 </strong>
                             </div>
                             <button
-                                style={{
-                                    padding: '1rem 2.5rem',
-                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                    border: 'none',
-                                    borderRadius: '0.75rem',
-                                    color: 'white',
-                                    fontSize: '1.0625rem',
-                                    fontWeight: '700',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
-                                    boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)'
-                                }}
+                                className="btn btn-primary"
                                 onClick={handleContinue}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'scale(1.05)';
-                                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'scale(1)';
-                                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
-                                }}
                             >
                                 {t('continueButton')}
                             </button>

@@ -24,59 +24,36 @@ function PoultryLanding() {
         <div className="portal-layout">
             <div className="portal-container">
                 <div className="portal-card">
-                    {/* Header with FarmWell logo and Online status */}
-                    <div className="header">
-                        <div
-                            className="header-logo"
-                            onClick={() => navigate('/')}
-                            style={{
-                                cursor: 'pointer',
-                                transition: 'opacity 0.2s'
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
-                            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                        >
-                            <img
-                                src="/images/FarmWell_Logo.png"
-                                alt="FarmWell"
-                                style={{ height: '80px', width: 'auto' }}
-                            />
-                        </div>
-                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                            <div style={{
-                                padding: '0.5rem 1rem',
-                                background: '#f3f4f6',
-                                borderRadius: '8px',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: '#374151'
-                            }}>
-                                {language.toUpperCase()}
-                            </div>
-                            <div className="offline-indicator online">
-                                <span className="status-dot" style={{
-                                    width: '8px',
-                                    height: '8px',
-                                    borderRadius: '50%',
-                                    background: '#10B981'
-                                }}></span>
-                                Online
-                            </div>
-                        </div>
-                    </div>
-
                     {/* PoultryWell Logo (centered) */}
                     <div className="page-header" style={{
-                        padding: '0.1875rem 1rem',
+                        padding: '0.1875rem 1rem 2rem',
                         display: 'flex',
                         flexDirection: 'column',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        textAlign: 'center'
                     }}>
                         <img
                             src="/images/PoultryWell_Logo.png"
                             alt="PoultryWell"
-                            style={{ height: '200px', width: 'auto', marginBottom: '0.75rem' }}
+                            style={{ height: '200px', width: 'auto', marginBottom: '1.5rem' }}
                         />
+                        <h2 style={{
+                            fontSize: '2rem',
+                            fontWeight: '700',
+                            color: '#111827',
+                            marginBottom: '0.75rem'
+                        }}>
+                            Poultry Module
+                        </h2>
+                        <p style={{
+                            fontSize: '1.125rem',
+                            color: '#4B5563',
+                            maxWidth: '600px',
+                            margin: '0 auto',
+                            lineHeight: '1.6'
+                        }}>
+                            An integrated poultry management platform for disease diagnostics, biosecurity audits, and farm management support.
+                        </p>
                     </div>
 
                     {/* Feature Cards */}

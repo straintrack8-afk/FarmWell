@@ -10,18 +10,37 @@ function ProgressBar({ step }) {
     ];
 
     return (
-        <div className="progress-steps">
-            {steps.map(s => (
-                <div
-                    key={s.num}
-                    className={`progress-step ${step === s.num ? 'active' : ''} ${step > s.num ? 'completed' : ''}`}
-                >
-                    <div className="step-number">
-                        {step > s.num ? '' : s.num}
+        <div style={{
+            background: 'white',
+            padding: '1rem',
+            borderRadius: '12px',
+            marginBottom: '2rem',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                {steps.map(s => (
+                    <div key={s.num} style={{ flex: 1, textAlign: 'center', padding: '0 2px' }}>
+                        <div style={{
+                            width: 'clamp(28px, 8vw, 40px)',
+                            height: 'clamp(28px, 8vw, 40px)',
+                            borderRadius: '50%',
+                            background: step >= s.num ? '#10b981' : '#e5e7eb',
+                            color: 'white',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: '700',
+                            fontSize: 'clamp(0.75rem, 3vw, 1rem)',
+                            marginBottom: '0.35rem'
+                        }}>
+                            {s.num}
+                        </div>
+                        <div style={{ fontSize: 'clamp(0.6rem, 2.5vw, 0.875rem)', color: '#6b7280', lineHeight: 1.2 }}>
+                            {s.label}
+                        </div>
                     </div>
-                    <span>{s.label}</span>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 }
@@ -70,9 +89,11 @@ function SymptomSelection() {
 
     return (
         <div className="has-action-bar">
-            <ProgressBar step={2} />
-
             <div className="container">
+                <div style={{ paddingTop: '2rem' }}>
+                    <ProgressBar step={2} />
+                </div>
+
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
                     <h1 className="page-title">Select Symptoms</h1>
                     <p className="page-subtitle">
@@ -199,13 +220,18 @@ function SymptomSelection() {
                             className="btn btn-secondary"
                             onClick={() => setStep(STEPS.AGE)}
                         >
-                            ← Change Age
+                            Change Age
                         </button>
                         <button
                             className="btn btn-primary"
                             onClick={handleShowResults}
                             disabled={selectedSymptoms.length === 0}
-                            style={{ opacity: selectedSymptoms.length === 0 ? 0.5 : 1 }}
+                            style={{
+                                background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                                border: 'none',
+                                color: 'white',
+                                opacity: selectedSymptoms.length === 0 ? 0.5 : 1
+                            }}
                         >
                             Show Results
                         </button>

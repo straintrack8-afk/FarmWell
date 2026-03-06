@@ -491,7 +491,7 @@ export const translations = {
             }
         }
     },
-    vn: {
+    vt: {
         welcome: {
             title: "FarmWell",
             subtitle: "Nền tảng chẩn đoán & hiệu suất chăn nuôi tích hợp",

@@ -171,7 +171,7 @@ function BiosecurityDashboard() {
     return (
         <div style={{
             minHeight: '100vh',
-            background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+            background: 'var(--fw-bg)',
             padding: '2rem 0'
         }}>
             <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
@@ -189,10 +189,7 @@ function BiosecurityDashboard() {
                         }}>
                             <span></span>
                             <span style={{
-                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text'
+                                color: 'var(--text-primary)'
                             }}>{getTranslation('title')}</span>
                         </h1>
                         <p style={{ fontSize: '0.9375rem', color: 'var(--text-muted)' }}>
@@ -201,27 +198,20 @@ function BiosecurityDashboard() {
                     </div>
                     <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                         <button
+                            onClick={() => navigate('/swine/biosecurity')}
                             style={{
-                                padding: '0.75rem 1.25rem',
-                                background: 'white',
-                                border: '2px solid #e5e7eb',
-                                borderRadius: '0.75rem',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s ease',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '0.5rem'
-                            }}
-                            onClick={() => navigate('/swine/biosecurity')}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = '#667eea';
-                                e.currentTarget.style.transform = 'translateY(-2px)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = '#e5e7eb';
-                                e.currentTarget.style.transform = 'translateY(0)';
+                                gap: '0.5rem',
+                                padding: '0.75rem 1.25rem',
+                                borderRadius: '25px',
+                                background: 'transparent',
+                                color: '#10B981',
+                                border: '2px solid #10B981',
+                                fontWeight: '600',
+                                fontSize: '0.9rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease'
                             }}
                         >
                             {getTranslation('backToDashboard')}
@@ -232,42 +222,21 @@ function BiosecurityDashboard() {
                 {/* Overall Score Card (if assessment complete) */}
                 {assessmentComplete && overallScore !== null && (
                     <div style={{
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        background: 'white',
                         borderRadius: '2rem',
                         padding: '3rem 2rem',
                         marginBottom: '2.5rem',
-                        boxShadow: '0 20px 50px rgba(102, 126, 234, 0.3)',
+                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)',
+                        borderTop: '4px solid var(--primary)',
                         position: 'relative',
                         overflow: 'hidden'
                     }}>
-                        {/* Decorative elements */}
-                        <div style={{
-                            position: 'absolute',
-                            top: '-100px',
-                            right: '-100px',
-                            width: '300px',
-                            height: '300px',
-                            borderRadius: '50%',
-                            background: 'rgba(255, 255, 255, 0.1)',
-                            pointerEvents: 'none'
-                        }} />
-                        <div style={{
-                            position: 'absolute',
-                            bottom: '-80px',
-                            left: '-80px',
-                            width: '250px',
-                            height: '250px',
-                            borderRadius: '50%',
-                            background: 'rgba(255, 255, 255, 0.08)',
-                            pointerEvents: 'none'
-                        }} />
-
                         <div style={{ position: 'relative', zIndex: 1 }}>
                             <h2 style={{
                                 fontSize: '1.5rem',
-                                fontWeight: '700',
+                                fontWeight: '800',
                                 marginBottom: '2rem',
-                                color: 'white',
+                                color: 'var(--text-primary)',
                                 textAlign: 'center'
                             }}>
                                 {getTranslation('overallScore')}
@@ -286,8 +255,8 @@ function BiosecurityDashboard() {
                                         percentage={overallScore}
                                         size={180}
                                         strokeWidth={12}
-                                        color="white"
-                                        backgroundColor="rgba(255, 255, 255, 0.2)"
+                                        color={getScoreColor(overallScore)}
+                                        backgroundColor="#f1f5f9"
                                         showPercentage={false}
                                     />
                                     <div style={{
@@ -297,10 +266,10 @@ function BiosecurityDashboard() {
                                         transform: 'translate(-50%, -50%)',
                                         textAlign: 'center'
                                     }}>
-                                        <div style={{ fontSize: '4rem', fontWeight: '800', color: 'white', lineHeight: 1 }}>
+                                        <div style={{ fontSize: '4rem', fontWeight: '800', color: getScoreColor(overallScore), lineHeight: 1 }}>
                                             {overallScore}
                                         </div>
-                                        <div style={{ fontSize: '1.125rem', fontWeight: '600', color: 'rgba(255, 255, 255, 0.9)', marginTop: '0.5rem' }}>
+                                        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#64748b', marginTop: '0.5rem' }}>
                                             {getScoreLabel(overallScore)}
                                         </div>
                                     </div>
@@ -313,15 +282,15 @@ function BiosecurityDashboard() {
                                             percentage={externalScore || 0}
                                             size={120}
                                             strokeWidth={10}
-                                            color="white"
-                                            backgroundColor="rgba(255, 255, 255, 0.2)"
+                                            color={getScoreColor(externalScore)}
+                                            backgroundColor="#f1f5f9"
                                             showPercentage={true}
                                         />
                                         <div style={{
                                             fontSize: '0.9375rem',
-                                            color: 'rgba(255, 255, 255, 0.95)',
+                                            color: 'var(--text-primary)',
                                             marginTop: '0.75rem',
-                                            fontWeight: '600'
+                                            fontWeight: '700'
                                         }}>
                                             {getTranslation('externalBiosecurity')}
                                         </div>
@@ -331,15 +300,15 @@ function BiosecurityDashboard() {
                                             percentage={internalScore || 0}
                                             size={120}
                                             strokeWidth={10}
-                                            color="white"
-                                            backgroundColor="rgba(255, 255, 255, 0.2)"
+                                            color={getScoreColor(internalScore)}
+                                            backgroundColor="#f1f5f9"
                                             showPercentage={true}
                                         />
                                         <div style={{
                                             fontSize: '0.9375rem',
-                                            color: 'rgba(255, 255, 255, 0.95)',
+                                            color: 'var(--text-primary)',
                                             marginTop: '0.75rem',
-                                            fontWeight: '600'
+                                            fontWeight: '700'
                                         }}>
                                             {getTranslation('internalBiosecurity')}
                                         </div>
@@ -349,27 +318,9 @@ function BiosecurityDashboard() {
 
                             <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
                                 <button
-                                    style={{
-                                        padding: '1rem 2.5rem',
-                                        background: 'white',
-                                        color: '#667eea',
-                                        border: 'none',
-                                        borderRadius: '0.75rem',
-                                        fontSize: '1rem',
-                                        fontWeight: '700',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s ease',
-                                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
-                                    }}
+                                    className="btn btn-primary"
+                                    style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}
                                     onClick={() => navigate('/swine/biosecurity/results')}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1.05)';
-                                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.2)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                                    }}
                                 >
                                     {getTranslation('viewReport')}
                                 </button>
@@ -393,27 +344,22 @@ function BiosecurityDashboard() {
                                 {getTranslation('farmProfile')}
                             </h3>
                             <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                                 {getTranslation('completed')}
+                                {getTranslation('completed')}
                             </p>
                         </div>
                         <button
                             style={{
-                                padding: '0.625rem 1.25rem',
-                                background: '#f3f4f6',
-                                border: 'none',
-                                borderRadius: '0.5rem',
+                                padding: '0.5rem 1rem',
                                 fontSize: '0.875rem',
+                                borderRadius: '25px',
+                                background: 'transparent',
+                                color: '#10B981',
+                                border: '2px solid #10B981',
                                 fontWeight: '600',
                                 cursor: 'pointer',
                                 transition: 'all 0.2s ease'
                             }}
                             onClick={() => navigate('/swine/biosecurity/farm-profile')}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.background = '#e5e7eb';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.background = '#f3f4f6';
-                            }}
                         >
                             Edit
                         </button>
@@ -430,7 +376,7 @@ function BiosecurityDashboard() {
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase'
                     }}>
-                         {getTranslation('externalSection')}
+                        {getTranslation('externalSection')}
                     </h2>
                     <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
                         {focusAreas.filter(fa => fa.category.includes('external') || fa.category.includes('eksternal') || fa.category.includes('ngoài')).map(fa => (
@@ -454,7 +400,7 @@ function BiosecurityDashboard() {
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase'
                     }}>
-                         {getTranslation('internalSection')}
+                        {getTranslation('internalSection')}
                     </h2>
                     <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))' }}>
                         {focusAreas.filter(fa => fa.category.includes('internal') || fa.category.includes('trong')).map(fa => (
@@ -519,48 +465,23 @@ function BiosecurityDashboard() {
                     )}
 
                     <button
-                        style={{
-                            padding: '0.875rem 2rem',
-                            background: '#7C3AED',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '0.75rem',
-                            fontSize: '0.9375rem',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            boxShadow: '0 4px 6px rgba(124, 58, 237, 0.2)',
-                            transition: 'all 0.2s ease'
-                        }}
+                        className="btn btn-primary"
                         onClick={() => navigate('/swine/biosecurity/report')}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'translateY(-2px)';
-                            e.currentTarget.style.boxShadow = '0 10px 15px rgba(124, 58, 237, 0.3)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = '0 4px 6px rgba(124, 58, 237, 0.2)';
-                        }}
                     >
                         {getTranslation('viewAnalysis') || 'View Analysis & Improvements'}
                     </button>
 
                     <button
                         style={{
-                            padding: '0.875rem 2rem',
-                            background: 'white',
-                            color: '#ef4444',
-                            border: '2px solid #ef4444',
-                            borderRadius: '0.75rem',
-                            fontSize: '0.9375rem',
+                            padding: '0.875rem 1.75rem',
+                            borderRadius: '25px',
+                            background: 'transparent',
+                            color: '#10B981',
+                            border: '2px solid #10B981',
                             fontWeight: '600',
+                            fontSize: '0.9375rem',
                             cursor: 'pointer',
-                            transition: 'all 0.2s ease',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.5rem'
+                            transition: 'all 0.2s ease'
                         }}
                         onClick={() => {
                             if (window.confirm(getTranslation('confirmDiscard'))) {
@@ -568,20 +489,8 @@ function BiosecurityDashboard() {
                                 navigate('/swine/biosecurity');
                             }
                         }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.background = '#ef4444';
-                            e.currentTarget.style.color = 'white';
-                            e.currentTarget.style.transform = 'translateY(-2px)';
-                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(239, 68, 68, 0.3)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'white';
-                            e.currentTarget.style.color = '#ef4444';
-                            e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = 'none';
-                        }}
                     >
-                         {getTranslation('discardAssessment')}
+                        {getTranslation('discardAssessment')}
                     </button>
                 </div>
             </div>

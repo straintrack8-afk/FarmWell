@@ -129,47 +129,7 @@ function BreederAssessmentLanding() {
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Header */}
-                    <div className="header">
-                        <div
-                            className="header-logo"
-                            onClick={() => navigate('/poultry')}
-                            style={{
-                                cursor: 'pointer',
-                                transition: 'opacity 0.2s'
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
-                            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                        >
-                            <img
-                                src="/images/PoultryWell_Logo.png"
-                                alt="PoultryWell"
-                                style={{ height: '80px', width: 'auto' }}
-                                title="Back to Poultry Module"
-                            />
-                        </div>
-                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                            <div style={{
-                                padding: '0.5rem 1rem',
-                                background: '#f3f4f6',
-                                borderRadius: '8px',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: '#374151'
-                            }}>
-                                {language.toUpperCase()}
-                            </div>
-                            <div className="offline-indicator online">
-                                <span className="status-dot" style={{
-                                    width: '8px',
-                                    height: '8px',
-                                    borderRadius: '50%',
-                                    background: '#10B981'
-                                }}></span>
-                                Online
-                            </div>
-                        </div>
-                    </div>
-
+                    
                     {/* Page Title */}
                     <div style={{ marginBottom: '1.5rem', marginTop: '1.5rem' }}>
                         <h1 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.375rem', color: '#1e293b' }}>
@@ -415,20 +375,7 @@ function BreederAssessmentLanding() {
                         )}
                     </div>
 
-                    {/* Footer */}
-                    <div className="footer-branding" style={{ marginTop: '2rem', paddingBottom: '2rem' }}>
-                        <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-                            Powered By
-                        </p>
-                        <div className="flex justify-center items-center">
-                            <img
-                                src="/images/Vaksindo_logo.png"
-                                alt="Vaksindo"
-                                className="vaksindo-logo"
-                            />
-                        </div>
-                    </div>
-                </div>
+                                    </div>
             </div>
         </div>
     );

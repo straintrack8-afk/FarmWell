@@ -72,33 +72,6 @@ function LayerAssessmentDashboard() {
         <div className="portal-layout">
             <div className="portal-container">
                 <div className="portal-card">
-                    {/* Header */}
-                    <div className="header">
-                        <div
-                            className="header-logo"
-                            onClick={() => navigate('/poultry')}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <img src="/images/PoultryWell_Logo.png" alt="PoultryWell" style={{ height: '80px' }} />
-                        </div>
-                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                            <div style={{
-                                padding: '0.5rem 1rem',
-                                background: '#f3f4f6',
-                                borderRadius: '8px',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: '#374151'
-                            }}>
-                                {language.toUpperCase()}
-                            </div>
-                            <div className="offline-indicator online">
-                                <span className="status-dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }}></span>
-                                Online
-                            </div>
-                        </div>
-                    </div>
-
                     {/* Main Content */}
                     <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
                         {/* Title */}
@@ -106,11 +79,14 @@ function LayerAssessmentDashboard() {
                             <button
                                 onClick={handleBackToLanding}
                                 style={{
-                                    background: 'none',
+                                    background: '#10B981',
+                                    color: 'white',
                                     border: 'none',
-                                    color: '#6b7280',
+                                    borderRadius: '6px',
+                                    padding: '0.5rem 1rem',
                                     cursor: 'pointer',
                                     fontSize: '0.875rem',
+                                    fontWeight: '500',
                                     marginBottom: '1rem',
                                     display: 'flex',
                                     alignItems: 'center',

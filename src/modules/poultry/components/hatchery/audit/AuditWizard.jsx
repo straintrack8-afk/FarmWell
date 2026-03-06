@@ -131,10 +131,10 @@ function AuditWizard() {
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button onClick={handleSaveDraft} className="btn-hatchery btn-outline">
-                             Save Draft
+                            Save Draft
                         </button>
                         <button onClick={handleDiscard} className="btn-hatchery btn-danger">
-                             Discard
+                            Discard
                         </button>
                     </div>
                 </div>
@@ -168,7 +168,7 @@ function AuditWizard() {
                         disabled={currentStepIndex === 0}
                         className="btn-hatchery btn-secondary"
                     >
-                        ← Previous
+                        Previous
                     </button>
 
                     <div style={{ flex: 1 }} />
@@ -178,7 +178,7 @@ function AuditWizard() {
                             onClick={handleComplete}
                             className="btn-hatchery btn-success"
                         >
-                             Complete Audit
+                            Complete Audit
                         </button>
                     ) : (
                         <button

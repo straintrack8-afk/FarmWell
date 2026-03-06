@@ -16,15 +16,15 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
     const answeredCount = focusAreaData?.answers ? Object.keys(focusAreaData.answers).length : 0;
     const progressPercentage = (answeredCount / total_questions) * 100;
 
-    // Gradient colors for each focus area
-    const gradients = {
-        1: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        2: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-        3: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-        4: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+    // Accent colors for each focus area to maintain visual distinction without heavy gradients
+    const accentColors = {
+        1: '#10B981',
+        2: '#10B981',
+        3: '#10B981',
+        4: '#10B981'
     };
 
-    const gradient = gradients[number] || gradients[1];
+    const accentColor = accentColors[number] || accentColors[1];
 
     const getScoreColor = (score) => {
         if (score >= 80) return '#10B981'; // Green
@@ -63,48 +63,28 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
     return (
         <div
             style={{
-                background: gradient,
+                background: 'white',
                 borderRadius: '1.5rem',
                 padding: '1.75rem',
                 cursor: 'pointer',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)',
                 position: 'relative',
                 overflow: 'hidden',
-                minHeight: '220px'
+                minHeight: '220px',
+                border: '1px solid #e5e7eb',
+                borderTop: `4px solid ${accentColor}`
             }}
             onClick={handleClick}
             onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 12px 25px rgba(0, 0, 0, 0.1)';
             }}
             onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.05)';
             }}
         >
-            {/* Decorative circles */}
-            <div style={{
-                position: 'absolute',
-                top: '-50px',
-                right: '-50px',
-                width: '150px',
-                height: '150px',
-                borderRadius: '50%',
-                background: 'rgba(255, 255, 255, 0.1)',
-                pointerEvents: 'none'
-            }} />
-            <div style={{
-                position: 'absolute',
-                bottom: '-30px',
-                left: '-30px',
-                width: '100px',
-                height: '100px',
-                borderRadius: '50%',
-                background: 'rgba(255, 255, 255, 0.08)',
-                pointerEvents: 'none'
-            }} />
-
             {/* Content */}
             <div style={{ position: 'relative', zIndex: 1 }}>
                 {/* Header with Score/Progress */}
@@ -112,8 +92,8 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                     <div style={{ flex: 1, paddingRight: '1rem' }}>
                         <div style={{
                             fontSize: '0.75rem',
-                            fontWeight: '700',
-                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontWeight: '800',
+                            color: accentColor,
                             textTransform: 'uppercase',
                             letterSpacing: '0.05em',
                             marginBottom: '0.5rem'
@@ -121,9 +101,9 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                             Focus Area {number}
                         </div>
                         <h3 style={{
-                            fontSize: '1.375rem',
-                            fontWeight: '700',
-                            color: 'white',
+                            fontSize: '1.25rem',
+                            fontWeight: '800',
+                            color: '#1e293b',
                             marginBottom: '0.5rem',
                             lineHeight: '1.3'
                         }}>
@@ -131,7 +111,7 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                         </h3>
                         <p style={{
                             fontSize: '0.875rem',
-                            color: 'rgba(255, 255, 255, 0.85)',
+                            color: '#64748b',
                             lineHeight: '1.5',
                             marginBottom: '0'
                         }}>
@@ -145,16 +125,27 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                             <>
                                 <CircularProgress
                                     percentage={score}
-                                    size={90}
+                                    size={80}
                                     strokeWidth={7}
-                                    color="white"
-                                    backgroundColor="rgba(255, 255, 255, 0.2)"
-                                    showPercentage={true}
+                                    color={getScoreColor(score)}
+                                    backgroundColor="#f1f5f9"
+                                    showPercentage={false}
                                 />
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    fontWeight: '800',
+                                    fontSize: '1.25rem',
+                                    color: getScoreColor(score)
+                                }}>
+                                    {score}
+                                </div>
                                 <div style={{
                                     fontSize: '0.75rem',
                                     fontWeight: '700',
-                                    color: 'rgba(255, 255, 255, 0.9)',
+                                    color: '#64748b',
                                     marginTop: '0.5rem',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.05em'
@@ -164,15 +155,15 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                             </>
                         ) : (
                             <div style={{
-                                height: '90px',
-                                width: '90px',
+                                height: '80px',
+                                width: '80px',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                border: '2px dashed rgba(255,255,255,0.3)',
+                                border: '2px dashed #cbd5e1',
                                 borderRadius: '50%'
                             }}>
-                                <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', fontWeight: '600' }}>
+                                <span style={{ color: '#94a3b8', fontSize: '0.75rem', fontWeight: '700' }}>
                                     Pending
                                 </span>
                             </div>
@@ -184,25 +175,22 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                 <div style={{
                     display: 'flex',
                     gap: '1.5rem',
-                    marginBottom: '1.25rem',
+                    marginBottom: '1.5rem',
                     paddingTop: '1rem',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.2)'
+                    borderTop: '1px solid #f1f5f9'
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.125rem' }}></span>
-                        <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.95)', fontWeight: '500' }}>
+                        <span style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '600' }}>
                             {total_questions} {getTranslation('questions')}
                         </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.125rem' }}></span>
-                        <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.95)', fontWeight: '500' }}>
+                        <span style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '600' }}>
                             ~{estimated_time_minutes} {getTranslation('min')}
                         </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.125rem' }}></span>
-                        <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.95)', fontWeight: '500' }}>
+                        <span style={{ fontSize: '0.875rem', color: '#64748b', fontWeight: '600' }}>
                             {answeredCount} {getTranslation('answered')}
                         </span>
                     </div>
@@ -210,34 +198,17 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
 
                 {/* Action Button */}
                 <button
+                    className={isCompleted ? "btn btn-outline" : "btn btn-primary"}
                     style={{
                         width: '100%',
-                        padding: '0.875rem 1.5rem',
-                        background: 'rgba(255, 255, 255, 0.95)',
-                        color: '#1f2937',
-                        border: 'none',
-                        borderRadius: '0.75rem',
-                        fontSize: '0.9375rem',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '0.5rem',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                        padding: '10px 0'
                     }}
                     onClick={(e) => {
                         e.stopPropagation();
                         handleClick();
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'white';
-                        e.currentTarget.style.transform = 'scale(1.02)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
-                        e.currentTarget.style.transform = 'scale(1)';
                     }}
                 >
                     {getButtonText()}
