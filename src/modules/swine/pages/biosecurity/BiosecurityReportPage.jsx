@@ -158,7 +158,7 @@ function BiosecurityReportPage() {
     }
 
     return (
-        <div className="container print-container" style={{ paddingBottom: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
+        <div className="container print-container" style={{ paddingTop: '2rem', paddingBottom: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
             <style>
                 {`
                     @media print {
@@ -410,31 +410,27 @@ function BiosecurityReportPage() {
                         {[
                             {
                                 number: 1,
-                                title: 'Purchase & Transport',
-                                description: 'Prevent disease entry through animals and vehicles',
-                                color: '#8B5CF6',
-                                bgColor: '#EDE9FE'
+                                title: language === 'id' ? 'Pembelian & Transportasi' : language === 'vt' ? 'Mua & Vận chuyển' : 'Purchase & Transport',
+                                description: language === 'id' ? 'Cegah masuknya penyakit melalui hewan dan kendaraan' : language === 'vt' ? 'Ngăn ngừa bệnh qua động vật và phương tiện' : 'Prevent disease entry through animals and vehicles',
+                                color: '#10B981'
                             },
                             {
                                 number: 2,
-                                title: 'Facilities & People',
-                                description: 'Control access and environmental biosecurity',
-                                color: '#EC4899',
-                                bgColor: '#FCE7F3'
+                                title: language === 'id' ? 'Fasilitas & SDM' : language === 'vt' ? 'Cơ sở & Con người' : 'Facilities & People',
+                                description: language === 'id' ? 'Kendalikan akses dan biosekuriti lingkungan' : language === 'vt' ? 'Kiểm soát tiếp cận và an toàn sinh học môi trường' : 'Control access and environmental biosecurity',
+                                color: '#10B981'
                             },
                             {
                                 number: 3,
-                                title: 'Production Management',
-                                description: 'Prevent disease spread within the farm',
-                                color: '#06B6D4',
-                                bgColor: '#CFFAFE'
+                                title: language === 'id' ? 'Manajemen Produksi' : language === 'vt' ? 'Quản lý Sản xuất' : 'Production Management',
+                                description: language === 'id' ? 'Cegah penyebaran penyakit di dalam peternakan' : language === 'vt' ? 'Ngăn ngừa lây lan bệnh trong trang trại' : 'Prevent disease spread within the farm',
+                                color: '#10B981'
                             },
                             {
                                 number: 4,
-                                title: 'Hygiene Protocols',
-                                description: 'Maintain cleanliness across all areas',
-                                color: '#10B981',
-                                bgColor: '#D1FAE5'
+                                title: language === 'id' ? 'Protokol Kebersihan' : language === 'vt' ? 'Quy trình Vệ sinh' : 'Hygiene Protocols',
+                                description: language === 'id' ? 'Jaga kebersihan di semua area' : language === 'vt' ? 'Duy trì vệ sinh ở tất cả các khu vực' : 'Maintain cleanliness across all areas',
+                                color: '#10B981'
                             }
                         ].map((area) => {
                             const focusAreaData = currentAssessment.focus_areas[area.number];
@@ -442,11 +438,11 @@ function BiosecurityReportPage() {
 
                             return (
                                 <div key={area.number} style={{
-                                    background: area.bgColor,
+                                    background: 'white',
                                     borderRadius: '1rem',
                                     padding: '1.5rem',
                                     boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                                    border: `2px solid ${area.color}20`,
+                                    borderTop: `4px solid ${area.color}`,
                                     position: 'relative',
                                     overflow: 'hidden'
                                 }}>
@@ -458,7 +454,7 @@ function BiosecurityReportPage() {
                                         letterSpacing: '0.05em',
                                         marginBottom: '0.75rem'
                                     }}>
-                                        Focus Area {area.number}
+                                        {language === 'id' ? `Area Fokus ${area.number}` : language === 'vt' ? `Khu vực ${area.number}` : `Focus Area ${area.number}`}
                                     </div>
 
                                     <div style={{
@@ -539,7 +535,7 @@ function BiosecurityReportPage() {
             {/* Critical Action Items */}
             <div>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                     {getTranslation('improvementPlan')}
+                    {getTranslation('improvementPlan')}
                 </h2>
 
                 {criticalItems.length === 0 ? (
@@ -573,10 +569,10 @@ function BiosecurityReportPage() {
                                         fontWeight: '700',
                                         textTransform: 'uppercase'
                                     }}>
-                                        Risk Detected
+                                        {language === 'id' ? 'Risiko Terdeteksi' : language === 'vt' ? 'Rủi ro Phát hiện' : 'Risk Detected'}
                                     </span>
                                     <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                                        Focus Area {item.focusArea}
+                                        {language === 'id' ? `Area Fokus ${item.focusArea}` : language === 'vt' ? `Khu vực ${item.focusArea}` : `Focus Area ${item.focusArea}`}
                                     </span>
                                 </div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.75rem', lineHeight: '1.4' }}>
@@ -589,10 +585,10 @@ function BiosecurityReportPage() {
                                     border: '1px solid #E5E7EB'
                                 }}>
                                     <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                                        <strong>Your Answer:</strong> {item.answer.toString()}
+                                        <strong>{language === 'id' ? 'Jawaban Anda:' : language === 'vt' ? 'Câu trả lời:' : 'Your Answer:'}</strong> {item.answer.toString()}
                                     </p>
                                     <div style={{ marginTop: '0.75rem', color: '#059669', fontSize: '0.9rem' }}>
-                                        <strong> Recommendation:</strong> Implement standard biosecurity procedure to address this risk. Ensure compliance with biosecurity manual section {item.focusArea}.{item.questionNumber}.
+                                        <strong>{language === 'id' ? 'Rekomendasi:' : language === 'vt' ? 'Khuyến nghị:' : 'Recommendation:'}</strong> {language === 'id' ? `Terapkan prosedur biosekuriti standar untuk mengatasi risiko ini. Pastikan kepatuhan dengan manual biosekuriti bagian ${item.focusArea}.${item.questionNumber}.` : language === 'vt' ? `Thực hiện quy trình an toàn sinh học tiêu chuẩn để giải quyết rủi ro này. Đảm bảo tuân thủ hướng dẫn an toàn sinh học phần ${item.focusArea}.${item.questionNumber}.` : `Implement standard biosecurity procedure to address this risk. Ensure compliance with biosecurity manual section ${item.focusArea}.${item.questionNumber}.`}
                                     </div>
                                 </div>
                             </div>

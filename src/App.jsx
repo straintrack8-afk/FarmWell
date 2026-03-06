@@ -1,14 +1,30 @@
-import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import WelcomePage from './pages/WelcomePage';
 import SwineApp from './modules/swine/App';
 import PoultryApp from './modules/poultry/App';
 import FeedAdditivesApp from './modules/feed-additives/App';
+import SplashScreen from './components/SplashScreen';
+
+// Show splash once per browser session (disappears after refresh or new tab)
+const hasSeenSplash = sessionStorage.getItem('fw_splash_seen') === 'true';
 
 function App() {
+    const [splashDone, setSplashDone] = useState(hasSeenSplash);
+
+    const handleSplashComplete = () => {
+        sessionStorage.setItem('fw_splash_seen', 'true');
+        setSplashDone(true);
+    };
+
     return (
         <LanguageProvider>
+            {/* Splash sits above everything and unmounts itself once done */}
+            {!splashDone && (
+                <SplashScreen duration={3500} onComplete={handleSplashComplete} />
+            )}
+
             <Routes>
                 <Route path="/" element={<WelcomePage />} />
                 <Route path="/feed-additives/*" element={<FeedAdditivesApp />} />

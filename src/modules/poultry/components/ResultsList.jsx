@@ -11,18 +11,37 @@ function ProgressBar({ step }) {
     ];
 
     return (
-        <div className="progress-steps">
-            {steps.map(s => (
-                <div
-                    key={s.num}
-                    className={`progress-step ${step === s.num ? 'active' : ''} ${step > s.num ? 'completed' : ''}`}
-                >
-                    <div className="step-number">
-                        {step > s.num ? '' : s.num}
+        <div style={{
+            background: 'white',
+            padding: '1rem',
+            borderRadius: '12px',
+            marginBottom: '2rem',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                {steps.map(s => (
+                    <div key={s.num} style={{ flex: 1, textAlign: 'center', padding: '0 2px' }}>
+                        <div style={{
+                            width: 'clamp(28px, 8vw, 40px)',
+                            height: 'clamp(28px, 8vw, 40px)',
+                            borderRadius: '50%',
+                            background: step >= s.num ? '#10b981' : '#e5e7eb',
+                            color: 'white',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: '700',
+                            fontSize: 'clamp(0.75rem, 3vw, 1rem)',
+                            marginBottom: '0.35rem'
+                        }}>
+                            {s.num}
+                        </div>
+                        <div style={{ fontSize: 'clamp(0.6rem, 2.5vw, 0.875rem)', color: '#6b7280', lineHeight: 1.2 }}>
+                            {s.label}
+                        </div>
                     </div>
-                    <span>{s.label}</span>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 }
@@ -55,7 +74,7 @@ function DiseaseCard({ disease, onClick }) {
                 </div>
                 {disease.zoonotic && (
                     <span className="badge badge-zoonotic" title="Can spread to humans">
-                         Zoonotic
+                        Zoonotic
                     </span>
                 )}
             </div>
@@ -76,7 +95,7 @@ function DiseaseCard({ disease, onClick }) {
 
             {disease.matchCount > 0 && (
                 <div className="match-indicator" style={{ color: 'var(--primary)', fontWeight: 'bold', marginTop: '0.5rem' }}>
-                     Matches {disease.matchCount} symptom(s)
+                    Matches {disease.matchCount} symptom(s)
                 </div>
             )}
         </div>
@@ -112,9 +131,11 @@ function ResultsList() {
 
     return (
         <div>
-            <ProgressBar step={3} />
-
             <div className="container">
+                <div style={{ paddingTop: '2rem' }}>
+                    <ProgressBar step={3} />
+                </div>
+
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
                     <h1 className="page-title">
                         {filteredDiseases.length} Possible Disease{filteredDiseases.length !== 1 ? 's' : ''}
@@ -161,11 +182,19 @@ function ResultsList() {
                         marginTop: '1rem',
                         flexWrap: 'wrap'
                     }}>
-                        <button className="btn btn-secondary btn-sm" onClick={handleRefineSymptoms}>
-                            ← Refine Symptoms
+                        <button
+                            className="btn btn-outline btn-sm"
+                            onClick={handleRefineSymptoms}
+                            style={{ borderColor: 'var(--primary)', color: 'var(--primary)' }}
+                        >
+                            Refine Symptoms
                         </button>
-                        <button className="btn btn-outline btn-sm" onClick={handleNewDiagnosis}>
-                             New Diagnosis
+                        <button
+                            className="btn btn-outline btn-sm"
+                            onClick={handleNewDiagnosis}
+                            style={{ borderColor: 'var(--primary)', color: 'var(--primary)' }}
+                        >
+                            New Diagnosis
                         </button>
                     </div>
                 </div>
@@ -179,7 +208,11 @@ function ResultsList() {
                             <p className="empty-state-text">
                                 No diseases match all your selected symptoms. Try removing some symptoms.
                             </p>
-                            <button className="btn btn-primary" onClick={handleRefineSymptoms}>
+                            <button
+                                className="btn btn-primary"
+                                onClick={handleRefineSymptoms}
+                                style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)', border: 'none', color: 'white' }}
+                            >
                                 Refine Symptoms
                             </button>
                         </div>
@@ -202,19 +235,7 @@ function ResultsList() {
                     )}
                 </div>
 
-                {/* Powered by Vaksindo */}
-                <div className="footer-branding" style={{ marginTop: '1rem', paddingBottom: '2rem' }}>
-                    <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-                        Powered By
-                    </p>
-                    <div className="flex justify-center items-center">
-                        <img
-                            src="/images/Vaksindo_logo.png"
-                            alt="Vaksindo"
-                            className="vaksindo-logo"
-                        />
-                    </div>
-                </div>
+                {/* Powered by Vaksindo removed as it is in App.jsx */}
             </div>
         </div>
     );

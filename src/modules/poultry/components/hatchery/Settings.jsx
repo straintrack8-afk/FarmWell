@@ -120,7 +120,7 @@ function Settings() {
                     onClick={() => navigate('/poultry/hatchery-audit')}
                     className="btn-hatchery btn-outline"
                 >
-                    ← Back to Dashboard
+                    Back to Dashboard
                 </button>
             </div>
 

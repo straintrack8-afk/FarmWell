@@ -216,7 +216,7 @@ function BiosecurityMainDashboard() {
     return (
         <div style={{
             minHeight: '100vh',
-            background: '#f8fafc',
+            background: 'var(--fw-bg)',
             padding: '1.5rem 0',
             overflowX: 'hidden'
         }}>
@@ -246,7 +246,7 @@ function BiosecurityMainDashboard() {
                     marginBottom: '1.5rem'
                 }}>
                     {/* Card 1: Total Assessments */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #366092', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
                         <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
                             {getTranslation('totalAssessments')}
                         </div>
@@ -272,7 +272,7 @@ function BiosecurityMainDashboard() {
                     </div>
 
                     {/* Card 3: Good Assessments */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #F59E0B', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
                         <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
                             {getTranslation('goodAssessments')}
                         </div>
@@ -285,7 +285,7 @@ function BiosecurityMainDashboard() {
                     </div>
 
                     {/* Card 4: Poor Assessments */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #EF4444', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
                         <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
                             {getTranslation('poorAssessments')}
                         </div>
@@ -318,7 +318,7 @@ function BiosecurityMainDashboard() {
                         overflow: 'hidden'
                     }}>
                         <h3 style={{ fontSize: '0.9rem', fontWeight: '700', marginBottom: '1rem', width: '100%', textAlign: 'left' }}>
-                            {language === 'id' ? 'Distribusi Hasil' : 'Results Distribution'}
+                            {language === 'id' ? 'Distribusi Hasil' : language === 'vt' ? 'Phân phối Kết quả' : 'Results Distribution'}
                         </h3>
                         {(() => {
                             const pieData = [
@@ -364,7 +364,7 @@ function BiosecurityMainDashboard() {
                         overflow: 'hidden'
                     }}>
                         <h3 style={{ fontSize: '0.9rem', fontWeight: '700', marginBottom: '1rem' }}>
-                            {language === 'id' ? 'Tren Penilaian' : 'Assessment Trend'}
+                            {language === 'id' ? 'Tren Penilaian' : language === 'vt' ? 'Xu hướng Đánh giá' : 'Assessment Trend'}
                         </h3>
                         {(() => {
                             const lineData = [...assessmentHistory]
@@ -376,7 +376,7 @@ function BiosecurityMainDashboard() {
                             return <SimpleLineChart data={lineData} height={140} />;
                         })()}
                         <div style={{ textAlign: 'center', marginTop: '0.75rem', fontSize: '0.8rem', color: '#94a3b8' }}>
-                            {language === 'id' ? 'Riwayat Skor Biosekuriti' : 'Biosecurity Score History'}
+                            {language === 'id' ? 'Riwayat Skor Biosekuriti' : language === 'vt' ? 'Lịch sử Điểm An toàn Sinh học' : 'Biosecurity Score History'}
                         </div>
                     </div>
                 </div>
@@ -394,60 +394,32 @@ function BiosecurityMainDashboard() {
                     </h2>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
                         <button
+                            className="btn btn-primary"
                             style={{
                                 padding: '0.875rem',
-                                background: '#1e293b',
-                                border: 'none',
-                                borderRadius: '0.75rem',
-                                color: 'white',
-                                fontSize: '0.9375rem',
-                                fontWeight: '600',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s ease',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 gap: '0.5rem'
                             }}
                             onClick={handleStartNewAssessment}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.background = '#334155';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.background = '#1e293b';
-                            }}
                         >
                             {getTranslation(stats.hasActive ? 'continueAssessment' : 'startNew')}
                         </button>
                         <button
+                            className="btn btn-primary"
                             style={{
                                 padding: '0.875rem',
-                                background: 'white',
-                                border: '1.5px solid #e2e8f0',
-                                borderRadius: '0.75rem',
-                                color: '#374151',
-                                fontSize: '0.9375rem',
-                                fontWeight: '600',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s ease',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: '0.5rem'
+                                gap: '0.5rem',
+                                background: 'linear-gradient(135deg, #059669 0%, #047857 100%)'
                             }}
                             onClick={handleViewHistory}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = '#366092';
-                                e.currentTarget.style.color = '#366092';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = '#e2e8f0';
-                                e.currentTarget.style.color = '#374151';
-                            }}
                         >
                             {getTranslation('viewHistory')}
                         </button>
-
                     </div>
                 </div>
 
@@ -471,20 +443,11 @@ function BiosecurityMainDashboard() {
                                 {getTranslation('noAssessmentsDesc')}
                             </p>
                             <button
+                                className="btn btn-primary"
                                 style={{
-                                    padding: '0.75rem 2rem',
-                                    background: '#1e293b',
-                                    border: 'none',
-                                    borderRadius: '0.75rem',
-                                    color: 'white',
-                                    fontSize: '0.9375rem',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    transition: 'background 0.2s ease'
+                                    padding: '0.75rem 2rem'
                                 }}
                                 onClick={handleStartNewAssessment}
-                                onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
-                                onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
                             >
                                 {getTranslation('startFirst')}
                             </button>
@@ -545,26 +508,12 @@ function BiosecurityMainDashboard() {
                                                 </td>
                                                 <td style={{ padding: '1.25rem', textAlign: 'right', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
                                                     <button
+                                                        className="btn btn-outline"
                                                         style={{
                                                             padding: '0.5rem 1rem',
-                                                            background: 'white',
-                                                            border: '1.5px solid #e2e8f0',
-                                                            borderRadius: '0.5rem',
-                                                            color: '#374151',
-                                                            fontSize: '0.8125rem',
-                                                            fontWeight: '600',
-                                                            cursor: 'pointer',
-                                                            transition: 'all 0.15s ease'
+                                                            fontSize: '0.8125rem'
                                                         }}
                                                         onClick={() => handleDownloadPDF(assessment)}
-                                                        onMouseEnter={(e) => {
-                                                            e.currentTarget.style.borderColor = '#366092';
-                                                            e.currentTarget.style.color = '#366092';
-                                                        }}
-                                                        onMouseLeave={(e) => {
-                                                            e.currentTarget.style.borderColor = '#e2e8f0';
-                                                            e.currentTarget.style.color = '#374151';
-                                                        }}
                                                     >
                                                         {getTranslation('downloadPDF')}
                                                     </button>

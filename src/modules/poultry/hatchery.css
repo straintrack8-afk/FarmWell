@@ -92,7 +92,7 @@
 
 .progress-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #3B82F6, #10B981);
+    background: linear-gradient(90deg, #10B981, #059669);
     transition: width 0.3s ease;
     border-radius: 9999px;
 }
@@ -141,8 +141,8 @@
 }
 
 .step-item.active .step-circle {
-    background-color: #3B82F6;
-    border-color: #3B82F6;
+    background-color: #10B981;
+    border-color: #10B981;
     color: white;
 }
 
@@ -193,8 +193,8 @@
 
 .form-input:focus {
     outline: none;
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #10B981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 .form-textarea {
@@ -210,8 +210,8 @@
 
 .form-textarea:focus {
     outline: none;
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #10B981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 .form-select {
@@ -226,8 +226,8 @@
 
 .form-select:focus {
     outline: none;
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #10B981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 /* Checkbox */
@@ -243,8 +243,8 @@
 }
 
 .checkbox-group:hover {
-    background-color: #F9FAFB;
-    border-color: #3B82F6;
+    background-color: #F0FDF4;
+    border-color: #10B981;
 }
 
 .checkbox-group input[type="checkbox"] {
@@ -277,21 +277,21 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
     color: white;
     border: none;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
 }
 
 .btn-primary:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .btn-secondary {
@@ -352,15 +352,15 @@
 
 .btn-outline {
     background: white;
-    color: #6366F1;
-    border: 2px solid #6366F1;
+    color: #10B981;
+    border: 2px solid #10B981;
 }
 
 .btn-outline:hover {
-    background: #6366F1;
+    background: #10B981;
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .btn-outline:active {
@@ -429,7 +429,7 @@
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #3B82F6;
+    border-left: 4px solid #10B981;
 }
 
 .stat-card.good {
@@ -534,7 +534,7 @@
 /* Loading Spinner */
 .spinner-hatchery {
     border: 3px solid #E5E7EB;
-    border-top: 3px solid #3B82F6;
+    border-top: 3px solid #10B981;
     border-radius: 50%;
     width: 40px;
     height: 40px;

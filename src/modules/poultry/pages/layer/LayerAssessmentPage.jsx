@@ -76,32 +76,20 @@ function LayerAssessmentPage() {
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Header */}
-                    <div className="header">
-                        <div className="header-logo" onClick={() => navigate('/poultry')} style={{ cursor: 'pointer' }}>
-                            <img src="/images/PoultryWell_Logo.png" alt="PoultryWell" style={{ height: '80px' }} />
-                        </div>
-                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                            <div style={{
-                                padding: '0.5rem 1rem',
-                                background: '#f3f4f6',
-                                borderRadius: '8px',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: '#374151'
-                            }}>
-                                {language.toUpperCase()}
-                            </div>
-                            <div className="offline-indicator online">
-                                <span className="status-dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }}></span>
-                                Online
-                            </div>
-                        </div>
-                    </div>
-
+                    
                     {/* Progress Bar */}
                     <div style={{ padding: '1rem 2rem', background: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                            <button onClick={handleBackToDashboard} style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', fontSize: '0.875rem' }}>
+                            <button onClick={handleBackToDashboard} style={{ 
+                                background: '#10B981', 
+                                color: 'white', 
+                                border: 'none', 
+                                borderRadius: '6px', 
+                                padding: '0.5rem 1rem', 
+                                cursor: 'pointer', 
+                                fontSize: '0.875rem',
+                                fontWeight: '500'
+                            }}>
                                 Back to Dashboard
                             </button>
                             <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>

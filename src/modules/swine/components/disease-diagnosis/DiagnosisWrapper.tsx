@@ -14,10 +14,10 @@ export function DiagnosisWrapper({ children }: DiagnosisWrapperProps) {
   const { hasConsented, isLoading, giveConsent } = useDisclaimerConsent();
 
   // Map app language to disclaimer language
-  const disclaimerLanguage: DisclaimerLanguage = 
-    language === 'en' ? 'en' : 
-    language === 'id' ? 'id' : 
-    language === 'vi' ? 'vi' : 'en';
+  const disclaimerLanguage: DisclaimerLanguage =
+    language === 'en' ? 'en' :
+      language === 'id' ? 'id' :
+        language === 'vi' ? 'vi' : 'en';
 
   if (isLoading) {
     return (
@@ -57,12 +57,12 @@ export function DiagnosisWrapper({ children }: DiagnosisWrapperProps) {
           onAccept={giveConsent}
         />
       )}
-      
+
       {hasConsented && (
-        <>
+        <div className="swine-diagnosis">
           <PersistentDisclaimerBanner language={disclaimerLanguage} />
           {children}
-        </>
+        </div>
       )}
     </>
   );

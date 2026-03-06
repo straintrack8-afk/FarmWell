@@ -28,14 +28,14 @@ export function DiagnosisResultDisclaimer({ language, diseaseIndicated }: Diagno
             width: '40px',
             height: '40px',
             borderRadius: '50%',
-            backgroundColor: '#DBEAFE',
+            backgroundColor: '#D1FAE5',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexShrink: 0
           }}
         >
-          <Stethoscope size={20} color="#3B82F6" />
+          <Stethoscope size={20} color="#10B981" />
         </div>
         <div>
           <h3
@@ -134,6 +134,7 @@ export function DiagnosisResultDisclaimer({ language, diseaseIndicated }: Diagno
         }}
       >
         <button
+          className="btn btn-primary"
           onClick={() => {
             // Placeholder for vet finder feature
             alert('Veterinarian contact feature coming soon');
@@ -142,30 +143,17 @@ export function DiagnosisResultDisclaimer({ language, diseaseIndicated }: Diagno
             flex: '1 1 auto',
             minWidth: '150px',
             padding: '0.75rem 1.5rem',
-            backgroundColor: '#3B82F6',
-            color: 'white',
-            border: 'none',
-            borderRadius: '8px',
             fontSize: '0.875rem',
-            fontWeight: '600',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.5rem',
-            transition: 'background-color 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#2563EB';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#3B82F6';
+            background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+            border: 'none',
+            color: 'white'
           }}
         >
           <Phone size={16} />
           {disclaimer.contactVet}
         </button>
         <button
+          className="btn btn-outline"
           onClick={() => {
             window.print();
           }}
@@ -173,26 +161,10 @@ export function DiagnosisResultDisclaimer({ language, diseaseIndicated }: Diagno
             flex: '1 1 auto',
             minWidth: '150px',
             padding: '0.75rem 1.5rem',
-            backgroundColor: 'white',
-            color: '#374151',
-            border: '2px solid #D1D5DB',
-            borderRadius: '8px',
             fontSize: '0.875rem',
-            fontWeight: '600',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.5rem',
-            transition: 'all 0.2s'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#F9FAFB';
-            e.currentTarget.style.borderColor = '#9CA3AF';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'white';
-            e.currentTarget.style.borderColor = '#D1D5DB';
+            background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+            border: 'none',
+            color: 'white'
           }}
         >
           <FileText size={16} />

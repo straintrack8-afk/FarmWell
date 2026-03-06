@@ -34,7 +34,7 @@ function DiseasePage() {
 
     if (!disease) {
         return (
-            <div className="container">
+            <div className="container swine-diagnosis">
                 <div className="empty-state">
                     <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
                     <h3 className="empty-state-title">Disease Not Found</h3>
@@ -76,7 +76,7 @@ function DiseasePage() {
     };
 
     return (
-        <div className="container" style={{ paddingBottom: '2rem' }}>
+        <div className="container swine-diagnosis" style={{ paddingBottom: '2rem' }}>
             {/* Back Button */}
             <div style={{ padding: '1rem 0' }}>
                 <button
@@ -87,239 +87,228 @@ function DiseasePage() {
                 </button>
             </div>
 
-            {/* Disease Header */}
-            <div style={{ marginBottom: '1.5rem' }}>
-                <h1 style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>
-                    {dName}
-                </h1>
-                {disease.latinName && (
-                    <p style={{
-                        fontStyle: 'italic',
-                        color: 'var(--text-muted)',
-                        marginBottom: '1rem'
-                    }}>
-                        {disease.latinName}
-                    </p>
-                )}
+            {/* Main Content Card */}
+            <div className="disease-detail-card">
+                {/* Disease Header */}
+                <div style={{ marginBottom: '1.5rem' }}>
+                    <h1 style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>
+                        {dName}
+                    </h1>
+                    {disease.latinName && (
+                        <p style={{
+                            fontStyle: 'italic',
+                            color: 'var(--text-muted)',
+                            marginBottom: '1rem'
+                        }}>
+                            {disease.latinName}
+                        </p>
+                    )}
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
-                    <span className={`badge ${getCategoryClass(disease.category)}`}>
-                        {disease.category?.replace(/\*/g, '').trim() || 'Other'}
-                    </span>
-
-                    <div className={`mortality-indicator ${getMortalityClass(disease.mortalityLevel)}`}>
-                        <span className="mortality-dot"></span>
-                        {disease.mortalityLevel} mortality
-                    </div>
-
-                    {disease.ageGroups?.map(ag => (
-                        <span
-                            key={ag}
-                            style={{
-                                padding: '0.25rem 0.5rem',
-                                background: 'var(--bg-tertiary)',
-                                borderRadius: 'var(--radius-sm)',
-                                fontSize: '0.75rem',
-                                color: 'var(--text-secondary)'
-                            }}
-                        >
-                            {ag}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
+                        <span className={`badge ${getCategoryClass(disease.category)}`}>
+                            {disease.category?.replace(/\*/g, '').trim() || 'Other'}
                         </span>
-                    ))}
-                </div>
-            </div>
 
-            {/* Zoonotic Warning */}
-            {disease.zoonoticRisk && (
-                <div className="zoonotic-warning" style={{ marginBottom: '1.5rem' }}>
-                    <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}></div>
-                    <div className="zoonotic-warning-content">
-                        <div className="zoonotic-warning-title">Zoonotic Disease</div>
-                        <div className="zoonotic-warning-text">
-                            {disease.zoonoticDetails || 'This disease can spread to humans. Use proper biosecurity measures.'}
+                        <div className={`mortality-indicator ${getMortalityClass(disease.mortalityLevel)}`}>
+                            <span className="mortality-dot"></span>
+                            {disease.mortalityLevel} mortality
                         </div>
+
+                        {disease.ageGroups?.map(ag => (
+                            <span
+                                key={ag}
+                                style={{
+                                    padding: '0.25rem 0.5rem',
+                                    background: 'var(--bg-tertiary)',
+                                    borderRadius: 'var(--radius-sm)',
+                                    fontSize: '0.75rem',
+                                    color: 'var(--text-secondary)'
+                                }}
+                            >
+                                {ag}
+                            </span>
+                        ))}
                     </div>
                 </div>
-            )}
 
-            {/* Single Scroll Content */}
-            <div className="card" style={{ padding: '1.5rem' }}>
-                {/* Description */}
-                {dDesc && (
-                    <div style={{ marginBottom: '2rem' }}>
-                        <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            Description
-                        </h3>
-                        <div style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
-                            {formatDescription(dDesc)}
+                {/* Zoonotic Warning */}
+                {disease.zoonoticRisk && (
+                    <div className="zoonotic-warning" style={{ marginBottom: '1.5rem' }}>
+                        <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}></div>
+                        <div className="zoonotic-warning-content">
+                            <div className="zoonotic-warning-title">Zoonotic Disease</div>
+                            <div className="zoonotic-warning-text">
+                                {disease.zoonoticDetails || 'This disease can spread to humans. Use proper biosecurity measures.'}
+                            </div>
                         </div>
                     </div>
                 )}
 
-                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+                {/* Single Scroll Content */}
+                <div style={{ paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)', marginTop: '1.5rem' }}>
+                    {/* Description */}
+                    {dDesc && (
+                        <div style={{ marginBottom: '2rem' }}>
+                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                Description
+                            </h3>
+                            <div style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
+                                {formatDescription(dDesc)}
+                            </div>
+                        </div>
+                    )}
 
-                {/* Clinical Signs */}
-                {disease.symptoms?.length > 0 && (
-                    <div style={{ marginBottom: '2rem' }}>
+                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+
+                    {/* Clinical Signs */}
+                    {disease.symptoms?.length > 0 && (
+                        <div style={{ marginBottom: '2rem' }}>
+                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                Clinical Signs
+                            </h3>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))',
+                                gap: '0.75rem'
+                            }}>
+                                {disease.symptoms.map((symptom, idx) => (
+                                    <div
+                                        key={idx}
+                                        style={{
+                                            padding: '0.75rem 1rem',
+                                            background: 'var(--bg-tertiary)',
+                                            borderRadius: 'var(--radius-md)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem'
+                                        }}
+                                    >
+                                        <span style={{ color: 'var(--primary)' }}>•</span>
+                                        {getTranslatedSymptom(symptom)}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+
+                    {/* Transmission */}
+                    {dTransmission && (
+                        <div style={{ marginBottom: '2rem' }}>
+                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                Transmission
+                            </h3>
+                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                {textToBullets(dTransmission).map((item, i) => (
+                                    <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+
+                    {/* Diagnosis Methods */}
+                    {dDiagnosis && (
+                        <div style={{ marginBottom: '2rem' }}>
+                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                Diagnosis Methods
+                            </h3>
+                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                {textToBullets(dDiagnosis).map((item, i) => (
+                                    <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+
+                    {/* Treatment Options */}
+                    {dTreatment && (
+                        <div style={{ marginBottom: '2rem' }}>
+                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                Treatment Options
+                            </h3>
+                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                {textToBullets(dTreatment).map((item, i) => (
+                                    <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+
+                    {/* Control & Prevention */}
+                    {dPrevention && (
+                        <div style={{ marginBottom: '2rem' }}>
+                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                Control & Prevention
+                            </h3>
+                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                {textToBullets(dPrevention).map((item, i) => (
+                                    <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* Vaccine Recommendation */}
+                    {disease.vaccineRecommendation && (
+                        <>
+                            <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+                            <div style={{ marginBottom: '1rem' }}>
+                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    Vaccine Recommendation
+                                </h3>
+                                <div style={{
+                                    padding: '1rem',
+                                    background: '#f0fdf4',
+                                    borderRadius: 'var(--radius-md)',
+                                    border: '1px solid rgba(16, 185, 129, 0.4)',
+                                    lineHeight: '1.7'
+                                }}>
+                                    {cleanText(disease.vaccineRecommendation)}
+                                </div>
+                            </div>
+                        </>
+                    )}
+
+                    {/* Key Facts */}
+                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+                    <div style={{ marginBottom: '1rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            Clinical Signs
+                            Key Facts
                         </h3>
                         <div style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))',
-                            gap: '0.75rem'
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
+                            gap: '1rem'
                         }}>
-                            {disease.symptoms.map((symptom, idx) => (
-                                <div
-                                    key={idx}
-                                    style={{
-                                        padding: '0.75rem 1rem',
-                                        background: 'var(--bg-tertiary)',
-                                        borderRadius: 'var(--radius-md)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.5rem'
-                                    }}
-                                >
-                                    <span style={{ color: 'var(--primary)' }}>•</span>
-                                    {getTranslatedSymptom(symptom)}
+                            <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
+                                <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>Mortality</div>
+                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>
+                                    {disease.mortality || disease.mortalityLevel || 'Unknown'}
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-
-                {/* Transmission */}
-                {dTransmission && (
-                    <div style={{ marginBottom: '2rem' }}>
-                        <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            Transmission
-                        </h3>
-                        <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                            {textToBullets(dTransmission).map((item, i) => (
-                                <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-
-                {/* Diagnosis Methods */}
-                {dDiagnosis && (
-                    <div style={{ marginBottom: '2rem' }}>
-                        <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            Diagnosis Methods
-                        </h3>
-                        <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                            {textToBullets(dDiagnosis).map((item, i) => (
-                                <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-
-                {/* Treatment Options */}
-                {dTreatment && (
-                    <div style={{ marginBottom: '2rem' }}>
-                        <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            Treatment Options
-                        </h3>
-                        <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                            {textToBullets(dTreatment).map((item, i) => (
-                                <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-
-                {/* Control & Prevention */}
-                {dPrevention && (
-                    <div style={{ marginBottom: '2rem' }}>
-                        <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            Control & Prevention
-                        </h3>
-                        <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                            {textToBullets(dPrevention).map((item, i) => (
-                                <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                {/* Vaccine Recommendation */}
-                {disease.vaccineRecommendation && (
-                    <>
-                        <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-                        <div style={{ marginBottom: '1rem' }}>
-                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                Vaccine Recommendation
-                            </h3>
-                            <div style={{
-                                padding: '1rem',
-                                background: '#E0ECFF',
-                                borderRadius: 'var(--radius-md)',
-                                border: '1px solid var(--primary-light)',
-                                lineHeight: '1.7'
-                            }}>
-                                {cleanText(disease.vaccineRecommendation)}
                             </div>
-                        </div>
-                    </>
-                )}
-
-                {/* Key Facts */}
-                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-                <div style={{ marginBottom: '1rem' }}>
-                    <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        Key Facts
-                    </h3>
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
-                        gap: '1rem'
-                    }}>
-                        <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
-                            <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>Mortality</div>
-                            <div style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>
-                                {disease.mortality || disease.mortalityLevel || 'Unknown'}
-                            </div>
-                        </div>
-                        <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
-                            <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>Zoonotic Risk</div>
-                            <div style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>
-                                {disease.zoonoticRisk ? 'Yes - Can infect humans' : 'No'}
+                            <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
+                                <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>Zoonotic Risk</div>
+                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>
+                                    {disease.zoonoticRisk ? 'Yes - Can infect humans' : 'No'}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            {/* Powered by Vaksindo */}
-            <div className="footer-branding" style={{ marginTop: '3rem', paddingBottom: '1rem' }}>
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-                    Powered By
-                </p>
-                <div className="flex justify-center items-center">
-                    <img
-                        src="/images/Vaksindo_logo.png"
-                        alt="Vaksindo"
-                        className="vaksindo-logo"
-                    />
                 </div>
             </div>
 
@@ -335,7 +324,7 @@ function DiseasePage() {
                         Back to Results
                     </button>
                     <button
-                        className="btn btn-outline"
+                        className="btn btn-primary"
                         style={{ flex: 1, minWidth: 0 }}
                         onClick={handleNewDiagnosis}
                     >
@@ -344,7 +333,7 @@ function DiseasePage() {
                 </div>
                 {/* Print full-width below */}
                 <button
-                    className="btn btn-primary"
+                    className="btn btn-outline"
                     style={{ width: '100%' }}
                     onClick={() => window.print()}
                 >

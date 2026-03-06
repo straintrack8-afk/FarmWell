@@ -118,7 +118,7 @@ function Dashboard() {
                             <button
                                 style={{ padding: '0.875rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.75rem', color: '#374151', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' }}
                                 onClick={handleViewHistory}
-                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#366092'; e.currentTarget.style.color = '#366092'; }}
+                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10B981'; e.currentTarget.style.color = '#10B981'; }}
                                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#374151'; }}
                             >
                                 View Audit History
@@ -126,7 +126,7 @@ function Dashboard() {
                             <button
                                 style={{ padding: '0.875rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.75rem', color: '#374151', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' }}
                                 onClick={() => navigate('/poultry/hatchery-audit/settings')}
-                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#366092'; e.currentTarget.style.color = '#366092'; }}
+                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10B981'; e.currentTarget.style.color = '#10B981'; }}
                                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#374151'; }}
                             >
                                 Settings
@@ -142,7 +142,7 @@ function Dashboard() {
                                 <button
                                     onClick={handleViewHistory}
                                     style={{ padding: '0.5rem 1rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.5rem', fontSize: '0.8125rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease', color: '#374151' }}
-                                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#366092'}
+                                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#10B981'}
                                     onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e2e8f0'}
                                 >
                                     View All
@@ -234,7 +234,7 @@ function Dashboard() {
                                                         onClick={() => handleViewReport(audit.id)}
                                                         style={{
                                                             padding: '0.625rem 1.25rem',
-                                                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                                            background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
                                                             border: 'none',
                                                             borderRadius: '0.5rem',
                                                             color: 'white',
@@ -242,15 +242,15 @@ function Dashboard() {
                                                             fontWeight: '600',
                                                             cursor: 'pointer',
                                                             transition: 'all 0.2s ease',
-                                                            boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)'
+                                                            boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)'
                                                         }}
                                                         onMouseEnter={(e) => {
                                                             e.currentTarget.style.transform = 'translateY(-2px)';
-                                                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)';
+                                                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.4)';
                                                         }}
                                                         onMouseLeave={(e) => {
                                                             e.currentTarget.style.transform = 'translateY(0)';
-                                                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(102, 126, 234, 0.3)';
+                                                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(16, 185, 129, 0.3)';
                                                         }}
                                                     >
                                                         View Report

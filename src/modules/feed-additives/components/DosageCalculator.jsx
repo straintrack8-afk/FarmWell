@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { feedAdditivesTranslations } from '../translations';
+import SharedHeader from '../../../components/SharedHeader';
+import SharedFooter from '../../../components/SharedFooter';
+import SharedTopNav from '../../../components/SharedTopNav';
 import * as XLSX from 'xlsx';
 
 const DosageCalculator = () => {
@@ -931,41 +934,18 @@ const DosageCalculator = () => {
     };
 
     return (
-        <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', padding: 'clamp(0.5rem, 3vw, 2rem)' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                {/* Header */}
-                <div style={{
-                    background: '#f3f4f6',
-                    color: '#1f2937',
-                    padding: 'clamp(1rem, 4vw, 2rem)',
-                    borderRadius: '12px',
-                    marginBottom: '2rem',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '1rem',
-                    flexWrap: 'wrap'
-                }}>
-                    <img
-                        src="/images/FarmWell_Logo.png"
-                        alt="FarmWell"
-                        onClick={() => window.location.href = '/'}
-                        style={{
-                            height: 'clamp(48px, 10vw, 80px)',
-                            cursor: 'pointer',
-                            transition: 'transform 0.2s',
-                            flexShrink: 0
-                        }}
-                        onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
-                        onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
-                    />
-                    <div style={{ flex: 1, minWidth: '160px' }}>
-                        <h1 style={{ fontSize: 'clamp(1.1rem, 5vw, 2rem)', fontWeight: '700', marginBottom: '0.25rem', color: '#1f2937', lineHeight: 1.2 }}>
-                            FEED ADDITIVES CALCULATOR
-                        </h1>
+        <div className="fw-page">
+            <SharedTopNav />
+            {currentStep === 1 && (
+                <SharedHeader
+                    title="FEED ADDITIVES CALCULATOR"
+                    subtitle="Comprehensive feed additive analysis and optimization for livestock nutrition management."
+                    showBackButton={false}
+                    backPath="/"
+                />
+            )}
 
-                    </div>
-                </div>
+            <div className="fw-section" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', flex: 1, padding: 'clamp(0.5rem, 3vw, 2rem)' }}>
 
                 {/* Progress Steps */}
                 <div style={{
@@ -982,7 +962,7 @@ const DosageCalculator = () => {
                                     width: 'clamp(28px, 8vw, 40px)',
                                     height: 'clamp(28px, 8vw, 40px)',
                                     borderRadius: '50%',
-                                    background: currentStep >= step ? '#667eea' : '#e5e7eb',
+                                    background: currentStep >= step ? '#10b981' : '#e5e7eb',
                                     color: 'white',
                                     display: 'inline-flex',
                                     alignItems: 'center',
@@ -1014,7 +994,10 @@ const DosageCalculator = () => {
                 }}>
                     {/* Reference Data View Toggle */}
                     {!showReferenceView && currentStep === 1 && (
-                        <div style={{ marginBottom: '1.5rem', textAlign: 'right' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', margin: 0 }}>
+                                {t('selectAnimal')}
+                            </h2>
                             <button
                                 onClick={() => setShowReferenceView(true)}
                                 style={{
@@ -1028,7 +1011,7 @@ const DosageCalculator = () => {
                                     fontWeight: '600'
                                 }}
                             >
-                                 {t('viewReferenceData')}
+                                {t('viewReferenceData')}
                             </button>
                         </div>
                     )}
@@ -1037,8 +1020,8 @@ const DosageCalculator = () => {
                     {showReferenceView ? (
                         <div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                                <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>
-                                     {t('referenceData')}
+                                <h2 style={{ fontSize: '1.5rem', fontWeight: '600', margin: 0 }}>
+                                    {t('referenceData')}
                                 </h2>
                                 <button
                                     onClick={() => setShowReferenceView(false)}
@@ -1053,7 +1036,7 @@ const DosageCalculator = () => {
                                         fontWeight: '600'
                                     }}
                                 >
-                                    ← {t('backToCalculator')}
+                                    {t('backToCalculator')}
                                 </button>
                             </div>
 
@@ -1062,9 +1045,9 @@ const DosageCalculator = () => {
                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
                                     {t('selectAnimalType')}
                                 </label>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
+                                <div className="fw-modules-grid-2" style={{ marginBottom: '1.5rem' }}>
                                     {['swine', 'poultry'].map(type => (
-                                        <button
+                                        <div
                                             key={type}
                                             onClick={() => {
                                                 setReferenceSelection({
@@ -1073,20 +1056,34 @@ const DosageCalculator = () => {
                                                     specificCategory: ''
                                                 });
                                             }}
+                                            className={`fw-module-card ${type === 'swine' ? 'mc-pig' : 'mc-poultry'} ${referenceSelection.animalType === type ? 'selected' : ''}`}
                                             style={{
-                                                padding: '1rem',
-                                                border: referenceSelection.animalType === type ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                borderRadius: '8px',
-                                                background: referenceSelection.animalType === type ? '#f3f4ff' : 'white',
                                                 cursor: 'pointer',
-                                                fontSize: '1rem',
-                                                fontWeight: '600',
-                                                textTransform: 'capitalize',
-                                                transition: 'all 0.2s'
+                                                border: referenceSelection.animalType === type
+                                                    ? `2px solid ${type === 'swine' ? '#ec4899' : '#84cc16'}`
+                                                    : '2px solid transparent',
+                                                transform: referenceSelection.animalType === type ? 'scale(1.02)' : 'scale(1)',
+                                                boxShadow: referenceSelection.animalType === type
+                                                    ? `0 10px 25px ${type === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
+                                                    : ''
                                             }}
                                         >
-                                            {t(type)}
-                                        </button>
+                                            <div className="fmc-header" style={{ marginBottom: '0.5rem' }}>
+                                                <div className="fmc-icon-wrap" style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white', borderRadius: '8px' }}>
+                                                    <span className="fmc-emoji" style={{ fontSize: '1.5rem' }}>
+                                                        {type === 'swine' ? '🐷' : '🐔'}
+                                                    </span>
+                                                </div>
+                                                {referenceSelection.animalType === type && (
+                                                    <span className="mc-badge" style={{ background: type === 'swine' ? '#ec4899' : '#84cc16', color: 'white' }}>
+                                                        ✓ Selected
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="fmc-body">
+                                                <div className="fmc-name" style={{ fontSize: '1.25rem', textTransform: 'capitalize' }}>{t(type)}</div>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
 
@@ -1096,9 +1093,9 @@ const DosageCalculator = () => {
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
                                             {t('selectProductionCategory')}
                                         </label>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
-                                            {['commercial', 'breeding'].map(cat => (
-                                                <button
+                                        <div className="fw-modules-grid-2">
+                                            {['breeding', 'commercial'].map(cat => (
+                                                <div
                                                     key={cat}
                                                     onClick={() => {
                                                         setReferenceSelection(prev => ({
@@ -1107,20 +1104,27 @@ const DosageCalculator = () => {
                                                             specificCategory: ''
                                                         }));
                                                     }}
+                                                    className={`fw-module-card ${referenceSelection.animalType === 'swine' ? 'mc-pig' : 'mc-poultry'} ${referenceSelection.productionCategory === cat ? 'selected' : ''}`}
                                                     style={{
-                                                        padding: '1rem',
-                                                        border: referenceSelection.productionCategory === cat ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        background: referenceSelection.productionCategory === cat ? '#f3f4ff' : 'white',
                                                         cursor: 'pointer',
-                                                        fontSize: '1rem',
-                                                        fontWeight: '600',
-                                                        textTransform: 'capitalize',
-                                                        transition: 'all 0.2s'
+                                                        border: referenceSelection.productionCategory === cat
+                                                            ? `2px solid ${referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16'}`
+                                                            : '2px solid transparent',
+                                                        transform: referenceSelection.productionCategory === cat ? 'scale(1.02)' : 'scale(1)',
+                                                        boxShadow: referenceSelection.productionCategory === cat
+                                                            ? `0 10px 25px ${referenceSelection.animalType === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
+                                                            : ''
                                                     }}
                                                 >
-                                                    {t(cat)}
-                                                </button>
+                                                    <div className="fmc-body" style={{ marginTop: 0, paddingBottom: '1.5rem', paddingTop: '1.5rem' }}>
+                                                        <div className="fmc-name" style={{ textTransform: 'capitalize', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                            {referenceSelection.productionCategory === cat && (
+                                                                <span style={{ color: referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16' }}>✓</span>
+                                                            )}
+                                                            {t(cat)}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             ))}
                                         </div>
                                     </div>
@@ -1132,9 +1136,9 @@ const DosageCalculator = () => {
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
                                             {t('selectSpecificCategory')}
                                         </label>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '1.5rem' }}>
                                             {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].map(cat => (
-                                                <button
+                                                <div
                                                     key={cat.id}
                                                     onClick={() => {
                                                         setReferenceSelection(prev => ({
@@ -1142,21 +1146,38 @@ const DosageCalculator = () => {
                                                             specificCategory: cat.id
                                                         }));
                                                     }}
+                                                    className={`fw-module-card ${referenceSelection.animalType === 'swine' ? 'mc-pig' : 'mc-poultry'} ${referenceSelection.specificCategory === cat.id ? 'selected' : ''}`}
                                                     style={{
-                                                        padding: '1rem',
-                                                        border: referenceSelection.specificCategory === cat.id ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        background: referenceSelection.specificCategory === cat.id ? '#f3f4ff' : 'white',
                                                         cursor: 'pointer',
-                                                        fontSize: '1rem',
-                                                        fontWeight: '600',
-                                                        transition: 'all 0.2s',
-                                                        textAlign: 'center'
+                                                        border: referenceSelection.specificCategory === cat.id
+                                                            ? `2px solid ${referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16'}`
+                                                            : '2px solid transparent',
+                                                        transform: referenceSelection.specificCategory === cat.id ? 'scale(1.02)' : 'scale(1)',
+                                                        boxShadow: referenceSelection.specificCategory === cat.id
+                                                            ? `0 10px 25px ${referenceSelection.animalType === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
+                                                            : '',
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        justifyContent: 'center',
+                                                        minHeight: '100px'
                                                     }}
                                                 >
-                                                    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{cat.icon}</div>
-                                                    {cat.label}
-                                                </button>
+                                                    {cat.icon && (
+                                                        <div className="fmc-header" style={{ paddingBottom: 0 }}>
+                                                            <div className="fmc-icon-wrap" style={{ background: 'transparent', fontSize: '2.5rem', width: 'auto', height: 'auto', border: 'none' }}>
+                                                                {cat.icon}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    <div className="fmc-body" style={{ padding: '1.5rem', textAlign: 'center', marginTop: 0 }}>
+                                                        <div className="fmc-name" style={{ fontSize: '1.125rem', marginBottom: 0 }}>
+                                                            {referenceSelection.specificCategory === cat.id && (
+                                                                <span style={{ color: referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16', marginRight: '0.5rem' }}>✓</span>
+                                                            )}
+                                                            {cat.label}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             ))}
                                         </div>
                                     </div>
@@ -1193,7 +1214,7 @@ const DosageCalculator = () => {
                                                     gap: '0.5rem'
                                                 }}
                                             >
-                                                 Export Excel
+                                                Export Excel
                                             </button>
                                             <button
                                                 onClick={printReferenceData}
@@ -1212,7 +1233,7 @@ const DosageCalculator = () => {
                                                     gap: '0.5rem'
                                                 }}
                                             >
-                                                 Print PDF
+                                                Print PDF
                                             </button>
                                         </div>
                                     </div>
@@ -1220,22 +1241,23 @@ const DosageCalculator = () => {
                                     {/* Broiler - Daily Data from Comprehensive Database */}
                                     {referenceSelection.specificCategory === 'broiler' && (
                                         <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Daily Performance Data (Day 0-56)</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-                                                    Source: {consumptionData.poultry_commercial.broiler.source}<br />
+                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Daily Performance Data (Day 0-56)</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
+                                                    Source: {consumptionData.poultry_commercial.broiler.source}
+                                                    <br />
                                                     Breed: {consumptionData.poultry_commercial.broiler.breed}
                                                 </p>
                                             </div>
                                             <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Day</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>FCR</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Day</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Body Weight (g)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>FCR</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1257,24 +1279,24 @@ const DosageCalculator = () => {
                                     {/* Layer - Complete Weekly Data from Comprehensive Database */}
                                     {referenceSelection.specificCategory === 'layer' && (
                                         <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 1-100)</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Complete Weekly Data (Week 1-100)</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Source: {consumptionData.poultry_commercial.layer.source}<br />
                                                     Breed: {consumptionData.poultry_commercial.layer.breed} - {consumptionData.poultry_commercial.layer.housing}
                                                 </p>
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 1-18)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Rearing Phase (Weeks 1-18)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Body Weight (g)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1296,16 +1318,16 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Production Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase (Weeks 18-100)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Production Phase (Weeks 18-100)</h5>
                                             <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Production %</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Egg Weight (g)</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Production %</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Egg Weight (g)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1327,20 +1349,20 @@ const DosageCalculator = () => {
                                     {/* Color Chicken - Formula with Adjustment and Daily Details */}
                                     {referenceSelection.specificCategory === 'color_chicken' && (
                                         <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Formula with 70% Adjustment</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Calculation Method: Formula with 70% Adjustment</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Water (ml/bird/day) = 5.28 × Age (days) × 0.70<br />
                                                     Feed (g/bird/day) = Water ÷ 1.77
                                                 </p>
                                             </div>
                                             <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Day</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/bird/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/bird/day)</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Day</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/bird/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Feed (g/bird/day)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1364,9 +1386,9 @@ const DosageCalculator = () => {
                                     {/* Broiler Breeder - Complete Weekly Data (v2.2) */}
                                     {referenceSelection.specificCategory === 'broiler_breeder' && (
                                         <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 0-64)</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Complete Weekly Data (Week 0-64)</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Source: {consumptionData.poultry_breeding.broiler_breeder.source}<br />
                                                     Breed: {consumptionData.poultry_breeding.broiler_breeder.breed}<br />
                                                     Note: {consumptionData.poultry_breeding.broiler_breeder.note}
@@ -1375,17 +1397,17 @@ const DosageCalculator = () => {
 
                                             {/* Complete Table - All Weeks */}
                                             <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Days</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>BW (g)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Gain (g)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Energy (kcal)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Note</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Days</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>BW (g)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Gain (g)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Energy (kcal)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Note</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1429,24 +1451,24 @@ const DosageCalculator = () => {
                                     {/* Color Breeder - Complete Weekly Data */}
                                     {referenceSelection.specificCategory === 'color_breeder' && (
                                         <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Complete Weekly Data (Week 1-70)</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Complete Weekly Data (Week 1-70)</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Source: {consumptionData.poultry_breeding.color_breeder.source}<br />
                                                     Breed: {consumptionData.poultry_breeding.color_breeder.breed}
                                                 </p>
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Pullet Rearing Phase (Weeks 1-24)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Pullet Rearing Phase (Weeks 1-24)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Body Weight (g)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1463,16 +1485,16 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Production Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase - 20°C (Weeks 24-70)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Production Phase - 20°C (Weeks 24-70)</h5>
                                             <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Production %</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Note</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Production %</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Note</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1496,24 +1518,24 @@ const DosageCalculator = () => {
                                     {/* Layer Breeder - Using Layer Data + Fixed Production */}
                                     {referenceSelection.specificCategory === 'layer_breeder' && (
                                         <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Layer Breeder Data</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Layer Breeder Data</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Rearing Phase: Uses layer commercial data<br />
                                                     Production Phase: Fixed breeding values
                                                 </p>
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Rearing Phase (Weeks 1-18)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Rearing Phase (Weeks 1-18)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Body Weight (g)</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Body Weight (g)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1550,19 +1572,19 @@ const DosageCalculator = () => {
                                     {/* Swine - Weight Based */}
                                     {['nursery', 'grower', 'finisher'].includes(referenceSelection.specificCategory) && (
                                         <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Weight-Based with Interpolation</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Calculation Method: Weight-Based with Interpolation</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Data from NRC Nutrient Requirements of Swine, 11th Edition
                                                 </p>
                                             </div>
                                             <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse' }}>
+                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
-                                                        <tr style={{ background: '#3b82f6', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Weight (kg)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Water (L/pig/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', border: '1px solid #e5e7eb' }}>Feed (kg/pig/day)</th>
+                                                        <tr style={{ background: '#10b981', color: 'white' }}>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Weight (kg)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (L/pig/day)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Feed (kg/pig/day)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1582,9 +1604,9 @@ const DosageCalculator = () => {
                                     {/* Swine Breeding - Fixed Values */}
                                     {['sow_gestation', 'sow_lactation', 'boar'].includes(referenceSelection.specificCategory) && (
                                         <div>
-                                            <div style={{ background: '#dbeafe', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Calculation Method: Fixed Values</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#1e40af' }}>
+                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Calculation Method: Fixed Values</h4>
+                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Data from NRC Swine Nutrition Standards
                                                 </p>
                                             </div>
@@ -1630,38 +1652,54 @@ const DosageCalculator = () => {
                             {/* Step 1: Animal Selection */}
                             {currentStep === 1 && (
                                 <div>
-                                    <h2 style={{ fontSize: 'clamp(1.125rem, 4vw, 1.5rem)', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                        {t('step1')}
-                                    </h2>
 
                                     {/* Animal Type Selection */}
                                     <div style={{ marginBottom: '2rem' }}>
-                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem', fontSize: '1.125rem' }}>
                                             {t('selectAnimalType')}
                                         </label>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
+                                        <div className="fw-modules-grid-2">
                                             {['swine', 'poultry'].map(type => (
-                                                <button
+                                                <div
                                                     key={type}
                                                     onClick={() => {
                                                         updateData('animalType', type);
                                                         updateData('productionCategory', '');
                                                         updateData('specificCategory', '');
                                                     }}
+                                                    className={`fw-module-card ${type === 'swine' ? 'mc-pig' : 'mc-poultry'} ${calculationData.animalType === type ? 'selected' : ''}`}
                                                     style={{
-                                                        padding: 'clamp(0.75rem, 3vw, 1.5rem)',
-                                                        border: calculationData.animalType === type ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        background: calculationData.animalType === type ? '#f3f4ff' : 'white',
                                                         cursor: 'pointer',
-                                                        fontSize: 'clamp(1rem, 3vw, 1.125rem)',
-                                                        fontWeight: '600',
-                                                        textTransform: 'capitalize',
-                                                        transition: 'all 0.2s'
+                                                        border: calculationData.animalType === type
+                                                            ? `2px solid ${type === 'swine' ? '#ec4899' : '#84cc16'}`
+                                                            : '2px solid transparent',
+                                                        transform: calculationData.animalType === type ? 'scale(1.02)' : 'scale(1)',
+                                                        boxShadow: calculationData.animalType === type
+                                                            ? `0 10px 25px ${type === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
+                                                            : ''
                                                     }}
                                                 >
-                                                    {type === 'swine' ? '' : ''} {t(type)}
-                                                </button>
+                                                    <div className="fmc-header">
+                                                        <div className="fmc-icon-wrap" style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white', borderRadius: '8px' }}>
+                                                            <span className="fmc-emoji" style={{ fontSize: '1.5rem' }}>
+                                                                {type === 'swine' ? '🐷' : '🐔'}
+                                                            </span>
+                                                        </div>
+                                                        {calculationData.animalType === type && (
+                                                            <span className="mc-badge" style={{ background: type === 'swine' ? '#ec4899' : '#84cc16', color: 'white' }}>
+                                                                ✓ Selected
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <div className="fmc-body">
+                                                        <div className="fmc-name" style={{ textTransform: 'capitalize' }}>{t(type)}</div>
+                                                        <div className="fmc-desc">
+                                                            {type === 'swine'
+                                                                ? 'Calculate feed additives dosage and costs tailored for your swine operations.'
+                                                                : 'Calculate feed additives dosage and costs tailored for your poultry flocks.'}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             ))}
                                         </div>
                                     </div>
@@ -1669,31 +1707,43 @@ const DosageCalculator = () => {
                                     {/* Production Category */}
                                     {calculationData.animalType && (
                                         <div style={{ marginBottom: '2rem' }}>
-                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem', fontSize: '1.125rem' }}>
                                                 {t('selectProductionCategory')}
                                             </label>
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
+                                            <div className="fw-modules-grid-2">
                                                 {['breeding', 'commercial'].map(category => (
-                                                    <button
+                                                    <div
                                                         key={category}
                                                         onClick={() => {
                                                             updateData('productionCategory', category);
                                                             updateData('specificCategory', '');
                                                         }}
+                                                        className={`fw-module-card ${calculationData.animalType === 'swine' ? 'mc-pig' : 'mc-poultry'} ${calculationData.productionCategory === category ? 'selected' : ''}`}
                                                         style={{
-                                                            padding: 'clamp(0.75rem, 3vw, 1.5rem)',
-                                                            border: calculationData.productionCategory === category ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                            borderRadius: '8px',
-                                                            background: calculationData.productionCategory === category ? '#f3f4ff' : 'white',
                                                             cursor: 'pointer',
-                                                            fontSize: 'clamp(1rem, 3vw, 1.125rem)',
-                                                            fontWeight: '600',
-                                                            textTransform: 'capitalize',
-                                                            transition: 'all 0.2s'
+                                                            border: calculationData.productionCategory === category
+                                                                ? `2px solid ${calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16'}`
+                                                                : '2px solid transparent',
+                                                            transform: calculationData.productionCategory === category ? 'scale(1.02)' : 'scale(1)',
+                                                            boxShadow: calculationData.productionCategory === category
+                                                                ? `0 10px 25px ${calculationData.animalType === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
+                                                                : ''
                                                         }}
                                                     >
-                                                        {category}
-                                                    </button>
+                                                        <div className="fmc-body" style={{ marginTop: 0, paddingBottom: '1.5rem', paddingTop: '1.5rem' }}>
+                                                            <div className="fmc-name" style={{ textTransform: 'capitalize', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                                {calculationData.productionCategory === category && (
+                                                                    <span style={{ color: calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16' }}>✓</span>
+                                                                )}
+                                                                {category}
+                                                            </div>
+                                                            <div className="fmc-desc" style={{ marginTop: '0.5rem' }}>
+                                                                {category === 'breeding'
+                                                                    ? `Optimized calculations for ${calculationData.animalType} breeding stock.`
+                                                                    : `Performance and cost tracking for commercial ${calculationData.animalType} operations.`}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 ))}
                                             </div>
                                         </div>
@@ -1701,30 +1751,47 @@ const DosageCalculator = () => {
 
                                     {/* Specific Category */}
                                     {calculationData.productionCategory && (
-                                        <div>
-                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
+                                        <div style={{ marginBottom: '2rem' }}>
+                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem', fontSize: '1.125rem' }}>
                                                 {t('selectSpecificCategory')}
                                             </label>
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '1.5rem' }}>
                                                 {animalCategories[calculationData.animalType][calculationData.productionCategory].map(cat => (
-                                                    <button
+                                                    <div
                                                         key={cat.id}
                                                         onClick={() => updateData('specificCategory', cat.id)}
+                                                        className={`fw-module-card ${calculationData.animalType === 'swine' ? 'mc-pig' : 'mc-poultry'} ${calculationData.specificCategory === cat.id ? 'selected' : ''}`}
                                                         style={{
-                                                            padding: '1rem',
-                                                            border: calculationData.specificCategory === cat.id ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                            borderRadius: '8px',
-                                                            background: calculationData.specificCategory === cat.id ? '#f3f4ff' : 'white',
                                                             cursor: 'pointer',
-                                                            fontSize: '1rem',
-                                                            fontWeight: '600',
-                                                            transition: 'all 0.2s',
-                                                            textAlign: 'center'
+                                                            border: calculationData.specificCategory === cat.id
+                                                                ? `2px solid ${calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16'}`
+                                                                : '2px solid transparent',
+                                                            transform: calculationData.specificCategory === cat.id ? 'scale(1.02)' : 'scale(1)',
+                                                            boxShadow: calculationData.specificCategory === cat.id
+                                                                ? `0 10px 25px ${calculationData.animalType === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
+                                                                : '',
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            justifyContent: 'center',
+                                                            minHeight: '100px'
                                                         }}
                                                     >
-                                                        <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{cat.icon}</div>
-                                                        {cat.label}
-                                                    </button>
+                                                        {cat.icon && (
+                                                            <div className="fmc-header" style={{ paddingBottom: 0 }}>
+                                                                <div className="fmc-icon-wrap" style={{ background: 'transparent', fontSize: '2.5rem', width: 'auto', height: 'auto', border: 'none' }}>
+                                                                    {cat.icon}
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                        <div className="fmc-body" style={{ padding: '1.5rem', textAlign: 'center', marginTop: 0 }}>
+                                                            <div className="fmc-name" style={{ fontSize: '1.125rem', marginBottom: 0 }}>
+                                                                {calculationData.specificCategory === cat.id && (
+                                                                    <span style={{ color: calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16', marginRight: '0.5rem' }}>✓</span>
+                                                                )}
+                                                                {cat.label}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 ))}
                                             </div>
                                         </div>
@@ -1873,49 +1940,62 @@ const DosageCalculator = () => {
                                         {t('step3')}: {t('selectProduct')}
                                     </h2>
 
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(300px, 100%), 1fr))', gap: '1rem', marginBottom: '2rem' }}>
-                                        {getAvailableProducts().map(product => (
-                                            <div
-                                                key={product.id}
-                                                onClick={() => updateData('selectedProduct', product)}
-                                                style={{
-                                                    padding: '1.5rem',
-                                                    border: calculationData.selectedProduct?.id === product.id ? '3px solid #667eea' : '2px solid #e5e7eb',
-                                                    borderRadius: '8px',
-                                                    background: calculationData.selectedProduct?.id === product.id ? '#f3f4ff' : 'white',
-                                                    cursor: 'pointer',
-                                                    transition: 'all 0.2s'
-                                                }}
-                                            >
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.75rem' }}>
-                                                    <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1f2937' }}>
-                                                        {product.name}
-                                                    </h3>
-                                                    {product.popular && (
-                                                        <span style={{
-                                                            background: '#fef3c7',
-                                                            color: '#92400e',
-                                                            padding: '0.25rem 0.5rem',
-                                                            borderRadius: '4px',
-                                                            fontSize: '0.75rem',
-                                                            fontWeight: '600'
-                                                        }}>
-                                                             Popular
-                                                        </span>
-                                                    )}
+                                    <div style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                                        gap: '1rem',
+                                        marginBottom: '2rem'
+                                    }}>
+                                        {getAvailableProducts().map(product => {
+                                            const isSelected = calculationData.selectedProduct?.id === product.id;
+                                            return (
+                                                <div
+                                                    key={product.id}
+                                                    onClick={() => updateData('selectedProduct', product)}
+                                                    style={{
+                                                        background: isSelected ? '#ecfdf5' : 'white',
+                                                        border: `2px solid ${isSelected ? '#10b981' : '#e5e7eb'}`,
+                                                        borderRadius: '12px',
+                                                        padding: '1.5rem',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.2s',
+                                                        boxShadow: isSelected ? '0 4px 6px -1px rgba(16, 185, 129, 0.1), 0 2px 4px -1px rgba(16, 185, 129, 0.06)' : '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        gap: '0.75rem',
+                                                        transform: isSelected ? 'translateY(-2px)' : 'none'
+                                                    }}
+                                                >
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', width: '100%' }}>
+                                                        <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1f2937', margin: 0 }}>
+                                                            {product.name}
+                                                        </h3>
+                                                        {product.popular && (
+                                                            <span style={{
+                                                                background: '#fef3c7',
+                                                                color: '#92400e',
+                                                                padding: '0.25rem 0.5rem',
+                                                                borderRadius: '4px',
+                                                                fontSize: '0.75rem',
+                                                                fontWeight: '600'
+                                                            }}>
+                                                                Popular
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                                                        {product.application.method === 'feed' ? ' Feed' : ' Water'} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
+                                                    </div>
+                                                    <div style={{ fontSize: '0.875rem', color: '#374151', flex: 1 }}>
+                                                        {product.benefits.primary.slice(0, 2).map((benefit, i) => (
+                                                            <div key={i} style={{ marginBottom: '0.25rem' }}>
+                                                                {benefit}
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                                <div style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '0.75rem' }}>
-                                                    {product.application.method === 'feed' ? ' Feed' : ' Water'} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
-                                                </div>
-                                                <div style={{ fontSize: '0.875rem', color: '#374151' }}>
-                                                    {product.benefits.primary.slice(0, 2).map((benefit, i) => (
-                                                        <div key={i} style={{ marginBottom: '0.25rem' }}>
-                                                             {benefit}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
 
                                     {/* Price Input */}
@@ -1930,7 +2010,7 @@ const DosageCalculator = () => {
                                             boxSizing: 'border-box'
                                         }}>
                                             <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                                 {t('productPrice').replace(' (VND/kg):', '')}
+                                                {t('productPrice').replace(' (VND/kg):', '')}
                                             </h3>
                                             <div>
                                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
@@ -2008,7 +2088,7 @@ const DosageCalculator = () => {
                                                     {t('standardPreventionTitle')}
                                                 </div>
                                                 <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#059669', fontWeight: '500' }}>
-                                                     {t('standardPreventionDesc')}
+                                                    {t('standardPreventionDesc')}
                                                 </div>
                                             </button>
 
@@ -2017,31 +2097,31 @@ const DosageCalculator = () => {
                                                 onClick={() => useTemplate('intensive')}
                                                 style={{
                                                     padding: 'clamp(0.75rem, 3vw, 1rem)',
-                                                    border: '2px solid #e0e7ff',
+                                                    border: '2px solid #a7f3d0',
                                                     borderRadius: '12px',
-                                                    background: 'linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)',
+                                                    background: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)',
                                                     cursor: 'pointer',
                                                     textAlign: 'left',
                                                     transition: 'all 0.2s',
-                                                    boxShadow: '0 2px 8px rgba(102,126,234,0.1)'
+                                                    boxShadow: '0 2px 8px rgba(16,185,129,0.1)'
                                                 }}
                                                 onMouseOver={(e) => {
-                                                    e.currentTarget.style.borderColor = '#667eea';
-                                                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(102,126,234,0.2)';
+                                                    e.currentTarget.style.borderColor = '#10b981';
+                                                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(16,185,129,0.2)';
                                                     e.currentTarget.style.transform = 'translateY(-2px)';
                                                 }}
                                                 onMouseOut={(e) => {
-                                                    e.currentTarget.style.borderColor = '#e0e7ff';
-                                                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(102,126,234,0.1)';
+                                                    e.currentTarget.style.borderColor = '#a7f3d0';
+                                                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(16,185,129,0.1)';
                                                     e.currentTarget.style.transform = 'translateY(0)';
                                                 }}
                                             >
                                                 <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}></div>
-                                                <div style={{ fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', fontWeight: '700', color: '#3730a3', marginBottom: '0.35rem', lineHeight: 1.3 }}>
+                                                <div style={{ fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', fontWeight: '700', color: '#065f46', marginBottom: '0.35rem', lineHeight: 1.3 }}>
                                                     {t('intensiveTreatmentTitle')}
                                                 </div>
-                                                <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#4f46e5', fontWeight: '500' }}>
-                                                     {t('intensiveTreatmentDesc')}
+                                                <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#059669', fontWeight: '500' }}>
+                                                    {t('intensiveTreatmentDesc')}
                                                 </div>
                                             </button>
                                         </div>
@@ -2049,7 +2129,7 @@ const DosageCalculator = () => {
                                         <button
                                             onClick={() => setShowCustomProtocol(!showCustomProtocol)}
                                             style={{
-                                                color: '#667eea',
+                                                color: '#10b981',
                                                 background: 'none',
                                                 border: 'none',
                                                 cursor: 'pointer',
@@ -2152,7 +2232,7 @@ const DosageCalculator = () => {
                                                 onClick={addPeriod}
                                                 style={{
                                                     padding: '0.75rem 1.5rem',
-                                                    background: '#667eea',
+                                                    background: '#10b981',
                                                     color: 'white',
                                                     border: 'none',
                                                     borderRadius: '8px',
@@ -2162,7 +2242,7 @@ const DosageCalculator = () => {
                                                     marginTop: '0.5rem'
                                                 }}
                                             >
-                                                 Add Another Period
+                                                Add Another Period
                                             </button>
                                         </div>
                                     )}
@@ -2173,7 +2253,7 @@ const DosageCalculator = () => {
                                         style={{
                                             width: '100%',
                                             padding: '1rem',
-                                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                                             color: 'white',
                                             border: 'none',
                                             borderRadius: '8px',
@@ -2183,7 +2263,7 @@ const DosageCalculator = () => {
                                             marginBottom: '2rem'
                                         }}
                                     >
-                                         {t('calculateDosage')}
+                                        {t('calculateDosage')}
                                     </button>
 
                                     {/* Results Display */}
@@ -2207,7 +2287,7 @@ const DosageCalculator = () => {
                                             </div>
 
                                             <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#166534' }}>
-                                                 {t('calculationResults')}
+                                                {t('calculationResults')}
                                             </h3>
 
                                             {/* Summary */}
@@ -2262,7 +2342,7 @@ const DosageCalculator = () => {
                                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))', gap: '0.5rem', fontSize: '0.875rem' }}>
                                                         <div>{t('totalWater')} {parseFloat(period.totalWaterL).toLocaleString()} L</div>
                                                         <div>{t('totalFeed')} {parseFloat(period.totalFeedKg).toLocaleString()} kg</div>
-                                                        <div style={{ color: '#667eea', fontWeight: '600' }}>
+                                                        <div style={{ color: '#10b981', fontWeight: '600' }}>
                                                             {t('productNeeded')} {parseFloat(period.productNeeded).toLocaleString()} g
                                                         </div>
                                                         <div style={{ color: '#f59e0b', fontWeight: '600' }}>
@@ -2274,14 +2354,14 @@ const DosageCalculator = () => {
 
                                             {/* Total Investment */}
                                             <div className="total-investment" style={{
-                                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
                                                 color: 'white',
                                                 padding: '1.5rem',
                                                 borderRadius: '8px',
                                                 marginTop: '1.5rem'
                                             }}>
                                                 <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem' }}>
-                                                     {t('totalInvestment')}
+                                                    {t('totalInvestment')}
                                                 </h4>
                                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '1rem' }}>
                                                     <div>
@@ -2313,7 +2393,7 @@ const DosageCalculator = () => {
                                                 marginTop: '1.5rem'
                                             }}>
                                                 <h4 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                                     {t('expectedBenefits')}
+                                                    {t('expectedBenefits')}
                                                 </h4>
                                                 {calculationData.selectedProduct.benefits.primary.map((benefit, i) => (
                                                     <div key={i} style={{ marginBottom: '0.5rem', paddingLeft: '1.5rem', position: 'relative' }}>
@@ -2328,20 +2408,20 @@ const DosageCalculator = () => {
 
                                             {/* Daily Calculation Details */}
                                             <div style={{
-                                                background: '#eff6ff',
-                                                border: '2px solid #93c5fd',
+                                                background: '#f0fdf4',
+                                                border: '2px solid #86efac',
                                                 borderRadius: '12px',
                                                 padding: '1.5rem',
                                                 marginTop: '1.5rem'
                                             }}>
                                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                                                    <h4 style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: '700', color: '#1e40af', flex: 1, minWidth: '120px' }}>
-                                                         {t('dailyCalculationDetails')}
+                                                    <h4 style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: '700', color: '#065f46', flex: 1, minWidth: '120px' }}>
+                                                        {t('dailyCalculationDetails')}
                                                     </h4>
                                                     <button
                                                         onClick={() => setShowDailyDetails(!showDailyDetails)}
                                                         style={{
-                                                            background: '#3b82f6',
+                                                            background: '#10b981',
                                                             color: 'white',
                                                             border: 'none',
                                                             padding: '0.4rem 0.75rem',
@@ -2366,7 +2446,7 @@ const DosageCalculator = () => {
                                                         {calculationData.results.periods.map((period, periodIndex) => (
                                                             <div key={periodIndex} style={{ marginBottom: '2rem' }}>
                                                                 <div style={{
-                                                                    background: '#3b82f6',
+                                                                    background: '#10b981',
                                                                     color: 'white',
                                                                     padding: '0.75rem 1rem',
                                                                     borderRadius: '8px 8px 0 0',
@@ -2391,7 +2471,7 @@ const DosageCalculator = () => {
                                                                                 <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('totalWaterL')}</th>
                                                                                 <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('feedPerAnimal')}</th>
                                                                                 <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('totalFeedKg')}</th>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem', color: '#667eea' }}>{t('productG')}</th>
+                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem', color: '#10b981' }}>{t('productG')}</th>
                                                                                 <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem', color: '#f59e0b' }}>{t('costVND')}</th>
                                                                             </tr>
                                                                         </thead>
@@ -2404,7 +2484,7 @@ const DosageCalculator = () => {
                                                                                     <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{parseFloat(day.totalWaterL).toLocaleString()}</td>
                                                                                     <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{day.feedPerAnimal.toFixed(1)}</td>
                                                                                     <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{parseFloat(day.totalFeedKg).toLocaleString()}</td>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem', color: '#667eea', fontWeight: '600' }}>
+                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem', color: '#10b981', fontWeight: '600' }}>
                                                                                         {parseFloat(day.productNeeded).toLocaleString()}
                                                                                     </td>
                                                                                     <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem', color: '#f59e0b', fontWeight: '600' }}>
@@ -2412,12 +2492,12 @@ const DosageCalculator = () => {
                                                                                     </td>
                                                                                 </tr>
                                                                             ))}
-                                                                            <tr style={{ background: '#fce7f3', fontWeight: '700' }}>
+                                                                            <tr style={{ background: '#d1fae5', fontWeight: '700' }}>
                                                                                 <td colSpan="3" style={{ padding: '0.75rem' }}>{t('totalPeriod')}</td>
                                                                                 <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalWaterL).toLocaleString()}</td>
                                                                                 <td style={{ padding: '0.75rem', textAlign: 'right' }}></td>
                                                                                 <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalFeedKg).toLocaleString()}</td>
-                                                                                <td style={{ padding: '0.75rem', textAlign: 'right', color: '#667eea' }}>
+                                                                                <td style={{ padding: '0.75rem', textAlign: 'right', color: '#10b981' }}>
                                                                                     {parseFloat(period.productNeeded).toLocaleString()}
                                                                                 </td>
                                                                                 <td style={{ padding: '0.75rem', textAlign: 'right', color: '#f59e0b' }}>
@@ -2459,14 +2539,14 @@ const DosageCalculator = () => {
                                                         textAlign: 'center'
                                                     }}
                                                 >
-                                                     {t('exportToExcel')}
+                                                    {t('exportToExcel')}
                                                 </button>
                                                 <button
                                                     onClick={printPDF}
                                                     style={{
                                                         flex: 1,
                                                         padding: '0.75rem 0.5rem',
-                                                        background: 'linear-gradient(135deg, #ef4444, #dc2626)',
+                                                        background: 'linear-gradient(135deg, #10b981, #059669)',
                                                         color: 'white',
                                                         border: 'none',
                                                         borderRadius: '8px',
@@ -2480,21 +2560,21 @@ const DosageCalculator = () => {
                                                         textAlign: 'center'
                                                     }}
                                                 >
-                                                     {t('printPDF')}
+                                                    {t('printPDF')}
                                                 </button>
                                             </div>
 
                                             {/* Request for Inquiry Form */}
                                             <div className="no-print" style={{
-                                                background: '#f0f9ff',
-                                                border: '2px solid #0ea5e9',
+                                                background: '#f0fdf4',
+                                                border: '2px solid #86efac',
                                                 borderRadius: '12px',
                                                 padding: 'clamp(1rem, 4vw, 2rem)',
                                                 marginTop: '2rem',
                                                 boxSizing: 'border-box'
                                             }}>
-                                                <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#0369a1' }}>
-                                                     {t('requestForInquiry')}
+                                                <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#065f46' }}>
+                                                    {t('requestForInquiry')}
                                                 </h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1.5rem' }}>
                                                     {t('inquiryDescription')}
@@ -2572,7 +2652,7 @@ const DosageCalculator = () => {
                                                     style={{
                                                         marginTop: '1.5rem',
                                                         padding: '0.75rem 1rem',
-                                                        background: '#0ea5e9',
+                                                        background: '#10b981',
                                                         color: 'white',
                                                         border: 'none',
                                                         borderRadius: '8px',
@@ -2613,9 +2693,9 @@ const DosageCalculator = () => {
                                                 flex: 1,
                                                 minWidth: 0,
                                                 padding: '0.75rem 0.5rem',
-                                                background: 'white',
-                                                color: '#374151',
-                                                border: '2px solid #e5e7eb',
+                                                background: '#10b981',
+                                                color: 'white',
+                                                border: 'none',
                                                 borderRadius: '8px',
                                                 cursor: 'pointer',
                                                 fontSize: 'clamp(0.8rem, 3vw, 1rem)',
@@ -2623,7 +2703,7 @@ const DosageCalculator = () => {
                                                 textAlign: 'center'
                                             }}
                                         >
-                                            ← Previous
+                                            Previous
                                         </button>
                                         <button
                                             onClick={resetCalculation}
@@ -2641,30 +2721,31 @@ const DosageCalculator = () => {
                                                 textAlign: 'center'
                                             }}
                                         >
-                                             {t('newCalculation')}
+                                            ↺ {t('newCalculation')}
                                         </button>
                                     </div>
                                 ) : (
                                     // Other pages navigation
                                     <>
-                                        <button
-                                            onClick={prevStep}
-                                            disabled={currentStep === 1}
-                                            style={{
-                                                padding: '0.75rem 1rem',
-                                                background: currentStep === 1 ? '#e5e7eb' : 'white',
-                                                color: currentStep === 1 ? '#9ca3af' : '#374151',
-                                                border: '2px solid #e5e7eb',
-                                                borderRadius: '8px',
-                                                cursor: currentStep === 1 ? 'not-allowed' : 'pointer',
-                                                fontSize: '1rem',
-                                                fontWeight: '600',
-                                                flexShrink: 0,
-                                                whiteSpace: 'nowrap'
-                                            }}
-                                        >
-                                            ← Previous
-                                        </button>
+                                        {currentStep > 1 && (
+                                            <button
+                                                onClick={prevStep}
+                                                style={{
+                                                    padding: '0.75rem 1rem',
+                                                    background: '#10b981',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '8px',
+                                                    cursor: 'pointer',
+                                                    fontSize: '1rem',
+                                                    fontWeight: '600',
+                                                    flexShrink: 0,
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                            >
+                                                Previous
+                                            </button>
+                                        )}
 
                                         {currentStep < 4 && (
                                             <button
@@ -2676,7 +2757,7 @@ const DosageCalculator = () => {
                                                 }
                                                 style={{
                                                     padding: '0.75rem 1rem',
-                                                    background: '#667eea',
+                                                    background: '#10b981',
                                                     color: 'white',
                                                     border: 'none',
                                                     borderRadius: '8px',
@@ -2685,6 +2766,7 @@ const DosageCalculator = () => {
                                                     fontWeight: '600',
                                                     flexShrink: 0,
                                                     whiteSpace: 'nowrap',
+                                                    marginLeft: 'auto',
                                                     opacity: (
                                                         (currentStep === 1 && !calculationData.specificCategory) ||
                                                         (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
@@ -2702,6 +2784,7 @@ const DosageCalculator = () => {
                     )}
                 </div>
             </div>
+            <SharedFooter />
         </div>
     );
 };
