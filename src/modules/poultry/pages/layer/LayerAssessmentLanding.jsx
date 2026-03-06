@@ -194,23 +194,19 @@ function LayerAssessmentLanding() {
                         <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>Quick Actions</h2>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
                             <button
-                                style={{ padding: '0.875rem', background: '#1e293b', border: 'none', borderRadius: '0.75rem', color: 'white', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
+                                className="btn btn-primary"
                                 onClick={handleStartNewAssessment}
-                                onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
-                                onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
                             >
                                 Start New Assessment
                             </button>
                             <button
-                                style={{ padding: '0.875rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.75rem', color: '#374151', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                                className="btn btn-primary"
                                 onClick={() => {
                                     const recentAuditsSection = document.getElementById('recent-assessments');
                                     if (recentAuditsSection) {
                                         recentAuditsSection.scrollIntoView({ behavior: 'smooth' });
                                     }
                                 }}
-                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#EC4899'; e.currentTarget.style.color = '#EC4899'; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#374151'; }}
                             >
                                 View Assessment History
                             </button>
@@ -230,10 +226,8 @@ function LayerAssessmentLanding() {
                                     Start your first layer farm biosecurity assessment to track compliance and health quality
                                 </p>
                                 <button
-                                    style={{ padding: '0.75rem 2rem', background: '#1e293b', border: 'none', borderRadius: '0.75rem', color: 'white', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'background 0.2s ease' }}
+                                    className="btn btn-primary"
                                     onClick={handleStartNewAssessment}
-                                    onMouseEnter={(e) => e.currentTarget.style.background = '#334155'}
-                                    onMouseLeave={(e) => e.currentTarget.style.background = '#1e293b'}
                                 >
                                     Start First Assessment
                                 </button>
@@ -329,27 +323,15 @@ function LayerAssessmentLanding() {
                                                                 }}
                                                                 style={{
                                                                     padding: '0.5rem 1rem',
-                                                                    background: isCompleted ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'white',
-                                                                    border: isCompleted ? 'none' : '1.5px solid #e2e8f0',
+                                                                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                                                                    border: 'none',
                                                                     borderRadius: '0.5rem',
-                                                                    color: isCompleted ? 'white' : '#374151',
+                                                                    color: 'white',
                                                                     fontSize: '0.8125rem',
                                                                     fontWeight: '600',
                                                                     cursor: 'pointer',
                                                                     transition: 'all 0.2s ease',
                                                                     boxShadow: isCompleted ? '0 2px 8px rgba(16, 185, 129, 0.3)' : 'none'
-                                                                }}
-                                                                onMouseEnter={(e) => {
-                                                                    if (!isCompleted) {
-                                                                        e.currentTarget.style.borderColor = '#ec4899';
-                                                                        e.currentTarget.style.color = '#ec4899';
-                                                                    }
-                                                                }}
-                                                                onMouseLeave={(e) => {
-                                                                    if (!isCompleted) {
-                                                                        e.currentTarget.style.borderColor = '#e2e8f0';
-                                                                        e.currentTarget.style.color = '#374151';
-                                                                    }
                                                                 }}
                                                             >
                                                                 {isCompleted ? 'View Report' : 'Continue'}

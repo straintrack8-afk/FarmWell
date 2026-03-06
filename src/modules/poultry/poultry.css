@@ -858,7 +858,7 @@ p {
 
 /* Action Cards with Hover Effects */
 .action-card {
-  background: white;
+  background: transparent;
   border-radius: var(--radius-xl);
   padding: 2rem;
   cursor: pointer;

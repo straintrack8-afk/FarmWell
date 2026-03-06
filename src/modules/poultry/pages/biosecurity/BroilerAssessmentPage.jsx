@@ -158,7 +158,7 @@ function BroilerAssessmentPage() {
                             <div className="header-right">
                                 <button
                                     onClick={() => setShowProgress(!showProgress)}
-                                    className="btn btn-outline btn-small"
+                                    className="btn btn-primary"
                                 >
                                     {showProgress ? 'Hide Progress' : 'Show Progress'}
                                 </button>
@@ -215,7 +215,7 @@ function BroilerAssessmentPage() {
                                         {!isFirstQuestion && (
                                             <button
                                                 onClick={handlePrevious}
-                                                className="btn btn-outline"
+                                                className="btn btn-primary"
                                             >
                                                 Previous
                                             </button>
@@ -226,7 +226,7 @@ function BroilerAssessmentPage() {
                                         <div className="nav-center">
                                             <button
                                                 onClick={handleSaveAndExit}
-                                                className="btn btn-secondary"
+                                                className="btn btn-primary"
                                             >
                                                  Save & Exit
                                             </button>

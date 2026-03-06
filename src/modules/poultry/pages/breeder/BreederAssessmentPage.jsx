@@ -288,12 +288,9 @@ function BreederAssessmentPage() {
                                 {!isLastQuestion && (
                                     <button
                                         onClick={handleSaveAndExit}
-                                        className="btn"
+                                        className="btn btn-primary"
                                         style={{
                                             padding: '0.75rem 1.5rem',
-                                            background: 'white',
-                                            border: '2px solid #8b5cf6',
-                                            color: '#8b5cf6',
                                             fontWeight: '600'
                                         }}
                                     >
