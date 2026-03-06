@@ -166,7 +166,7 @@ function AuditWizard() {
                     <button
                         onClick={handlePrevious}
                         disabled={currentStepIndex === 0}
-                        className="btn-hatchery btn-secondary"
+                        className="btn-hatchery btn-primary"
                     >
                         Previous
                     </button>

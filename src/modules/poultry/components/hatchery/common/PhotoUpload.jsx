@@ -77,7 +77,7 @@ function PhotoUpload({ photos = [], onPhotosChange, maxPhotos = 10 }) {
                 <button
                     type="button"
                     onClick={handleBrowseClick}
-                    className="btn-hatchery btn-outline"
+                    className="btn-hatchery btn-primary"
                     disabled={uploading || photos.length >= maxPhotos}
                 >
                     {uploading ? ' Uploading...' : ' Add Photos'}

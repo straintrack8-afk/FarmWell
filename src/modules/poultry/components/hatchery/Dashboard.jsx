@@ -114,18 +114,14 @@ function Dashboard() {
                                 Start New Audit
                             </button>
                             <button
-                                style={{ padding: '0.875rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.75rem', color: '#374151', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                                className="btn-hatchery btn-outline"
                                 onClick={handleViewHistory}
-                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10B981'; e.currentTarget.style.color = '#10B981'; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#374151'; }}
                             >
                                 View Audit History
                             </button>
                             <button
-                                style={{ padding: '0.875rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.75rem', color: '#374151', fontSize: '0.9375rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                                className="btn-hatchery btn-outline"
                                 onClick={() => navigate('/poultry/hatchery-audit/settings')}
-                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#10B981'; e.currentTarget.style.color = '#10B981'; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#374151'; }}
                             >
                                 Settings
                             </button>
@@ -139,9 +135,8 @@ function Dashboard() {
                             {completedAudits.length > 0 && (
                                 <button
                                     onClick={handleViewHistory}
-                                    style={{ padding: '0.5rem 1rem', background: 'white', border: '1.5px solid #e2e8f0', borderRadius: '0.5rem', fontSize: '0.8125rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s ease', color: '#374151' }}
-                                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#10B981'}
-                                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e2e8f0'}
+                                    className="btn-hatchery btn-outline"
+                                    style={{ padding: '0.5rem 1rem', fontSize: '0.8125rem' }}
                                 >
                                     View All
                                 </button>
