@@ -6,7 +6,7 @@ import DiagnosisDisclaimer from './disease-diagnosis/DiagnosisDisclaimer';
 function ProgressBar({ step }) {
     const steps = [
         { num: 1, label: 'Age' },
-        { num: 2, label: 'Symptoms' },
+        { num: 2, label: 'Body Part & Symptoms' },
         { num: 3, label: 'Results' }
     ];
 
@@ -57,67 +57,161 @@ function getCategoryClass(category) {
     return 'badge-other';
 }
 
-function DiseaseCard({ disease, onClick }) {
-    // Poultry data uses "mortality" string instead of "mortalityLevel"
-    // We'll extract a hint from the string if possible, or just show the string
+function DiseaseCard({ disease, onClick, rank }) {
     const mortalityText = disease.mortality || 'Unknown';
     const isHigh = mortalityText.toLowerCase().includes('high') || mortalityText.toLowerCase().includes('90');
+    const percentage = disease.percentage || 0;
+    
+    // Determine confidence level
+    const getConfidenceLevel = (pct) => {
+        if (pct >= 75) return 'high';
+        if (pct >= 50) return 'medium';
+        if (pct >= 25) return 'low';
+        return 'unlikely';
+    };
+    
+    const confidenceLevel = getConfidenceLevel(percentage);
 
     return (
-        <div className="disease-card" onClick={onClick}>
-            <div className="disease-card-header">
-                <div>
-                    <div className="disease-name">{disease.name}</div>
+        <div className="disease-card" onClick={onClick} style={{ marginBottom: '1rem', cursor: 'pointer' }}>
+            {/* Header with Rank */}
+            <div className="disease-card-header" style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                {/* Rank Badge */}
+                {rank && (
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '40px',
+                        height: '40px',
+                        background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                        color: 'white',
+                        borderRadius: '50%',
+                        fontWeight: '700',
+                        fontSize: '1.125rem',
+                        flexShrink: 0
+                    }}>
+                        #{rank}
+                    </div>
+                )}
+                
+                <div style={{ flex: 1 }}>
+                    <div className="disease-name" style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.25rem' }}>
+                        {disease.name}
+                    </div>
                     {disease.latinName && (
-                        <div className="disease-latin">{disease.latinName}</div>
+                        <div className="disease-latin" style={{ fontSize: '0.875rem', color: '#6B7280', fontStyle: 'italic' }}>
+                            {disease.latinName}
+                        </div>
                     )}
                 </div>
-                {disease.zoonotic && (
-                    <span className="badge badge-zoonotic" title="Can spread to humans">
-                        Zoonotic
-                    </span>
-                )}
             </div>
 
-            <div className="disease-meta">
+            {/* Confidence Bar */}
+            <div style={{ marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
+                    <div style={{ flex: 1, height: '24px', background: '#F1F5F9', borderRadius: '12px', overflow: 'hidden' }}>
+                        <div style={{
+                            height: '100%',
+                            width: `${percentage}%`,
+                            background: confidenceLevel === 'high' ? 'linear-gradient(90deg, #10B981, #059669)' :
+                                       confidenceLevel === 'medium' ? 'linear-gradient(90deg, #F59E0B, #D97706)' :
+                                       confidenceLevel === 'low' ? 'linear-gradient(90deg, #3B82F6, #2563EB)' :
+                                       'linear-gradient(90deg, #9CA3AF, #6B7280)',
+                            borderRadius: '12px',
+                            transition: 'width 0.3s ease'
+                        }} />
+                    </div>
+                    <span style={{ fontWeight: '700', fontSize: '1.125rem', color: '#1E293B', minWidth: '60px', textAlign: 'right' }}>
+                        {percentage.toFixed(1)}%
+                    </span>
+                </div>
+                
+                {/* Confidence Badge */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <span style={{
+                        display: 'inline-block',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '9999px',
+                        fontSize: '0.75rem',
+                        fontWeight: '700',
+                        letterSpacing: '0.05em',
+                        background: confidenceLevel === 'high' ? '#D1FAE5' :
+                                   confidenceLevel === 'medium' ? '#FEF3C7' :
+                                   confidenceLevel === 'low' ? '#DBEAFE' : '#F3F4F6',
+                        color: confidenceLevel === 'high' ? '#065F46' :
+                              confidenceLevel === 'medium' ? '#92400E' :
+                              confidenceLevel === 'low' ? '#1E40AF' : '#4B5563'
+                    }}>
+                        {confidenceLevel.toUpperCase()} CONFIDENCE
+                    </span>
+                    
+                    {disease.zoonotic && (
+                        <span style={{
+                            display: 'inline-block',
+                            padding: '0.25rem 0.75rem',
+                            borderRadius: '9999px',
+                            fontSize: '0.75rem',
+                            fontWeight: '700',
+                            background: '#FEE2E2',
+                            color: '#991B1B'
+                        }}>
+                            ZOONOTIC
+                        </span>
+                    )}
+                </div>
+            </div>
+
+            {/* Match Info */}
+            {disease.matchCount > 0 && (
+                <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.75rem' }}>
+                    <strong>Matched:</strong> {disease.matchCount}/{disease.totalSymptoms} symptoms
+                </div>
+            )}
+
+            {/* Category and Mortality */}
+            <div className="disease-meta" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
                 <span className={`badge ${getCategoryClass(disease.category)}`}>
                     {disease.category || 'Other'}
                 </span>
                 <div className={`mortality-indicator ${isHigh ? 'mortality-high' : 'mortality-moderate'}`}>
                     <span className="mortality-dot"></span>
-                    {mortalityText}
+                    {mortalityText} Mortality
                 </div>
             </div>
 
+            {/* Description */}
             {disease.description && (
-                <p className="disease-description">{disease.description}</p>
+                <p className="disease-description" style={{ fontSize: '0.875rem', color: '#4B5563', marginBottom: '1rem', lineHeight: '1.5' }}>
+                    {disease.description}
+                </p>
             )}
-
-            {disease.matchCount > 0 && (
-                <div className="match-indicator" style={{ color: 'var(--primary)', fontWeight: 'bold', marginTop: '0.5rem' }}>
-                    Matches {disease.matchCount} symptom(s)
-                </div>
-            )}
+            
+            {/* View Details Button */}
+            <div style={{ textAlign: 'right' }}>
+                <span style={{ fontSize: '0.875rem', color: '#10B981', fontWeight: '600' }}>
+                    View Details ▼
+                </span>
+            </div>
         </div>
     );
 }
 
 function ResultsList() {
     const {
-        filteredDiseases,
+        results,  // ⭐ Use results instead of filteredDiseases
         selectedSymptoms,
         selectedAge,
         ageGroups,
         setStep,
-        selectDisease,
+        viewDiseaseDetail,
         reset
     } = useDiagnosis();
 
     const selectedAgeGroup = ageGroups.find(a => a.id === selectedAge);
 
     const handleDiseaseClick = (disease) => {
-        selectDisease(disease);
-        setStep(STEPS.DETAIL);
+        viewDiseaseDetail(disease);
     };
 
     const handleNewDiagnosis = () => {
@@ -126,7 +220,7 @@ function ResultsList() {
     };
 
     const handleRefineSymptoms = () => {
-        setStep(STEPS.SYMPTOMS);
+        setStep(STEPS.BODY_PART);
     };
 
     return (
@@ -138,7 +232,7 @@ function ResultsList() {
 
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
                     <h1 className="page-title">
-                        {filteredDiseases.length} Possible Disease{filteredDiseases.length !== 1 ? 's' : ''}
+                        {results.length} Possible Disease{results.length !== 1 ? 's' : ''}
                     </h1>
                     <p className="page-subtitle">
                         Based on observation in bird health
@@ -201,12 +295,12 @@ function ResultsList() {
 
                 {/* Disease List */}
                 <div style={{ maxWidth: '700px', margin: '0 auto', paddingBottom: '2rem' }}>
-                    {filteredDiseases.length === 0 ? (
+                    {results.length === 0 ? (
                         <div className="empty-state">
                             <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
                             <h3 className="empty-state-title">No Diseases Found</h3>
                             <p className="empty-state-text">
-                                No diseases match all your selected symptoms. Try removing some symptoms.
+                                No diseases match your selected symptoms. Try selecting different symptoms.
                             </p>
                             <button
                                 className="btn btn-primary"
@@ -217,10 +311,11 @@ function ResultsList() {
                         </div>
                     ) : (
                         <>
-                            {filteredDiseases.map(disease => (
+                            {results.map((disease, index) => (
                                 <DiseaseCard
                                     key={disease.id}
                                     disease={disease}
+                                    rank={index + 1}
                                     onClick={() => handleDiseaseClick(disease)}
                                 />
                             ))}
@@ -228,7 +323,7 @@ function ResultsList() {
                             {/* Diagnosis Result Disclaimer */}
                             <DiagnosisDisclaimer
                                 language="en"
-                                diseaseIndicated={filteredDiseases[0]?.name || 'Multiple conditions'}
+                                diseaseIndicated={results[0]?.name || 'Multiple conditions'}
                             />
                         </>
                     )}

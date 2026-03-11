@@ -11,9 +11,11 @@ import Header from './components/common/Header';
 import PoultryLanding from './components/PoultryLanding';
 import LandingPage from './components/LandingPage';
 import AgeSelection from './components/AgeSelection';
+import BodyPartSelection from './components/BodyPartSelection';
 import SymptomSelection from './components/SymptomSelection';
 import ResultsList from './components/ResultsList';
 import DiseaseDetail from './components/DiseaseDetail';
+import AllDiseases from './components/AllDiseases';
 import HatcheryAuditRouter from './components/hatchery/HatcheryAuditRouter';
 import BroilerAssessmentLanding from './pages/biosecurity/BroilerAssessmentLanding';
 import BroilerAssessmentDashboard from './pages/biosecurity/BroilerAssessmentDashboard';
@@ -32,8 +34,20 @@ import LayerResultsPage from './pages/layer/LayerResultsPage';
 
 
 function DiagnosticApp() {
-    const { step, isLoading, error, isOffline, reset } = useDiagnosis();
+    const { step, isLoading, error, isOffline, reset, setStep } = useDiagnosis();
     const navigate = useNavigate();
+
+    // Debug logging
+    console.log('DiagnosticApp render - Current step:', step);
+    console.log('Available STEPS:', STEPS);
+
+    // Redirect invalid steps to SYMPTOMS (we removed BODY_PART and RESULTS pages)
+    useEffect(() => {
+        if (step === STEPS.BODY_PART || step === STEPS.RESULTS) {
+            console.log('Redirecting invalid step to SYMPTOMS:', step);
+            setStep(STEPS.SYMPTOMS);
+        }
+    }, [step, setStep]);
 
     // Loading state
     if (isLoading) {
@@ -78,8 +92,8 @@ function DiagnosticApp() {
                         <Header isOffline={isOffline} onBack={reset} />
                         <main style={{ flex: 1, padding: 0 }}>
                             {step === STEPS.AGE && <AgeSelection />}
-                            {step === STEPS.SYMPTOMS && <SymptomSelection />}
-                            {step === STEPS.RESULTS && <ResultsList />}
+                            {step === STEPS.SYMPTOMS && <BodyPartSelection />}
+                            {step === STEPS.ALL_DISEASES && <AllDiseases />}
                             {step === STEPS.DETAIL && <DiseaseDetail />}
                         </main>
                     </PoultryDiagnosisWrapper>

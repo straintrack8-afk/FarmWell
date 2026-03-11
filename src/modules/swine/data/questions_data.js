@@ -1,18 +1,20 @@
 // Import question data from JSON files
 // Using static imports for reliability - Vite will handle code splitting automatically
 // Updated: 2026-01-15 22:57 - Using standard filenames with farm_type_relevance field
-import questionsEN from '../../../../questions_en.json';
-import questionsID from '../../../../questions_id.json';
-import questionsVT from '../../../../questions_vt.json';
+// NOTE: Question files were removed during cleanup - using empty fallback data
+// import questionsEN from '../../../../questions_en.json';
+// import questionsID from '../../../../questions_id.json';
+// import questionsVT from '../../../../questions_vt.json';
 
 /**
  * Question data organized by language
  * Supports: English (en), Bahasa Indonesia (id), Tiếng Việt (vt)
+ * NOTE: Currently using empty data structure - questions files need to be restored
  */
 const QUESTION_DATA = {
-    en: questionsEN,
-    id: questionsID,
-    vt: questionsVT
+    en: { questions: [], categories: [] },
+    id: { questions: [], categories: [] },
+    vt: { questions: [], categories: [] }
 };
 
 /**
