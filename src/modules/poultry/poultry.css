@@ -158,23 +158,23 @@ p {
 }
 
 .btn-secondary {
-  background: white;
-  color: #1F2937;
-  border: 2px solid #E5E7EB;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background: #10B981 !important;
+  color: white !important;
+  border: 2px solid #10B981 !important;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2) !important;
 }
 
 .btn-secondary:hover {
-  background: #F9FAFB;
-  border-color: #D1D5DB;
-  color: #111827;
+  background: #059669 !important;
+  border-color: #059669 !important;
+  color: white !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
 }
 
 .btn-secondary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
 }
 
 .btn-outline {

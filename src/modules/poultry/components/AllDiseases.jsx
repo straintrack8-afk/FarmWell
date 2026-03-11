@@ -1,36 +1,171 @@
 import React, { useState, useMemo } from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
 import { getSeverityColor, getCategoryClass } from '../utils/diseaseFieldMapping';
 
+// Translation object for AllDiseases page
+const translations = {
+  en: {
+    pageTitle: 'All Poultry Diseases & Conditions',
+    browseText: 'Browse and explore {count} diseases in our database',
+    searchLabel: 'Search Disease',
+    searchPlaceholder: 'Search by name...',
+    categoryLabel: 'Category',
+    severityLabel: 'Severity',
+    all: 'All',
+    showing: 'Showing',
+    of: 'of',
+    diseases: 'diseases',
+    viewDetails: 'View Details',
+    backButton: '← Back to Symptom Selection',
+    noResults: 'No diseases found',
+    tryAdjusting: 'Try adjusting your search or filters',
+    affects: 'Affects',
+    zoonotic: '⚠️ Zoonotic',
+    // Category translations
+    Viral: 'Viral',
+    Bacterial: 'Bacterial',
+    Parasitic: 'Parasitic',
+    Fungal: 'Fungal',
+    Ectoparasitic: 'Ectoparasitic',
+    Nutritional: 'Nutritional',
+    Metabolic: 'Metabolic',
+    Cardiovascular: 'Cardiovascular',
+    Reproductive: 'Reproductive',
+    Toxicological: 'Toxicological',
+    Environmental: 'Environmental',
+    Management: 'Management',
+    Digestive: 'Digestive',
+    Other: 'Other',
+    // Severity translations
+    High: 'High',
+    Medium: 'Medium',
+    Low: 'Low'
+  },
+  id: {
+    pageTitle: 'Semua Penyakit & Kondisi Unggas',
+    browseText: 'Jelajahi {count} penyakit dalam database kami',
+    searchLabel: 'Cari Penyakit',
+    searchPlaceholder: 'Cari berdasarkan nama...',
+    categoryLabel: 'Kategori',
+    severityLabel: 'Tingkat Keparahan',
+    all: 'Semua',
+    showing: 'Menampilkan',
+    of: 'dari',
+    diseases: 'penyakit',
+    viewDetails: 'Lihat Detail',
+    backButton: '← Kembali ke Pemilihan Gejala',
+    noResults: 'Tidak ada penyakit ditemukan',
+    tryAdjusting: 'Coba sesuaikan pencarian atau filter Anda',
+    affects: 'Mempengaruhi',
+    zoonotic: '⚠️ Zoonosis',
+    // Category translations
+    Viral: 'Viral',
+    Bacterial: 'Bakteri',
+    Parasitic: 'Parasit',
+    Fungal: 'Jamur',
+    Ectoparasitic: 'Ektoparasit',
+    Nutritional: 'Nutrisi',
+    Metabolic: 'Metabolik',
+    Cardiovascular: 'Kardiovaskular',
+    Reproductive: 'Reproduksi',
+    Toxicological: 'Toksikologi',
+    Environmental: 'Lingkungan',
+    Management: 'Manajemen',
+    Digestive: 'Pencernaan',
+    Other: 'Lainnya',
+    // Severity translations
+    High: 'Tinggi',
+    Medium: 'Sedang',
+    Low: 'Rendah',
+    Tinggi: 'Tinggi',
+    Sedang: 'Sedang',
+    Rendah: 'Rendah'
+  },
+  vn: {
+    pageTitle: 'Tất Cả Bệnh & Tình Trạng Gia Cầm',
+    browseText: 'Duyệt và khám phá {count} bệnh trong cơ sở dữ liệu của chúng tôi',
+    searchLabel: 'Tìm Kiếm Bệnh',
+    searchPlaceholder: 'Tìm kiếm theo tên...',
+    categoryLabel: 'Danh Mục',
+    severityLabel: 'Mức Độ Nghiêm Trọng',
+    all: 'Tất Cả',
+    showing: 'Hiển thị',
+    of: 'của',
+    diseases: 'bệnh',
+    viewDetails: 'Xem Chi Tiết',
+    backButton: '← Quay Lại Chọn Triệu Chứng',
+    noResults: 'Không tìm thấy bệnh',
+    tryAdjusting: 'Thử điều chỉnh tìm kiếm hoặc bộ lọc của bạn',
+    affects: 'Ảnh hưởng',
+    zoonotic: '⚠️ Lây từ động vật',
+    // Category translations
+    Viral: 'Virus',
+    Bacterial: 'Vi khuẩn',
+    Parasitic: 'Ký sinh trùng',
+    Fungal: 'Nấm',
+    Ectoparasitic: 'Ký sinh trùng ngoài',
+    Nutritional: 'Dinh dưỡng',
+    Metabolic: 'Chuyển hóa',
+    Cardiovascular: 'Tim mạch',
+    Reproductive: 'Sinh sản',
+    Toxicological: 'Độc chất',
+    Environmental: 'Môi trường',
+    Management: 'Quản lý',
+    Digestive: 'Tiêu hóa',
+    Other: 'Khác',
+    // Severity translations
+    High: 'Cao',
+    Medium: 'Trung bình',
+    Low: 'Thấp',
+    Cao: 'Cao',
+    'Trung bình': 'Trung bình',
+    Thấp: 'Thấp'
+  }
+};
+
 function AllDiseases() {
     const { diseases, setStep, viewDiseaseDetail } = useDiagnosis();
+    const { language } = useLanguage();
+    const normalizedLang = language === 'vt' ? 'vn' : language;
+    const t = translations[normalizedLang] || translations.en;
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('All');
-    const [selectedSeverity, setSelectedSeverity] = useState('All');
+    const [selectedCategory, setSelectedCategory] = useState(t.all);
+    const [selectedSeverity, setSelectedSeverity] = useState(t.all);
+    
+    // Update filter values when language changes
+    React.useEffect(() => {
+        setSelectedCategory(t.all);
+        setSelectedSeverity(t.all);
+    }, [t.all]);
 
     // Get unique categories and severities
     const categories = useMemo(() => {
-        const cats = new Set(diseases.map(d => d.category).filter(Boolean));
-        return ['All', ...Array.from(cats).sort()];
-    }, [diseases]);
+        const cats = new Set(diseases.map(d => d.category || d.kategori).filter(Boolean));
+        return [t.all, ...Array.from(cats).sort()];
+    }, [diseases, t.all]);
 
     const severities = useMemo(() => {
-        const sevs = new Set(diseases.map(d => d.severity).filter(Boolean));
-        return ['All', ...Array.from(sevs).sort()];
-    }, [diseases]);
+        const sevs = new Set(diseases.map(d => d.severity || d.tingkat_keparahan).filter(Boolean));
+        return [t.all, ...Array.from(sevs).sort()];
+    }, [diseases, t.all]);
 
     // Filter diseases
     const filteredDiseases = useMemo(() => {
         return diseases.filter(disease => {
+            const diseaseName = disease.name || disease.nama || disease.ten_benh || '';
+            const diseaseCategory = disease.category || disease.kategori;
+            const diseaseSeverity = disease.severity || disease.tingkat_keparahan;
+            
             const matchesSearch = !searchQuery || 
-                disease.name.toLowerCase().includes(searchQuery.toLowerCase());
-            const matchesCategory = selectedCategory === 'All' || disease.category === selectedCategory;
-            const matchesSeverity = selectedSeverity === 'All' || disease.severity === selectedSeverity;
+                diseaseName.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesCategory = selectedCategory === t.all || diseaseCategory === selectedCategory;
+            const matchesSeverity = selectedSeverity === t.all || diseaseSeverity === selectedSeverity;
             
             return matchesSearch && matchesCategory && matchesSeverity;
         });
-    }, [diseases, searchQuery, selectedCategory, selectedSeverity]);
+    }, [diseases, searchQuery, selectedCategory, selectedSeverity, t.all]);
 
     const handleDiseaseClick = (disease) => {
         viewDiseaseDetail(disease);
@@ -55,10 +190,10 @@ function AllDiseases() {
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text'
                     }}>
-                        All Poultry Diseases & Conditions
+                        {t.pageTitle}
                     </h1>
                     <p style={{ fontSize: '1rem', color: '#6B7280' }}>
-                        Browse and explore {diseases.length} diseases in our database
+                        {t.browseText.replace('{count}', diseases.length)}
                     </p>
                 </div>
 
@@ -74,11 +209,11 @@ function AllDiseases() {
                         {/* Search */}
                         <div>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                Search Disease
+                                {t.searchLabel}
                             </label>
                             <input
                                 type="text"
-                                placeholder="Search by name..."
+                                placeholder={t.searchPlaceholder}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 style={{
@@ -98,7 +233,7 @@ function AllDiseases() {
                         {/* Category Filter */}
                         <div>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                Category
+                                {t.categoryLabel}
                             </label>
                             <select
                                 value={selectedCategory}
@@ -115,7 +250,7 @@ function AllDiseases() {
                                 }}
                             >
                                 {categories.map(cat => (
-                                    <option key={cat} value={cat}>{cat}</option>
+                                    <option key={cat} value={cat}>{t[cat] || cat}</option>
                                 ))}
                             </select>
                         </div>
@@ -123,7 +258,7 @@ function AllDiseases() {
                         {/* Severity Filter */}
                         <div>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                Severity
+                                {t.severityLabel}
                             </label>
                             <select
                                 value={selectedSeverity}
@@ -140,7 +275,7 @@ function AllDiseases() {
                                 }}
                             >
                                 {severities.map(sev => (
-                                    <option key={sev} value={sev}>{sev}</option>
+                                    <option key={sev} value={sev}>{t[sev] || sev}</option>
                                 ))}
                             </select>
                         </div>
@@ -148,7 +283,7 @@ function AllDiseases() {
 
                     {/* Results count */}
                     <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#6B7280' }}>
-                        Showing <strong>{filteredDiseases.length}</strong> of {diseases.length} diseases
+                        {t.showing} <strong>{filteredDiseases.length}</strong> {t.of} {diseases.length} {t.diseases}
                     </div>
                 </div>
 
@@ -190,39 +325,39 @@ function AllDiseases() {
                                 color: '#111827',
                                 lineHeight: '1.4'
                             }}>
-                                {disease.name}
+                                {disease.name || disease.nama || disease.ten_benh}
                             </h3>
 
                             {/* Badges */}
                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
                                 {/* Category */}
-                                {disease.category && (
-                                    <span className={getCategoryClass(disease.category)} style={{
+                                {(disease.category || disease.kategori) && (
+                                    <span className={getCategoryClass(disease.category || disease.kategori)} style={{
                                         padding: '0.25rem 0.75rem',
                                         borderRadius: '6px',
                                         fontSize: '0.75rem',
                                         fontWeight: '600'
                                     }}>
-                                        {disease.category}
+                                        {t[disease.category || disease.kategori] || disease.category || disease.kategori}
                                     </span>
                                 )}
 
                                 {/* Severity */}
-                                {disease.severity && (
+                                {(disease.severity || disease.tingkat_keparahan) && (
                                     <span style={{
                                         padding: '0.25rem 0.75rem',
                                         borderRadius: '6px',
                                         fontSize: '0.75rem',
                                         fontWeight: '600',
-                                        background: getSeverityColor(disease.severity) + '20',
-                                        color: getSeverityColor(disease.severity)
+                                        background: getSeverityColor(disease.severity || disease.tingkat_keparahan) + '20',
+                                        color: getSeverityColor(disease.severity || disease.tingkat_keparahan)
                                     }}>
-                                        {disease.severity}
+                                        {t[disease.severity || disease.tingkat_keparahan] || disease.severity || disease.tingkat_keparahan}
                                     </span>
                                 )}
 
                                 {/* Zoonotic */}
-                                {disease.zoonotic && (
+                                {(disease.zoonotic || disease.zoonosis) && (
                                     <span style={{
                                         padding: '0.25rem 0.75rem',
                                         borderRadius: '6px',
@@ -231,7 +366,7 @@ function AllDiseases() {
                                         background: '#FEE2E2',
                                         color: '#DC2626'
                                     }}>
-                                        ⚠️ Zoonotic
+                                        {t.zoonotic}
                                     </span>
                                 )}
                             </div>
@@ -253,9 +388,9 @@ function AllDiseases() {
                             )}
 
                             {/* Age Groups */}
-                            {disease.ageGroups && disease.ageGroups.length > 0 && (
+                            {(disease.ageGroups || disease.kelompok_umur) && (disease.ageGroups || disease.kelompok_umur).length > 0 && (
                                 <div style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>
-                                    <strong>Affects:</strong> {disease.ageGroups.join(', ')}
+                                    <strong>{t.affects}:</strong> {(disease.ageGroups || disease.kelompok_umur).join(', ')}
                                 </div>
                             )}
 
@@ -271,7 +406,7 @@ function AllDiseases() {
                                 alignItems: 'center',
                                 gap: '0.5rem'
                             }}>
-                                View Details →
+                                {t.viewDetails} →
                             </div>
                         </div>
                     ))}
@@ -288,10 +423,10 @@ function AllDiseases() {
                     }}>
                         <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
                         <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                            No diseases found
+                            {t.noResults}
                         </h3>
                         <p style={{ color: '#6B7280' }}>
-                            Try adjusting your search or filters
+                            {t.tryAdjusting}
                         </p>
                     </div>
                 )}
@@ -306,7 +441,7 @@ function AllDiseases() {
                             fontSize: '1rem'
                         }}
                     >
-                        ← Back to Symptom Selection
+                        {t.backButton}
                     </button>
                 </div>
             </div>
