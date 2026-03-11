@@ -91,6 +91,9 @@ export const getCategoryClass = (category) => {
  * @returns {Object} UI labels
  */
 export const getUILabels = (language = 'en') => {
+  // Normalize Vietnamese language code (both 'vt' and 'vn' should work)
+  const normalizedLang = language === 'vt' ? 'vn' : language;
+  
   const labels = {
     en: {
       backToResults: 'Back to Results',
@@ -111,7 +114,9 @@ export const getUILabels = (language = 'en') => {
       ageGroups: 'Age Groups',
       confidenceMatch: 'Confidence Match',
       symptomsMatched: 'symptoms matched',
-      newDiagnosis: 'New Diagnosis'
+      newDiagnosis: 'New Diagnosis',
+      allDiseases: 'All Poultry Diseases & Conditions',
+      print: 'Print'
     },
     id: {
       backToResults: 'Kembali ke Hasil',
@@ -132,7 +137,9 @@ export const getUILabels = (language = 'en') => {
       ageGroups: 'Kelompok Umur',
       confidenceMatch: 'Tingkat Kesesuaian',
       symptomsMatched: 'gejala cocok',
-      newDiagnosis: 'Diagnosis Baru'
+      newDiagnosis: 'Diagnosis Baru',
+      allDiseases: 'Semua Penyakit & Kondisi Unggas',
+      print: 'Cetak'
     },
     vn: {
       backToResults: 'Quay lại Kết quả',
@@ -153,9 +160,11 @@ export const getUILabels = (language = 'en') => {
       ageGroups: 'Nhóm tuổi',
       confidenceMatch: 'Độ tin cậy',
       symptomsMatched: 'triệu chứng phù hợp',
-      newDiagnosis: 'Chẩn đoán mới'
+      newDiagnosis: 'Chẩn đoán mới',
+      allDiseases: 'Tất Cả Bệnh & Tình Trạng Gia Cầm',
+      print: 'In'
     }
   };
   
-  return labels[language] || labels.en;
+  return labels[normalizedLang] || labels.en;
 };

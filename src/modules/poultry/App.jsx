@@ -31,6 +31,7 @@ import LayerAssessmentLanding from './pages/layer/LayerAssessmentLanding';
 import LayerAssessmentDashboard from './pages/layer/LayerAssessmentDashboard';
 import LayerAssessmentPage from './pages/layer/LayerAssessmentPage';
 import LayerResultsPage from './pages/layer/LayerResultsPage';
+import DiseaseComparison from './pages/DiseaseComparison';
 
 
 function DiagnosticApp() {
@@ -200,6 +201,9 @@ function App() {
                                         <LayerResultsPage />
                                     </LayerAssessmentProvider>
                                 } />
+
+                                {/* Disease Comparison Page */}
+                                <Route path="/compare-diseases" element={<DiseaseComparison />} />
                             </Routes>
                         </main>
                     </div>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
 import { getFieldValue, getUILabels, getSeverityColor, getCategoryClass } from '../utils/diseaseFieldMapping';
 
@@ -144,8 +145,8 @@ function DiseaseDetail() {
         reset
     } = useDiagnosis();
 
-    // Get current language (default to 'en' for now, can be from context later)
-    const language = 'en'; // TODO: Get from LanguageContext
+    // Get current language from LanguageContext
+    const { language } = useLanguage();
     const labels = getUILabels(language);
 
     if (!disease) {
@@ -193,10 +194,13 @@ function DiseaseDetail() {
         };
     }, []);
 
-    // Get all symptoms from disease
-    const allSymptoms = disease.symptomsEnhanced 
-        ? disease.symptomsEnhanced.map(s => typeof s === 'string' ? s : s.name)
-        : disease.symptoms || [];
+    // Get all symptoms from disease - handle both English and Indonesian field names
+    const symptomsArray = disease.symptomsEnhanced || disease.gejala_lengkap || disease.symptoms || [];
+    const allSymptoms = symptomsArray.map(s => {
+        if (typeof s === 'string') return s;
+        // Handle both 'name' (EN/VN) and 'nama' (ID)
+        return s.name || s.nama || '';
+    }).filter(s => s.length > 0);
     
     // Identify matched symptoms
     const matchedSymptoms = allSymptoms.filter(s => selectedSymptoms.includes(s));
@@ -209,7 +213,7 @@ function DiseaseDetail() {
                 {/* Disease Header */}
                 <div style={{ marginBottom: '1.5rem' }}>
                     <h1 style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>
-                        {disease.name}
+                        {disease.name || disease.nama || disease.ten_benh}
                     </h1>
                     {disease.latinName && (
                         <p style={{
@@ -716,7 +720,7 @@ function DiseaseDetail() {
                             e.target.style.background = '#10B981';
                         }}
                     >
-                        All Poultry Diseases & Conditions
+                        {labels.allDiseases}
                     </button>
                     <button
                         style={{ 
@@ -740,7 +744,7 @@ function DiseaseDetail() {
                             e.target.style.background = '#10B981';
                         }}
                     >
-                        Print
+                        {labels.print}
                     </button>
                 </div>
             </div>

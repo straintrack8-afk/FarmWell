@@ -216,6 +216,38 @@ function PoultryLanding() {
                                 {t('poultry.layer.button')}
                             </button>
                         </div>
+
+                        {/* Disease Comparison Card */}
+                        <div className="action-card" onClick={() => navigate('/poultry/compare-diseases')}>
+                            <span className="action-card-icon">🔍</span>
+                            <h3 className="action-card-title">
+                                Compare Diseases
+                            </h3>
+                            <p className="action-card-description">
+                                Side-by-side comparison of two diseases for differential diagnosis and educational purposes
+                            </p>
+                            <ul className="action-card-features">
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>Search & filter by category</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>Symptom overlap analysis</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>Detailed comparison view</span>
+                                </li>
+                                <li className="action-card-feature">
+                                    <span className="action-card-feature-icon">✓</span>
+                                    <span>Multi-language support</span>
+                                </li>
+                            </ul>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                                Compare Diseases
+                            </button>
+                        </div>
                     </div>
 
                     </div>
