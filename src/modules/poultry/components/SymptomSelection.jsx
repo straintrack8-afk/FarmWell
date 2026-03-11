@@ -5,8 +5,9 @@ import { STEPS } from '../utils/constants';
 function ProgressBar({ step }) {
     const steps = [
         { num: 1, label: 'Age' },
-        { num: 2, label: 'Symptoms' },
-        { num: 3, label: 'Results' }
+        { num: 2, label: 'Body Part' },
+        { num: 3, label: 'Symptoms' },
+        { num: 4, label: 'Results' }
     ];
 
     return (
@@ -55,10 +56,38 @@ function SymptomSelection() {
         filteredDiseases,
         getSymptomCount,
         selectedAge,
-        ageGroups
+        ageGroups,
+        bodyPartsWithSymptoms,  // ⭐ NEW - Get body parts with symptoms
+        selectedBodyParts       // ⭐ NEW - Get selected body parts
     } = useDiagnosis();
 
-    const [openCategories, setOpenCategories] = useState(Object.keys(symptomCategories));
+    // ⭐ Get filtered symptoms based on selected body parts
+    const allSymptoms = useMemo(() => {
+        if (!bodyPartsWithSymptoms) return [];
+        
+        // If no body parts selected, show all symptoms
+        if (selectedBodyParts.length === 0) {
+            const symptomsSet = new Set();
+            bodyPartsWithSymptoms.forEach(part => {
+                if (part.symptoms) {
+                    part.symptoms.forEach(s => symptomsSet.add(s));
+                }
+            });
+            return Array.from(symptomsSet).sort();
+        }
+        
+        // Filter symptoms by selected body parts
+        const symptomsSet = new Set();
+        selectedBodyParts.forEach(partId => {
+            const bodyPart = bodyPartsWithSymptoms.find(p => p.id === partId);
+            if (bodyPart && bodyPart.symptoms) {
+                bodyPart.symptoms.forEach(s => symptomsSet.add(s));
+            }
+        });
+        return Array.from(symptomsSet).sort();
+    }, [bodyPartsWithSymptoms, selectedBodyParts]);
+
+    const [openCategories, setOpenCategories] = useState(symptomCategories ? Object.keys(symptomCategories) : []);
     const [searchTerm, setSearchTerm] = useState('');
 
     const toggleCategory = (catKey) => {
@@ -73,7 +102,7 @@ function SymptomSelection() {
         setStep(STEPS.RESULTS);
     };
 
-    const selectedAgeGroup = ageGroups.find(a => a.id === selectedAge);
+    const selectedAgeGroup = ageGroups && ageGroups.find(a => a.id === selectedAge);
 
     const categoryIcons = {
         mortality: '',
@@ -99,6 +128,30 @@ function SymptomSelection() {
                     <p className="page-subtitle">
                         Age: <strong>{selectedAgeGroup?.name || selectedAgeGroup?.label || 'All'}</strong>
                     </p>
+                    
+                    {/* ⭐ NEW - Show body part filter info */}
+                    {selectedBodyParts.length > 0 && (
+                        <div style={{
+                            marginTop: '1rem',
+                            padding: '0.75rem 1rem',
+                            background: '#EFF6FF',
+                            borderRadius: '8px',
+                            border: '1px solid #BFDBFE'
+                        }}>
+                            <div style={{ fontSize: '0.875rem', color: '#1E40AF', marginBottom: '0.25rem' }}>
+                                <strong>Filtered by body areas:</strong>
+                            </div>
+                            <div style={{ fontSize: '0.875rem', color: '#3B82F6' }}>
+                                {selectedBodyParts.map(partId => {
+                                    const part = bodyPartsWithSymptoms?.find(p => p.id === partId);
+                                    return part?.name;
+                                }).filter(Boolean).join(', ')}
+                            </div>
+                            <div style={{ fontSize: '0.75rem', color: '#6B7280', marginTop: '0.25rem' }}>
+                                Showing {allSymptoms.length} relevant symptoms
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Search */}
@@ -142,10 +195,15 @@ function SymptomSelection() {
 
                 {/* Symptom Categories */}
                 <div style={{ maxWidth: '600px', margin: '0 auto', paddingBottom: '1rem' }}>
-                    {Object.entries(symptomCategories).map(([key, category]) => {
-                        const filteredSympts = category.symptoms.filter(s =>
-                            !searchTerm || s.toLowerCase().includes(searchTerm.toLowerCase())
-                        );
+                    {symptomCategories && Object.entries(symptomCategories).map(([key, category]) => {
+                        const symptoms = Array.isArray(category) ? category : (category.symptoms || []);
+                        
+                        // ⭐ Filter by both search term AND selected body parts
+                        const filteredSympts = symptoms.filter(s => {
+                            const matchesSearch = !searchTerm || s.toLowerCase().includes(searchTerm.toLowerCase());
+                            const matchesBodyPart = allSymptoms.includes(s);
+                            return matchesSearch && matchesBodyPart;
+                        });
 
                         // Hide empty categories when searching
                         if (filteredSympts.length === 0 && searchTerm) return null;
@@ -162,7 +220,7 @@ function SymptomSelection() {
                                 >
                                     <div className="collapsible-title">
                                         <span style={{ fontSize: '1.25rem' }}>{categoryIcons[key] || ''}</span>
-                                        {category.label}
+                                        {category.label || key.charAt(0).toUpperCase() + key.slice(1)}
                                         <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 'normal' }}>
                                             ({filteredSympts.length})
                                         </span>
@@ -218,9 +276,9 @@ function SymptomSelection() {
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button
                             className="btn btn-secondary"
-                            onClick={() => setStep(STEPS.AGE)}
+                            onClick={() => setStep(STEPS.BODY_PART)}
                         >
-                            Change Age
+                            ← Back to Body Parts
                         </button>
                         <button
                             className="btn btn-primary"

@@ -5,7 +5,7 @@ import { STEPS } from '../utils/constants';
 function ProgressBar({ step }) {
     const steps = [
         { num: 1, label: 'Age' },
-        { num: 2, label: 'Symptoms' },
+        { num: 2, label: 'Body Part & Symptoms' },
         { num: 3, label: 'Results' }
     ];
 
@@ -59,7 +59,7 @@ function AgeSelection() {
 
     const handleContinue = () => {
         if (selectedAge) {
-            setStep(STEPS.SYMPTOMS);
+            setStep(STEPS.SYMPTOMS); // Skip BODY_PART, go directly to 3-box symptom selection
         }
     };
 
@@ -69,7 +69,7 @@ function AgeSelection() {
         <div style={{
             minHeight: '100vh',
             background: 'var(--bg-primary)',
-            paddingBottom: selectedAge ? '120px' : '2rem'
+            paddingBottom: selectedAge ? '20px' : '2rem'
         }}>
             <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
                 <ProgressBar step={1} />
@@ -97,7 +97,7 @@ function AgeSelection() {
                     gap: '1.5rem',
                     padding: '1rem'
                 }}>
-                    {ageGroups.map((age, index) => (
+                    {ageGroups && ageGroups.map((age, index) => (
                         <div
                             key={age.id}
                             style={{
