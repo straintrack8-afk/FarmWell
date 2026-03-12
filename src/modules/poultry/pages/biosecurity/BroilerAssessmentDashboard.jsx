@@ -18,6 +18,11 @@ function BroilerAssessmentDashboard() {
     } = useBroilerAssessment();
 
     const [hasSavedProgress, setHasSavedProgress] = useState(false);
+    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
     useEffect(() => {
         // Check if there's saved progress
         const saved = loadAssessment();

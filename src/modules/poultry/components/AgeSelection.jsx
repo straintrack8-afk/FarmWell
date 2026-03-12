@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { STEPS } from '../utils/constants';
 
@@ -46,12 +47,17 @@ function ProgressBar({ step }) {
 }
 
 function AgeSelection() {
+    const navigate = useNavigate();
     const {
         selectedAge,
         setAge,
         setStep,
         ageGroups
     } = useDiagnosis();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleSelectAge = (ageId) => {
         setAge(ageId);
@@ -60,6 +66,7 @@ function AgeSelection() {
     const handleContinue = () => {
         if (selectedAge) {
             setStep(STEPS.SYMPTOMS); // Skip BODY_PART, go directly to 3-box symptom selection
+            navigate('/poultry/diagnostic/symptoms'); // Navigate to symptoms route
         }
     };
 

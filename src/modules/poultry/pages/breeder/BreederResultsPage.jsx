@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBreederAssessment } from '../../contexts/BreederAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
@@ -20,6 +20,10 @@ function BreederResultsPage() {
         resetAssessment,
         completeAssessment
     } = useBreederAssessment();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handlePrint = () => {
         window.print();

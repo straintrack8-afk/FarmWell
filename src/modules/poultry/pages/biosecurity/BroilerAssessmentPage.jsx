@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBroilerAssessment } from '../../contexts/BroilerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
@@ -32,6 +32,10 @@ function BroilerAssessmentPage() {
 
     const [showValidation, setShowValidation] = useState(false);
     const [showProgress, setShowProgress] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     if (isLoading) {
         return (

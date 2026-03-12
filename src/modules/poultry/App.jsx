@@ -32,15 +32,25 @@ import LayerAssessmentDashboard from './pages/layer/LayerAssessmentDashboard';
 import LayerAssessmentPage from './pages/layer/LayerAssessmentPage';
 import LayerResultsPage from './pages/layer/LayerResultsPage';
 import DiseaseComparison from './pages/DiseaseComparison';
+import DiagnosticLanding from './pages/DiagnosticLanding';
 
 
 function DiagnosticApp() {
     const { step, isLoading, error, isOffline, reset, setStep } = useDiagnosis();
     const navigate = useNavigate();
+    const location = useLocation();
 
     // Debug logging
     console.log('DiagnosticApp render - Current step:', step);
     console.log('Available STEPS:', STEPS);
+
+    // Force AGE step when accessing /diagnostic/age route
+    useEffect(() => {
+        if (location.pathname === '/poultry/diagnostic/age' && step !== STEPS.AGE) {
+            console.log('Forcing AGE step for /diagnostic/age route');
+            setStep(STEPS.AGE);
+        }
+    }, [location.pathname, step, setStep]);
 
     // Redirect invalid steps to SYMPTOMS (we removed BODY_PART and RESULTS pages)
     useEffect(() => {
@@ -123,8 +133,14 @@ function App() {
                         <main style={{ flex: 1, padding: 0 }}>
                             <Routes>
                                 <Route path="/" element={<PoultryLanding />} />
-                                {/* Redirect /diagnostic to /diagnostic/age */}
-                                <Route path="/diagnostic" element={<Navigate to="/poultry/diagnostic/age" replace />} />
+                                {/* Disease Diagnostic Tools Landing Page */}
+                                <Route path="/diagnostic" element={<DiagnosticLanding />} />
+                                {/* All Diseases Page */}
+                                <Route path="/diseases" element={
+                                    <DiagnosisProvider>
+                                        <AllDiseases />
+                                    </DiagnosisProvider>
+                                } />
                                 {/* Specific diagnostic routes */}
                                 <Route path="/diagnostic/age" element={
                                     <DiagnosisProvider>
@@ -203,7 +219,7 @@ function App() {
                                 } />
 
                                 {/* Disease Comparison Page */}
-                                <Route path="/compare-diseases" element={<DiseaseComparison />} />
+                                <Route path="/compare" element={<DiseaseComparison />} />
                             </Routes>
                         </main>
                     </div>

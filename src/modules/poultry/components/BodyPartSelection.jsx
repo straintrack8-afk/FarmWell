@@ -3,7 +3,7 @@
  * Step 2: Select affected body parts/systems and symptoms
  */
 
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { BODY_PARTS } from '../utils/constants';
@@ -175,9 +175,12 @@ const BodyPartSelection = () => {
   } = useDiagnosis();
 
   const { language } = useLanguage();
-  // Normalize Vietnamese language code (both 'vt' and 'vn' should work)
   const normalizedLang = language === 'vt' ? 'vn' : language;
   const t = translations[normalizedLang] || translations.en;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // State for differential diagnosis
   const [selectedForComparison, setSelectedForComparison] = useState(null);
@@ -508,7 +511,7 @@ const BodyPartSelection = () => {
         </div>
 
       {/* 3-BOX LAYOUT */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
         
         {/* BOX 1: Search and Select Symptoms */}
         <div style={{ 

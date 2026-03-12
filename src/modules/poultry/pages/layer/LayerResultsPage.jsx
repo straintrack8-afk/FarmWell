@@ -25,6 +25,10 @@ function LayerResultsPage() {
         answers
     } = useLayerAssessment();
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const handlePrint = () => {
         window.print();
     };

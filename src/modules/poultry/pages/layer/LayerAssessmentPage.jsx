@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLayerAssessment } from '../../contexts/LayerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
@@ -24,6 +24,10 @@ function LayerAssessmentPage() {
     const question = getCurrentQuestion();
     const visibleQuestions = getVisibleQuestions();
     const progress = category ? getCategoryProgress(category.id) : null;
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     if (isLoading || !category || !question) {
         return (

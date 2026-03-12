@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useLanguage } from '../../../contexts/LanguageContext';
@@ -8,8 +8,12 @@ function PoultryLanding() {
     const { t } = useTranslation();
     const { language } = useLanguage();
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const handleDiagnosticTool = () => {
-        navigate('/poultry/diagnostic/age');
+        navigate('/poultry/diagnostic');
     };
 
     const handleHatcheryAudit = () => {
@@ -55,10 +59,16 @@ function PoultryLanding() {
                         padding: '0 1rem 2rem',
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: '2rem'
+                        gap: '2rem',
+                        border: '3px solid #10B981',
+                        borderRadius: '12px',
+                        padding: '2rem'
                     }}>
                         {/* Diagnostic Tool Card */}
-                        <div className="action-card" onClick={handleDiagnosticTool}>
+                        <div className="action-card" onClick={handleDiagnosticTool} style={{
+                            border: '2px solid #10B981',
+                            borderRadius: '8px'
+                        }}>
                             <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.diagnosis.title')}
@@ -66,31 +76,16 @@ function PoultryLanding() {
                             <p className="action-card-description">
                                 {t('poultry.diagnosis.description')}
                             </p>
-                            <ul className="action-card-features">
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.diagnosis.features.ageSpecific')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.diagnosis.features.symptomBased')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.diagnosis.features.treatment')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.diagnosis.features.offline')}</span>
-                                </li>
-                            </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>
                                 {t('poultry.diagnosis.button')}
                             </button>
                         </div>
 
                         {/* Hatchery Audit Card */}
-                        <div className="action-card" onClick={handleHatcheryAudit}>
+                        <div className="action-card" onClick={handleHatcheryAudit} style={{
+                            border: '2px solid #10B981',
+                            borderRadius: '8px'
+                        }}>
                             <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.hatchery.title')}
@@ -98,31 +93,16 @@ function PoultryLanding() {
                             <p className="action-card-description">
                                 {t('poultry.hatchery.description')}
                             </p>
-                            <ul className="action-card-features">
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.hatchery.features.vaccine')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.hatchery.features.environmental')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.hatchery.features.reports')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.hatchery.features.quarterly')}</span>
-                                </li>
-                            </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>
                                 {t('poultry.hatchery.button')}
                             </button>
                         </div>
 
                         {/* Broiler Assessment Card */}
-                        <div className="action-card" onClick={handleBroilerAssessment}>
+                        <div className="action-card" onClick={handleBroilerAssessment} style={{
+                            border: '2px solid #10B981',
+                            borderRadius: '8px'
+                        }}>
                             <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.biosecurity.title')}
@@ -130,31 +110,16 @@ function PoultryLanding() {
                             <p className="action-card-description">
                                 {t('poultry.biosecurity.description')}
                             </p>
-                            <ul className="action-card-features">
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.biosecurity.features.comprehensive')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.biosecurity.features.scoring')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.biosecurity.features.risks')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.biosecurity.features.biocheck')}</span>
-                                </li>
-                            </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>
                                 {t('poultry.biosecurity.button')}
                             </button>
                         </div>
 
                         {/* Breeder Assessment Card */}
-                        <div className="action-card" onClick={() => navigate('/poultry/breeder-assessment')}>
+                        <div className="action-card" onClick={() => navigate('/poultry/breeder-assessment')} style={{
+                            border: '2px solid #10B981',
+                            borderRadius: '8px'
+                        }}>
                             <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.breeder.title')}
@@ -162,31 +127,16 @@ function PoultryLanding() {
                             <p className="action-card-description">
                                 {t('poultry.breeder.description')}
                             </p>
-                            <ul className="action-card-features">
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.breeder.features.assessment')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.breeder.features.priority')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.breeder.features.risks')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.breeder.features.multilingual')}</span>
-                                </li>
-                            </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>
                                 {t('poultry.breeder.button')}
                             </button>
                         </div>
 
                         {/* Layer Assessment Card */}
-                        <div className="action-card" onClick={() => navigate('/poultry/layer-assessment')}>
+                        <div className="action-card" onClick={() => navigate('/poultry/layer-assessment')} style={{
+                            border: '2px solid #10B981',
+                            borderRadius: '8px'
+                        }}>
                             <span className="action-card-icon"></span>
                             <h3 className="action-card-title">
                                 {t('poultry.layer.title')}
@@ -194,60 +144,11 @@ function PoultryLanding() {
                             <p className="action-card-description">
                                 {t('poultry.layer.description')}
                             </p>
-                            <ul className="action-card-features">
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.layer.features.assessment')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.layer.features.categories')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.layer.features.risks')}</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon"></span>
-                                    <span>{t('poultry.layer.features.multilingual')}</span>
-                                </li>
-                            </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>
                                 {t('poultry.layer.button')}
                             </button>
                         </div>
 
-                        {/* Disease Comparison Card */}
-                        <div className="action-card" onClick={() => navigate('/poultry/compare-diseases')}>
-                            <span className="action-card-icon">🔍</span>
-                            <h3 className="action-card-title">
-                                Compare Diseases
-                            </h3>
-                            <p className="action-card-description">
-                                Side-by-side comparison of two diseases for differential diagnosis and educational purposes
-                            </p>
-                            <ul className="action-card-features">
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
-                                    <span>Search & filter by category</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
-                                    <span>Symptom overlap analysis</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
-                                    <span>Detailed comparison view</span>
-                                </li>
-                                <li className="action-card-feature">
-                                    <span className="action-card-feature-icon">✓</span>
-                                    <span>Multi-language support</span>
-                                </li>
-                            </ul>
-                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
-                                Compare Diseases
-                            </button>
-                        </div>
                     </div>
 
                     </div>
