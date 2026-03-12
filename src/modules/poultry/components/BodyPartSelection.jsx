@@ -511,7 +511,7 @@ const BodyPartSelection = () => {
         </div>
 
       {/* 3-BOX LAYOUT */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
         
         {/* BOX 1: Search and Select Symptoms */}
         <div style={{ 

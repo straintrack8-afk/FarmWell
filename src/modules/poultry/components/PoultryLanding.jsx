@@ -58,11 +58,11 @@ function PoultryLanding() {
                         margin: '0 auto',
                         padding: '0 1rem 2rem',
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: '2rem',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                        gap: '1.5rem',
                         border: '3px solid #10B981',
                         borderRadius: '12px',
-                        padding: '2rem'
+                        padding: '1.5rem'
                     }}>
                         {/* Diagnostic Tool Card */}
                         <div className="action-card" onClick={handleDiagnosticTool} style={{

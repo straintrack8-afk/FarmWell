@@ -113,8 +113,9 @@ const DiagnosticLanding = () => {
         {/* Tool Cards Grid */}
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-          gap: '2rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+          gap: '1.5rem',
+          padding: '0 0.5rem'
         }}>
           {tools.map(tool => (
             <ToolCard
