@@ -394,7 +394,7 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
   return (
     <div style={{ background: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem' }}>
       
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', paddingBottom: '1.5rem', borderBottom: '1px solid #E5E7EB' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', paddingBottom: '1.5rem', borderBottom: '1px solid #E5E7EB' }}>
         <div style={{ textAlign: 'center' }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
             {disease1.name || disease1.nama}
@@ -454,7 +454,7 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
         <div style={{ width: '100%', background: '#E5E7EB', borderRadius: '9999px', height: '12px', marginBottom: '1rem' }}>
           <div style={{ background: '#10B981', height: '12px', borderRadius: '9999px', width: `${overlapPct}%` }}></div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', fontSize: '0.875rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem', fontSize: '0.875rem' }}>
           <div style={{ padding: '0.75rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
             <h4 style={{ fontWeight: '600', color: '#059669', marginBottom: '0.5rem' }}>
               {translations.uniqueSymptoms}

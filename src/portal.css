@@ -51,7 +51,7 @@ body {
   z-index: 100;
   background: rgba(12, 56, 48, 0.97);
   backdrop-filter: blur(12px);
-  height: 85px;
+  min-height: 85px;
   display: flex;
   align-items: center;
   padding: 0 40px;
@@ -73,22 +73,23 @@ body {
 
 .fw-nav-right {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
+  padding-top: calc(env(safe-area-inset-top) + 17px);
 }
 
 .fw-lang-switcher {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   background: rgba(255, 255, 255, .07);
-  border-radius: 10px;
-  padding: 5px;
+  border-radius: 8px;
+  padding: 4px;
 }
 
 .fw-lang-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 7px;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
   background: transparent;
@@ -97,7 +98,7 @@ body {
   justify-content: center;
   transition: background .15s;
   overflow: hidden;
-  padding: 2px;
+  padding: 1px;
 }
 
 .fw-lang-btn:hover {
