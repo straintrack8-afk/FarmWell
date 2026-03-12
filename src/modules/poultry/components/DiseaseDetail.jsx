@@ -149,6 +149,10 @@ function DiseaseDetail() {
     const { language } = useLanguage();
     const labels = getUILabels(language);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     if (!disease) {
         return (
             <div className="container">

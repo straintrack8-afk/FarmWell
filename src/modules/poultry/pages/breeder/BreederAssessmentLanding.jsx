@@ -25,6 +25,10 @@ function BreederAssessmentLanding() {
     });
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         // Load assessment data
         fetch('/data/poultry/breeder_assessment.json')
             .then(res => res.json())

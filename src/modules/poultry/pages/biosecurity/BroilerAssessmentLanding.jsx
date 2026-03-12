@@ -26,6 +26,10 @@ function BroilerAssessmentLanding() {
     });
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         // Load assessment data
         fetch('/data/poultry/broiler_assessment.json')
             .then(res => res.json())

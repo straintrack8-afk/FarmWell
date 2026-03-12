@@ -26,6 +26,10 @@ function LayerAssessmentLanding() {
     });
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         // Load assessment data
         fetch('/data/poultry/layer_assessment_complete.json')
             .then(res => res.json())

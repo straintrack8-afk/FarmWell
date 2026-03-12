@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
@@ -126,6 +127,8 @@ const translations = {
 };
 
 function AllDiseases() {
+    const navigate = useNavigate();
+    const location = useLocation();
     const { diseases, setStep, viewDiseaseDetail } = useDiagnosis();
     const { language } = useLanguage();
     const normalizedLang = language === 'vt' ? 'vn' : language;
@@ -134,8 +137,16 @@ function AllDiseases() {
     const [selectedCategory, setSelectedCategory] = useState(t.all);
     const [selectedSeverity, setSelectedSeverity] = useState(t.all);
     
+    // Check if we're in standalone route or within diagnostic flow
+    const isStandaloneRoute = location.pathname === '/poultry/diseases';
+    
+    // Scroll to top on mount
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
     // Update filter values when language changes
-    React.useEffect(() => {
+    useEffect(() => {
         setSelectedCategory(t.all);
         setSelectedSeverity(t.all);
     }, [t.all]);
@@ -169,7 +180,13 @@ function AllDiseases() {
 
     const handleDiseaseClick = (disease) => {
         viewDiseaseDetail(disease);
-        setStep(STEPS.DETAIL);
+        if (isStandaloneRoute) {
+            // Navigate to detail page with disease ID as query param
+            navigate(`/poultry/diagnostic/detail?diseaseId=${disease.id}`);
+        } else {
+            // Within diagnostic flow, use step navigation
+            setStep(STEPS.DETAIL);
+        }
     };
 
     return (
@@ -291,7 +308,11 @@ function AllDiseases() {
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                    gap: '1rem'
+                    gap: '1.5rem',
+                    padding: '1.5rem',
+                    border: '3px solid #10B981',
+                    borderRadius: '12px',
+                    background: '#F0FDF4'
                 }}>
                     {filteredDiseases.map(disease => (
                         <div
@@ -304,7 +325,7 @@ function AllDiseases() {
                                 cursor: 'pointer',
                                 transition: 'all 0.2s',
                                 boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                                border: '2px solid transparent'
+                                border: '2px solid #10B981'
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.transform = 'translateY(-4px)';
@@ -314,7 +335,7 @@ function AllDiseases() {
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = 'translateY(0)';
                                 e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                                e.currentTarget.style.borderColor = 'transparent';
+                                e.currentTarget.style.borderColor = '#10B981';
                             }}
                         >
                             {/* Disease Name */}

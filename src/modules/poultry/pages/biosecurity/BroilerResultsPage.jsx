@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBroilerAssessment } from '../../contexts/BroilerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
@@ -27,7 +27,11 @@ function BroilerResultsPage() {
         scoringConfig
     } = useBroilerAssessment();
 
-    React.useEffect(() => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         if (calculateAllScores && assessmentData && focusAreas) {
             calculateAllScores();
         }
