@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import { swineTranslations } from '../translations';
+import { diseasePageTranslations } from '../translations_extended';
 import { formatDescription, cleanText, textToBullets } from '../utils/formatters';
 
 function getCategoryClass(category) {
@@ -29,6 +31,7 @@ function DiseasePage() {
     const navigate = useNavigate();
     const { diseases, resetDiagnosis, symptoms: contextSymptoms } = useDiagnosis();
     const { language } = useLanguage();
+    const t = (key) => diseasePageTranslations[language]?.[key] || swineTranslations[language]?.[key] || diseasePageTranslations['en'][key] || swineTranslations['en'][key];
 
     const disease = diseases.find(d => d.id === parseInt(id));
 
@@ -37,12 +40,12 @@ function DiseasePage() {
             <div className="container swine-diagnosis">
                 <div className="empty-state">
                     <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
-                    <h3 className="empty-state-title">Disease Not Found</h3>
+                    <h3 className="empty-state-title">{t('diseaseNotFound')}</h3>
                     <p className="empty-state-text">
-                        The disease you're looking for doesn't exist.
+                        {t('diseaseNotFoundText')}
                     </p>
                     <button className="btn btn-primary" onClick={() => navigate('/')}>
-                        Go Home
+                        {t('goHome')}
                     </button>
                 </div>
             </div>
@@ -83,7 +86,7 @@ function DiseasePage() {
                     className="btn btn-secondary btn-sm"
                     onClick={() => navigate('/swine/diagnosis/results')}
                 >
-                    Back to Results
+                    {t('backToResults')}
                 </button>
             </div>
 
@@ -111,7 +114,7 @@ function DiseasePage() {
 
                         <div className={`mortality-indicator ${getMortalityClass(disease.mortalityLevel)}`}>
                             <span className="mortality-dot"></span>
-                            {disease.mortalityLevel} mortality
+                            {disease.mortalityLevel} {t('mortalityText')}
                         </div>
 
                         {disease.ageGroups?.map(ag => (
@@ -136,9 +139,9 @@ function DiseasePage() {
                     <div className="zoonotic-warning" style={{ marginBottom: '1.5rem' }}>
                         <div className="zoonotic-warning-icon" style={{ fontSize: '1.5rem' }}></div>
                         <div className="zoonotic-warning-content">
-                            <div className="zoonotic-warning-title">Zoonotic Disease</div>
+                            <div className="zoonotic-warning-title">{t('zoonoticDisease')}</div>
                             <div className="zoonotic-warning-text">
-                                {disease.zoonoticDetails || 'This disease can spread to humans. Use proper biosecurity measures.'}
+                                {disease.zoonoticDetails || t('zoonoticDiseaseText')}
                             </div>
                         </div>
                     </div>
@@ -150,7 +153,7 @@ function DiseasePage() {
                     {dDesc && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                Description
+                                {t('description')}
                             </h3>
                             <div style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
                                 {formatDescription(dDesc)}
@@ -164,7 +167,7 @@ function DiseasePage() {
                     {disease.symptoms?.length > 0 && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                Clinical Signs
+                                {t('clinicalSignsTitle')}
                             </h3>
                             <div style={{
                                 display: 'grid',
@@ -197,7 +200,7 @@ function DiseasePage() {
                     {dTransmission && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                Transmission
+                                {t('transmissionTitle')}
                             </h3>
                             <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                 {textToBullets(dTransmission).map((item, i) => (
@@ -215,7 +218,7 @@ function DiseasePage() {
                     {dDiagnosis && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                Diagnosis Methods
+                                {t('diagnosisMethodsTitle')}
                             </h3>
                             <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                 {textToBullets(dDiagnosis).map((item, i) => (
@@ -233,7 +236,7 @@ function DiseasePage() {
                     {dTreatment && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                Treatment Options
+                                {t('treatmentOptionsTitle')}
                             </h3>
                             <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                 {textToBullets(dTreatment).map((item, i) => (
@@ -251,7 +254,7 @@ function DiseasePage() {
                     {dPrevention && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                Control & Prevention
+                                {t('controlPreventionTitle')}
                             </h3>
                             <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                 {textToBullets(dPrevention).map((item, i) => (
@@ -269,7 +272,7 @@ function DiseasePage() {
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '1rem' }}>
                                 <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    Vaccine Recommendation
+                                    {t('vaccineRecommendationTitle')}
                                 </h3>
                                 <div style={{
                                     padding: '1rem',
@@ -288,7 +291,7 @@ function DiseasePage() {
                     <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                     <div style={{ marginBottom: '1rem' }}>
                         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            Key Facts
+                            {t('keyFactsTitle')}
                         </h3>
                         <div style={{
                             display: 'grid',
@@ -296,15 +299,15 @@ function DiseasePage() {
                             gap: '1rem'
                         }}>
                             <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
-                                <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>Mortality</div>
+                                <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>{t('mortalityTitle')}</div>
                                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>
                                     {disease.mortality || disease.mortalityLevel || 'Unknown'}
                                 </div>
                             </div>
                             <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
-                                <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>Zoonotic Risk</div>
+                                <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>{t('zoonoticRiskTitle')}</div>
                                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>
-                                    {disease.zoonoticRisk ? 'Yes - Can infect humans' : 'No'}
+                                    {disease.zoonoticRisk ? t('zoonoticRiskYes') : t('zoonoticRiskNo')}
                                 </div>
                             </div>
                         </div>
@@ -321,14 +324,14 @@ function DiseasePage() {
                         style={{ flex: 1, minWidth: 0 }}
                         onClick={() => navigate('/swine/diagnosis/results')}
                     >
-                        Back to Results
+                        {t('backToResults')}
                     </button>
                     <button
                         className="btn btn-primary"
                         style={{ flex: 1, minWidth: 0 }}
                         onClick={handleNewDiagnosis}
                     >
-                        New Diagnosis
+                        {t('newDiagnosisButton')}
                     </button>
                 </div>
                 {/* Print full-width below */}
@@ -337,7 +340,7 @@ function DiseasePage() {
                     style={{ width: '100%' }}
                     onClick={() => window.print()}
                 >
-                    Print
+                    {t('printButton')}
                 </button>
             </div>
         </div>
