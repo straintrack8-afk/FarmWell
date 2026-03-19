@@ -84,7 +84,7 @@ const translations = {
     Sedang: 'Sedang',
     Rendah: 'Rendah'
   },
-  vn: {
+  vi: {
     pageTitle: 'Tất Cả Bệnh & Tình Trạng Gia Cầm',
     browseText: 'Duyệt và khám phá {count} bệnh trong cơ sở dữ liệu của chúng tôi',
     searchLabel: 'Tìm Kiếm Bệnh',
@@ -131,7 +131,7 @@ function AllDiseases() {
     const location = useLocation();
     const { diseases, setStep, viewDiseaseDetail } = useDiagnosis();
     const { language } = useLanguage();
-    const normalizedLang = language === 'vt' ? 'vn' : language;
+    const normalizedLang = (language === 'vt' || language === 'vn') ? 'vi' : language;
     const t = translations[normalizedLang] || translations.en;
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState(t.all);

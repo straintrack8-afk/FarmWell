@@ -938,8 +938,8 @@ const DosageCalculator = () => {
             <SharedTopNav />
             {currentStep === 1 && (
                 <SharedHeader
-                    title="FEED ADDITIVES CALCULATOR"
-                    subtitle="Comprehensive feed additive analysis and optimization for livestock nutrition management."
+                    title={t('title')}
+                    subtitle={t('calculatorSubtitle')}
                     showBackButton={false}
                     backPath="/"
                 />
@@ -974,10 +974,10 @@ const DosageCalculator = () => {
                                     {step}
                                 </div>
                                 <div style={{ fontSize: 'clamp(0.6rem, 2.5vw, 0.875rem)', color: '#6b7280', lineHeight: 1.2 }}>
-                                    {step === 1 && 'Select Animal'}
-                                    {step === 2 && 'Flock Info'}
-                                    {step === 3 && 'Select Product'}
-                                    {step === 4 && 'Protocol & Results'}
+                                    {step === 1 && t('step1')}
+                                    {step === 2 && t('step2')}
+                                    {step === 3 && t('step3')}
+                                    {step === 4 && t('step4')}
                                 </div>
                             </div>
                         ))}
@@ -1076,7 +1076,7 @@ const DosageCalculator = () => {
                                                 </div>
                                                 {referenceSelection.animalType === type && (
                                                     <span className="mc-badge" style={{ background: type === 'swine' ? '#ec4899' : '#84cc16', color: 'white' }}>
-                                                        ✓ Selected
+                                                        {t('selected')}
                                                     </span>
                                                 )}
                                             </div>
@@ -1174,7 +1174,7 @@ const DosageCalculator = () => {
                                                             {referenceSelection.specificCategory === cat.id && (
                                                                 <span style={{ color: referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16', marginRight: '0.5rem' }}>✓</span>
                                                             )}
-                                                            {cat.label}
+                                                            {t(cat.id)}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1194,7 +1194,7 @@ const DosageCalculator = () => {
                                 }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                                         <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1f2937', margin: 0 }}>
-                                            Reference Data: {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label}
+                                            {t('referenceDataTitle')} {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label}
                                         </h3>
                                         <div style={{ display: 'flex', gap: '0.75rem' }}>
                                             <button
@@ -1214,7 +1214,7 @@ const DosageCalculator = () => {
                                                     gap: '0.5rem'
                                                 }}
                                             >
-                                                Export Excel
+                                                {t('exportExcel')}
                                             </button>
                                             <button
                                                 onClick={printReferenceData}
@@ -1233,7 +1233,7 @@ const DosageCalculator = () => {
                                                     gap: '0.5rem'
                                                 }}
                                             >
-                                                Print PDF
+                                                {t('printPDF')}
                                             </button>
                                         </div>
                                     </div>
@@ -1242,7 +1242,7 @@ const DosageCalculator = () => {
                                     {referenceSelection.specificCategory === 'broiler' && (
                                         <div>
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Daily Performance Data (Day 0-56)</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('dailyPerformanceData')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Source: {consumptionData.poultry_commercial.broiler.source}
                                                     <br />
@@ -1280,7 +1280,7 @@ const DosageCalculator = () => {
                                     {referenceSelection.specificCategory === 'layer' && (
                                         <div>
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Complete Weekly Data (Week 1-100)</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataLayer')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Source: {consumptionData.poultry_commercial.layer.source}<br />
                                                     Breed: {consumptionData.poultry_commercial.layer.breed} - {consumptionData.poultry_commercial.layer.housing}
@@ -1288,7 +1288,7 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Rearing Phase (Weeks 1-18)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('rearingPhase')} (Weeks 1-18)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
@@ -1318,7 +1318,7 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Production Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Production Phase (Weeks 18-100)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('productionPhase')} (Weeks 18-100)</h5>
                                             <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
@@ -1387,7 +1387,7 @@ const DosageCalculator = () => {
                                     {referenceSelection.specificCategory === 'broiler_breeder' && (
                                         <div>
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Complete Weekly Data (Week 0-64)</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataBroilerBreeder')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Source: {consumptionData.poultry_breeding.broiler_breeder.source}<br />
                                                     Breed: {consumptionData.poultry_breeding.broiler_breeder.breed}<br />
@@ -1452,7 +1452,7 @@ const DosageCalculator = () => {
                                     {referenceSelection.specificCategory === 'color_breeder' && (
                                         <div>
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Complete Weekly Data (Week 1-70)</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataColorBreeder')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Source: {consumptionData.poultry_breeding.color_breeder.source}<br />
                                                     Breed: {consumptionData.poultry_breeding.color_breeder.breed}
@@ -1460,7 +1460,7 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Pullet Rearing Phase (Weeks 1-24)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('pulletRearingPhase')} (Weeks 1-24)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
@@ -1485,7 +1485,7 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Production Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Production Phase - 20°C (Weeks 24-70)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('productionPhase')} - 20°C (Weeks 24-70)</h5>
                                             <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
@@ -1521,13 +1521,13 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Layer Breeder Data</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    Rearing Phase: Uses layer commercial data<br />
-                                                    Production Phase: Fixed breeding values
+                                                    {t('layerBreederRearingNote')}<br />
+                                                    {t('layerBreederProductionNote')}
                                                 </p>
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>Rearing Phase (Weeks 1-18)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('rearingPhase')} (Weeks 1-18)</h5>
                                             <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
@@ -1557,13 +1557,13 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Production Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>Production Phase (Week 20+)</h5>
+                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>{t('productionPhase')} (Week 20+)</h5>
                                             <div style={{ background: 'white', padding: '1.5rem', borderRadius: '6px' }}>
-                                                <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>Fixed Breeding Values</p>
+                                                <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>{t('fixedBreedingValues')}</p>
                                                 <p>Feed: 160 g/bird/day</p>
                                                 <p>Water: 280 ml/bird/day</p>
                                                 <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
-                                                    Note: Feed restriction management for optimal breeding performance
+                                                    {t('feedRestrictionNote')}
                                                 </p>
                                             </div>
                                         </div>
@@ -1573,9 +1573,9 @@ const DosageCalculator = () => {
                                     {['nursery', 'grower', 'finisher'].includes(referenceSelection.specificCategory) && (
                                         <div>
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Calculation Method: Weight-Based with Interpolation</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('calcMethodWeightBased')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    Data from NRC Nutrient Requirements of Swine, 11th Edition
+                                                    {t('dataSourceNRC11th')}
                                                 </p>
                                             </div>
                                             <div style={{ overflowX: 'auto' }}>
@@ -1605,39 +1605,39 @@ const DosageCalculator = () => {
                                     {['sow_gestation', 'sow_lactation', 'boar'].includes(referenceSelection.specificCategory) && (
                                         <div>
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Calculation Method: Fixed Values</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('calcMethodFixed')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    Data from NRC Swine Nutrition Standards
+                                                    {t('dataSourceNRC')}
                                                 </p>
                                             </div>
                                             <div style={{ background: 'white', padding: '1.5rem', borderRadius: '6px' }}>
                                                 {referenceSelection.specificCategory === 'sow_gestation' && (
                                                     <div>
-                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>Sow - Gestation</p>
-                                                        <p>Water: 15 L/sow/day</p>
-                                                        <p>Feed: 2.5 kg/sow/day</p>
+                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>{t('sow_gestation')}</p>
+                                                        <p>{t('waterTemplate').replace('{value}', '15').replace('{animal}', 'sow')}</p>
+                                                        <p>{t('feedTemplate').replace('{value}', '2.5').replace('{animal}', 'sow')}</p>
                                                         <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
-                                                            Note: Adjust based on body condition score
+                                                            {t('noteSowGestation')}
                                                         </p>
                                                     </div>
                                                 )}
                                                 {referenceSelection.specificCategory === 'sow_lactation' && (
                                                     <div>
-                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>Sow - Lactation</p>
-                                                        <p>Water: 25 L/sow/day</p>
-                                                        <p>Feed: 6.0 kg/sow/day</p>
+                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>{t('sow_lactation')}</p>
+                                                        <p>{t('waterTemplate').replace('{value}', '25').replace('{animal}', 'sow')}</p>
+                                                        <p>{t('feedTemplate').replace('{value}', '6.0').replace('{animal}', 'sow')}</p>
                                                         <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
-                                                            Note: High water demand due to milk production
+                                                            {t('noteSowLactation')}
                                                         </p>
                                                     </div>
                                                 )}
                                                 {referenceSelection.specificCategory === 'boar' && (
                                                     <div>
-                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>Boar</p>
-                                                        <p>Water: 15 L/boar/day</p>
-                                                        <p>Feed: 2.5 kg/boar/day</p>
+                                                        <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>{t('boar')}</p>
+                                                        <p>{t('waterTemplate').replace('{value}', '15').replace('{animal}', 'boar')}</p>
+                                                        <p>{t('feedTemplate').replace('{value}', '2.5').replace('{animal}', 'boar')}</p>
                                                         <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
-                                                            Note: Maintenance level, adjust for body condition
+                                                            {t('noteBoar')}
                                                         </p>
                                                     </div>
                                                 )}
@@ -1687,7 +1687,7 @@ const DosageCalculator = () => {
                                                         </div>
                                                         {calculationData.animalType === type && (
                                                             <span className="mc-badge" style={{ background: type === 'swine' ? '#ec4899' : '#84cc16', color: 'white' }}>
-                                                                ✓ Selected
+                                                                {t('selected')}
                                                             </span>
                                                         )}
                                                     </div>
@@ -1695,8 +1695,8 @@ const DosageCalculator = () => {
                                                         <div className="fmc-name" style={{ textTransform: 'capitalize' }}>{t(type)}</div>
                                                         <div className="fmc-desc">
                                                             {type === 'swine'
-                                                                ? 'Calculate feed additives dosage and costs tailored for your swine operations.'
-                                                                : 'Calculate feed additives dosage and costs tailored for your poultry flocks.'}
+                                                                ? t('swineDescription')
+                                                                : t('poultryDescription')}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1735,12 +1735,13 @@ const DosageCalculator = () => {
                                                                 {calculationData.productionCategory === category && (
                                                                     <span style={{ color: calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16' }}>✓</span>
                                                                 )}
-                                                                {category}
+                                                                {t(category)}
                                                             </div>
                                                             <div className="fmc-desc" style={{ marginTop: '0.5rem' }}>
                                                                 {category === 'breeding'
-                                                                    ? `Optimized calculations for ${calculationData.animalType} breeding stock.`
-                                                                    : `Performance and cost tracking for commercial ${calculationData.animalType} operations.`}
+                                                                    ? t('breedingDescription').replace('{animalType}', t(`animalType${calculationData.animalType.charAt(0).toUpperCase() + calculationData.animalType.slice(1)}`))
+                                                                    : t('commercialDescription').replace('{animalType}', t(`animalType${calculationData.animalType.charAt(0).toUpperCase() + calculationData.animalType.slice(1)}`))
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1788,7 +1789,7 @@ const DosageCalculator = () => {
                                                                 {calculationData.specificCategory === cat.id && (
                                                                     <span style={{ color: calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16', marginRight: '0.5rem' }}>✓</span>
                                                                 )}
-                                                                {cat.label}
+                                                                {t(cat.id)}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1873,7 +1874,7 @@ const DosageCalculator = () => {
                                         {calculationData.productionCategory === 'breeding' && (
                                             <div style={{ marginBottom: '1.5rem' }}>
                                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                                    Gender:
+                                                    {t('genderLabel')}
                                                 </label>
                                                 <select
                                                     value={calculationData.gender}
@@ -1886,15 +1887,15 @@ const DosageCalculator = () => {
                                                         fontSize: '1rem'
                                                     }}
                                                 >
-                                                    <option value="female">Female only</option>
-                                                    <option value="male">Male only</option>
-                                                    <option value="mixed">Mixed flock</option>
+                                                    <option value="female">{t('genderFemale')}</option>
+                                                    <option value="male">{t('genderMale')}</option>
+                                                    <option value="mixed">{t('genderMixed')}</option>
                                                 </select>
 
                                                 {calculationData.gender === 'mixed' && (
                                                     <div style={{ marginTop: '1rem', padding: '1rem', background: '#f9fafb', borderRadius: '8px' }}>
                                                         <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
-                                                            Ratio (Female : Male):
+                                                            {t('genderRatio')}
                                                         </label>
                                                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                                             <input
@@ -1979,15 +1980,15 @@ const DosageCalculator = () => {
                                                                 fontSize: '0.75rem',
                                                                 fontWeight: '600'
                                                             }}>
-                                                                Popular
+                                                                {t('popular')}
                                                             </span>
                                                         )}
                                                     </div>
                                                     <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                                        {product.application.method === 'feed' ? ' Feed' : ' Water'} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
+                                                        {product.application.method === 'feed' ? t('applicationFeed') : t('applicationWater')} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
                                                     </div>
                                                     <div style={{ fontSize: '0.875rem', color: '#374151', flex: 1 }}>
-                                                        {product.benefits.primary.slice(0, 2).map((benefit, i) => (
+                                                        {(product.benefits.primary[language] || product.benefits.primary['en']).slice(0, 2).map((benefit, i) => (
                                                             <div key={i} style={{ marginBottom: '0.25rem' }}>
                                                                 {benefit}
                                                             </div>
@@ -2156,8 +2157,8 @@ const DosageCalculator = () => {
                                                     borderRadius: '8px',
                                                     marginBottom: '1rem'
                                                 }}>
-                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                                                        <strong>Period {index + 1}</strong>
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                                        <strong>{t('periodLabel')} {index + 1}</strong>
                                                         {calculationData.protocolPeriods.length > 1 && (
                                                             <button
                                                                 onClick={() => removePeriod(index)}
@@ -2171,14 +2172,14 @@ const DosageCalculator = () => {
                                                                     fontSize: '0.875rem'
                                                                 }}
                                                             >
-                                                                Remove
+                                                                {t('removeButton')}
                                                             </button>
                                                         )}
                                                     </div>
                                                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
                                                         <div>
                                                             <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
-                                                                Start Day:
+                                                                {t('startDayLabel')}
                                                             </label>
                                                             <input
                                                                 type="number"
@@ -2195,7 +2196,7 @@ const DosageCalculator = () => {
                                                         </div>
                                                         <div>
                                                             <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
-                                                                End Day:
+                                                                {t('endDayLabel')}
                                                             </label>
                                                             <input
                                                                 type="number"
@@ -2395,7 +2396,7 @@ const DosageCalculator = () => {
                                                 <h4 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
                                                     {t('expectedBenefits')}
                                                 </h4>
-                                                {calculationData.selectedProduct.benefits.primary.map((benefit, i) => (
+                                                {(calculationData.selectedProduct.benefits.primary[language] || calculationData.selectedProduct.benefits.primary['en']).map((benefit, i) => (
                                                     <div key={i} style={{ marginBottom: '0.5rem', paddingLeft: '1.5rem', position: 'relative' }}>
                                                         <span style={{ position: 'absolute', left: 0 }}></span>
                                                         {benefit}
@@ -2703,7 +2704,7 @@ const DosageCalculator = () => {
                                                 textAlign: 'center'
                                             }}
                                         >
-                                            Previous
+                                            {t('previous')}
                                         </button>
                                         <button
                                             onClick={resetCalculation}
@@ -2743,7 +2744,7 @@ const DosageCalculator = () => {
                                                     whiteSpace: 'nowrap'
                                                 }}
                                             >
-                                                Previous
+                                                {t('previous')}
                                             </button>
                                         )}
 

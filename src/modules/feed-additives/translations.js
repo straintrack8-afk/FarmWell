@@ -3,12 +3,34 @@ export const feedAdditivesTranslations = {
         // Header
         title: "FEED ADDITIVES CALCULATOR",
         subtitle: "",
+        calculatorSubtitle: "Comprehensive feed additive analysis and optimization for livestock nutrition management.",
+        swineDescription: "Calculate feed additives dosage and costs tailored for your swine operations.",
+        poultryDescription: "Calculate feed additives dosage and costs tailored for your poultry flocks.",
 
         // Steps
         step1: "Select Animal",
         step2: "Flock Info",
         step3: "Select Product",
         step4: "Protocol & Results",
+        
+        // Navigation
+        previous: "Previous",
+
+        // Animal Type Names (for interpolation)
+        animalTypeSwine: "swine",
+        animalTypePoultry: "poultry",
+
+        // Production Category Descriptions
+        breedingDescription: "Optimized calculations for {animalType} breeding stock.",
+        commercialDescription: "Performance and cost tracking for commercial {animalType} operations.",
+
+        // Badges & Labels
+        selected: "✓ Selected",
+        popular: "Popular",
+
+        // Application Methods
+        applicationFeed: "📍 Feed",
+        applicationWater: "💧 Water",
 
         // Step 1: Animal Selection
         selectAnimalType: "Select Animal Type:",
@@ -18,6 +40,20 @@ export const feedAdditivesTranslations = {
         breeding: "Breeding",
         swine: "Swine",
         poultry: "Poultry",
+
+        // Animal Category Labels
+        broiler_breeder: "Broiler Breeder",
+        layer_breeder: "Layer Breeder",
+        color_breeder: "Color Breeder",
+        broiler: "Broiler",
+        layer: "Layer (Commercial)",
+        color_chicken: "Color/Kampung Chicken",
+        nursery: "Nursery/Weaner (5-27 kg)",
+        grower: "Grower (27-60 kg)",
+        finisher: "Finisher (60-120 kg)",
+        sow_gestation: "Sow - Gestation",
+        sow_lactation: "Sow - Lactation",
+        boar: "Boar",
 
         // Animal categories
         broiler: "Broiler",
@@ -41,6 +77,13 @@ export const feedAdditivesTranslations = {
         age: "Age",
         days: "days",
         weeks: "weeks",
+
+        // Step 2: Gender Selection (Breeding)
+        genderLabel: "Gender:",
+        genderFemale: "Female only",
+        genderMale: "Male only",
+        genderMixed: "Mixed flock",
+        genderRatio: "Ratio (Female : Male):",
 
         // Step 3: Product Selection
         selectProduct: "Select Product",
@@ -67,6 +110,10 @@ export const feedAdditivesTranslations = {
         createCustomProtocol: "+ Or Create Custom Protocol",
         hideCustomProtocol: "− Hide Custom Protocol",
         customProtocolLabel: "Custom Protocol:",
+        periodLabel: "Period",
+        removeButton: "Remove",
+        startDayLabel: "Start Day:",
+        endDayLabel: "End Day:",
 
         // Results
         calculationResults: "Calculation Results",
@@ -122,6 +169,16 @@ export const feedAdditivesTranslations = {
         allFieldsRequired: "* All fields are required. Your information will be kept confidential.",
         inquirySuccess: "Thank you for your inquiry! Our team will contact you soon.",
         fillAllFields: "Please fill in all required fields.",
+        exportExcel: "Export Excel",
+        printPDF: "Print PDF",
+        referenceDataTitle: "Reference Data:",
+        dailyPerformanceData: "Daily Performance Data (Day 0-56)",
+        completeWeeklyDataLayer: "Complete Weekly Data (Week 1-100)",
+        completeWeeklyDataBroilerBreeder: "Complete Weekly Data (Week 0-64)",
+        completeWeeklyDataColorBreeder: "Complete Weekly Data (Week 1-70)",
+        rearingPhase: "Rearing Phase",
+        productionPhase: "Production Phase",
+        pulletRearingPhase: "Pullet Rearing Phase",
 
         // Navigation
         previous: "Previous",
@@ -168,19 +225,62 @@ export const feedAdditivesTranslations = {
         sowGestationNote: "Note: Adjust based on body condition score",
         sowLactationNote: "Note: High water demand due to milk production",
         boarNote: "Note: Maintenance level, adjust for body condition",
+
+        // Reference Data - Layer Breeder
+        fixedBreedingValues: "Fixed Breeding Values",
+        layerBreederRearingNote: "Rearing Phase: Uses layer commercial data",
+        layerBreederProductionNote: "Production Phase: Fixed breeding values",
+        feedRestrictionNote: "Note: Feed restriction management for optimal breeding performance",
+
+        // Reference Data - Calculation Methods
+        calcMethodFixed: "Calculation Method: Fixed Values",
+        calcMethodWeightBased: "Calculation Method: Weight-Based with Interpolation",
+        dataSourceNRC: "Data from NRC Swine Nutrition Standards",
+        dataSourceNRC11th: "Data from NRC Nutrient Requirements of Swine, 11th Edition",
+
+        // Reference Data - Swine Templates
+        waterTemplate: "Water: {value} L/{animal}/day",
+        feedTemplate: "Feed: {value} kg/{animal}/day",
+        noteSowGestation: "Note: Adjust based on body condition score",
+        noteSowLactation: "Note: High water demand due to milk production",
+        noteBoar: "Note: Maintenance level, adjust for body condition",
     },
 
     id: {
+        // Navigation
+        previous: "Sebelumnya",
+        next: "Selanjutnya",
+        newCalculation: "Perhitungan Baru",
+
+        // Animal Type Names (for interpolation)
+        animalTypeSwine: "babi",
+        animalTypePoultry: "unggas",
+
+        // Production Category Descriptions
+        breedingDescription: "Perhitungan optimal untuk ternak {animalType} pembibitan.",
+        commercialDescription: "Pelacakan performa dan biaya untuk operasi {animalType} komersial.",
+
+        // Badges & Labels
+        selected: "✓ Dipilih",
+        popular: "Populer",
+
+        // Application Methods
+        applicationFeed: "📍 Pakan",
+        applicationWater: "💧 Air",
+
         // Header
-        title: "KALKULATOR FEED ADDITIVES",
+        title: "KALKULATOR ADITIF PAKAN",
         subtitle: "Vaksindo Vietnam - United Animal Health Products",
+        calculatorSubtitle: "Analisis dan optimasi feed additive yang komprehensif untuk manajemen nutrisi ternak.",
+        swineDescription: "Hitung dosis dan biaya feed additive yang disesuaikan untuk operasi babi Anda.",
+        poultryDescription: "Hitung dosis dan biaya feed additive yang disesuaikan untuk ternak unggas Anda.",
 
         // Steps
         step1: "Pilih Hewan",
         step2: "Info Populasi",
         step3: "Pilih Produk",
         step4: "Protokol & Hasil",
-
+        
         // Step 1: Animal Selection
         selectAnimalType: "Pilih Jenis Hewan:",
         selectProductionCategory: "Kategori Produksi:",
@@ -190,13 +290,27 @@ export const feedAdditivesTranslations = {
         swine: "Babi",
         poultry: "Unggas",
 
+        // Animal Category Labels
+        broiler_breeder: "Broiler Breeder",
+        layer_breeder: "Layer Breeder",
+        color_breeder: "Color Breeder",
+        broiler: "Broiler",
+        layer: "Layer (Komersial)",
+        color_chicken: "Ayam Kampung",
+        nursery: "Nursery/Penyapihan (5-27 kg)",
+        grower: "Grower (27-60 kg)",
+        finisher: "Finisher (60-120 kg)",
+        sow_gestation: "Induk - Bunting",
+        sow_lactation: "Induk - Laktasi",
+        boar: "Pejantan",
+
         // Animal categories
         broiler: "Broiler",
         layer: "Layer",
         colorChicken: "Ayam Kampung",
         broilerBreeder: "Broiler Breeder",
         layerBreeder: "Layer Breeder",
-        colorBreeder: "Breeder Kampung",
+        colorBreeder: "Color Breeder",
         nursery: "Nursery",
         grower: "Grower",
         finisher: "Finisher",
@@ -212,6 +326,13 @@ export const feedAdditivesTranslations = {
         age: "Umur",
         days: "hari",
         weeks: "minggu",
+
+        // Step 2: Gender Selection (Breeding)
+        genderLabel: "Jenis Kelamin:",
+        genderFemale: "Betina saja",
+        genderMale: "Jantan saja",
+        genderMixed: "Campuran",
+        genderRatio: "Rasio (Betina : Jantan):",
 
         // Step 3: Product Selection
         selectProduct: "Pilih Produk",
@@ -238,6 +359,10 @@ export const feedAdditivesTranslations = {
         createCustomProtocol: "+ Atau Buat Protokol Custom",
         hideCustomProtocol: "− Sembunyikan Protokol Custom",
         customProtocolLabel: "Protokol Custom:",
+        periodLabel: "Periode",
+        removeButton: "Hapus",
+        startDayLabel: "Hari Mulai:",
+        endDayLabel: "Hari Akhir:",
 
         // Results
         calculationResults: "Hasil Perhitungan",
@@ -293,6 +418,16 @@ export const feedAdditivesTranslations = {
         allFieldsRequired: "* Semua field wajib diisi. Informasi Anda akan dijaga kerahasiaannya.",
         inquirySuccess: "Terima kasih atas permintaan Anda! Tim kami akan menghubungi Anda segera.",
         fillAllFields: "Mohon isi semua field yang diperlukan.",
+        exportExcel: "Ekspor Excel",
+        printPDF: "Cetak PDF",
+        referenceDataTitle: "Data Referensi:",
+        dailyPerformanceData: "Data Performa Harian (Hari 0-56)",
+        completeWeeklyDataLayer: "Data Mingguan Lengkap (Minggu 1-100)",
+        completeWeeklyDataBroilerBreeder: "Data Mingguan Lengkap (Minggu 0-64)",
+        completeWeeklyDataColorBreeder: "Data Mingguan Lengkap (Minggu 1-70)",
+        rearingPhase: "Fase Pembesaran",
+        productionPhase: "Fase Produksi",
+        pulletRearingPhase: "Fase Pembesaran Pullet",
 
         // Navigation
         previous: "Sebelumnya",
@@ -320,8 +455,8 @@ export const feedAdditivesTranslations = {
 
         // Reference Data Table Headers
         ageInDays: "Umur (hari)",
-        waterMlPerBird: "Air (ml/ekor/hari)",
-        feedGPerBird: "Pakan (g/ekor/hari)",
+        waterMlPerBird: "Air (ml/bird/day)",
+        feedGPerBird: "Pakan (g/bird/day)",
         calculationMethodFormula: "Metode Perhitungan: Berbasis Formula",
         calculationMethodTable: "Metode Perhitungan: Berbasis Tabel dengan Interpolasi",
         calculationMethodPhase: "Metode Perhitungan: Berbasis Fase",
@@ -329,8 +464,8 @@ export const feedAdditivesTranslations = {
         dataSource: "Data dari",
         hyLineGuide: "Panduan Manajemen Hy-Line International",
         nrcSwineStandards: "Standar Nutrisi Babi NRC",
-        formulaDescription: "Air (ml/ekor/hari) = 5.28 × Umur (hari)\nPakan (g/ekor/hari) = Air ÷ 1.77",
-        colorChickenFormula: "Air (ml/ekor/hari) = 5.28 × Umur (hari) × 0.70\nPakan (g/ekor/hari) = Air ÷ 1.77",
+        formulaDescription: "Air (ml/bird/day) = 5.28 × Umur (hari)\nPakan (g/bird/day) = Air ÷ 1.77",
+        colorChickenFormula: "Air (ml/bird/day) = 5.28 × Umur (hari) × 0.70\nPakan (g/bird/day) = Air ÷ 1.77",
         breederPhaseDescription: "Fase Pertumbuhan (Minggu 1-20): Menggunakan data layer\nFase Produksi (Minggu 21+): Nilai konsumsi tetap",
         colorBreederPhaseDescription: "Fase Pertumbuhan (Minggu 1-20): Menggunakan data layer dengan penyesuaian 85%\nFase Produksi (Minggu 21+): Nilai konsumsi tetap",
         weightKg: "Berat (kg)",
@@ -339,12 +474,55 @@ export const feedAdditivesTranslations = {
         sowGestationNote: "Catatan: Sesuaikan berdasarkan skor kondisi tubuh",
         sowLactationNote: "Catatan: Kebutuhan air tinggi karena produksi susu",
         boarNote: "Catatan: Level pemeliharaan, sesuaikan dengan kondisi tubuh",
+
+        // Reference Data - Layer Breeder
+        fixedBreedingValues: "Nilai Pembibitan Tetap",
+        layerBreederRearingNote: "Fase Pembesaran: Menggunakan data layer komersial",
+        layerBreederProductionNote: "Fase Produksi: Nilai pembibitan tetap",
+        feedRestrictionNote: "Catatan: Manajemen pembatasan pakan untuk performa pembibitan optimal",
+
+        // Reference Data - Calculation Methods
+        calcMethodFixed: "Metode Kalkulasi: Nilai Tetap",
+        calcMethodWeightBased: "Metode Kalkulasi: Berbasis Bobot dengan Interpolasi",
+        dataSourceNRC: "Data dari Standar Nutrisi NRC",
+        dataSourceNRC11th: "Data dari NRC Kebutuhan Nutrisi Babi, Edisi ke-11",
+
+        // Reference Data - Swine Templates
+        waterTemplate: "Air: {value} L/{animal}/hari",
+        feedTemplate: "Pakan: {value} kg/{animal}/hari",
+        noteSowGestation: "Catatan: Sesuaikan berdasarkan skor kondisi tubuh",
+        noteSowLactation: "Catatan: Kebutuhan air tinggi karena produksi susu",
+        noteBoar: "Catatan: Level pemeliharaan, sesuaikan kondisi tubuh",
     },
 
-    vn: {
+    vi: {
+        // Navigation
+        previous: "Trước",
+        next: "Tiếp Theo",
+        newCalculation: "Tính Toán Mới",
+
+        // Animal Type Names (for interpolation)
+        animalTypeSwine: "lợn",
+        animalTypePoultry: "gia cầm",
+
+        // Production Category Descriptions
+        breedingDescription: "Tính toán tối ưu cho đàn {animalType} nhân giống.",
+        commercialDescription: "Theo dõi hiệu suất và chi phí cho hoạt động {animalType} thương mại.",
+
+        // Badges & Labels
+        selected: "✓ Đã Chọn",
+        popular: "Phổ Biến",
+
+        // Application Methods
+        applicationFeed: "📍 Thức Ăn",
+        applicationWater: "💧 Nước",
+
         // Header
-        title: "MÁY TÍNH PHỤ GIA THỨC ĂN",
+        title: "MÁY TÍNH CHẤT BỔ SUNG THỨC ĂN",
         subtitle: "Vaksindo Vietnam - United Animal Health Products",
+        calculatorSubtitle: "Phân tích và tối ưu hóa phụ gia thức ăn toàn diện cho quản lý dinh dưỡng vật nuôi.",
+        swineDescription: "Tính liều lượng và chi phí phụ gia thức ăn phù hợp cho hoạt động chăn nuôi lợn của bạn.",
+        poultryDescription: "Tính liều lượng và chi phí phụ gia thức ăn phù hợp cho đàn gia cầm của bạn.",
 
         // Steps
         step1: "Chọn Động Vật",
@@ -360,6 +538,20 @@ export const feedAdditivesTranslations = {
         breeding: "Nhân Giống",
         swine: "Lợn",
         poultry: "Gia Cầm",
+
+        // Animal Category Labels
+        broiler_breeder: "Gà Broiler Nhân Giống",
+        layer_breeder: "Gà Đẻ Nhân Giống",
+        color_breeder: "Gà Màu Nhân Giống",
+        broiler: "Gà Broiler",
+        layer: "Gà Đẻ (Thương Mại)",
+        color_chicken: "Gà Màu/Gà Ta",
+        nursery: "Heo Con/Cai Sữa (5-27 kg)",
+        grower: "Heo Thịt (27-60 kg)",
+        finisher: "Heo Xuất Chuồng (60-120 kg)",
+        sow_gestation: "Nái - Mang Thai",
+        sow_lactation: "Nái - Cho Con Bú",
+        boar: "Đực Giống",
 
         // Animal categories
         broiler: "Gà Thịt",
@@ -383,6 +575,13 @@ export const feedAdditivesTranslations = {
         age: "Tuổi",
         days: "ngày",
         weeks: "tuần",
+
+        // Step 2: Gender Selection (Breeding)
+        genderLabel: "Giới Tính:",
+        genderFemale: "Chỉ Con Cái",
+        genderMale: "Chỉ Con Đực",
+        genderMixed: "Đàn Hỗn Hợp",
+        genderRatio: "Tỷ Lệ (Cái : Đực):",
 
         // Step 3: Product Selection
         selectProduct: "Chọn Sản Phẩm",
@@ -510,5 +709,24 @@ export const feedAdditivesTranslations = {
         sowGestationNote: "Lưu ý: Điều chỉnh dựa trên điểm số tình trạng cơ thể",
         sowLactationNote: "Lưu ý: Nhu cầu nước cao do sản xuất sữa",
         boarNote: "Lưu ý: Mức duy trì, điều chỉnh theo tình trạng cơ thể",
+
+        // Reference Data - Layer Breeder
+        fixedBreedingValues: "Giá Trị Nhân Giống Cố Định",
+        layerBreederRearingNote: "Giai Đoạn Nuôi: Sử dụng dữ liệu gà đẻ thương mại",
+        layerBreederProductionNote: "Giai Đoạn Sản Xuất: Giá trị nhân giống cố định",
+        feedRestrictionNote: "Lưu ý: Quản lý hạn chế thức ăn để đạt hiệu suất nhân giống tối ưu",
+
+        // Reference Data - Calculation Methods
+        calcMethodFixed: "Phương Pháp Tính: Giá Trị Cố Định",
+        calcMethodWeightBased: "Phương Pháp Tính: Dựa Trên Trọng Lượng với Nội Suy",
+        dataSourceNRC: "Dữ liệu từ Tiêu chuẩn Dinh dưỡng NRC",
+        dataSourceNRC11th: "Dữ liệu từ NRC Yêu cầu Dinh dưỡng Heo, Ấn bản 11",
+
+        // Reference Data - Swine Templates
+        waterTemplate: "Nước: {value} L/{animal}/ngày",
+        feedTemplate: "Thức Ăn: {value} kg/{animal}/ngày",
+        noteSowGestation: "Lưu ý: Điều chỉnh dựa trên điểm thể trạng",
+        noteSowLactation: "Lưu ý: Nhu cầu nước cao do sản xuất sữa",
+        noteBoar: "Lưu ý: Mức duy trì, điều chỉnh thể trạng",
     }
 };

@@ -21,7 +21,13 @@ export const diseasePageTranslations = {
         zoonoticRiskYes: 'Yes - Can infect humans',
         zoonoticRiskNo: 'No',
         newDiagnosisButton: 'New Diagnosis',
-        printButton: 'Print'
+        printButton: 'Print',
+        confidenceMatch: 'Confidence Match',
+        matchedSymptoms: 'Matched Symptoms',
+        otherSymptoms: 'Other Symptoms',
+        strong: 'strong',
+        symptomsMatched: 'symptoms matched',
+        vaccineComingSoon: 'Vaccine information will be added soon. Please check back later for detailed recommendations from our company.'
     },
     id: {
         diseaseNotFound: 'Penyakit Tidak Ditemukan',
@@ -44,7 +50,13 @@ export const diseasePageTranslations = {
         zoonoticRiskYes: 'Ya - Dapat menginfeksi manusia',
         zoonoticRiskNo: 'Tidak',
         newDiagnosisButton: 'Diagnosis Baru',
-        printButton: 'Cetak'
+        printButton: 'Cetak',
+        confidenceMatch: 'Tingkat Kepercayaan',
+        matchedSymptoms: 'Gejala yang Cocok',
+        otherSymptoms: 'Gejala Lainnya',
+        strong: 'dari',
+        symptomsMatched: 'gejala cocok',
+        vaccineComingSoon: 'Informasi vaksin akan segera ditambahkan. Silakan periksa kembali nanti untuk rekomendasi detail dari perusahaan kami.'
     },
     vi: {
         diseaseNotFound: 'Không tìm thấy bệnh',
@@ -67,6 +79,12 @@ export const diseasePageTranslations = {
         zoonoticRiskYes: 'Có - Có thể lây sang người',
         zoonoticRiskNo: 'Không',
         newDiagnosisButton: 'Chẩn đoán mới',
-        printButton: 'In'
+        printButton: 'In',
+        confidenceMatch: 'Độ tin cậy',
+        matchedSymptoms: 'Triệu chứng phù hợp',
+        otherSymptoms: 'Triệu chứng khác',
+        strong: 'trong',
+        symptomsMatched: 'triệu chứng phù hợp',
+        vaccineComingSoon: 'Thông tin vắc-xin sẽ được thêm sớm. Vui lòng kiểm tra lại sau để biết các khuyến nghị chi tiết từ công ty chúng tôi.'
     }
 };

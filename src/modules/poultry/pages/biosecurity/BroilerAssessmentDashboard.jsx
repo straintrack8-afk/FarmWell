@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBroilerAssessment } from '../../contexts/BroilerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import { getLocalizedText, loadAssessment, saveAssessment, clearAssessment } from '../../utils/assessmentUtils';
 
 function BroilerAssessmentDashboard() {
     const navigate = useNavigate();
     const { language } = useLanguage();
+    const { t } = useTranslation();
     const {
         assessmentData,
         focusAreas,
@@ -152,12 +154,12 @@ function BroilerAssessmentDashboard() {
                         <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                             <div>
                                 <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                                    Broiler Farm Biosecurity Assessment
+                                    {t('poultry.biosecurity.dashboard.title')}
                                 </h1>
                                 <p style={{ color: '#6b7280' }}>
                                     {hasSavedProgress
-                                        ? 'Select a category to continue your assessment'
-                                        : 'Select a category to begin your assessment'
+                                        ? t('poultry.biosecurity.dashboard.subtitleContinue')
+                                        : t('poultry.biosecurity.dashboard.subtitle')
                                     }
                                 </p>
                             </div>
@@ -177,31 +179,31 @@ function BroilerAssessmentDashboard() {
                                     gap: '0.5rem'
                                 }}
                             >
-                                Back to Dashboard
+                                {t('poultry.biosecurity.dashboard.backToDashboard')}
                             </button>
                         </div>
 
                         {/* Progress Overview — 2×2 metric cards */}
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
                             <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #366092', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Total Questions</div>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.biosecurity.dashboard.totalQuestions')}</div>
                                 <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{progressStats?.totalQuestions || 0}</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>across all areas</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.biosecurity.dashboard.acrossAllAreas')}</div>
                             </div>
                             <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Answered</div>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.biosecurity.dashboard.answered')}</div>
                                 <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{progressStats?.answeredQuestions || 0}</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>questions completed</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.biosecurity.dashboard.questionsCompleted')}</div>
                             </div>
                             <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #F59E0B', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Progress</div>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.biosecurity.dashboard.progress')}</div>
                                 <div style={{ fontSize: '2rem', fontWeight: '800', color: '#F59E0B', lineHeight: 1 }}>{progressStats?.percentage?.toFixed(0) || 0}%</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>overall completion</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.biosecurity.dashboard.overallCompletion')}</div>
                             </div>
                             <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #8B5CF6', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Focus Areas</div>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.biosecurity.dashboard.focusAreas')}</div>
                                 <div style={{ fontSize: '2rem', fontWeight: '800', color: '#8B5CF6', lineHeight: 1 }}>{allAreas.length}</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>total assessment areas</div>
+                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.biosecurity.dashboard.totalAssessmentAreas')}</div>
                             </div>
                         </div>
 
@@ -226,7 +228,7 @@ function BroilerAssessmentDashboard() {
                                         color: '#6b7280',
                                         marginBottom: '0.5rem'
                                     }}>
-                                        Date
+                                        {t('poultry.biosecurity.dashboard.date')}
                                     </label>
                                     <div style={{
                                         fontSize: '1rem',
@@ -252,11 +254,11 @@ function BroilerAssessmentDashboard() {
                                         color: '#6b7280',
                                         marginBottom: '0.5rem'
                                     }}>
-                                        Assessor Name
+                                        {t('poultry.biosecurity.dashboard.assessorName')}
                                     </label>
                                     <input
                                         type="text"
-                                        placeholder="Enter assessor name"
+                                        placeholder="{t('poultry.biosecurity.dashboard.enterAssessorName')}"
                                         defaultValue={(() => {
                                             const saved = loadAssessment();
                                             return saved?.metadata?.assessorName || '';
@@ -289,7 +291,7 @@ function BroilerAssessmentDashboard() {
                                         color: '#6b7280',
                                         marginBottom: '0.5rem'
                                     }}>
-                                        Assessment ID
+                                        {t('poultry.biosecurity.dashboard.assessmentId')}
                                     </label>
                                     <div style={{
                                         fontSize: '1rem',
@@ -489,7 +491,7 @@ function BroilerAssessmentDashboard() {
                                             boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
                                         }}
                                     >
-                                        Print Assessment Summary
+                                        {t('poultry.biosecurity.dashboard.printAssessmentSummary')}
                                     </button>
                                     <button
                                         onClick={() => navigate('/poultry/biosecurity')}
@@ -501,7 +503,7 @@ function BroilerAssessmentDashboard() {
                                             color: '#374151'
                                         }}
                                     >
-                                        Back to Main Dashboard
+                                        {t('poultry.biosecurity.dashboard.backToMainDashboard')}
                                     </button>
                                 </>
                             )}
@@ -511,7 +513,7 @@ function BroilerAssessmentDashboard() {
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', marginBottom: '2rem' }}>
                             <button
                                 onClick={() => {
-                                    if (confirm('Are you sure you want to discard this assessment? This action cannot be undone.')) {
+                                    if (confirm(t('poultry.biosecurity.dashboard.discardConfirm'))) {
                                         const saved = loadAssessment();
                                         if (saved?.id) {
                                             clearAssessment(saved.id);
@@ -540,7 +542,7 @@ function BroilerAssessmentDashboard() {
                                     e.currentTarget.style.color = '#ef4444';
                                 }}
                             >
-                                Discard Assessment
+                                {t('poultry.biosecurity.dashboard.discardAssessment')}
                             </button>
                         </div>
                     </div>

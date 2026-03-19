@@ -27,12 +27,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Controls E. coli (95% inhibition)",
-          "Controls Clostridium perfringens (97% inhibition)",
-          "Reduces mortality by 50%",
-          "Improves FCR by 3-5 points"
-        ]
+        "primary": {
+          "en": [
+            "Controls E. coli (95% inhibition)",
+            "Controls Clostridium perfringens (97% inhibition)",
+            "Reduces mortality by 50%",
+            "Improves FCR by 3-5 points"
+          ],
+          "id": [
+            "Mengendalikan E. coli (95% inhibisi)",
+            "Mengendalikan Clostridium perfringens (97% inhibisi)",
+            "Mengurangi mortalitas hingga 50%",
+            "Meningkatkan FCR 3-5 poin"
+          ],
+          "vi": [
+            "Kiểm soát E. coli (95% ức chế)",
+            "Kiểm soát Clostridium perfringens (97% ức chế)",
+            "Giảm tỷ lệ chết 50%",
+            "Cải thiện FCR 3-5 điểm"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000,
       "popular": true
@@ -55,12 +69,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Fast-acting water application",
-          "Controls E. coli and Clostridium",
-          "Reduces mortality",
-          "Easy to administer"
-        ]
+        "primary": {
+          "en": [
+            "Fast-acting water application",
+            "Controls E. coli and Clostridium",
+            "Reduces mortality",
+            "Easy to administer"
+          ],
+          "id": [
+            "Aplikasi air cepat bereaksi",
+            "Mengendalikan E. coli dan Clostridium",
+            "Mengurangi mortalitas",
+            "Mudah diberikan"
+          ],
+          "vi": [
+            "Ứng dụng nước tác dụng nhanh",
+            "Kiểm soát E. coli và Clostridium",
+            "Giảm tỷ lệ chết",
+            "Dễ sử dụng"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000
     },
@@ -81,12 +109,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Broad-spectrum probiotic",
-          "Improves gut health",
-          "Enhances feed efficiency",
-          "Supports immune system"
-        ]
+        "primary": {
+          "en": [
+            "Broad-spectrum probiotic",
+            "Improves gut health",
+            "Enhances feed efficiency",
+            "Supports immune system"
+          ],
+          "id": [
+            "Probiotik spektrum luas",
+            "Meningkatkan kesehatan usus",
+            "Meningkatkan efisiensi pakan",
+            "Mendukung sistem imun"
+          ],
+          "vi": [
+            "Probiotic phổ rộng",
+            "Cải thiện sức khỏe đường ruột",
+            "Tăng hiệu quả thức ăn",
+            "Hỗ trợ hệ miễn dịch"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000
     },
@@ -107,13 +149,29 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Reduces ammonia by 50%",
-          "Reduces H2S by 70%",
-          "Improves air quality",
-          "Better footpad health",
-          "Reduces fly populations"
-        ]
+        "primary": {
+          "en": [
+            "Reduces ammonia by 50%",
+            "Reduces H2S by 70%",
+            "Improves air quality",
+            "Better footpad health",
+            "Reduces fly populations"
+          ],
+          "id": [
+            "Mengurangi amonia hingga 50%",
+            "Mengurangi H2S hingga 70%",
+            "Meningkatkan kualitas udara",
+            "Kesehatan telapak kaki lebih baik",
+            "Mengurangi populasi lalat"
+          ],
+          "vi": [
+            "Giảm amoniac 50%",
+            "Giảm H2S 70%",
+            "Cải thiện chất lượng không khí",
+            "Sức khỏe bàn chân tốt hơn",
+            "Giảm quần thể ruồi"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000,
       "popular": true
@@ -135,12 +193,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Controls E. coli in swine",
-          "Reduces scours",
-          "Improves growth rate",
-          "Better feed conversion"
-        ]
+        "primary": {
+          "en": [
+            "Controls E. coli in swine",
+            "Reduces scours",
+            "Improves growth rate",
+            "Better feed conversion"
+          ],
+          "id": [
+            "Mengendalikan E. coli pada babi",
+            "Mengurangi diare",
+            "Meningkatkan laju pertumbuhan",
+            "Konversi pakan lebih baik"
+          ],
+          "vi": [
+            "Kiểm soát E. coli ở lợn",
+            "Giảm tiêu chảy",
+            "Cải thiện tốc độ tăng trưởng",
+            "Chuyển hóa thức ăn tốt hơn"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000,
       "popular": true
@@ -163,12 +235,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Fast-acting water application",
-          "Controls E. coli",
-          "Easy to administer",
-          "Reduces mortality"
-        ]
+        "primary": {
+          "en": [
+            "Fast-acting water application",
+            "Controls E. coli",
+            "Easy to administer",
+            "Reduces mortality"
+          ],
+          "id": [
+            "Aplikasi air cepat bereaksi",
+            "Mengendalikan E. coli",
+            "Mudah diberikan",
+            "Mengurangi mortalitas"
+          ],
+          "vi": [
+            "Ứng dụng nước tác dụng nhanh",
+            "Kiểm soát E. coli",
+            "Dễ sử dụng",
+            "Giảm tỷ lệ chết"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000
     },
@@ -189,12 +275,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Broad-spectrum probiotic for swine",
-          "Improves gut health",
-          "Better feed efficiency",
-          "Supports immune function"
-        ]
+        "primary": {
+          "en": [
+            "Broad-spectrum probiotic for swine",
+            "Improves gut health",
+            "Better feed efficiency",
+            "Supports immune function"
+          ],
+          "id": [
+            "Probiotik spektrum luas untuk babi",
+            "Meningkatkan kesehatan usus",
+            "Efisiensi pakan lebih baik",
+            "Mendukung fungsi imun"
+          ],
+          "vi": [
+            "Probiotic phổ rộng cho lợn",
+            "Cải thiện sức khỏe đường ruột",
+            "Hiệu quả thức ăn tốt hơn",
+            "Hỗ trợ chức năng miễn dịch"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000
     },
@@ -215,12 +315,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Improves nutrient digestibility",
-          "Better feed conversion",
-          "Reduces feed cost",
-          "Enhances performance"
-        ]
+        "primary": {
+          "en": [
+            "Improves nutrient digestibility",
+            "Better feed conversion",
+            "Reduces feed cost",
+            "Enhances performance"
+          ],
+          "id": [
+            "Meningkatkan kecernaan nutrisi",
+            "Konversi pakan lebih baik",
+            "Mengurangi biaya pakan",
+            "Meningkatkan performa"
+          ],
+          "vi": [
+            "Cải thiện khả năng tiêu hóa dinh dưỡng",
+            "Chuyển hóa thức ăn tốt hơn",
+            "Giảm chi phí thức ăn",
+            "Tăng cường hiệu suất"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000
     },
@@ -241,12 +355,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Releases bound phosphorus",
-          "Improves mineral absorption",
-          "Better bone development",
-          "Reduces feed cost"
-        ]
+        "primary": {
+          "en": [
+            "Releases bound phosphorus",
+            "Improves mineral absorption",
+            "Better bone development",
+            "Reduces feed cost"
+          ],
+          "id": [
+            "Melepaskan fosfor terikat",
+            "Meningkatkan penyerapan mineral",
+            "Perkembangan tulang lebih baik",
+            "Mengurangi biaya pakan"
+          ],
+          "vi": [
+            "Giải phóng phospho liên kết",
+            "Cải thiện hấp thụ khoáng chất",
+            "Phát triển xương tốt hơn",
+            "Giảm chi phí thức ăn"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000
     },
@@ -267,12 +395,26 @@
         }
       },
       "benefits": {
-        "primary": [
-          "Multi-enzyme complex",
-          "Improves feed efficiency",
-          "Better nutrient utilization",
-          "Cost-effective solution"
-        ]
+        "primary": {
+          "en": [
+            "Multi-enzyme complex",
+            "Improves feed efficiency",
+            "Better nutrient utilization",
+            "Cost-effective solution"
+          ],
+          "id": [
+            "Kompleks multi-enzim",
+            "Meningkatkan efisiensi pakan",
+            "Pemanfaatan nutrisi lebih baik",
+            "Solusi hemat biaya"
+          ],
+          "vi": [
+            "Phức hợp đa enzyme",
+            "Cải thiện hiệu quả thức ăn",
+            "Sử dụng dinh dưỡng tốt hơn",
+            "Giải pháp tiết kiệm chi phí"
+          ]
+        }
       },
       "price_per_kg_vnd": 3640000
     }

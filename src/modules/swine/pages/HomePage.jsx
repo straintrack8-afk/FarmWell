@@ -8,7 +8,7 @@ function HomePage() {
     const { t } = useTranslation();
 
     const handleStartDiagnosis = () => {
-        navigate('diagnosis/age');
+        navigate('diagnostic');
     };
 
     const handleStartBiosecurity = () => {

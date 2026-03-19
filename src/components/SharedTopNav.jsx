@@ -7,7 +7,7 @@ const SharedTopNav = ({ hideLogo = false, logoSrc = "/images/FarmWell_Logo.png",
     const languages = [
         { code: 'en', flag: '/images/flags/flag_en.png', label: 'English' },
         { code: 'id', flag: '/images/flags/flag_id.png', label: 'Indonesia' },
-        { code: 'vt', flag: '/images/flags/flag_vn.png', label: 'Tiếng Việt' },
+        { code: 'vi', flag: '/images/flags/flag_vn.png', label: 'Tiếng Việt' },
     ];
 
     return (

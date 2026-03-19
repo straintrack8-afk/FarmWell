@@ -61,7 +61,7 @@ const translations = {
     viewDetails: 'Lihat Detail',
     compare: 'Bandingkan ↓'
   },
-  vn: {
+  vi: {
     searchAllSymptoms: 'Tìm Kiếm Tất Cả Triệu Chứng',
     selectedSymptoms: 'Triệu Chứng Đã Chọn',
     possibleConditions: 'Bệnh Có Thể',
@@ -175,7 +175,7 @@ const BodyPartSelection = () => {
   } = useDiagnosis();
 
   const { language } = useLanguage();
-  const normalizedLang = language === 'vt' ? 'vn' : language;
+  const normalizedLang = (language === 'vt' || language === 'vn') ? 'vi' : language;
   const t = translations[normalizedLang] || translations.en;
 
   useEffect(() => {

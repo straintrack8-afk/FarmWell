@@ -33,6 +33,7 @@ import LayerAssessmentPage from './pages/layer/LayerAssessmentPage';
 import LayerResultsPage from './pages/layer/LayerResultsPage';
 import DiseaseComparison from './pages/DiseaseComparison';
 import DiagnosticLanding from './pages/DiagnosticLanding';
+import { useTranslation } from 'react-i18next';
 
 
 function DiagnosticApp() {
@@ -115,6 +116,7 @@ function DiagnosticApp() {
 }
 
 function App() {
+    const { t } = useTranslation();
     const location = useLocation();
     const isPoultryHomePage = location.pathname === '/poultry' || location.pathname === '/poultry/';
 
@@ -228,7 +230,7 @@ function App() {
 
             {/* ── SUPPORTED BY ── */}
             <div className="fw-supported">
-                <div className="fw-sup-label">POWERED BY</div>
+                <div className="fw-sup-label">{t('common.poweredBy').toUpperCase()}</div>
                 <div className="fw-sup-logos">
                     <img src="/images/Vaksindo_logo.png" alt="Vaksindo" className="fw-vaksindo-logo" />
                 </div>

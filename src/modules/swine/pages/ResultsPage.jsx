@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
+import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 import { swineTranslations } from '../translations';
 import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
-import { DiagnosisResultDisclaimer } from '../components/disease-diagnosis/DiagnosisResultDisclaimer';
 
 function ProgressBar({ step, t }) {
     return (
@@ -65,7 +65,7 @@ function getMortalityClass(level) {
     return mapping[level] || 'mortality-moderate';
 }
 
-function DiseaseCard({ disease, onClick, language }) {
+function DiseaseCard({ disease, onClick, language, tSwine, t }) {
     const dName = typeof disease.name === 'object' ? (disease.name[language] || disease.name.en || disease.name) : disease.name;
     const dDesc = typeof disease.description === 'object' ? (disease.description[language] || disease.description.en || disease.description) : disease.description;
 
@@ -74,8 +74,8 @@ function DiseaseCard({ disease, onClick, language }) {
             {/* Top row: empty left side + ZOONOTIC badge right-aligned. Only renders if zoonotic. */}
             {disease.zoonoticRisk && (
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.375rem' }}>
-                    <span className="badge badge-zoonotic" title="Can spread to humans">
-                        Zoonotic
+                    <span className="badge badge-zoonotic" title={t('common.canSpreadToHumans')}>
+                        {tSwine('zoonotic')}
                     </span>
                 </div>
             )}
@@ -91,7 +91,7 @@ function DiseaseCard({ disease, onClick, language }) {
                 </span>
                 <div className={`mortality-indicator ${getMortalityClass(disease.mortalityLevel)}`}>
                     <span className="mortality-dot"></span>
-                    {disease.mortalityLevel} mortality
+                    {disease.mortalityLevel} {tSwine('mortalityLabel')}
                 </div>
             </div>
 
@@ -101,7 +101,7 @@ function DiseaseCard({ disease, onClick, language }) {
 
             {disease.matchCount > 0 && (
                 <div className="match-indicator">
-                    Matches {disease.matchCount} symptom(s)
+                    {tSwine('matchesSymptoms').replace('{count}', disease.matchCount)}
                 </div>
             )}
         </div>
@@ -111,10 +111,12 @@ function DiseaseCard({ disease, onClick, language }) {
 function ResultsPage() {
     const navigate = useNavigate();
     const { language } = useLanguage();
-    const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
+    const { t } = useTranslation();
+    const tSwine = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
     const {
         selectedAge,
         selectedSymptoms,
+        ageGroups,
         symptoms,
         filteredDiseases,
         resetDiagnosis
@@ -140,7 +142,7 @@ function ResultsPage() {
         return null;
     }
 
-    const selectedAgeGroup = AGE_GROUPS.find(a => a.id === selectedAge);
+    const selectedAgeGroup = ageGroups?.find(a => a.id === selectedAge);
 
     // Map app language to disclaimer language
     const disclaimerLanguage = language === 'en' ? 'en' : language === 'id' ? 'id' : language === 'vi' ? 'vi' : 'en';
@@ -251,20 +253,10 @@ function ResultsPage() {
                                     disease={disease}
                                     onClick={() => handleDiseaseClick(disease.id)}
                                     language={language}
+                                    tSwine={tSwine}
+                                    t={t}
                                 />
                             ))}
-
-                            {/* Diagnosis Result Disclaimer */}
-                            {filteredDiseases.length > 0 && (
-                                <DiagnosisResultDisclaimer
-                                    language={disclaimerLanguage}
-                                    diseaseIndicated={
-                                        filteredDiseases[0]?.name
-                                            ? (typeof filteredDiseases[0].name === 'object' ? (filteredDiseases[0].name[language] || filteredDiseases[0].name.en || filteredDiseases[0].name) : filteredDiseases[0].name)
-                                            : 'Multiple conditions'
-                                    }
-                                />
-                            )}
                         </>
                     )}
                 </div>

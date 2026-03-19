@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLayerAssessment } from '../../contexts/LayerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 import { loadAssessment, setCurrentAssessmentId } from '../../utils/layerAssessmentUtils';
 import '../../../../portal.css';
 import '../../poultry.css';
@@ -10,6 +11,7 @@ function LayerResultsPage() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const { language } = useLanguage();
+    const { t } = useTranslation();
     const {
         overallScore,
         riskConfig,
@@ -97,11 +99,11 @@ function LayerResultsPage() {
     };
 
     const getGradeLabel = () => {
-        if (overallScore < 50) return 'Critical Risk';
-        if (overallScore >= 50 && overallScore <= 75) return 'High Risk';
-        if (overallScore > 75 && overallScore <= 85) return 'Medium Risk';
-        if (overallScore > 85 && overallScore <= 95) return 'Low Risk';
-        return 'Excellent Biosecurity';
+        if (overallScore < 50) return t('biosecurity.results.criticalRisk');
+        if (overallScore >= 50 && overallScore <= 75) return t('biosecurity.results.highRisk');
+        if (overallScore > 75 && overallScore <= 85) return t('biosecurity.results.mediumRisk');
+        if (overallScore > 85 && overallScore <= 95) return t('biosecurity.results.lowRisk');
+        return t('biosecurity.results.excellentBiosecurity');
     };
 
     const allCategories = categories ? Object.values(categories) : [];
@@ -247,9 +249,9 @@ function LayerResultsPage() {
                         {/* Title */}
                         <div style={{ marginBottom: '2rem', textAlign: 'center', padding: '2rem 1rem 0 1rem' }}>
                             <h1 style={{ fontSize: 'clamp(1.4rem, 5vw, 2.5rem)', fontWeight: '700', marginBottom: '0.5rem', wordBreak: 'break-word' }}>
-                                Biosecurity Assessment Report
+                                {t('biosecurity.results.reportTitle')}
                             </h1>
-                            <p style={{ color: '#6b7280' }}>Layer Farm Biosecurity Evaluation</p>
+                            <p style={{ color: '#6b7280' }}>{t('biosecurity.results.layerSubtitle')}</p>
                         </div>
 
                         {/* Content Wrapper */}
@@ -296,7 +298,7 @@ function LayerResultsPage() {
                                         {getGradeLabel()}
                                     </div>
                                     <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>
-                                        {progressStats?.answeredCount || 0} of {progressStats?.totalCount || 128} questions answered
+                                        {t('biosecurity.results.questionsAnswered', { answered: progressStats?.answeredCount || 0, total: progressStats?.totalCount || 128 })}
                                     </div>
                                 </div>
                             </div>
@@ -308,7 +310,7 @@ function LayerResultsPage() {
                                     fontWeight: '600',
                                     marginBottom: '0.75rem'
                                 }}>
-                                    Category Breakdown
+                                    {t('biosecurity.results.categoryBreakdown')}
                                 </h2>
                                 <div style={{
                                     display: 'grid',
@@ -403,7 +405,7 @@ function LayerResultsPage() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <p style={{ color: '#6b7280' }}>No significant disease risks identified</p>
+                                    <p style={{ color: '#6b7280' }}>{t('biosecurity.results.noRisksIdentified')}</p>
                                 )}
                             </div>
 
@@ -485,7 +487,7 @@ function LayerResultsPage() {
                                                                 color: '#1f2937',
                                                                 marginBottom: '0.5rem'
                                                             }}>
-                                                                Recommended Actions:
+                                                                {t('biosecurity.results.recommendedActions')}
                                                             </div>
                                                             <ol style={{
                                                                 fontSize: '0.875rem',
@@ -575,7 +577,7 @@ function LayerResultsPage() {
                                                                 color: '#1f2937',
                                                                 marginBottom: '0.5rem'
                                                             }}>
-                                                                Recommended Actions:
+                                                                {t('biosecurity.results.recommendedActions')}
                                                             </div>
                                                             <ol style={{
                                                                 fontSize: '0.875rem',
@@ -621,7 +623,7 @@ function LayerResultsPage() {
                                         padding: '0.75rem 2rem'
                                     }}
                                 >
-                                    Print Report
+                                    {t('biosecurity.results.printReport')}
                                 </button>
                                 <button
                                     onClick={handleBackToLanding}
@@ -639,7 +641,7 @@ function LayerResultsPage() {
                                     onMouseEnter={(e) => e.currentTarget.style.borderColor = '#9ca3af'}
                                     onMouseLeave={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                                 >
-                                    Back to Dashboard
+                                    {t('biosecurity.results.backToDashboard')}
                                 </button>
                                 <button
                                     onClick={handleNewAssessment}
@@ -649,7 +651,7 @@ function LayerResultsPage() {
                                         borderRadius: '8px'
                                     }}
                                 >
-                                    Start New Assessment
+                                    {t('biosecurity.results.newAssessment')}
                                 </button>
                             </div>
                         </div>

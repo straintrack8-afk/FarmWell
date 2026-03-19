@@ -29,7 +29,7 @@ function getMortalityClass(level) {
 function DiseasePage() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { diseases, resetDiagnosis, symptoms: contextSymptoms } = useDiagnosis();
+    const { diseases, resetDiagnosis, clearSymptoms, symptoms: contextSymptoms, selectedSymptoms } = useDiagnosis();
     const { language } = useLanguage();
     const t = (key) => diseasePageTranslations[language]?.[key] || swineTranslations[language]?.[key] || diseasePageTranslations['en'][key] || swineTranslations['en'][key];
 
@@ -54,10 +54,25 @@ function DiseasePage() {
 
     const dName = typeof disease.name === 'object' ? (disease.name[language] || disease.name.en || disease.name) : disease.name;
     const dDesc = typeof disease.description === 'object' ? (disease.description[language] || disease.description.en || disease.description) : disease.description;
-    const dTransmission = typeof disease.transmission === 'object' ? (disease.transmission[language] || disease.transmission.en || disease.transmission) : disease.transmission;
-    const dDiagnosis = typeof disease.diagnosisMethod === 'object' ? (disease.diagnosisMethod[language] || disease.diagnosisMethod.en || disease.diagnosisMethod) : disease.diagnosisMethod;
-    const dTreatment = typeof disease.treatmentOptions === 'object' ? (disease.treatmentOptions[language] || disease.treatmentOptions.en || disease.treatmentOptions) : disease.treatmentOptions;
-    const dPrevention = typeof disease.controlPrevention === 'object' ? (disease.controlPrevention[language] || disease.controlPrevention.en || disease.controlPrevention) : disease.controlPrevention;
+    
+    // Handle both array and object formats for transmission
+    const dTransmission = Array.isArray(disease.transmission) ? disease.transmission : 
+                         (typeof disease.transmission === 'object' ? (disease.transmission[language] || disease.transmission.en || disease.transmission) : disease.transmission);
+    
+    // Handle both field names: diagnosis/diagnosisMethod
+    const diagnosisData = disease.diagnosis || disease.diagnosisMethod;
+    const dDiagnosis = Array.isArray(diagnosisData) ? diagnosisData :
+                      (typeof diagnosisData === 'object' ? (diagnosisData[language] || diagnosisData.en || diagnosisData) : diagnosisData);
+    
+    // Handle both field names: treatment/treatmentOptions
+    const treatmentData = disease.treatment || disease.treatmentOptions;
+    const dTreatment = Array.isArray(treatmentData) ? treatmentData :
+                      (typeof treatmentData === 'object' ? (treatmentData[language] || treatmentData.en || treatmentData) : treatmentData);
+    
+    // Handle both field names: control/controlPrevention
+    const preventionData = disease.control || disease.controlPrevention;
+    const dPrevention = Array.isArray(preventionData) ? preventionData :
+                       (typeof preventionData === 'object' ? (preventionData[language] || preventionData.en || preventionData) : preventionData);
 
     // Helper to get translated symptom name
     const getTranslatedSymptom = (symptomEnStr) => {
@@ -74,22 +89,17 @@ function DiseasePage() {
     };
 
     const handleNewDiagnosis = () => {
-        resetDiagnosis();
-        navigate('/swine/diagnosis/age');
+        clearSymptoms();
+        navigate('/swine/diagnosis/symptoms');
     };
+
+    // Get all symptoms and separate matched vs unmatched
+    const allSymptoms = disease.symptoms || [];
+    const matchedSymptoms = allSymptoms.filter(s => selectedSymptoms.includes(s));
+    const unmatchedSymptoms = allSymptoms.filter(s => !selectedSymptoms.includes(s));
 
     return (
         <div className="container swine-diagnosis" style={{ paddingBottom: '2rem' }}>
-            {/* Back Button */}
-            <div style={{ padding: '1rem 0' }}>
-                <button
-                    className="btn btn-secondary btn-sm"
-                    onClick={() => navigate('/swine/diagnosis/results')}
-                >
-                    {t('backToResults')}
-                </button>
-            </div>
-
             {/* Main Content Card */}
             <div className="disease-detail-card">
                 {/* Disease Header */}
@@ -117,6 +127,20 @@ function DiseasePage() {
                             {disease.mortalityLevel} {t('mortalityText')}
                         </div>
 
+                        {/* Zoonotic Risk Badge */}
+                        {disease.zoonoticRisk && (
+                            <span style={{
+                                padding: '0.25rem 0.75rem',
+                                background: '#FEF3C7',
+                                color: '#92400E',
+                                borderRadius: '12px',
+                                fontSize: '0.75rem',
+                                fontWeight: '600'
+                            }}>
+                                ⚠️ {t('zoonoticRiskTitle')}
+                            </span>
+                        )}
+
                         {disease.ageGroups?.map(ag => (
                             <span
                                 key={ag}
@@ -132,6 +156,45 @@ function DiseasePage() {
                             </span>
                         ))}
                     </div>
+
+                    {/* Confidence Match */}
+                    {disease.percentage !== undefined && (
+                        <div style={{ 
+                            marginTop: '1rem',
+                            padding: '1rem',
+                            background: '#F0FDF4',
+                            borderRadius: '8px',
+                            border: '2px solid #10B981'
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#059669' }}>
+                                    {t('confidenceMatch')}
+                                </span>
+                                <span style={{ fontSize: '1.25rem', fontWeight: '700', color: '#059669' }}>
+                                    {disease.percentage.toFixed(1)}%
+                                </span>
+                            </div>
+                            <div style={{ 
+                                width: '100%',
+                                height: '8px',
+                                background: '#D1FAE5',
+                                borderRadius: '4px',
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{
+                                    width: `${Math.min(disease.percentage, 100)}%`,
+                                    height: '100%',
+                                    background: disease.percentage >= 70 ? '#10B981' : disease.percentage >= 40 ? '#F59E0B' : '#EF4444',
+                                    transition: 'width 0.3s'
+                                }} />
+                            </div>
+                            {matchedSymptoms.length > 0 && (
+                                <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: '#059669' }}>
+                                    {matchedSymptoms.length} {t('strong')} {allSymptoms.length} {t('symptomsMatched')}
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 {/* Zoonotic Warning */}
@@ -151,197 +214,413 @@ function DiseasePage() {
                 <div style={{ paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)', marginTop: '1.5rem' }}>
                     {/* Description */}
                     {dDesc && (
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                {t('description')}
+                        <div style={{ 
+                            border: '2px solid #10B981', 
+                            borderRadius: '8px', 
+                            padding: '1rem', 
+                            background: '#F0FDF4',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                                📝 {t('description')}
                             </h3>
-                            <div style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
-                                {formatDescription(dDesc)}
+                            <div style={{ 
+                                padding: '1rem', 
+                                background: 'white', 
+                                borderRadius: '6px',
+                                border: '1px solid #D1D5DB'
+                            }}>
+                                <p style={{ fontSize: '0.875rem', color: '#6B7280', lineHeight: '1.5', margin: 0, whiteSpace: 'pre-line' }}>
+                                    {formatDescription(dDesc)}
+                                </p>
                             </div>
                         </div>
                     )}
-
-                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                     {/* Clinical Signs */}
-                    {disease.symptoms?.length > 0 && (
+                    {allSymptoms.length > 0 && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                {t('clinicalSignsTitle')}
+                                🩺 {t('clinicalSignsTitle')}
                             </h3>
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))',
-                                gap: '0.75rem'
-                            }}>
-                                {disease.symptoms.map((symptom, idx) => (
-                                    <div
-                                        key={idx}
-                                        style={{
-                                            padding: '0.75rem 1rem',
-                                            background: 'var(--bg-tertiary)',
-                                            borderRadius: 'var(--radius-md)',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '0.5rem'
-                                        }}
-                                    >
-                                        <span style={{ color: 'var(--primary)' }}>•</span>
-                                        {getTranslatedSymptom(symptom)}
+                            
+                            {/* Matched Symptoms */}
+                            {matchedSymptoms.length > 0 && (
+                                <>
+                                    <h4 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#059669', marginBottom: '0.75rem' }}>
+                                        ✓ {t('matchedSymptoms')} ({matchedSymptoms.length})
+                                    </h4>
+                                    <div style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                                        gap: '0.75rem',
+                                        marginBottom: '1.5rem'
+                                    }}>
+                                        {matchedSymptoms.map((symptom, idx) => (
+                                            <div
+                                                key={idx}
+                                                style={{
+                                                    padding: '0.75rem 1rem',
+                                                    background: '#F0FDF4',
+                                                    border: '2px solid #10B981',
+                                                    borderRadius: '8px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.5rem'
+                                                }}
+                                            >
+                                                <span style={{ color: '#10B981', fontWeight: 'bold', fontSize: '1.125rem' }}>✓</span>
+                                                <span style={{ color: '#059669', fontWeight: '500' }}>{getTranslatedSymptom(symptom)}</span>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
+                                </>
+                            )}
+                            
+                            {/* Other Symptoms */}
+                            {unmatchedSymptoms.length > 0 && (
+                                <>
+                                    <h4 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#6B7280', marginBottom: '0.75rem' }}>
+                                        {t('otherSymptoms')} ({unmatchedSymptoms.length})
+                                    </h4>
+                                    <div style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                                        gap: '0.75rem'
+                                    }}>
+                                        {unmatchedSymptoms.map((symptom, idx) => (
+                                            <div
+                                                key={idx}
+                                                style={{
+                                                    padding: '0.75rem 1rem',
+                                                    background: '#F9FAFB',
+                                                    border: '1px solid #E5E7EB',
+                                                    borderRadius: '8px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '0.5rem'
+                                                }}
+                                            >
+                                                <span style={{ color: '#9CA3AF', fontWeight: 'bold' }}>•</span>
+                                                <span style={{ color: '#6B7280' }}>{getTranslatedSymptom(symptom)}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
                         </div>
                     )}
-
-                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                     {/* Transmission */}
                     {dTransmission && (
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                {t('transmissionTitle')}
+                        <div style={{ 
+                            border: '2px solid #10B981', 
+                            borderRadius: '8px', 
+                            padding: '1rem', 
+                            background: '#F0FDF4',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                                🦠 {t('transmissionTitle')}
                             </h3>
-                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                {textToBullets(dTransmission).map((item, i) => (
-                                    <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                            <div style={{ 
+                                padding: '1rem', 
+                                background: 'white', 
+                                borderRadius: '6px',
+                                border: '1px solid #D1D5DB'
+                            }}>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                    {(Array.isArray(dTransmission) ? dTransmission : textToBullets(dTransmission)).map((item, i) => (
+                                        <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                                            <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     )}
-
-                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                     {/* Diagnosis Methods */}
                     {dDiagnosis && (
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                {t('diagnosisMethodsTitle')}
+                        <div style={{ 
+                            border: '2px solid #10B981', 
+                            borderRadius: '8px', 
+                            padding: '1rem', 
+                            background: '#F0FDF4',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                                🔬 {t('diagnosisMethodsTitle')}
                             </h3>
-                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                {textToBullets(dDiagnosis).map((item, i) => (
-                                    <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                            <div style={{ 
+                                padding: '1rem', 
+                                background: 'white', 
+                                borderRadius: '6px',
+                                border: '1px solid #D1D5DB'
+                            }}>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                    {(Array.isArray(dDiagnosis) ? dDiagnosis : textToBullets(dDiagnosis)).map((item, i) => (
+                                        <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                                            <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     )}
-
-                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                     {/* Treatment Options */}
                     {dTreatment && (
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                {t('treatmentOptionsTitle')}
+                        <div style={{ 
+                            border: '2px solid #10B981', 
+                            borderRadius: '8px', 
+                            padding: '1rem', 
+                            background: '#F0FDF4',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                                💊 {t('treatmentOptionsTitle')}
                             </h3>
-                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                {textToBullets(dTreatment).map((item, i) => (
-                                    <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                            <div style={{ 
+                                padding: '1rem', 
+                                background: 'white', 
+                                borderRadius: '6px',
+                                border: '1px solid #D1D5DB'
+                            }}>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                    {(Array.isArray(dTreatment) ? dTreatment : textToBullets(dTreatment)).map((item, i) => (
+                                        <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                                            <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     )}
-
-                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
 
                     {/* Control & Prevention */}
                     {dPrevention && (
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                {t('controlPreventionTitle')}
-                            </h3>
-                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                {textToBullets(dPrevention).map((item, i) => (
-                                    <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    {/* Vaccine Recommendation */}
-                    {disease.vaccineRecommendation && (
-                        <>
-                            <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-                            <div style={{ marginBottom: '1rem' }}>
-                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    {t('vaccineRecommendationTitle')}
-                                </h3>
-                                <div style={{
-                                    padding: '1rem',
-                                    background: '#f0fdf4',
-                                    borderRadius: 'var(--radius-md)',
-                                    border: '1px solid rgba(16, 185, 129, 0.4)',
-                                    lineHeight: '1.7'
-                                }}>
-                                    {cleanText(disease.vaccineRecommendation)}
-                                </div>
-                            </div>
-                        </>
-                    )}
-
-                    {/* Key Facts */}
-                    <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-                    <div style={{ marginBottom: '1rem' }}>
-                        <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            {t('keyFactsTitle')}
-                        </h3>
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
-                            gap: '1rem'
+                        <div style={{ 
+                            border: '2px solid #10B981', 
+                            borderRadius: '8px', 
+                            padding: '1rem', 
+                            background: '#F0FDF4',
+                            marginBottom: '1.5rem'
                         }}>
-                            <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
-                                <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>{t('mortalityTitle')}</div>
-                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>
-                                    {disease.mortality || disease.mortalityLevel || 'Unknown'}
-                                </div>
-                            </div>
-                            <div style={{ padding: '1rem', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
-                                <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>{t('zoonoticRiskTitle')}</div>
-                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>
-                                    {disease.zoonoticRisk ? t('zoonoticRiskYes') : t('zoonoticRiskNo')}
-                                </div>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                                🛡️ {t('controlPreventionTitle')}
+                            </h3>
+                            <div style={{ 
+                                padding: '1rem', 
+                                background: 'white', 
+                                borderRadius: '6px',
+                                border: '1px solid #D1D5DB'
+                            }}>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                    {(Array.isArray(dPrevention) ? dPrevention : textToBullets(dPrevention)).map((item, i) => (
+                                        <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                                            <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         </div>
+                    )}
+
+                    {/* Vaccine Recommendations - Always visible */}
+                    <div style={{ 
+                        border: '2px solid #10B981', 
+                        borderRadius: '8px', 
+                        padding: '1rem', 
+                        background: '#F0FDF4',
+                        marginBottom: '1.5rem'
+                    }}>
+                        <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                            💉 {t('vaccineRecommendationTitle')}
+                        </h3>
+                        
+                        {(() => {
+                            const vaccineData = disease.vaccineRecommendations || disease.vaccines || [];
+                            const hasVaccines = vaccineData && vaccineData.length > 0;
+                            const hasVaccineText = disease.vaccineRecommendation;
+                            
+                            if (!hasVaccines && !hasVaccineText) {
+                                return (
+                                    <div style={{
+                                        padding: '1.5rem',
+                                        background: '#EFF6FF',
+                                        border: '1px solid #BFDBFE',
+                                        borderRadius: '8px'
+                                    }}>
+                                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                                            <div style={{ fontSize: '1.5rem', flexShrink: 0 }}>💉</div>
+                                            <div>
+                                                <p style={{ 
+                                                    margin: 0,
+                                                    color: '#1E40AF',
+                                                    fontSize: '0.875rem',
+                                                    lineHeight: '1.6'
+                                                }}>
+                                                    {t('vaccineComingSoon')}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                            
+                            if (hasVaccineText) {
+                                return (
+                                    <div style={{ 
+                                        padding: '1rem', 
+                                        background: 'white', 
+                                        borderRadius: '6px',
+                                        border: '1px solid #D1D5DB'
+                                    }}>
+                                        <p style={{ fontSize: '0.875rem', color: '#6B7280', lineHeight: '1.5', margin: 0 }}>
+                                            {cleanText(disease.vaccineRecommendation)}
+                                        </p>
+                                    </div>
+                                );
+                            }
+                            
+                            return (
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                                    gap: '1rem'
+                                }}>
+                                    {vaccineData.map((vac, idx) => (
+                                        <div key={idx} style={{
+                                            padding: '1rem',
+                                            background: '#EFF6FF',
+                                            border: '1px solid #BFDBFE',
+                                            borderRadius: '8px'
+                                        }}>
+                                            <h4 style={{ margin: '0 0 0.5rem', color: '#1E40AF', fontWeight: '600' }}>
+                                                {vac.name}
+                                            </h4>
+                                            {vac.type && (
+                                                <p style={{ margin: '0 0 0.5rem', fontSize: '0.875rem', color: '#3B82F6' }}>
+                                                    {vac.type}
+                                                </p>
+                                            )}
+                                            {vac.schedule && (
+                                                <p style={{ margin: 0, fontSize: '0.875rem', color: '#60A5FA', lineHeight: '1.5' }}>
+                                                    {vac.schedule}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            );
+                        })()}
                     </div>
+
                 </div>
             </div>
 
-            {/* Action Buttons */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.5rem' }}>
-                {/* Back to Results + New Diagnosis side by side */}
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <button
-                        className="btn btn-secondary"
-                        style={{ flex: 1, minWidth: 0 }}
-                        onClick={() => navigate('/swine/diagnosis/results')}
+            {/* Navigation Buttons */}
+            <div style={{ 
+                marginTop: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                maxWidth: '100%'
+            }}>
+                {/* Row 1: Equal width buttons */}
+                <div style={{ 
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: '1rem'
+                }}>
+                    <button 
+                        onClick={() => navigate('/swine/diagnosis/symptoms')}
+                        style={{
+                            padding: '1rem',
+                            background: '#10B981',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontSize: '1rem',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'background 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.target.style.background = '#059669'}
+                        onMouseLeave={(e) => e.target.style.background = '#10B981'}
                     >
                         {t('backToResults')}
                     </button>
-                    <button
-                        className="btn btn-primary"
-                        style={{ flex: 1, minWidth: 0 }}
+                    
+                    <button 
                         onClick={handleNewDiagnosis}
+                        style={{
+                            padding: '1rem',
+                            background: '#10B981',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontSize: '1rem',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'background 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.target.style.background = '#059669'}
+                        onMouseLeave={(e) => e.target.style.background = '#10B981'}
                     >
-                        {t('newDiagnosisButton')}
+                        {t('newDiagnosis')}
                     </button>
                 </div>
-                {/* Print full-width below */}
-                <button
-                    className="btn btn-outline"
-                    style={{ width: '100%' }}
-                    onClick={() => window.print()}
-                >
-                    {t('printButton')}
-                </button>
+                
+                {/* Row 2: Equal width buttons */}
+                <div style={{ 
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: '1rem'
+                }}>
+                    <button 
+                        onClick={() => navigate('/swine/diseases')}
+                        style={{
+                            padding: '1rem',
+                            background: '#10B981',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontSize: '1rem',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'background 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.target.style.background = '#059669'}
+                        onMouseLeave={(e) => e.target.style.background = '#10B981'}
+                    >
+                        {t('allSwineDiseases')}
+                    </button>
+                    
+                    <button 
+                        onClick={() => window.print()}
+                        style={{
+                            padding: '1rem',
+                            background: '#10B981',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '8px',
+                            fontSize: '1rem',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'background 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.target.style.background = '#059669'}
+                        onMouseLeave={(e) => e.target.style.background = '#10B981'}
+                    >
+                        {t('print')}
+                    </button>
+                </div>
             </div>
         </div>
     );

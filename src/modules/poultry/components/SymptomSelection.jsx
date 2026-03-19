@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { STEPS } from '../utils/constants';
+import { useTranslation } from 'react-i18next';
 
 function ProgressBar({ step }) {
     const steps = [
@@ -60,6 +61,7 @@ function SymptomSelection() {
         bodyPartsWithSymptoms,  // ⭐ NEW - Get body parts with symptoms
         selectedBodyParts       // ⭐ NEW - Get selected body parts
     } = useDiagnosis();
+    const { t } = useTranslation();
 
     // ⭐ Get filtered symptoms based on selected body parts
     const allSymptoms = useMemo(() => {
@@ -124,9 +126,9 @@ function SymptomSelection() {
                 </div>
 
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
-                    <h1 className="page-title">Select Symptoms</h1>
+                    <h1 className="page-title">{t('common.selectSymptoms')}</h1>
                     <p className="page-subtitle">
-                        Age: <strong>{selectedAgeGroup?.name || selectedAgeGroup?.label || 'All'}</strong>
+                        {t('common.age')}: <strong>{selectedAgeGroup?.name || selectedAgeGroup?.label || 'All'}</strong>
                     </p>
                     
                     {/* ⭐ NEW - Show body part filter info */}
@@ -139,7 +141,7 @@ function SymptomSelection() {
                             border: '1px solid #BFDBFE'
                         }}>
                             <div style={{ fontSize: '0.875rem', color: '#1E40AF', marginBottom: '0.25rem' }}>
-                                <strong>Filtered by body areas:</strong>
+                                <strong>{t('common.filteredByBodyAreas')}</strong>
                             </div>
                             <div style={{ fontSize: '0.875rem', color: '#3B82F6' }}>
                                 {selectedBodyParts.map(partId => {
@@ -148,7 +150,7 @@ function SymptomSelection() {
                                 }).filter(Boolean).join(', ')}
                             </div>
                             <div style={{ fontSize: '0.75rem', color: '#6B7280', marginTop: '0.25rem' }}>
-                                Showing {allSymptoms.length} relevant symptoms
+                                {t('common.showingRelevantSymptoms').replace('{count}', allSymptoms.length)}
                             </div>
                         </div>
                     )}
@@ -163,7 +165,7 @@ function SymptomSelection() {
                     <input
                         type="text"
                         className="search-input"
-                        placeholder="Search symptoms..."
+                        placeholder={t('common.searchSymptoms')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -182,13 +184,13 @@ function SymptomSelection() {
                         borderRadius: 'var(--radius-md)'
                     }}>
                         <span>
-                            <strong>{selectedSymptoms.length}</strong> symptom(s) selected
+                            <strong>{selectedSymptoms.length}</strong> {t('common.symptomsSelected')}
                         </span>
                         <button
                             className="btn btn-sm btn-secondary"
                             onClick={clearSymptoms}
                         >
-                            Clear All
+                            {t('common.clearAll')}
                         </button>
                     </div>
                 )}
@@ -271,14 +273,14 @@ function SymptomSelection() {
             <div className="action-bar">
                 <div className="action-bar-content">
                     <div className="action-bar-info">
-                        <span className="action-bar-count">{filteredDiseases.length}</span> possible diseases
+                        <span className="action-bar-count">{filteredDiseases.length}</span> {t('common.possibleDiseases')}
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button
                             className="btn btn-secondary"
                             onClick={() => setStep(STEPS.BODY_PART)}
                         >
-                            ← Back to Body Parts
+                            {t('common.backToBodyParts')}
                         </button>
                         <button
                             className="btn btn-primary"
@@ -291,7 +293,7 @@ function SymptomSelection() {
                                 opacity: selectedSymptoms.length === 0 ? 0.5 : 1
                             }}
                         >
-                            Show Results
+                            {t('common.showResults')}
                         </button>
                     </div>
                 </div>
