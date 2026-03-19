@@ -59,7 +59,7 @@ const translations = {
     noInformation: 'Tidak ada informasi',
     zoonotic: 'Zoonotik'
   },
-  vn: {
+  vi: {
     pageTitle: 'So Sánh Bệnh',
     pageSubtitle: 'Chọn hai bệnh để so sánh đặc điểm, triệu chứng và phương pháp điều trị',
     disease1: 'Bệnh 1',
@@ -92,7 +92,7 @@ const translations = {
 const DiseaseComparison = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
-  const normalizedLang = language === 'vt' ? 'vn' : language;
+  const normalizedLang = (language === 'vt' || language === 'vn') ? 'vi' : language;
   const t = translations[normalizedLang] || translations.en;
   
   const [allDiseases, setAllDiseases] = useState([]);
@@ -117,7 +117,7 @@ const DiseaseComparison = () => {
     const disease1Id = selectedDisease1?.id;
     const disease2Id = selectedDisease2?.id;
     
-    const langCode = language === 'id' ? 'id' : (language === 'vn' || language === 'vt') ? 'vn' : 'en';
+    const langCode = language === 'id' ? 'id' : (language === 'vi' || language === 'vn' || language === 'vt') ? 'vi' : 'en';
     fetch(`/data/poultry/diseases_COMPLETE_129_v4.1_ENRICHED_${langCode}.json`)
       .then(res => res.json())
       .then(data => {

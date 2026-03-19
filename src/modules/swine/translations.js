@@ -34,6 +34,9 @@ export const swineTranslations = {
         selectSymptoms: 'Select Symptoms',
         age: 'Age',
         searchSymptoms: 'Search symptoms...',
+        selectedSymptoms: 'Selected Symptoms',
+        noSymptomsSelected: 'No symptoms selected yet',
+        selectSymptomsToSee: 'Select symptoms to see possible diseases',
         mortality: 'Mortality',
         numberOfAffectedPigs: 'Number of affected pigs',
         feverStatus: 'Fever status',
@@ -67,6 +70,12 @@ export const swineTranslations = {
         diagnosisResults: 'Diagnosis Results',
         basedOnSymptoms: 'Based on the symptoms you selected',
         possibleDiseases: 'Possible Diseases',
+        
+        // Disease Detail Navigation Buttons
+        backToResults: 'Back to Results',
+        newDiagnosis: 'New Diagnosis',
+        allSwineDiseases: 'All Swine Diseases & Conditions',
+        print: 'Print',
         matchScore: 'Match Score',
         viewDetails: 'View Details',
         startNewDiagnosis: 'Start New Diagnosis',
@@ -112,7 +121,13 @@ export const swineTranslations = {
             title: 'Pig Farm Feasibility Suite',
             description: 'Integrated platform for production modeling, financial projection, and investment analysis — built for breeding, fattening, and integrated pig farming operations.',
             button: 'Start Calculate'
-        }
+        },
+
+        // Additional UI strings
+        showingTopSymptoms: 'Showing top 20 of {count} symptoms',
+        zoonotic: 'Zoonotic',
+        mortalityLabel: 'mortality',
+        matchesSymptoms: 'Matches {count} symptom(s)'
     },
     
     id: {
@@ -150,6 +165,9 @@ export const swineTranslations = {
         selectSymptoms: 'Pilih Gejala',
         age: 'Umur',
         searchSymptoms: 'Cari gejala...',
+        selectedSymptoms: 'Gejala Terpilih',
+        noSymptomsSelected: 'Belum ada gejala terpilih',
+        selectSymptomsToSee: 'Pilih gejala untuk melihat kemungkinan penyakit',
         mortality: 'Mortalitas',
         numberOfAffectedPigs: 'Jumlah babi yang terkena',
         feverStatus: 'Status demam',
@@ -183,6 +201,12 @@ export const swineTranslations = {
         diagnosisResults: 'Hasil Diagnosis',
         basedOnSymptoms: 'Berdasarkan gejala yang Anda pilih',
         possibleDiseases: 'Kemungkinan Penyakit',
+        
+        // Disease Detail Navigation Buttons
+        backToResults: 'Kembali ke Hasil',
+        newDiagnosis: 'Diagnosis Baru',
+        allSwineDiseases: 'Semua Penyakit Babi',
+        print: 'Cetak',
         matchScore: 'Skor Kesesuaian',
         viewDetails: 'Lihat Detail',
         startNewDiagnosis: 'Mulai Diagnosis Baru',
@@ -228,7 +252,13 @@ export const swineTranslations = {
             title: 'Pig Farm Feasibility Suite',
             description: 'Platform terintegrasi untuk pemodelan produksi, proyeksi keuangan, dan analisis investasi — dibangun untuk operasi peternakan babi breeding, fattening, dan terintegrasi.',
             button: 'Mulai Hitung'
-        }
+        },
+
+        // Additional UI strings
+        showingTopSymptoms: 'Menampilkan 20 teratas dari {count} gejala',
+        zoonotic: 'Zoonosis',
+        mortalityLabel: 'mortalitas',
+        matchesSymptoms: 'Cocok dengan {count} gejala'
     },
     
     vi: {
@@ -266,6 +296,9 @@ export const swineTranslations = {
         selectSymptoms: 'Chọn Triệu chứng',
         age: 'Tuổi',
         searchSymptoms: 'Tìm kiếm triệu chứng...',
+        selectedSymptoms: 'Triệu chứng đã chọn',
+        noSymptomsSelected: 'Chưa chọn triệu chứng nào',
+        selectSymptomsToSee: 'Chọn triệu chứng để xem các bệnh có thể',
         mortality: 'Tỷ lệ chết',
         numberOfAffectedPigs: 'Số lượng lợn bị ảnh hưởng',
         feverStatus: 'Tình trạng sốt',
@@ -293,15 +326,21 @@ export const swineTranslations = {
         // Number of Pigs
         lessThan10Percent: 'Dưới 10% đàn',
         between10And50Percent: 'Từ 10-50% đàn',
-        moreThan50Percent: 'Trên 50% đàn',
+        moreThan50Percent: 'Hơn 50% đàn',
         
         // Results Page
         diagnosisResults: 'Kết quả Chẩn đoán',
         basedOnSymptoms: 'Dựa trên các triệu chứng bạn đã chọn',
-        possibleDiseases: 'Các bệnh có thể',
+        possibleDiseases: 'Bệnh có thể',
+        
+        // Disease Detail Navigation Buttons
+        backToResults: 'Quay lại Kết quả',
+        newDiagnosis: 'Chẩn đoán Mới',
+        allSwineDiseases: 'Tất cả Bệnh Lợn',
+        print: 'In',
         matchScore: 'Điểm khớp',
-        viewDetails: 'Xem chi tiết',
-        startNewDiagnosis: 'Bắt đầu chẩn đoán mới',
+        viewDetails: 'Xem Chi tiết',
+        startNewDiagnosis: 'Bắt đầu Chẩn đoán Mới',
         noDiseases: 'Không có bệnh nào khớp với các triệu chứng đã chọn',
         tryAdjusting: 'Thử điều chỉnh lựa chọn triệu chứng của bạn',
         
@@ -344,6 +383,12 @@ export const swineTranslations = {
             title: 'Pig Farm Feasibility Suite',
             description: 'Nền tảng tích hợp cho mô hình hóa sản xuất, dự báo tài chính và phân tích đầu tư — được xây dựng cho hoạt động chăn nuôi lợn nhân giống, vỗ béo và tích hợp.',
             button: 'Bắt đầu Tính toán'
-        }
+        },
+
+        // Additional UI strings
+        showingTopSymptoms: 'Hiển thị 20 hàng đầu trong số {count} triệu chứng',
+        zoonotic: 'Lây từ động vật',
+        mortalityLabel: 'tỷ lệ chết',
+        matchesSymptoms: 'Khớp {count} triệu chứng'
     }
 };

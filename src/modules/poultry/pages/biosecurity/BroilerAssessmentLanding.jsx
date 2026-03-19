@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../../contexts/LanguageContext';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import {
     getLocalizedText,
     getAllSavedAssessments,
@@ -15,6 +16,7 @@ import '../../poultry.css';
 function BroilerAssessmentLanding() {
     const navigate = useNavigate();
     const { language } = useLanguage();
+    const { t } = useTranslation();
     const [assessmentData, setAssessmentData] = useState(null);
     const [savedAssessments, setSavedAssessments] = useState([]);
     const [stats, setStats] = useState({
@@ -135,10 +137,10 @@ function BroilerAssessmentLanding() {
                     {/* Page Title */}
                     <div style={{ marginBottom: '1.5rem', marginTop: '1.5rem' }}>
                         <h1 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.375rem', color: '#1e293b' }}>
-                            Broiler Farm Assessment Dashboard
+                            {t('poultry.biosecurity.landing.title')}
                         </h1>
                         <p style={{ color: '#64748b', fontSize: '0.9375rem' }}>
-                            Comprehensive biosecurity evaluation for poultry broiler farms based on international standards
+                            {t('poultry.biosecurity.landing.subtitle')}
                         </p>
                     </div>
 
@@ -146,46 +148,46 @@ function BroilerAssessmentLanding() {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
                         {/* Total Audits */}
                         <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.blue}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Total Assessments</div>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.biosecurity.landing.totalAssessments')}</div>
                             <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{stats.total}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{stats.completed} completed</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{stats.completed} {t('poultry.biosecurity.landing.completed')}</div>
                         </div>
 
                         {/* Last Score */}
                         <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.green}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>Last Score</div>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>{t('poultry.biosecurity.landing.lastScore')}</div>
                             <div style={{ fontSize: '2rem', fontWeight: '800', color: stats.lastScore !== null ? (stats.lastScore >= 80 ? '#10B981' : stats.lastScore >= 60 ? '#3B82F6' : stats.lastScore >= 40 ? '#F59E0B' : '#EF4444') : '#1e293b', lineHeight: 1 }}>
                                 {stats.lastScore !== null ? stats.lastScore : 'N/A'}
                             </div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>Latest completed assessment</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.biosecurity.landing.latestCompleted')}</div>
                         </div>
 
                         {/* Good Audits */}
                         <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.amber}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Good Assessments</div>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.biosecurity.landing.goodAssessments')}</div>
                             <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{stats.goodAssessments}</div>
                             <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
-                                {stats.completed > 0 ? Math.round((stats.goodAssessments / stats.completed) * 100) : 0}% of completed
+                                {stats.completed > 0 ? Math.round((stats.goodAssessments / stats.completed) * 100) : 0}% {t('poultry.biosecurity.landing.ofCompleted')}
                             </div>
                         </div>
 
                         {/* Poor Audits */}
                         <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.red}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Poor Assessments</div>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.biosecurity.landing.poorAssessments')}</div>
                             <div style={{ fontSize: '2rem', fontWeight: '800', color: '#EF4444', lineHeight: 1 }}>{stats.poorAssessments}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>Requires attention</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.biosecurity.landing.requiresAttention')}</div>
                         </div>
                     </div>
 
                     {/* Quick Actions */}
                     <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
-                        <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>Quick Actions</h2>
+                        <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>{t('poultry.biosecurity.landing.quickActions')}</h2>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
                             <button
                                 className="btn btn-primary"
                                 onClick={handleStartNewAssessment}
                             >
-                                Start New Assessment
+                                {t('poultry.biosecurity.landing.startNewAssessment')}
                             </button>
                             <button
                                 className="btn btn-primary"
@@ -196,7 +198,7 @@ function BroilerAssessmentLanding() {
                                     }
                                 }}
                             >
-                                View Assessment History
+                                {t('poultry.biosecurity.landing.viewAssessmentHistory')}
                             </button>
                         </div>
                     </div>
@@ -204,20 +206,20 @@ function BroilerAssessmentLanding() {
                     {/* Recent Assessments */}
                     <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }} id="recent-assessments">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                            <h2 style={{ fontSize: '1.1rem', fontWeight: '700' }}>Recent Assessments</h2>
+                            <h2 style={{ fontSize: '1.1rem', fontWeight: '700' }}>{t('poultry.biosecurity.landing.recentAssessments')}</h2>
                         </div>
 
                         {savedAssessments.length === 0 ? (
                             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>No Assessments Yet</h3>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>{t('poultry.biosecurity.landing.noAssessmentsYet')}</h3>
                                 <p style={{ color: '#64748b', marginBottom: '1.5rem', maxWidth: '440px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
-                                    Start your first broiler farm biosecurity assessment to track compliance and health quality
+                                    {t('poultry.biosecurity.landing.noAssessmentsText')}
                                 </p>
                                 <button
                                     className="btn btn-primary"
                                     onClick={handleStartNewAssessment}
                                 >
-                                    Start First Assessment
+                                    {t('poultry.biosecurity.landing.startFirstAssessment')}
                                 </button>
                             </div>
 

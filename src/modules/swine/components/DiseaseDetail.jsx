@@ -105,26 +105,26 @@ export default function DiseaseDetail() {
                 {/* Quick info bar */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 border-t border-gray-100">
                     <div className="p-4 border-r border-b sm:border-b-0 border-gray-100">
-                        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Mortality</p>
-                        <p className="text-sm font-medium text-gray-900">{selectedDisease.mortality || 'Variable'}</p>
+                        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">{t('swine.diagnosis.detail.mortality')}</p>
+                        <p className="text-sm font-medium text-gray-900">{selectedDisease.mortality || t('swine.diagnosis.detail.variable')}</p>
                     </div>
 
                     <div className="p-4 border-b sm:border-b-0 sm:border-r border-gray-100">
-                        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Transmission</p>
+                        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">{t('swine.diagnosis.detail.transmission')}</p>
                         <p className="text-sm font-medium text-gray-900 line-clamp-2">
-                            {selectedDisease.transmission || 'Various routes'}
+                            {selectedDisease.transmission || t('swine.diagnosis.detail.variousRoutes')}
                         </p>
                     </div>
 
                     <div className="p-4 border-r border-gray-100">
-                        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Zoonotic Risk</p>
+                        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">{t('swine.diagnosis.detail.zoonoticRisk')}</p>
                         <p className={`text-sm font-medium ${selectedDisease.zoonotic ? 'text-amber-600' : 'text-green-600'}`}>
-                            {selectedDisease.zoonotic ? ' Yes' : ' No'}
+                            {selectedDisease.zoonotic ? ` ${t('common.yes')}` : ` ${t('common.no')}`}
                         </p>
                     </div>
 
                     <div className="p-4">
-                        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Age Groups</p>
+                        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">{t('swine.diagnosis.detail.ageGroups')}</p>
                         <p className="text-sm font-medium text-gray-900 line-clamp-2">
                             {selectedDisease.ageGroups.join(', ')}
                         </p>
@@ -137,9 +137,9 @@ export default function DiseaseDetail() {
                         <div className="flex gap-3">
                             <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
                             <div>
-                                <p className="text-sm font-medium text-amber-800">Zoonotic Disease Warning</p>
+                                <p className="text-sm font-medium text-amber-800">{t('swine.diagnosis.detail.zoonoticWarningTitle')}</p>
                                 <p className="text-sm text-amber-700">
-                                    {selectedDisease.zoonoticNote || 'This disease can be transmitted to humans. Take appropriate precautions.'}
+                                    {selectedDisease.zoonoticNote || t('swine.diagnosis.detail.zoonoticWarningText')}
                                 </p>
                             </div>
                         </div>
@@ -218,8 +218,8 @@ export default function DiseaseDetail() {
                                     <span className="text-xl"></span>
                                 </div>
                                 <div>
-                                    <h2 className="font-semibold text-green-900">Vaccine Recommendation</h2>
-                                    <p className="text-sm text-green-700">Recommended vaccines for prevention</p>
+                                    <h2 className="font-semibold text-green-900">{t('swine.diagnosis.detail.vaccineTitle')}</h2>
+                                    <p className="text-sm text-green-700">{t('swine.diagnosis.detail.vaccineSubtitle')}</p>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +279,7 @@ export default function DiseaseDetail() {
                     icon={ArrowLeft}
                     className="flex-1"
                 >
-                    Back to Results
+                    {t('swine.diagnosis.detail.backToResults')}
                 </Button>
 
                 <Button
@@ -288,7 +288,7 @@ export default function DiseaseDetail() {
                     icon={Printer}
                     className="flex-1"
                 >
-                    Print
+                    {t('swine.diagnosis.detail.print')}
                 </Button>
 
                 <Button
@@ -296,7 +296,7 @@ export default function DiseaseDetail() {
                     icon={RefreshCw}
                     className="flex-1"
                 >
-                    New Diagnosis
+                    {t('swine.diagnosis.detail.newDiagnosis')}
                 </Button>
             </div>
 
@@ -310,7 +310,7 @@ export default function DiseaseDetail() {
                         className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 text-sm"
                     >
                         <ExternalLink className="w-4 h-4" />
-                        <span>View more information</span>
+                        <span>{t('swine.diagnosis.detail.viewMoreInfo')}</span>
                     </a>
                 </div>
             )}
@@ -319,7 +319,7 @@ export default function DiseaseDetail() {
             <div className="mt-8 p-6 bg-gray-50 rounded-2xl border border-gray-200">
                 <div className="flex flex-col items-center gap-6">
                     <div className="flex flex-col items-center gap-2">
-                        <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Powered by</span>
+                        <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">{t('common.poweredBy')}</span>
                         <img
                             src="/images/Vaksindo_logo.png"
                             alt="Vaksindo logo"
@@ -327,8 +327,7 @@ export default function DiseaseDetail() {
                         />
                     </div>
                     <p className="text-xs sm:text-sm text-gray-600 text-center max-w-2xl leading-relaxed">
-                        <strong>Disclaimer:</strong> This information is for educational purposes only and should not replace
-                        professional veterinary advice. Always consult a qualified veterinarian for diagnosis and treatment.
+                        <strong>{t('swine.diagnosis.detail.disclaimerLabel')}</strong> {t('swine.diagnosis.detail.disclaimerText')}
                     </p>
                 </div>
             </div>

@@ -1,12 +1,77 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
+import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { swineTranslations } from '../translations';
 import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
 
-function ProgressBar({ step, t }) {
-    return (
+// Age groups for display
+const AGE_GROUPS = {
+  'All ages': { label: 'All Ages' },
+  'Newborn': { label: 'Newborn (0-7 days)' },
+  'Suckling': { label: 'Suckling (0-3 weeks)' },
+  'Weaned': { label: 'Weaned (3-8 weeks)' },
+  'Growers': { label: 'Growers (2-4 months)' },
+  'Finishers': { label: 'Finishers (4-6 months)' },
+  'Sows': { label: 'Sows / Gilts' },
+  'Boars': { label: 'Boars' }
+};
+
+function SymptomsPage() {
+    const navigate = useNavigate();
+    const { language } = useLanguage();
+    const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
+    
+    const {
+        selectedAge,
+        selectedSymptoms,
+        toggleSymptom,
+        clearSymptoms,
+        symptomCategories,
+        diseases,
+        filterDiseasesByAge
+    } = useDiagnosis();
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [expandedCategories, setExpandedCategories] = useState({
+        mortality: true,
+        fever: true,
+        respiratory: true,
+        digestive: true,
+        nervous: true,
+        skin: true,
+        reproductive: true,
+        systemic: true
+    });
+
+    useEffect(() => {
+        if (!selectedAge) {
+            navigate('/swine/diagnosis/age');
+        }
+    }, [selectedAge, navigate]);
+
+    const matchedDiseases = useMemo(() => {
+        if (selectedSymptoms.length === 0 || !diseases) return [];
+        let filtered = diseases;
+        if (selectedAge && selectedAge !== 'All ages' && filterDiseasesByAge) {
+            filtered = filterDiseasesByAge(diseases, selectedAge);
+        }
+        const scored = filtered.map(disease => {
+            const symptomsArray = disease.symptomsEnhanced || [];
+            const matched = symptomsArray.filter(s => selectedSymptoms.includes(typeof s === 'string' ? s : s.name));
+            if (matched.length === 0) return null;
+            const mw = matched.reduce((sum, s) => sum + (typeof s === 'object' ? (s.weight || 0.5) : 0.5), 0);
+            const tw = symptomsArray.reduce((sum, s) => sum + (typeof s === 'object' ? (s.weight || 0.5) : 0.5), 0);
+            return { ...disease, matchCount: matched.length, confidence: Math.round((mw / tw) * 1000) / 10 };
+        }).filter(d => d);
+        return scored.sort((a, b) => b.confidence - a.confidence).slice(0, 10);
+    }, [selectedSymptoms, diseases, selectedAge, filterDiseasesByAge]);
+
+    if (!selectedAge) return null;
+
+    const toggleCategory = (cat) => setExpandedCategories(p => ({ ...p, [cat]: !p[cat] }));
+
+    const ProgressBar = ({ step }) => (
         <div style={{
             background: 'white',
             padding: '1rem',
@@ -42,219 +107,130 @@ function ProgressBar({ step, t }) {
             </div>
         </div>
     );
-}
-
-function SymptomsPage() {
-    const navigate = useNavigate();
-    const { language } = useLanguage();
-    const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
-    const {
-        selectedAge,
-        symptoms,
-        selectedSymptoms,
-        toggleSymptom,
-        clearSymptoms,
-        filteredDiseases
-    } = useDiagnosis();
-
-    const [openCategories, setOpenCategories] = useState(['mortality', 'digestive', 'respiratory', 'general']);
-    const [searchTerm, setSearchTerm] = useState('');
-
-    // Redirect if no age selected
-    if (!selectedAge) {
-        navigate('/swine/diagnosis/age');
-        return null;
-    }
-
-    const toggleCategory = (catId) => {
-        setOpenCategories(prev =>
-            prev.includes(catId)
-                ? prev.filter(id => id !== catId)
-                : [...prev, catId]
-        );
-    };
-
-    const handleShowResults = () => {
-        navigate('/swine/diagnosis/results');
-    };
-
-    // Filter symptoms by search term
-    const getFilteredSymptoms = (categorySymptoms) => {
-        if (!searchTerm) return categorySymptoms;
-        return categorySymptoms.filter(s => {
-            const labelStr = typeof s.label === 'object' ? (s.label[language] || s.label.en) : s.label;
-            return labelStr.toLowerCase().includes(searchTerm.toLowerCase());
-        });
-    };
-
-    const getCategoryIcon = (iconName) => {
-        const icons = {
-            'skull': '',
-            'droplet': '',
-            'wind': '',
-            'brain': '',
-            'heart': '',
-            'palette': '',
-            'thermometer': '',
-            'bone': '',
-            'eye': ''
-        };
-        return icons[iconName] || '';
-    };
-
-    const selectedAgeGroup = AGE_GROUPS.find(a => a.id === selectedAge);
 
     return (
         <DiagnosisWrapper>
-            <div className="has-action-bar">
-                <div className="container">
-                    <ProgressBar step={2} t={t} />
+            <div style={{ padding: '2rem 1rem', maxWidth: '1400px', margin: '0 auto' }}>
+                {/* Progress Bar */}
+                <ProgressBar step={2} />
 
-                    <div className="page-header" style={{ paddingBottom: '1rem' }}>
-                        <h1 className="page-title">{t('selectSymptoms')}</h1>
-                        <p className="page-subtitle">
-                            {t('age')}: <strong>{t(selectedAge)}</strong>
-                        </p>
+                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                    <h1 style={{
+                        fontSize: '2.5rem',
+                        fontWeight: '800',
+                        marginBottom: '1rem',
+                        background: 'var(--primary)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text'
+                    }}>
+                        {t('selectSymptoms')}
+                    </h1>
+                    <p style={{ fontSize: '1.125rem', color: '#6B7280' }}>
+                        Age: <strong>{selectedAge ? (AGE_GROUPS[selectedAge]?.label || selectedAge) : 'Not selected'}</strong>
+                    </p>
+                </div>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+                
+                {/* COLUMN 1: Symptom Selection */}
+                <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxHeight: '600px', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ background: '#10B981', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600' }}>
+                        1️⃣ {t('searchSymptoms')}
                     </div>
-
-                    {/* Search */}
-                    <div className="search-container" style={{ maxWidth: '600px', margin: '0 auto' }}>
-                        <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <circle cx="11" cy="11" r="8" />
-                            <path d="m21 21-4.35-4.35" />
-                        </svg>
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder={t('searchSymptoms')}
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </div>
-
-                    {/* Selected symptoms summary */}
-                    {selectedSymptoms.length > 0 && (
-                        <div style={{
-                            maxWidth: '600px',
-                            margin: '0 auto 1rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            padding: '0.75rem 1rem',
-                            background: '#E0ECFF',
-                            borderRadius: 'var(--radius-md)'
-                        }}>
-                            <span>
-                                <strong>{selectedSymptoms.length}</strong> {t('symptomsSelected')}
-                            </span>
-                            <button
-                                className="btn btn-sm btn-secondary"
-                                onClick={clearSymptoms}
-                            >
-                                {t('clearAll')}
-                            </button>
-                        </div>
-                    )}
-
-                    {/* Symptom Categories */}
-                    <div style={{ maxWidth: '600px', margin: '0 auto', paddingBottom: '1rem' }}>
-                        {symptoms.categories?.map(category => {
-                            const filteredSymptoms = getFilteredSymptoms(category.symptoms);
-                            if (filteredSymptoms.length === 0 && searchTerm) return null;
-                            const catName = typeof category.name === 'object' ? (category.name[language] || category.name.en) : category.name;
-
+                    <input type='text' placeholder={t('searchSymptoms')} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ padding: '0.75rem', border: '1px solid #E5E7EB', borderRadius: '8px', marginBottom: '1rem' }} />
+                    <div style={{ flex: 1, overflowY: 'auto' }}>
+                        {symptomCategories && Object.entries(symptomCategories).map(([key, cat]) => {
+                            const symptoms = cat.symptoms || [];
+                            const filtered = symptoms.filter(s => !searchTerm || s.toLowerCase().includes(searchTerm.toLowerCase()));
+                            if (filtered.length === 0 && searchTerm) return null;
                             return (
-                                <div
-                                    key={category.id}
-                                    className={`collapsible ${openCategories.includes(category.id) ? 'open' : ''}`}
-                                >
-                                    <div
-                                        className="collapsible-header"
-                                        onClick={() => toggleCategory(category.id)}
-                                    >
-                                        <div className="collapsible-title">
-                                            <span style={{ fontSize: '1.25rem' }}>{getCategoryIcon(category.icon)}</span>
-                                            {catName}
-                                            <span style={{
-                                                fontSize: '0.75rem',
-                                                color: 'var(--text-muted)',
-                                                fontWeight: 'normal'
-                                            }}>
-                                                ({filteredSymptoms.length})
-                                            </span>
-                                        </div>
-                                        <svg
-                                            className="collapsible-icon"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                        >
-                                            <polyline points="6 9 12 15 18 9" />
-                                        </svg>
+                                <div key={key} style={{ marginBottom: '0.5rem' }}>
+                                    <div onClick={() => toggleCategory(key)} style={{ padding: '0.75rem', background: expandedCategories[key] ? '#F0FDF4' : '#F9FAFB', border: '1px solid', borderColor: expandedCategories[key] ? '#10B981' : '#E5E7EB', borderRadius: '8px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ fontWeight: '600', fontSize: '0.875rem' }}>{cat.label} ({filtered.length})</span>
+                                        <span>{expandedCategories[key] ? '🔼' : '🔽'}</span>
                                     </div>
-
-                                    <div className="collapsible-content">
-                                        <div className="collapsible-body">
-                                            {filteredSymptoms.slice(0, 20).map(symptom => {
-                                                const symLabelEn = typeof symptom.label === 'object' ? (symptom.label.en || symptom.label) : symptom.label;
-                                                const symLabelLocal = typeof symptom.label === 'object' ? (symptom.label[language] || symLabelEn) : symptom.label;
+                                    {expandedCategories[key] && (
+                                        <div style={{ paddingLeft: '0.5rem', marginTop: '0.5rem' }}>
+                                            {filtered.map((symptom, idx) => {
+                                                const isSelected = selectedSymptoms.includes(symptom);
                                                 return (
-                                                    <label
-                                                        key={symptom.id}
-                                                        className="checkbox-group"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={selectedSymptoms.includes(symLabelEn)}
-                                                            onChange={() => toggleSymptom(symLabelEn)}
-                                                        />
-                                                        <span className="checkbox-label">{symLabelLocal}</span>
-                                                        <span className="checkbox-count">{symptom.count}</span>
-                                                    </label>
-                                                )
+                                                    <div key={idx} onClick={() => toggleSymptom(symptom)} style={{ padding: '0.5rem 0.75rem', marginBottom: '0.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: '6px', background: isSelected ? '#F0FDF4' : 'transparent' }}>
+                                                        <span style={{ fontSize: '0.8125rem', color: isSelected ? '#059669' : '#374151', fontWeight: isSelected ? '500' : '400' }}>{symptom}</span>
+                                                        <button onClick={(e) => { e.stopPropagation(); toggleSymptom(symptom); }} style={{ width: '24px', height: '24px', borderRadius: '50%', background: isSelected ? '#10B981' : '#10B981', border: 'none', color: 'white', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '700' }}>{isSelected ? '✓' : '+'}</button>
+                                                    </div>
+                                                );
                                             })}
-                                            {filteredSymptoms.length > 20 && (
-                                                <div style={{
-                                                    padding: '0.5rem',
-                                                    textAlign: 'center',
-                                                    color: 'var(--text-muted)',
-                                                    fontSize: '0.875rem'
-                                                }}>
-                                                    Showing top 20 of {filteredSymptoms.length} symptoms
-                                                </div>
-                                            )}
                                         </div>
-                                    </div>
+                                    )}
                                 </div>
                             );
                         })}
                     </div>
                 </div>
 
-                <div className="action-bar">
-                    <div className="action-bar-content">
-                        <div className="action-bar-info">
-                            <span className="action-bar-count">{filteredDiseases.length}</span> {t('possibleDiseases')}
-                        </div>
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            <button
-                                className="btn btn-secondary"
-                                onClick={() => navigate('/swine/diagnosis/age')}
-                            >
-                                {t('backButton')}
-                            </button>
-                            <button
-                                className="btn btn-primary"
-                                onClick={handleShowResults}
-                                disabled={selectedSymptoms.length === 0}
-                                style={{ opacity: selectedSymptoms.length === 0 ? 0.5 : 1 }}
-                            >
-                                {t('getDiagnosisButton')}
-                            </button>
-                        </div>
+                {/* COLUMN 2: Selected Symptoms */}
+                <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxHeight: '600px', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ background: '#10B981', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span>2️⃣ {t('selectedSymptoms')} ({selectedSymptoms.length})</span>
+                        {selectedSymptoms.length > 0 && <button onClick={clearSymptoms} style={{ background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', padding: '0.25rem 0.75rem', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: '600' }}>{t('clearAll')}</button>}
+                    </div>
+                    <div style={{ flex: 1, overflowY: 'auto' }}>
+                        {selectedSymptoms.length === 0 ? (
+                            <div style={{ textAlign: 'center', padding: '3rem 1rem', color: '#9CA3AF' }}>
+                                <p style={{ fontSize: '0.875rem' }}>{t('noSymptomsSelected')}</p>
+                            </div>
+                        ) : (
+                            selectedSymptoms.map((symptom, idx) => (
+                                <div key={idx} style={{ padding: '0.75rem', marginBottom: '0.5rem', background: '#F0FDF4', border: '1px solid #10B981', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <span style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: '500', flex: 1 }}>{symptom}</span>
+                                    <button onClick={() => toggleSymptom(symptom)} style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#EF4444', border: 'none', color: 'white', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '700' }}>✕</button>
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
+
+                {/* COLUMN 3: Disease Results */}
+                <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxHeight: '600px', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ background: '#10B981', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600' }}>
+                        3️⃣ {t('possibleDiseases')} ({matchedDiseases.length})
+                    </div>
+                    <div style={{ flex: 1, overflowY: 'auto' }}>
+                        {matchedDiseases.length === 0 ? (
+                            <div style={{ textAlign: 'center', padding: '3rem 1rem', color: '#9CA3AF' }}>
+                                <p style={{ fontSize: '0.875rem' }}>{t('selectSymptomsToSee')}</p>
+                            </div>
+                        ) : (
+                            matchedDiseases.map((disease, idx) => {
+                                const getConfColor = (c) => c >= 80 ? '#10B981' : c >= 60 ? '#F59E0B' : '#EF4444';
+                                return (
+                                    <div key={disease.id} onClick={() => navigate(`/swine/diagnosis/disease/${disease.id}`)} style={{ padding: '0.75rem', marginBottom: '0.75rem', background: 'white', border: '1px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+                                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                                            <span style={{ fontSize: '1.25rem' }}>{idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`}</span>
+                                            <h3 style={{ fontSize: '0.875rem', fontWeight: '700', color: '#111827', margin: 0, lineHeight: '1.3', flex: 1 }}>{disease.name}</h3>
+                                        </div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                                            <div style={{ flex: 1, background: '#E5E7EB', borderRadius: '9999px', height: '8px', overflow: 'hidden' }}>
+                                                <div style={{ width: `${Math.min(disease.confidence, 100)}%`, height: '100%', background: getConfColor(disease.confidence), borderRadius: '9999px', transition: 'width 0.5s' }} />
+                                            </div>
+                                            <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#374151', minWidth: '45px', textAlign: 'right' }}>{disease.confidence}%</span>
+                                        </div>
+                                        <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap' }}>
+                                            <span style={{ fontSize: '0.625rem', padding: '0.125rem 0.5rem', background: '#DBEAFE', color: '#1E40AF', borderRadius: '4px', fontWeight: '600' }}>🦠 {disease.category}</span>
+                                            <span style={{ fontSize: '0.625rem', padding: '0.125rem 0.5rem', background: '#FEE2E2', color: '#DC2626', borderRadius: '4px', fontWeight: '600' }}>{disease.matchCount} symptoms</span>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                <button onClick={() => navigate('/swine/diagnosis/age')} style={{ padding: '0.75rem 1.5rem', background: '#6B7280', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>← Back to Age Selection</button>
+            </div>
             </div>
         </DiagnosisWrapper>
     );

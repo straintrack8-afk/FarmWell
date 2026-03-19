@@ -23,7 +23,7 @@ export const FIELD_MAP = {
     control: 'pengendalian',
     vaccineRecommendations: 'rekomendasi_vaksin'
   },
-  vn: {
+  vi: {
     description: 'description',
     clinicalSigns: 'clinicalSigns',
     transmission: 'transmission',
@@ -38,7 +38,7 @@ export const FIELD_MAP = {
  * Get field value from disease object based on language
  * @param {Object} disease - Disease object
  * @param {string} field - Field name (English version)
- * @param {string} language - Language code (en/id/vn)
+ * @param {string} language - Language code (en/id/vi)
  * @returns {any} Field value
  */
 export const getFieldValue = (disease, field, language = 'en') => {
@@ -91,8 +91,8 @@ export const getCategoryClass = (category) => {
  * @returns {Object} UI labels
  */
 export const getUILabels = (language = 'en') => {
-  // Normalize Vietnamese language code (both 'vt' and 'vn' should work)
-  const normalizedLang = language === 'vt' ? 'vn' : language;
+  // Normalize Vietnamese language code (handle legacy 'vt' and 'vn' codes)
+  const normalizedLang = (language === 'vt' || language === 'vn') ? 'vi' : language;
   
   const labels = {
     en: {
@@ -110,6 +110,10 @@ export const getUILabels = (language = 'en') => {
       vaccineRecommendations: 'Vaccine Recommendations',
       vaccineComingSoon: 'Vaccine information will be updated soon. Please consult with a licensed veterinarian for current vaccination protocols and product availability in your region.',
       severity: 'Severity',
+      severityHigh: 'High Severity',
+      severityMedium: 'Medium Severity',
+      severityLow: 'Low Severity',
+      zoonoticBadge: '⚠️ Zoonotic',
       category: 'Category',
       ageGroups: 'Age Groups',
       confidenceMatch: 'Confidence Match',
@@ -133,15 +137,19 @@ export const getUILabels = (language = 'en') => {
       vaccineRecommendations: 'Rekomendasi Vaksin',
       vaccineComingSoon: 'Informasi vaksin akan segera diperbarui. Silakan konsultasi dengan dokter hewan berlisensi untuk protokol vaksinasi terkini dan ketersediaan produk di wilayah Anda.',
       severity: 'Tingkat Keparahan',
+      severityHigh: 'Parah Tinggi',
+      severityMedium: 'Parah Sedang',
+      severityLow: 'Parah Rendah',
+      zoonoticBadge: '⚠️ Zoonosis',
       category: 'Kategori',
       ageGroups: 'Kelompok Umur',
-      confidenceMatch: 'Tingkat Kesesuaian',
+      confidenceMatch: 'Kecocokan Diagnosis',
       symptomsMatched: 'gejala cocok',
       newDiagnosis: 'Diagnosis Baru',
       allDiseases: 'Semua Penyakit & Kondisi Unggas',
       print: 'Cetak'
     },
-    vn: {
+    vi: {
       backToResults: 'Quay lại Kết quả',
       zoonoticHazard: 'Nguy cơ bệnh lây từ động vật',
       zoonoticWarning: 'Bệnh này có thể lây từ động vật sang người. Thực hiện các biện pháp an toàn sinh học thích hợp.',
@@ -156,10 +164,14 @@ export const getUILabels = (language = 'en') => {
       vaccineRecommendations: 'Khuyến nghị Vắc-xin',
       vaccineComingSoon: 'Thông tin vắc-xin sẽ được cập nhật sớm. Vui lòng tham khảo ý kiến bác sĩ thú y có giấy phép về các quy trình tiêm chủng hiện tại và tính sẵn có của sản phẩm trong khu vực của bạn.',
       severity: 'Mức độ nghiêm trọng',
+      severityHigh: 'Nghiêm Trọng Cao',
+      severityMedium: 'Nghiêm Trọng Trung Bình',
+      severityLow: 'Nghiêm Trọng Thấp',
+      zoonoticBadge: '⚠️ Bệnh Lây Từ Động Vật',
       category: 'Danh mục',
       ageGroups: 'Nhóm tuổi',
-      confidenceMatch: 'Độ tin cậy',
-      symptomsMatched: 'triệu chứng phù hợp',
+      confidenceMatch: 'Độ Khớp Chẩn Đoán',
+      symptomsMatched: 'triệu chứng khớp',
       newDiagnosis: 'Chẩn đoán mới',
       allDiseases: 'Tất Cả Bệnh & Tình Trạng Gia Cầm',
       print: 'In'

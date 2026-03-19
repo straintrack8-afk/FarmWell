@@ -1,15 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 // --- Simple Pie Chart ---
 export function SimplePieChart({ data, size = 200 }) {
     // data: [{ label, value, color }]
+    const { t } = useTranslation();
     const total = data.reduce((sum, item) => sum + item.value, 0);
     let cumulativePercent = 0;
 
     if (total === 0) {
         return (
             <div style={{ width: size, height: size, borderRadius: '50%', background: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888' }}>
-                No Data
+                {t('common.noData')}
             </div>
         );
     }
@@ -75,7 +77,7 @@ export function SimpleLineChart({ data, height = 200, color = '#667eea' }) {
     if (!data || data.length === 0) {
         return (
             <div style={{ height, background: '#f9fafb', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>
-                No Data
+                {t('common.noData')}
             </div>
         );
     }

@@ -29,10 +29,29 @@ export function formatDescription(text) {
 
 /**
  * Split text into an array of bullet points
+ * Handles strings, arrays, null/undefined, and objects
  */
 export function textToBullets(text) {
+    // Handle null/undefined
     if (!text) return [];
 
+    // Handle arrays - already in bullet format, just return
+    if (Array.isArray(text)) {
+        return text.filter(item => item); // Filter out empty items
+    }
+
+    // Handle objects (shouldn't happen, but be defensive)
+    if (typeof text === 'object') {
+        console.warn('textToBullets received object:', text);
+        return [JSON.stringify(text)];
+    }
+
+    // Handle non-string primitives
+    if (typeof text !== 'string') {
+        return [String(text)];
+    }
+
+    // Handle strings (normal case)
     // Remove markdown
     let cleaned = text.replace(/\*\*/g, '').replace(/\*/g, '');
 

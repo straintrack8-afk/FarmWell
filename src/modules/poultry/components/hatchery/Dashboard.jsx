@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useHatcheryAudit } from '../../contexts/HatcheryAuditContext';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import Header from '../common/Header';
 import ScoreBadge from './common/ScoreBadge';
 import { formatDate, formatRelativeTime, daysUntilDue } from '../../utils/hatchery/dateUtils';
@@ -8,6 +9,7 @@ import '../../hatchery.css';
 
 function Dashboard() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { audits, statistics, storageInfo, createNewAudit } = useHatcheryAudit();
 
     const completedAudits = audits.filter(a => a.status === 'completed' || a.status === 'approved');
@@ -44,10 +46,10 @@ function Dashboard() {
                     {/* Page Title */}
                     <div style={{ marginBottom: '1.5rem', marginTop: '1.5rem' }}>
                         <h1 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.375rem', color: '#1e293b' }}>
-                            Hatchery Audit Dashboard
+                            {t('poultry.hatchery.dashboard.title')}
                         </h1>
                         <p style={{ color: '#64748b', fontSize: '0.9375rem' }}>
-                            Comprehensive quarterly assessment of hatchery operations
+                            {t('poultry.hatchery.dashboard.subtitle')}
                         </p>
                     </div>
 
@@ -64,7 +66,7 @@ function Dashboard() {
                             gap: '0.75rem'
                         }}>
                             <div>
-                                <strong>Storage Warning:</strong> You're using {storageInfo.percentUsed}% of available storage ({storageInfo.sizeMB} MB).
+                                <strong>{t('poultry.hatchery.dashboard.storageWarning')}:</strong> You're using {storageInfo.percentUsed}% of available storage ({storageInfo.sizeMB} MB).
                                 Consider exporting old audits to free up space.
                             </div>
                         </div>
@@ -74,56 +76,56 @@ function Dashboard() {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
                         {/* Total Audits */}
                         <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.blue}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Total Audits</div>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.hatchery.dashboard.totalAudits')}</div>
                             <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{statistics?.totalAudits || 0}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{statistics?.completedAudits || 0} completed</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{statistics?.completedAudits || 0} {t('poultry.hatchery.dashboard.completed')}</div>
                         </div>
 
                         {/* Last Audit Score */}
                         <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.green}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>Last Score</div>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>{t('poultry.hatchery.dashboard.lastScore')}</div>
                             <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{lastAudit?.summary?.environmental?.score || 'N/A'}</div>
                             <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{lastAudit ? (lastAudit.summary?.environmental?.classification || '-') : '-'}</div>
                         </div>
 
                         {/* Good Audits */}
                         <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.amber}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Good Audits</div>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.hatchery.dashboard.goodAudits')}</div>
                             <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{statistics?.goodCount || 0}</div>
                             <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
-                                {statistics?.totalAudits > 0 ? Math.round((statistics.goodCount / statistics.completedAudits) * 100) : 0}% of total
+                                {statistics?.totalAudits > 0 ? Math.round((statistics.goodCount / statistics.completedAudits) * 100) : 0}% {t('poultry.hatchery.dashboard.ofTotal')}
                             </div>
                         </div>
 
                         {/* Poor Audits */}
                         <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.red}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Poor Audits</div>
+                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.hatchery.dashboard.poorAudits')}</div>
                             <div style={{ fontSize: '2rem', fontWeight: '800', color: '#EF4444', lineHeight: 1 }}>{statistics?.poorCount || 0}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>Requires attention</div>
+                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.hatchery.dashboard.requiresAttention')}</div>
                         </div>
                     </div>
 
                     {/* Quick Actions */}
                     <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
-                        <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>Quick Actions</h2>
+                        <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>{t('poultry.hatchery.dashboard.quickActions')}</h2>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
                             <button
                                 className="btn btn-primary"
                                 onClick={handleStartNewAudit}
                             >
-                                Start New Audit
+                                {t('poultry.hatchery.dashboard.startNewAudit')}
                             </button>
                             <button
                                 className="btn btn-primary"
                                 onClick={handleViewHistory}
                             >
-                                View Audit History
+                                {t('poultry.hatchery.dashboard.viewAuditHistory')}
                             </button>
                             <button
                                 className="btn btn-primary"
                                 onClick={() => navigate('/poultry/hatchery-audit/settings')}
                             >
-                                Settings
+                                {t('poultry.hatchery.dashboard.settings')}
                             </button>
                         </div>
                     </div>
@@ -131,29 +133,29 @@ function Dashboard() {
                     {/* Recent Audits */}
                     <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }} id="recent-audits">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                            <h2 style={{ fontSize: '1.1rem', fontWeight: '700' }}>Recent Audits</h2>
+                            <h2 style={{ fontSize: '1.1rem', fontWeight: '700' }}>{t('poultry.hatchery.dashboard.recentAudits')}</h2>
                             {completedAudits.length > 0 && (
                                 <button
                                     onClick={handleViewHistory}
                                     className="btn btn-outline"
                                     style={{ padding: '0.5rem 1rem', fontSize: '0.8125rem' }}
                                 >
-                                    View All
+                                    {t('poultry.hatchery.dashboard.viewAll')}
                                 </button>
                             )}
                         </div>
 
                         {completedAudits.length === 0 ? (
                             <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>No Audits Yet</h3>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>{t('poultry.hatchery.dashboard.noAuditsYet')}</h3>
                                 <p style={{ color: '#64748b', marginBottom: '1.5rem', maxWidth: '440px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
-                                    Start your first hatchery audit to track compliance and environmental quality
+                                    {t('poultry.hatchery.dashboard.noAuditsText')}
                                 </p>
                                 <button
                                     className="btn btn-primary"
                                     onClick={handleStartNewAudit}
                                 >
-                                    Start First Audit
+                                    {t('poultry.hatchery.dashboard.startFirstAudit')}
                                 </button>
                             </div>
 
@@ -163,22 +165,22 @@ function Dashboard() {
                                     <thead>
                                         <tr style={{ textAlign: 'left' }}>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Audit #
+                                                {t('poultry.hatchery.dashboard.auditNumber')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Date
+                                                {t('poultry.hatchery.dashboard.date')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Location
+                                                {t('poultry.hatchery.dashboard.location')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Score
+                                                {t('poultry.hatchery.dashboard.score')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Status
+                                                {t('poultry.hatchery.dashboard.status')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>
-                                                Actions
+                                                {t('poultry.hatchery.dashboard.actions')}
                                             </th>
                                         </tr>
                                     </thead>
@@ -242,7 +244,7 @@ function Dashboard() {
                                                             e.currentTarget.style.boxShadow = '0 2px 8px rgba(16, 185, 129, 0.3)';
                                                         }}
                                                     >
-                                                        View Report
+                                                        {t('poultry.hatchery.dashboard.viewReport')}
                                                     </button>
                                                 </td>
                                             </tr>
@@ -263,7 +265,7 @@ function Dashboard() {
                         }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                                 <h2 style={{ fontSize: '1.375rem', fontWeight: '700' }}>
-                                    Last Audit Summary
+                                    {t('poultry.hatchery.dashboard.lastAuditSummary')}
                                 </h2>
                                 <span style={{ fontSize: '0.875rem', color: '#6B7280' }}>
                                     {formatRelativeTime(lastAudit.completedAt)}
@@ -273,7 +275,7 @@ function Dashboard() {
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
                                 <div>
                                     <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.5rem' }}>
-                                        Vaccine Storage
+                                        {t('poultry.hatchery.dashboard.vaccineStorage')}
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <span style={{ fontSize: '1.75rem', fontWeight: '800' }}>
@@ -288,7 +290,7 @@ function Dashboard() {
 
                                 <div>
                                     <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.5rem' }}>
-                                        Equipment
+                                        {t('poultry.hatchery.dashboard.equipment')}
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <span style={{ fontSize: '1.75rem', fontWeight: '800' }}>
@@ -303,7 +305,7 @@ function Dashboard() {
 
                                 <div>
                                     <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.5rem' }}>
-                                        Techniques
+                                        {t('poultry.hatchery.dashboard.techniques')}
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <span style={{ fontSize: '1.75rem', fontWeight: '800' }}>
@@ -318,7 +320,7 @@ function Dashboard() {
 
                                 <div>
                                     <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.5rem' }}>
-                                        Environmental
+                                        {t('poultry.hatchery.dashboard.environmental')}
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <span style={{ fontSize: '1.75rem', fontWeight: '800' }}>
@@ -335,7 +337,7 @@ function Dashboard() {
                             {lastAudit.issues && lastAudit.issues.length > 0 && (
                                 <div style={{ marginTop: '2rem' }}>
                                     <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                        Critical Issues ({lastAudit.issues.length})
+                                        {t('poultry.hatchery.dashboard.criticalIssues')} ({lastAudit.issues.length})
                                     </h3>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                                         {lastAudit.issues.slice(0, 3).map((issue, index) => (

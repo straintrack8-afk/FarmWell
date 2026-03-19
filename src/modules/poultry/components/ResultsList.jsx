@@ -165,7 +165,7 @@ function DiseaseCard({ disease, onClick, rank }) {
             {/* Match Info */}
             {disease.matchCount > 0 && (
                 <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.75rem' }}>
-                    <strong>Matched:</strong> {disease.matchCount}/{disease.totalSymptoms} symptoms
+                    <strong>{t('common.matched')}:</strong> {disease.matchCount}/{disease.totalSymptoms} {t('common.symptoms').toLowerCase()}
                 </div>
             )}
 
@@ -232,10 +232,10 @@ function ResultsList() {
 
                 <div className="page-header" style={{ paddingBottom: '1rem' }}>
                     <h1 className="page-title">
-                        {results.length} Possible Disease{results.length !== 1 ? 's' : ''}
+                        {results.length} {results.length !== 1 ? t('common.possibleDiseasePlural') : t('common.possibleDisease')}
                     </h1>
                     <p className="page-subtitle">
-                        Based on observation in bird health
+                        {t('common.basedOnObservation')}
                     </p>
                 </div>
 
@@ -248,10 +248,10 @@ function ResultsList() {
                     borderRadius: 'var(--radius-lg)'
                 }}>
                     <div style={{ marginBottom: '0.75rem' }}>
-                        <strong>Age Group:</strong> {selectedAgeGroup?.name || selectedAgeGroup?.label || 'All'}
+                        <strong>{t('common.ageGroup')}:</strong> {selectedAgeGroup?.name || selectedAgeGroup?.label || 'All'}
                     </div>
                     <div style={{ marginBottom: '0.75rem' }}>
-                        <strong>Symptoms ({selectedSymptoms.length}):</strong>
+                        <strong>{t('common.symptoms')} ({selectedSymptoms.length}):</strong>
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                         {selectedSymptoms.map(symptom => (
@@ -281,14 +281,14 @@ function ResultsList() {
                             onClick={handleRefineSymptoms}
                             style={{ borderColor: 'var(--primary)', color: 'var(--primary)' }}
                         >
-                            Refine Symptoms
+                            {t('common.refineSymptoms')}
                         </button>
                         <button
                             className="btn btn-outline btn-sm"
                             onClick={handleNewDiagnosis}
                             style={{ borderColor: 'var(--primary)', color: 'var(--primary)' }}
                         >
-                            New Diagnosis
+                            {t('common.newDiagnosis')}
                         </button>
                     </div>
                 </div>
@@ -298,15 +298,15 @@ function ResultsList() {
                     {results.length === 0 ? (
                         <div className="empty-state">
                             <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
-                            <h3 className="empty-state-title">No Diseases Found</h3>
+                            <h3 className="empty-state-title">{t('common.noDiseasesFound')}</h3>
                             <p className="empty-state-text">
-                                No diseases match your selected symptoms. Try selecting different symptoms.
+                                {t('common.noDiseasesMatch')}
                             </p>
                             <button
                                 className="btn btn-primary"
                                 onClick={handleRefineSymptoms}
                             >
-                                Refine Symptoms
+                                {t('common.refineSymptoms')}
                             </button>
                         </div>
                     ) : (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useBiosecurity } from '../../contexts/BiosecurityContext';
+import { useTranslation } from 'react-i18next';
 import {
     getAllCriticalActionItems,
     getScoreInterpretation,
@@ -18,6 +19,7 @@ function ResultsPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const { language } = useBiosecurity();
+    const { t } = useTranslation();
     const [criticalItems, setCriticalItems] = useState([]);
     const [scoreAnalysis, setScoreAnalysis] = useState(null);
     const [certificationStatus, setCertificationStatus] = useState(null);
@@ -54,86 +56,6 @@ function ResultsPage() {
         }
     }, [assessment, language]);
 
-    const getTranslation = (key) => {
-        const translations = {
-            en: {
-                title: 'Biosecurity Analysis Report',
-                backToDashboard: 'Back to Assessment',
-                overallScore: 'Overall Score',
-                external: 'External Biosecurity',
-                internal: 'Internal Biosecurity',
-                riskLevel: 'Risk Status',
-                criticalActions: 'Critical Actions Required',
-                recommendation: 'Recommendation',
-                print: 'Print Report',
-                noRisks: 'Excellent work! No critical risks identified.',
-                improvementPlan: 'Improvement Plan',
-                assessmentDate: 'Assessment Date',
-                assessorName: 'Assessor Name',
-                farmName: 'Farm Name',
-                auditType: 'Audit Type',
-                focusAreaScores: 'Focus Area Scores',
-                score: 'Score',
-                auditTypes: {
-                    internal: 'Internal Audit',
-                    external: 'External Audit',
-                    certification: 'Certification Audit',
-                    surveillance: 'Surveillance Audit'
-                }
-            },
-            id: {
-                title: 'Laporan Analisa Biosekuriti',
-                backToDashboard: 'Kembali ke Penilaian',
-                overallScore: 'Skor Keseluruhan',
-                external: 'Biosekuriti Eksternal',
-                internal: 'Biosekuriti Internal',
-                riskLevel: 'Status Risiko',
-                criticalActions: 'Tindakan Kritis Diperlukan',
-                recommendation: 'Rekomendasi',
-                print: 'Cetak Laporan',
-                noRisks: 'Kerja bagus! Tidak ada risiko kritis yang teridentifikasi.',
-                improvementPlan: 'Rencana Perbaikan',
-                assessmentDate: 'Tanggal Penilaian',
-                assessorName: 'Nama Penilai',
-                farmName: 'Nama Peternakan',
-                auditType: 'Jenis Audit',
-                focusAreaScores: 'Skor Area Fokus',
-                score: 'Skor',
-                auditTypes: {
-                    internal: 'Audit Internal',
-                    external: 'Audit Eksternal',
-                    certification: 'Audit Sertifikasi',
-                    surveillance: 'Audit Pengawasan'
-                }
-            },
-            vt: {
-                title: 'Báo cáo Phân tích An ninh sinh học',
-                backToDashboard: 'Quay lại Đánh giá',
-                overallScore: 'Điểm tổng thể',
-                external: 'An ninh sinh học bên ngoài',
-                internal: 'An ninh sinh học nội bộ',
-                riskLevel: 'Tình trạng rủi ro',
-                criticalActions: 'Hành động khẩn cấp cần thiết',
-                recommendation: 'Khuyến nghị',
-                print: 'In báo cáo',
-                noRisks: 'Làm tốt lắm! Không có rủi ro nghiêm trọng nào được xác định.',
-                improvementPlan: 'Kế hoạch cải thiện',
-                assessmentDate: 'Ngày Đánh Giá',
-                assessorName: 'Tên Người Đánh Giá',
-                farmName: 'Tên Trang Trại',
-                auditType: 'Loại Kiểm Toán',
-                focusAreaScores: 'Điểm Khu Vực Tập Trung',
-                score: 'Điểm',
-                auditTypes: {
-                    internal: 'Kiểm Toán Nội Bộ',
-                    external: 'Kiểm Toán Bên Ngoài',
-                    certification: 'Kiểm Toán Chứng Nhận',
-                    surveillance: 'Kiểm Toán Giám Sát'
-                }
-            }
-        };
-        return translations[language]?.[key] || translations.en[key];
-    };
 
     // Load farm profile data
     const [farmProfile, setFarmProfile] = useState(null);
@@ -162,12 +84,12 @@ function ResultsPage() {
     if (!assessment) {
         return (
             <div className="container" style={{ padding: '2rem', textAlign: 'center' }}>
-                <p>No assessment data found.</p>
+                <p>{t('biosecurity.results.noDataFound')}</p>
                 <button
                     onClick={() => navigate('/swine/biosecurity/dashboard')}
                     className="btn btn-primary"
                 >
-                    Back to Dashboard
+                    {t('biosecurity.results.backToDashboard')}
                 </button>
             </div>
         );

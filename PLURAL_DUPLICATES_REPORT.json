@@ -1,0 +1,13 @@
+{
+  "totalSymptoms": 318,
+  "pluralDuplicatesFound": 0,
+  "duplicates": [],
+  "summary": {
+    "note": "This report contains ONLY simple plural variations (word vs word+s)",
+    "excluded": [
+      "Order variations (A/B vs B/A) - clinical sequence matters",
+      "Compound symptoms - will be clarified with tooltips",
+      "Similar strings - too risky without medical review"
+    ]
+  }
+}

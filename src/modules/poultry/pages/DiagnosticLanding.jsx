@@ -37,7 +37,7 @@ const translations = {
     },
     openTool: 'Buka Alat'
   },
-  vn: {
+  vi: {
     pageTitle: 'Công Cụ Chẩn Đoán Bệnh',
     pageSubtitle: 'Công cụ toàn diện cho chẩn đoán bệnh gia cầm, so sánh và quản lý thông tin',
     allDiseases: {
@@ -59,12 +59,11 @@ const translations = {
 const DiagnosticLanding = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
-  const normalizedLang = language === 'vt' ? 'vn' : language;
+  const t = translations[language] || translations.en;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const t = translations[normalizedLang] || translations.en;
   
   const tools = [
     {

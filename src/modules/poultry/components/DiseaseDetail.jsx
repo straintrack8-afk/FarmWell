@@ -3,6 +3,7 @@ import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
 import { getFieldValue, getUILabels, getSeverityColor, getCategoryClass } from '../utils/diseaseFieldMapping';
+import { useTranslation } from 'react-i18next';
 
 // Print-specific styles
 const printStyles = `
@@ -147,6 +148,7 @@ function DiseaseDetail() {
 
     // Get current language from LanguageContext
     const { language } = useLanguage();
+    const { t } = useTranslation();
     const labels = getUILabels(language);
 
     useEffect(() => {
@@ -158,9 +160,9 @@ function DiseaseDetail() {
             <div className="container">
                 <div className="empty-state">
                     <div className="empty-state-icon" style={{ fontSize: '3rem' }}></div>
-                    <h3 className="empty-state-title">Disease Not Found</h3>
+                    <h3 className="empty-state-title">{t('common.diseaseNotFound')}</h3>
                     <p className="empty-state-text">
-                        Please start a new diagnosis to view disease details.
+                        {t('common.startNewDiagnosis')}
                     </p>
                     <button className="btn btn-primary" onClick={() => setStep(STEPS.AGE)}>
                         {labels.newDiagnosis}
@@ -243,7 +245,7 @@ function DiseaseDetail() {
                                 fontSize: '0.75rem',
                                 fontWeight: '600'
                             }}>
-                                {disease.severity} Severity
+                                {disease.severity === 'High' ? labels.severityHigh : disease.severity === 'Medium' ? labels.severityMedium : labels.severityLow}
                             </span>
                         )}
 
@@ -256,7 +258,7 @@ function DiseaseDetail() {
                                 fontSize: '0.75rem',
                                 fontWeight: '600'
                             }}>
-                                ⚠️ Zoonotic
+                                {labels.zoonoticBadge}
                             </span>
                         )}
 
@@ -287,7 +289,7 @@ function DiseaseDetail() {
                         }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                                 <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#059669' }}>
-                                    Confidence Match
+                                    {labels.confidenceMatch}
                                 </span>
                                 <span style={{ fontSize: '1.25rem', fontWeight: '700', color: '#059669' }}>
                                     {disease.percentage.toFixed(1)}%
@@ -309,7 +311,7 @@ function DiseaseDetail() {
                             </div>
                             {disease.matchCount !== undefined && (
                                 <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: '#059669' }}>
-                                    {disease.matchCount} of {allSymptoms.length} symptoms matched
+                                    {disease.matchCount} {labels.symptomsMatched.includes('of') ? 'of' : labels.symptomsMatched.includes('dari') ? 'dari' : 'trong'} {allSymptoms.length} {labels.symptomsMatched}
                                 </div>
                             )}
                         </div>

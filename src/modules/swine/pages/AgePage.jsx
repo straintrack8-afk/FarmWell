@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useDiagnosis, AGE_GROUPS } from '../contexts/DiagnosisContext';
+import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { swineTranslations } from '../translations';
 import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
@@ -47,7 +47,7 @@ function AgePage() {
     const navigate = useNavigate();
     const { language } = useLanguage();
     const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
-    const { selectedAge, setSelectedAge } = useDiagnosis();
+    const { selectedAge, setSelectedAge, ageGroups } = useDiagnosis();
 
     const handleSelectAge = (ageId) => {
         setSelectedAge(ageId);
@@ -95,7 +95,7 @@ function AgePage() {
                         gap: '1.5rem',
                         padding: '1rem'
                     }}>
-                        {AGE_GROUPS.map((age, index) => (
+                        {ageGroups && ageGroups.map((age, index) => (
                             <div
                                 key={age.id}
                                 style={{
@@ -151,7 +151,7 @@ function AgePage() {
                                         {age.icon}
                                     </div>
                                     <div style={{
-                                        fontSize: '1.25rem',
+                                        fontSize: '1.5rem',
                                         fontWeight: '700',
                                         marginBottom: '0.5rem',
                                         color: selectedAge === age.id ? 'white' : '#111827',
@@ -160,10 +160,10 @@ function AgePage() {
                                         alignItems: 'center',
                                         gap: '0.25rem'
                                     }}>
-                                        {t(age.id).split(' (')[0]}
-                                        {t(age.id).includes('(') && (
+                                        {age.label ? age.label.split(' (')[0] : age.id}
+                                        {age.label && age.label.includes('(') && (
                                             <span style={{ fontSize: '1rem', fontWeight: '500', opacity: 0.9 }}>
-                                                ({t(age.id).split(' (')[1]}
+                                                ({age.label.split(' (')[1]}
                                             </span>
                                         )}
                                     </div>
@@ -172,7 +172,7 @@ function AgePage() {
                                         color: selectedAge === age.id ? 'rgba(255, 255, 255, 0.9)' : '#6B7280',
                                         lineHeight: '1.5'
                                     }}>
-                                        {t(age.id + 'Desc')}
+                                        {age.description || ''}
                                     </div>
                                 </div>
 

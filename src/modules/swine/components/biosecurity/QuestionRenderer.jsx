@@ -1,10 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Reusable component for rendering different question types
  * Supports: single_choice, multiple_choice, numeric, text
  */
 function QuestionRenderer({ question, value, onChange, language = 'en' }) {
+    const { t } = useTranslation();
     const { type, text, help_text, options, validation } = question;
 
     const handleSingleChoiceChange = (optionValue) => {
@@ -259,7 +261,7 @@ function QuestionRenderer({ question, value, onChange, language = 'en' }) {
                     type="text"
                     value={value || ''}
                     onChange={handleTextChange}
-                    placeholder="Enter your answer"
+                    placeholder={t('common.enterAnswer')}
                     className="input"
                     style={{
                         width: '100%',

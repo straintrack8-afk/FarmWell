@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useBiosecurity } from '../contexts/BiosecurityContext';
+import { useTranslation } from 'react-i18next';
 import { Shield, AlertTriangle, CheckCircle, TrendingUp, Download, Home, BarChart3 } from 'lucide-react';
 
 function BiosecurityResultsPage() {
   const { assessmentId } = useParams();
   const navigate = useNavigate();
   const { getAssessmentById } = useBiosecurity();
+  const { t } = useTranslation();
   const [assessment, setAssessment] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -22,7 +24,7 @@ function BiosecurityResultsPage() {
   }, [assessmentId]);
 
   if (!assessment) {
-    return <div className="container">Loading...</div>;
+    return <div className="container">{t('biosecurity.results.loading')}</div>;
   }
 
   const { results, disease_risks, disease_risk_summary, recommendations } = assessment;
@@ -38,20 +40,23 @@ function BiosecurityResultsPage() {
     return colors[level] || colors.medium;
   };
 
-  const categoryNames = {
-    farm_characteristics: 'Farm Characteristics',
-    purchase_animals: 'Purchase of Animals & Semen',
-    transport_deadstock: 'Transport & Deadstock',
-    feed_water_equipment: 'Feed, Water & Equipment',
-    visitors_workers: 'Visitors & Workers',
-    vermin_bird_control: 'Vermin & Bird Control',
-    location: 'Location',
-    disease_management: 'Disease Management',
-    farrowing_suckling: 'Farrowing & Suckling Period',
-    nursery_unit: 'Nursery Unit',
-    finishing_unit: 'Finishing Unit',
-    measures_between_compartments: 'Measures Between Compartments',
-    cleaning_disinfection: 'Cleaning & Disinfection'
+  const getCategoryName = (categoryId) => {
+    const categoryMap = {
+      farm_characteristics: 'farmCharacteristics',
+      purchase_animals: 'purchaseAnimals',
+      transport_deadstock: 'transportDeadstock',
+      feed_water_equipment: 'feedWaterEquipment',
+      visitors_workers: 'visitorsWorkers',
+      vermin_bird_control: 'verminBirdControl',
+      location: 'location',
+      disease_management: 'diseaseManagement',
+      farrowing_suckling: 'farrowingSuckling',
+      nursery_unit: 'nurseryUnit',
+      finishing_unit: 'finishingUnit',
+      measures_between_compartments: 'measuresBetweenCompartments',
+      cleaning_disinfection: 'cleaningDisinfection'
+    };
+    return t(`biosecurity.categories.${categoryMap[categoryId]}`);
   };
 
   const colors = getRiskColor(riskLevel.level);
@@ -79,7 +84,7 @@ function BiosecurityResultsPage() {
             </div>
             
             <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-              Assessment Complete
+              {t('biosecurity.results.assessmentComplete')}
             </h1>
             
             <div style={{
@@ -92,7 +97,7 @@ function BiosecurityResultsPage() {
               color: colors.text,
               marginBottom: '1rem'
             }}>
-              {riskLevel.icon} Grade {results.grade} - {riskLevel.level.toUpperCase()} RISK
+              {riskLevel.icon} {t('biosecurity.results.gradeRiskLevel', { grade: results.grade, level: riskLevel.level.toUpperCase() })}
             </div>
             
             <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
@@ -112,9 +117,9 @@ function BiosecurityResultsPage() {
           overflowX: 'auto'
         }}>
           {[
-            { id: 'overview', label: 'Overview', icon: BarChart3 },
-            { id: 'diseases', label: 'Disease Risks', icon: AlertTriangle },
-            { id: 'recommendations', label: 'Recommendations', icon: TrendingUp }
+            { id: 'overview', label: t('biosecurity.results.overview'), icon: BarChart3 },
+            { id: 'diseases', label: t('biosecurity.results.diseaseRisksTab'), icon: AlertTriangle },
+            { id: 'recommendations', label: t('biosecurity.results.recommendationsTab'), icon: TrendingUp }
           ].map(tab => (
             <button
               key={tab.id}
@@ -152,7 +157,7 @@ function BiosecurityResultsPage() {
             }}>
               <div className="card">
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                  Overall Score
+                  {t('biosecurity.results.overallScore')}
                 </div>
                 <div style={{ fontSize: '2rem', fontWeight: '700', color: colors.text }}>
                   {results.overall_score}/100
@@ -161,7 +166,7 @@ function BiosecurityResultsPage() {
               
               <div className="card">
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                  Grade
+                  {t('biosecurity.results.grade')}
                 </div>
                 <div style={{ fontSize: '2rem', fontWeight: '700' }}>
                   {results.grade}
@@ -170,7 +175,7 @@ function BiosecurityResultsPage() {
               
               <div className="card">
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                  Disease Risks
+                  {t('biosecurity.results.diseaseRisks')}
                 </div>
                 <div style={{ fontSize: '2rem', fontWeight: '700', color: disease_risk_summary.color }}>
                   {disease_risk_summary.total}
@@ -179,7 +184,7 @@ function BiosecurityResultsPage() {
               
               <div className="card">
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                  Completed
+                  {t('biosecurity.results.completed')}
                 </div>
                 <div style={{ fontSize: '1rem', fontWeight: '600' }}>
                   {new Date(assessment.completed_at).toLocaleDateString()}
@@ -190,7 +195,7 @@ function BiosecurityResultsPage() {
             {/* Category Breakdown */}
             <div className="card" style={{ marginBottom: '2rem' }}>
               <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                 Category Breakdown
+                 {t('biosecurity.results.categoryBreakdown')}
               </h2>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -203,7 +208,7 @@ function BiosecurityResultsPage() {
                     <div key={categoryId}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                         <span style={{ fontWeight: '600' }}>
-                          {categoryNames[categoryId] || categoryId}
+                          {getCategoryName(categoryId)}
                         </span>
                         <span style={{ fontWeight: '700', color: categoryColor }}>
                           {score.toFixed(1)}%
@@ -254,7 +259,7 @@ function BiosecurityResultsPage() {
             {disease_risks.critical.length > 0 && (
               <div style={{ marginBottom: '2rem' }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#dc2626', marginBottom: '1rem' }}>
-                   CRITICAL RISKS
+                   {t('biosecurity.results.criticalRisksHeader')}
                 </h3>
                 {disease_risks.critical.map((risk, idx) => (
                   <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #dc2626' }}>
@@ -267,7 +272,7 @@ function BiosecurityResultsPage() {
                     
                     <div style={{ marginBottom: '1rem' }}>
                       <div style={{ fontWeight: '600', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
-                        Risk Factors Detected:
+                        {t('biosecurity.results.riskFactorsDetected')}
                       </div>
                       <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
                         {risk.factors.map((factor, i) => (
@@ -286,7 +291,7 @@ function BiosecurityResultsPage() {
                     
                     <div style={{ background: '#fef2f2', padding: '1rem', borderRadius: '8px' }}>
                       <div style={{ fontWeight: '600', fontSize: '0.875rem', marginBottom: '0.5rem', color: '#991b1b' }}>
-                        Prevention Measures:
+                        {t('biosecurity.results.preventionMeasures')}
                       </div>
                       <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
                         {risk.prevention.map((measure, i) => (
@@ -305,7 +310,7 @@ function BiosecurityResultsPage() {
             {disease_risks.high.length > 0 && (
               <div style={{ marginBottom: '2rem' }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#f97316', marginBottom: '1rem' }}>
-                   HIGH RISKS
+                   {t('biosecurity.results.highRisksHeader')}
                 </h3>
                 {disease_risks.high.map((risk, idx) => (
                   <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #f97316' }}>
@@ -318,7 +323,7 @@ function BiosecurityResultsPage() {
                     
                     <div style={{ background: '#fff7ed', padding: '1rem', borderRadius: '8px' }}>
                       <div style={{ fontWeight: '600', fontSize: '0.875rem', marginBottom: '0.5rem', color: '#9a3412' }}>
-                        Key Prevention Measures:
+                        {t('biosecurity.results.keyPreventionMeasures')}
                       </div>
                       <ul style={{ paddingLeft: '1.5rem', margin: 0 }}>
                         {risk.prevention.slice(0, 4).map((measure, i) => (
@@ -337,7 +342,7 @@ function BiosecurityResultsPage() {
             {disease_risks.medium.length > 0 && (
               <div>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#f59e0b', marginBottom: '1rem' }}>
-                   MEDIUM RISKS
+                   {t('biosecurity.results.mediumRisksHeader')}
                 </h3>
                 {disease_risks.medium.map((risk, idx) => (
                   <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #f59e0b' }}>
@@ -356,10 +361,10 @@ function BiosecurityResultsPage() {
               <div className="card" style={{ textAlign: 'center', padding: '3rem' }}>
                 <CheckCircle size={64} color="#10b981" style={{ margin: '0 auto 1rem' }} />
                 <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                  Excellent Biosecurity!
+                  {t('biosecurity.results.excellentBiosecurityTitle')}
                 </h3>
                 <p style={{ color: 'var(--text-muted)' }}>
-                  No significant disease risks detected. Continue maintaining your current biosecurity practices.
+                  {t('biosecurity.results.noRisksMessage')}
                 </p>
               </div>
             )}
@@ -374,7 +379,7 @@ function BiosecurityResultsPage() {
                 {recommendations.filter(r => r.priority === 'high').length > 0 && (
                   <div style={{ marginBottom: '2rem' }}>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#dc2626', marginBottom: '1rem' }}>
-                       High Priority Actions
+                       {t('biosecurity.results.highPriorityActions')}
                     </h3>
                     {recommendations.filter(r => r.priority === 'high').map((rec, idx) => (
                       <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #dc2626' }}>
@@ -386,7 +391,7 @@ function BiosecurityResultsPage() {
                         </p>
                         <div style={{ background: '#fef2f2', padding: '1rem', borderRadius: '8px', marginBottom: '1rem' }}>
                           <div style={{ fontWeight: '600', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
-                            Recommendation:
+                            {t('biosecurity.results.recommendation')}
                           </div>
                           <p style={{ fontSize: '0.875rem', margin: 0 }}>
                             {rec.recommendation_text}
@@ -394,15 +399,15 @@ function BiosecurityResultsPage() {
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', fontSize: '0.875rem' }}>
                           <div>
-                            <span style={{ fontWeight: '600' }}>Expected Impact:</span><br />
+                            <span style={{ fontWeight: '600' }}>{t('biosecurity.results.expectedImpact')}</span><br />
                             {rec.expected_impact}
                           </div>
                           <div>
-                            <span style={{ fontWeight: '600' }}>Cost:</span><br />
+                            <span style={{ fontWeight: '600' }}>{t('biosecurity.results.cost')}</span><br />
                             {rec.estimated_cost}
                           </div>
                           <div>
-                            <span style={{ fontWeight: '600' }}>Timeline:</span><br />
+                            <span style={{ fontWeight: '600' }}>{t('biosecurity.results.timeline')}</span><br />
                             {rec.implementation_timeline}
                           </div>
                         </div>
@@ -414,7 +419,7 @@ function BiosecurityResultsPage() {
                 {recommendations.filter(r => r.priority === 'medium').length > 0 && (
                   <div>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#f59e0b', marginBottom: '1rem' }}>
-                       Medium Priority Actions
+                       {t('biosecurity.results.mediumPriorityActions')}
                     </h3>
                     {recommendations.filter(r => r.priority === 'medium').map((rec, idx) => (
                       <div key={idx} className="card" style={{ marginBottom: '1rem', borderLeft: '4px solid #f59e0b' }}>
@@ -433,10 +438,10 @@ function BiosecurityResultsPage() {
               <div className="card" style={{ textAlign: 'center', padding: '3rem' }}>
                 <CheckCircle size={64} color="#10b981" style={{ margin: '0 auto 1rem' }} />
                 <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                  Great Work!
+                  {t('biosecurity.results.greatWork')}
                 </h3>
                 <p style={{ color: 'var(--text-muted)' }}>
-                  No critical recommendations at this time. Keep up the excellent biosecurity practices!
+                  {t('biosecurity.results.noRecommendationsMessage')}
                 </p>
               </div>
             )}
@@ -451,7 +456,7 @@ function BiosecurityResultsPage() {
             style={{ flex: 1, minWidth: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
           >
             <Home size={20} />
-            Back to Home
+            {t('biosecurity.results.backToHome')}
           </button>
           
           <button
@@ -460,7 +465,7 @@ function BiosecurityResultsPage() {
             style={{ flex: 1, minWidth: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
           >
             <Download size={20} />
-            Print Report
+            {t('biosecurity.results.printReport')}
           </button>
         </div>
       </div>

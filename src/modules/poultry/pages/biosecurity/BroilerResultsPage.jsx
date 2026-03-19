@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBroilerAssessment } from '../../contexts/BroilerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 import { getLocalizedText } from '../../utils/assessmentUtils';
 import '../../../../portal.css';
 import '../../poultry.css';
@@ -9,6 +10,7 @@ import '../../poultry.css';
 function BroilerResultsPage() {
     const navigate = useNavigate();
     const { language } = useLanguage();
+    const { t } = useTranslation();
     const {
         assessmentData,
         focusAreas,
@@ -64,11 +66,11 @@ function BroilerResultsPage() {
 
     // Get grade label based on score ranges
     const getGradeLabel = () => {
-        if (overallScore < 50) return 'Critical Risk';
-        if (overallScore >= 50 && overallScore <= 75) return 'High Risk';
-        if (overallScore > 75 && overallScore <= 85) return 'Medium Risk';
-        if (overallScore > 85 && overallScore <= 95) return 'Low Risk';
-        return 'Excellent Biosecurity';
+        if (overallScore < 50) return t('biosecurity.results.criticalRisk');
+        if (overallScore >= 50 && overallScore <= 75) return t('biosecurity.results.highRisk');
+        if (overallScore > 75 && overallScore <= 85) return t('biosecurity.results.mediumRisk');
+        if (overallScore > 85 && overallScore <= 95) return t('biosecurity.results.lowRisk');
+        return t('biosecurity.results.excellentBiosecurity');
     };
 
     // Get all categories as array

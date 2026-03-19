@@ -332,9 +332,10 @@ export const DiagnosisProvider = ({ children }) => {
           filename = 'diseases_COMPLETE_129_v4.1_ENRICHED_id.json';
           diseaseKey = 'penyakit'; // Indonesian uses different root key
           break;
-        case 'vn':
-        case 'vt': // SharedTopNav uses 'vt' for Vietnamese
-          filename = 'diseases_COMPLETE_129_v4.1_ENRICHED_vn.json';
+        case 'vi':
+        case 'vn': // Legacy support
+        case 'vt': // Legacy support
+          filename = 'diseases_COMPLETE_129_v4.1_ENRICHED_vi.json';
           diseaseKey = 'diseases';
           break;
         case 'en':

@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { DiagnosisProvider } from './contexts/DiagnosisContext';
 import { BiosecurityProvider } from './contexts/BiosecurityContext';
 import SharedTopNav from '../../components/SharedTopNav';
 import HomePage from './pages/HomePage';
 
 // Diagnosis pages
+import DiagnosticLanding from './pages/DiagnosticLanding';
 import AgePage from './pages/AgePage';
 import SymptomsPage from './pages/SymptomsPage';
 import ResultsPage from './pages/ResultsPage';
 import DiseasePage from './pages/DiseasePage';
+import AllDiseasesPage from './pages/AllDiseasesPage';
+import DiseaseComparisonPage from './pages/DiseaseComparisonPage';
 
 // Biosecurity pages
 import BiosecurityMainDashboard from './pages/biosecurity/BiosecurityMainDashboard';
@@ -28,6 +33,8 @@ import './index.css';
 
 function App() {
   const location = useLocation();
+  const { t } = useTranslation();
+  const { language } = useLanguage();
   const isSwineHomePage = location.pathname === '/swine' || location.pathname === '/swine/';
 
   return (
@@ -52,11 +59,20 @@ function App() {
                     {/* PigWell Feature Selection */}
                     <Route path="/" element={<HomePage />} />
 
+                    {/* Diagnostic Landing (3-menu grid) */}
+                    <Route path="/diagnostic" element={<DiagnosticLanding />} />
+
                     {/* Diagnosis Routes */}
                     <Route path="/diagnosis/age" element={<AgePage />} />
                     <Route path="/diagnosis/symptoms" element={<SymptomsPage />} />
                     <Route path="/diagnosis/results" element={<ResultsPage />} />
                     <Route path="/diagnosis/disease/:id" element={<DiseasePage />} />
+                    
+                    {/* All Diseases Browse Page */}
+                    <Route path="/diseases" element={<AllDiseasesPage />} />
+                    
+                    {/* Disease Comparison Page */}
+                    <Route path="/compare" element={<DiseaseComparisonPage />} />
 
                     {/* Biosecurity Routes */}
                     <Route path="/biosecurity" element={<BiosecurityMainDashboard />} />
@@ -81,7 +97,9 @@ function App() {
 
           {/* ── SUPPORTED BY ── */}
           <div className="fw-supported">
-            <div className="fw-sup-label">POWERED BY</div>
+            <div className="fw-sup-label">
+              {language === 'id' ? 'DIDUKUNG OLEH' : language === 'vi' ? 'ĐƯỢC HỖ TRỢ BỞI' : 'POWERED BY'}
+            </div>
             <div className="fw-sup-logos">
               <img src="/images/Vaksindo_logo.png" alt="Vaksindo" className="fw-vaksindo-logo" />
             </div>

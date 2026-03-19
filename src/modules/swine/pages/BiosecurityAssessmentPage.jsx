@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBiosecurity } from '../contexts/BiosecurityContext';
+import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight, Check, AlertCircle, Info } from 'lucide-react';
 
 function BiosecurityAssessmentPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const {
     questions,
     currentQuestionIndex,
@@ -422,7 +424,7 @@ function BiosecurityAssessmentPage() {
             alignItems: 'center',
             marginBottom: '1rem'
           }}>
-            <h3 style={{ fontSize: '1rem', fontWeight: '600' }}>Category Progress</h3>
+            <h3 style={{ fontSize: '1rem', fontWeight: '600' }}>{t('biosecurity.assessment.categoryProgress')}</h3>
             <button
               onClick={() => setShowCategoryNav(!showCategoryNav)}
               className="btn"
