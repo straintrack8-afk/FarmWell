@@ -54,7 +54,7 @@ export function generateBiosecurityReport(assessment, farmProfile, language = 'e
             generatedBy: 'Dibuat oleh FarmWell - PigWell',
             page: 'Halaman'
         },
-        vt: {
+        vi: {
             title: 'Báo cáo Đánh giá An ninh sinh học',
             subtitle: 'FarmWell - PigWell',
             farmInfo: 'Thông tin Trang trại',

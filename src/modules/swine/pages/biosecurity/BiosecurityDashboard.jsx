@@ -72,7 +72,7 @@ function BiosecurityDashboard() {
                 moderate: 'Sedang',
                 poor: 'Buruk'
             },
-            vt: {
+            vi: {
                 excellent: 'Xuất sắc',
                 good: 'Tốt',
                 moderate: 'Vừa phải',
@@ -118,7 +118,12 @@ function BiosecurityDashboard() {
                 backToDashboard: 'Back to Dashboard',
                 discardAssessment: 'Discard Assessment',
                 confirmDiscard: 'Are you sure you want to discard this assessment? All progress will be lost.',
-                backToPigWell: 'Back to PigWell Module'
+                backToPigWell: 'Back to PigWell Module',
+                edit: 'Edit',
+                completeSave: 'Complete & Save',
+                confirmComplete: 'Complete assessment and save report?',
+                savedSuccess: 'Assessment saved successfully!',
+                viewAnalysis: 'View Analysis & Improvements'
             },
             id: {
                 title: 'Dashboard Penilaian Biosekuriti',
@@ -136,9 +141,14 @@ function BiosecurityDashboard() {
                 backToDashboard: 'Kembali ke Dashboard',
                 discardAssessment: 'Buang Penilaian',
                 confirmDiscard: 'Apakah Anda yakin ingin membuang penilaian ini? Semua progres akan hilang.',
-                backToPigWell: 'Kembali ke Modul PigWell'
+                backToPigWell: 'Kembali ke Modul PigWell',
+                edit: 'Ubah',
+                completeSave: 'Selesai & Simpan',
+                confirmComplete: 'Selesaikan penilaian dan simpan laporan?',
+                savedSuccess: 'Penilaian berhasil disimpan!',
+                viewAnalysis: 'Lihat Analisis & Perbaikan'
             },
-            vt: {
+            vi: {
                 title: 'Bảng điều khiển Đánh giá An ninh sinh học',
                 subtitle: 'Đánh giá toàn diện các biện pháp an ninh sinh học trang trại',
                 overallScore: 'Điểm An ninh sinh học Tổng thể',
@@ -154,7 +164,12 @@ function BiosecurityDashboard() {
                 backToDashboard: 'Quay lại Bảng điều khiển',
                 discardAssessment: 'Hủy Đánh giá',
                 confirmDiscard: 'Bạn có chắc chắn muốn hủy đánh giá này? Tất cả tiến trình sẽ bị mất.',
-                backToPigWell: 'Quay lại Mô-đun PigWell'
+                backToPigWell: 'Quay lại Mô-đun PigWell',
+                edit: 'Chỉnh sửa',
+                completeSave: 'Hoàn thành & Lưu',
+                confirmComplete: 'Hoàn thành đánh giá và lưu báo cáo?',
+                savedSuccess: 'Đánh giá đã được lưu thành công!',
+                viewAnalysis: 'Xem Phân tích & Cải tiến'
             }
         };
         return translations[language]?.[key] || translations.en[key];
@@ -361,7 +376,7 @@ function BiosecurityDashboard() {
                             }}
                             onClick={() => navigate('/swine/biosecurity/farm-profile')}
                         >
-                            Edit
+                            {getTranslation('edit')}
                         </button>
                     </div>
                 </div>
@@ -379,7 +394,7 @@ function BiosecurityDashboard() {
                         {getTranslation('externalSection')}
                     </h2>
                     <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
-                        {focusAreas.filter(fa => fa.category.includes('external') || fa.category.includes('eksternal') || fa.category.includes('ngoài')).map(fa => (
+                        {focusAreas.filter(fa => fa.number === 1 || fa.number === 2).map(fa => (
                             <FocusAreaCard
                                 key={fa.number}
                                 focusArea={fa}
@@ -403,7 +418,7 @@ function BiosecurityDashboard() {
                         {getTranslation('internalSection')}
                     </h2>
                     <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))' }}>
-                        {focusAreas.filter(fa => fa.category.includes('internal') || fa.category.includes('trong')).map(fa => (
+                        {focusAreas.filter(fa => fa.number === 3 || fa.number === 4).map(fa => (
                             <FocusAreaCard
                                 key={fa.number}
                                 focusArea={fa}
@@ -436,7 +451,7 @@ function BiosecurityDashboard() {
                                 transition: 'all 0.2s ease'
                             }}
                             onClick={() => {
-                                if (window.confirm(language === 'id' ? 'Selesaikan penilaian dan simpan laporan?' : 'Complete assessment and save report?')) {
+                                if (window.confirm(getTranslation('confirmComplete'))) {
                                     // Calculate final scores
                                     const overall = calculateOverallScore(currentAssessment, language);
                                     const external = calculateExternalScore(currentAssessment, language);
@@ -445,7 +460,7 @@ function BiosecurityDashboard() {
                                     // Save to history
                                     completeAssessment(overall, external, internal);
 
-                                    alert(language === 'id' ? 'Penilaian berhasil disimpan!' : 'Assessment saved successfully!');
+                                    alert(getTranslation('savedSuccess'));
 
                                     // Navigate to report or main dashboard
                                     navigate('/swine/biosecurity/report');
@@ -460,7 +475,7 @@ function BiosecurityDashboard() {
                                 e.currentTarget.style.boxShadow = '0 4px 6px rgba(16, 185, 129, 0.3)';
                             }}
                         >
-                            {language === 'id' ? 'Selesai & Simpan' : (language === 'vt' ? 'Hoàn thành & Lưu' : 'Complete & Save')}
+                            {getTranslation('completeSave')}
                         </button>
                     )}
 
@@ -468,7 +483,7 @@ function BiosecurityDashboard() {
                         className="btn btn-primary"
                         onClick={() => navigate('/swine/biosecurity/report')}
                     >
-                        {getTranslation('viewAnalysis') || 'View Analysis & Improvements'}
+                        {getTranslation('viewAnalysis')}
                     </button>
 
                     <button
@@ -499,3 +514,4 @@ function BiosecurityDashboard() {
 }
 
 export default BiosecurityDashboard;
+

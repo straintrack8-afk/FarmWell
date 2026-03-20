@@ -49,6 +49,18 @@ function AgePage() {
     const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
     const { selectedAge, setSelectedAge, ageGroups } = useDiagnosis();
 
+    // Map each age group ID → translation keys in swineTranslations
+    const AGE_LABEL_KEYS = {
+        'All ages':  { labelKey: 'all',       descKey: 'allDesc'      },
+        'Newborn':   { labelKey: 'newborn',   descKey: 'newbornDesc'  },
+        'Suckling':  { labelKey: 'suckling',  descKey: 'sucklingDesc' },
+        'Weaned':    { labelKey: 'weaned',    descKey: 'weanedDesc'   },
+        'Growers':   { labelKey: 'growers',   descKey: 'growersDesc'  },
+        'Finishers': { labelKey: 'finishers', descKey: 'finishersDesc'},
+        'Sows':      { labelKey: 'sows',      descKey: 'sowsDesc'     },
+        'Boars':     { labelKey: 'boars',     descKey: 'boarsDesc'    },
+    };
+
     const handleSelectAge = (ageId) => {
         setSelectedAge(ageId);
     };
@@ -95,7 +107,17 @@ function AgePage() {
                         gap: '1.5rem',
                         padding: '1rem'
                     }}>
-                        {ageGroups && ageGroups.map((age, index) => (
+                        {ageGroups && ageGroups.map((age, index) => {
+                            const keys = AGE_LABEL_KEYS[age.id];
+                            const translatedLabel = keys ? t(keys.labelKey) : (age.label || age.id);
+                            const translatedDesc  = keys ? t(keys.descKey)  : (age.description || '');
+
+                            // Split "Name (range)" → name part + optional age range in parens
+                            const parenIdx = translatedLabel.indexOf(' (');
+                            const namePart  = parenIdx >= 0 ? translatedLabel.slice(0, parenIdx) : translatedLabel;
+                            const agePart   = parenIdx >= 0 ? translatedLabel.slice(parenIdx + 1) : null; // e.g. "(0-7 days)"
+
+                            return (
                             <div
                                 key={age.id}
                                 style={{
@@ -160,10 +182,10 @@ function AgePage() {
                                         alignItems: 'center',
                                         gap: '0.25rem'
                                     }}>
-                                        {age.label ? age.label.split(' (')[0] : age.id}
-                                        {age.label && age.label.includes('(') && (
+                                        {namePart}
+                                        {agePart && (
                                             <span style={{ fontSize: '1rem', fontWeight: '500', opacity: 0.9 }}>
-                                                ({age.label.split(' (')[1]}
+                                                {agePart}
                                             </span>
                                         )}
                                     </div>
@@ -172,7 +194,7 @@ function AgePage() {
                                         color: selectedAge === age.id ? 'rgba(255, 255, 255, 0.9)' : '#6B7280',
                                         lineHeight: '1.5'
                                     }}>
-                                        {age.description || ''}
+                                        {translatedDesc}
                                     </div>
                                 </div>
 
@@ -195,7 +217,7 @@ function AgePage() {
                                     </div>
                                 )}
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
 
@@ -203,8 +225,13 @@ function AgePage() {
                     <div className="action-bar" style={{ animation: 'slideUp 0.3s ease-out' }}>
                         <div className="action-bar-content">
                             <div className="action-bar-info">
-                                Selected: <strong style={{ color: 'white' }}>
-                                    {t(selectedAge)}
+                                {t('selected')}: <strong style={{ color: 'white' }}>
+                                    {(() => {
+                                        const k = AGE_LABEL_KEYS[selectedAge];
+                                        const lbl = k ? t(k.labelKey) : selectedAge;
+                                        const pi = lbl.indexOf(' (');
+                                        return pi >= 0 ? lbl.slice(0, pi) : lbl;
+                                    })()}
                                 </strong>
                             </div>
                             <button

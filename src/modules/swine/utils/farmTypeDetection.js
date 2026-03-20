@@ -72,7 +72,7 @@ export function getFarmTypeDisplayName(farmType, language = 'en') {
             nursery: 'Peternakan Penyapihan',
             farrow_to_finish: 'Siklus Lengkap'
         },
-        vt: {
+        vi: {
             breeding: 'Trang trại giống (Lợn nái & con)',
             finishing: 'Trang trại thịt',
             nursery: 'Trang trại cai sữa',
@@ -103,7 +103,7 @@ export function getFarmTypeDescription(farmType, language = 'en') {
             nursery: 'Fokus pada anak babi yang disapih sebelum penggemukan',
             farrow_to_finish: 'Siklus produksi lengkap dari pembiakan hingga pemotongan'
         },
-        vt: {
+        vi: {
             breeding: 'Tập trung vào nhân giống và nuôi heo con',
             finishing: 'Tập trung vào vỗ béo heo để giết mổ',
             nursery: 'Tập trung vào heo con cai sữa trước khi vỗ béo',

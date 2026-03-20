@@ -165,7 +165,30 @@ const DiseaseComparison = () => {
   
   return (
     <div style={{ minHeight: '100vh', background: '#F9FAFB', padding: '2rem 0' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
+      <style>{`
+        .comparison-container { max-width: 1280px; margin: 0 auto; padding: 0 0.5rem; }
+        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .symptom-overlap-box { background: linear-gradient(to right, #D1FAE5, #A7F3D0); border-radius: 8px; padding: 1rem; margin-top: 1.5rem; border: 2px solid #10B981; }
+        .symptom-overlap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; font-size: 0.875rem; }
+        
+        .side-by-side-wrapper { border: 2px solid #10B981; border-radius: 8px; padding: 0.5rem; background: #F0FDF4; }
+        .side-by-side-grid { display: flex; gap: 0; border: 1px solid #D1D5DB; border-radius: 6px; overflow: hidden; }
+        .side-by-side-cell { flex: 1; min-width: 0; word-wrap: break-word; overflow-wrap: anywhere; padding: 0.5rem; background: white; }
+        .side-by-side-cell-left { border-right: 2px solid #10B981; }
+        .side-by-side-text { font-size: 0.75rem; color: #6B7280; line-height: 1.4; margin: 0; }
+        
+        .card-box { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 0.75rem; }
+        
+        @media (min-width: 640px) {
+          .comparison-container { padding: 0 1rem; }
+          .card-box { padding: 1.5rem; }
+          .side-by-side-wrapper { padding: 1rem; }
+          .side-by-side-cell { padding: 1rem; }
+          .side-by-side-text { font-size: 0.875rem; line-height: 1.5; }
+          .symptom-overlap-grid { gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+        }
+      `}</style>
+      <div className="comparison-container">
         
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
@@ -176,7 +199,7 @@ const DiseaseComparison = () => {
           </p>
         </div>
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+        <div className="comparison-grid">
           <SelectionBox
             title={t.disease1}
             translations={t}
@@ -243,7 +266,7 @@ const SelectionBox = ({
   
   
   return (
-    <div style={{ background: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem' }}>
+    <div className="card-box">
       <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827', marginBottom: '1rem' }}>{title}</h2>
       
       <div style={{ marginBottom: '1rem' }}>
@@ -392,11 +415,11 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
   };
   
   return (
-    <div style={{ background: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem' }}>
+    <div className="card-box">
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', paddingBottom: '1.5rem', borderBottom: '1px solid #E5E7EB' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.5rem', paddingBottom: '1rem', borderBottom: '1px solid #E5E7EB' }}>
         <div style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
             {disease1.name || disease1.nama}
           </h2>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -420,7 +443,7 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
           </div>
         </div>
         <div style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
             {disease2.name || disease2.nama}
           </h2>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -445,7 +468,7 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
         </div>
       </div>
       
-      <div style={{ background: 'linear-gradient(to right, #D1FAE5, #A7F3D0)', borderRadius: '8px', padding: '1rem', marginTop: '1.5rem', border: '2px solid #10B981' }}>
+      <div className="symptom-overlap-box">
         <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>📊 {translations.symptomOverlap}</h3>
         <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#059669' }}>{overlapPct}%</div>
@@ -454,8 +477,8 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
         <div style={{ width: '100%', background: '#E5E7EB', borderRadius: '9999px', height: '12px', marginBottom: '1rem' }}>
           <div style={{ background: '#10B981', height: '12px', borderRadius: '9999px', width: `${overlapPct}%` }}></div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem', fontSize: '0.875rem' }}>
-          <div style={{ padding: '0.75rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
+        <div className="symptom-overlap-grid">
+          <div style={{ padding: '0.5rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
             <h4 style={{ fontWeight: '600', color: '#059669', marginBottom: '0.5rem' }}>
               {translations.uniqueSymptoms}
             </h4>
@@ -467,7 +490,7 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
               ))}
             </ul>
           </div>
-          <div style={{ padding: '0.75rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
+          <div style={{ padding: '0.5rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
             <h4 style={{ fontWeight: '600', color: '#047857', marginBottom: '0.5rem' }}>{translations.common}</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {common.map((id, i) => (
@@ -477,7 +500,7 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
               ))}
             </ul>
           </div>
-          <div style={{ padding: '0.75rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
+          <div style={{ padding: '0.5rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
             <h4 style={{ fontWeight: '600', color: '#059669', marginBottom: '0.5rem' }}>
               {translations.uniqueSymptoms}
             </h4>
@@ -535,8 +558,8 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
       <div style={{ marginTop: '1.5rem' }}>
         <SideBySideList title={`🛡️ ${translations.preventionControl}`}
           translations={translations}
-          list1={disease1.control || disease1.pencegahan || []}
-          list2={disease2.control || disease2.pencegahan || []}
+          list1={disease1.control || disease1.pengendalian || disease1.pencegahan || []}
+          list2={disease2.control || disease2.pengendalian || disease2.pencegahan || []}
         />
       </div>
       
@@ -545,16 +568,16 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
 };
 
 const SideBySideSection = ({ title, translations, content1, content2 }) => (
-  <div style={{ border: '2px solid #10B981', borderRadius: '8px', padding: '1rem', background: '#F0FDF4' }}>
+  <div className="side-by-side-wrapper">
     <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>{title}</h3>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', border: '1px solid #D1D5DB', borderRadius: '6px', overflow: 'hidden' }}>
-      <div style={{ padding: '1rem', background: 'white', borderRight: '2px solid #10B981' }}>
-        <p style={{ fontSize: '0.875rem', color: '#6B7280', lineHeight: '1.5', margin: 0 }}>
+    <div className="side-by-side-grid">
+      <div className="side-by-side-cell side-by-side-cell-left">
+        <p className="side-by-side-text">
           {content1 || translations.noInformation}
         </p>
       </div>
-      <div style={{ padding: '1rem', background: 'white' }}>
-        <p style={{ fontSize: '0.875rem', color: '#6B7280', lineHeight: '1.5', margin: 0 }}>
+      <div className="side-by-side-cell">
+        <p className="side-by-side-text">
           {content2 || translations.noInformation}
         </p>
       </div>
@@ -563,30 +586,30 @@ const SideBySideSection = ({ title, translations, content1, content2 }) => (
 );
 
 const SideBySideList = ({ title, translations, list1, list2 }) => (
-  <div style={{ border: '2px solid #10B981', borderRadius: '8px', padding: '1rem', background: '#F0FDF4' }}>
+  <div className="side-by-side-wrapper">
     <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>{title}</h3>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', border: '1px solid #D1D5DB', borderRadius: '6px', overflow: 'hidden' }}>
-      <div style={{ padding: '1rem', background: 'white', borderRight: '2px solid #10B981' }}>
+    <div className="side-by-side-grid">
+      <div className="side-by-side-cell side-by-side-cell-left">
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {list1.length > 0 ? list1.map((item, i) => (
-            <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+            <li key={i} className="side-by-side-text" style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
               <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
               <span>{item}</span>
             </li>
           )) : (
-            <li style={{ fontSize: '0.875rem', color: '#9CA3AF', fontStyle: 'italic' }}>{translations.noInformation}</li>
+            <li className="side-by-side-text" style={{ fontStyle: 'italic', color: '#9CA3AF' }}>{translations.noInformation}</li>
           )}
         </ul>
       </div>
-      <div style={{ padding: '1rem', background: 'white' }}>
+      <div className="side-by-side-cell">
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {list2.length > 0 ? list2.map((item, i) => (
-            <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+            <li key={i} className="side-by-side-text" style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
               <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
               <span>{item}</span>
             </li>
           )) : (
-            <li style={{ fontSize: '0.875rem', color: '#9CA3AF', fontStyle: 'italic' }}>{translations.noInformation}</li>
+            <li className="side-by-side-text" style={{ fontStyle: 'italic', color: '#9CA3AF' }}>{translations.noInformation}</li>
           )}
         </ul>
       </div>

@@ -70,14 +70,14 @@ export const DiagnosisProvider = ({ children }) => {
     'All ages': {
       id: 'All ages',
       label: 'All Ages',
-      icon: '�',
+      icon: '🐖🐷',
       description: 'Any age group',
       diseaseAgeMatches: ['All Ages', 'Semua Umur', 'Mọi lứa tuổi']
     },
     'Newborn': {
       id: 'Newborn',
       label: 'Newborn (0-7 days)',
-      icon: '�',
+      icon: '🐽',
       description: 'Neonatal piglets',
       diseaseAgeMatches: ['Newborn', 'Neonatus: 0 to 7 days', 'All Ages', 'Semua Umur', 'Mọi lứa tuổi']
     },
@@ -91,7 +91,7 @@ export const DiagnosisProvider = ({ children }) => {
     'Weaned': {
       id: 'Weaned',
       label: 'Weaned (3-8 weeks)',
-      icon: '�',
+      icon: '🐷',
       description: 'Post-weaning',
       diseaseAgeMatches: ['Weaners: 15 to 56 days', 'Nursery: 8 to 56 days', 'All Ages', 'Semua Umur', 'Mọi lứa tuổi']
     },
@@ -112,7 +112,7 @@ export const DiagnosisProvider = ({ children }) => {
     'Sows': {
       id: 'Sows',
       label: 'Sows / Gilts',
-      icon: '�',
+      icon: '🐷',
       description: 'Breeding females',
       diseaseAgeMatches: ['Sows / gilts / boars', 'All Ages', 'Semua Umur', 'Mọi lứa tuổi']
     },

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../../contexts/LanguageContext';
 import { useBiosecurity } from '../../contexts/BiosecurityContext';
@@ -65,7 +65,7 @@ function BiosecurityHistoryPage() {
                 emptyHistory: 'Belum ada riwayat penilaian.',
                 delete: 'Hapus'
             },
-            vt: {
+            vi: {
                 title: 'Lịch sử Đánh giá',
                 backToDashboard: 'Quay lại Bảng điều khiển',
                 date: 'Ngày',
@@ -233,3 +233,4 @@ function BiosecurityHistoryPage() {
 }
 
 export default BiosecurityHistoryPage;
+

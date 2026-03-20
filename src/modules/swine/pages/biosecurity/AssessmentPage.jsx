@@ -349,7 +349,7 @@ function AssessmentPage() {
                 focusAreaComplete: 'Area Fokus Selesai!',
                 loading: 'Memuat penilaian...'
             },
-            vt: {
+            vi: {
                 previous: 'Trước',
                 saveExit: 'Lưu & Thoát',
                 next: 'Tiếp',
@@ -399,7 +399,7 @@ function AssessmentPage() {
                     {getTranslation('backToDashboard')}
                 </button>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.25rem' }}>
-                    Focus Area {focusAreaNumber}: {focusAreaInfo.name}
+                    {currentLang === 'id' ? `Area Fokus ${focusAreaNumber}` : currentLang === 'vi' ? `Khu vực ${focusAreaNumber}` : `Focus Area ${focusAreaNumber}`}: {focusAreaInfo.name}
                 </h1>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
                     {focusAreaInfo.description}
@@ -478,3 +478,4 @@ function AssessmentPage() {
 }
 
 export default AssessmentPage;
+

@@ -222,6 +222,21 @@ export const translations = {
                     grade: "Grade",
                     aboutTitle: "About BIOCHECK PIG",
                     aboutDescription: "This assessment is based on the scientifically validated BIOCHECK PIG V4.0 system developed by Ghent University. It evaluates biosecurity across multiple critical areas to help protect your farm from disease outbreaks."
+                },
+                assessment: {
+                    categoryProgress: "Category Progress",
+                    showCategories: "Show Categories",
+                    hideCategories: "Hide Categories",
+                    question: "Question",
+                    of: "of",
+                    percentComplete: "% Complete",
+                    unit: "Unit",
+                    additionalNotes: "Additional Notes (Optional)",
+                    notesPlaceholder: "Add any relevant observations or comments...",
+                    previous: "Previous",
+                    next: "Next",
+                    completeAssessment: "Complete Assessment",
+                    loading: "Loading..."
                 }
             },
             calculator: {
@@ -674,6 +689,21 @@ export const translations = {
                     grade: "Nilai",
                     aboutTitle: "Tentang BIOCHECK PIG",
                     aboutDescription: "Penilaian ini didasarkan pada sistem BIOCHECK PIG V4.0 yang tervalidasi secara ilmiah yang dikembangkan oleh Universitas Ghent. Ini mengevaluasi biosekuriti di berbagai area kritis untuk membantu melindungi peternakan Anda dari wabah penyakit."
+                },
+                assessment: {
+                    categoryProgress: "Progres Kategori",
+                    showCategories: "Tampilkan Kategori",
+                    hideCategories: "Sembunyikan Kategori",
+                    question: "Pertanyaan",
+                    of: "dari",
+                    percentComplete: "% Selesai",
+                    unit: "Satuan",
+                    additionalNotes: "Catatan Tambahan (Opsional)",
+                    notesPlaceholder: "Tambahkan pengamatan atau komentar yang relevan...",
+                    previous: "Sebelumnya",
+                    next: "Berikutnya",
+                    completeAssessment: "Selesaikan Penilaian",
+                    loading: "Memuat..."
                 }
             },
             calculator: {
@@ -1192,6 +1222,22 @@ export const translations = {
                     grade: "Điểm",
                     aboutTitle: "Về BIOCHECK PIG",
                     aboutDescription: "Đánh giá này dựa trên hệ thống BIOCHECK PIG V4.0 được xác thực khoa học do Đại học Ghent phát triển. Nó đánh giá an toàn sinh học trên nhiều lĩnh vực quan trọng để giúp bảo vệ trang trại của bạn khỏi dịch bệnh."
+                }
+                ,
+                assessment: {
+                    categoryProgress: "Tiến Độ Danh Mục",
+                    showCategories: "Hiện Danh Mục",
+                    hideCategories: "Ẩn Danh Mục",
+                    question: "Câu hỏi",
+                    of: "trong",
+                    percentComplete: "% Hoàn thành",
+                    unit: "Đơn vị",
+                    additionalNotes: "Ghi chú Bổ sung (Tùy chọn)",
+                    notesPlaceholder: "Thêm bất kỳ quan sát hoặc nhận xét có liên quan...",
+                    previous: "Trước",
+                    next: "Tiếp theo",
+                    completeAssessment: "Hoàn thành Đánh giá",
+                    loading: "Đang tải..."
                 }
             },
             calculator: {

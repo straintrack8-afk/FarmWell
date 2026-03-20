@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBiosecurity } from '../../contexts/BiosecurityContext';
 
@@ -94,7 +94,7 @@ const translations = {
         cancelButton: 'Batal',
         requiredField: 'Field ini wajib diisi'
     },
-    vt: {
+    vi: {
         title: 'Hồ Sơ Trang Trại',
         subtitle: 'Thông tin cơ bản về trang trại của bạn',
         assessmentDate: 'Ngày Đánh Giá',
@@ -424,3 +424,4 @@ function FarmProfilePage() {
 }
 
 export default FarmProfilePage;
+

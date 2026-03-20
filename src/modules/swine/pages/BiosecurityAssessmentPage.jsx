@@ -52,7 +52,7 @@ function BiosecurityAssessmentPage() {
   const categoryProgress = getCategoryProgress();
 
   if (!currentQuestion) {
-    return <div className="container">Loading...</div>;
+    return <div className="container">{t('swine.biosecurity.assessment.loading')}</div>;
   }
 
   const handleAnswerSelect = (value) => {
@@ -139,10 +139,10 @@ function BiosecurityAssessmentPage() {
         <div className="container" style={{ maxWidth: '1200px', padding: '1rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
             <div style={{ fontSize: '0.875rem', fontWeight: '600' }}>
-              Question {progress.current} of {progress.total}
+              {t('swine.biosecurity.assessment.question')} {progress.current} {t('swine.biosecurity.assessment.of')} {progress.total}
             </div>
             <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-              {Math.round(progress.percentage)}% Complete
+              {Math.round(progress.percentage)}{t('swine.biosecurity.assessment.percentComplete')}
             </div>
           </div>
           <div style={{ 
@@ -306,7 +306,7 @@ function BiosecurityAssessmentPage() {
                 />
                 {currentQuestion.unit && (
                   <div style={{ marginTop: '0.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                    Unit: {currentQuestion.unit}
+                    {t('swine.biosecurity.assessment.unit')}: {currentQuestion.unit}
                   </div>
                 )}
               </div>
@@ -318,7 +318,7 @@ function BiosecurityAssessmentPage() {
                   <thead>
                     <tr>
                       <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid var(--border-color)' }}>
-                        Question
+                        {t('swine.biosecurity.assessment.question')}
                       </th>
                       {currentQuestion.columns.map((col) => (
                         <th key={col.value} style={{ padding: '0.75rem', textAlign: 'center', borderBottom: '2px solid var(--border-color)' }}>
@@ -362,12 +362,12 @@ function BiosecurityAssessmentPage() {
           {/* Notes Section */}
           <div>
             <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-              Additional Notes (Optional)
+              {t('swine.biosecurity.assessment.additionalNotes')}
             </label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Add any relevant observations or comments..."
+              placeholder={t('swine.biosecurity.assessment.notesPlaceholder')}
               rows={3}
               style={{
                 width: '100%',
@@ -396,7 +396,7 @@ function BiosecurityAssessmentPage() {
             }}
           >
             <ChevronLeft size={20} />
-            Previous
+            {t('swine.biosecurity.assessment.previous')}
           </button>
 
           <button
@@ -411,7 +411,9 @@ function BiosecurityAssessmentPage() {
               gap: '0.5rem'
             }}
           >
-            {currentQuestionIndex === questions.length - 1 ? 'Complete Assessment' : 'Next'}
+            {currentQuestionIndex === questions.length - 1
+              ? t('swine.biosecurity.assessment.completeAssessment')
+              : t('swine.biosecurity.assessment.next')}
             <ChevronRight size={20} />
           </button>
         </div>
@@ -430,7 +432,9 @@ function BiosecurityAssessmentPage() {
               className="btn"
               style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}
             >
-              {showCategoryNav ? 'Hide' : 'Show'} Categories
+              {showCategoryNav
+                ? t('swine.biosecurity.assessment.hideCategories')
+                : t('swine.biosecurity.assessment.showCategories')}
             </button>
           </div>
 
