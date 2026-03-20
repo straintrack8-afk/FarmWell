@@ -8,6 +8,7 @@ import '../../poultry.css';
 function BreederAssessmentDashboard() {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { language } = useLanguage();
     const {
         categories,
         categoryOrder,
@@ -213,7 +214,7 @@ function BreederAssessmentDashboard() {
                                                 </span>
                                             </div>
                                             <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '0.5rem', color: '#1e293b' }}>
-                                                {category.name}
+                                                {category.name?.[language] || category.name?.en || (typeof category.name === 'string' ? category.name : '')}
                                             </h3>
                                             <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>
                                                 {progress.totalCount} {t('poultry.breeder.dashboard.questions')}

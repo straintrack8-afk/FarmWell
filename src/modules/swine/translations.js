@@ -115,6 +115,7 @@ export const swineTranslations = {
         error: 'Error',
         offline: 'Offline',
         online: 'Online',
+        selected: 'Selected',
         
         // Farm Calculator
         calculator: {
@@ -246,6 +247,7 @@ export const swineTranslations = {
         error: 'Kesalahan',
         offline: 'Luring',
         online: 'Daring',
+        selected: 'Terpilih',
         
         // Farm Calculator
         calculator: {
@@ -377,6 +379,7 @@ export const swineTranslations = {
         error: 'Lỗi',
         offline: 'Ngoại tuyến',
         online: 'Trực tuyến',
+        selected: 'Đã chọn',
         
         // Farm Calculator
         calculator: {

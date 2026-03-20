@@ -1,0 +1,3311 @@
+{
+  "version": "4.0",
+  "source": "BIOCHECK PIG V4.0 - Biocheck.Gent BV",
+  "language": "id",
+  "language_name": "Bahasa Indonesia",
+  "total_questions": 116,
+  "farm_profile": {
+    "title": "Profil Peternakan",
+    "description": "Informasi dasar tentang peternakan Anda",
+    "questions": [
+      {
+        "id": "Q_I",
+        "number": "I",
+        "text": "Kategori hewan manakah yang ada di peternakan?",
+        "type": "multi_select",
+        "required": true,
+        "category": "karakteristik_peternakan",
+        "options": [
+          {
+            "value": "sows_gilts_boars",
+            "label": "Induk/calon induk/pejantan"
+          },
+          {
+            "value": "suckling_piglets",
+            "label": "Anak babi menyusu"
+          },
+          {
+            "value": "weaned_piglets",
+            "label": "Anak babi sapih"
+          },
+          {
+            "value": "slaughter_pigs",
+            "label": "Babi potong"
+          }
+        ],
+        "scoring": "demografis"
+      },
+      {
+        "id": "Q_II",
+        "number": "II",
+        "text": "Selain babi, apakah ada hewan ternak lain di peternakan Anda?",
+        "type": "single_select",
+        "required": true,
+        "category": "karakteristik_peternakan",
+        "options": [
+          {
+            "value": "yes",
+            "label": "Ya",
+            "next": "Q_III"
+          },
+          {
+            "value": "no",
+            "label": "Tidak",
+            "next": "Q_IV"
+          }
+        ],
+        "scoring": "demografis"
+      },
+      {
+        "id": "Q_III",
+        "number": "III",
+        "text": "Hewan ternak lain apa yang ada di peternakan Anda?",
+        "type": "multi_select",
+        "required": false,
+        "category": "karakteristik_peternakan",
+        "condition": "Q_II == 'yes'",
+        "options": [
+          {
+            "value": "cattle",
+            "label": "Sapi"
+          },
+          {
+            "value": "poultry",
+            "label": "Unggas"
+          },
+          {
+            "value": "horses",
+            "label": "Kuda"
+          },
+          {
+            "value": "sheep_goats",
+            "label": "Domba/kambing"
+          },
+          {
+            "value": "other",
+            "label": "Lainnya"
+          }
+        ],
+        "scoring": "demografis"
+      },
+      {
+        "id": "Q_IV",
+        "number": "IV",
+        "text": "Berapa tahun pengalaman penanggung jawab dalam memelihara babi?",
+        "type": "number",
+        "required": true,
+        "category": "karakteristik_peternakan",
+        "scoring": "demografis"
+      },
+      {
+        "id": "Q_V",
+        "number": "V",
+        "text": "Berapa jumlah orang (penuh waktu atau paruh waktu) yang merawat babi?",
+        "type": "number",
+        "required": true,
+        "category": "karakteristik_peternakan",
+        "scoring": "demografis"
+      },
+      {
+        "id": "Q_VI",
+        "number": "VI",
+        "text": "Berapa umur (dalam tahun) bangunan tertua tempat babi dipelihara?",
+        "type": "number",
+        "required": true,
+        "category": "karakteristik_peternakan",
+        "help": "Jika bangunan direnovasi, berikan umur sebelum renovasi.",
+        "scoring": "demografis"
+      },
+      {
+        "id": "Q_VII",
+        "number": "VII",
+        "text": "Berapa umur (dalam tahun) bangunan terbaru tempat babi dipelihara?",
+        "type": "number",
+        "required": true,
+        "category": "karakteristik_peternakan",
+        "help": "Jika bangunan direnovasi, berikan umur sebelum renovasi.",
+        "scoring": "demografis"
+      }
+    ]
+  },
+  "assessment": {
+    "title": "Penilaian Biosekuriti",
+    "description": "Evaluasi komprehensif tentang langkah-langkah biosekuriti peternakan",
+    "focus_areas": [
+      {
+        "number": 1,
+        "name": "Pembelian & Transportasi",
+        "description": "Mencegah masuknya penyakit melalui hewan dan kendaraan",
+        "category": "biosekuriti eksternal",
+        "sections": [
+          "Pembelian Hewan & Semen",
+          "Transportasi & Pembuangan Bangkai"
+        ],
+        "questions": [
+          {
+            "id": "Q1",
+            "number": "1",
+            "text": "Apakah Anda membeli indukan babi (induk/calon induk/pejantan)?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "next": "Q2"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "next": "Q10"
+              }
+            ]
+          },
+          {
+            "id": "Q2",
+            "number": "2",
+            "text": "Apakah indukan babi (selama 2 tahun terakhir) selalu dibeli dari pemasok yang sama?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q1 == 'yes'",
+            "options": [
+              {
+                "value": "always_same",
+                "label": "Selalu pemasok yang sama",
+                "score": 100
+              },
+              {
+                "value": "sometimes_different",
+                "label": "Kadang pemasok berbeda",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q3",
+            "number": "3",
+            "text": "Setiap kali membeli indukan dari peternakan lain, apakah status kesehatan pemasok diketahui sebelum pembelian?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q1 == 'yes'",
+            "help": "Peternakan dengan status kesehatan diketahui adalah peternakan yang diketahui bebas dari penyakit tertentu (misalnya kudis, PRRS) atau tidak.",
+            "options": [
+              {
+                "value": "higher",
+                "label": "Ya, status kesehatan pemasok lebih tinggi dari status saya",
+                "score": 100
+              },
+              {
+                "value": "equal",
+                "label": "Ya, status kesehatan pemasok sama dengan status saya",
+                "score": 80
+              },
+              {
+                "value": "lower_precautions",
+                "label": "Ya, status kesehatan pemasok lebih rendah, tapi saya mengambil tindakan pencegahan",
+                "score": 60
+              },
+              {
+                "value": "lower_no_precautions",
+                "label": "Ya, status kesehatan pemasok lebih rendah dan tanpa tindakan pencegahan",
+                "score": 20
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q4",
+            "number": "4",
+            "text": "Apakah diverifikasi (misalnya dokumen tertulis atau pernyataan lain) bahwa kendaraan pengangkut yang membawa indukan ke peternakan telah dibersihkan dan didisinfeksi sebelum pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q1 == 'yes'",
+            "help": "Jika kendaraan terlihat bersih secara visual tetapi pengangkut tidak dapat memberikan bukti pembersihan dan disinfeksi, pilih 'Saya tidak tahu'.",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q5",
+            "number": "5",
+            "text": "Berapa kali per tahun indukan babi dikirim ke peternakan Anda?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q1 == 'yes'",
+            "options": [
+              {
+                "value": "twice_or_less",
+                "label": "Dua kali atau kurang",
+                "score": 100
+              },
+              {
+                "value": "3_to_6",
+                "label": "3 sampai 6 kali",
+                "score": 75
+              },
+              {
+                "value": "7_to_12",
+                "label": "7 sampai 12 kali",
+                "score": 50
+              },
+              {
+                "value": "more_than_12",
+                "label": "Lebih dari 12 kali",
+                "score": 25
+              }
+            ]
+          },
+          {
+            "id": "Q6",
+            "number": "6",
+            "text": "Apakah semua indukan baru dikarantina di area terpisah dari populasi babi lainnya?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q1 == 'yes'",
+            "help": "Area karantina bisa berada di bangunan yang sama, tetapi harus benar-benar terpisah (tanpa kontak fisik) dari hewan lainnya.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100,
+                "next": "Q7"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0,
+                "next": "Q10"
+              }
+            ]
+          },
+          {
+            "id": "Q7",
+            "number": "7",
+            "text": "Apakah manajemen all-in (masuk-serentak) diterapkan secara ketat di area karantina?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q6 == 'yes'",
+            "help": "All-in: semua hewan yang perlu dikarantina dimasukkan ke area karantina pada waktu yang sama. Sangat penting bahwa tidak ada hewan baru yang dimasukkan sebelum area dikosongkan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q8",
+            "number": "8",
+            "text": "Berapa durasi minimum (dalam hari) masa karantina yang Anda terapkan dalam setahun terakhir?",
+            "type": "number",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q6 == 'yes'",
+            "scoring": {
+              ">=28": 100,
+              "14-27": 75,
+              "7-13": 50,
+              "<7": 25
+            }
+          },
+          {
+            "id": "Q9",
+            "number": "9",
+            "text": "Apakah ada kunci higiene terpisah untuk area karantina?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q6 == 'yes'",
+            "help": "Kunci higiene adalah fasilitas tempat Anda dapat berganti pakaian/sepatu khusus dan membersihkan/mendisinfeksi tangan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q10",
+            "number": "10",
+            "text": "Apakah Anda membeli anak babi?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "next": "Q11"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "next": "Q15"
+              }
+            ]
+          },
+          {
+            "id": "Q11",
+            "number": "11",
+            "text": "Apakah anak babi (selama 2 tahun terakhir) selalu dibeli dari pemasok yang sama?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q10 == 'yes'",
+            "options": [
+              {
+                "value": "always_same",
+                "label": "Selalu pemasok yang sama",
+                "score": 100
+              },
+              {
+                "value": "sometimes_different",
+                "label": "Kadang pemasok berbeda",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q12",
+            "number": "12",
+            "text": "Setiap kali membeli anak babi dari peternakan lain, apakah status kesehatan pemasok diketahui sebelum pembelian?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q10 == 'yes'",
+            "options": [
+              {
+                "value": "higher",
+                "label": "Ya, status kesehatan pemasok lebih tinggi dari status saya",
+                "score": 100
+              },
+              {
+                "value": "equal",
+                "label": "Ya, status kesehatan pemasok sama dengan status saya",
+                "score": 80
+              },
+              {
+                "value": "lower_precautions",
+                "label": "Ya, lebih rendah tapi saya mengambil tindakan pencegahan",
+                "score": 60
+              },
+              {
+                "value": "lower_no_precautions",
+                "label": "Ya, lebih rendah dan tanpa tindakan pencegahan",
+                "score": 20
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q13",
+            "number": "13",
+            "text": "Apakah diverifikasi bahwa kendaraan pengangkut yang membawa anak babi telah dibersihkan dan didisinfeksi sebelum pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q10 == 'yes'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q14",
+            "number": "14",
+            "text": "Berapa kali per tahun anak babi dikirim ke peternakan Anda?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q10 == 'yes'",
+            "options": [
+              {
+                "value": "three_or_less",
+                "label": "Tiga kali atau kurang",
+                "score": 100
+              },
+              {
+                "value": "4_to_6",
+                "label": "4 sampai 6 kali",
+                "score": 75
+              },
+              {
+                "value": "7_to_12",
+                "label": "7 sampai 12 kali",
+                "score": 50
+              },
+              {
+                "value": "more_than_12",
+                "label": "Lebih dari 12 kali",
+                "score": 25
+              }
+            ]
+          },
+          {
+            "id": "Q15",
+            "number": "15",
+            "text": "Apakah perkembangbiakan terjadi secara alami atau buatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "options": [
+              {
+                "value": "natural",
+                "label": "Perkawinan alami",
+                "next": "Q16"
+              },
+              {
+                "value": "artificial",
+                "label": "Inseminasi buatan",
+                "next": "Q17"
+              },
+              {
+                "value": "both",
+                "label": "Keduanya",
+                "next": "Q16"
+              }
+            ]
+          },
+          {
+            "id": "Q16",
+            "number": "16",
+            "text": "Pejantan mana yang digunakan untuk perkawinan alami?",
+            "type": "multi_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q15 == 'natural' OR Q15 == 'both'",
+            "options": [
+              {
+                "value": "own_on_farm",
+                "label": "Pejantan milik sendiri yang tetap di peternakan",
+                "score": 100
+              },
+              {
+                "value": "own_different_farm",
+                "label": "Pejantan milik sendiri yang dipelihara di peternakan berbeda",
+                "score": 75
+              },
+              {
+                "value": "shared_boars",
+                "label": "Pejantan yang digunakan bersama di peternakan berbeda",
+                "score": 0
+              }
+            ],
+            "next_if_natural": "Q18",
+            "next_if_both": "Q17"
+          },
+          {
+            "id": "Q17",
+            "number": "17",
+            "text": "Setiap kali semen dibeli dari peternakan/stasiun pejantan, apakah status kesehatan pemasok diketahui sebelum pembelian?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembelian_hewan",
+            "condition": "Q15 == 'artificial' OR Q15 == 'both'",
+            "options": [
+              {
+                "value": "higher",
+                "label": "Ya, status kesehatan pemasok lebih tinggi dari status saya",
+                "score": 100
+              },
+              {
+                "value": "equal",
+                "label": "Ya, sama dengan status saya",
+                "score": 80
+              },
+              {
+                "value": "lower_precautions",
+                "label": "Ya, lebih rendah tapi saya mengambil tindakan pencegahan",
+                "score": 60
+              },
+              {
+                "value": "lower_no_precautions",
+                "label": "Ya, lebih rendah dan tanpa tindakan pencegahan",
+                "score": 20
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q18",
+            "number": "18",
+            "text": "Apakah area peternakan dibagi secara fisik menjadi area bersih dan kotor?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "help": "Area bersih adalah tempat hanya hewan ternak, orang yang berwenang setelah tindakan higiene, dan material khusus peternakan yang diizinkan. Area kotor mencakup semua bagian lain dengan akses pengunjung/kendaraan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q19",
+            "number": "19",
+            "text": "Apakah babi potong diangkut dari peternakan Anda ke rumah potong hewan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "next": "Q20"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q20",
+            "number": "20",
+            "text": "Apakah kendaraan pengangkut babi potong kosong sebelum pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q19 == 'yes'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100,
+                "next": "Q21"
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50,
+                "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0,
+                "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0,
+                "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q21",
+            "number": "21",
+            "text": "Apakah diverifikasi bahwa kendaraan pengangkut babi potong telah dibersihkan dan didisinfeksi sebelum pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q20 == 'always'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q22",
+            "number": "22",
+            "text": "Apakah induk babi diangkut dari peternakan Anda ke peternakan lain atau ke rumah potong hewan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "next": "Q23"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "next_logic": "Q25_if_piglets_else_Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q23",
+            "number": "23",
+            "text": "Apakah kendaraan pengangkut induk babi kosong sebelum pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q22 == 'yes'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100,
+                "next": "Q24"
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50,
+                "next_logic": "Q25_if_piglets_else_Q28"
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0,
+                "next_logic": "Q25_if_piglets_else_Q28"
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0,
+                "next_logic": "Q25_if_piglets_else_Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q24",
+            "number": "24",
+            "text": "Apakah diverifikasi bahwa kendaraan pengangkut induk babi telah dibersihkan dan didisinfeksi sebelum pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q23 == 'always'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q25",
+            "number": "25",
+            "text": "Apakah anak babi diangkut dari peternakan Anda ke peternakan lain (misalnya ke lokasi pembesaran)?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "next": "Q26"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "next": "Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q26",
+            "number": "26",
+            "text": "Apakah kendaraan pengangkut anak babi kosong sebelum pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q25 == 'yes'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100,
+                "next": "Q27"
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50,
+                "next": "Q28"
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0,
+                "next": "Q28"
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0,
+                "next": "Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q27",
+            "number": "27",
+            "text": "Apakah diverifikasi bahwa kendaraan pengangkut anak babi telah dibersihkan dan didisinfeksi sebelum pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q26 == 'always'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q28",
+            "number": "28",
+            "text": "Apakah pengemudi memiliki akses ke area kandang dan/atau apakah kontak langsung dengan hewan dimungkinkan saat pemuatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              },
+              {
+                "value": "own_transport",
+                "label": "Peternak dan/atau karyawan adalah pengemudi (transportasi sendiri)",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q29",
+            "number": "29",
+            "text": "Apakah pengemudi menerima dan memakai pakaian dan sepatu khusus peternakan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "brings_own",
+                "label": "Pengemudi membawa pakaian dan sepatu sendiri yang sudah dibersihkan dan didisinfeksi",
+                "score": 75
+              },
+              {
+                "value": "stays_in_vehicle",
+                "label": "Pengemudi tetap di dalam kendaraan",
+                "score": 100
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q30",
+            "number": "30",
+            "text": "Apakah babi dimuat dari area pemuatan terpisah atau langsung dari kandang/koridor tengah?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "help": "Area pemuatan terpisah adalah lokasi yang secara fisik terpisah tempat hewan dibawa sebelum/selama pemuatan.",
+            "options": [
+              {
+                "value": "separate_area",
+                "label": "Area pemuatan terpisah",
+                "score": 100,
+                "next": "Q32"
+              },
+              {
+                "value": "pen_corridor",
+                "label": "Kandang/koridor tengah",
+                "score": 50,
+                "next": "Q31"
+              }
+            ]
+          },
+          {
+            "id": "Q31",
+            "number": "31",
+            "text": "Apakah babi pernah dikembalikan ke kandang setelah berada di kendaraan transportasi?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q30 == 'pen_corridor'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q32",
+            "number": "32",
+            "text": "Apakah kotoran/hewan diangkut dan dibuang melalui jalan akses kotor?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q33",
+            "number": "33",
+            "text": "Apakah selang khusus peternakan untuk pembuangan kotoran dari kolam kotoran tersedia?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "help": "Selang untuk pembuangan kotoran yang selalu berada di peternakan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              },
+              {
+                "value": "not_applicable",
+                "label": "Tidak berlaku",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q34",
+            "number": "34",
+            "text": "Apakah ada ruang penyimpanan bangkai khusus yang terpisah secara fisik dari fasilitas hewan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "yes_separated",
+                "label": "Ya",
+                "score": 100,
+                "next": "Q35"
+              },
+              {
+                "value": "yes_not_separated",
+                "label": "Ya, tapi tidak terpisah secara fisik dari hewan hidup",
+                "score": 50,
+                "next": "Q35"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0,
+                "next": "Q39"
+              },
+              {
+                "value": "immediately_processed",
+                "label": "Tidak relevan, bangkai langsung diproses",
+                "score": 75,
+                "next": "Q39"
+              }
+            ]
+          },
+          {
+            "id": "Q35",
+            "number": "35",
+            "text": "Apakah ruang penyimpanan bangkai terletak di area kotor peternakan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q36",
+            "number": "36",
+            "text": "Apakah ruang penyimpanan bangkai tertutup dan terawat baik untuk mencegah akses hama, hewan peliharaan, atau hewan liar?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100,
+                "next": "Q37"
+              },
+              {
+                "value": "sometimes_partial",
+                "label": "Kadang-kadang/sebagian",
+                "score": 50,
+                "next": "Q38"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0,
+                "next": "Q38"
+              }
+            ]
+          },
+          {
+            "id": "Q37",
+            "number": "37",
+            "text": "Apakah ruang penyimpanan bangkai didinginkan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q36 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q38",
+            "number": "38",
+            "text": "Apakah ruang penyimpanan bangkai dibersihkan dan didisinfeksi setelah setiap penggunaan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+            "options": [
+              {
+                "value": "cleaned_and_disinfected",
+                "label": "Dibersihkan dan didisinfeksi",
+                "score": 100
+              },
+              {
+                "value": "only_cleaned",
+                "label": "Hanya dibersihkan",
+                "score": 75
+              },
+              {
+                "value": "only_disinfected",
+                "label": "Hanya didisinfeksi",
+                "score": 50
+              },
+              {
+                "value": "not_cleaned_nor_disinfected",
+                "label": "Tidak dibersihkan atau didisinfeksi",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q39",
+            "number": "39",
+            "text": "Apa yang dilakukan dengan bangkai?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "help": "Pengomposan adalah dekomposisi alami. Penguburan mungkin dilarang di negara Anda.",
+            "options": [
+              {
+                "value": "composted",
+                "label": "Bangkai dikomposkan",
+                "next": "Q40"
+              },
+              {
+                "value": "buried_burned",
+                "label": "Bangkai dikubur/dibakar",
+                "next": "Q41"
+              },
+              {
+                "value": "rendering",
+                "label": "Bangkai disimpan dan diambil oleh perusahaan rendering",
+                "next": "Q42"
+              }
+            ]
+          },
+          {
+            "id": "Q40",
+            "number": "40",
+            "text": "Apakah bangkai dikomposkan dalam sistem tertutup?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q39 == 'composted'",
+            "options": [
+              {
+                "value": "inside_building",
+                "label": "Ya, bangkai dikomposkan di dalam bangunan yang dapat ditutup sepenuhnya",
+                "score": 100
+              },
+              {
+                "value": "outside_enclosed",
+                "label": "Ya, bangkai dikomposkan di luar, ditutup dengan misalnya plastik",
+                "score": 75
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ],
+            "next": "Q43"
+          },
+          {
+            "id": "Q41",
+            "number": "41",
+            "text": "Bagaimana bangkai dikubur/dibakar?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q39 == 'buried_burned'",
+            "help": "Dikubur di tanah yang sesuai: penguburan dalam di lubang jauh dari sumber air tanah.",
+            "options": [
+              {
+                "value": "approved_incinerator",
+                "label": "Bangkai dibakar dalam insinerator yang disetujui di peternakan",
+                "score": 100
+              },
+              {
+                "value": "buried_appropriate",
+                "label": "Bangkai dikubur di tanah yang sesuai di peternakan",
+                "score": 75
+              },
+              {
+                "value": "other",
+                "label": "Lainnya",
+                "score": 25
+              }
+            ],
+            "next": "Q43"
+          },
+          {
+            "id": "Q42",
+            "number": "42",
+            "text": "Apakah bangkai dapat diambil oleh perusahaan rendering tanpa mereka memasuki area peternakan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "condition": "Q39 == 'rendering'",
+            "help": "Misalnya dari jalan umum",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q43",
+            "number": "43",
+            "text": "Apakah peternak/karyawan mengganti alas kaki saat memasuki area bangkai?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q44",
+            "number": "44",
+            "text": "Apakah bangkai ditangani dengan sarung tangan sekali pakai, atau apakah tangan dibersihkan dan didisinfeksi setelah penanganan?",
+            "type": "single_select",
+            "required": true,
+            "category": "transportasi_bangkai",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "total_questions": 44,
+        "estimated_time_minutes": 66
+      },
+      {
+        "number": 2,
+        "name": "Fasilitas & Personil",
+        "description": "Kontrol akses dan pemeliharaan infrastruktur",
+        "category": "biosekuriti eksternal",
+        "sections": [
+          "Pasokan Pakan & Air",
+          "Pengunjung & Pekerja",
+          "Pengendalian Hama",
+          "Lokasi Peternakan"
+        ],
+        "questions": [
+          {
+            "id": "Q45",
+            "number": "45",
+            "text": "Jenis pakan apa yang digunakan di peternakan?",
+            "type": "multi_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "help": "Pemberian pakan sisa mungkin dilarang di negara Anda.",
+            "options": [
+              {
+                "value": "commercial",
+                "label": "Pakan komersial"
+              },
+              {
+                "value": "own_produced",
+                "label": "Produksi sendiri atau tanaman alami (misalnya biji pohon ek)"
+              },
+              {
+                "value": "swill_uncooked",
+                "label": "Pakan sisa tidak dimasak"
+              },
+              {
+                "value": "swill_cooked",
+                "label": "Pakan sisa dimasak"
+              }
+            ],
+            "next_if_commercial": "Q46",
+            "next_if_not_commercial": "Q49"
+          },
+          {
+            "id": "Q46",
+            "number": "46",
+            "text": "Apakah pakan hewan berasal dari perusahaan pakan yang memenuhi persyaratan higienis tertentu?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "condition": "Q45_includes_commercial",
+            "help": "Misalnya bebas Salmonella, perlakuan panas seperti pelletizing",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q47",
+            "number": "47",
+            "text": "Dapatkah perusahaan pakan mengisi silo/penyimpanan pakan tanpa memasuki area bersih?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "condition": "Q45_includes_commercial",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q48",
+            "number": "48",
+            "text": "Apakah pemasok pakan memiliki akses ke area kandang tempat kontak langsung dengan babi dimungkinkan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "condition": "Q45_includes_commercial",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q49",
+            "number": "49",
+            "text": "Apakah sistem pengiriman air (termasuk tangki penampung air) selalu tertutup?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "partially",
+                "label": "Sebagian",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q50",
+            "number": "50",
+            "text": "Seberapa sering analisis bakteriologis air minum dilakukan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "options": [
+              {
+                "value": "yearly_or_more",
+                "label": "Setahun sekali atau lebih sering",
+                "score": 100,
+                "next": "Q51"
+              },
+              {
+                "value": "every_two_years",
+                "label": "Setiap dua tahun",
+                "score": 75,
+                "next": "Q51"
+              },
+              {
+                "value": "less_than_two_years",
+                "label": "Kurang dari setiap dua tahun",
+                "score": 50,
+                "next": "Q51"
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0,
+                "next": "Q52"
+              },
+              {
+                "value": "municipal_supply",
+                "label": "Tidak pernah, saya menggunakan pasokan air kota",
+                "score": 75,
+                "next": "Q52"
+              }
+            ]
+          },
+          {
+            "id": "Q51",
+            "number": "51",
+            "text": "Di lokasi mana sampel air untuk analisis bakteriologis diambil?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "condition": "Q50 != 'never' AND Q50 != 'municipal_supply'",
+            "options": [
+              {
+                "value": "source_and_last_drinker",
+                "label": "Baik di sumber dan tempat minum terakhir (terjauh dari sumber)",
+                "score": 100
+              },
+              {
+                "value": "last_drinker",
+                "label": "Di tempat minum terakhir",
+                "score": 75
+              },
+              {
+                "value": "source",
+                "label": "Di sumber",
+                "score": 50
+              },
+              {
+                "value": "other",
+                "label": "Lainnya (misalnya tempat minum di awal jalur)",
+                "score": 25
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q52",
+            "number": "52",
+            "text": "Apakah jalur lalu khusus dan berfungsi baik untuk material yang masuk ke bangunan digunakan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "help": "Misalnya lembar UV untuk peralatan dan perkakas. Material dapat berupa ponsel, dokumen, pena, alat diagnostik, dll.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q53",
+            "number": "53",
+            "text": "Apakah ada peralatan (kecil atau besar) yang digunakan bersama dengan peternakan lain yang masuk ke peternakan Anda dan/atau kontak dengan babi Anda?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "next": "Q54"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "next": "Q55"
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "next": "Q55"
+              }
+            ]
+          },
+          {
+            "id": "Q54",
+            "number": "54",
+            "text": "Apakah tindakan khusus diambil untuk masuknya peralatan dari peternakan lain?",
+            "type": "single_select",
+            "required": true,
+            "category": "pakan_air_peralatan",
+            "condition": "Q53 == 'yes'",
+            "help": "Misalnya pembersihan dan disinfeksi, masa karantina di lokasi tertentu.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q55",
+            "number": "55",
+            "text": "Apakah peternakan mengikuti rencana biosekuriti tertulis?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "help": "Harus berisi: aspek/risiko kritis, prioritas implementasi biosekuriti, dan setidaknya revisi tahunan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q56",
+            "number": "56",
+            "text": "Apakah peternak dan/atau pekerja peternakan menerima pelatihan tentang biosekuriti dalam produksi babi dalam lima tahun terakhir?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "help": "Pelatihan dapat berupa diploma, e-learning, lokakarya, atau webinar. Juga dapat diberikan oleh personil internal dengan pelatihan bersertifikat.",
+            "options": [
+              {
+                "value": "both",
+                "label": "Keduanya telah menerima pelatihan biosekuriti",
+                "score": 100
+              },
+              {
+                "value": "only_one",
+                "label": "Hanya satu dari mereka yang telah menerima pelatihan biosekuriti",
+                "score": 50
+              },
+              {
+                "value": "neither",
+                "label": "Tidak satupun dari mereka yang menerima pelatihan biosekuriti",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q57",
+            "number": "57",
+            "text": "Apakah pengunjung diwajibkan untuk memberitahu dan mencatat kehadiran mereka sebelum memasuki fasilitas hewan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "help": "Misalnya gerbang tertutup yang memerlukan panggilan/bel, kewajiban menandatangani buku tamu.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q58",
+            "number": "58",
+            "text": "Apakah ada kunci higiene yang tersedia dan selalu digunakan oleh pengunjung saat memasuki fasilitas hewan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "help": "Kunci higiene adalah ruang tempat Anda dapat berganti pakaian/alas kaki khusus peternakan dan mencuci/mendisinfeksi tangan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100,
+                "next": "Q59"
+              },
+              {
+                "value": "present_not_always",
+                "label": "Ada kunci higiene, tapi tidak selalu digunakan",
+                "score": 50,
+                "next": "Q59"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0,
+                "next": "Q61"
+              }
+            ]
+          },
+          {
+            "id": "Q59",
+            "number": "59",
+            "text": "Apakah semua fasilitas hewan hanya dapat diakses pengunjung melalui kunci higiene?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "condition": "Q58 != 'no'",
+            "help": "Tidak ada cara alternatif untuk masuk - harus selalu melalui kunci higiene.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q60",
+            "number": "60",
+            "text": "Apakah ada pemisahan ketat antara area bersih dan kotor di kunci higiene?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "condition": "Q58 != 'no'",
+            "help": "Misalnya dengan penghalang fisik (papan kayu/bangku) atau shower. Area kotor adalah tempat orang masuk/menyimpan pakaian; area bersih adalah tempat mereka mengenakan pakaian khusus peternakan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q61",
+            "number": "61",
+            "text": "Apakah ada fasilitas shower dan apakah selalu digunakan oleh pengunjung/personil sebelum memasuki fasilitas hewan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "only_visitors",
+                "label": "Hanya untuk pengunjung, bukan untuk personil",
+                "score": 75
+              },
+              {
+                "value": "present_not_always",
+                "label": "Ada fasilitas shower, tapi tidak selalu digunakan",
+                "score": 50
+              },
+              {
+                "value": "no_facility",
+                "label": "Tidak ada fasilitas shower",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q62",
+            "number": "62",
+            "text": "Sebelum diizinkan masuk ke peternakan, apakah pengunjung dan pekerja peternakan harus...?",
+            "type": "matrix",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "rows": [
+              {
+                "id": "clothes",
+                "text": "memakai pakaian khusus peternakan yang tersedia/membawa pakaian bersih (jika tidak tersedia)"
+              },
+              {
+                "id": "footwear",
+                "text": "memakai alas kaki khusus peternakan yang tersedia/membawa alas kaki bersih dan didisinfeksi (jika tidak tersedia)"
+              },
+              {
+                "id": "hands",
+                "text": "mencuci dan mendisinfeksi tangan/menggunakan sarung tangan"
+              }
+            ],
+            "columns": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q63",
+            "number": "63",
+            "text": "Apakah ada pekerja peternakan yang memiliki kontak dengan babi selain yang ada di peternakan ini?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengunjung_pekerja",
+            "help": "Babi di rumah, di peternakan lain, babi hutan, berburu, pameran pertanian, dll.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q64",
+            "number": "64",
+            "text": "Apakah bagian luar bangunan peternakan (di sekitar dinding) diaspal/dipaving dan bersih (pembersihan gulma, limbah, ...) sehingga tidak ada tempat persembunyian bagi hama?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengendalian_hama_burung",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "partially",
+                "label": "Sebagian",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q65",
+            "number": "65",
+            "text": "Apakah program pengendalian hama diterapkan di peternakan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengendalian_hama_burung",
+            "options": [
+              {
+                "value": "professional_periodic",
+                "label": "Perusahaan pengendalian hama profesional disewa secara berkala",
+                "score": 100
+              },
+              {
+                "value": "own_periodic",
+                "label": "Peternakan memiliki program pengendalian hama berkala sendiri",
+                "score": 75
+              },
+              {
+                "value": "if_noticed",
+                "label": "Pengendalian hama dilakukan hanya jika infestasi/kelebihan populasi terlihat (misalnya melalui perangkap tikus)",
+                "score": 25
+              },
+              {
+                "value": "no_programme",
+                "label": "Tidak ada program pengendalian hama",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q66",
+            "number": "66",
+            "text": "Apakah hewan peliharaan atau hewan liar memiliki akses ke fasilitas hewan (termasuk penyimpanan pakan dan alas tidur)?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengendalian_hama_burung",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "only_some",
+                "label": "Hanya ke beberapa di antaranya",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q67",
+            "number": "67",
+            "text": "Apakah burung memiliki akses ke fasilitas hewan (termasuk penyimpanan pakan dan alas tidur)?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengendalian_hama_burung",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "only_some",
+                "label": "Hanya ke beberapa di antaranya",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q68",
+            "number": "68",
+            "text": "Apakah kisi-kisi dipasang di semua saluran masuk dan keluar udara?",
+            "type": "single_select",
+            "required": true,
+            "category": "pengendalian_hama_burung",
+            "help": "Kisi-kisi yang cukup kecil untuk mencegah masuknya hewan pengerat dan burung kecil.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "partially",
+                "label": "Sebagian",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q69",
+            "number": "69",
+            "text": "Apakah peternakan terletak di area dengan kepadatan babi tinggi atau rendah?",
+            "type": "single_select",
+            "required": true,
+            "category": "lokasi",
+            "help": "Wilayah dengan kepadatan tinggi memiliki >300 babi/km² di tingkat kotamadya. Jika ada beberapa peternakan babi dalam radius 3 km, kemungkinan Anda berada di area kepadatan tinggi.",
+            "options": [
+              {
+                "value": "low",
+                "label": "Kepadatan rendah",
+                "score": 100
+              },
+              {
+                "value": "high",
+                "label": "Kepadatan tinggi",
+                "score": 50
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q70",
+            "number": "70",
+            "text": "Apakah ada peternakan babi lain dalam radius 500 meter dari peternakan Anda?",
+            "type": "single_select",
+            "required": true,
+            "category": "lokasi",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q71",
+            "number": "71",
+            "text": "Apakah kotoran dari peternakan babi lain disebar di lahan pertanian dalam radius 500 meter dari peternakan Anda?",
+            "type": "single_select",
+            "required": true,
+            "category": "lokasi",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q72",
+            "number": "72",
+            "text": "Apakah kendaraan pengangkut hewan dari peternakan lain sering (minimal sekali sehari) melewati jalan yang berjarak kurang dari 100 meter dari peternakan Anda?",
+            "type": "single_select",
+            "required": true,
+            "category": "lokasi",
+            "help": "Misalnya karena lokasi rumah potong hewan di lingkungan sekitar.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q73",
+            "number": "73",
+            "text": "Apakah babi hutan (atau jejaknya) terlihat dalam radius 10 kilometer dari peternakan Anda?",
+            "type": "single_select",
+            "required": true,
+            "category": "lokasi",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0,
+                "next": "Q74"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100,
+                "next": "Q76"
+              },
+              {
+                "value": "dont_know",
+                "label": "Saya tidak tahu",
+                "score": 50,
+                "next": "Q76"
+              }
+            ]
+          },
+          {
+            "id": "Q74",
+            "number": "74",
+            "text": "Apakah peternakan dikelilingi oleh pagar anti-babi hutan?",
+            "type": "single_select",
+            "required": true,
+            "category": "lokasi",
+            "condition": "Q73 == 'yes'",
+            "help": "Pagar anti-babi hutan adalah pagar ganda dari jaring/kawat logam dengan tinggi minimal 1,5m atau pagar padat tunggal dari logam, batu, atau bahan padat lainnya dengan tinggi minimal 1,5m.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100,
+                "next": "Q75"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0,
+                "next": "Q76"
+              }
+            ]
+          },
+          {
+            "id": "Q75",
+            "number": "75",
+            "text": "Apakah pagar diperiksa secara teratur (setidaknya bulanan) untuk mengidentifikasi kerusakan dan diperbaiki jika diperlukan?",
+            "type": "single_select",
+            "required": true,
+            "category": "lokasi",
+            "condition": "Q74 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "total_questions": 31,
+        "estimated_time_minutes": 47
+      },
+      {
+        "number": 3,
+        "name": "Manajemen Produksi",
+        "description": "Pemantauan penyakit dan praktik produksi",
+        "category": "biosekuriti internal",
+        "sections": [
+          "Manajemen Penyakit",
+          "Manajemen Farrowing & Menyusu",
+          "Manajemen Pembesaran (Nursery)",
+          "Manajemen Penggemukan (Finishing)",
+          "Tindakan Antar Kompartemen"
+        ],
+        "questions": [
+          {
+            "id": "Q76",
+            "number": "76",
+            "text": "Apakah ada rencana perawatan di peternakan yang dievaluasi setiap tahun oleh dokter hewan/penasihat kesehatan?",
+            "type": "multi_select",
+            "required": true,
+            "category": "manajemen_penyakit",
+            "help": "Penasihat kesehatan: siapa pun yang datang ke peternakan untuk membantu meningkatkan kesehatan (misalnya ahli gizi, konsultan).",
+            "options": [
+              {
+                "value": "vaccination",
+                "label": "Ya, untuk vaksinasi",
+                "score": 100
+              },
+              {
+                "value": "deworming",
+                "label": "Ya, untuk pemberian obat cacing",
+                "score": 100
+              },
+              {
+                "value": "additives",
+                "label": "Ya, untuk aditif/pre- atau probiotik",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q77",
+            "number": "77",
+            "text": "Apakah evaluasi rutin (setidaknya setahun sekali) tentang status penyakit peternakan dilakukan (misalnya serologi, tren temuan rumah potong hewan, dll.) dengan berkonsultasi dengan dokter hewan/penasihat kesehatan?",
+            "type": "single_select",
+            "required": true,
+            "category": "manajemen_penyakit",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q78",
+            "number": "78",
+            "text": "Apakah babi kerdil (tertinggal karena alasan tidak jelas) dan/atau babi sakit diisolasi dari yang sehat atau apakah kebijakan eutanasia ketat diterapkan?",
+            "type": "single_select",
+            "required": true,
+            "category": "manajemen_penyakit",
+            "options": [
+              {
+                "value": "always_isolated",
+                "label": "Babi kerdil selalu diisolasi dari hewan sehat",
+                "score": 100,
+                "next": "Q79"
+              },
+              {
+                "value": "sometimes_isolated",
+                "label": "Babi kerdil kadang-kadang diisolasi dari hewan sehat",
+                "score": 75,
+                "next": "Q79"
+              },
+              {
+                "value": "not_isolated",
+                "label": "Babi kerdil tidak diisolasi, mereka selalu tetap dalam kelompoknya",
+                "score": 0,
+                "next": "Q81"
+              },
+              {
+                "value": "euthanasia",
+                "label": "Ada kebijakan eutanasia ketat, jadi tidak ada/hampir tidak ada babi kerdil",
+                "score": 100,
+                "next": "Q81"
+              }
+            ]
+          },
+          {
+            "id": "Q79",
+            "number": "79",
+            "text": "Apa yang terjadi dengan babi kerdil setelah pulih?",
+            "type": "single_select",
+            "required": true,
+            "category": "manajemen_penyakit",
+            "condition": "Q78 == 'always_isolated' OR Q78 == 'sometimes_isolated'",
+            "options": [
+              {
+                "value": "back_to_original",
+                "label": "Mereka dikembalikan ke kelompok asalnya",
+                "score": 50
+              },
+              {
+                "value": "younger_group",
+                "label": "Mereka dipindahkan ke kelompok usia yang lebih muda",
+                "score": 25
+              },
+              {
+                "value": "kept_isolated",
+                "label": "Mereka tetap diisolasi dari hewan lain sampai meninggalkan peternakan",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q80",
+            "number": "80",
+            "text": "Apakah babi sakit secara konsisten ditangani/dikunjungi setelah babi sehat?",
+            "type": "single_select",
+            "required": true,
+            "category": "manajemen_penyakit",
+            "condition": "Q78 == 'always_isolated' OR Q78 == 'sometimes_isolated'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q81",
+            "number": "81",
+            "text": "Apakah induk babi dimandikan sebelum dipindahkan ke unit farrowing?",
+            "type": "single_select",
+            "required": true,
+            "category": "farrowing_menyusu",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q82",
+            "number": "82",
+            "text": "Apakah anak babi menyusu secara sistematis dipindahkan antar induk (yaitu cross-fostering)?",
+            "type": "single_select",
+            "required": true,
+            "category": "farrowing_menyusu",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "next": "Q83"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "next": "Q85"
+              }
+            ]
+          },
+          {
+            "id": "Q83",
+            "number": "83",
+            "text": "Apakah cross-fostering anak babi menyusu antar induk terjadi sekali atau beberapa kali per masa laktasi?",
+            "type": "single_select",
+            "required": true,
+            "category": "farrowing_menyusu",
+            "condition": "Q82 == 'yes'",
+            "options": [
+              {
+                "value": "once",
+                "label": "Sekali",
+                "score": 75
+              },
+              {
+                "value": "more_than_once",
+                "label": "Lebih dari sekali",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q84",
+            "number": "84",
+            "text": "Kapan cross-fostering terjadi?",
+            "type": "multi_select",
+            "required": true,
+            "category": "farrowing_menyusu",
+            "condition": "Q82 == 'yes'",
+            "options": [
+              {
+                "value": "within_24h",
+                "label": "Dalam 24 jam setelah farrowing",
+                "score": 100
+              },
+              {
+                "value": "24_to_72h",
+                "label": "Antara 24 dan 72 jam setelah farrowing",
+                "score": 75
+              },
+              {
+                "value": "more_than_72h",
+                "label": "Lebih dari 72 jam setelah farrowing",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q85",
+            "number": "85",
+            "text": "Berapa kali anak babi secara rutin dipegang (misalnya vaksinasi, kastrasi, pemotongan gigi, pemotongan ekor, pemasangan tag telinga) antara lahir dan disapih?",
+            "type": "number",
+            "required": true,
+            "category": "farrowing_menyusu",
+            "help": "Beberapa manipulasi mungkin dilarang di negara Anda. Jika beberapa manipulasi terjadi pada waktu yang sama, hitung sebagai satu kesempatan.",
+            "scoring": {
+              "3": 75,
+              "4": 50,
+              "<=2": 100,
+              ">=5": 25
+            }
+          },
+          {
+            "id": "Q86",
+            "number": "86",
+            "text": "Apakah bahan/alat untuk perawatan (misalnya pisau kastrasi, pemotong ekor, pemasang tag telinga, jarum suntik) dibersihkan dan didisinfeksi atau diganti setiap antar induk?",
+            "type": "single_select",
+            "required": true,
+            "category": "farrowing_menyusu",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "only_some",
+                "label": "Hanya beberapa bahan/alat yang dibersihkan dan didisinfeksi atau diganti",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q87",
+            "number": "87",
+            "text": "Saat kastrasi, apakah pisau/jarum kastrasi didisinfeksi atau diganti antar anak babi?",
+            "type": "single_select",
+            "required": true,
+            "category": "farrowing_menyusu",
+            "options": [
+              {
+                "value": "after_each",
+                "label": "Pisau/jarum didisinfeksi atau diganti setelah setiap anak babi",
+                "score": 100
+              },
+              {
+                "value": "after_several",
+                "label": "Pisau/jarum didisinfeksi/diganti setelah beberapa anak babi atau pisau/jarum berbeda per kandang digunakan",
+                "score": 50
+              },
+              {
+                "value": "until_blunt",
+                "label": "Pisau/jarum tidak didisinfeksi atau diganti sampai tumpul",
+                "score": 0
+              },
+              {
+                "value": "not_performed",
+                "label": "Kastrasi tidak dilakukan",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q88",
+            "number": "88",
+            "text": "Apakah manajemen all-in (masuk-serentak) diterapkan secara ketat di setiap kompartemen unit nursery?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_nursery",
+            "help": "All-in: hewan dipindahkan ke unit nursery yang sama sekaligus dan tidak ada hewan baru yang dimasukkan sebelum dikosongkan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q89",
+            "number": "89",
+            "text": "Apakah anak babi yang lebih tua (dari kelompok farrowing berbeda) kadang-kadang dicampur dengan anak babi yang lebih muda?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_nursery",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q90",
+            "number": "90",
+            "text": "Berapa kepadatan maksimal kandang di unit nursery?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_nursery",
+            "options": [
+              {
+                "value": "0.33_or_more",
+                "label": "0,33 m² per hewan atau lebih",
+                "score": 100
+              },
+              {
+                "value": "0.32_to_0.26",
+                "label": "0,32 hingga 0,26 m² per hewan",
+                "score": 75
+              },
+              {
+                "value": "0.25_to_0.16",
+                "label": "0,25 hingga 0,16 m² per hewan",
+                "score": 50
+              },
+              {
+                "value": "0.15_or_less",
+                "label": "0,15 m² per hewan atau kurang",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q91",
+            "number": "91",
+            "text": "Apakah unit nursery terpisah secara fisik (yaitu tidak ada kontak langsung) dari unit babi lainnya?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_nursery",
+            "help": "Tidak ada kelompok hewan lain di bangunan/area yang sama.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              },
+              {
+                "value": "not_applicable",
+                "label": "Tidak berlaku",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q92",
+            "number": "92",
+            "text": "Apakah ada kunci higiene terpisah untuk unit nursery?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_nursery",
+            "help": "Kunci higiene adalah fasilitas tempat Anda dapat berganti pakaian/sepatu khusus dan membersihkan/mendisinfeksi tangan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q93",
+            "number": "93",
+            "text": "Apakah manajemen all-in (masuk-serentak) diterapkan secara ketat di setiap kompartemen unit finishing?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_finishing",
+            "help": "All-in: hewan dipindahkan ke unit finishing yang sama sekaligus dan tidak ada hewan baru yang dimasukkan sebelum dikosongkan.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q94",
+            "number": "94",
+            "text": "Apakah kelompok umur yang berbeda dipisahkan secara ketat ke dalam kompartemen/area yang berbeda (terpisah secara fisik)?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_finishing",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100,
+                "next": "Q95"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0,
+                "next": "Q96"
+              },
+              {
+                "value": "not_applicable",
+                "label": "Tidak berlaku",
+                "score": 50,
+                "next": "Q96"
+              }
+            ]
+          },
+          {
+            "id": "Q95",
+            "number": "95",
+            "text": "Apakah babi potong yang lebih tua kadang-kadang dicampur dengan babi yang lebih muda?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_finishing",
+            "condition": "Q94 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q96",
+            "number": "96",
+            "text": "Berapa kepadatan maksimal babi di kandang unit finishing?",
+            "type": "single_select",
+            "required": true,
+            "category": "unit_finishing",
+            "help": "Babi potong biasa: 90-115 kg bobot hidup. Babi potong berat: >115 kg.",
+            "options": [
+              {
+                "value": "1_or_more",
+                "label": "1 m² atau lebih per babi potong (1,50 m² atau lebih per babi potong berat)",
+                "score": 100
+              },
+              {
+                "value": "0.70_to_0.99",
+                "label": "0,70 hingga 0,99 m² per babi potong (1,10 hingga 1,49 m² per babi berat)",
+                "score": 75
+              },
+              {
+                "value": "0.60_to_0.69",
+                "label": "0,60 hingga 0,69 m² per babi potong (0,80 hingga 1,09 m² per babi berat)",
+                "score": 50
+              },
+              {
+                "value": "less_than_0.60",
+                "label": "Kurang dari 0,60 m² per babi potong (kurang dari 0,80 m² per babi berat)",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q97",
+            "number": "97",
+            "text": "Apakah ada kompartemen/kelompok umur yang berbeda di peternakan?",
+            "type": "single_select",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "next": "Q98"
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "next": "Q103"
+              }
+            ]
+          },
+          {
+            "id": "Q98",
+            "number": "98",
+            "text": "Antar kompartemen/kelompok umur yang berbeda, apakah tindakan berikut dilakukan?",
+            "type": "matrix",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "condition": "Q97 == 'yes'",
+            "help": "Kompartemen: unit yang didefinisikan secara fisik tempat satu kelompok babi dipelihara.",
+            "rows": [
+              {
+                "id": "clothes",
+                "text": "Berganti pakaian khusus per kompartemen/kelompok umur"
+              },
+              {
+                "id": "footwear",
+                "text": "Berganti alas kaki khusus per kompartemen/kelompok umur"
+              },
+              {
+                "id": "hands",
+                "text": "Mencuci tangan/mengganti sarung tangan per kompartemen/kelompok umur"
+              }
+            ],
+            "columns": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q99",
+            "number": "99",
+            "text": "Apakah bak disinfeksi dan/atau pencuci sepatu digunakan antar kompartemen/unit yang berbeda?",
+            "type": "single_select",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "condition": "Q97 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "only_some",
+                "label": "Hanya untuk beberapa kompartemen/unit",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q100",
+            "number": "100",
+            "text": "Urutan kerja mana yang digunakan dalam keadaan normal?",
+            "type": "single_select",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "condition": "Q97 == 'yes'",
+            "options": [
+              {
+                "value": "young_to_old",
+                "label": "Dari hewan muda ke tua",
+                "score": 100
+              },
+              {
+                "value": "old_to_young",
+                "label": "Dari hewan tua ke muda",
+                "score": 50
+              },
+              {
+                "value": "another_sequence",
+                "label": "Urutan kerja lain",
+                "score": 25
+              },
+              {
+                "value": "no_sequence",
+                "label": "Tidak ada urutan kerja",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q101",
+            "number": "101",
+            "text": "Apakah peralatan yang diperlukan untuk kategori hewan tertentu ditempatkan sesuai dengan jalur kerja untuk menghindari penggunaan di kategori umur lain?",
+            "type": "single_select",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "condition": "Q97 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q102",
+            "number": "102",
+            "text": "Apakah bahan/alat yang mudah dikenali (misalnya dengan warna) dan terpisah digunakan untuk setiap unit atau kelompok umur?",
+            "type": "single_select",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "condition": "Q97 == 'yes'",
+            "help": "Untuk semua unit: kandang farrowing, unit nursery, dan unit finishing.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Ya",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q103",
+            "number": "103",
+            "text": "Apakah panel pemilah/penggiring babi mudah dibersihkan (misalnya plastik) dan apakah secara teratur dibersihkan dan didisinfeksi?",
+            "type": "single_select",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "help": "Teratur: setelah setiap penggunaan atau setidaknya setelah setiap siklus produksi selama istirahat sanitasi.",
+            "options": [
+              {
+                "value": "easy_and_regular",
+                "label": "Ya, panel mudah dibersihkan dan secara teratur dibersihkan dan didisinfeksi",
+                "score": 100
+              },
+              {
+                "value": "easy_not_regular",
+                "label": "Panel mudah dibersihkan tetapi tidak secara teratur dibersihkan dan didisinfeksi",
+                "score": 75
+              },
+              {
+                "value": "not_easy_but_regular",
+                "label": "Panel tidak mudah dibersihkan (misalnya kayu) tetapi secara teratur dibersihkan dan didisinfeksi",
+                "score": 50
+              },
+              {
+                "value": "not_easy_not_regular",
+                "label": "Tidak, panel tidak mudah dibersihkan dan tidak secara teratur dibersihkan dan didisinfeksi",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q104",
+            "number": "104",
+            "text": "Apakah jarum suntik dan jarum suntik khusus digunakan untuk setiap kelompok umur?",
+            "type": "single_select",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "help": "Untuk semua unit: kandang farrowing, unit nursery, dan unit finishing.",
+            "options": [
+              {
+                "value": "both_specific",
+                "label": "Baik jarum suntik maupun jarum khusus untuk setiap kelompok umur",
+                "score": 100
+              },
+              {
+                "value": "only_needles",
+                "label": "Hanya jarum yang khusus untuk kelompok umur",
+                "score": 75
+              },
+              {
+                "value": "no",
+                "label": "Tidak",
+                "score": 0
+              },
+              {
+                "value": "not_applicable",
+                "label": "Tidak berlaku",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q105",
+            "number": "105",
+            "text": "Setelah berapa babi jarum suntik diganti?",
+            "type": "single_select",
+            "required": true,
+            "category": "tindakan_antar_kompartemen",
+            "help": "Untuk semua unit. Jika ini berbeda per kompartemen, tunjukkan skenario terburuk.",
+            "options": [
+              {
+                "value": "less_than_20",
+                "label": "<20",
+                "score": 100
+              },
+              {
+                "value": "20_to_49",
+                "label": "20-49",
+                "score": 75
+              },
+              {
+                "value": "50_to_100",
+                "label": "50-100",
+                "score": 50
+              },
+              {
+                "value": "more_than_100",
+                "label": ">100",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "total_questions": 30,
+        "estimated_time_minutes": 45
+      },
+      {
+        "number": 4,
+        "name": "Protokol Higiene",
+        "description": "Prosedur pembersihan dan disinfeksi",
+        "category": "biosekuriti internal",
+        "sections": [
+          "Pembersihan & Disinfeksi"
+        ],
+        "questions": [
+          {
+            "id": "Q106",
+            "number": "106",
+            "text": "Apakah kandang/kompartemen dibersihkan setelah setiap siklus produksi?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "help": "Untuk semua unit: kandang farrowing, unit nursery, dan unit finishing.",
+            "options": [
+              {
+                "value": "all_after_each",
+                "label": "Semua kandang/kompartemen dibersihkan setelah setiap siklus produksi",
+                "score": 100,
+                "next": "Q107"
+              },
+              {
+                "value": "only_some",
+                "label": "Hanya beberapa kandang/kompartemen yang dibersihkan setelah setiap siklus produksi",
+                "score": 50,
+                "next": "Q107"
+              },
+              {
+                "value": "after_couple",
+                "label": "Kandang/kompartemen dibersihkan setelah setiap beberapa siklus produksi",
+                "score": 25,
+                "next": "Q107"
+              },
+              {
+                "value": "never",
+                "label": "Kandang/kompartemen tidak pernah dibersihkan",
+                "score": 0,
+                "next": "Q112"
+              }
+            ]
+          },
+          {
+            "id": "Q107",
+            "number": "107",
+            "text": "Apakah kandang/kompartemen direndam dengan air sebelum memulai pembersihan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "condition": "Q106 != 'never'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100,
+                "next": "Q108"
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50,
+                "next": "Q108"
+              },
+              {
+                "value": "dry_only",
+                "label": "Tidak pernah, saya hanya melakukan pembersihan kering",
+                "score": 0,
+                "next": "Q109"
+              }
+            ]
+          },
+          {
+            "id": "Q108",
+            "number": "108",
+            "text": "Apakah deterjen/sabun ditambahkan ke air selama pembersihan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "condition": "Q107 != 'dry_only'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q109",
+            "number": "109",
+            "text": "Apakah kandang/kompartemen didisinfeksi setelah setiap siklus produksi?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "help": "Untuk semua unit: kandang farrowing, unit nursery, dan unit finishing.",
+            "options": [
+              {
+                "value": "all_after_each",
+                "label": "Semua kandang/kompartemen didisinfeksi setelah setiap siklus produksi",
+                "score": 100
+              },
+              {
+                "value": "only_some",
+                "label": "Hanya beberapa kandang/kompartemen yang didisinfeksi setelah setiap siklus produksi",
+                "score": 50
+              },
+              {
+                "value": "after_couple",
+                "label": "Kandang/kompartemen didisinfeksi setelah setiap beberapa siklus produksi",
+                "score": 25
+              },
+              {
+                "value": "never",
+                "label": "Kandang/kompartemen tidak pernah didisinfeksi",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q110",
+            "number": "110",
+            "text": "Apakah fasilitas hewan benar-benar kering sebelum babi baru masuk?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q111",
+            "number": "111",
+            "text": "Apakah efektivitas pembersihan dan disinfeksi diperiksa (misalnya hygienogram, ATP-metry, usap)?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "help": "Hygienogram adalah kuantifikasi status bakteri lingkungan dengan pelat kontak.",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Kadang-kadang",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q112",
+            "number": "112",
+            "text": "Apakah koridor dan area pemuatan dibersihkan dan didisinfeksi setelah babi dipindahkan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "options": [
+              {
+                "value": "cleaned_and_disinfected",
+                "label": "Dibersihkan dan didisinfeksi setelah digunakan",
+                "score": 100
+              },
+              {
+                "value": "only_cleaned",
+                "label": "Hanya dibersihkan setelah digunakan",
+                "score": 75
+              },
+              {
+                "value": "only_disinfected",
+                "label": "Hanya didisinfeksi setelah digunakan",
+                "score": 50
+              },
+              {
+                "value": "neither",
+                "label": "Tidak dibersihkan atau didisinfeksi setelah digunakan",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q113",
+            "number": "113",
+            "text": "Apakah peralatan (misalnya panel pemilah/penggiring, sekop) dibersihkan dan didisinfeksi setelah digunakan?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "options": [
+              {
+                "value": "always",
+                "label": "Selalu",
+                "score": 100
+              },
+              {
+                "value": "sometimes_part",
+                "label": "Kadang-kadang/sebagian peralatan",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q114",
+            "number": "114",
+            "text": "Apakah sistem pemberian pakan (jalur pakan, palung) dibersihkan dan didisinfeksi setelah setiap siklus produksi?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "options": [
+              {
+                "value": "cleaned_and_disinfected",
+                "label": "Dibersihkan dan didisinfeksi setelah setiap siklus produksi",
+                "score": 100
+              },
+              {
+                "value": "only_cleaned",
+                "label": "Hanya dibersihkan setelah setiap siklus produksi",
+                "score": 75
+              },
+              {
+                "value": "occasionally",
+                "label": "Dibersihkan tetapi tidak setelah setiap siklus produksi (hanya kadang-kadang)",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah dibersihkan atau didisinfeksi",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q115",
+            "number": "115",
+            "text": "Apakah silo/penyimpanan pakan dibersihkan (dan didisinfeksi) di bagian dalam?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "options": [
+              {
+                "value": "multiple_per_year",
+                "label": "Beberapa kali setahun",
+                "score": 100
+              },
+              {
+                "value": "once_per_year",
+                "label": "Setahun sekali",
+                "score": 75
+              },
+              {
+                "value": "once_per_two_years",
+                "label": "Sekali setiap dua tahun",
+                "score": 50
+              },
+              {
+                "value": "less_than_two_years",
+                "label": "Kurang dari sekali setiap dua tahun",
+                "score": 25
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              },
+              {
+                "value": "no_silo",
+                "label": "Tidak ada silo/penyimpanan pakan",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q116",
+            "number": "116",
+            "text": "Apakah sistem air minum dibersihkan dan didisinfeksi di bagian dalam antar siklus produksi?",
+            "type": "single_select",
+            "required": true,
+            "category": "pembersihan_disinfeksi",
+            "help": "Ini tidak termasuk penggunaan dosis rendah disinfektan terus menerus selama siklus produksi.",
+            "options": [
+              {
+                "value": "multiple_per_year",
+                "label": "Beberapa kali setahun",
+                "score": 100
+              },
+              {
+                "value": "once_per_year",
+                "label": "Setahun sekali",
+                "score": 75
+              },
+              {
+                "value": "once_per_two_years",
+                "label": "Sekali setiap dua tahun",
+                "score": 50
+              },
+              {
+                "value": "less_than_two_years",
+                "label": "Kurang dari sekali setiap dua tahun",
+                "score": 25
+              },
+              {
+                "value": "never",
+                "label": "Tidak pernah",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "total_questions": 11,
+        "estimated_time_minutes": 17
+      }
+    ]
+  },
+  "scoring": {
+    "external_weight": 0.5,
+    "internal_weight": 0.5,
+    "interpretation": {
+      "excellent": {
+        "min": 80,
+        "max": 100,
+        "label": "Sangat Baik",
+        "color": "#10B981"
+      },
+      "good": {
+        "min": 60,
+        "max": 79,
+        "label": "Baik",
+        "color": "#3B82F6"
+      },
+      "moderate": {
+        "min": 40,
+        "max": 59,
+        "label": "Sedang",
+        "color": "#F59E0B"
+      },
+      "poor": {
+        "min": 0,
+        "max": 39,
+        "label": "Kurang",
+        "color": "#EF4444"
+      }
+    }
+  },
+  "glossary": {
+    "biosecurity": "Tindakan yang diambil untuk mencegah masuk dan menyebarnya penyakit",
+    "quarantine": "Masa isolasi untuk hewan baru sebelum dicampur dengan populasi",
+    "all_in_all_out": "Sistem manajemen di mana semua hewan masuk dan keluar pada waktu yang sama"
+  }
+}

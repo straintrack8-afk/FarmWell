@@ -74,7 +74,7 @@ function ResultsPage() {
     const formatDate = (dateString) => {
         if (!dateString) return '-';
         const date = new Date(dateString);
-        return date.toLocaleDateString(language === 'id' ? 'id-ID' : language === 'vt' ? 'vi-VN' : 'en-US', {
+        return date.toLocaleDateString(language === 'id' ? 'id-ID' : language === 'vi' ? 'vi-VN' : 'en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -439,29 +439,29 @@ function ResultsPage() {
                         {[
                             {
                                 number: 1,
-                                title: 'Purchase & Transport',
-                                description: 'Prevent disease entry through animals and vehicles',
+                                title: language === 'id' ? 'Pembelian & Transportasi' : language === 'vi' ? 'Mua & Vận chuyển' : 'Purchase & Transport',
+                                description: language === 'id' ? 'Cegah masuknya penyakit melalui hewan dan kendaraan' : language === 'vi' ? 'Ngăn ngừa bệnh qua động vật và phương tiện' : 'Prevent disease entry through animals and vehicles',
                                 color: '#8B5CF6',
                                 bgColor: '#EDE9FE'
                             },
                             {
                                 number: 2,
-                                title: 'Facilities & People',
-                                description: 'Control access and environmental biosecurity',
+                                title: language === 'id' ? 'Fasilitas & SDM' : language === 'vi' ? 'Cơ sở & Con người' : 'Facilities & People',
+                                description: language === 'id' ? 'Kendalikan akses dan biosekuriti lingkungan' : language === 'vi' ? 'Kiểm soát tiếp cận và an toàn sinh học môi trường' : 'Control access and environmental biosecurity',
                                 color: '#EC4899',
                                 bgColor: '#FCE7F3'
                             },
                             {
                                 number: 3,
-                                title: 'Production Management',
-                                description: 'Prevent disease spread within the farm',
+                                title: language === 'id' ? 'Manajemen Produksi' : language === 'vi' ? 'Quản lý Sản xuất' : 'Production Management',
+                                description: language === 'id' ? 'Cegah penyebaran penyakit di dalam peternakan' : language === 'vi' ? 'Ngăn ngừa lây lan bệnh trong trang trại' : 'Prevent disease spread within the farm',
                                 color: '#06B6D4',
                                 bgColor: '#CFFAFE'
                             },
                             {
                                 number: 4,
-                                title: 'Hygiene Protocols',
-                                description: 'Maintain cleanliness across all areas',
+                                title: language === 'id' ? 'Protokol Kebersihan' : language === 'vi' ? 'Quy trình Vệ sinh' : 'Hygiene Protocols',
+                                description: language === 'id' ? 'Jaga kebersihan di semua area' : language === 'vi' ? 'Duy trì vệ sinh ở tất cả các khu vực' : 'Maintain cleanliness across all areas',
                                 color: '#10B981',
                                 bgColor: '#D1FAE5'
                             }
@@ -487,7 +487,7 @@ function ResultsPage() {
                                         letterSpacing: '0.05em',
                                         marginBottom: '0.75rem'
                                     }}>
-                                        Focus Area {area.number}
+                                        {language === 'id' ? `Area Fokus ${area.number}` : language === 'vi' ? `Khu vực ${area.number}` : `Focus Area ${area.number}`}
                                     </div>
 
                                     <div style={{
@@ -599,10 +599,10 @@ function ResultsPage() {
                                         fontWeight: '700',
                                         textTransform: 'uppercase'
                                     }}>
-                                        Risk Detected
+                                        {language === 'id' ? 'Risiko Terdeteksi' : language === 'vi' ? 'Rủi ro Phát hiện' : 'Risk Detected'}
                                     </span>
                                     <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                                        Focus Area {item.focusArea}
+                                        {language === 'id' ? `Area Fokus ${item.focusArea}` : language === 'vi' ? `Khu vực ${item.focusArea}` : `Focus Area ${item.focusArea}`}
                                     </span>
                                 </div>
                                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.75rem', lineHeight: '1.4' }}>
@@ -615,10 +615,10 @@ function ResultsPage() {
                                     border: '1px solid #E5E7EB'
                                 }}>
                                     <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                                        <strong>Your Answer:</strong> {item.answer.toString()}
+                                        <strong>{language === 'id' ? 'Jawaban Anda:' : language === 'vi' ? 'Câu trả lời:' : 'Your Answer:'}</strong> {item.answer.toString()}
                                     </p>
                                     <div style={{ marginTop: '0.75rem', color: '#059669', fontSize: '0.9rem' }}>
-                                        <strong> Recommendation:</strong> Implement standard biosecurity procedure to address this risk. Ensure compliance with biosecurity manual section {item.focusArea}.{item.questionNumber}.
+                                        <strong>{language === 'id' ? 'Rekomendasi:' : language === 'vi' ? 'Khuyến nghị:' : 'Recommendation:'}</strong> {language === 'id' ? `Terapkan prosedur biosekuriti standar untuk mengatasi risiko ini. Pastikan kepatuhan dengan manual biosekuriti bagian ${item.focusArea}.${item.questionNumber}.` : language === 'vi' ? `Thực hiện quy trình an toàn sinh học tiêu chuẩn để giải quyết rủi ro này. Đảm bảo tuân thủ hướng dẫn an toàn sinh học phần ${item.focusArea}.${item.questionNumber}.` : `Implement standard biosecurity procedure to address this risk. Ensure compliance with biosecurity manual section ${item.focusArea}.${item.questionNumber}.`}
                                     </div>
                                 </div>
                             </div>

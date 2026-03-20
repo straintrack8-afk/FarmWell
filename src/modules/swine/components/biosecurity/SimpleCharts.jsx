@@ -11,7 +11,7 @@ export function SimplePieChart({ data, size = 200 }) {
     if (total === 0) {
         return (
             <div style={{ width: size, height: size, borderRadius: '50%', background: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888' }}>
-                {t('common.noData')}
+                No Data
             </div>
         );
     }
@@ -73,11 +73,12 @@ export function SimplePieChart({ data, size = 200 }) {
 // --- Simple Line Chart ---
 export function SimpleLineChart({ data, height = 200, color = '#667eea' }) {
     // data: [{ label, value }] (label is date/string, value is number)
+    const { t } = useTranslation();
 
     if (!data || data.length === 0) {
         return (
             <div style={{ height, background: '#f9fafb', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>
-                {t('common.noData')}
+                No Data
             </div>
         );
     }

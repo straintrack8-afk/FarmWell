@@ -7,25 +7,25 @@ import React from 'react';
 export default function PriorityBadge({ priority, language = 'en' }) {
     const priorityConfig = {
         critical: {
-            label: { en: 'Critical', id: 'Kritis', vt: 'Nghiêm Trọng' },
+            label: { en: 'Critical', id: 'Kritis', vi: 'Nghiêm Trọng' },
             color: '#DC2626',
             bgColor: '#FEE2E2',
             icon: ''
         },
         high: {
-            label: { en: 'High', id: 'Tinggi', vt: 'Cao' },
+            label: { en: 'High', id: 'Tinggi', vi: 'Cao' },
             color: '#EA580C',
             bgColor: '#FFEDD5',
             icon: ''
         },
         medium: {
-            label: { en: 'Medium', id: 'Sedang', vt: 'Trung Bình' },
+            label: { en: 'Medium', id: 'Sedang', vi: 'Trung Bình' },
             color: '#F59E0B',
             bgColor: '#FEF3C7',
             icon: ''
         },
         low: {
-            label: { en: 'Low', id: 'Rendah', vt: 'Thấp' },
+            label: { en: 'Low', id: 'Rendah', vi: 'Thấp' },
             color: '#10B981',
             bgColor: '#D1FAE5',
             icon: ''
