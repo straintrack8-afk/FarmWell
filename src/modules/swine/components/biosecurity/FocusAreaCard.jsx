@@ -41,7 +41,7 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
         const translations = {
             en: { start: 'Start', continue: 'Continue', review: 'Review' },
             id: { start: 'Mulai', continue: 'Lanjutkan', review: 'Tinjau' },
-            vt: { start: 'Bắt đầu', continue: 'Tiếp tục', review: 'Xem lại' }
+            vi: { start: 'Bắt đầu', continue: 'Tiếp tục', review: 'Xem lại' }
         };
 
         const t = translations[language] || translations.en;
@@ -53,11 +53,31 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
 
     const getTranslation = (key) => {
         const translations = {
-            en: { questions: 'questions', min: 'min', answered: 'answered' },
-            id: { questions: 'pertanyaan', min: 'menit', answered: 'dijawab' },
-            vt: { questions: 'câu hỏi', min: 'phút', answered: 'đã trả lời' }
+            en: { questions: 'questions', min: 'min', answered: 'answered', score: 'Score', pending: 'Pending' },
+            id: { questions: 'pertanyaan', min: 'menit', answered: 'dijawab', score: 'Skor', pending: 'Tertunda' },
+            vi: { questions: 'câu hỏi', min: 'phút', answered: 'đã trả lời', score: 'Điểm', pending: 'Chưa làm' }
         };
         return translations[language]?.[key] || translations.en[key];
+    };
+
+    const getTranslatedName = () => {
+        const translations = {
+            1: { id: 'Pembelian & Transportasi', vi: 'Mua & Vận chuyển', en: 'Purchase & Transport' },
+            2: { id: 'Fasilitas & SDM', vi: 'Cơ sở & Con người', en: 'Facilities & People' },
+            3: { id: 'Manajemen Produksi', vi: 'Quản lý Sản xuất', en: 'Production Management' },
+            4: { id: 'Protokol Kebersihan', vi: 'Quy trình Vệ sinh', en: 'Hygiene Protocols' }
+        };
+        return translations[number]?.[language] || translations[number]?.en || name;
+    };
+
+    const getTranslatedDescription = () => {
+        const translations = {
+            1: { id: 'Cegah masuknya penyakit melalui hewan dan kendaraan', vi: 'Ngăn ngừa bệnh qua động vật và phương tiện', en: 'Prevent disease entry through animals and vehicles' },
+            2: { id: 'Kendalikan akses dan biosekuriti lingkungan', vi: 'Kiểm soát tiếp cận và an toàn sinh học môi trường', en: 'Control access and environmental biosecurity' },
+            3: { id: 'Cegah penyebaran penyakit di dalam peternakan', vi: 'Ngăn ngừa lây lan bệnh trong trang trại', en: 'Prevent disease spread within the farm' },
+            4: { id: 'Jaga kebersihan di semua area', vi: 'Duy trì vệ sinh ở tất cả các khu vực', en: 'Maintain cleanliness across all areas' }
+        };
+        return translations[number]?.[language] || translations[number]?.en || description;
     };
 
     return (
@@ -98,7 +118,7 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                             letterSpacing: '0.05em',
                             marginBottom: '0.5rem'
                         }}>
-                            Focus Area {number}
+                            {language === 'id' ? `Area Fokus ${number}` : language === 'vi' ? `Khu vực ${number}` : `Focus Area ${number}`}
                         </div>
                         <h3 style={{
                             fontSize: '1.25rem',
@@ -107,7 +127,7 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                             marginBottom: '0.5rem',
                             lineHeight: '1.3'
                         }}>
-                            {name}
+                            {getTranslatedName()}
                         </h3>
                         <p style={{
                             fontSize: '0.875rem',
@@ -115,7 +135,7 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                             lineHeight: '1.5',
                             marginBottom: '0'
                         }}>
-                            {description}
+                            {getTranslatedDescription()}
                         </p>
                     </div>
 
@@ -164,7 +184,7 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
                                 borderRadius: '50%'
                             }}>
                                 <span style={{ color: '#94a3b8', fontSize: '0.75rem', fontWeight: '700' }}>
-                                    Pending
+                                    {getTranslation('pending')}
                                 </span>
                             </div>
                         )}
@@ -219,3 +239,4 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
 }
 
 export default FocusAreaCard;
+

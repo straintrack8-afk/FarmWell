@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useBiosecurity } from '../../contexts/BiosecurityContext';
 import DiseaseRiskCard from './DiseaseRiskCard';
 
@@ -29,7 +29,7 @@ export default function DiseaseRiskSection({ maxDisplay = 6 }) {
             subtitle: 'Penilaian risiko untuk penyakit babi utama berdasarkan praktik biosekuriti Anda',
             noRisks: 'Tidak ada data risiko penyakit'
         },
-        vt: {
+        vi: {
             title: 'Hồ Sơ Rủi Ro Bệnh',
             subtitle: 'Đánh giá rủi ro cho các bệnh lợn chính dựa trên thực hành an toàn sinh học của bạn',
             noRisks: 'Không có dữ liệu rủi ro bệnh'
@@ -93,3 +93,4 @@ export default function DiseaseRiskSection({ maxDisplay = 6 }) {
         </div>
     );
 }
+

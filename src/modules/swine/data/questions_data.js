@@ -1,25 +1,23 @@
 // Import question data from JSON files
 // Using static imports for reliability - Vite will handle code splitting automatically
 // Updated: 2026-01-15 22:57 - Using standard filenames with farm_type_relevance field
-// NOTE: Question files were removed during cleanup - using empty fallback data
-// import questionsEN from '../../../../questions_en.json';
-// import questionsID from '../../../../questions_id.json';
-// import questionsVT from '../../../../questions_vt.json';
+import questionsEN from '../../../../questions_en.json';
+import questionsID from '../../../../questions_id.json';
+import questionsVT from '../../../../questions_vt.json';
 
 /**
  * Question data organized by language
  * Supports: English (en), Bahasa Indonesia (id), Tiếng Việt (vt)
- * NOTE: Currently using empty data structure - questions files need to be restored
  */
 const QUESTION_DATA = {
-    en: { questions: [], categories: [] },
-    id: { questions: [], categories: [] },
-    vt: { questions: [], categories: [] }
+    en: questionsEN,
+    id: questionsID,
+    vi: questionsVT
 };
 
 /**
  * Get question data for a specific language
- * @param {string} language - Language code ('en', 'id', 'vt')
+ * @param {string} language - Language code ('en', 'id', 'vi')
  * @returns {object} Question data for the specified language
  */
 export function getQuestionData(language = 'en') {
@@ -80,7 +78,7 @@ export function getFarmProfileQuestions(language = 'en') {
 export function getFocusAreaQuestions(focusAreaNumber, language = 'en') {
     // Always get EN data as the master structure to ensure full question count
     const masterData = QUESTION_DATA.en;
-    const masterFocusArea = masterData.assessment.focus_areas.find(fa => fa.number === focusAreaNumber);
+    const masterFocusArea = masterData?.assessment?.focus_areas?.find(fa => fa.number === focusAreaNumber);
 
     if (!masterFocusArea) return [];
 
@@ -119,6 +117,7 @@ export function getFocusAreaQuestions(focusAreaNumber, language = 'en') {
  */
 export function getAllFocusAreas(language = 'en') {
     const data = getQuestionData(language);
+    if (!data?.assessment?.focus_areas) return [];
     return data.assessment.focus_areas.map(fa => ({
         number: fa.number,
         name: fa.name,
@@ -169,7 +168,7 @@ export function getAvailableLanguages() {
             nativeName: 'Bahasa Indonesia'
         },
         {
-            code: 'vt',
+            code: 'vi',
             name: 'Vietnamese',
             flag: '🇻🇳',
             nativeName: 'Tiếng Việt'
@@ -188,12 +187,12 @@ export function getQuestionById(questionId, language = 'en') {
 
     // Check farm profile questions
     if (questionId.startsWith('farm_')) {
-        return data.farm_profile.questions.find(q => q.id === questionId);
+        return data?.farm_profile?.questions?.find(q => q.id === questionId);
     }
 
     // Check assessment questions
-    for (const focusArea of data.assessment.focus_areas) {
-        const question = focusArea.questions.find(q => q.id === questionId);
+    for (const focusArea of (data?.assessment?.focus_areas || [])) {
+        const question = focusArea?.questions?.find(q => q.id === questionId);
         if (question) return question;
     }
 
@@ -290,8 +289,8 @@ export function getAllDiseases(language = 'en') {
     const data = getQuestionData(language);
 
     // Collect from all focus areas
-    data.assessment.focus_areas.forEach(fa => {
-        fa.questions.forEach(q => {
+    (data?.assessment?.focus_areas || []).forEach(fa => {
+        fa?.questions?.forEach(q => {
             if (q.risk_assessment && q.risk_assessment.diseases_affected) {
                 q.risk_assessment.diseases_affected.forEach(disease => {
                     if (disease && !disease.includes('_Related') && !disease.includes('Multiple')) {
@@ -315,8 +314,8 @@ export function getQuestionsByDisease(diseaseName, language = 'en') {
     const questions = [];
     const data = getQuestionData(language);
 
-    data.assessment.focus_areas.forEach(fa => {
-        fa.questions.forEach(q => {
+    (data?.assessment?.focus_areas || []).forEach(fa => {
+        fa?.questions?.forEach(q => {
             if (q.risk_assessment && q.risk_assessment.diseases_affected) {
                 const diseases = q.risk_assessment.diseases_affected;
                 if (diseases.includes(diseaseName) || diseases.includes('All_Major_Diseases')) {

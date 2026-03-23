@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../hooks/useTranslation';
 import SharedTopNav from '../components/SharedTopNav';
@@ -6,6 +6,7 @@ import SharedTopNav from '../components/SharedTopNav';
 const WelcomePage = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const [showWaitlistModal, setShowWaitlistModal] = useState(false);
 
     const features = [
         { icon: '🏥', title: t('welcome.featureDiagnostics') || 'Disease Diagnostics', sub: t('welcome.featureMultiSpecies') || 'Multi-species' },
@@ -53,13 +54,17 @@ const WelcomePage = () => {
         },
         {
             id: 'farmguide',
-            name: 'FarmGuide — Breed Monitor',
-            desc: 'Panduan manajemen breed berbasis Aviagen 2025. Monitor BW aktual vs standard, growth curve, AI advisory, dan proyeksi panen.',
+            name: t('welcome.farmGuide.name') || 'FarmGuide — Farm Production Monitor',
+            desc: t('welcome.farmGuide.desc') || 'Management guide, monitor actual vs standard BW, growth curve, AI advisory, and harvest projection.',
             icon: null,
             iconEmoji: '📱',
-            tags: ['Broiler', 'Parent Stock', 'AI Advisory'],
+            tags: [
+                t('welcome.farmGuide.tags.tag1') || 'Broiler, Layer, Color',
+                t('welcome.farmGuide.tags.tag2') || 'Parent Stock, Commercial',
+                t('welcome.farmGuide.tags.tag3') || 'AI Advisory'
+            ],
             status: 'new',
-            ctaLabel: 'Open FarmGuide',
+            ctaLabel: t('welcome.farmGuide.cta') || 'Open FarmGuide',
             colorClass: 'mc-guide',
             path: null,
         },
@@ -67,13 +72,17 @@ const WelcomePage = () => {
 
     const aiModule = {
         id: 'ai-assistant',
-        name: 'FarmWell AI Assistant',
-        desc: 'Asisten AI terintegrasi untuk semua modul FarmWell. Tanyakan apa saja tentang ternak kamu — dijawab real-time.',
+        name: t('welcome.aiModule.name') || 'FarmWell AI Assistant',
+        desc: t('welcome.aiModule.desc') || 'An integrated AI assistant for all FarmWell modules. Ask anything about your livestock — answered in real-time.',
         icon: null,
         iconEmoji: '🤖',
-        tags: ['AI Chat', 'Multi-Module', 'Bahasa Indonesia'],
+        tags: [
+            t('welcome.aiModule.tags.chat') || 'AI Chat',
+            t('welcome.aiModule.tags.multi') || 'Multi-Module',
+            t('welcome.aiModule.tags.lang') || 'English, Bahasa Indonesia, Tiếng Việt'
+        ],
         status: 'soon',
-        ctaLabel: 'Join Waitlist',
+        ctaLabel: t('welcome.aiModule.cta') || 'Join Waitlist',
         colorClass: 'mc-ai',
         path: null,
     };
@@ -81,20 +90,24 @@ const WelcomePage = () => {
     const moduleStatusLabel = (status) => {
         if (status === 'live') return <span className="mc-badge mb-live">✓ {t('welcome.active') || 'Active'}</span>;
         if (status === 'new') return <span className="mc-badge mb-new">✦ {t('welcome.new') || 'New'}</span>;
-        if (status === 'soon') return <span className="mc-badge mb-soon">Coming Soon</span>;
+        if (status === 'soon') return <span className="mc-badge mb-soon">{t('welcome.aiModule.soon') || 'Coming Soon'}</span>;
         return null;
     };
 
-    const handleModuleClick = (path) => {
-        if (path) navigate(path);
+    const handleModuleClick = (mod) => {
+        if (mod.status === 'soon') {
+            setShowWaitlistModal(true);
+        } else if (mod.path) {
+            navigate(mod.path);
+        }
     };
 
     const renderCard = (mod) => (
         <div
             key={mod.id}
             className={`fw-module-card ${mod.colorClass}`}
-            onClick={() => handleModuleClick(mod.path)}
-            style={{ cursor: mod.path ? 'pointer' : 'default' }}
+            onClick={() => handleModuleClick(mod)}
+            style={{ cursor: (mod.path || mod.status === 'soon') ? 'pointer' : 'default' }}
         >
             <div className="fmc-header">
                 <div className="fmc-icon-wrap">
@@ -111,7 +124,7 @@ const WelcomePage = () => {
                 <div className="fmc-tags">
                     {mod.tags.map(tag => <span key={tag} className="fmc-tag">{tag}</span>)}
                 </div>
-                <button className="fmc-cta" onClick={(e) => { e.stopPropagation(); handleModuleClick(mod.path); }}>
+                <button className="fmc-cta" onClick={(e) => { e.stopPropagation(); handleModuleClick(mod); }}>
                     {mod.ctaLabel}
                     <div className="fmc-cta-arrow">›</div>
                 </button>
@@ -193,6 +206,26 @@ const WelcomePage = () => {
             <footer className="fw-footer">
                 <div className="fw-footer-copy">© 2025 FarmWell · Integrated Livestock Platform</div>
             </footer>
+
+            {/* ── WAITLIST MODAL ── */}
+            {showWaitlistModal && (
+                <div className="fw-modal-overlay" onClick={() => setShowWaitlistModal(false)}>
+                    <div className="fw-modal-content" onClick={e => e.stopPropagation()}>
+                        <h2 className="fw-modal-title">{t('welcome.waitlist.title') || 'Feature in Development'}</h2>
+                        <p className="fw-modal-desc">
+                            {t('welcome.waitlist.description') || 'The FarmWell AI Assistant feature is currently under development. To try this feature and get early access, please contact us.'}
+                        </p>
+                        <div className="fw-modal-actions">
+                            <a href="https://vaksindo.com.vn/" target="_blank" rel="noopener noreferrer" className="fw-btn-primary">
+                                {t('welcome.waitlist.contactUs') || 'Contact Us'}
+                            </a>
+                            <button className="fw-btn-secondary" onClick={() => setShowWaitlistModal(false)}>
+                                {t('welcome.waitlist.back') || 'Back'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

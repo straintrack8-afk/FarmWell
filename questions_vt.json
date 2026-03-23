@@ -1,0 +1,3311 @@
+{
+  "version": "4.0",
+  "source": "BIOCHECK PIG V4.0 - Biocheck.Gent BV",
+  "language": "vi",
+  "language_name": "Tiếng Việt",
+  "total_questions": 116,
+  "farm_profile": {
+    "title": "Hồ Sơ Trang Trại",
+    "description": "Thông tin cơ bản về trang trại của bạn",
+    "questions": [
+      {
+        "id": "Q_I",
+        "number": "I",
+        "text": "Những loại động vật nào sau đây hiện diện trong trang trại?",
+        "type": "multi_select",
+        "required": true,
+        "category": "đặc_điểm_trang_trại",
+        "options": [
+          {
+            "value": "sows_gilts_boars",
+            "label": "Heo nái/heo hậu bị/heo đực giống"
+          },
+          {
+            "value": "suckling_piglets",
+            "label": "Heo con đang bú sữa"
+          },
+          {
+            "value": "weaned_piglets",
+            "label": "Heo con sau cai sữa"
+          },
+          {
+            "value": "slaughter_pigs",
+            "label": "Heo thịt"
+          }
+        ],
+        "scoring": "nhân_khẩu_học"
+      },
+      {
+        "id": "Q_II",
+        "number": "II",
+        "text": "Ngoài heo, còn có động vật trang trại nào khác trong trang trại của bạn không?",
+        "type": "single_select",
+        "required": true,
+        "category": "đặc_điểm_trang_trại",
+        "options": [
+          {
+            "value": "yes",
+            "label": "Có",
+            "next": "Q_III"
+          },
+          {
+            "value": "no",
+            "label": "Không",
+            "next": "Q_IV"
+          }
+        ],
+        "scoring": "nhân_khẩu_học"
+      },
+      {
+        "id": "Q_III",
+        "number": "III",
+        "text": "Động vật trang trại nào khác hiện diện trong trang trại của bạn?",
+        "type": "multi_select",
+        "required": false,
+        "category": "đặc_điểm_trang_trại",
+        "condition": "Q_II == 'yes'",
+        "options": [
+          {
+            "value": "cattle",
+            "label": "Gia súc (bò)"
+          },
+          {
+            "value": "poultry",
+            "label": "Gia cầm"
+          },
+          {
+            "value": "horses",
+            "label": "Ngựa"
+          },
+          {
+            "value": "sheep_goats",
+            "label": "Cừu/dê"
+          },
+          {
+            "value": "other",
+            "label": "Khác"
+          }
+        ],
+        "scoring": "nhân_khẩu_học"
+      },
+      {
+        "id": "Q_IV",
+        "number": "IV",
+        "text": "Người phụ trách có bao nhiêu năm kinh nghiệm trong việc nuôi heo?",
+        "type": "number",
+        "required": true,
+        "category": "đặc_điểm_trang_trại",
+        "scoring": "nhân_khẩu_học"
+      },
+      {
+        "id": "Q_V",
+        "number": "V",
+        "text": "Số lượng người (toàn thời gian hoặc bán thời gian) chăm sóc heo là bao nhiêu?",
+        "type": "number",
+        "required": true,
+        "category": "đặc_điểm_trang_trại",
+        "scoring": "nhân_khẩu_học"
+      },
+      {
+        "id": "Q_VI",
+        "number": "VI",
+        "text": "Chuồng trại lâu đời nhất nuôi heo bao nhiêu tuổi (tính theo năm)?",
+        "type": "number",
+        "required": true,
+        "category": "đặc_điểm_trang_trại",
+        "help": "Nếu chuồng trại được cải tạo, hãy cho biết tuổi trước khi cải tạo.",
+        "scoring": "nhân_khẩu_học"
+      },
+      {
+        "id": "Q_VII",
+        "number": "VII",
+        "text": "Chuồng trại mới nhất nuôi heo bao nhiêu tuổi (tính theo năm)?",
+        "type": "number",
+        "required": true,
+        "category": "đặc_điểm_trang_trại",
+        "help": "Nếu chuồng trại được cải tạo, hãy cho biết tuổi trước khi cải tạo.",
+        "scoring": "nhân_khẩu_học"
+      }
+    ]
+  },
+  "assessment": {
+    "title": "Đánh Giá An Toàn Sinh Học",
+    "description": "Đánh giá toàn diện các biện pháp an toàn sinh học của trang trại",
+    "focus_areas": [
+      {
+        "number": 1,
+        "name": "Mua Bán & Vận Chuyển",
+        "description": "Ngăn ngừa bệnh xâm nhập qua động vật và phương tiện",
+        "category": "an_toàn_sinh_học_ngoại_vi",
+        "sections": [
+          "Mua Động Vật & Tinh Dịch",
+          "Vận Chuyển & Xử Lý Xác Chết"
+        ],
+        "questions": [
+          {
+            "id": "Q1",
+            "number": "1",
+            "text": "Bạn có mua heo giống (heo nái/heo hậu bị/heo đực giống) không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "next": "Q2"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "next": "Q10"
+              }
+            ]
+          },
+          {
+            "id": "Q2",
+            "number": "2",
+            "text": "Heo giống (trong 2 năm qua) có luôn được mua từ cùng một nhà cung cấp không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q1 == 'yes'",
+            "options": [
+              {
+                "value": "always_same",
+                "label": "Luôn cùng một nhà cung cấp",
+                "score": 100
+              },
+              {
+                "value": "sometimes_different",
+                "label": "Thỉnh thoảng nhà cung cấp khác",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q3",
+            "number": "3",
+            "text": "Mỗi khi mua heo giống từ trang trại khác, bạn có biết tình trạng sức khỏe của nhà cung cấp trước khi mua không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q1 == 'yes'",
+            "help": "Đàn có tình trạng sức khỏe đã biết là đàn mà ta biết nó có miễn nhiễm với các bệnh cụ thể (ví dụ ghẻ, PRRS) hay không.",
+            "options": [
+              {
+                "value": "higher",
+                "label": "Có, tình trạng sức khỏe của nhà cung cấp cao hơn tình trạng của tôi",
+                "score": 100
+              },
+              {
+                "value": "equal",
+                "label": "Có, tình trạng sức khỏe của nhà cung cấp bằng với tình trạng của tôi",
+                "score": 80
+              },
+              {
+                "value": "lower_precautions",
+                "label": "Có, thấp hơn nhưng tôi có biện pháp phòng ngừa",
+                "score": 60
+              },
+              {
+                "value": "lower_no_precautions",
+                "label": "Có, thấp hơn và không có biện pháp phòng ngừa",
+                "score": 20
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q4",
+            "number": "4",
+            "text": "Có được xác minh (ví dụ tài liệu viết hoặc xác nhận khác) rằng phương tiện vận chuyển đưa heo giống đến trang trại đã được làm sạch và khử trùng trước khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q1 == 'yes'",
+            "help": "Nếu phương tiện vận chuyển trông sạch sẽ nhưng người vận chuyển không cung cấp được bằng chứng về việc làm sạch và khử trùng, hãy chọn 'Tôi không biết'.",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q5",
+            "number": "5",
+            "text": "Bao nhiêu lần mỗi năm heo giống được giao đến trang trại của bạn?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q1 == 'yes'",
+            "options": [
+              {
+                "value": "twice_or_less",
+                "label": "Hai lần hoặc ít hơn",
+                "score": 100
+              },
+              {
+                "value": "3_to_6",
+                "label": "3 đến 6 lần",
+                "score": 75
+              },
+              {
+                "value": "7_to_12",
+                "label": "7 đến 12 lần",
+                "score": 50
+              },
+              {
+                "value": "more_than_12",
+                "label": "Hơn 12 lần",
+                "score": 25
+              }
+            ]
+          },
+          {
+            "id": "Q6",
+            "number": "6",
+            "text": "Tất cả heo giống mới có được cách ly trong khu vực riêng biệt với phần còn lại của đàn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q1 == 'yes'",
+            "help": "Khu vực cách ly có thể ở cùng tòa nhà, nhưng phải hoàn toàn tách biệt (không tiếp xúc vật lý) với các động vật khác.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100,
+                "next": "Q7"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0,
+                "next": "Q10"
+              }
+            ]
+          },
+          {
+            "id": "Q7",
+            "number": "7",
+            "text": "Có áp dụng quản lý all-in (vào cùng lúc) nghiêm ngặt trong khu vực cách ly không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q6 == 'yes'",
+            "help": "All-in: tất cả động vật cần cách ly được đưa vào khu vực cách ly cùng một lúc. Điều quan trọng là không có động vật mới nào được đưa vào trước khi khu vực được dọn sạch.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q8",
+            "number": "8",
+            "text": "Thời gian cách ly tối thiểu (tính theo ngày) bạn đã áp dụng trong năm qua là bao nhiêu?",
+            "type": "number",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q6 == 'yes'",
+            "scoring": {
+              ">=28": 100,
+              "14-27": 75,
+              "7-13": 50,
+              "<7": 25
+            }
+          },
+          {
+            "id": "Q9",
+            "number": "9",
+            "text": "Có khóa vệ sinh riêng cho khu vực cách ly không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q6 == 'yes'",
+            "help": "Khóa vệ sinh là cơ sở, nơi bạn có thể thay quần áo/ủng cụ thể và làm sạch/khử trùng tay.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q10",
+            "number": "10",
+            "text": "Bạn có mua heo con không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "next": "Q11"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "next": "Q15"
+              }
+            ]
+          },
+          {
+            "id": "Q11",
+            "number": "11",
+            "text": "Heo con (trong 2 năm qua) có luôn được mua từ cùng một nhà cung cấp không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q10 == 'yes'",
+            "options": [
+              {
+                "value": "always_same",
+                "label": "Luôn cùng một nhà cung cấp",
+                "score": 100
+              },
+              {
+                "value": "sometimes_different",
+                "label": "Thỉnh thoảng nhà cung cấp khác",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q12",
+            "number": "12",
+            "text": "Mỗi khi mua heo con từ trang trại khác, bạn có biết tình trạng sức khỏe của nhà cung cấp trước khi mua không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q10 == 'yes'",
+            "options": [
+              {
+                "value": "higher",
+                "label": "Có, tình trạng sức khỏe của nhà cung cấp cao hơn tình trạng của tôi",
+                "score": 100
+              },
+              {
+                "value": "equal",
+                "label": "Có, bằng với tình trạng của tôi",
+                "score": 80
+              },
+              {
+                "value": "lower_precautions",
+                "label": "Có, thấp hơn nhưng tôi có biện pháp phòng ngừa",
+                "score": 60
+              },
+              {
+                "value": "lower_no_precautions",
+                "label": "Có, thấp hơn và không có biện pháp phòng ngừa",
+                "score": 20
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q13",
+            "number": "13",
+            "text": "Có được xác minh rằng phương tiện vận chuyển đưa heo con đã được làm sạch và khử trùng trước khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q10 == 'yes'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q14",
+            "number": "14",
+            "text": "Bao nhiêu lần mỗi năm heo con được giao đến trang trại của bạn?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q10 == 'yes'",
+            "options": [
+              {
+                "value": "three_or_less",
+                "label": "Ba lần hoặc ít hơn",
+                "score": 100
+              },
+              {
+                "value": "4_to_6",
+                "label": "4 đến 6 lần",
+                "score": 75
+              },
+              {
+                "value": "7_to_12",
+                "label": "7 đến 12 lần",
+                "score": 50
+              },
+              {
+                "value": "more_than_12",
+                "label": "Hơn 12 lần",
+                "score": 25
+              }
+            ]
+          },
+          {
+            "id": "Q15",
+            "number": "15",
+            "text": "Việc sinh sản diễn ra tự nhiên hay nhân tạo?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "options": [
+              {
+                "value": "natural",
+                "label": "Phối giống tự nhiên",
+                "next": "Q16"
+              },
+              {
+                "value": "artificial",
+                "label": "Thụ tinh nhân tạo",
+                "next": "Q17"
+              },
+              {
+                "value": "both",
+                "label": "Cả hai",
+                "next": "Q16"
+              }
+            ]
+          },
+          {
+            "id": "Q16",
+            "number": "16",
+            "text": "Heo đực nào được sử dụng cho phối giống tự nhiên?",
+            "type": "multi_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q15 == 'natural' OR Q15 == 'both'",
+            "options": [
+              {
+                "value": "own_on_farm",
+                "label": "Heo đực của trang trại, ở lại trang trại",
+                "score": 100
+              },
+              {
+                "value": "own_different_farm",
+                "label": "Heo đực của trang trại nhưng nuôi ở trang trại khác",
+                "score": 75
+              },
+              {
+                "value": "shared_boars",
+                "label": "Heo đực dùng chung ở các trang trại khác nhau",
+                "score": 0
+              }
+            ],
+            "next_if_natural": "Q18",
+            "next_if_both": "Q17"
+          },
+          {
+            "id": "Q17",
+            "number": "17",
+            "text": "Mỗi khi mua tinh dịch từ trang trại/trạm heo đực, bạn có biết tình trạng sức khỏe của nhà cung cấp trước khi mua không?",
+            "type": "single_select",
+            "required": true,
+            "category": "mua_động_vật",
+            "condition": "Q15 == 'artificial' OR Q15 == 'both'",
+            "options": [
+              {
+                "value": "higher",
+                "label": "Có, tình trạng sức khỏe của nhà cung cấp cao hơn tình trạng của tôi",
+                "score": 100
+              },
+              {
+                "value": "equal",
+                "label": "Có, bằng với tình trạng của tôi",
+                "score": 80
+              },
+              {
+                "value": "lower_precautions",
+                "label": "Có, thấp hơn nhưng tôi có biện pháp phòng ngừa",
+                "score": 60
+              },
+              {
+                "value": "lower_no_precautions",
+                "label": "Có, thấp hơn và không có biện pháp phòng ngừa",
+                "score": 20
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q18",
+            "number": "18",
+            "text": "Cơ sở có được phân chia vật lý thành khu vực sạch và khu vực bẩn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "help": "Khu vực sạch là nơi chỉ cho phép động vật trang trại, người có thẩm quyền sau các biện pháp vệ sinh và vật liệu dành riêng cho trang trại. Khu vực bẩn bao gồm tất cả các phần khác có truy cập của khách/phương tiện.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q19",
+            "number": "19",
+            "text": "Heo thịt có được vận chuyển từ trang trại của bạn đến lò mổ không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "next": "Q20"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q20",
+            "number": "20",
+            "text": "Phương tiện vận chuyển heo thịt có trống rỗng trước khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q19 == 'yes'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100,
+                "next": "Q21"
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50,
+                "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0,
+                "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0,
+                "next_logic": "Q22_if_sows_else_Q25_if_piglets_else_Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q21",
+            "number": "21",
+            "text": "Có được xác minh rằng phương tiện vận chuyển heo thịt đã được làm sạch và khử trùng trước khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q20 == 'always'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q22",
+            "number": "22",
+            "text": "Heo nái có được vận chuyển từ trang trại của bạn đến trang trại khác hoặc đến lò mổ không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "next": "Q23"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "next_logic": "Q25_if_piglets_else_Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q23",
+            "number": "23",
+            "text": "Phương tiện vận chuyển heo nái có trống rỗng trước khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q22 == 'yes'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100,
+                "next": "Q24"
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50,
+                "next_logic": "Q25_if_piglets_else_Q28"
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0,
+                "next_logic": "Q25_if_piglets_else_Q28"
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0,
+                "next_logic": "Q25_if_piglets_else_Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q24",
+            "number": "24",
+            "text": "Có được xác minh rằng phương tiện vận chuyển heo nái đã được làm sạch và khử trùng trước khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q23 == 'always'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q25",
+            "number": "25",
+            "text": "Heo con có được vận chuyển từ trang trại của bạn đến trang trại khác (ví dụ đến cơ sở vỗ béo) không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "next": "Q26"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "next": "Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q26",
+            "number": "26",
+            "text": "Phương tiện vận chuyển heo con có trống rỗng trước khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q25 == 'yes'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100,
+                "next": "Q27"
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50,
+                "next": "Q28"
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0,
+                "next": "Q28"
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0,
+                "next": "Q28"
+              }
+            ]
+          },
+          {
+            "id": "Q27",
+            "number": "27",
+            "text": "Có được xác minh rằng phương tiện vận chuyển heo con đã được làm sạch và khử trùng trước khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q26 == 'always'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q28",
+            "number": "28",
+            "text": "Người lái xe có được vào khu vực nhốt động vật và/hoặc có thể tiếp xúc trực tiếp với động vật khi xếp hàng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              },
+              {
+                "value": "own_transport",
+                "label": "Nông dân và/hoặc nhân viên trang trại là người lái xe (tự vận chuyển)",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q29",
+            "number": "29",
+            "text": "Người lái xe có nhận và mặc quần áo, giày dép dành riêng cho trang trại không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "brings_own",
+                "label": "Người lái xe mang quần áo và giày dép đã được làm sạch và khử trùng của riêng họ",
+                "score": 75
+              },
+              {
+                "value": "stays_in_vehicle",
+                "label": "Người lái xe ở lại bên trong phương tiện vận chuyển",
+                "score": 100
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q30",
+            "number": "30",
+            "text": "Heo được xếp hàng từ khu vực xếp hàng riêng biệt hay trực tiếp từ chuồng/hành lang trung tâm?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "help": "Khu vực xếp hàng riêng biệt là vị trí cách ly vật lý nơi động vật được đưa đến trước/trong khi xếp hàng.",
+            "options": [
+              {
+                "value": "separate_area",
+                "label": "Khu vực xếp hàng riêng biệt",
+                "score": 100,
+                "next": "Q32"
+              },
+              {
+                "value": "pen_corridor",
+                "label": "Chuồng/hành lang trung tâm",
+                "score": 50,
+                "next": "Q31"
+              }
+            ]
+          },
+          {
+            "id": "Q31",
+            "number": "31",
+            "text": "Heo có bao giờ được đưa trở lại chuồng sau khi đã ở trong phương tiện vận chuyển không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q30 == 'pen_corridor'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q32",
+            "number": "32",
+            "text": "Phân có được vận chuyển và xử lý qua đường giao thông bẩn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q33",
+            "number": "33",
+            "text": "Có sẵn ống dành riêng cho trang trại để hút phân từ hầm phân không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "help": "Ống hút phân luôn ở lại trang trại.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              },
+              {
+                "value": "not_applicable",
+                "label": "Không áp dụng",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q34",
+            "number": "34",
+            "text": "Có khu vực lưu trữ xác chết riêng biệt, cách ly vật lý với cơ sở chăn nuôi không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "yes_separated",
+                "label": "Có",
+                "score": 100,
+                "next": "Q35"
+              },
+              {
+                "value": "yes_not_separated",
+                "label": "Có, nhưng không cách ly vật lý với động vật sống",
+                "score": 50,
+                "next": "Q35"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0,
+                "next": "Q39"
+              },
+              {
+                "value": "immediately_processed",
+                "label": "Không liên quan, xác chết được xử lý ngay lập tức",
+                "score": 75,
+                "next": "Q39"
+              }
+            ]
+          },
+          {
+            "id": "Q35",
+            "number": "35",
+            "text": "Khu vực lưu trữ xác chết có nằm trong khu vực bẩn của trang trại không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q36",
+            "number": "36",
+            "text": "Khu vực lưu trữ xác chết có được bao kín và bảo trì tốt để ngăn chặn động vật gây hại, vật nuôi hoặc động vật hoang dã xâm nhập không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100,
+                "next": "Q37"
+              },
+              {
+                "value": "sometimes_partial",
+                "label": "Thỉnh thoảng/một phần",
+                "score": 50,
+                "next": "Q38"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0,
+                "next": "Q38"
+              }
+            ]
+          },
+          {
+            "id": "Q37",
+            "number": "37",
+            "text": "Khu vực lưu trữ xác chết có được làm lạnh không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q36 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q38",
+            "number": "38",
+            "text": "Khu vực lưu trữ xác chết có được làm sạch và khử trùng sau mỗi lần sử dụng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q34 == 'yes_separated' OR Q34 == 'yes_not_separated'",
+            "options": [
+              {
+                "value": "cleaned_and_disinfected",
+                "label": "Được làm sạch và khử trùng",
+                "score": 100
+              },
+              {
+                "value": "only_cleaned",
+                "label": "Chỉ được làm sạch",
+                "score": 75
+              },
+              {
+                "value": "only_disinfected",
+                "label": "Chỉ được khử trùng",
+                "score": 50
+              },
+              {
+                "value": "not_cleaned_nor_disinfected",
+                "label": "Không được làm sạch hoặc khử trùng",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q39",
+            "number": "39",
+            "text": "Xác chết được xử lý như thế nào?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "help": "Ủ phân là quá trình phân hủy tự nhiên. Chôn lấp có thể bị cấm ở quốc gia của bạn.",
+            "options": [
+              {
+                "value": "composted",
+                "label": "Xác chết được ủ phân",
+                "next": "Q40"
+              },
+              {
+                "value": "buried_burned",
+                "label": "Xác chết được chôn/đốt",
+                "next": "Q41"
+              },
+              {
+                "value": "rendering",
+                "label": "Xác chết được lưu trữ và thu gom bởi công ty xử lý",
+                "next": "Q42"
+              }
+            ]
+          },
+          {
+            "id": "Q40",
+            "number": "40",
+            "text": "Xác chết có được ủ phân trong hệ thống kín không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q39 == 'composted'",
+            "options": [
+              {
+                "value": "inside_building",
+                "label": "Có, xác động vật được ủ bên trong tòa nhà có thể đóng kín hoàn toàn",
+                "score": 100
+              },
+              {
+                "value": "outside_enclosed",
+                "label": "Có, xác động vật được ủ bên ngoài, bao kín bằng ví dụ nhựa",
+                "score": 75
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ],
+            "next": "Q43"
+          },
+          {
+            "id": "Q41",
+            "number": "41",
+            "text": "Xác động vật được chôn/đốt như thế nào?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q39 == 'buried_burned'",
+            "help": "Chôn trong đất thích hợp: chôn sâu trong hố cách xa nguồn nước ngầm.",
+            "options": [
+              {
+                "value": "approved_incinerator",
+                "label": "Xác động vật được đốt trong lò đốt được phê duyệt tại trang trại",
+                "score": 100
+              },
+              {
+                "value": "buried_appropriate",
+                "label": "Xác động vật được chôn trong đất thích hợp tại trang trại",
+                "score": 75
+              },
+              {
+                "value": "other",
+                "label": "Khác",
+                "score": 25
+              }
+            ],
+            "next": "Q43"
+          },
+          {
+            "id": "Q42",
+            "number": "42",
+            "text": "Công ty xử lý có thể lấy xác chết mà không cần vào khuôn viên trang trại không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "condition": "Q39 == 'rendering'",
+            "help": "Ví dụ từ đường công cộng",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q43",
+            "number": "43",
+            "text": "Nông dân/nhân viên có thay giày dép khi vào khu vực xác chết không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q44",
+            "number": "44",
+            "text": "Xác chết có được xử lý bằng găng tay dùng một lần, hoặc tay có được làm sạch và khử trùng sau khi xử lý không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vận_chuyển_xác_chết",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "total_questions": 44,
+        "estimated_time_minutes": 66
+      },
+      {
+        "number": 2,
+        "name": "Cơ Sở Vật Chất & Nhân Sự",
+        "description": "Kiểm soát truy cập và bảo trì cơ sở hạ tầng",
+        "category": "an_toàn_sinh_học_ngoại_vi",
+        "sections": [
+          "Cung Cấp Thức Ăn & Nước Uống",
+          "Khách Thăm & Công Nhân",
+          "Kiểm Soát Dịch Hại",
+          "Vị Trí Trang Trại"
+        ],
+        "questions": [
+          {
+            "id": "Q45",
+            "number": "45",
+            "text": "Loại thức ăn nào được sử dụng trong trang trại?",
+            "type": "multi_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "help": "Cho ăn thức ăn thừa có thể bị cấm ở quốc gia của bạn.",
+            "options": [
+              {
+                "value": "commercial",
+                "label": "Thức ăn thương mại"
+              },
+              {
+                "value": "own_produced",
+                "label": "Tự sản xuất hoặc cây trồng tự nhiên (ví dụ quả sồi)"
+              },
+              {
+                "value": "swill_uncooked",
+                "label": "Thức ăn thừa chưa nấu chín"
+              },
+              {
+                "value": "swill_cooked",
+                "label": "Thức ăn thừa đã nấu chín"
+              }
+            ],
+            "next_if_commercial": "Q46",
+            "next_if_not_commercial": "Q49"
+          },
+          {
+            "id": "Q46",
+            "number": "46",
+            "text": "Thức ăn chăn nuôi có xuất xứ từ công ty thức ăn đáp ứng các yêu cầu vệ sinh cụ thể không?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "condition": "Q45_includes_commercial",
+            "help": "Ví dụ không có Salmonella, xử lý nhiệt như tạo viên",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q47",
+            "number": "47",
+            "text": "Công ty thức ăn có thể đổ đầy silo/kho chứa thức ăn mà không vào khu vực sạch không?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "condition": "Q45_includes_commercial",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q48",
+            "number": "48",
+            "text": "Nhà cung cấp thức ăn có được vào khu vực nhốt động vật nơi có thể tiếp xúc trực tiếp với heo không?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "condition": "Q45_includes_commercial",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q49",
+            "number": "49",
+            "text": "Hệ thống phân phối nước (bao gồm bể chứa nước đầu nguồn) có luôn được che đậy không?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "partially",
+                "label": "Một phần",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q50",
+            "number": "50",
+            "text": "Tần suất phân tích vi khuẩn nước uống được thực hiện là bao lâu?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "options": [
+              {
+                "value": "yearly_or_more",
+                "label": "Hàng năm hoặc thường xuyên hơn",
+                "score": 100,
+                "next": "Q51"
+              },
+              {
+                "value": "every_two_years",
+                "label": "Hai năm một lần",
+                "score": 75,
+                "next": "Q51"
+              },
+              {
+                "value": "less_than_two_years",
+                "label": "Ít hơn hai năm một lần",
+                "score": 50,
+                "next": "Q51"
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0,
+                "next": "Q52"
+              },
+              {
+                "value": "municipal_supply",
+                "label": "Không bao giờ, tôi có nguồn cấp nước thành phố",
+                "score": 75,
+                "next": "Q52"
+              }
+            ]
+          },
+          {
+            "id": "Q51",
+            "number": "51",
+            "text": "Mẫu nước cho phân tích vi khuẩn được lấy ở vị trí nào?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "condition": "Q50 != 'never' AND Q50 != 'municipal_supply'",
+            "options": [
+              {
+                "value": "source_and_last_drinker",
+                "label": "Cả tại nguồn và vòi uống cuối cùng (xa nhất từ nguồn)",
+                "score": 100
+              },
+              {
+                "value": "last_drinker",
+                "label": "Tại vòi uống cuối cùng",
+                "score": 75
+              },
+              {
+                "value": "source",
+                "label": "Tại nguồn",
+                "score": 50
+              },
+              {
+                "value": "other",
+                "label": "Khác (ví dụ vòi uống ở đầu đường ống)",
+                "score": 25
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q52",
+            "number": "52",
+            "text": "Có sử dụng cửa chuyển giao vật liệu cụ thể và hoạt động tốt cho vật liệu vào chuồng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "help": "Ví dụ tủ UV cho dụng cụ. Vật liệu có thể là điện thoại di động, tài liệu, bút, dụng cụ chẩn đoán, v.v.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q53",
+            "number": "53",
+            "text": "Có thiết bị nào (nhỏ hoặc lớn) dùng chung với các trang trại khác mà vào trang trại của bạn và/hoặc tiếp xúc với heo của bạn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "next": "Q54"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "next": "Q55"
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "next": "Q55"
+              }
+            ]
+          },
+          {
+            "id": "Q54",
+            "number": "54",
+            "text": "Có biện pháp cụ thể nào cho việc đưa thiết bị từ trang trại khác vào không?",
+            "type": "single_select",
+            "required": true,
+            "category": "thức_ăn_nước_thiết_bị",
+            "condition": "Q53 == 'yes'",
+            "help": "Ví dụ làm sạch và khử trùng, thời gian cách ly tại địa điểm cụ thể.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q55",
+            "number": "55",
+            "text": "Trang trại có tuân theo kế hoạch an toàn sinh học bằng văn bản không?",
+            "type": "single_select",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "help": "Nên bao gồm: các khía cạnh/rủi ro quan trọng, ưu tiên thực hiện an toàn sinh học và sửa đổi ít nhất hàng năm.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q56",
+            "number": "56",
+            "text": "Nông dân và/hoặc công nhân trang trại có được đào tạo về an toàn sinh học trong chăn nuôi heo trong năm năm qua không?",
+            "type": "single_select",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "help": "Đào tạo có thể là bằng cấp, học trực tuyến, hội thảo hoặc hội thảo trên web. Cũng có thể do nhân viên nội bộ có đào tạo được chứng nhận thực hiện.",
+            "options": [
+              {
+                "value": "both",
+                "label": "Cả hai đã được đào tạo về an toàn sinh học",
+                "score": 100
+              },
+              {
+                "value": "only_one",
+                "label": "Chỉ một trong số họ đã được đào tạo về an toàn sinh học",
+                "score": 50
+              },
+              {
+                "value": "neither",
+                "label": "Không ai trong số họ được đào tạo về an toàn sinh học",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q57",
+            "number": "57",
+            "text": "Khách thăm có bắt buộc thông báo và ghi lại sự hiện diện của họ trước khi vào cơ sở chăn nuôi không?",
+            "type": "single_select",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "help": "Ví dụ cổng đóng yêu cầu gọi/chuông, nghĩa vụ ký sổ đăng ký.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q58",
+            "number": "58",
+            "text": "Có khóa vệ sinh luôn được khách thăm sử dụng khi vào cơ sở chăn nuôi không?",
+            "type": "single_select",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "help": "Khóa vệ sinh là phòng nơi bạn có thể thay quần áo/giày dép dành riêng cho trang trại và rửa/khử trùng tay.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100,
+                "next": "Q59"
+              },
+              {
+                "value": "present_not_always",
+                "label": "Có khóa vệ sinh, nhưng không phải lúc nào cũng sử dụng",
+                "score": 50,
+                "next": "Q59"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0,
+                "next": "Q61"
+              }
+            ]
+          },
+          {
+            "id": "Q59",
+            "number": "59",
+            "text": "Tất cả cơ sở chăn nuôi chỉ có thể truy cập cho khách thăm qua khóa vệ sinh?",
+            "type": "single_select",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "condition": "Q58 != 'no'",
+            "help": "Không có cách nào khác để vào - phải luôn đi qua khóa vệ sinh.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q60",
+            "number": "60",
+            "text": "Có sự phân cách nghiêm ngặt giữa khu vực sạch và khu vực bẩn của khóa vệ sinh không?",
+            "type": "single_select",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "condition": "Q58 != 'no'",
+            "help": "Ví dụ bằng rào chắn vật lý (ván gỗ/ghế dài) hoặc vòi sen đi qua. Khu vực bẩn là nơi mọi người vào/cất quần áo; khu vực sạch là nơi họ mặc quần áo dành riêng cho trang trại.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q61",
+            "number": "61",
+            "text": "Có cơ sở tắm vòi sen và luôn được khách thăm/nhân viên sử dụng trước khi vào cơ sở chăn nuôi không?",
+            "type": "single_select",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "only_visitors",
+                "label": "Chỉ cho khách thăm, không cho nhân viên",
+                "score": 75
+              },
+              {
+                "value": "present_not_always",
+                "label": "Có cơ sở tắm vòi sen, nhưng không phải lúc nào cũng sử dụng",
+                "score": 50
+              },
+              {
+                "value": "no_facility",
+                "label": "Không có cơ sở tắm vòi sen",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q62",
+            "number": "62",
+            "text": "Trước khi được phép vào trang trại, khách thăm và công nhân trang trại có phải...?",
+            "type": "matrix",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "rows": [
+              {
+                "id": "clothes",
+                "text": "mặc quần áo dành riêng cho trang trại có sẵn/mang quần áo sạch (nếu không có)"
+              },
+              {
+                "id": "footwear",
+                "text": "mang giày dép dành riêng cho trang trại có sẵn/mang giày dép sạch và đã khử trùng (nếu không có)"
+              },
+              {
+                "id": "hands",
+                "text": "rửa và khử trùng tay/sử dụng găng tay"
+              }
+            ],
+            "columns": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q63",
+            "number": "63",
+            "text": "Có công nhân trang trại nào tiếp xúc với heo không phải của cơ sở này không?",
+            "type": "single_select",
+            "required": true,
+            "category": "khách_thăm_công_nhân",
+            "help": "Heo ở nhà, ở trang trại khác, heo rừng, săn bắn, triển lãm nông nghiệp, v.v.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q64",
+            "number": "64",
+            "text": "Bên ngoài các tòa nhà trang trại (xung quanh tường) có được lát đá và sạch sẽ (loại bỏ cỏ dại, chất thải, ...) để không có nơi ẩn nấp cho động vật gây hại không?",
+            "type": "single_select",
+            "required": true,
+            "category": "kiểm_soát_dịch_hại_chim",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "partially",
+                "label": "Một phần",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q65",
+            "number": "65",
+            "text": "Có chương trình kiểm soát dịch hại được áp dụng trong trang trại không?",
+            "type": "single_select",
+            "required": true,
+            "category": "kiểm_soát_dịch_hại_chim",
+            "options": [
+              {
+                "value": "professional_periodic",
+                "label": "Công ty kiểm soát dịch hại chuyên nghiệp được thuê định kỳ",
+                "score": 100
+              },
+              {
+                "value": "own_periodic",
+                "label": "Trang trại có chương trình kiểm soát dịch hại định kỳ riêng",
+                "score": 75
+              },
+              {
+                "value": "if_noticed",
+                "label": "Kiểm soát dịch hại chỉ được thực hiện nếu phát hiện có sự xâm nhập/bùng phát (ví dụ qua bẫy chuột)",
+                "score": 25
+              },
+              {
+                "value": "no_programme",
+                "label": "Không có chương trình kiểm soát dịch hại",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q66",
+            "number": "66",
+            "text": "Vật nuôi hoặc động vật hoang dã có thể vào cơ sở chăn nuôi (bao gồm kho chứa thức ăn và chất độn chuồng) không?",
+            "type": "single_select",
+            "required": true,
+            "category": "kiểm_soát_dịch_hại_chim",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "only_some",
+                "label": "Chỉ vào một số trong đó",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q67",
+            "number": "67",
+            "text": "Chim có thể vào cơ sở chăn nuôi (bao gồm kho chứa thức ăn và chất độn chuồng) không?",
+            "type": "single_select",
+            "required": true,
+            "category": "kiểm_soát_dịch_hại_chim",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "only_some",
+                "label": "Chỉ vào một số trong đó",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q68",
+            "number": "68",
+            "text": "Có lắp lưới chắn ở tất cả các cửa ra vào và thoát khí không?",
+            "type": "single_select",
+            "required": true,
+            "category": "kiểm_soát_dịch_hại_chim",
+            "help": "Lưới đủ nhỏ để ngăn động vật gặm nhấm và chim nhỏ ra vào.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "partially",
+                "label": "Một phần",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q69",
+            "number": "69",
+            "text": "Trang trại có nằm trong khu vực có mật độ heo cao hay thấp không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vị_trí",
+            "help": "Khu vực có mật độ cao có >300 heo/km² ở cấp đô thị. Nếu có nhiều trang trại heo trong bán kính 3 km, bạn có thể ở khu vực mật độ cao.",
+            "options": [
+              {
+                "value": "low",
+                "label": "Mật độ thấp",
+                "score": 100
+              },
+              {
+                "value": "high",
+                "label": "Mật độ cao",
+                "score": 50
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q70",
+            "number": "70",
+            "text": "Có trang trại heo nào khác trong bán kính 500 mét từ trang trại của bạn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vị_trí",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q71",
+            "number": "71",
+            "text": "Phân từ các trang trại heo khác có được rải trên đất nông nghiệp trong bán kính 500 mét từ trang trại của bạn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vị_trí",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q72",
+            "number": "72",
+            "text": "Phương tiện vận chuyển động vật từ các trang trại khác có thường xuyên (ít nhất một lần mỗi ngày) đi qua đường cách trang trại của bạn dưới 100 mét không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vị_trí",
+            "help": "Ví dụ do vị trí của lò mổ trong khu vực lân cận.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q73",
+            "number": "73",
+            "text": "Heo rừng (hoặc dấu vết của chúng) có được phát hiện trong bán kính 10 km từ cơ sở của bạn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vị_trí",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0,
+                "next": "Q74"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100,
+                "next": "Q76"
+              },
+              {
+                "value": "dont_know",
+                "label": "Tôi không biết",
+                "score": 50,
+                "next": "Q76"
+              }
+            ]
+          },
+          {
+            "id": "Q74",
+            "number": "74",
+            "text": "Trang trại có được bao quanh bằng hàng rào chống heo rừng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vị_trí",
+            "condition": "Q73 == 'yes'",
+            "help": "Hàng rào chống heo rừng là hàng rào đôi bằng lưới/dây kim loại có chiều cao tối thiểu 1,5m hoặc hàng rào đơn bằng kim loại, gạch đá hoặc vật liệu rắn khác có chiều cao tối thiểu 1,5m.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100,
+                "next": "Q75"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0,
+                "next": "Q76"
+              }
+            ]
+          },
+          {
+            "id": "Q75",
+            "number": "75",
+            "text": "Hàng rào có được kiểm tra thường xuyên (ít nhất hàng tháng) để phát hiện vi phạm và sửa chữa nếu cần không?",
+            "type": "single_select",
+            "required": true,
+            "category": "vị_trí",
+            "condition": "Q74 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "total_questions": 31,
+        "estimated_time_minutes": 47
+      },
+      {
+        "number": 3,
+        "name": "Quản Lý Sản Xuất",
+        "description": "Giám sát bệnh tật và thực hành sản xuất",
+        "category": "an_toàn_sinh_học_nội_vi",
+        "sections": [
+          "Quản Lý Bệnh Tật",
+          "Quản Lý Đẻ & Nuôi Con",
+          "Quản Lý Heo Con (Nursery)",
+          "Quản Lý Heo Thịt (Finishing)",
+          "Biện Pháp Giữa Các Khu Vực"
+        ],
+        "questions": [
+          {
+            "id": "Q76",
+            "number": "76",
+            "text": "Có kế hoạch điều trị tại trang trại được bác sĩ thú y/tư vấn sức khỏe đánh giá hàng năm không?",
+            "type": "multi_select",
+            "required": true,
+            "category": "quản_lý_bệnh",
+            "help": "Tư vấn sức khỏe: bất kỳ người nào đến trang trại để giúp cải thiện sức khỏe (ví dụ chuyên gia dinh dưỡng, tư vấn viên).",
+            "options": [
+              {
+                "value": "vaccination",
+                "label": "Có, cho tiêm phòng",
+                "score": 100
+              },
+              {
+                "value": "deworming",
+                "label": "Có, cho tẩy giun",
+                "score": 100
+              },
+              {
+                "value": "additives",
+                "label": "Có, cho phụ gia/pre- hoặc probiotics",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q77",
+            "number": "77",
+            "text": "Có đánh giá thường xuyên (ít nhất mỗi năm một lần) về tình trạng bệnh của trang trại (ví dụ huyết thanh học, xu hướng phát hiện tại lò mổ, v.v.) với sự tham vấn của bác sĩ thú y/tư vấn sức khỏe không?",
+            "type": "single_select",
+            "required": true,
+            "category": "quản_lý_bệnh",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q78",
+            "number": "78",
+            "text": "Heo còi cọc (ở lại do nguyên nhân không rõ) và/hoặc heo bệnh có được cách ly khỏi heo khỏe mạnh hay có chính sách an tử nghiêm ngặt không?",
+            "type": "single_select",
+            "required": true,
+            "category": "quản_lý_bệnh",
+            "options": [
+              {
+                "value": "always_isolated",
+                "label": "Heo còi cọc luôn được cách ly khỏi heo khỏe mạnh",
+                "score": 100,
+                "next": "Q79"
+              },
+              {
+                "value": "sometimes_isolated",
+                "label": "Heo còi cọc thỉnh thoảng được cách ly khỏi heo khỏe mạnh",
+                "score": 75,
+                "next": "Q79"
+              },
+              {
+                "value": "not_isolated",
+                "label": "Heo còi cọc không được cách ly, chúng luôn ở lại trong nhóm của mình",
+                "score": 0,
+                "next": "Q81"
+              },
+              {
+                "value": "euthanasia",
+                "label": "Có chính sách an tử nghiêm ngặt, vì vậy không có/hầu như không có heo còi cọc",
+                "score": 100,
+                "next": "Q81"
+              }
+            ]
+          },
+          {
+            "id": "Q79",
+            "number": "79",
+            "text": "Điều gì xảy ra với heo còi cọc sau khi hồi phục?",
+            "type": "single_select",
+            "required": true,
+            "category": "quản_lý_bệnh",
+            "condition": "Q78 == 'always_isolated' OR Q78 == 'sometimes_isolated'",
+            "options": [
+              {
+                "value": "back_to_original",
+                "label": "Chúng được đưa trở lại nhóm ban đầu",
+                "score": 50
+              },
+              {
+                "value": "younger_group",
+                "label": "Chúng được chuyển đến nhóm tuổi trẻ hơn",
+                "score": 25
+              },
+              {
+                "value": "kept_isolated",
+                "label": "Chúng được giữ cách ly khỏi các động vật khác cho đến khi rời trang trại",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q80",
+            "number": "80",
+            "text": "Heo bệnh có luôn được xử lý/thăm sau heo khỏe mạnh không?",
+            "type": "single_select",
+            "required": true,
+            "category": "quản_lý_bệnh",
+            "condition": "Q78 == 'always_isolated' OR Q78 == 'sometimes_isolated'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q81",
+            "number": "81",
+            "text": "Heo nái có được tắm rửa trước khi chuyển vào chuồng đẻ không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đẻ_nuôi_con",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q82",
+            "number": "82",
+            "text": "Heo con đang bú có được chuyển đổi có hệ thống giữa các heo nái (tức là ghép đàn) không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đẻ_nuôi_con",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "next": "Q83"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "next": "Q85"
+              }
+            ]
+          },
+          {
+            "id": "Q83",
+            "number": "83",
+            "text": "Việc ghép đàn heo con giữa các heo nái khác nhau xảy ra một lần hay nhiều lần trong thời gian cho con bú?",
+            "type": "single_select",
+            "required": true,
+            "category": "đẻ_nuôi_con",
+            "condition": "Q82 == 'yes'",
+            "options": [
+              {
+                "value": "once",
+                "label": "Một lần",
+                "score": 75
+              },
+              {
+                "value": "more_than_once",
+                "label": "Nhiều hơn một lần",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q84",
+            "number": "84",
+            "text": "Khi nào việc ghép đàn xảy ra?",
+            "type": "multi_select",
+            "required": true,
+            "category": "đẻ_nuôi_con",
+            "condition": "Q82 == 'yes'",
+            "options": [
+              {
+                "value": "within_24h",
+                "label": "Trong vòng 24 giờ sau khi đẻ",
+                "score": 100
+              },
+              {
+                "value": "24_to_72h",
+                "label": "Từ 24 đến 72 giờ sau khi đẻ",
+                "score": 75
+              },
+              {
+                "value": "more_than_72h",
+                "label": "Hơn 72 giờ sau khi đẻ",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q85",
+            "number": "85",
+            "text": "Heo con được bắt bằng tay thường xuyên bao nhiêu lần (ví dụ tiêm phòng, thiến, mài răng, cắt đuôi, gắn thẻ tai) từ khi sinh đến khi cai sữa?",
+            "type": "number",
+            "required": true,
+            "category": "đẻ_nuôi_con",
+            "help": "Một số thao tác có thể bị cấm ở quốc gia của bạn. Nếu nhiều thao tác xảy ra cùng một lúc, hãy tính là một lần.",
+            "scoring": {
+              "3": 75,
+              "4": 50,
+              "<=2": 100,
+              ">=5": 25
+            }
+          },
+          {
+            "id": "Q86",
+            "number": "86",
+            "text": "Vật liệu/dụng cụ điều trị (ví dụ lưỡi dao thiến, dụng cụ cắt đuôi, dụng cụ gắn thẻ tai, kim tiêm) có được làm sạch và khử trùng hoặc thay thế giữa các lứa không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đẻ_nuôi_con",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "only_some",
+                "label": "Chỉ một số vật liệu/dụng cụ được làm sạch và khử trùng hoặc thay thế",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q87",
+            "number": "87",
+            "text": "Khi thiến, lưỡi dao/kim thiến có được khử trùng hoặc thay thế giữa các heo con khác nhau không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đẻ_nuôi_con",
+            "options": [
+              {
+                "value": "after_each",
+                "label": "Lưỡi dao/kim được khử trùng hoặc thay thế sau mỗi heo con",
+                "score": 100
+              },
+              {
+                "value": "after_several",
+                "label": "Lưỡi dao/kim được khử trùng/thay thế sau vài heo con hoặc dùng lưỡi dao/kim khác nhau cho mỗi chuồng",
+                "score": 50
+              },
+              {
+                "value": "until_blunt",
+                "label": "Lưỡi dao/kim không được khử trùng hoặc thay thế cho đến khi cùn",
+                "score": 0
+              },
+              {
+                "value": "not_performed",
+                "label": "Không thực hiện thiến",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q88",
+            "number": "88",
+            "text": "Có áp dụng quản lý all-in (vào cùng lúc) nghiêm ngặt trong mỗi khu vực của đơn vị nursery không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_nursery",
+            "help": "All-in: động vật được chuyển đến cùng một đơn vị nursery cùng một lúc và không có động vật mới nào được đưa vào trước khi nó được dọn sạch.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q89",
+            "number": "89",
+            "text": "Heo con lớn hơn (từ nhóm đẻ khác) có đôi khi được trộn với heo con nhỏ hơn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_nursery",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q90",
+            "number": "90",
+            "text": "Mật độ thả tối đa của chuồng trong đơn vị nursery là bao nhiêu?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_nursery",
+            "options": [
+              {
+                "value": "0.33_or_more",
+                "label": "0,33 m² mỗi con hoặc hơn",
+                "score": 100
+              },
+              {
+                "value": "0.32_to_0.26",
+                "label": "0,32 đến 0,26 m² mỗi con",
+                "score": 75
+              },
+              {
+                "value": "0.25_to_0.16",
+                "label": "0,25 đến 0,16 m² mỗi con",
+                "score": 50
+              },
+              {
+                "value": "0.15_or_less",
+                "label": "0,15 m² mỗi con hoặc ít hơn",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q91",
+            "number": "91",
+            "text": "Đơn vị nursery có tách biệt vật lý (không tiếp xúc trực tiếp) với các đơn vị heo khác không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_nursery",
+            "help": "Không có nhóm động vật nào khác trong cùng tòa nhà/khu vực.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              },
+              {
+                "value": "not_applicable",
+                "label": "Không áp dụng",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q92",
+            "number": "92",
+            "text": "Có khóa vệ sinh riêng cho đơn vị nursery không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_nursery",
+            "help": "Khóa vệ sinh là cơ sở nơi bạn có thể thay quần áo/ủng cụ thể và làm sạch/khử trùng tay.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q93",
+            "number": "93",
+            "text": "Có áp dụng quản lý all-in (vào cùng lúc) nghiêm ngặt trong mỗi khu vực của đơn vị finishing không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_finishing",
+            "help": "All-in: động vật được chuyển đến cùng một đơn vị finishing cùng một lúc và không có động vật mới nào được đưa vào trước khi nó được dọn sạch.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q94",
+            "number": "94",
+            "text": "Các nhóm tuổi khác nhau có được tách biệt nghiêm ngặt vào các khu vực/khu vực khác nhau (tách biệt vật lý) không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_finishing",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100,
+                "next": "Q95"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0,
+                "next": "Q96"
+              },
+              {
+                "value": "not_applicable",
+                "label": "Không áp dụng",
+                "score": 50,
+                "next": "Q96"
+              }
+            ]
+          },
+          {
+            "id": "Q95",
+            "number": "95",
+            "text": "Heo thịt lớn hơn có đôi khi được trộn với heo nhỏ hơn không?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_finishing",
+            "condition": "Q94 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 0
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 100
+              }
+            ]
+          },
+          {
+            "id": "Q96",
+            "number": "96",
+            "text": "Mật độ heo tối đa trong chuồng ở đơn vị finishing là bao nhiêu?",
+            "type": "single_select",
+            "required": true,
+            "category": "đơn_vị_finishing",
+            "help": "Heo thịt thông thường: 90-115 kg trọng lượng sống. Heo thịt nặng: >115 kg.",
+            "options": [
+              {
+                "value": "1_or_more",
+                "label": "1 m² trở lên mỗi heo thịt (1,50 m² trở lên mỗi heo thịt nặng)",
+                "score": 100
+              },
+              {
+                "value": "0.70_to_0.99",
+                "label": "0,70 đến 0,99 m² mỗi heo thịt (1,10 đến 1,49 m² mỗi heo nặng)",
+                "score": 75
+              },
+              {
+                "value": "0.60_to_0.69",
+                "label": "0,60 đến 0,69 m² mỗi heo thịt (0,80 đến 1,09 m² mỗi heo nặng)",
+                "score": 50
+              },
+              {
+                "value": "less_than_0.60",
+                "label": "Dưới 0,60 m² mỗi heo thịt (dưới 0,80 m² mỗi heo nặng)",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q97",
+            "number": "97",
+            "text": "Có các khu vực/nhóm tuổi khác nhau trong cơ sở không?",
+            "type": "single_select",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "next": "Q98"
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "next": "Q103"
+              }
+            ]
+          },
+          {
+            "id": "Q98",
+            "number": "98",
+            "text": "Giữa các khu vực/nhóm tuổi khác nhau, các hành động sau có được thực hiện không?",
+            "type": "matrix",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "condition": "Q97 == 'yes'",
+            "help": "Khu vực: một đơn vị xác định về mặt vật lý nơi một nhóm heo được nuôi.",
+            "rows": [
+              {
+                "id": "clothes",
+                "text": "Thay quần áo cụ thể cho từng khu vực/nhóm tuổi"
+              },
+              {
+                "id": "footwear",
+                "text": "Thay giày dép cụ thể cho từng khu vực/nhóm tuổi"
+              },
+              {
+                "id": "hands",
+                "text": "Rửa tay/thay găng tay cho từng khu vực/nhóm tuổi"
+              }
+            ],
+            "columns": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q99",
+            "number": "99",
+            "text": "Có sử dụng bể khử trùng và/hoặc máy rửa ủng giữa các khu vực/đơn vị khác nhau không?",
+            "type": "single_select",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "condition": "Q97 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "only_some",
+                "label": "Chỉ cho một số khu vực/đơn vị",
+                "score": 50
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q100",
+            "number": "100",
+            "text": "Trình tự làm việc nào được sử dụng trong điều kiện bình thường?",
+            "type": "single_select",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "condition": "Q97 == 'yes'",
+            "options": [
+              {
+                "value": "young_to_old",
+                "label": "Từ động vật non đến già",
+                "score": 100
+              },
+              {
+                "value": "old_to_young",
+                "label": "Từ động vật già đến non",
+                "score": 50
+              },
+              {
+                "value": "another_sequence",
+                "label": "Trình tự làm việc khác",
+                "score": 25
+              },
+              {
+                "value": "no_sequence",
+                "label": "Không có trình tự làm việc",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q101",
+            "number": "101",
+            "text": "Thiết bị cần thiết cho một nhóm động vật cụ thể có được đặt theo đường làm việc để tránh sử dụng ở các nhóm tuổi khác không?",
+            "type": "single_select",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "condition": "Q97 == 'yes'",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q102",
+            "number": "102",
+            "text": "Có sử dụng vật liệu/dụng cụ riêng biệt, dễ nhận biết (ví dụ bằng màu sắc) cho từng đơn vị hoặc nhóm tuổi không?",
+            "type": "single_select",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "condition": "Q97 == 'yes'",
+            "help": "Cho tất cả các đơn vị: chuồng đẻ, đơn vị nursery và đơn vị finishing.",
+            "options": [
+              {
+                "value": "yes",
+                "label": "Có",
+                "score": 100
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q103",
+            "number": "103",
+            "text": "Các tấm chắn/lùa heo có dễ làm sạch (ví dụ nhựa) và được làm sạch và khử trùng thường xuyên không?",
+            "type": "single_select",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "help": "Thường xuyên: sau mỗi lần sử dụng hoặc ít nhất sau mỗi chu kỳ sản xuất trong thời gian nghỉ vệ sinh.",
+            "options": [
+              {
+                "value": "easy_and_regular",
+                "label": "Có, các tấm chắn dễ làm sạch và được làm sạch và khử trùng thường xuyên",
+                "score": 100
+              },
+              {
+                "value": "easy_not_regular",
+                "label": "Các tấm chắn dễ làm sạch nhưng không được làm sạch và khử trùng thường xuyên",
+                "score": 75
+              },
+              {
+                "value": "not_easy_but_regular",
+                "label": "Các tấm chắn không dễ làm sạch (ví dụ gỗ) nhưng được làm sạch và khử trùng thường xuyên",
+                "score": 50
+              },
+              {
+                "value": "not_easy_not_regular",
+                "label": "Không, các tấm chắn không dễ làm sạch và không được làm sạch và khử trùng thường xuyên",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q104",
+            "number": "104",
+            "text": "Có sử dụng ống tiêm và kim tiêm cụ thể cho từng nhóm tuổi không?",
+            "type": "single_select",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "help": "Cho tất cả các đơn vị: chuồng đẻ, đơn vị nursery và đơn vị finishing.",
+            "options": [
+              {
+                "value": "both_specific",
+                "label": "Cả ống tiêm và kim đều cụ thể cho từng nhóm tuổi",
+                "score": 100
+              },
+              {
+                "value": "only_needles",
+                "label": "Chỉ kim là cụ thể cho nhóm tuổi",
+                "score": 75
+              },
+              {
+                "value": "no",
+                "label": "Không",
+                "score": 0
+              },
+              {
+                "value": "not_applicable",
+                "label": "Không áp dụng",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q105",
+            "number": "105",
+            "text": "Sau bao nhiêu heo thì kim tiêm được thay?",
+            "type": "single_select",
+            "required": true,
+            "category": "biện_pháp_giữa_các_khu_vực",
+            "help": "Cho tất cả các đơn vị. Nếu điều này khác nhau giữa các khu vực, hãy chỉ ra trường hợp xấu nhất.",
+            "options": [
+              {
+                "value": "less_than_20",
+                "label": "<20",
+                "score": 100
+              },
+              {
+                "value": "20_to_49",
+                "label": "20-49",
+                "score": 75
+              },
+              {
+                "value": "50_to_100",
+                "label": "50-100",
+                "score": 50
+              },
+              {
+                "value": "more_than_100",
+                "label": ">100",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "total_questions": 30,
+        "estimated_time_minutes": 45
+      },
+      {
+        "number": 4,
+        "name": "Quy Trình Vệ Sinh",
+        "description": "Quy trình làm sạch và khử trùng",
+        "category": "an_toàn_sinh_học_nội_vi",
+        "sections": [
+          "Làm Sạch & Khử Trùng"
+        ],
+        "questions": [
+          {
+            "id": "Q106",
+            "number": "106",
+            "text": "Chuồng/khu vực có được làm sạch sau mỗi chu kỳ sản xuất không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "help": "Cho tất cả các đơn vị: chuồng đẻ, đơn vị nursery và đơn vị finishing.",
+            "options": [
+              {
+                "value": "all_after_each",
+                "label": "Tất cả chuồng/khu vực được làm sạch sau mỗi chu kỳ sản xuất",
+                "score": 100,
+                "next": "Q107"
+              },
+              {
+                "value": "only_some",
+                "label": "Chỉ một số chuồng/khu vực được làm sạch sau mỗi chu kỳ sản xuất",
+                "score": 50,
+                "next": "Q107"
+              },
+              {
+                "value": "after_couple",
+                "label": "Chuồng/khu vực được làm sạch sau mỗi vài chu kỳ sản xuất",
+                "score": 25,
+                "next": "Q107"
+              },
+              {
+                "value": "never",
+                "label": "Chuồng/khu vực không bao giờ được làm sạch",
+                "score": 0,
+                "next": "Q112"
+              }
+            ]
+          },
+          {
+            "id": "Q107",
+            "number": "107",
+            "text": "Chuồng/khu vực có được ngâm nước trước khi bắt đầu làm sạch không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "condition": "Q106 != 'never'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100,
+                "next": "Q108"
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50,
+                "next": "Q108"
+              },
+              {
+                "value": "dry_only",
+                "label": "Không bao giờ, tôi chỉ thực hiện làm sạch khô",
+                "score": 0,
+                "next": "Q109"
+              }
+            ]
+          },
+          {
+            "id": "Q108",
+            "number": "108",
+            "text": "Có thêm chất tẩy rửa/xà phòng vào nước trong khi làm sạch không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "condition": "Q107 != 'dry_only'",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q109",
+            "number": "109",
+            "text": "Chuồng/khu vực có được khử trùng sau mỗi chu kỳ sản xuất không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "help": "Cho tất cả các đơn vị: chuồng đẻ, đơn vị nursery và đơn vị finishing.",
+            "options": [
+              {
+                "value": "all_after_each",
+                "label": "Tất cả chuồng/khu vực được khử trùng sau mỗi chu kỳ sản xuất",
+                "score": 100
+              },
+              {
+                "value": "only_some",
+                "label": "Chỉ một số chuồng/khu vực được khử trùng sau mỗi chu kỳ sản xuất",
+                "score": 50
+              },
+              {
+                "value": "after_couple",
+                "label": "Chuồng/khu vực được khử trùng sau mỗi vài chu kỳ sản xuất",
+                "score": 25
+              },
+              {
+                "value": "never",
+                "label": "Chuồng/khu vực không bao giờ được khử trùng",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q110",
+            "number": "110",
+            "text": "Cơ sở chăn nuôi có được làm khô hoàn toàn trước khi heo mới vào không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q111",
+            "number": "111",
+            "text": "Hiệu quả của việc làm sạch và khử trùng có được kiểm tra không (ví dụ hygienogram, ATP-metry, que swab)?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "help": "Hygienogram là định lượng tình trạng vi khuẩn của môi trường bằng đĩa tiếp xúc.",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes",
+                "label": "Thỉnh thoảng",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q112",
+            "number": "112",
+            "text": "Hành lang và khu vực xếp hàng có được làm sạch và khử trùng sau khi heo được di chuyển không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "options": [
+              {
+                "value": "cleaned_and_disinfected",
+                "label": "Được làm sạch và khử trùng sau khi sử dụng",
+                "score": 100
+              },
+              {
+                "value": "only_cleaned",
+                "label": "Chỉ được làm sạch sau khi sử dụng",
+                "score": 75
+              },
+              {
+                "value": "only_disinfected",
+                "label": "Chỉ được khử trùng sau khi sử dụng",
+                "score": 50
+              },
+              {
+                "value": "neither",
+                "label": "Không được làm sạch hoặc khử trùng sau khi sử dụng",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q113",
+            "number": "113",
+            "text": "Thiết bị (ví dụ tấm chắn/lùa, xẻng) có được làm sạch và khử trùng sau khi sử dụng không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "options": [
+              {
+                "value": "always",
+                "label": "Luôn luôn",
+                "score": 100
+              },
+              {
+                "value": "sometimes_part",
+                "label": "Thỉnh thoảng/một phần thiết bị",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q114",
+            "number": "114",
+            "text": "Hệ thống cho ăn (đường ống dẫn thức ăn, máng ăn) có được làm sạch và khử trùng sau mỗi chu kỳ sản xuất không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "options": [
+              {
+                "value": "cleaned_and_disinfected",
+                "label": "Được làm sạch và khử trùng sau mỗi chu kỳ sản xuất",
+                "score": 100
+              },
+              {
+                "value": "only_cleaned",
+                "label": "Chỉ được làm sạch sau mỗi chu kỳ sản xuất",
+                "score": 75
+              },
+              {
+                "value": "occasionally",
+                "label": "Được làm sạch nhưng không sau mỗi chu kỳ sản xuất (chỉ thỉnh thoảng)",
+                "score": 50
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ được làm sạch hoặc khử trùng",
+                "score": 0
+              }
+            ]
+          },
+          {
+            "id": "Q115",
+            "number": "115",
+            "text": "Silo/kho chứa thức ăn có được làm sạch (và khử trùng) bên trong không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "options": [
+              {
+                "value": "multiple_per_year",
+                "label": "Nhiều lần trong năm",
+                "score": 100
+              },
+              {
+                "value": "once_per_year",
+                "label": "Mỗi năm một lần",
+                "score": 75
+              },
+              {
+                "value": "once_per_two_years",
+                "label": "Hai năm một lần",
+                "score": 50
+              },
+              {
+                "value": "less_than_two_years",
+                "label": "Ít hơn hai năm một lần",
+                "score": 25
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              },
+              {
+                "value": "no_silo",
+                "label": "Không có silo/kho chứa thức ăn",
+                "score": 50
+              }
+            ]
+          },
+          {
+            "id": "Q116",
+            "number": "116",
+            "text": "Hệ thống nước uống có được làm sạch và khử trùng bên trong giữa các chu kỳ sản xuất không?",
+            "type": "single_select",
+            "required": true,
+            "category": "làm_sạch_khử_trùng",
+            "help": "Điều này không bao gồm việc sử dụng liều thấp liên tục chất khử trùng trong chu kỳ sản xuất.",
+            "options": [
+              {
+                "value": "multiple_per_year",
+                "label": "Nhiều lần trong năm",
+                "score": 100
+              },
+              {
+                "value": "once_per_year",
+                "label": "Mỗi năm một lần",
+                "score": 75
+              },
+              {
+                "value": "once_per_two_years",
+                "label": "Hai năm một lần",
+                "score": 50
+              },
+              {
+                "value": "less_than_two_years",
+                "label": "Ít hơn hai năm một lần",
+                "score": 25
+              },
+              {
+                "value": "never",
+                "label": "Không bao giờ",
+                "score": 0
+              }
+            ]
+          }
+        ],
+        "total_questions": 11,
+        "estimated_time_minutes": 17
+      }
+    ]
+  },
+  "scoring": {
+    "external_weight": 0.5,
+    "internal_weight": 0.5,
+    "interpretation": {
+      "excellent": {
+        "min": 80,
+        "max": 100,
+        "label": "Xuất Sắc",
+        "color": "#10B981"
+      },
+      "good": {
+        "min": 60,
+        "max": 79,
+        "label": "Tốt",
+        "color": "#3B82F6"
+      },
+      "moderate": {
+        "min": 40,
+        "max": 59,
+        "label": "Trung Bình",
+        "color": "#F59E0B"
+      },
+      "poor": {
+        "min": 0,
+        "max": 39,
+        "label": "Kém",
+        "color": "#EF4444"
+      }
+    }
+  },
+  "glossary": {
+    "biosecurity": "Các biện pháp được thực hiện để ngăn ngừa sự xâm nhập và lây lan dịch bệnh",
+    "quarantine": "Thời gian cách ly cho động vật mới trước khi nhập đàn",
+    "all_in_all_out": "Hệ thống quản lý nơi tất cả động vật vào và ra cùng một lúc"
+  }
+}

@@ -131,7 +131,10 @@ function BiosecurityMainDashboard() {
                 actions: 'Actions',
                 downloadPDF: 'Download PDF',
                 currentScore: 'Current Score',
-                continueAssessment: 'Continue Assessment'
+                continueAssessment: 'Continue Assessment',
+                resultsDistribution: 'Results Distribution',
+                assessmentTrend: 'Assessment Trend',
+                scoreHistory: 'Biosecurity Score History'
             },
             id: {
                 title: 'Dashboard Penilaian Biosekuriti',
@@ -158,9 +161,12 @@ function BiosecurityMainDashboard() {
                 actions: 'Aksi',
                 downloadPDF: 'Unduh PDF',
                 currentScore: 'Skor Saat Ini',
-                continueAssessment: 'Lanjutkan Penilaian'
+                continueAssessment: 'Lanjutkan Penilaian',
+                resultsDistribution: 'Distribusi Hasil',
+                assessmentTrend: 'Tren Penilaian',
+                scoreHistory: 'Riwayat Skor Biosekuriti'
             },
-            vt: {
+            vi: {
                 title: 'Bảng điều khiển Đánh giá An ninh sinh học',
                 subtitle: 'Đánh giá toàn diện các biện pháp an ninh sinh học trang trại',
                 backToModule: 'Quay lại Mô-đun PigWell',
@@ -185,7 +191,10 @@ function BiosecurityMainDashboard() {
                 actions: 'Hành động',
                 downloadPDF: 'Tải PDF',
                 currentScore: 'Điểm hiện tại',
-                continueAssessment: 'Tiếp tục Đánh giá'
+                continueAssessment: 'Tiếp tục Đánh giá',
+                resultsDistribution: 'Phân phối Kết quả',
+                assessmentTrend: 'Xu hướng Đánh giá',
+                scoreHistory: 'Lịch sử Điểm An toàn Sinh học'
             }
         };
         return translations[language]?.[key] || translations.en[key];
@@ -311,7 +320,7 @@ function BiosecurityMainDashboard() {
                         overflow: 'hidden'
                     }}>
                         <h3 style={{ fontSize: '0.9rem', fontWeight: '700', marginBottom: '1rem', width: '100%', textAlign: 'left' }}>
-                            {language === 'id' ? 'Distribusi Hasil' : language === 'vt' ? 'Phân phối Kết quả' : 'Results Distribution'}
+                            {getTranslation('resultsDistribution')}
                         </h3>
                         {(() => {
                             const pieData = [
@@ -357,7 +366,7 @@ function BiosecurityMainDashboard() {
                         overflow: 'hidden'
                     }}>
                         <h3 style={{ fontSize: '0.9rem', fontWeight: '700', marginBottom: '1rem' }}>
-                            {language === 'id' ? 'Tren Penilaian' : language === 'vt' ? 'Xu hướng Đánh giá' : 'Assessment Trend'}
+                            {getTranslation('assessmentTrend')}
                         </h3>
                         {(() => {
                             const lineData = [...assessmentHistory]
@@ -369,7 +378,7 @@ function BiosecurityMainDashboard() {
                             return <SimpleLineChart data={lineData} height={140} />;
                         })()}
                         <div style={{ textAlign: 'center', marginTop: '0.75rem', fontSize: '0.8rem', color: '#94a3b8' }}>
-                            {language === 'id' ? 'Riwayat Skor Biosekuriti' : language === 'vt' ? 'Lịch sử Điểm An toàn Sinh học' : 'Biosecurity Score History'}
+                            {getTranslation('scoreHistory')}
                         </div>
                     </div>
                 </div>

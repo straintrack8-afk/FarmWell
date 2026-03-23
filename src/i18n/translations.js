@@ -59,7 +59,34 @@ export const translations = {
             featureBiosecurity: "Biosecurity Audit",
             featureFarmHatchery: "Farm & Hatchery",
             featureAI: "AI Advisory",
-            featureAIPowered: "Powered by Claude"
+            featureAIPowered: "Powered by Claude",
+            waitlist: {
+                title: "Feature in Development",
+                description: "The FarmWell AI Assistant feature is currently under development. To try this feature and get early access, please contact us.",
+                contactUs: "Contact Us",
+                back: "Back"
+            },
+            aiModule: {
+                name: "FarmWell AI Assistant",
+                desc: "An integrated AI assistant for all FarmWell modules. Ask anything about your livestock — answered in real-time.",
+                tags: {
+                    chat: "AI Chat",
+                    multi: "Multi-Module",
+                    lang: "English, Bahasa Indonesia, Tiếng Việt"
+                },
+                soon: "Coming Soon",
+                cta: "Join Waitlist"
+            },
+            farmGuide: {
+                name: "FarmGuide — Farm Production Monitor",
+                desc: "Management guide, monitor actual vs standard BW, growth curve, AI advisory, and harvest projection.",
+                tags: {
+                    tag1: "Broiler, Layer, Color",
+                    tag2: "Parent Stock, Commercial",
+                    tag3: "AI Advisory"
+                },
+                cta: "Open FarmGuide"
+            }
         },
         swine: {
             title: "PigWell",
@@ -222,6 +249,21 @@ export const translations = {
                     grade: "Grade",
                     aboutTitle: "About BIOCHECK PIG",
                     aboutDescription: "This assessment is based on the scientifically validated BIOCHECK PIG V4.0 system developed by Ghent University. It evaluates biosecurity across multiple critical areas to help protect your farm from disease outbreaks."
+                },
+                assessment: {
+                    categoryProgress: "Category Progress",
+                    showCategories: "Show Categories",
+                    hideCategories: "Hide Categories",
+                    question: "Question",
+                    of: "of",
+                    percentComplete: "% Complete",
+                    unit: "Unit",
+                    additionalNotes: "Additional Notes (Optional)",
+                    notesPlaceholder: "Add any relevant observations or comments...",
+                    previous: "Previous",
+                    next: "Next",
+                    completeAssessment: "Complete Assessment",
+                    loading: "Loading..."
                 }
             },
             calculator: {
@@ -511,7 +553,34 @@ export const translations = {
             featureBiosecurity: "Audit Biosekuriti",
             featureFarmHatchery: "Farm & Hatchery",
             featureAI: "AI Advisory",
-            featureAIPowered: "Powered by Claude"
+            featureAIPowered: "Powered by Claude",
+            waitlist: {
+                title: "Fitur Dalam Pengembangan",
+                description: "Fitur FarmWell AI Assistant sedang dalam tahap pengembangan. Untuk mencoba fitur ini dan mendapatkan akses awal, silakan hubungi kami.",
+                contactUs: "Hubungi Kami",
+                back: "Kembali"
+            },
+            aiModule: {
+                name: "FarmWell AI Assistant",
+                desc: "Asisten AI terintegrasi untuk semua modul FarmWell. Tanyakan apa saja tentang ternak kamu — dijawab real-time.",
+                tags: {
+                    chat: "AI Chat",
+                    multi: "Multi-Module",
+                    lang: "English, Bahasa Indonesia, Tiếng Việt"
+                },
+                soon: "Segera Hadir",
+                cta: "Join Waitlist"
+            },
+            farmGuide: {
+                name: "FarmGuide — Farm Production Monitor",
+                desc: "Panduan manajemen, monitor BW aktual vs standard, growth curve, AI advisory, dan proyeksi panen.",
+                tags: {
+                    tag1: "Broiler, Layer, Color",
+                    tag2: "Parent Stock, Commercial",
+                    tag3: "AI Advisory"
+                },
+                cta: "Buka FarmGuide"
+            }
         },
         swine: {
             title: "PigWell",
@@ -674,6 +743,21 @@ export const translations = {
                     grade: "Nilai",
                     aboutTitle: "Tentang BIOCHECK PIG",
                     aboutDescription: "Penilaian ini didasarkan pada sistem BIOCHECK PIG V4.0 yang tervalidasi secara ilmiah yang dikembangkan oleh Universitas Ghent. Ini mengevaluasi biosekuriti di berbagai area kritis untuk membantu melindungi peternakan Anda dari wabah penyakit."
+                },
+                assessment: {
+                    categoryProgress: "Progres Kategori",
+                    showCategories: "Tampilkan Kategori",
+                    hideCategories: "Sembunyikan Kategori",
+                    question: "Pertanyaan",
+                    of: "dari",
+                    percentComplete: "% Selesai",
+                    unit: "Satuan",
+                    additionalNotes: "Catatan Tambahan (Opsional)",
+                    notesPlaceholder: "Tambahkan pengamatan atau komentar yang relevan...",
+                    previous: "Sebelumnya",
+                    next: "Berikutnya",
+                    completeAssessment: "Selesaikan Penilaian",
+                    loading: "Memuat..."
                 }
             },
             calculator: {
@@ -1029,7 +1113,34 @@ export const translations = {
             featureBiosecurity: "Kiểm toán An toàn Sinh học",
             featureFarmHatchery: "Trại & Lò ấp",
             featureAI: "AI Tư vấn",
-            featureAIPowered: "Hỗ trợ bởi Claude"
+            featureAIPowered: "Hỗ trợ bởi Claude",
+            waitlist: {
+                title: "Tính năng đang phát triển",
+                description: "Tính năng FarmWell AI Assistant hiện đang trong giai đoạn phát triển. Để dùng thử tính năng này và nhận quyền truy cập sớm, vui lòng liên hệ với chúng tôi.",
+                contactUs: "Liên hệ",
+                back: "Quay lại"
+            },
+            aiModule: {
+                name: "Trợ lý AI FarmWell",
+                desc: "Trợ lý AI tích hợp cho tất cả các module của FarmWell. Hỏi bất cứ điều gì về vật nuôi của bạn — được trả lời theo thời gian thực.",
+                tags: {
+                    chat: "Trò chuyện AI",
+                    multi: "Đa module",
+                    lang: "Hỗ trợ tiếng Anh, tiếng Indonesia, Tiếng Việt"
+                },
+                soon: "Sắp ra mắt",
+                cta: "Tham gia Waitlist"
+            },
+            farmGuide: {
+                name: "FarmGuide — Farm Production Monitor",
+                desc: "Hướng dẫn quản lý, theo dõi trọng lượng cơ thể thực tế so với tiêu chuẩn, đường cong tăng trưởng, tư vấn AI và dự báo thu hoạch.",
+                tags: {
+                    tag1: "Gà thịt, Gà đẻ, Gà màu",
+                    tag2: "Gà bố mẹ, Gà thương phẩm",
+                    tag3: "Tư vấn AI"
+                },
+                cta: "Mở FarmGuide"
+            }
         },
         swine: {
             title: "PigWell",
@@ -1192,6 +1303,22 @@ export const translations = {
                     grade: "Điểm",
                     aboutTitle: "Về BIOCHECK PIG",
                     aboutDescription: "Đánh giá này dựa trên hệ thống BIOCHECK PIG V4.0 được xác thực khoa học do Đại học Ghent phát triển. Nó đánh giá an toàn sinh học trên nhiều lĩnh vực quan trọng để giúp bảo vệ trang trại của bạn khỏi dịch bệnh."
+                }
+                ,
+                assessment: {
+                    categoryProgress: "Tiến Độ Danh Mục",
+                    showCategories: "Hiện Danh Mục",
+                    hideCategories: "Ẩn Danh Mục",
+                    question: "Câu hỏi",
+                    of: "trong",
+                    percentComplete: "% Hoàn thành",
+                    unit: "Đơn vị",
+                    additionalNotes: "Ghi chú Bổ sung (Tùy chọn)",
+                    notesPlaceholder: "Thêm bất kỳ quan sát hoặc nhận xét có liên quan...",
+                    previous: "Trước",
+                    next: "Tiếp theo",
+                    completeAssessment: "Hoàn thành Đánh giá",
+                    loading: "Đang tải..."
                 }
             },
             calculator: {

@@ -194,11 +194,11 @@ export const ComparisonDisplay = ({ disease1, disease2, translations, module }) 
       <SideBySideList title={`🦠 ${translations.transmission}`} translations={translations}
         list1={disease1.transmission || []} list2={disease2.transmission || []} />
       <SideBySideList title={`🔬 ${translations.diagnosis}`} translations={translations}
-        list1={disease1.diagnosisMethod || []} list2={disease2.diagnosisMethod || []} />
+        list1={disease1.diagnosis || []} list2={disease2.diagnosis || []} />
       <SideBySideList title={`💊 ${translations.treatment}`} translations={translations}
-        list1={disease1.treatmentOptions || []} list2={disease2.treatmentOptions || []} />
+        list1={disease1.treatment || []} list2={disease2.treatment || []} />
       <SideBySideList title={`🛡️ ${translations.preventionControl}`} translations={translations}
-        list1={disease1.controlPrevention || []} list2={disease2.controlPrevention || []} />
+        list1={disease1.control || disease1.controlPrevention || []} list2={disease2.control || disease2.controlPrevention || []} />
     </div>
   );
 };
@@ -240,13 +240,13 @@ const SymptomList = ({ title, symptoms }) => (
 const SideBySideSection = ({ title, translations, content1, content2 }) => (
   <div style={{ border: '2px solid #10B981', borderRadius: '8px', padding: '1rem', background: '#F0FDF4', marginTop: '1.5rem' }}>
     <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>{title}</h3>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', border: '1px solid #D1D5DB', borderRadius: '6px', overflow: 'hidden' }}>
-      <div style={{ padding: '1rem', background: 'white', borderRight: '2px solid #10B981' }}>
+    <div style={{ display: 'flex', gap: '0', border: '1px solid #D1D5DB', borderRadius: '6px', overflow: 'hidden' }}>
+      <div style={{ flex: 1, minWidth: 0, wordWrap: 'break-word', padding: '1rem', background: 'white', borderRight: '2px solid #10B981' }}>
         <p style={{ fontSize: '0.875rem', color: '#6B7280', lineHeight: '1.5', margin: 0 }}>
           {content1 || translations.noInformation}
         </p>
       </div>
-      <div style={{ padding: '1rem', background: 'white' }}>
+      <div style={{ flex: 1, minWidth: 0, wordWrap: 'break-word', padding: '1rem', background: 'white' }}>
         <p style={{ fontSize: '0.875rem', color: '#6B7280', lineHeight: '1.5', margin: 0 }}>
           {content2 || translations.noInformation}
         </p>
@@ -258,8 +258,8 @@ const SideBySideSection = ({ title, translations, content1, content2 }) => (
 const SideBySideList = ({ title, translations, list1, list2 }) => (
   <div style={{ border: '2px solid #10B981', borderRadius: '8px', padding: '1rem', background: '#F0FDF4', marginTop: '1.5rem' }}>
     <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>{title}</h3>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0', border: '1px solid #D1D5DB', borderRadius: '6px', overflow: 'hidden' }}>
-      <div style={{ padding: '1rem', background: 'white', borderRight: '2px solid #10B981' }}>
+    <div style={{ display: 'flex', gap: '0', border: '1px solid #D1D5DB', borderRadius: '6px', overflow: 'hidden' }}>
+      <div style={{ flex: 1, minWidth: 0, wordWrap: 'break-word', padding: '1rem', background: 'white', borderRight: '2px solid #10B981' }}>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {list1.length > 0 ? list1.map((item, i) => (
             <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
@@ -269,7 +269,7 @@ const SideBySideList = ({ title, translations, list1, list2 }) => (
           )) : <li style={{ fontSize: '0.875rem', color: '#9CA3AF', fontStyle: 'italic' }}>{translations.noInformation}</li>}
         </ul>
       </div>
-      <div style={{ padding: '1rem', background: 'white' }}>
+      <div style={{ flex: 1, minWidth: 0, wordWrap: 'break-word', padding: '1rem', background: 'white' }}>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {list2.length > 0 ? list2.map((item, i) => (
             <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>

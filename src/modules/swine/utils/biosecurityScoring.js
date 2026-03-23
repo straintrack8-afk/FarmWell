@@ -123,7 +123,7 @@ export function getScoreInterpretation(score, language = 'en') {
       pass: { label: 'Lulus', color: '#F59E0B', level: 'pass', certification: 'pass' },
       fail: { label: 'Perlu Perbaikan', color: '#EF4444', level: 'fail', certification: 'not_eligible' }
     },
-    vt: {
+    vi: {
       excellence: { label: 'Mức Xuất Sắc', color: '#10B981', level: 'excellence', certification: 'excellence' },
       certified: { label: 'Đủ Điều Kiện Chứng Nhận', color: '#3B82F6', level: 'certified', certification: 'eligible' },
       pass: { label: 'Đạt', color: '#F59E0B', level: 'pass', certification: 'pass' },
@@ -229,7 +229,7 @@ export function calculateCategoryBreakdown(assessment, language = 'en') {
       name: {
         en: 'Purchase & Transport',
         id: 'Pembelian & Transportasi',
-        vt: 'Mua & Vận Chuyển'
+        vi: 'Mua & Vận Chuyển'
       }
     },
     facilities_people: {
@@ -238,7 +238,7 @@ export function calculateCategoryBreakdown(assessment, language = 'en') {
       name: {
         en: 'Facilities & People',
         id: 'Fasilitas & Orang',
-        vt: 'Cơ Sở & Con Người'
+        vi: 'Cơ Sở & Con Người'
       }
     },
     production_management: {
@@ -247,7 +247,7 @@ export function calculateCategoryBreakdown(assessment, language = 'en') {
       name: {
         en: 'Production Management',
         id: 'Manajemen Produksi',
-        vt: 'Quản Lý Sản Xuất'
+        vi: 'Quản Lý Sản Xuất'
       }
     },
     cleaning_procedures: {
@@ -256,7 +256,7 @@ export function calculateCategoryBreakdown(assessment, language = 'en') {
       name: {
         en: 'Cleaning & Disinfection',
         id: 'Pembersihan & Disinfeksi',
-        vt: 'Vệ Sinh & Khử Trùng'
+        vi: 'Vệ Sinh & Khử Trùng'
       }
     }
   };
@@ -314,7 +314,7 @@ export function getCertificationStatus(score, language = 'en') {
       pass: { status: 'Lulus', badge: '', description: 'Tingkat biosekuriti dapat diterima' },
       fail: { status: 'Tidak Memenuhi', badge: '', description: 'Diperlukan perbaikan untuk sertifikasi' }
     },
-    vt: {
+    vi: {
       excellence: { status: 'Mức Xuất Sắc', badge: '', description: 'Thực hành an ninh sinh học xuất sắc' },
       eligible: { status: 'Đủ Điều Kiện', badge: '', description: 'Đáp ứng yêu cầu chứng nhận' },
       pass: { status: 'Đạt', badge: '', description: 'Mức an ninh sinh học chấp nhận được' },
@@ -495,7 +495,7 @@ export function getDiseaseRiskLevel(riskScore, language = 'en') {
       moderate: { label: 'Risiko Sedang', color: '#F59E0B', icon: '' },
       low: { label: 'Risiko Rendah', color: '#10B981', icon: '' }
     },
-    vt: {
+    vi: {
       critical: { label: 'Rủi Ro Nghiêm Trọng', color: '#DC2626', icon: '' },
       high: { label: 'Rủi Ro Cao', color: '#EA580C', icon: '' },
       moderate: { label: 'Rủi Ro Trung Bình', color: '#F59E0B', icon: '' },

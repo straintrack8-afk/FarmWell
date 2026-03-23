@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useBiosecurity } from '../../contexts/BiosecurityContext';
 import PriorityBadge from './PriorityBadge';
 
@@ -37,7 +37,7 @@ export default function PriorityRecommendationsSection() {
             score: 'Skor',
             affectedDiseases: 'Penyakit Terkait'
         },
-        vt: {
+        vi: {
             title: 'Khuyến Nghị Cải Thiện',
             subtitle: 'Hành động ưu tiên để tăng cường an toàn sinh học',
             critical: 'Ưu Tiên Nghiêm Trọng',
@@ -289,3 +289,4 @@ export default function PriorityRecommendationsSection() {
         </div>
     );
 }
+
