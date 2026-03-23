@@ -3,14 +3,61 @@ import { useHatcheryAudit } from '../../../../contexts/HatcheryAuditContext';
 import { calculatePlateScore, calculateEnvironmentalScore, classifyEnvironmentalScore } from '../../../../utils/hatchery/scoringEngine';
 import { SAMPLE_TYPES, SAMPLE_LOCATIONS as LOCATION_CONFIG } from '../../../../utils/hatcheryConstants';
 import ScoreBadge from '../../common/ScoreBadge';
+import { useLanguage } from '../../../../../../contexts/LanguageContext';
 
 function Step8_Results() {
     const { currentAudit, updateAuditSection } = useHatcheryAudit();
+    const { language } = useLanguage();
     const samples = currentAudit?.samples || {};
     const [auditScore, setAuditScore] = useState({ score: 0, classification: 'N/A' });
     const [expandedGroups, setExpandedGroups] = useState(
         Object.keys(LOCATION_CONFIG).reduce((acc, key) => ({ ...acc, [key]: true }), {})
     );
+
+    const translations = {
+        title: {
+            en: "Results Entry",
+            id: "Entri Hasil",
+            vi: "Nhập Kết quả"
+        },
+        environmentalScore: {
+            en: "Environmental Score",
+            id: "Skor Lingkungan",
+            vi: "Điểm Môi trường"
+        },
+        samples: {
+            en: "samples",
+            id: "sampel",
+            vi: "mẫu"
+        },
+        tableHeaders: {
+            sampleId: {
+                en: "Sample ID",
+                id: "ID Sampel",
+                vi: "ID Mẫu"
+            },
+            aspergillus: {
+                en: "Aspergillus",
+                id: "Aspergillus",
+                vi: "Aspergillus"
+            },
+            otherMolds: {
+                en: "Other Molds",
+                id: "Jamur Lainnya",
+                vi: "Nấm mốc khác"
+            },
+            colonyCount: {
+                en: "Colony Count",
+                id: "Jumlah Koloni",
+                vi: "Số lượng khuẩn lạc"
+            },
+            score: {
+                en: "Score (1-5)",
+                id: "Skor (1-5)",
+                vi: "Điểm (1-5)"
+            }
+        }
+    };
 
     useEffect(() => {
         // Calculate overall score whenever samples change
@@ -61,14 +108,14 @@ function Step8_Results() {
     return (
         <div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1.5rem' }}>
-                Results Entry
+                {translations.title[language]}
             </h2>
 
             {/* Overall Score Summary */}
             <div className="hatchery-card" style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                     <h3 style={{ fontSize: '1rem', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                        Environmental Score
+                        {translations.environmentalScore[language]}
                     </h3>
                     <div style={{ fontSize: '2.5rem', fontWeight: '700', color: '#111827' }}>
                         {auditScore.score}
@@ -102,7 +149,7 @@ function Step8_Results() {
                             >
                                 <span style={{ fontWeight: '600' }}>{config.name}</span>
                                 <span style={{ fontSize: '0.875rem', color: '#6B7280' }}>
-                                    {groupSamples.length} samples
+                                    {groupSamples.length} {translations.samples[language]}
                                 </span>
                             </div>
 
@@ -112,14 +159,14 @@ function Step8_Results() {
                                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                         <thead>
                                             <tr style={{ textAlign: 'left', fontSize: '0.75rem', color: '#6B7280', textTransform: 'uppercase' }}>
-                                                <th style={{ padding: '0.5rem' }}>Sample ID</th>
+                                                <th style={{ padding: '0.5rem' }}>{translations.tableHeaders.sampleId[language]}</th>
                                                 {config.type === SAMPLE_TYPES.AIR_PLATE && (
-                                                    <th style={{ padding: '0.5rem' }}>Aspergillus</th>
+                                                    <th style={{ padding: '0.5rem' }}>{translations.tableHeaders.aspergillus[language]}</th>
                                                 )}
                                                 <th style={{ padding: '0.5rem' }}>
-                                                    {config.type === SAMPLE_TYPES.AIR_PLATE ? 'Other Molds' : 'Colony Count'}
+                                                    {config.type === SAMPLE_TYPES.AIR_PLATE ? translations.tableHeaders.otherMolds[language] : translations.tableHeaders.colonyCount[language]}
                                                 </th>
-                                                <th style={{ padding: '0.5rem' }}>Score (1-5)</th>
+                                                <th style={{ padding: '0.5rem' }}>{translations.tableHeaders.score[language]}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

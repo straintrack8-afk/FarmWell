@@ -244,6 +244,70 @@ export const feedAdditivesTranslations = {
         noteSowGestation: "Note: Adjust based on body condition score",
         noteSowLactation: "Note: High water demand due to milk production",
         noteBoar: "Note: Maintenance level, adjust for body condition",
+
+        // Broiler Breeder Reference Data
+        broilerBreederReferenceTitle: "Reference Data: Broiler Breeder",
+        exportExcel: "Export Excel",
+        exportPdf: "in PDF",
+        broilerBreederSource: "Source: Indian River PS Performance Objectives 2021 - Page 4",
+        broilerBreederBreed: "Breed: Indian River Parent Stock",
+        broilerBreederNote: "Note: COMPLETE DATA extracted from PDF Female Body Weight and Feeding Program In-Season table",
+        
+        // Table Headers
+        tableHeaderWeek: "Week",
+        tableHeaderDays: "Days",
+        tableHeaderBW: "BW (g)",
+        tableHeaderGain: "Gain (g)",
+        tableHeaderFeed: "Feed (g/day)",
+        tableHeaderWater: "Water (ml/day)",
+        tableHeaderEnergy: "Energy (kcal)",
+        tableHeaderNote: "Note",
+        
+        // Key Milestones
+        keyMilestones: "Key Milestones:",
+        milestoneWeek0: "Week 0: Day old ad lib feeding",
+        milestoneWeek21: "Week 21: First light stimulation",
+        milestoneWeek25: "Week 25: 5% production begins",
+        milestoneWeek30: "Week 30: Peak production achieved",
+        milestoneWeek64: "Week 64: End of production cycle",
+        endOfCycle: "End of cycle",
+
+        // Commercial Broiler Reference Data
+        commercialTitle: "Reference Data: Broiler",
+        dailyDataTitle: "Daily Performance Data (Day 0-56)",
+        commercialSource: "Source: Indian River Broiler Performance Objectives 2022 - AS-HATCHED PERFORMANCE",
+        commercialBreed: "Breed: Indian River / Indian River FF",
+        commercialTableHeaders: {
+            day: "Day",
+            bodyWeight: "Body Weight (g)",
+            feed: "Feed (g/day)",
+            water: "Water (ml/day)",
+            fcr: "FCR"
+        },
+
+        // Layer (Commercial) section
+        layerTitle: "Reference Data: Layer (Commercial)",
+        layerWeeklyData: "Complete Weekly Data (Week 1-100)",
+        layerSource: "Source: ISA Brown Product Guide 2022",
+        layerBreed: "Breed: ISA Brown - Cage",
+        rearingPhase: "Rearing Phase (Weeks 1-18)",
+        layerTableHeaders: {
+            week: "Week",
+            feed: "Feed (g/day)",
+            water: "Water (ml/day)",
+            bodyWeight: "Body Weight (g)"
+        },
+
+        // Color/Kampung Chicken section
+        colorTitle: "Reference Data: Color/Kampung Chicken",
+        calculationMethod: "Calculation Method: Formula with 70% Adjustment",
+        waterFormula: "Water (ml/bird/day) = 5.28 × Age (days) × 0.70",
+        feedFormula: "Feed (g/bird/day) = Water ÷ 1.77",
+        colorTableHeaders: {
+            day: "Day",
+            waterPerBird: "Water (ml/bird/day)",
+            feedPerBird: "Feed (g/bird/day)"
+        }
     },
 
     id: {
@@ -493,6 +557,70 @@ export const feedAdditivesTranslations = {
         noteSowGestation: "Catatan: Sesuaikan berdasarkan skor kondisi tubuh",
         noteSowLactation: "Catatan: Kebutuhan air tinggi karena produksi susu",
         noteBoar: "Catatan: Level pemeliharaan, sesuaikan kondisi tubuh",
+
+        // Broiler Breeder Reference Data
+        broilerBreederReferenceTitle: "Data Referensi: Indukan Broiler",
+        exportExcel: "Ekspor Excel",
+        exportPdf: "dalam PDF",
+        broilerBreederSource: "Sumber: Objektif Kinerja Indian River PS 2021 - Halaman 4",
+        broilerBreederBreed: "Jenis: Indian River Parent Stock",
+        broilerBreederNote: "Catatan: DATA LENGKAP diekstrak dari tabel Berat Badan Betina dan Program Pemberian Pakan dalam Musim PDF",
+        
+        // Table Headers
+        tableHeaderWeek: "Minggu",
+        tableHeaderDays: "Hari",
+        tableHeaderBW: "BB (g)",
+        tableHeaderGain: "Pertambahan (g)",
+        tableHeaderFeed: "Pakan (g/hari)",
+        tableHeaderWater: "Air (ml/hari)",
+        tableHeaderEnergy: "Energi (kcal)",
+        tableHeaderNote: "Catatan",
+        
+        // Key Milestones
+        keyMilestones: "Pencapaian Utama:",
+        milestoneWeek0: "Minggu 0: Pemberian pakan ad lib anak ayam",
+        milestoneWeek21: "Minggu 21: Stimulasi cahaya pertama",
+        milestoneWeek25: "Minggu 25: Produksi 5% dimulai",
+        milestoneWeek30: "Minggu 30: Produksi puncak tercapai",
+        milestoneWeek64: "Minggu 64: Akhir siklus produksi",
+        endOfCycle: "Akhir siklus",
+
+        // Commercial Broiler Reference Data
+        commercialTitle: "Data Referensi: Broiler",
+        dailyDataTitle: "Data Kinerja Harian (Hari 0-56)",
+        commercialSource: "Sumber: Objektif Kinerja Broiler Indian River 2022 - KINERJA AS-HATCHED",
+        commercialBreed: "Jenis: Indian River / Indian River FF",
+        commercialTableHeaders: {
+            day: "Hari",
+            bodyWeight: "Berat Badan (g)",
+            feed: "Pakan (g/hari)",
+            water: "Air (ml/hari)",
+            fcr: "FCR"
+        },
+
+        // Layer (Commercial) section
+        layerTitle: "Data Referensi: Layer (Komersial)",
+        layerWeeklyData: "Data Mingguan Lengkap (Minggu 1-100)",
+        layerSource: "Sumber: Panduan Produk ISA Brown 2022",
+        layerBreed: "Jenis: ISA Brown - Kandang",
+        rearingPhase: "Fase Pembesaran (Minggu 1-18)",
+        layerTableHeaders: {
+            week: "Minggu",
+            feed: "Pakan (g/hari)",
+            water: "Air (ml/hari)",
+            bodyWeight: "Berat Badan (g)"
+        },
+
+        // Color/Kampung Chicken section
+        colorTitle: "Data Referensi: Ayam Warna/Kampung",
+        calculationMethod: "Metode Perhitungan: Formula dengan Penyesuaian 70%",
+        waterFormula: "Air (ml/ekor/hari) = 5,28 × Umur (hari) × 0,70",
+        feedFormula: "Pakan (g/ekor/hari) = Air ÷ 1,77",
+        colorTableHeaders: {
+            day: "Hari",
+            waterPerBird: "Air (ml/ekor/hari)",
+            feedPerBird: "Pakan (g/ekor/hari)"
+        }
     },
 
     vi: {
@@ -728,5 +856,69 @@ export const feedAdditivesTranslations = {
         noteSowGestation: "Lưu ý: Điều chỉnh dựa trên điểm thể trạng",
         noteSowLactation: "Lưu ý: Nhu cầu nước cao do sản xuất sữa",
         noteBoar: "Lưu ý: Mức duy trì, điều chỉnh thể trạng",
+
+        // Broiler Breeder Reference Data
+        broilerBreederReferenceTitle: "Dữ liệu Tham khảo: Gà Broiler Nhân Giống",
+        exportExcel: "Xuất Excel",
+        exportPdf: "PDF",
+        broilerBreederSource: "Nguồn: Mục tiêu Hiệu suất Indian River PS 2021 - Trang 4",
+        broilerBreederBreed: "Giống: Indian River Parent Stock",
+        broilerBreederNote: "Ghi chú: DỮ LIỆU ĐẦY ĐỦ được trích xuất từ bảng Trọng lượng Cơ thể Gà mái và Chương trình Cho ăn trong Mùa PDF",
+        
+        // Table Headers
+        tableHeaderWeek: "Tuần",
+        tableHeaderDays: "Ngày",
+        tableHeaderBW: "TL (g)",
+        tableHeaderGain: "Tăng (g)",
+        tableHeaderFeed: "Thức ăn (g/ngày)",
+        tableHeaderWater: "Nước (ml/ngày)",
+        tableHeaderEnergy: "Năng lượng (kcal)",
+        tableHeaderNote: "Ghi chú",
+        
+        // Key Milestones
+        keyMilestones: "Các Mốc Quan trọng:",
+        milestoneWeek0: "Tuần 0: Cho ăn tự do gà con mới nở",
+        milestoneWeek21: "Tuần 21: Kích thích ánh sáng đầu tiên",
+        milestoneWeek25: "Tuần 25: Bắt đầu sản xuất 5%",
+        milestoneWeek30: "Tuần 30: Đạt sản lượng cao nhất",
+        milestoneWeek64: "Tuần 64: Kết thúc chu kỳ sản xuất",
+        endOfCycle: "Kết thúc chu kỳ",
+
+        // Commercial Broiler Reference Data
+        commercialTitle: "Dữ liệu Tham khảo: Broiler",
+        dailyDataTitle: "Dữ liệu Hiệu suất Hàng ngày (Ngày 0-56)",
+        commercialSource: "Nguồn: Mục tiêu Hiệu suất Broiler Indian River 2022 - HIỆU SUẤT AS-HATCHED",
+        commercialBreed: "Giống: Indian River / Indian River FF",
+        commercialTableHeaders: {
+            day: "Ngày",
+            bodyWeight: "Trọng lượng Cơ thể (g)",
+            feed: "Thức ăn (g/ngày)",
+            water: "Nước (ml/ngày)",
+            fcr: "FCR"
+        },
+
+        // Layer (Commercial) section
+        layerTitle: "Dữ liệu Tham khảo: Layer (Thương mại)",
+        layerWeeklyData: "Dữ liệu Hàng tuần Đầy đủ (Tuần 1-100)",
+        layerSource: "Nguồn: Hướng dẫn Sản phẩm ISA Brown 2022",
+        layerBreed: "Giống: ISA Brown - Lồng",
+        rearingPhase: "Giai đoạn Nuôi dưỡng (Tuần 1-18)",
+        layerTableHeaders: {
+            week: "Tuần",
+            feed: "Thức ăn (g/ngày)",
+            water: "Nước (ml/ngày)",
+            bodyWeight: "Trọng lượng Cơ thể (g)"
+        },
+
+        // Color/Kampung Chicken section
+        colorTitle: "Dữ liệu Tham khảo: Gà Màu/Gà Ta",
+        calculationMethod: "Phương pháp Tính toán: Công thức với Điều chỉnh 70%",
+        waterFormula: "Nước (ml/con/ngày) = 5,28 × Tuổi (ngày) × 0,70",
+        feedFormula: "Thức ăn (g/con/ngày) = Nước ÷ 1,77",
+        colorTableHeaders: {
+            day: "Ngày",
+            waterPerBird: "Nước (ml/con/ngày)",
+            feedPerBird: "Thức ăn (g/con/ngày)"
+        }
     }
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useHatcheryAudit } from '../../../contexts/HatcheryAuditContext';
 import { AUDIT_STEPS } from '../../../utils/hatcheryConstants';
+import { useLanguage } from "../../../../../contexts/LanguageContext";
 import Step1_AuditInfo from './steps/Step1_AuditInfo';
 import Step2_VaccineStorage from './steps/Step2_VaccineStorage';
 import Step3_Equipment from './steps/Step3_Equipment';
@@ -10,11 +11,105 @@ import Step5_SamplePlan from './steps/Step5_SamplePlan';
 import Step6_SampleCollection from './steps/Step6_SampleCollection';
 import Step7_Incubation from './steps/Step7_Incubation';
 import Step8_Results from './steps/Step8_Results';
+import Step9_Review from './steps/Step9_Review';
 import '../../../hatchery.css';
 
 function AuditWizard() {
     const navigate = useNavigate();
+    const { language } = useLanguage();
     const { currentAudit, updateCurrentAudit, completeAudit, discardCurrentAudit } = useHatcheryAudit();
+
+    const translations = {
+        // Step labels for progress indicator
+        steps: {
+            info: {
+                en: "Info",
+                id: "Info",
+                vi: "Thông tin"
+            },
+            vaccineStorage: {
+                en: "Vaccine Storage",
+                id: "Penyimpanan Vaksin",
+                vi: "Bảo quản Vắc-xin"
+            },
+            equipment: {
+                en: "Equipment",
+                id: "Peralatan",
+                vi: "Thiết bị"
+            },
+            techniques: {
+                en: "Techniques",
+                id: "Teknik",
+                vi: "Kỹ thuật"
+            },
+            samplePlan: {
+                en: "Sample Plan",
+                id: "Rencana Sampel",
+                vi: "Kế hoạch Lấy mẫu"
+            },
+            collection: {
+                en: "Collection",
+                id: "Pengumpulan",
+                vi: "Thu thập"
+            },
+            incubation: {
+                en: "Incubation",
+                id: "Inkubasi",
+                vi: "Ấp trứng"
+            },
+            results: {
+                en: "Results",
+                id: "Hasil",
+                vi: "Kết quả"
+            },
+            review: {
+                en: "Review",
+                id: "Tinjauan",
+                vi: "Xem lại"
+            }
+        },
+        
+        // Global buttons
+        buttons: {
+            saveDraft: {
+                en: "Save Draft",
+                id: "Simpan Draf",
+                vi: "Lưu Bản nháp"
+            },
+            discard: {
+                en: "Discard",
+                id: "Buang",
+                vi: "Hủy bỏ"
+            },
+            previous: {
+                en: "Previous",
+                id: "Sebelumnya",
+                vi: "Trước"
+            },
+            next: {
+                en: "Next",
+                id: "Berikutnya",
+                vi: "Tiếp theo"
+            },
+            submit: {
+                en: "Submit",
+                id: "Kirim",
+                vi: "Gửi"
+            }
+        },
+        
+        // Step header
+        stepHeader: {
+            en: "Step",
+            id: "Langkah",
+            vi: "Bước"
+        },
+        of: {
+            en: "of",
+            id: "dari",
+            vi: "của"
+        }
+    };
 
     if (!currentAudit) {
         return (
@@ -41,15 +136,15 @@ function AuditWizard() {
     const currentStep = currentAudit.currentStep || AUDIT_STEPS.INFO;
 
     const steps = [
-        { key: AUDIT_STEPS.INFO, label: 'Info', number: 1 },
-        { key: AUDIT_STEPS.VACCINE_STORAGE, label: 'Vaccine Storage', number: 2 },
-        { key: AUDIT_STEPS.EQUIPMENT, label: 'Equipment', number: 3 },
-        { key: AUDIT_STEPS.TECHNIQUES, label: 'Techniques', number: 4 },
-        { key: AUDIT_STEPS.SAMPLE_PLAN, label: 'Sample Plan', number: 5 },
-        { key: AUDIT_STEPS.SAMPLE_COLLECTION, label: 'Collection', number: 6 },
-        { key: AUDIT_STEPS.INCUBATION, label: 'Incubation', number: 7 },
-        { key: AUDIT_STEPS.RESULTS, label: 'Results', number: 8 },
-        { key: AUDIT_STEPS.REVIEW, label: 'Review', number: 9 }
+        { key: AUDIT_STEPS.INFO, label: translations.steps.info[language], number: 1 },
+        { key: AUDIT_STEPS.VACCINE_STORAGE, label: translations.steps.vaccineStorage[language], number: 2 },
+        { key: AUDIT_STEPS.EQUIPMENT, label: translations.steps.equipment[language], number: 3 },
+        { key: AUDIT_STEPS.TECHNIQUES, label: translations.steps.techniques[language], number: 4 },
+        { key: AUDIT_STEPS.SAMPLE_PLAN, label: translations.steps.samplePlan[language], number: 5 },
+        { key: AUDIT_STEPS.SAMPLE_COLLECTION, label: translations.steps.collection[language], number: 6 },
+        { key: AUDIT_STEPS.INCUBATION, label: translations.steps.incubation[language], number: 7 },
+        { key: AUDIT_STEPS.RESULTS, label: translations.steps.results[language], number: 8 },
+        { key: AUDIT_STEPS.REVIEW, label: translations.steps.review[language], number: 9 }
     ];
 
     const currentStepIndex = steps.findIndex(s => s.key === currentStep);
@@ -110,7 +205,7 @@ function AuditWizard() {
             case AUDIT_STEPS.RESULTS:
                 return <Step8_Results />;
             case AUDIT_STEPS.REVIEW:
-                return <div>Review step coming soon...</div>;
+                return <Step9_Review />;
             default:
                 return <div>Unknown step</div>;
         }
@@ -126,15 +221,15 @@ function AuditWizard() {
                             {currentAudit.auditNumber || 'New Audit'}
                         </h1>
                         <p style={{ color: '#6B7280', fontSize: '0.875rem' }}>
-                            Step {currentStepNumber} of {steps.length}: {steps[currentStepIndex]?.label}
+                            {translations.stepHeader[language]} {currentStepNumber} {translations.of[language]} {steps.length}: {steps[currentStepIndex]?.label}
                         </p>
                     </div>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button onClick={handleSaveDraft} className="btn-hatchery btn-primary">
-                            Save Draft
+                            {translations.buttons.saveDraft[language]}
                         </button>
                         <button onClick={handleDiscard} className="btn-hatchery btn-danger">
-                            Discard
+                            {translations.buttons.discard[language]}
                         </button>
                     </div>
                 </div>
@@ -168,7 +263,7 @@ function AuditWizard() {
                         disabled={currentStepIndex === 0}
                         className="btn-hatchery btn-primary"
                     >
-                        Previous
+                        {translations.buttons.previous[language]}
                     </button>
 
                     <div style={{ flex: 1 }} />
@@ -178,14 +273,14 @@ function AuditWizard() {
                             onClick={handleComplete}
                             className="btn-hatchery btn-success"
                         >
-                            Complete Audit
+                            {translations.buttons.submit[language]}
                         </button>
                     ) : (
                         <button
                             onClick={handleNext}
                             className="btn-hatchery btn-primary"
                         >
-                            Next
+                            {translations.buttons.next[language]}
                         </button>
                     )}
                 </div>

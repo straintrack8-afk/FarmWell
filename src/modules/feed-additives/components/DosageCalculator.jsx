@@ -1194,7 +1194,16 @@ const DosageCalculator = () => {
                                 }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                                         <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1f2937', margin: 0 }}>
-                                            {t('referenceDataTitle')} {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label}
+                                            {referenceSelection.specificCategory === 'broiler_breeder' 
+                                                ? t('broilerBreederReferenceTitle')
+                                                : referenceSelection.specificCategory === 'broiler'
+                                                    ? t('commercialTitle')
+                                                    : referenceSelection.specificCategory === 'layer'
+                                                        ? t('layerTitle')
+                                                        : referenceSelection.specificCategory === 'color_chicken'
+                                                            ? t('colorTitle')
+                                                            : t('referenceDataTitle') + ' ' + animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label
+                                            }
                                         </h3>
                                         <div style={{ display: 'flex', gap: '0.75rem' }}>
                                             <button
@@ -1244,20 +1253,20 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('dailyPerformanceData')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    Source: {consumptionData.poultry_commercial.broiler.source}
+                                                    {t('commercialSource')}
                                                     <br />
-                                                    Breed: {consumptionData.poultry_commercial.broiler.breed}
+                                                    {t('commercialBreed')}
                                                 </p>
                                             </div>
                                             <div style={{ overflowX: 'auto' }}>
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
                                                         <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Day</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Body Weight (g)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>FCR</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('commercialTableHeaders.day')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('commercialTableHeaders.bodyWeight')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('commercialTableHeaders.feed')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('commercialTableHeaders.water')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>{t('commercialTableHeaders.fcr')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1282,8 +1291,8 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataLayer')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    Source: {consumptionData.poultry_commercial.layer.source}<br />
-                                                    Breed: {consumptionData.poultry_commercial.layer.breed} - {consumptionData.poultry_commercial.layer.housing}
+                                                    {t('layerSource')}<br />
+                                                    {t('layerBreed')}
                                                 </p>
                                             </div>
 
@@ -1293,7 +1302,7 @@ const DosageCalculator = () => {
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
                                                         <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('layerTableHeaders.week')}</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Body Weight (g)</th>
@@ -1323,7 +1332,7 @@ const DosageCalculator = () => {
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
                                                         <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('layerTableHeaders.week')}</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Production %</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
@@ -1350,7 +1359,7 @@ const DosageCalculator = () => {
                                     {referenceSelection.specificCategory === 'color_chicken' && (
                                         <div>
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Calculation Method: Formula with 70% Adjustment</h4>
+                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('calculationMethod')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
                                                     Water (ml/bird/day) = 5.28 × Age (days) × 0.70<br />
                                                     Feed (g/bird/day) = Water ÷ 1.77
@@ -1360,7 +1369,7 @@ const DosageCalculator = () => {
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
                                                         <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Day</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('colorTableHeaders.day')}</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/bird/day)</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Feed (g/bird/day)</th>
                                                         </tr>
@@ -1389,9 +1398,9 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataBroilerBreeder')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    Source: {consumptionData.poultry_breeding.broiler_breeder.source}<br />
-                                                    Breed: {consumptionData.poultry_breeding.broiler_breeder.breed}<br />
-                                                    Note: {consumptionData.poultry_breeding.broiler_breeder.note}
+                                                    {t('broilerBreederSource')}<br />
+                                                    {t('broilerBreederBreed')}<br />
+                                                    {t('broilerBreederNote')}
                                                 </p>
                                             </div>
 
@@ -1400,14 +1409,14 @@ const DosageCalculator = () => {
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
                                                         <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Days</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>BW (g)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Gain (g)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Energy (kcal)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Note</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWeek')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderDays')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderBW')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderGain')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderFeed')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWater')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderEnergy')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>{t('tableHeaderNote')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1426,7 +1435,7 @@ const DosageCalculator = () => {
                                                                     <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{(data.feed_g * 1.8).toFixed(0)}</td>
                                                                     <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.energy_kcal}</td>
                                                                     <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontSize: '0.875rem', color: '#059669' }}>
-                                                                        {data.note || '-'}
+                                                                        {data.note || (data.week === 64 ? t('endOfCycle') : '-')}
                                                                     </td>
                                                                 </tr>
                                                             );
@@ -1436,13 +1445,13 @@ const DosageCalculator = () => {
                                             </div>
 
                                             <div style={{ marginTop: '1rem', padding: '1rem', background: '#fef3c7', borderRadius: '6px', fontSize: '0.875rem' }}>
-                                                <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}> Key Milestones:</p>
+                                                <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}>{t('keyMilestones')}</p>
                                                 <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-                                                    <li><strong>Week 0</strong>: Day old ad lib feeding</li>
-                                                    <li><strong>Week 21</strong>: First light stimulation</li>
-                                                    <li><strong>Week 25</strong>: 5% production begins</li>
-                                                    <li><strong>Week 30</strong>: Peak production achieved</li>
-                                                    <li><strong>Week 64</strong>: End of production cycle</li>
+                                                    <li><strong>Week 0</strong>: {t('milestoneWeek0').split(': ')[1]}</li>
+                                                    <li><strong>Week 21</strong>: {t('milestoneWeek21').split(': ')[1]}</li>
+                                                    <li><strong>Week 25</strong>: {t('milestoneWeek25').split(': ')[1]}</li>
+                                                    <li><strong>Week 30</strong>: {t('milestoneWeek30').split(': ')[1]}</li>
+                                                    <li><strong>Week 64</strong>: {t('milestoneWeek64').split(': ')[1]}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1454,8 +1463,8 @@ const DosageCalculator = () => {
                                             <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                                                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataColorBreeder')}</h4>
                                                 <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    Source: {consumptionData.poultry_breeding.color_breeder.source}<br />
-                                                    Breed: {consumptionData.poultry_breeding.color_breeder.breed}
+                                                    {t('broilerBreederSource')}<br />
+                                                    {t('broilerBreederBreed')}
                                                 </p>
                                             </div>
 
@@ -1465,10 +1474,10 @@ const DosageCalculator = () => {
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
                                                         <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Body Weight (g)</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWeek')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderFeed')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWater')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>{t('tableHeaderBW')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1490,11 +1499,11 @@ const DosageCalculator = () => {
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
                                                         <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWeek')}</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Production %</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Note</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderFeed')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWater')}</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>{t('tableHeaderNote')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1532,7 +1541,7 @@ const DosageCalculator = () => {
                                                 <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                                                     <thead>
                                                         <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Week</th>
+                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('layerTableHeaders.week')}</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
                                                             <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Body Weight (g)</th>

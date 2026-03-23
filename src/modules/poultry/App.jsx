@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { DiagnosisProvider, useDiagnosis } from './contexts/DiagnosisContext';
 import { BroilerAssessmentProvider } from './contexts/BroilerAssessmentContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 import '../../portal.css';
 import './poultry.css';
 import { STEPS } from './utils/constants';
@@ -38,6 +39,7 @@ import { useTranslation } from 'react-i18next';
 
 function DiagnosticApp() {
     const { step, isLoading, error, isOffline, reset, setStep } = useDiagnosis();
+    const { language } = useLanguage();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -100,7 +102,7 @@ function DiagnosticApp() {
         <div className="portal-layout">
             <div className="portal-container" style={{ maxWidth: '100%', padding: 0 }}>
                 <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
-                    <PoultryDiagnosisWrapper language="en">
+                    <PoultryDiagnosisWrapper language={language}>
                         <Header isOffline={isOffline} onBack={reset} />
                         <main style={{ flex: 1, padding: 0 }}>
                             {step === STEPS.AGE && <AgeSelection />}

@@ -2,13 +2,68 @@ import React, { useState } from 'react';
 import { useHatcheryAudit } from '../../../../contexts/HatcheryAuditContext';
 import { SAMPLE_TYPES, SAMPLE_LOCATIONS as LOCATION_CONFIG } from '../../../../utils/hatcheryConstants';
 import { formatTimeForInput } from '../../../../utils/hatchery/dateUtils';
+import { useLanguage } from '../../../../../../contexts/LanguageContext';
 
 function Step6_SampleCollection() {
     const { currentAudit, updateAuditSection } = useHatcheryAudit();
+    const { language } = useLanguage();
     const samples = currentAudit?.samples || {};
     const [expandedGroups, setExpandedGroups] = useState(
         Object.keys(LOCATION_CONFIG).reduce((acc, key) => ({ ...acc, [key]: true }), {})
     );
+
+    const translations = {
+        title: {
+            en: "Sample Collection",
+            id: "Pengumpulan Sampel",
+            vi: "Thu thập Mẫu"
+        },
+        description: {
+            en: "Record sample collection for each location. Ensure aseptic technique is used.",
+            id: "Catat pengumpulan sampel untuk setiap lokasi. Pastikan teknik aseptik digunakan.",
+            vi: "Ghi lại việc thu thập mẫu cho mỗi vị trí. Đảm bảo sử dụng kỹ thuật vô trùng."
+        },
+        collectionProgress: {
+            en: "Collection Progress",
+            id: "Progres Pengumpulan",
+            vi: "Tiến độ Thu thập"
+        },
+        collected: {
+            en: "collected",
+            id: "dikumpulkan",
+            vi: "đã thu thập"
+        },
+        complete: {
+            en: "Complete",
+            id: "Lengkap",
+            vi: "Hoàn thành"
+        },
+        markAllCollected: {
+            en: "Mark All as Collected",
+            id: "Tandai Semua sebagai Dikumpulkan",
+            vi: "Đánh dấu tất cả đã thu thập"
+        },
+        airPlates: {
+            en: "Air Plates",
+            id: "Plat Udara",
+            vi: "Khay không khí"
+        },
+        swabs: {
+            en: "Swabs",
+            id: "Usap",
+            vi: "Gạc lau"
+        },
+        locationNotePlaceholder: {
+            en: "Add specific location note...",
+            id: "Tambahkan catatan lokasi spesifik...",
+            vi: "Thêm ghi chú vị trí cụ thể..."
+        },
+        idLabel: {
+            en: "ID:",
+            id: "ID:",
+            vi: "ID:"
+        }
+    };
 
     const handleUpdateSample = (locationKey, sampleIndex, field, value) => {
         const updatedGroup = [...samples[locationKey]];
@@ -50,17 +105,17 @@ function Step6_SampleCollection() {
         <div>
             <div style={{ marginBottom: '1.5rem' }}>
                 <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                    Sample Collection
+                    {translations.title[language]}
                 </h2>
                 <p style={{ color: '#6B7280' }}>
-                    Record sample collection for each location. Ensure aseptic technique is used.
+                    {translations.description[language]}
                 </p>
             </div>
 
             {/* Progress Bar */}
             <div style={{ marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                    <span>Collection Progress</span>
+                    <span>{translations.collectionProgress[language]}</span>
                     <span>{collectedCount} / {totalSamples} ({progress}%)</span>
                 </div>
                 <div className="progress-bar-container">
@@ -101,11 +156,11 @@ function Step6_SampleCollection() {
                                             {config.name}
                                         </h3>
                                         <div style={{ fontSize: '0.75rem', color: '#6B7280' }}>
-                                            {config.type === SAMPLE_TYPES.AIR_PLATE ? ' Air Plates' : ' Swabs'} • {groupCollected}/{groupSamples.length} collected
+                                            {config.type === SAMPLE_TYPES.AIR_PLATE ? ' ' + translations.airPlates[language] : ' ' + translations.swabs[language]} • {groupCollected}/{groupSamples.length} {translations.collected[language]}
                                         </div>
                                     </div>
                                 </div>
-                                {isComplete && <span style={{ color: '#059669', fontWeight: '600' }}> Complete</span>}
+                                {isComplete && <span style={{ color: '#059669', fontWeight: '600' }}> {translations.complete[language]}</span>}
                             </div>
 
                             {/* Group Content */}
@@ -117,7 +172,7 @@ function Step6_SampleCollection() {
                                             className="btn-hatchery btn-primary"
                                             style={{ marginBottom: '1rem', fontSize: '0.75rem', width: '100%' }}
                                         >
-                                            Mark All as Collected
+                                            {translations.markAllCollected[language]}
                                         </button>
                                     )}
 
@@ -142,7 +197,7 @@ function Step6_SampleCollection() {
                                                     />
                                                     <div style={{ flex: 1 }}>
                                                         <div style={{ fontWeight: '600', fontSize: '0.875rem' }}>{sample.name}</div>
-                                                        <div style={{ fontSize: '0.75rem', color: '#6B7280' }}>ID: {sample.id}</div>
+                                                        <div style={{ fontSize: '0.75rem', color: '#6B7280' }}>{translations.idLabel[language]} {sample.id}</div>
                                                     </div>
                                                 </div>
 
@@ -151,7 +206,7 @@ function Step6_SampleCollection() {
                                                         <input
                                                             type="text"
                                                             className="form-input"
-                                                            placeholder="Add specific location note..."
+                                                            placeholder={translations.locationNotePlaceholder[language]}
                                                             value={sample.notes || ''}
                                                             onChange={(e) => handleUpdateSample(key, index, 'notes', e.target.value)}
                                                             style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}

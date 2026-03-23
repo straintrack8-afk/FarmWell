@@ -59,15 +59,34 @@ function AgeSelection() {
         window.scrollTo(0, 0);
     }, []);
 
+    // Debug: Track when selectedAge changes
+    useEffect(() => {
+        console.log('⚡ selectedAge changed to:', selectedAge);
+    }, [selectedAge]);
+
     const handleSelectAge = (ageId) => {
+        console.log('🔵 Age selected:', ageId);
+        console.log('🔵 Before setAge - selectedAge:', selectedAge);
         setAge(ageId);
+        console.log('🔵 After setAge - selectedAge:', selectedAge); // Still old value due to async state update
     };
 
-    const handleContinue = () => {
-        if (selectedAge) {
-            setStep(STEPS.SYMPTOMS); // Skip BODY_PART, go directly to 3-box symptom selection
-            navigate('/poultry/diagnostic/symptoms'); // Navigate to symptoms route
+    const handleContinue = (e) => {
+        console.log('🟢 Continue clicked');
+        console.log('🟢 Current selectedAge:', selectedAge);
+        
+        e.preventDefault(); // Prevent any default form behavior
+        
+        if (!selectedAge) {
+            console.log('🔴 No age selected - returning');
+            return; // Don't proceed if no age is selected
         }
+        
+        console.log('🟢 Navigating to symptoms page...');
+        // Set the step first, then navigate
+        setStep(STEPS.SYMPTOMS);
+        navigate('/poultry/diagnostic/symptoms');
+        console.log('🟢 Navigate called');
     };
 
     const themeGradient = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
@@ -208,6 +227,7 @@ function AgeSelection() {
                             </strong>
                         </div>
                         <button
+                            type="button"
                             className="btn btn-primary"
                             onClick={handleContinue}
                         >

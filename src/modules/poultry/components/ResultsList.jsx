@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { STEPS } from '../utils/constants';
-import DiagnosisDisclaimer from './disease-diagnosis/DiagnosisDisclaimer';
+import DiagnosisDisclaimer from './DiagnosisDisclaimer';
 
 function ProgressBar({ step }) {
     const steps = [
@@ -321,10 +321,7 @@ function ResultsList() {
                             ))}
 
                             {/* Diagnosis Result Disclaimer */}
-                            <DiagnosisDisclaimer
-                                language="en"
-                                diseaseIndicated={results[0]?.name || 'Multiple conditions'}
-                            />
+                            <DiagnosisDisclaimer />
                         </>
                     )}
                 </div>

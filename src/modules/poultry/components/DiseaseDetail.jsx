@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
@@ -344,13 +345,13 @@ function DiseaseDetail() {
                 {/* Single Scroll Content */}
                 <div style={{ paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)', marginTop: '1.5rem' }}>
                     {/* Description - ENRICHED */}
-                    {getFieldValue(disease, 'description', language) && (
+                    {(disease.description || disease.deskripsi) && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                 📝 {labels.description}
                             </h3>
                             <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
-                                {getFieldValue(disease, 'description', language)}
+                                {disease.description || disease.deskripsi}
                             </p>
                         </div>
                     )}
@@ -432,104 +433,84 @@ function DiseaseDetail() {
                     )}
 
                     {/* Transmission - ENRICHED */}
-                    {(() => {
-                        const transmissionData = getFieldValue(disease, 'transmission', language);
-                        if (!transmissionData) return null;
-                        const items = Array.isArray(transmissionData) ? transmissionData : textToBullets(transmissionData);
-                        return (
-                            <>
-                                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-                                <div style={{ marginBottom: '2rem' }}>
-                                    <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        🦠 {labels.transmission}
-                                    </h3>
-                                    <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                        {items.map((item, i) => (
-                                            <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </>
-                        );
-                    })()}
+                    {(disease.transmission || disease.penularan) && (
+                        <>
+                            <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+                            <div style={{ marginBottom: '2rem' }}>
+                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    🦠 {labels.transmission}
+                                </h3>
+                                <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                    {(disease.transmission || disease.penularan).map((item, i) => (
+                                        <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
+                    )}
 
                     {/* Diagnosis - ENRICHED */}
-                    {(() => {
-                        const diagnosisData = getFieldValue(disease, 'diagnosis', language);
-                        if (!diagnosisData) return null;
-                        const items = Array.isArray(diagnosisData) ? diagnosisData : textToBullets(diagnosisData);
-                        return (
-                            <>
-                                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-                                <div style={{ marginBottom: '2rem' }}>
-                                    <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        🔬 {labels.diagnosis}
-                                    </h3>
-                                    <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                        {items.map((item, i) => (
-                                            <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </>
-                        );
-                    })()}
+                    {disease.diagnosis && (
+                        <>
+                            <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+                            <div style={{ marginBottom: '2rem' }}>
+                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    🔬 {labels.diagnosis}
+                                </h3>
+                                <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                    {disease.diagnosis.map((item, i) => (
+                                        <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
+                    )}
 
                     {/* Treatment - ENRICHED */}
-                    {(() => {
-                        const treatmentData = getFieldValue(disease, 'treatment', language);
-                        if (!treatmentData) return null;
-                        const items = Array.isArray(treatmentData) ? treatmentData : textToBullets(treatmentData);
-                        return (
-                            <>
-                                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-                                <div style={{ marginBottom: '2rem' }}>
-                                    <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        💊 {labels.treatment}
-                                    </h3>
-                                    <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                        {items.map((item, i) => (
-                                            <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </>
-                        );
-                    })()}
+                    {(disease.treatment || disease.pengobatan) && (
+                        <>
+                            <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+                            <div style={{ marginBottom: '2rem' }}>
+                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    💊 {labels.treatment}
+                                </h3>
+                                <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                    {(disease.treatment || disease.pengobatan).map((item, i) => (
+                                        <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
+                    )}
 
                     {/* Control & Prevention - ENRICHED */}
-                    {(() => {
-                        const controlData = getFieldValue(disease, 'control', language);
-                        if (!controlData) return null;
-                        const items = Array.isArray(controlData) ? controlData : textToBullets(controlData);
-                        return (
-                            <>
-                                <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
-                                <div style={{ marginBottom: '2rem' }}>
-                                    <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        🛡️ {labels.control}
-                                    </h3>
-                                    <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                        {items.map((item, i) => (
-                                            <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </>
-                        );
-                    })()}
+                    {(disease.control || disease.pengendalian) && (
+                        <>
+                            <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
+                            <div style={{ marginBottom: '2rem' }}>
+                                <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    🛡️ {labels.control}
+                                </h3>
+                                <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                    {(disease.control || disease.pengendalian).map((item, i) => (
+                                        <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
+                    )}
 
                     {/* Vaccine Recommendations - ENRICHED (Empty State for Now) */}
                     {(() => {
-                        const vaccineData = getFieldValue(disease, 'vaccineRecommendations', language);
+                        const vaccineData = disease.vaccineRecommendations || disease.rekomendasi_vaksin;
                         const hasVaccines = vaccineData && vaccineData.length > 0;
                         
                         return (

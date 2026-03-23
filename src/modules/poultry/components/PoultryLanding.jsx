@@ -24,6 +24,12 @@ function PoultryLanding() {
         navigate('/poultry/biosecurity');
     };
 
+    const tagline = {
+        en: "An integrated poultry management platform for disease diagnostics, biosecurity audits, and farm management support.",
+        id: "Platform manajemen unggas terintegrasi untuk diagnostik penyakit, audit biosekuriti, dan dukungan manajemen peternakan.",
+        vi: "Nền tảng quản lý gia cầm tích hợp cho chẩn đoán bệnh, kiểm toán an toàn sinh học và hỗ trợ quản lý trang trại."
+    };
+
     return (
         <div className="portal-layout">
             <div className="portal-container">
@@ -48,7 +54,7 @@ function PoultryLanding() {
                             margin: '0 auto',
                             lineHeight: '1.6'
                         }}>
-                            An integrated poultry management platform for disease diagnostics, biosecurity audits, and farm management support.
+                            {tagline[language]}
                         </p>
                     </div>
 

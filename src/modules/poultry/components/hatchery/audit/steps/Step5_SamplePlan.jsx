@@ -1,10 +1,92 @@
 import React, { useEffect } from 'react';
 import { useHatcheryAudit } from '../../../../contexts/HatcheryAuditContext';
 import { SAMPLE_LOCATIONS as LOCATION_CONFIG } from '../../../../utils/hatcheryConstants';
+import { useLanguage } from '../../../../../../contexts/LanguageContext';
 
 function Step5_SamplePlan() {
     const { currentAudit, updateAuditSection } = useHatcheryAudit();
+    const { language } = useLanguage();
     const samples = currentAudit?.samples || {};
+
+    const translations = {
+        title: {
+            en: "Environmental Sampling Plan",
+            id: "Rencana Pengambilan Sampel Lingkungan",
+            vi: "Kế hoạch Lấy mẫu Môi trường"
+        },
+        description: {
+            en: "Review and confirm the 30-point sampling plan.",
+            id: "Tinjau dan konfirmasi rencana pengambilan sampel 30 titik.",
+            vi: "Xem lại và xác nhận kế hoạch lấy mẫu 30 điểm."
+        },
+        resetToDefault: {
+            en: "Reset to Default",
+            id: "Reset ke Default",
+            vi: "Đặt lại Mặc định"
+        },
+        resetConfirm: {
+            en: "Reset sample plan to default? Any custom changes will be lost.",
+            id: "Reset rencana pengambilan sampel ke default? Perubahan kustom apa pun akan hilang.",
+            vi: "Đặt lại kế hoạch lấy mẫu về mặc định? Mọi thay đổi tùy chỉnh sẽ bị mất."
+        },
+        totalSamples: {
+            en: "Total Samples:",
+            id: "Total Sampel:",
+            vi: "Tổng số Mẫu:"
+        },
+        standardProtocol: {
+            en: "Standard protocol requires 30 monitoring points across the hatchery.",
+            id: "Protokol standar memerlukan 30 titik pemantauan di seluruh penetasan.",
+            vi: "Giao thức tiêu chuẩn yêu cầu 30 điểm giám sát trên toàn bộ trại ấp."
+        },
+        samplesText: {
+            en: "samples",
+            id: "sampel",
+            vi: "mẫu"
+        },
+        note: {
+            en: "Note:",
+            id: "Catatan:",
+            vi: "Lưu ý:"
+        },
+        warningMessage: {
+            en: "Once you proceed to collection, the sampling plan cannot be modified.",
+            id: "Setelah Anda melanjutkan ke pengumpulan, rencana pengambilan sampel tidak dapat dimodifikasi.",
+            vi: "Khi bạn tiến hành thu thập, kế hoạch lấy mẫu không thể được sửa đổi."
+        },
+        sampleTypes: {
+            eggshell: {
+                en: "eggshell",
+                id: "kulit telur",
+                vi: "vỏ trứng"
+            },
+            fluff: {
+                en: "fluff",
+                id: "bulu",
+                vi: "lông tơ"
+            },
+            air: {
+                en: "air",
+                id: "udara",
+                vi: "không khí"
+            },
+            water: {
+                en: "water",
+                id: "air",
+                vi: "nước"
+            },
+            surface: {
+                en: "surface",
+                id: "permukaan",
+                vi: "bề mặt"
+            },
+            chick: {
+                en: "chick",
+                id: "anak ayam",
+                vi: "gà con"
+            }
+        }
+    };
 
     useEffect(() => {
         // Initialize samples if they don't exist
@@ -40,7 +122,7 @@ function Step5_SamplePlan() {
     };
 
     const handleReset = () => {
-        if (confirm('Reset sample plan to default? Any custom changes will be lost.')) {
+        if (confirm(translations.resetConfirm[language])) {
             initializeSamples();
         }
     };
@@ -52,10 +134,10 @@ function Step5_SamplePlan() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <div>
                     <h2 style={{ fontSize: '1.25rem', fontWeight: '600' }}>
-                        Environmental Sampling Plan
+                        {translations.title[language]}
                     </h2>
                     <p style={{ color: '#6B7280' }}>
-                        Review and confirm the 30-point sampling plan.
+                        {translations.description[language]}
                     </p>
                 </div>
                 <button
@@ -63,16 +145,16 @@ function Step5_SamplePlan() {
                     className="btn-hatchery btn-primary"
                     style={{ fontSize: '0.875rem' }}
                 >
-                    Reset to Default
+                    {translations.resetToDefault[language]}
                 </button>
             </div>
 
             <div className="alert info" style={{ marginBottom: '2rem' }}>
                 <span></span>
                 <div>
-                    <strong>Total Samples: {totalSamples}</strong>
+                    <strong>{translations.totalSamples[language]} {totalSamples}</strong>
                     <br />
-                    Standard protocol requires 30 monitoring points across the hatchery.
+                    {translations.standardProtocol[language]}
                 </div>
             </div>
 
@@ -84,7 +166,7 @@ function Step5_SamplePlan() {
                                 {config.name} ({config.code})
                             </h3>
                             <span className="badge" style={{ backgroundColor: '#E5E7EB', color: '#374151' }}>
-                                {samples[key]?.length || 0} samples
+                                {samples[key]?.length || 0} {translations.samplesText[language]}
                             </span>
                         </div>
 
@@ -108,7 +190,7 @@ function Step5_SamplePlan() {
                                         padding: '0.125rem 0.375rem',
                                         borderRadius: '0.25rem'
                                     }}>
-                                        {sample.type.replace('_', ' ')}
+                                        {translations.sampleTypes[sample.type] || sample.type.replace('_', ' ')}
                                     </span>
                                 </div>
                             ))}
@@ -120,7 +202,7 @@ function Step5_SamplePlan() {
             <div className="alert warning" style={{ marginTop: '2rem' }}>
                 <span></span>
                 <div>
-                    <strong>Note:</strong> Once you proceed to collection, the sampling plan cannot be modified.
+                    <strong>{translations.note[language]}</strong> {translations.warningMessage[language]}
                 </div>
             </div>
         </div>
