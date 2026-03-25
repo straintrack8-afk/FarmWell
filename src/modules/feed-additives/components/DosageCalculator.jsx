@@ -2653,8 +2653,28 @@ const DosageCalculator = () => {
                                                 <button
                                                     onClick={() => {
                                                         if (inquiryData.name && inquiryData.email && inquiryData.phone) {
+                                                            // Create email content
+                                                            const subject = `FarmWell Inquiry from ${inquiryData.name}`;
+                                                            const body = `
+New inquiry received from FarmWell website:
+
+Name: ${inquiryData.name}
+Email: ${inquiryData.email}
+Phone: ${inquiryData.phone}
+
+---
+This inquiry was submitted via farmwell.vercel.app
+                                                            `;
+                                                            
+                                                            // Open user's email client with pre-filled data
+                                                            const mailtoLink = `mailto:phrastz@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                                                            window.location.href = mailtoLink;
+                                                            
+                                                            // Show success message
                                                             alert(t('inquirySuccess'));
-                                                            // TODO: Implement actual inquiry submission logic here
+                                                            
+                                                            // Clear form after submission
+                                                            setInquiryData({ name: '', email: '', phone: '' });
                                                         } else {
                                                             alert(t('fillAllFields'));
                                                         }
