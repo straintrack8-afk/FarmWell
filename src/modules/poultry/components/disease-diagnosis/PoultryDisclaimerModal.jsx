@@ -3,19 +3,19 @@ import React, { useState } from 'react';
 const DISCLAIMER_TEXT = {
     en: {
         title: "Important Notice",
-        fullText: "This tool is designed as a supporting aid to help identify early signs of disease in poultry and does not replace the role of a veterinarian. To ensure proper animal health, please consult a veterinarian immediately if any signs of illness are observed.",
+        fullText: "This tool helps identify possible health problems in livestock. It does not provide a diagnosis and does not replace veterinary advice. Different diseases may show similar symptoms, and only a qualified veterinarian can properly examine the animals and confirm the correct diagnosis. The results provided by this tool are for guidance only. If animals show signs of illness, consult a veterinarian promptly.",
         checkboxLabel: "I understand and agree to this disclaimer",
         continueButton: "Continue to Tool"
     },
     id: {
         title: "Pemberitahuan Penting",
-        fullText: "Tool ini dirancang sebagai sarana pendukung dalam mengenali gejala awal penyakit pada unggas dan tidak menggantikan peran dokter hewan. Untuk memastikan kondisi kesehatan ternak, segera lakukan konsultasi dengan dokter hewan apabila terdapat tanda-tanda penyakit.",
+        fullText: "Alat ini membantu mengidentifikasi kemungkinan masalah kesehatan pada ternak. Alat ini tidak memberikan diagnosis dan tidak menggantikan saran dokter hewan. Penyakit yang berbeda dapat menunjukkan gejala yang serupa, dan hanya dokter hewan yang berkualifikasi yang dapat memeriksa hewan dengan benar dan mengkonfirmasi diagnosis yang tepat. Hasil yang diberikan oleh alat ini hanya untuk panduan. Jika hewan menunjukkan tanda-tanda sakit, segera konsultasikan dengan dokter hewan.",
         checkboxLabel: "Saya memahami dan menyetujui disclaimer ini",
         continueButton: "Lanjutkan ke Tool"
     },
     vi: {
         title: "Thông báo Quan trọng",
-        fullText: "Công cụ này được thiết kế như một phương tiện hỗ trợ trong việc nhận diện sớm các dấu hiệu bệnh ở gia cầm và không thay thế vai trò của bác sĩ thú y. Vui lòng liên hệ bác sĩ thú y để được tư vấn khi phát hiện bất kỳ dấu hiệu bệnh nào.",
+        fullText: "Công cụ này giúp xác định các vấn đề sức khỏe có thể xảy ra ở vật nuôi. Nó không đưa ra chẩn đoán và không thay thế lời khuyên của bác sĩ thú y. Các bệnh khác nhau có thể có triệu chứng tương tự, và chỉ bác sĩ thú y có trình độ mới có thể kiểm tra động vật đúng cách và xác nhận chẩn đoán chính xác. Kết quả được cung cấp bởi công cụ này chỉ mang tính chất hướng dẫn. Nếu động vật có dấu hiệu bệnh, hãy tham khảo ý kiến bác sĩ thú y ngay lập tức.",
         checkboxLabel: "Tôi hiểu và đồng ý với tuyên bố miễn trừ trách nhiệm này",
         continueButton: "Tiếp tục sử dụng Công cụ"
     }

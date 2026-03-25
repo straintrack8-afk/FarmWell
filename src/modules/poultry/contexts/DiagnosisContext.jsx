@@ -289,24 +289,38 @@ export const DiagnosisProvider = ({ children }) => {
     // 3. Diseases array has been populated
     if (step === STEPS.DETAIL && selectedDisease && selectedDisease.id && diseases.length > 0) {
       
-      // Check if current disease object has correct language structure
-      const hasCorrectStructure = language === 'id' 
-        ? ('deskripsi' in selectedDisease)  // Indonesian should have 'deskripsi'
-        : ('description' in selectedDisease); // EN/VI should have 'description'
+      let needsReload = false;
       
-      if (!hasCorrectStructure) {
-        console.log(`🔄 Disease ${selectedDisease.id} has wrong structure for ${language}`);
-        console.log(`🔄 Reloading with correct ${language} structure...`);
+      if (language === 'id') {
+        if (!('deskripsi' in selectedDisease)) {
+          needsReload = true;
+          console.log(`🔄 Disease ${selectedDisease.id} missing Indonesian structure`);
+        }
+      } else {
+        if (!('description' in selectedDisease)) {
+          needsReload = true;
+          console.log(`🔄 Disease ${selectedDisease.id} missing EN/VI structure`);
+        } else {
+          const currentName = selectedDisease.name || '';
+          const matchInNewData = diseases.some(d => d.id === selectedDisease.id && d.name === currentName);
+          
+          if (!matchInNewData) {
+            needsReload = true;
+            console.log(`🔄 Disease ${selectedDisease.id} has outdated content for ${language}`);
+          }
+        }
+      }
+      
+      if (needsReload) {
+        console.log(`🔄 Reloading disease ${selectedDisease.id} with ${language} content...`);
         
-        // Find disease in newly loaded array
         const reloadedDisease = diseases.find(d => d.id === selectedDisease.id);
         
         if (reloadedDisease) {
           setSelectedDisease(reloadedDisease);
-          console.log(`✅ Disease ${reloadedDisease.id} reloaded successfully`);
-          console.log(`✅ Structure check - Has deskripsi: ${!!reloadedDisease.deskripsi}, Has description: ${!!reloadedDisease.description}`);
+          console.log(`✅ Disease ${reloadedDisease.id} reloaded: "${reloadedDisease.name}"`);
         } else {
-          console.error(`❌ Could not find disease ${selectedDisease.id} in ${language} data`);
+          console.error(`❌ Could not find disease ${selectedDisease.id}`);
         }
       }
     }
