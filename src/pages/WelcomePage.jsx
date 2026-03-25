@@ -18,8 +18,8 @@ const WelcomePage = () => {
     const topModules = [
         {
             id: 'feed-additives',
-            name: t('welcome.feedAdditivesModule') || 'Feed Additives',
-            desc: t('welcome.feedAdditivesDescription') || 'Comprehensive feed additive analysis & optimization for livestock nutrition management.',
+            name: t('welcome.feedAdditivesModule') || 'Feed Module',
+            desc: t('welcome.feedAdditivesDescription') || 'Comprehensive feed analysis & optimization for livestock nutrition management.',
             icon: '/images/feed_additives_logo.png',
             tags: ['Nutrition', 'Optimization', 'Formula'],
             status: 'live',

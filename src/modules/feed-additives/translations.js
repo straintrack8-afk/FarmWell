@@ -1,11 +1,11 @@
 export const feedAdditivesTranslations = {
     en: {
         // Header
-        title: "FEED ADDITIVES CALCULATOR",
+        title: "FEED MODULE",
         subtitle: "",
-        calculatorSubtitle: "Comprehensive feed additive analysis and optimization for livestock nutrition management.",
-        swineDescription: "Calculate feed additives dosage and costs tailored for your swine operations.",
-        poultryDescription: "Calculate feed additives dosage and costs tailored for your poultry flocks.",
+        calculatorSubtitle: "Comprehensive feed analysis and optimization for livestock nutrition management.",
+        swineDescription: "Calculate feed dosage and costs tailored for your swine operations.",
+        poultryDescription: "Calculate feed dosage and costs tailored for your poultry flocks.",
 
         // Steps
         step1: "Select Animal",
@@ -333,11 +333,11 @@ export const feedAdditivesTranslations = {
         applicationWater: "💧 Air",
 
         // Header
-        title: "KALKULATOR ADITIF PAKAN",
+        title: "MODUL PAKAN",
         subtitle: "Vaksindo Vietnam - United Animal Health Products",
-        calculatorSubtitle: "Analisis dan optimasi feed additive yang komprehensif untuk manajemen nutrisi ternak.",
-        swineDescription: "Hitung dosis dan biaya feed additive yang disesuaikan untuk operasi babi Anda.",
-        poultryDescription: "Hitung dosis dan biaya feed additive yang disesuaikan untuk ternak unggas Anda.",
+        calculatorSubtitle: "Analisis dan optimasi pakan yang komprehensif untuk manajemen nutrisi ternak.",
+        swineDescription: "Hitung dosis dan biaya pakan yang disesuaikan untuk operasi babi Anda.",
+        poultryDescription: "Hitung dosis dan biaya pakan yang disesuaikan untuk ternak unggas Anda.",
 
         // Steps
         step1: "Pilih Hewan",
@@ -646,11 +646,11 @@ export const feedAdditivesTranslations = {
         applicationWater: "💧 Nước",
 
         // Header
-        title: "MÁY TÍNH CHẤT BỔ SUNG THỨC ĂN",
+        title: "MÔ-ĐUN THỨC ĂN",
         subtitle: "Vaksindo Vietnam - United Animal Health Products",
-        calculatorSubtitle: "Phân tích và tối ưu hóa phụ gia thức ăn toàn diện cho quản lý dinh dưỡng vật nuôi.",
-        swineDescription: "Tính liều lượng và chi phí phụ gia thức ăn phù hợp cho hoạt động chăn nuôi lợn của bạn.",
-        poultryDescription: "Tính liều lượng và chi phí phụ gia thức ăn phù hợp cho đàn gia cầm của bạn.",
+        calculatorSubtitle: "Phân tích và tối ưu hóa thức ăn toàn diện cho quản lý dinh dưỡng vật nuôi.",
+        swineDescription: "Tính liều lượng và chi phí thức ăn phù hợp cho hoạt động chăn nuôi lợn của bạn.",
+        poultryDescription: "Tính liều lượng và chi phí thức ăn phù hợp cho đàn gia cầm của bạn.",
 
         // Steps
         step1: "Chọn Động Vật",
