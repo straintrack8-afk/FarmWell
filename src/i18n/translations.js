@@ -283,7 +283,22 @@ export const translations = {
                     treatment: "Treatment recommendations",
                     offline: "Works offline"
                 },
-                button: "Start Diagnosis"
+                button: "Start Diagnosis",
+                steps: {
+                    age: "Age",
+                    bodyPartSymptoms: "Body Part & Symptoms",
+                    results: "Results"
+                },
+                age: {
+                    title: "Select Age Group",
+                    subtitle: "Choose the age group of the affected birds",
+                    allAges: "All Ages",
+                    zeroToThree: "0-3 Weeks",
+                    fourToEight: "4-8 Weeks",
+                    ninePlus: "9+ Weeks",
+                    continue: "Continue",
+                    selected: "Selected"
+                }
             },
             hatchery: {
                 title: "Hatchery Audit",
@@ -358,7 +373,14 @@ export const translations = {
                     recentAssessments: "Recent Assessments",
                     noAssessmentsYet: "No Assessments Yet",
                     noAssessmentsText: "Start your first broiler farm biosecurity assessment to track compliance and health quality",
-                    startFirstAssessment: "Start First Assessment"
+                    startFirstAssessment: "Start First Assessment",
+                    idDate: "ID / DATE",
+                    progressScore: "PROGRESS / SCORE",
+                    status: "STATUS",
+                    actions: "ACTIONS",
+                    inProgress: "In Progress",
+                    continue: "Continue",
+                    delete: "Delete"
                 },
                 dashboard: {
                     title: "Broiler Farm Biosecurity Assessment",
@@ -382,7 +404,27 @@ export const translations = {
                     printAssessmentSummary: "Print Assessment Summary",
                     backToMainDashboard: "Back to Main Dashboard",
                     discardAssessment: "Discard Assessment",
-                    discardConfirm: "Are you sure you want to discard this assessment? This action cannot be undone."
+                    discardConfirm: "Are you sure you want to discard this assessment? This action cannot be undone.",
+                    focusArea: "FOCUS AREA",
+                    questions: "questions",
+                    answered: "answered"
+                },
+                results: {
+                    reportTitle: "Broiler Farm Biosecurity Assessment Report",
+                    subtitle: "Comprehensive biosecurity evaluation results",
+                    criticalRisk: "CRITICAL RISK",
+                    highRisk: "HIGH RISK",
+                    mediumRisk: "MEDIUM RISK",
+                    lowRisk: "LOW RISK",
+                    questionsAnswered: "questions answered",
+                    categoryBreakdown: "Category Breakdown",
+                    diseasesAtRisk: "Diseases at Risk",
+                    improvementPlan: "Improvement Plan",
+                    highPriority: "High Priority",
+                    recommendedActions: "Recommended Actions",
+                    printReport: "Print Report",
+                    backToDashboard: "Back to Dashboard",
+                    newAssessment: "Start New Assessment"
                 }
             },
             breeder: {
@@ -421,6 +463,7 @@ export const translations = {
                     backToDashboard: "Back to Dashboard",
                     totalQuestions: "Total Questions",
                     allCategories: "all categories",
+                    currentScore: "CURRENT SCORE",
                     answered: "Answered",
                     questionsCompleted: "questions completed",
                     progress: "Progress",
@@ -436,6 +479,24 @@ export const translations = {
                     backToMainDashboard: "Back to Main Dashboard",
                     discardAssessment: "Discard Assessment",
                     discardConfirm: "Are you sure you want to discard this assessment? This action cannot be undone."
+                },
+                results: {
+                    reportTitle: "Breeder Farm Biosecurity Assessment Report",
+                    subtitle: "Comprehensive biosecurity evaluation results",
+                    criticalRisk: "CRITICAL RISK",
+                    highRisk: "HIGH RISK",
+                    mediumRisk: "MEDIUM RISK",
+                    lowRisk: "LOW RISK",
+                    questionsAnswered: "questions answered",
+                    categoryBreakdown: "Category Breakdown",
+                    diseasesAtRisk: "Diseases at Risk",
+                    improvementPlan: "Improvement Plan",
+                    criticalPriority: "Critical Priority",
+                    highPriority: "High Priority",
+                    recommendedActions: "Recommended Actions",
+                    printReport: "Print Report",
+                    backToDashboard: "Back to Dashboard",
+                    newAssessment: "New Assessment"
                 }
             },
             layer: {
@@ -465,7 +526,15 @@ export const translations = {
                     recentAssessments: "Recent Assessments",
                     noAssessmentsYet: "No Assessments Yet",
                     noAssessmentsText: "Start your first layer farm biosecurity assessment to track compliance and health quality",
-                    startFirstAssessment: "Start First Assessment"
+                    startFirstAssessment: "Start First Assessment",
+                    idDate: "ID / DATE",
+                    progressScore: "PROGRESS / SCORE",
+                    status: "STATUS",
+                    actions: "ACTIONS",
+                    inProgress: "In Progress",
+                    continue: "Continue",
+                    delete: "Delete",
+                    viewReport: "View Report"
                 },
                 dashboard: {
                     title: "Layer Farm Biosecurity Assessment",
@@ -474,6 +543,7 @@ export const translations = {
                     backToDashboard: "Back to Dashboard",
                     totalQuestions: "Total Questions",
                     allCategories: "all categories",
+                    currentScore: "CURRENT SCORE",
                     answered: "Answered",
                     questionsCompleted: "questions completed",
                     progress: "Progress",
@@ -489,7 +559,62 @@ export const translations = {
                     backToMainDashboard: "Back to Main Dashboard",
                     discardAssessment: "Discard Assessment",
                     discardConfirm: "Are you sure you want to discard this assessment? This action cannot be undone."
+                },
+                results: {
+                    reportTitle: "Layer Farm Biosecurity Assessment Report",
+                    subtitle: "Comprehensive biosecurity evaluation results",
+                    criticalRisk: "CRITICAL RISK",
+                    highRisk: "HIGH RISK",
+                    mediumRisk: "MEDIUM RISK",
+                    lowRisk: "LOW RISK",
+                    questionsAnswered: "questions answered",
+                    categoryBreakdown: "Category Breakdown",
+                    recommendedActions: "Recommended Actions",
+                    printReport: "Print Report",
+                    backToDashboard: "Back to Dashboard",
+                    newAssessment: "New Assessment"
                 }
+            },
+            results: {
+                reportTitle: "Biosecurity Assessment Report",
+                layerSubtitle: "Layer Farm Biosecurity Evaluation",
+                breederSubtitle: "Breeder Farm Biosecurity Evaluation",
+                assessmentComplete: "Assessment Complete",
+                loading: "Loading...",
+                noDataFound: "No assessment data found.",
+                overallScore: "Overall Score",
+                grade: "Grade",
+                diseaseRisks: "Disease Risks",
+                completed: "Completed",
+                criticalRisk: "Critical Risk",
+                highRisk: "High Risk",
+                mediumRisk: "Medium Risk",
+                lowRisk: "Low Risk",
+                excellentBiosecurity: "Excellent Biosecurity",
+                categoryBreakdown: "Category Breakdown",
+                overview: "Overview",
+                diseaseRisksTab: "Disease Risks",
+                recommendationsTab: "Recommendations",
+                criticalRisksHeader: "CRITICAL RISKS",
+                noRisksIdentified: "No significant disease risks identified",
+                greatWork: "Great Work!",
+                noRecommendationsMessage: "No critical recommendations at this time. Keep up the excellent biosecurity practices!",
+                backToHome: "Back to Home",
+                printReport: "Print Report",
+                print: "Print",
+                newAssessment: "New Assessment",
+                questionsAnswered: "{answered} of {total} questions answered",
+                gradeRiskLevel: "Grade {grade} - {level} RISK"
+            },
+            questions: {
+                assessmentProgress: "Assessment Progress",
+                inCategory: "in category",
+                hideProgress: "Hide Progress",
+                showProgress: "Show Progress",
+                previous: "Previous",
+                saveAndExit: "Save & Exit",
+                next: "Next",
+                completeAndSave: "Complete & Save"
             }
         }
     },
@@ -777,7 +902,22 @@ export const translations = {
                     treatment: "Rekomendasi pengobatan",
                     offline: "Bekerja offline"
                 },
-                button: "Mulai Diagnosis"
+                button: "Mulai Diagnosis",
+                steps: {
+                    age: "Usia",
+                    bodyPartSymptoms: "Bagian Tubuh & Gejala",
+                    results: "Hasil"
+                },
+                age: {
+                    title: "Pilih Kelompok Usia",
+                    subtitle: "Pilih kelompok usia burung yang terkena",
+                    allAges: "Semua Usia",
+                    zeroToThree: "0-3 Minggu",
+                    fourToEight: "4-8 Minggu",
+                    ninePlus: "9+ Minggu",
+                    continue: "Lanjutkan",
+                    selected: "Dipilih"
+                }
             },
             hatchery: {
                 title: "Audit Penetasan",
@@ -852,7 +992,14 @@ export const translations = {
                     recentAssessments: "Penilaian Terkini",
                     noAssessmentsYet: "Belum Ada Penilaian",
                     noAssessmentsText: "Mulai penilaian biosekuriti farm ayam pedaging pertama Anda untuk melacak kepatuhan dan kualitas kesehatan",
-                    startFirstAssessment: "Mulai Penilaian Pertama"
+                    startFirstAssessment: "Mulai Penilaian Pertama",
+                    idDate: "ID / TANGGAL",
+                    progressScore: "KEMAJUAN / SKOR",
+                    status: "STATUS",
+                    actions: "TINDAKAN",
+                    inProgress: "Sedang Berlangsung",
+                    continue: "Lanjutkan",
+                    delete: "Hapus"
                 },
                 dashboard: {
                     title: "Penilaian Biosekuriti Farm Ayam Pedaging",
@@ -876,12 +1023,32 @@ export const translations = {
                     printAssessmentSummary: "Cetak Ringkasan Penilaian",
                     backToMainDashboard: "Kembali ke Dashboard Utama",
                     discardAssessment: "Buang Penilaian",
-                    discardConfirm: "Apakah Anda yakin ingin membuang penilaian ini? Tindakan ini tidak dapat dibatalkan."
+                    discardConfirm: "Apakah Anda yakin ingin membuang penilaian ini? Tindakan ini tidak dapat dibatalkan.",
+                    focusArea: "AREA FOKUS",
+                    questions: "pertanyaan",
+                    answered: "dijawab"
+                },
+                results: {
+                    reportTitle: "Laporan Penilaian Biosekuriti Peternakan Broiler",
+                    subtitle: "Hasil evaluasi biosekuriti komprehensif",
+                    criticalRisk: "RISIKO KRITIS",
+                    highRisk: "RISIKO TINGGI",
+                    mediumRisk: "RISIKO SEDANG",
+                    lowRisk: "RISIKO RENDAH",
+                    questionsAnswered: "pertanyaan dijawab",
+                    categoryBreakdown: "Rincian Kategori",
+                    diseasesAtRisk: "Penyakit Berisiko",
+                    improvementPlan: "Rencana Perbaikan",
+                    highPriority: "Prioritas Tinggi",
+                    recommendedActions: "Tindakan yang Direkomendasikan",
+                    printReport: "Cetak Laporan",
+                    backToDashboard: "Kembali ke Dashboard",
+                    newAssessment: "Mulai Penilaian Baru"
                 }
             },
             breeder: {
-                title: "Penilaian Farm Ayam Petelur Induk",
-                description: "Evaluasi biosekuriti komprehensif untuk peternakan ayam petelur induk",
+                title: "Penilaian Breeder Farm",
+                description: "Evaluasi biosekuriti komprehensif untuk Breeder Farm",
                 features: {
                     assessment: "Penilaian 131 poin",
                     priority: "Sistem prioritas 4 tingkat",
@@ -890,8 +1057,8 @@ export const translations = {
                 },
                 button: "Mulai Penilaian",
                 landing: {
-                    title: "Dashboard Penilaian Farm Ayam Petelur Induk",
-                    subtitle: "Evaluasi biosekuriti komprehensif untuk peternakan ayam petelur induk",
+                    title: "Dashboard Penilaian Breeder Farm",
+                    subtitle: "Evaluasi biosekuriti komprehensif untuk Breeder Farm",
                     totalAssessments: "Total Penilaian",
                     completed: "selesai",
                     lastScore: "Skor Terakhir",
@@ -905,16 +1072,17 @@ export const translations = {
                     viewAssessmentHistory: "Lihat Riwayat Penilaian",
                     recentAssessments: "Penilaian Terkini",
                     noAssessmentsYet: "Belum Ada Penilaian",
-                    noAssessmentsText: "Mulai penilaian biosekuriti farm ayam petelur induk pertama Anda untuk melacak kepatuhan dan kualitas kesehatan",
+                    noAssessmentsText: "Mulai penilaian biosekuriti Breeder Farm pertama Anda untuk melacak kepatuhan dan kualitas kesehatan",
                     startFirstAssessment: "Mulai Penilaian Pertama"
                 },
                 dashboard: {
-                    title: "Penilaian Biosekuriti Farm Ayam Petelur Induk",
+                    title: "Penilaian Biosekuriti Breeder Farm",
                     subtitle: "Pilih kategori untuk memulai penilaian Anda",
                     subtitleContinue: "Pilih kategori untuk melanjutkan penilaian Anda",
                     backToDashboard: "Kembali ke Dashboard",
                     totalQuestions: "Total Pertanyaan",
                     allCategories: "semua kategori",
+                    currentScore: "SKOR SAAT INI",
                     answered: "Dijawab",
                     questionsCompleted: "pertanyaan selesai",
                     progress: "Progres",
@@ -930,6 +1098,24 @@ export const translations = {
                     backToMainDashboard: "Kembali ke Dashboard Utama",
                     discardAssessment: "Buang Penilaian",
                     discardConfirm: "Apakah Anda yakin ingin membuang penilaian ini? Tindakan ini tidak dapat dibatalkan."
+                },
+                results: {
+                    reportTitle: "Laporan Penilaian Biosekuriti Breeder Farm",
+                    subtitle: "Hasil evaluasi biosekuriti komprehensif",
+                    criticalRisk: "RISIKO KRITIS",
+                    highRisk: "RISIKO TINGGI",
+                    mediumRisk: "RISIKO SEDANG",
+                    lowRisk: "RISIKO RENDAH",
+                    questionsAnswered: "pertanyaan dijawab",
+                    categoryBreakdown: "Rincian Kategori",
+                    diseasesAtRisk: "Penyakit Berisiko",
+                    improvementPlan: "Rencana Perbaikan",
+                    criticalPriority: "Prioritas Kritis",
+                    highPriority: "Prioritas Tinggi",
+                    recommendedActions: "Tindakan yang Direkomendasikan",
+                    printReport: "Cetak Laporan",
+                    backToDashboard: "Kembali ke Dashboard",
+                    newAssessment: "Penilaian Baru"
                 }
             },
             layer: {
@@ -959,7 +1145,15 @@ export const translations = {
                     recentAssessments: "Penilaian Terkini",
                     noAssessmentsYet: "Belum Ada Penilaian",
                     noAssessmentsText: "Mulai penilaian biosekuriti farm ayam petelur pertama Anda untuk melacak kepatuhan dan kualitas kesehatan",
-                    startFirstAssessment: "Mulai Penilaian Pertama"
+                    startFirstAssessment: "Mulai Penilaian Pertama",
+                    idDate: "ID / TANGGAL",
+                    progressScore: "KEMAJUAN / SKOR",
+                    status: "STATUS",
+                    actions: "TINDAKAN",
+                    inProgress: "Sedang Berlangsung",
+                    continue: "Lanjutkan",
+                    delete: "Hapus",
+                    viewReport: "Lihat Laporan"
                 },
                 dashboard: {
                     title: "Penilaian Biosekuriti Farm Ayam Petelur",
@@ -968,6 +1162,7 @@ export const translations = {
                     backToDashboard: "Kembali ke Dashboard",
                     totalQuestions: "Total Pertanyaan",
                     allCategories: "semua kategori",
+                    currentScore: "SKOR SAAT INI",
                     answered: "Dijawab",
                     questionsCompleted: "pertanyaan selesai",
                     progress: "Progres",
@@ -983,6 +1178,20 @@ export const translations = {
                     backToMainDashboard: "Kembali ke Dashboard Utama",
                     discardAssessment: "Buang Penilaian",
                     discardConfirm: "Apakah Anda yakin ingin membuang penilaian ini? Tindakan ini tidak dapat dibatalkan."
+                },
+                results: {
+                    reportTitle: "Laporan Penilaian Biosekuriti Peternakan Layer",
+                    subtitle: "Hasil evaluasi biosekuriti komprehensif",
+                    criticalRisk: "RISIKO KRITIS",
+                    highRisk: "RISIKO TINGGI",
+                    mediumRisk: "RISIKO SEDANG",
+                    lowRisk: "RISIKO RENDAH",
+                    questionsAnswered: "pertanyaan dijawab",
+                    categoryBreakdown: "Rincian Kategori",
+                    recommendedActions: "Tindakan yang Direkomendasikan",
+                    printReport: "Cetak Laporan",
+                    backToDashboard: "Kembali ke Dashboard",
+                    newAssessment: "Penilaian Baru"
                 }
             }
         },
@@ -990,7 +1199,7 @@ export const translations = {
             results: {
                 reportTitle: "Laporan Penilaian Biosekuriti",
                 layerSubtitle: "Evaluasi Biosekuriti Peternakan Layer",
-                breederSubtitle: "Evaluasi Biosekuriti Peternakan Breeder",
+                breederSubtitle: "Evaluasi Biosekuriti Breeder Farm",
                 assessmentComplete: "Penilaian Selesai",
                 loading: "Memuat...",
                 noDataFound: "Data penilaian tidak ditemukan.",
@@ -1032,6 +1241,16 @@ export const translations = {
                 newAssessment: "Penilaian Baru",
                 questionsAnswered: "{answered} dari {total} pertanyaan terjawab",
                 gradeRiskLevel: "Nilai {grade} - RISIKO {level}"
+            },
+            questions: {
+                assessmentProgress: "Kemajuan Penilaian",
+                inCategory: "dalam kategori",
+                hideProgress: "Sembunyikan Kemajuan",
+                showProgress: "Tampilkan Kemajuan",
+                previous: "Sebelumnya",
+                saveAndExit: "Simpan & Keluar",
+                next: "Berikutnya",
+                completeAndSave: "Selesaikan & Simpan"
             },
             categories: {
                 farmCharacteristics: "Karakteristik Peternakan",
@@ -1338,7 +1557,22 @@ export const translations = {
                     treatment: "Khuyến nghị điều trị",
                     offline: "Hoạt động ngoại tuyến"
                 },
-                button: "Bắt đầu Chẩn đoán"
+                button: "Bắt đầu Chẩn đoán",
+                steps: {
+                    age: "Tuổi",
+                    bodyPartSymptoms: "Bộ phận Cơ thể & Triệu chứng",
+                    results: "Kết quả"
+                },
+                age: {
+                    title: "Chọn Nhóm Tuổi",
+                    subtitle: "Chọn nhóm tuổi của những con chim bị ảnh hưởng",
+                    allAges: "Tất cả Lứa tuổi",
+                    zeroToThree: "0-3 Tuần",
+                    fourToEight: "4-8 Tuần",
+                    ninePlus: "9+ Tuần",
+                    continue: "Tiếp tục",
+                    selected: "Đã chọn"
+                }
             },
             hatchery: {
                 title: "Kiểm toán Trại ấp",
@@ -1413,7 +1647,14 @@ export const translations = {
                     recentAssessments: "Đánh giá Gần đây",
                     noAssessmentsYet: "Chưa có Đánh giá",
                     noAssessmentsText: "Bắt đầu đánh giá an toàn sinh học trang trại gà thịt đầu tiên để theo dõi tuân thủ và chất lượng sức khỏe",
-                    startFirstAssessment: "Bắt đầu Đánh giá Đầu tiên"
+                    startFirstAssessment: "Bắt đầu Đánh giá Đầu tiên",
+                    idDate: "ID / NGÀY",
+                    progressScore: "TIẾN ĐỘ / ĐIỂM",
+                    status: "TRẠNG THÁI",
+                    actions: "HÀNH ĐỘNG",
+                    inProgress: "Đang Thực Hiện",
+                    continue: "Tiếp Tục",
+                    delete: "Xóa"
                 },
                 dashboard: {
                     title: "Đánh giá An toàn Sinh học Trang trại Gà thịt",
@@ -1437,7 +1678,31 @@ export const translations = {
                     printAssessmentSummary: "In Tóm tắt Đánh giá",
                     backToMainDashboard: "Quay lại Bảng điều khiển Chính",
                     discardAssessment: "Hủy Đánh giá",
-                    discardConfirm: "Bạn có chắc chắn muốn hủy đánh giá này? Hành động này không thể hoàn tác."
+                    discardConfirm: "Bạn có chắc chắn muốn hủy đánh giá này? Hành động này không thể hoàn tác.",
+                    allCategories: "tất cả danh mục",
+                    categories: "Danh mục",
+                    totalCategories: "tổng số danh mục",
+                    questions: "câu hỏi",
+                    complete: "Hoàn thành",
+                    reviewAnswers: "Xem lại câu trả lời",
+                    focusArea: "KHU VỰC TẬP TRUNG"
+                },
+                results: {
+                    reportTitle: "Báo cáo Đánh giá An toàn Sinh học Trang trại Gà thịt",
+                    subtitle: "Kết quả đánh giá an toàn sinh học toàn diện",
+                    criticalRisk: "NGUY CƠ NGHIÊM TRỌNG",
+                    highRisk: "NGUY CƠ CAO",
+                    mediumRisk: "NGUY CƠ TRUNG BÌNH",
+                    lowRisk: "NGUY CƠ THẤP",
+                    questionsAnswered: "câu hỏi đã trả lời",
+                    categoryBreakdown: "Phân tích Theo Danh mục",
+                    diseasesAtRisk: "Bệnh có Nguy cơ",
+                    improvementPlan: "Kế hoạch Cải tiến",
+                    highPriority: "Ưu tiên Cao",
+                    recommendedActions: "Hành động Được Đề xuất",
+                    printReport: "In Báo cáo",
+                    backToDashboard: "Quay lại Bảng điều khiển",
+                    newAssessment: "Bắt đầu Đánh giá Mới"
                 }
             },
             breeder: {
@@ -1476,6 +1741,7 @@ export const translations = {
                     backToDashboard: "Quay lại Bảng điều khiển",
                     totalQuestions: "Tổng số Câu hỏi",
                     allCategories: "tất cả danh mục",
+                    currentScore: "ĐIỂM HIỆN TẠI",
                     answered: "Đã trả lời",
                     questionsCompleted: "câu hỏi hoàn thành",
                     progress: "Tiến độ",
@@ -1490,7 +1756,26 @@ export const translations = {
                     printAssessmentSummary: "In Tóm tắt Đánh giá",
                     backToMainDashboard: "Quay lại Bảng điều khiển Chính",
                     discardAssessment: "Hủy Đánh giá",
-                    discardConfirm: "Bạn có chắc chắn muốn hủy đánh giá này? Hành động này không thể hoàn tác."
+                    discardConfirm: "Bạn có chắc chắn muốn hủy đánh giá này? Hành động này không thể hoàn tác.",
+                    focusArea: "KHU VỰC TẬP TRUNG"
+                },
+                results: {
+                    reportTitle: "Báo cáo Đánh giá An toàn Sinh học Trang trại Gà giống",
+                    subtitle: "Kết quả đánh giá an toàn sinh học toàn diện",
+                    criticalRisk: "NGUY CƠ NGHIÊM TRỌNG",
+                    highRisk: "NGUY CƠ CAO",
+                    mediumRisk: "NGUY CƠ TRUNG BÌNH",
+                    lowRisk: "NGUY CƠ THẤP",
+                    questionsAnswered: "câu hỏi đã trả lời",
+                    categoryBreakdown: "Phân tích Theo Danh mục",
+                    diseasesAtRisk: "Bệnh có Nguy cơ",
+                    improvementPlan: "Kế hoạch Cải tiến",
+                    criticalPriority: "Ưu tiên Nghiêm trọng",
+                    highPriority: "Ưu tiên Cao",
+                    recommendedActions: "Hành động Được Đề xuất",
+                    printReport: "In Báo cáo",
+                    backToDashboard: "Quay lại Bảng điều khiển",
+                    newAssessment: "Đánh giá Mới"
                 }
             },
             layer: {
@@ -1520,7 +1805,15 @@ export const translations = {
                     recentAssessments: "Đánh giá Gần đây",
                     noAssessmentsYet: "Chưa có Đánh giá",
                     noAssessmentsText: "Bắt đầu đánh giá an toàn sinh học trang trại gà đẻ đầu tiên để theo dõi tuân thủ và chất lượng sức khỏe",
-                    startFirstAssessment: "Bắt đầu Đánh giá Đầu tiên"
+                    startFirstAssessment: "Bắt đầu Đánh giá Đầu tiên",
+                    idDate: "ID / NGÀY",
+                    progressScore: "TIẾN ĐỘ / ĐIỂM",
+                    status: "TRẠNG THÁI",
+                    actions: "HÀNH ĐỘNG",
+                    inProgress: "Đang Thực Hiện",
+                    continue: "Tiếp Tục",
+                    delete: "Xóa",
+                    viewReport: "Xem Báo Cáo"
                 },
                 dashboard: {
                     title: "Đánh giá An toàn Sinh học Trang trại Gà đẻ",
@@ -1529,6 +1822,7 @@ export const translations = {
                     backToDashboard: "Quay lại Bảng điều khiển",
                     totalQuestions: "Tổng số Câu hỏi",
                     allCategories: "tất cả danh mục",
+                    currentScore: "ĐIỂM HIỆN TẠI",
                     answered: "Đã trả lời",
                     questionsCompleted: "câu hỏi hoàn thành",
                     progress: "Tiến độ",
@@ -1544,6 +1838,20 @@ export const translations = {
                     backToMainDashboard: "Quay lại Bảng điều khiển Chính",
                     discardAssessment: "Hủy Đánh giá",
                     discardConfirm: "Bạn có chắc chắn muốn hủy đánh giá này? Hành động này không thể hoàn tác."
+                },
+                results: {
+                    reportTitle: "Báo cáo Đánh giá An toàn Sinh học Trang trại Gà đẻ",
+                    subtitle: "Kết quả đánh giá an toàn sinh học toàn diện",
+                    criticalRisk: "NGUY CƠ NGHIÊM TRỌNG",
+                    highRisk: "NGUY CƠ CAO",
+                    mediumRisk: "NGUY CƠ TRUNG BÌNH",
+                    lowRisk: "NGUY CƠ THẤP",
+                    questionsAnswered: "câu hỏi đã trả lời",
+                    categoryBreakdown: "Phân tích Theo Danh mục",
+                    recommendedActions: "Hành động Được Đề xuất",
+                    printReport: "In Báo cáo",
+                    backToDashboard: "Quay lại Bảng điều khiển",
+                    newAssessment: "Đánh giá Mới"
                 }
             }
         },
@@ -1593,6 +1901,16 @@ export const translations = {
                 newAssessment: "Đánh Giá Mới",
                 questionsAnswered: "{answered} trong {total} câu hỏi đã trả lời",
                 gradeRiskLevel: "Xếp Hạng {grade} - NGUY CƠ {level}"
+            },
+            questions: {
+                assessmentProgress: "Tiến độ Đánh giá",
+                inCategory: "trong danh mục",
+                hideProgress: "Ẩn Tiến độ",
+                showProgress: "Hiện Tiến độ",
+                previous: "Trước",
+                saveAndExit: "Lưu & Thoát",
+                next: "Tiếp theo",
+                completeAndSave: "Hoàn thành & Lưu"
             },
             categories: {
                 farmCharacteristics: "Đặc Điểm Trang Trại",

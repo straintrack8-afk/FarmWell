@@ -3,7 +3,11 @@
  * Handles field name differences between language versions
  */
 
-// Field name mapping for different languages
+// Field name mapping for multilingual disease data
+// - EN: Uses English field names
+// - ID: Uses Indonesian field names (deskripsi, tanda_klinis, penularan, etc.)
+// - VI: Uses English field names but contains Vietnamese content
+//   (Vietnamese JSON structure differs from Indonesian - same field names, different content)
 export const FIELD_MAP = {
   en: {
     description: 'description',
@@ -37,15 +41,37 @@ export const FIELD_MAP = {
 /**
  * Get field value from disease object based on language
  * @param {Object} disease - Disease object
- * @param {string} field - Field name (English version)
- * @param {string} language - Language code (en/id/vi)
- * @returns {any} Field value
+ * @param {string} fieldKey - Field key (e.g., 'description', 'clinicalSigns')
+ * @param {string} language - Language code ('en', 'id', 'vi')
+ * @returns {Array|string} Field value or empty array
  */
-export const getFieldValue = (disease, field, language = 'en') => {
-  if (!disease) return null;
+export const getFieldValue = (disease, fieldKey, language) => {
+  // Validate inputs
+  if (!disease || !fieldKey || !language) {
+    console.warn('getFieldValue - Missing parameters:', { 
+      hasDisease: !!disease, 
+      fieldKey, 
+      language 
+    });
+    return [];
+  }
+
+  // Get mapped field name for current language
+  const mappedField = FIELD_MAP[language]?.[fieldKey];
   
-  const mappedField = FIELD_MAP[language]?.[field] || field;
-  return disease[mappedField];
+  if (!mappedField) {
+    console.warn(`getFieldValue - No mapping found for field "${fieldKey}" in language "${language}"`);
+    return [];
+  }
+
+  // Get value from disease object using mapped field name
+  const value = disease[mappedField];
+  
+  // Debug logging (can be removed after fix is confirmed)
+  console.log(`getFieldValue - Field: ${fieldKey}, Lang: ${language}, Mapped: ${mappedField}, HasValue: ${!!value}`);
+  
+  // Return value or empty array if undefined
+  return value || [];
 };
 
 /**
@@ -91,8 +117,8 @@ export const getCategoryClass = (category) => {
  * @returns {Object} UI labels
  */
 export const getUILabels = (language = 'en') => {
-  // Normalize Vietnamese language code (handle legacy 'vt' and 'vn' codes)
-  const normalizedLang = (language === 'vt' || language === 'vn') ? 'vi' : language;
+  // Normalize language code (no legacy vt/vn support)
+  const normalizedLang = language === 'vi' ? 'vi' : (language === 'id' ? 'id' : 'en');
   
   const labels = {
     en: {

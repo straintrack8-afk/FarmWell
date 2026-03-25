@@ -229,16 +229,16 @@ function BroilerAssessmentLanding() {
                                     <thead>
                                         <tr style={{ textAlign: 'left' }}>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                ID / Date
+                                                {t('poultry.biosecurity.landing.idDate')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Progress / Score
+                                                {t('poultry.biosecurity.landing.progressScore')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Status
+                                                {t('poultry.biosecurity.landing.status')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>
-                                                Actions
+                                                {t('poultry.biosecurity.landing.actions')}
                                             </th>
                                         </tr>
                                     </thead>
@@ -279,7 +279,7 @@ function BroilerAssessmentLanding() {
                                                         ) : (
                                                             <div>
                                                                 <div style={{ fontSize: '0.875rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.3rem' }}>
-                                                                    {answeredCount} / {totalQuestions} answered
+                                                                    {answeredCount} / {totalQuestions} {t('poultry.biosecurity.dashboard.answered')}
                                                                 </div>
                                                                 <div style={{ height: '6px', background: '#e5e7eb', borderRadius: '999px', overflow: 'hidden', width: '120px' }}>
                                                                     <div style={{ height: '100%', width: `${percentage}%`, background: '#3b82f6', borderRadius: '999px' }}></div>
@@ -296,7 +296,7 @@ function BroilerAssessmentLanding() {
                                                             backgroundColor: isCompleted ? '#D1FAE5' : '#FEF3C7',
                                                             color: isCompleted ? '#065F46' : '#92400E'
                                                         }}>
-                                                            {isCompleted ? 'Completed' : 'In Progress'}
+                                                            {isCompleted ? t('poultry.biosecurity.landing.completed') : t('poultry.biosecurity.landing.inProgress')}
                                                         </span>
                                                     </td>
                                                     <td style={{ padding: '1.25rem', textAlign: 'right', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
@@ -323,7 +323,7 @@ function BroilerAssessmentLanding() {
                                                                     boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)'
                                                                 }}
                                                             >
-                                                                {isCompleted ? 'View Report' : 'Continue'}
+                                                                {isCompleted ? 'View Report' : t('poultry.biosecurity.landing.continue')}
                                                             </button>
                                                             <button
                                                                 onClick={(e) => handleDeleteAssessment(assessment.id, e)}
@@ -347,7 +347,7 @@ function BroilerAssessmentLanding() {
                                                                 }}
                                                                 title="Delete Assessment"
                                                             >
-                                                                Delete
+                                                                {t('poultry.biosecurity.landing.delete')}
                                                             </button>
                                                         </div>
                                                     </td>

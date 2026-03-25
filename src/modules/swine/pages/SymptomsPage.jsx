@@ -34,14 +34,14 @@ function SymptomsPage() {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [expandedCategories, setExpandedCategories] = useState({
-        mortality: true,
-        fever: true,
-        respiratory: true,
-        digestive: true,
-        nervous: true,
-        skin: true,
-        reproductive: true,
-        systemic: true
+        mortality: false,
+        fever: false,
+        respiratory: false,
+        digestive: false,
+        nervous: false,
+        skin: false,
+        reproductive: false,
+        systemic: false
     });
 
     useEffect(() => {

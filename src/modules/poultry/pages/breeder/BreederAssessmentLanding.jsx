@@ -282,7 +282,7 @@ function BreederAssessmentLanding() {
                                                         ) : (
                                                             <div>
                                                                 <div style={{ fontSize: '0.875rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.3rem' }}>
-                                                                    {answeredCount} / {totalQuestions} answered
+                                                                    {answeredCount} / {totalQuestions} {t('poultry.biosecurity.dashboard.answered')}
                                                                 </div>
                                                                 <div style={{ height: '6px', background: '#e5e7eb', borderRadius: '999px', overflow: 'hidden', width: '120px' }}>
                                                                     <div style={{ height: '100%', width: `${percentage}%`, background: '#8b5cf6', borderRadius: '999px' }}></div>

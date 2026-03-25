@@ -34,7 +34,7 @@ import LayerAssessmentPage from './pages/layer/LayerAssessmentPage';
 import LayerResultsPage from './pages/layer/LayerResultsPage';
 import DiseaseComparison from './pages/DiseaseComparison';
 import DiagnosticLanding from './pages/DiagnosticLanding';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../hooks/useTranslation';
 
 
 function DiagnosticApp() {
@@ -47,11 +47,20 @@ function DiagnosticApp() {
     console.log('DiagnosticApp render - Current step:', step);
     console.log('Available STEPS:', STEPS);
 
-    // Force AGE step when accessing /diagnostic/age route
+    // Sync route with step state
     useEffect(() => {
         if (location.pathname === '/poultry/diagnostic/age' && step !== STEPS.AGE) {
             console.log('Forcing AGE step for /diagnostic/age route');
             setStep(STEPS.AGE);
+        } else if (location.pathname === '/poultry/diagnostic/symptoms' && step !== STEPS.SYMPTOMS) {
+            console.log('Forcing SYMPTOMS step for /diagnostic/symptoms route');
+            setStep(STEPS.SYMPTOMS);
+        } else if (location.pathname === '/poultry/diagnostic/results' && step !== STEPS.ALL_DISEASES) {
+            console.log('Forcing ALL_DISEASES step for /diagnostic/results route');
+            setStep(STEPS.ALL_DISEASES);
+        } else if (location.pathname === '/poultry/diagnostic/detail' && step !== STEPS.DETAIL) {
+            console.log('Forcing DETAIL step for /diagnostic/detail route');
+            setStep(STEPS.DETAIL);
         }
     }, [location.pathname, step, setStep]);
 

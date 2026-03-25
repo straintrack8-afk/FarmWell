@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useBreederAssessment } from '../../contexts/BreederAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import '../../../../portal.css';
 import '../../poultry.css';
 
@@ -59,10 +59,10 @@ function BreederResultsPage() {
     };
 
     const getGradeLabel = () => {
-        if (overallScore < 50) return t('biosecurity.results.criticalRisk');
-        if (overallScore >= 50 && overallScore <= 75) return t('biosecurity.results.highRisk');
-        if (overallScore > 75 && overallScore <= 85) return t('biosecurity.results.mediumRisk');
-        if (overallScore > 85 && overallScore <= 95) return t('biosecurity.results.lowRisk');
+        if (overallScore < 50) return t('poultry.breeder.results.criticalRisk');
+        if (overallScore >= 50 && overallScore <= 75) return t('poultry.breeder.results.highRisk');
+        if (overallScore > 75 && overallScore <= 85) return t('poultry.breeder.results.mediumRisk');
+        if (overallScore > 85 && overallScore <= 95) return t('poultry.breeder.results.lowRisk');
         return t('biosecurity.results.excellentBiosecurity');
     };
 
@@ -134,35 +134,12 @@ function BreederResultsPage() {
             <div className="portal-layout">
                 <div className="portal-container">
                     <div className="portal-card">
-                        {/* Header */}
-                        <div className="header" style={{ '@media print': { display: 'none' } }}>
-                            <div className="header-logo" onClick={() => navigate('/poultry')} style={{ cursor: 'pointer' }}>
-                                <img src="/images/PoultryWell_Logo.png" alt="PoultryWell" style={{ height: '80px' }} />
-                            </div>
-                            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                                <div style={{
-                                    padding: '0.5rem 1rem',
-                                    background: '#f3f4f6',
-                                    borderRadius: '8px',
-                                    fontSize: '0.875rem',
-                                    fontWeight: '600',
-                                    color: '#374151'
-                                }}>
-                                    {language.toUpperCase()}
-                                </div>
-                                <div className="offline-indicator online">
-                                    <span className="status-dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }}></span>
-                                    Online
-                                </div>
-                            </div>
-                        </div>
-
                         {/* Title */}
                         <div style={{ marginBottom: '2rem', textAlign: 'center', padding: '2rem 1rem 0 1rem' }}>
                             <h1 style={{ fontSize: 'clamp(1.4rem, 5vw, 2.5rem)', fontWeight: '700', marginBottom: '0.5rem', wordBreak: 'break-word' }}>
-                                {t('biosecurity.results.reportTitle')}
+                                {t('poultry.breeder.results.reportTitle')}
                             </h1>
-                            <p style={{ color: '#6b7280' }}>{t('biosecurity.results.breederSubtitle')}</p>
+                            <p style={{ color: '#6b7280' }}>{t('poultry.breeder.results.subtitle')}</p>
                         </div>
 
                         {/* Content Wrapper */}
@@ -209,7 +186,7 @@ function BreederResultsPage() {
                                         {getGradeLabel()}
                                     </div>
                                     <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>
-                                        {t('biosecurity.results.questionsAnswered', { answered: progressStats?.answeredCount || 0, total: progressStats?.totalCount || 131 })}
+                                        {progressStats?.answeredCount || 0} / {progressStats?.totalCount || 131} {t('poultry.breeder.results.questionsAnswered')}
                                     </div>
                                 </div>
                             </div>
@@ -221,7 +198,7 @@ function BreederResultsPage() {
                                     fontWeight: '600',
                                     marginBottom: '0.75rem'
                                 }}>
-                                    {t('biosecurity.results.categoryBreakdown')}
+                                    {t('poultry.breeder.results.categoryBreakdown')}
                                 </h2>
                                 <div style={{
                                     display: 'grid',
@@ -282,7 +259,7 @@ function BreederResultsPage() {
                                     marginBottom: '0.75rem',
                                     color: '#1f2937'
                                 }}>
-                                    {t('biosecurity.results.diseasesAtRisk')}
+                                    {t('poultry.breeder.results.diseasesAtRisk')}
                                 </h2>
                                 {diseasesAtRisk && diseasesAtRisk.length > 0 ? (
                                     <div style={{
@@ -328,7 +305,7 @@ function BreederResultsPage() {
                                     marginBottom: '0.75rem',
                                     color: '#1f2937'
                                 }}>
-                                    {t('biosecurity.results.improvementPlan')}
+                                    {t('poultry.breeder.results.improvementPlan')}
                                 </h2>
 
                                 {/* Critical Priority */}
@@ -354,7 +331,7 @@ function BreederResultsPage() {
                                                 fontWeight: '600',
                                                 color: '#991b1b'
                                             }}>
-                                                {t('biosecurity.results.criticalPriority', { count: improvements.critical.length })}
+                                                {t('poultry.breeder.results.criticalPriority')} ({improvements.critical.length})
                                             </span>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -398,7 +375,7 @@ function BreederResultsPage() {
                                                                 color: '#1f2937',
                                                                 marginBottom: '0.5rem'
                                                             }}>
-                                                                {t('biosecurity.results.recommendedActions')}
+                                                                {t('poultry.breeder.results.recommendedActions')}
                                                             </div>
                                                             <ol style={{
                                                                 fontSize: '0.875rem',
@@ -444,7 +421,7 @@ function BreederResultsPage() {
                                                 fontWeight: '600',
                                                 color: '#92400e'
                                             }}>
-                                                {t('biosecurity.results.highPriority', { count: improvements.high.length })}
+                                                {t('poultry.breeder.results.highPriority')} ({improvements.high.length})
                                             </span>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -488,7 +465,7 @@ function BreederResultsPage() {
                                                                 color: '#1f2937',
                                                                 marginBottom: '0.5rem'
                                                             }}>
-                                                                {t('biosecurity.results.recommendedActions')}
+                                                                {t('poultry.breeder.results.recommendedActions')}
                                                             </div>
                                                             <ol style={{
                                                                 fontSize: '0.875rem',
@@ -534,25 +511,17 @@ function BreederResultsPage() {
                                         padding: '0.75rem 2rem'
                                     }}
                                 >
-                                    {t('biosecurity.results.printReport')}
+                                    {t('poultry.breeder.results.printReport')}
                                 </button>
                                 <button
                                     onClick={handleBackToLanding}
+                                    className="btn btn-secondary"
                                     style={{
                                         padding: '0.75rem 2rem',
-                                        background: 'white',
-                                        color: '#374151',
-                                        border: '2px solid #d1d5db',
-                                        borderRadius: '8px',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s'
+                                        borderRadius: '12px'
                                     }}
-                                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#9ca3af'}
-                                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                                 >
-                                    {t('biosecurity.results.backToDashboard')}
+                                    {t('poultry.breeder.results.backToDashboard')}
                                 </button>
                                 <button
                                     onClick={handleNewAssessment}
@@ -565,7 +534,7 @@ function BreederResultsPage() {
                                         transition: 'all 0.2s'
                                     }}
                                 >
-                                    {t('biosecurity.results.newAssessment')}
+                                    {t('poultry.breeder.results.newAssessment')}
                                 </button>
                             </div>
                         </div>

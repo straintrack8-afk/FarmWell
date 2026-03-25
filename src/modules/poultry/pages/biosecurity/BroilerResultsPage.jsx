@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBroilerAssessment } from '../../contexts/BroilerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import { getLocalizedText } from '../../utils/assessmentUtils';
 import '../../../../portal.css';
 import '../../poultry.css';
@@ -66,10 +66,10 @@ function BroilerResultsPage() {
 
     // Get grade label based on score ranges
     const getGradeLabel = () => {
-        if (overallScore < 50) return t('biosecurity.results.criticalRisk');
-        if (overallScore >= 50 && overallScore <= 75) return t('biosecurity.results.highRisk');
-        if (overallScore > 75 && overallScore <= 85) return t('biosecurity.results.mediumRisk');
-        if (overallScore > 85 && overallScore <= 95) return t('biosecurity.results.lowRisk');
+        if (overallScore < 50) return t('poultry.biosecurity.results.criticalRisk');
+        if (overallScore >= 50 && overallScore <= 75) return t('poultry.biosecurity.results.highRisk');
+        if (overallScore > 75 && overallScore <= 85) return t('poultry.biosecurity.results.mediumRisk');
+        if (overallScore > 85 && overallScore <= 95) return t('poultry.biosecurity.results.lowRisk');
         return t('biosecurity.results.excellentBiosecurity');
     };
 
@@ -320,35 +320,12 @@ function BroilerResultsPage() {
             <div className="portal-layout">
                 <div className="portal-container">
                     <div className="portal-card">
-                        {/* Header */}
-                        <div className="header" style={{ '@media print': { display: 'none' } }}>
-                            <div className="header-logo" onClick={() => navigate('/poultry')} style={{ cursor: 'pointer' }}>
-                                <img src="/images/PoultryWell_Logo.png" alt="PoultryWell" style={{ height: '80px' }} />
-                            </div>
-                            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                                <div style={{
-                                    padding: '0.5rem 1rem',
-                                    background: '#f3f4f6',
-                                    borderRadius: '8px',
-                                    fontSize: '0.875rem',
-                                    fontWeight: '600',
-                                    color: '#374151'
-                                }}>
-                                    {language.toUpperCase()}
-                                </div>
-                                <div className="offline-indicator online">
-                                    <span className="status-dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }}></span>
-                                    Online
-                                </div>
-                            </div>
-                        </div>
-
                         {/* Title */}
                         <div style={{ marginBottom: '2rem', textAlign: 'center', padding: '2rem 1rem 0 1rem' }}>
                             <h1 style={{ fontSize: 'clamp(1.4rem, 5vw, 2.5rem)', fontWeight: '700', marginBottom: '0.5rem', wordBreak: 'break-word' }}>
-                                Biosecurity Assessment Report
+                                {t('poultry.biosecurity.results.reportTitle')}
                             </h1>
-                            <p style={{ color: '#6b7280' }}>Broiler Farm Biosecurity Evaluation</p>
+                            <p style={{ color: '#6b7280' }}>{t('poultry.biosecurity.results.subtitle')}</p>
                         </div>
 
                         {/* Content Wrapper */}
@@ -394,7 +371,7 @@ function BroilerResultsPage() {
                                         {getGradeLabel()}
                                     </div>
                                     <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>
-                                        {progressStats?.answeredQuestions || 0} of {progressStats?.totalQuestions || 83} questions answered
+                                        {progressStats?.answeredQuestions || 0} / {progressStats?.totalQuestions || 83} {t('poultry.biosecurity.results.questionsAnswered')}
                                     </div>
                                 </div>
                             </div>
@@ -406,7 +383,7 @@ function BroilerResultsPage() {
                                     fontWeight: '600',
                                     marginBottom: '0.75rem'
                                 }}>
-                                    Category Breakdown
+                                    {t('poultry.biosecurity.results.categoryBreakdown')}
                                 </h2>
                                 <div style={{
                                     display: 'grid',
@@ -467,7 +444,7 @@ function BroilerResultsPage() {
                                     marginBottom: '0.75rem',
                                     color: '#1f2937'
                                 }}>
-                                    Diseases at Risk
+                                    {t('poultry.biosecurity.results.diseasesAtRisk')}
                                 </h2>
                                 {diseasesAtRisk && diseasesAtRisk.length > 0 ? (
                                     <div style={{
@@ -513,7 +490,7 @@ function BroilerResultsPage() {
                                     marginBottom: '0.75rem',
                                     color: '#1f2937'
                                 }}>
-                                    Improvement Plan
+                                    {t('poultry.biosecurity.results.improvementPlan')}
                                 </h2>
 
                                 {/* Critical Priority */}
@@ -583,7 +560,7 @@ function BroilerResultsPage() {
                                                                 color: '#1f2937',
                                                                 marginBottom: '0.5rem'
                                                             }}>
-                                                                Recommended Actions:
+                                                                {t('poultry.biosecurity.results.recommendedActions')}
                                                             </div>
                                                             <ol style={{
                                                                 fontSize: '0.875rem',
@@ -628,7 +605,7 @@ function BroilerResultsPage() {
                                                 fontWeight: '600',
                                                 color: '#92400e'
                                             }}>
-                                                High Priority ({improvements.high.length})
+                                                {t('poultry.biosecurity.results.highPriority')} ({improvements.high.length})
                                             </span>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -672,7 +649,7 @@ function BroilerResultsPage() {
                                                                 color: '#1f2937',
                                                                 marginBottom: '0.5rem'
                                                             }}>
-                                                                Recommended Actions:
+                                                                {t('poultry.biosecurity.results.recommendedActions')}
                                                             </div>
                                                             <ol style={{
                                                                 fontSize: '0.875rem',
@@ -717,25 +694,17 @@ function BroilerResultsPage() {
                                         padding: '0.75rem 2rem'
                                     }}
                                 >
-                                    Print Report
+                                    {t('poultry.biosecurity.results.printReport')}
                                 </button>
                                 <button
                                     onClick={handleBackToLanding}
+                                    className="btn btn-secondary"
                                     style={{
                                         padding: '0.75rem 2rem',
-                                        background: 'white',
-                                        color: '#374151',
-                                        border: '2px solid #d1d5db',
-                                        borderRadius: '8px',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s'
+                                        borderRadius: '12px'
                                     }}
-                                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#9ca3af'}
-                                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                                 >
-                                    Back to Dashboard
+                                    {t('poultry.biosecurity.results.backToDashboard')}
                                 </button>
                                 <button
                                     onClick={handleNewAssessment}
@@ -745,7 +714,7 @@ function BroilerResultsPage() {
                                         borderRadius: '8px'
                                     }}
                                 >
-                                    Start New Assessment
+                                    {t('poultry.biosecurity.results.newAssessment')}
                                 </button>
                             </div>
                         </div>

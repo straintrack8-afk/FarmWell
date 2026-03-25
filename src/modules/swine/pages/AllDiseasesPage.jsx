@@ -114,11 +114,6 @@ function AllDiseasesPage() {
     const [selectedCategory, setSelectedCategory] = useState(t.all);
     const [selectedSeverity, setSelectedSeverity] = useState(t.all);
     
-    // Scroll to top on mount
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-    
     // Update filter values when language changes
     useEffect(() => {
         setSelectedCategory(t.all);

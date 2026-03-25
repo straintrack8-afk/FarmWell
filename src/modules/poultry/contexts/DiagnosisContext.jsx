@@ -3,9 +3,10 @@
  * Added body part selection functionality and language support
  */
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { STEPS, BODY_PARTS } from '../utils/constants';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const DiagnosisContext = createContext();
 
@@ -20,12 +21,13 @@ export const useDiagnosis = () => {
 export const DiagnosisProvider = ({ children }) => {
   // Get current language from LanguageContext
   const { language } = useLanguage();
+  const { t } = useTranslation();
 
-  // Age groups definition with filtering configuration
-  const AGE_GROUPS = {
+  // Age groups definition with filtering configuration - using useMemo to update when language changes
+  const AGE_GROUPS = useMemo(() => ({
     'All ages': {
       id: 'All ages',
-      label: 'All Ages',
+      label: t('poultry.diagnosis.age.allAges'),
       icon: '🐣🐔',
       description: 'Any age group',
       canLayEggs: true,
@@ -35,7 +37,7 @@ export const DiagnosisProvider = ({ children }) => {
     },
     '0-3 weeks': {
       id: '0-3 weeks',
-      label: '0-3 Weeks',
+      label: t('poultry.diagnosis.age.zeroToThree'),
       icon: '🐣',
       description: 'Chicks',
       canLayEggs: false,
@@ -48,7 +50,7 @@ export const DiagnosisProvider = ({ children }) => {
     },
     '4-8 weeks': {
       id: '4-8 weeks',
-      label: '4-8 Weeks',
+      label: t('poultry.diagnosis.age.fourToEight'),
       icon: '🐤',
       description: 'Growers',
       canLayEggs: false,
@@ -60,7 +62,7 @@ export const DiagnosisProvider = ({ children }) => {
     },
     '9+ weeks': {
       id: '9+ weeks',
-      label: '9+ Weeks',
+      label: t('poultry.diagnosis.age.ninePlus'),
       icon: '🐔',
       description: 'Adults',
       canLayEggs: true,
@@ -71,9 +73,9 @@ export const DiagnosisProvider = ({ children }) => {
                           'Ayam petelur', 'Ayam pembiak', 'Pullet (9-20 minggu)', 'Ayam pedaging',
                           'Mọi lứa tuổi', 'All ages', 'Semua umur']
     }
-  };
+  }), [t]);
 
-  const ageGroups = Object.values(AGE_GROUPS);
+  const ageGroups = useMemo(() => Object.values(AGE_GROUPS), [AGE_GROUPS]);
 
   // Create symptom name to ID mapping for translation
   const createSymptomNameToIdMap = (diseases) => {
@@ -275,8 +277,40 @@ export const DiagnosisProvider = ({ children }) => {
 
   // Load disease database 
   useEffect(() => {
+    // Always reload disease data when language changes
     loadDiseaseData(language);
   }, [language]);
+
+  // SEPARATE useEffect: Watch for diseases array changes when on detail page
+  useEffect(() => {
+    // Only reload selected disease if:
+    // 1. User is currently viewing disease details
+    // 2. A disease is selected
+    // 3. Diseases array has been populated
+    if (step === STEPS.DETAIL && selectedDisease && selectedDisease.id && diseases.length > 0) {
+      
+      // Check if current disease object has correct language structure
+      const hasCorrectStructure = language === 'id' 
+        ? ('deskripsi' in selectedDisease)  // Indonesian should have 'deskripsi'
+        : ('description' in selectedDisease); // EN/VI should have 'description'
+      
+      if (!hasCorrectStructure) {
+        console.log(`🔄 Disease ${selectedDisease.id} has wrong structure for ${language}`);
+        console.log(`🔄 Reloading with correct ${language} structure...`);
+        
+        // Find disease in newly loaded array
+        const reloadedDisease = diseases.find(d => d.id === selectedDisease.id);
+        
+        if (reloadedDisease) {
+          setSelectedDisease(reloadedDisease);
+          console.log(`✅ Disease ${reloadedDisease.id} reloaded successfully`);
+          console.log(`✅ Structure check - Has deskripsi: ${!!reloadedDisease.deskripsi}, Has description: ${!!reloadedDisease.description}`);
+        } else {
+          console.error(`❌ Could not find disease ${selectedDisease.id} in ${language} data`);
+        }
+      }
+    }
+  }, [diseases, language, step, selectedDisease]);
 
   // Auto-translate selected symptoms when language changes
   useEffect(() => {
@@ -323,57 +357,43 @@ export const DiagnosisProvider = ({ children }) => {
   const loadDiseaseData = async (language = 'en') => {
     try {
       setIsLoading(true);
-      const timestamp = new Date().getTime();
-      
-      // Determine filename and disease key based on language
-      let filename, diseaseKey;
-      switch(language) {
-        case 'id':
-          filename = 'diseases_COMPLETE_129_v4.1_ENRICHED_id.json';
-          diseaseKey = 'penyakit'; // Indonesian uses different root key
-          break;
-        case 'vi':
-        case 'vn': // Legacy support
-        case 'vt': // Legacy support
-          filename = 'diseases_COMPLETE_129_v4.1_ENRICHED_vi.json';
-          diseaseKey = 'diseases';
-          break;
-        case 'en':
-        default:
-          filename = 'diseases_COMPLETE_129_v4.1_ENRICHED_en.json';
-          diseaseKey = 'diseases';
-      }
-      
-      const url = `/data/poultry/${filename}?v=${timestamp}`;
-      console.log('Loading enriched disease data from:', url);
-      
-      const response = await fetch(url, {
-        cache: 'no-cache',
-        headers: {
-          'Cache-Control': 'no-cache'
-        }
-      });
+      const timestamp = Date.now();
+      const response = await fetch(`/data/poultry/diseases_COMPLETE_129_v4.1_ENRICHED_${language}.json?v=${timestamp}`);
       
       if (!response.ok) {
-        throw new Error(`Failed to load disease database: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+      
       const data = await response.json();
-      const diseasesArray = data[diseaseKey] || [];
       
-      console.log('Enriched disease data loaded:', {
-        language,
-        filename,
-        diseaseKey,
-        totalDiseases: diseasesArray.length,
-        firstDisease: diseasesArray[0]?.name,
-        hasEnrichment: !!diseasesArray[0]?.description || !!diseasesArray[0]?.deskripsi,
-        hasSymptomsEnhanced: !!diseasesArray[0]?.symptomsEnhanced,
-        allSymptomsCount: data.allSymptoms?.length,
-        version: data.metadata?.version
-      });
+      // CRITICAL: Handle different JSON structures per language
+      let diseaseArray;
+      if (language === 'id') {
+        // Indonesian JSON uses 'penyakit' key
+        diseaseArray = data.penyakit || [];
+        console.log(`[${language.toUpperCase()}] Loaded ${diseaseArray.length} diseases from 'penyakit' key`);
+      } else {
+        // English and Vietnamese use 'diseases' key
+        diseaseArray = data.diseases || [];
+        console.log(`[${language.toUpperCase()}] Loaded ${diseaseArray.length} diseases from 'diseases' key`);
+      }
       
-      setDiseases(diseasesArray);
+      if (diseaseArray.length === 0) {
+        throw new Error(`No diseases found in ${language} data file`);
+      }
+      
+      // Log sample disease to verify structure
+      if (diseaseArray.length > 0) {
+        const sample = diseaseArray[0];
+        console.log(`Sample disease structure:`, {
+          id: sample.id,
+          name: sample.name || sample.nama,
+          hasDescription: !!(sample.description || sample.deskripsi),
+          hasSymptoms: !!(sample.symptomsEnhanced || sample.gejala_lengkap || sample.symptoms)
+        });
+      }
+      
+      setDiseases(diseaseArray);
       
       // Store allSymptoms for direct access (v4.1 feature)
       if (data.allSymptoms) {
@@ -384,7 +404,7 @@ export const DiagnosisProvider = ({ children }) => {
         console.log('⚠️ No allSymptoms in database, extracting from diseases...');
         const symptomMap = new Map();
         
-        diseasesArray.forEach(disease => {
+        diseaseArray.forEach(disease => {
           // Handle different field names: EN/VN uses 'symptomsEnhanced', ID uses 'gejala_lengkap'
           const symptomsArray = disease.symptomsEnhanced || disease.gejala_lengkap || disease.symptoms || [];
           symptomsArray.forEach(symptom => {
@@ -409,15 +429,16 @@ export const DiagnosisProvider = ({ children }) => {
         });
         
         window.__allSymptoms = Array.from(symptomMap.values());
-        console.log('✅ Extracted', window.__allSymptoms.length, 'unique symptoms from', diseasesArray.length, 'diseases');
+        console.log('✅ Extracted', window.__allSymptoms.length, 'unique symptoms from', diseaseArray.length, 'diseases');
       }
       
       setIsLoading(false);
+      setError(null);
+      
     } catch (err) {
-      console.error('Error loading diseases:', err);
-      setError(err.message);
+      console.error(`Error loading disease data for ${language}:`, err);
+      setError(`Failed to load disease database: ${err.message}`);
       setIsLoading(false);
-      setIsOffline(true);
     }
   };
 

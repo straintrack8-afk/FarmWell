@@ -60,10 +60,6 @@ const DiagnosticLanding = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   
   const tools = [
     {

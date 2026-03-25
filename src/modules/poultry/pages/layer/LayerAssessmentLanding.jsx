@@ -245,16 +245,16 @@ function LayerAssessmentLanding() {
                                     <thead>
                                         <tr style={{ textAlign: 'left' }}>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                ID / Date
+                                                {t('poultry.layer.landing.idDate')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Progress / Score
+                                                {t('poultry.layer.landing.progressScore')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                Status
+                                                {t('poultry.layer.landing.status')}
                                             </th>
                                             <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>
-                                                Actions
+                                                {t('poultry.layer.landing.actions')}
                                             </th>
                                         </tr>
                                     </thead>
@@ -296,7 +296,7 @@ function LayerAssessmentLanding() {
                                                         ) : (
                                                             <div>
                                                                 <div style={{ fontSize: '0.875rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.3rem' }}>
-                                                                    {answeredCount} / {totalQuestions} answered
+                                                                    {answeredCount} / {totalQuestions} {t('poultry.biosecurity.dashboard.answered')}
                                                                 </div>
                                                                 <div style={{ height: '6px', background: '#e5e7eb', borderRadius: '999px', overflow: 'hidden', width: '120px' }}>
                                                                     <div style={{ height: '100%', width: `${percentage}%`, background: '#ec4899', borderRadius: '999px' }}></div>
@@ -313,7 +313,7 @@ function LayerAssessmentLanding() {
                                                             backgroundColor: isCompleted ? '#D1FAE5' : '#FEF3C7',
                                                             color: isCompleted ? '#065F46' : '#92400E'
                                                         }}>
-                                                            {isCompleted ? 'Completed' : 'In Progress'}
+                                                            {isCompleted ? t('poultry.layer.landing.completed') : t('poultry.layer.landing.inProgress')}
                                                         </span>
                                                     </td>
                                                     <td style={{ padding: '1.25rem', textAlign: 'right', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
@@ -340,7 +340,7 @@ function LayerAssessmentLanding() {
                                                                     boxShadow: isCompleted ? '0 2px 8px rgba(16, 185, 129, 0.3)' : 'none'
                                                                 }}
                                                             >
-                                                                {isCompleted ? 'View Report' : 'Continue'}
+                                                                {isCompleted ? t('poultry.layer.landing.viewReport') : t('poultry.layer.landing.continue')}
                                                             </button>
                                                             <button
                                                                 onClick={(e) => handleDeleteAssessment(assessment.id, e)}
@@ -364,7 +364,7 @@ function LayerAssessmentLanding() {
                                                                 }}
                                                                 title="Delete Assessment"
                                                             >
-                                                                Delete
+                                                                {t('poultry.layer.landing.delete')}
                                                             </button>
                                                         </div>
                                                     </td>

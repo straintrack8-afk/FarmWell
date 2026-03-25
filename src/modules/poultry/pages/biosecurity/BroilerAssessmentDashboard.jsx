@@ -9,6 +9,12 @@ function BroilerAssessmentDashboard() {
     const navigate = useNavigate();
     const { language } = useLanguage();
     const { t } = useTranslation();
+    
+    // Debug: Check translation function
+    console.log('[Dashboard] Current language:', language);
+    console.log('[Dashboard] Date translation:', t('poultry.biosecurity.dashboard.date'));
+    console.log('[Dashboard] Assessor Name translation:', t('poultry.biosecurity.dashboard.assessorName'));
+    console.log('[Dashboard] Assessment ID translation:', t('poultry.biosecurity.dashboard.assessmentId'));
     const {
         assessmentData,
         focusAreas,
@@ -258,7 +264,7 @@ function BroilerAssessmentDashboard() {
                                     </label>
                                     <input
                                         type="text"
-                                        placeholder="{t('poultry.biosecurity.dashboard.enterAssessorName')}"
+                                        placeholder=""
                                         defaultValue={(() => {
                                             const saved = loadAssessment();
                                             return saved?.metadata?.assessorName || '';
@@ -351,7 +357,7 @@ function BroilerAssessmentDashboard() {
                                                 {/* Header */}
                                                 <div style={{ marginBottom: '0.75rem' }}>
                                                     <div style={{ fontSize: '0.65rem', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>
-                                                        FOCUS AREA {index + 1}
+                                                        {t('poultry.biosecurity.dashboard.focusArea')} {index + 1}
                                                     </div>
                                                     <h3 style={{ fontSize: '1rem', fontWeight: '700', margin: '0 0 0.25rem 0', color: '#1e293b' }}>
                                                         {getLocalizedText(area.name, language)}
@@ -363,15 +369,15 @@ function BroilerAssessmentDashboard() {
 
                                                 {/* Stats */}
                                                 <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', fontSize: '0.75rem', color: '#64748b' }}>
-                                                    <span>{area.question_count} questions</span>
+                                                                                                        <span>{area.question_count} {t('poultry.biosecurity.dashboard.questions')}</span>
                                                     <span>·</span>
-                                                    <span>{progress.answered} answered</span>
+                                                    <span>{progress.answered} {t('poultry.biosecurity.dashboard.answered')}</span>
                                                 </div>
 
                                                 {/* Progress */}
                                                 <div style={{ marginBottom: '0.75rem' }}>
                                                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
-                                                        <span>Progress</span>
+                                                        <span>{t('poultry.biosecurity.dashboard.progress')}</span>
                                                         <span>{percentage}%</span>
                                                     </div>
                                                     <div style={{ height: '6px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
@@ -385,7 +391,7 @@ function BroilerAssessmentDashboard() {
                                                     style={{ width: '100%', padding: '0.625rem', fontSize: '0.875rem' }}
                                                     onClick={() => handleStartFocusArea('external', index)}
                                                 >
-                                                    {progress.answered > 0 ? 'Continue' : 'Start'}
+                                                    {progress.answered > 0 ? t('poultry.biosecurity.dashboard.continue') : t('poultry.biosecurity.dashboard.start')}
                                                 </button>
                                             </div>
                                         </div>
@@ -434,7 +440,7 @@ function BroilerAssessmentDashboard() {
                                                 {/* Header */}
                                                 <div style={{ marginBottom: '0.75rem' }}>
                                                     <div style={{ fontSize: '0.65rem', fontWeight: '700', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>
-                                                        FOCUS AREA {index + 3}
+                                                        {t('poultry.biosecurity.dashboard.focusArea')} {index + 4}
                                                     </div>
                                                     <h3 style={{ fontSize: '1rem', fontWeight: '700', margin: '0 0 0.25rem 0', color: '#1e293b' }}>
                                                         {getLocalizedText(area.name, language)}
@@ -446,15 +452,15 @@ function BroilerAssessmentDashboard() {
 
                                                 {/* Stats */}
                                                 <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', fontSize: '0.75rem', color: '#64748b' }}>
-                                                    <span>{area.question_count} questions</span>
+                                                    <span>{area.question_count} {t('poultry.biosecurity.dashboard.questions')}</span>
                                                     <span>·</span>
-                                                    <span>{progress.answered} answered</span>
+                                                    <span>{progress.answered} {t('poultry.biosecurity.dashboard.answered')}</span>
                                                 </div>
 
                                                 {/* Progress */}
                                                 <div style={{ marginBottom: '0.75rem' }}>
                                                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', color: '#94a3b8', marginBottom: '0.3rem' }}>
-                                                        <span>Progress</span>
+                                                        <span>{t('poultry.biosecurity.dashboard.progress')}</span>
                                                         <span>{percentage}%</span>
                                                     </div>
                                                     <div style={{ height: '6px', background: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
@@ -468,7 +474,7 @@ function BroilerAssessmentDashboard() {
                                                     style={{ width: '100%', padding: '0.625rem', fontSize: '0.875rem' }}
                                                     onClick={() => handleStartFocusArea('internal', index)}
                                                 >
-                                                    {progress.answered > 0 ? 'Continue' : 'Start'}
+                                                    {progress.answered > 0 ? t('poultry.biosecurity.dashboard.continue') : t('poultry.biosecurity.dashboard.start')}
                                                 </button>
                                             </div>
                                         </div>

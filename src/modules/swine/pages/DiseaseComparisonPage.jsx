@@ -19,10 +19,6 @@ const DiseaseComparisonPage = () => {
   const [category2, setCategory2] = useState('');
   
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  
-  useEffect(() => {
     const disease1Id = selectedDisease1?.id;
     const disease2Id = selectedDisease2?.id;
     const langCode = language === 'id' ? 'id' : (language === 'vi' || language === 'vn') ? 'vi' : 'en';

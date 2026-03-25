@@ -140,11 +140,6 @@ function AllDiseases() {
     // Check if we're in standalone route or within diagnostic flow
     const isStandaloneRoute = location.pathname === '/poultry/diseases';
     
-    // Scroll to top on mount
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-    
     // Update filter values when language changes
     useEffect(() => {
         setSelectedCategory(t.all);
@@ -179,13 +174,15 @@ function AllDiseases() {
     }, [diseases, searchQuery, selectedCategory, selectedSeverity, t.all]);
 
     const handleDiseaseClick = (disease) => {
+        console.log('Disease card clicked:', disease.id || disease.nama);
         viewDiseaseDetail(disease);
         if (isStandaloneRoute) {
             // Navigate to detail page with disease ID as query param
             navigate(`/poultry/diagnostic/detail?diseaseId=${disease.id}`);
         } else {
-            // Within diagnostic flow, use step navigation
+            // Within diagnostic flow, use step navigation AND navigate
             setStep(STEPS.DETAIL);
+            navigate('/poultry/diagnostic/detail');
         }
     };
 

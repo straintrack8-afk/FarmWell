@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
+import { useTranslation } from '../../../hooks/useTranslation';
 import { STEPS } from '../utils/constants';
 
-function ProgressBar({ step }) {
+function ProgressBar({ step, t }) {
     const steps = [
-        { num: 1, label: 'Age' },
-        { num: 2, label: 'Body Part & Symptoms' },
-        { num: 3, label: 'Results' }
+        { num: 1, label: t('poultry.diagnosis.steps.age') },
+        { num: 2, label: t('poultry.diagnosis.steps.bodyPartSymptoms') },
+        { num: 3, label: t('poultry.diagnosis.steps.results') }
     ];
 
     return (
@@ -48,16 +49,13 @@ function ProgressBar({ step }) {
 
 function AgeSelection() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const {
         selectedAge,
         setAge,
         setStep,
         ageGroups
     } = useDiagnosis();
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
     // Debug: Track when selectedAge changes
     useEffect(() => {
@@ -98,7 +96,7 @@ function AgeSelection() {
             paddingBottom: selectedAge ? '20px' : '2rem'
         }}>
             <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
-                <ProgressBar step={1} />
+                <ProgressBar step={1} t={t} />
 
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                     <h1 style={{
@@ -110,10 +108,10 @@ function AgeSelection() {
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text'
                     }}>
-                        Select Age Group
+                        {t('poultry.diagnosis.age.title')}
                     </h1>
                     <p style={{ fontSize: '1.125rem', color: '#6B7280' }}>
-                        Choose the age group of the affected birds
+                        {t('poultry.diagnosis.age.subtitle')}
                     </p>
                 </div>
 
@@ -222,7 +220,7 @@ function AgeSelection() {
                 <div className="action-bar" style={{ animation: 'slideUp 0.3s ease-out' }}>
                     <div className="action-bar-content">
                         <div className="action-bar-info">
-                            Selected: <strong style={{ color: 'white' }}>
+                            {t('poultry.diagnosis.age.selected')}: <strong style={{ color: 'white' }}>
                                 {ageGroups.find(a => a.id === selectedAge)?.label}
                             </strong>
                         </div>
@@ -231,7 +229,7 @@ function AgeSelection() {
                             className="btn btn-primary"
                             onClick={handleContinue}
                         >
-                            Continue
+                            {t('poultry.diagnosis.age.continue')}
                         </button>
                     </div>
                 </div>

@@ -140,6 +140,7 @@ const textToBullets = (text) => {
 };
 
 function DiseaseDetail() {
+    const navigate = useNavigate();
     const {
         selectedDisease: disease,
         selectedSymptoms,
@@ -152,9 +153,8 @@ function DiseaseDetail() {
     const { t } = useTranslation();
     const labels = getUILabels(language);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    // Helper function to get field value with language-specific field names
+    const getField = (fieldKey) => getFieldValue(disease, fieldKey, language);
 
     if (!disease) {
         return (
@@ -174,12 +174,14 @@ function DiseaseDetail() {
     }
 
     const handleNewDiagnosis = () => {
-        reset();
-        setStep(STEPS.SYMPTOMS);
+        reset();  // Clear all selections
+        setStep(STEPS.AGE);  // Start from age selection
+        navigate('/poultry/diagnostic/age');  // Navigate to age page
     };
 
     const handleBackToSymptoms = () => {
         setStep(STEPS.SYMPTOMS);
+        navigate('/poultry/diagnostic/symptoms');
     };
 
     // Inject print styles
@@ -345,13 +347,13 @@ function DiseaseDetail() {
                 {/* Single Scroll Content */}
                 <div style={{ paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)', marginTop: '1.5rem' }}>
                     {/* Description - ENRICHED */}
-                    {(disease.description || disease.deskripsi) && (
+                    {getField('description') && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                 📝 {labels.description}
                             </h3>
                             <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
-                                {disease.description || disease.deskripsi}
+                                {getField('description')}
                             </p>
                         </div>
                     )}
@@ -433,7 +435,7 @@ function DiseaseDetail() {
                     )}
 
                     {/* Transmission - ENRICHED */}
-                    {(disease.transmission || disease.penularan) && (
+                    {getField('transmission') && (
                         <>
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '2rem' }}>
@@ -441,7 +443,7 @@ function DiseaseDetail() {
                                     🦠 {labels.transmission}
                                 </h3>
                                 <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                    {(disease.transmission || disease.penularan).map((item, i) => (
+                                    {getField('transmission').map((item, i) => (
                                         <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                                             {item}
                                         </li>
@@ -452,7 +454,7 @@ function DiseaseDetail() {
                     )}
 
                     {/* Diagnosis - ENRICHED */}
-                    {disease.diagnosis && (
+                    {getField('diagnosis') && (
                         <>
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '2rem' }}>
@@ -460,7 +462,7 @@ function DiseaseDetail() {
                                     🔬 {labels.diagnosis}
                                 </h3>
                                 <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                    {disease.diagnosis.map((item, i) => (
+                                    {getField('diagnosis').map((item, i) => (
                                         <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                                             {item}
                                         </li>
@@ -471,7 +473,7 @@ function DiseaseDetail() {
                     )}
 
                     {/* Treatment - ENRICHED */}
-                    {(disease.treatment || disease.pengobatan) && (
+                    {getField('treatment') && (
                         <>
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '2rem' }}>
@@ -479,7 +481,7 @@ function DiseaseDetail() {
                                     💊 {labels.treatment}
                                 </h3>
                                 <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                    {(disease.treatment || disease.pengobatan).map((item, i) => (
+                                    {getField('treatment').map((item, i) => (
                                         <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                                             {item}
                                         </li>
@@ -490,7 +492,7 @@ function DiseaseDetail() {
                     )}
 
                     {/* Control & Prevention - ENRICHED */}
-                    {(disease.control || disease.pengendalian) && (
+                    {getField('control') && (
                         <>
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '2rem' }}>
@@ -498,7 +500,7 @@ function DiseaseDetail() {
                                     🛡️ {labels.control}
                                 </h3>
                                 <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                    {(disease.control || disease.pengendalian).map((item, i) => (
+                                    {getField('control').map((item, i) => (
                                         <li key={i} style={{ lineHeight: '1.7', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                                             {item}
                                         </li>
@@ -510,7 +512,7 @@ function DiseaseDetail() {
 
                     {/* Vaccine Recommendations - ENRICHED (Empty State for Now) */}
                     {(() => {
-                        const vaccineData = disease.vaccineRecommendations || disease.rekomendasi_vaksin;
+                        const vaccineData = getField('vaccineRecommendations');
                         const hasVaccines = vaccineData && vaccineData.length > 0;
                         
                         return (
@@ -699,7 +701,10 @@ function DiseaseDetail() {
                             cursor: 'pointer',
                             transition: 'all 0.2s'
                         }}
-                        onClick={() => setStep(STEPS.ALL_DISEASES)}
+                        onClick={() => {
+                            setStep(STEPS.ALL_DISEASES);
+                            navigate('/poultry/diseases');
+                        }}
                         onMouseEnter={(e) => {
                             e.target.style.background = '#059669';
                         }}

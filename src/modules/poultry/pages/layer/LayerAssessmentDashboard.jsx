@@ -217,7 +217,7 @@ function LayerAssessmentDashboard() {
                                                 color: '#6b7280',
                                                 marginBottom: '0.5rem'
                                             }}>
-                                                <span>{progress.answeredCount} / {progress.totalCount} answered</span>
+                                                <span>{progress.answeredCount} / {progress.totalCount} {t('poultry.layer.dashboard.answered').toLowerCase()}</span>
                                                 <span>{progress.percentage.toFixed(0)}%</span>
                                             </div>
                                             <div style={{

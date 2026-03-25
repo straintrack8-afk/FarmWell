@@ -129,7 +129,7 @@ function BreederAssessmentDashboard() {
                                 <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.breeder.dashboard.overallCompletion')}</div>
                             </div>
                             <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #8B5CF6', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>Current Score</div>
+                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.breeder.dashboard.currentScore')}</div>
                                 <div style={{ fontSize: '2rem', fontWeight: '800', color: overallScore > 0 ? '#8B5CF6' : '#94a3b8', lineHeight: 1 }}>{overallScore > 0 ? `${overallScore.toFixed(0)}%` : 'N/A'}</div>
                                 <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{riskConfig?.labelText || '-'}</div>
                             </div>
@@ -230,7 +230,7 @@ function BreederAssessmentDashboard() {
                                                 color: '#6b7280',
                                                 marginBottom: '0.5rem'
                                             }}>
-                                                <span>{progress.answeredCount} / {progress.totalCount} answered</span>
+                                                <span>{progress.answeredCount} / {progress.totalCount} {t('poultry.breeder.dashboard.answered').toLowerCase()}</span>
                                                 <span>{progress.percentage.toFixed(0)}%</span>
                                             </div>
                                             <div style={{

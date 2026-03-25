@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLayerAssessment } from '../../contexts/LayerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import { loadAssessment, setCurrentAssessmentId } from '../../utils/layerAssessmentUtils';
 import '../../../../portal.css';
 import '../../poultry.css';
@@ -99,10 +99,10 @@ function LayerResultsPage() {
     };
 
     const getGradeLabel = () => {
-        if (overallScore < 50) return t('biosecurity.results.criticalRisk');
-        if (overallScore >= 50 && overallScore <= 75) return t('biosecurity.results.highRisk');
-        if (overallScore > 75 && overallScore <= 85) return t('biosecurity.results.mediumRisk');
-        if (overallScore > 85 && overallScore <= 95) return t('biosecurity.results.lowRisk');
+        if (overallScore < 50) return t('poultry.layer.results.criticalRisk');
+        if (overallScore >= 50 && overallScore <= 75) return t('poultry.layer.results.highRisk');
+        if (overallScore > 75 && overallScore <= 85) return t('poultry.layer.results.mediumRisk');
+        if (overallScore > 85 && overallScore <= 95) return t('poultry.layer.results.lowRisk');
         return t('biosecurity.results.excellentBiosecurity');
     };
 
@@ -223,35 +223,12 @@ function LayerResultsPage() {
             <div className="portal-layout">
                 <div className="portal-container">
                     <div className="portal-card">
-                        {/* Header */}
-                        <div className="header" style={{ '@media print': { display: 'none' } }}>
-                            <div className="header-logo" onClick={() => navigate('/poultry')} style={{ cursor: 'pointer' }}>
-                                <img src="/images/PoultryWell_Logo.png" alt="PoultryWell" style={{ height: '80px' }} />
-                            </div>
-                            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                                <div style={{
-                                    padding: '0.5rem 1rem',
-                                    background: '#f3f4f6',
-                                    borderRadius: '8px',
-                                    fontSize: '0.875rem',
-                                    fontWeight: '600',
-                                    color: '#374151'
-                                }}>
-                                    {language.toUpperCase()}
-                                </div>
-                                <div className="offline-indicator online">
-                                    <span className="status-dot" style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981' }}></span>
-                                    Online
-                                </div>
-                            </div>
-                        </div>
-
                         {/* Title */}
                         <div style={{ marginBottom: '2rem', textAlign: 'center', padding: '2rem 1rem 0 1rem' }}>
                             <h1 style={{ fontSize: 'clamp(1.4rem, 5vw, 2.5rem)', fontWeight: '700', marginBottom: '0.5rem', wordBreak: 'break-word' }}>
-                                {t('biosecurity.results.reportTitle')}
+                                {t('poultry.layer.results.reportTitle')}
                             </h1>
-                            <p style={{ color: '#6b7280' }}>{t('biosecurity.results.layerSubtitle')}</p>
+                            <p style={{ color: '#6b7280' }}>{t('poultry.layer.results.subtitle')}</p>
                         </div>
 
                         {/* Content Wrapper */}
@@ -298,7 +275,7 @@ function LayerResultsPage() {
                                         {getGradeLabel()}
                                     </div>
                                     <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>
-                                        {t('biosecurity.results.questionsAnswered', { answered: progressStats?.answeredCount || 0, total: progressStats?.totalCount || 128 })}
+                                        {progressStats?.answeredCount || 0} / {progressStats?.totalCount || 128} {t('poultry.layer.results.questionsAnswered')}
                                     </div>
                                 </div>
                             </div>
@@ -310,7 +287,7 @@ function LayerResultsPage() {
                                     fontWeight: '600',
                                     marginBottom: '0.75rem'
                                 }}>
-                                    {t('biosecurity.results.categoryBreakdown')}
+                                    {t('poultry.layer.results.categoryBreakdown')}
                                 </h2>
                                 <div style={{
                                     display: 'grid',
@@ -405,7 +382,7 @@ function LayerResultsPage() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <p style={{ color: '#6b7280' }}>{t('biosecurity.results.noRisksIdentified')}</p>
+                                    <p style={{ color: '#6b7280' }}>No significant disease risks identified</p>
                                 )}
                             </div>
 
@@ -487,7 +464,7 @@ function LayerResultsPage() {
                                                                 color: '#1f2937',
                                                                 marginBottom: '0.5rem'
                                                             }}>
-                                                                {t('biosecurity.results.recommendedActions')}
+                                                                {t('poultry.layer.results.recommendedActions')}
                                                             </div>
                                                             <ol style={{
                                                                 fontSize: '0.875rem',
@@ -577,7 +554,7 @@ function LayerResultsPage() {
                                                                 color: '#1f2937',
                                                                 marginBottom: '0.5rem'
                                                             }}>
-                                                                {t('biosecurity.results.recommendedActions')}
+                                                                {t('poultry.layer.results.recommendedActions')}
                                                             </div>
                                                             <ol style={{
                                                                 fontSize: '0.875rem',
@@ -623,7 +600,7 @@ function LayerResultsPage() {
                                         padding: '0.75rem 2rem'
                                     }}
                                 >
-                                    {t('biosecurity.results.printReport')}
+                                    {t('poultry.layer.results.printReport')}
                                 </button>
                                 <button
                                     onClick={handleBackToLanding}
@@ -641,7 +618,7 @@ function LayerResultsPage() {
                                     onMouseEnter={(e) => e.currentTarget.style.borderColor = '#9ca3af'}
                                     onMouseLeave={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
                                 >
-                                    {t('biosecurity.results.backToDashboard')}
+                                    {t('poultry.layer.results.backToDashboard')}
                                 </button>
                                 <button
                                     onClick={handleNewAssessment}
@@ -651,7 +628,7 @@ function LayerResultsPage() {
                                         borderRadius: '8px'
                                     }}
                                 >
-                                    {t('biosecurity.results.newAssessment')}
+                                    {t('poultry.layer.results.newAssessment')}
                                 </button>
                             </div>
                         </div>

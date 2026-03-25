@@ -8,10 +8,6 @@ function PoultryLanding() {
     const { t } = useTranslation();
     const { language } = useLanguage();
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [language]);
-
     const handleDiagnosticTool = () => {
         navigate('/poultry/diagnostic');
     };

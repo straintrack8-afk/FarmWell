@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { compressImage, validateImageFile } from '../../../utils/hatchery/imageUtils';
+import { useLanguage } from "../../../../../contexts/LanguageContext";
 import '../../../hatchery.css';
 
 /**
@@ -7,15 +8,54 @@ import '../../../hatchery.css';
  * Handles photo upload, compression, and gallery display
  */
 function PhotoUpload({ photos = [], onPhotosChange, maxPhotos = 10 }) {
+    const { language } = useLanguage();
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
+
+    const translations = {
+        addPhotos: {
+            en: "Add Photos",
+            id: "Tambah Foto",
+            vi: "Thêm Ảnh"
+        },
+        uploading: {
+            en: "Uploading...",
+            id: "Mengunggah...",
+            vi: "Đang tải lên..."
+        },
+        photos: {
+            en: "photos",
+            id: "foto",
+            vi: "ảnh"
+        },
+        photo: {
+            en: "photo",
+            id: "foto",
+            vi: "ảnh"
+        },
+        maxPhotosError: {
+            en: `Maximum ${maxPhotos} photos allowed`,
+            id: `Maksimal ${maxPhotos} foto diizinkan`,
+            vi: `Tối đa ${maxPhotos} ảnh được phép`
+        },
+        uploadError: {
+            en: "Failed to upload photos",
+            id: "Gagal mengunggah foto",
+            vi: "Tải lên ảnh thất bại"
+        },
+        deletePhoto: {
+            en: "Delete photo",
+            id: "Hapus foto",
+            vi: "Xóa ảnh"
+        }
+    };
 
     const handleFileSelect = async (e) => {
         const files = Array.from(e.target.files);
 
         if (photos.length + files.length > maxPhotos) {
-            setError(`Maximum ${maxPhotos} photos allowed`);
+            setError(translations.maxPhotosError[language]);
             return;
         }
 
@@ -46,7 +86,7 @@ function PhotoUpload({ photos = [], onPhotosChange, maxPhotos = 10 }) {
 
             onPhotosChange([...photos, ...newPhotos]);
         } catch (err) {
-            setError('Failed to upload photos: ' + err.message);
+            setError(translations.uploadError[language] + ': ' + err.message);
         } finally {
             setUploading(false);
             if (fileInputRef.current) {
@@ -80,10 +120,10 @@ function PhotoUpload({ photos = [], onPhotosChange, maxPhotos = 10 }) {
                     className="btn-hatchery btn-primary"
                     disabled={uploading || photos.length >= maxPhotos}
                 >
-                    {uploading ? ' Uploading...' : ' Add Photos'}
+                    {uploading ? translations.uploading[language] : translations.addPhotos[language]}
                 </button>
                 <span style={{ marginLeft: '1rem', fontSize: '0.875rem', color: '#6B7280' }}>
-                    {photos.length} / {maxPhotos} photos
+                    {photos.length} / {maxPhotos} {photos.length === 1 ? translations.photo[language] : translations.photos[language]}
                 </span>
             </div>
 
@@ -103,7 +143,7 @@ function PhotoUpload({ photos = [], onPhotosChange, maxPhotos = 10 }) {
                                 type="button"
                                 className="photo-delete"
                                 onClick={() => handleDelete(photo.id)}
-                                title="Delete photo"
+                                title={translations.deletePhoto[language]}
                             >
                                 ×
                             </button>

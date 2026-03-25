@@ -4,6 +4,7 @@
  */
 
 import React, { useMemo, useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { BODY_PARTS } from '../utils/constants';
@@ -159,6 +160,7 @@ function ProgressBar({ step, t }) {
 }
 
 const BodyPartSelection = () => {
+  const navigate = useNavigate();
   const { 
     selectedSymptoms,
     toggleSymptom,
@@ -177,10 +179,6 @@ const BodyPartSelection = () => {
   const { language } = useLanguage();
   const normalizedLang = (language === 'vt' || language === 'vn') ? 'vi' : language;
   const t = translations[normalizedLang] || translations.en;
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   // State for differential diagnosis
   const [selectedForComparison, setSelectedForComparison] = useState(null);
@@ -205,6 +203,21 @@ const BodyPartSelection = () => {
 
   const handleBack = () => {
     setStep(STEPS.AGE);
+    navigate('/poultry/diagnostic/age');
+  };
+
+  // Fix: View Details navigation
+  const handleViewDetails = (disease) => {
+    console.log('Viewing disease details:', disease.id || disease.nama);
+    viewDiseaseDetail(disease);
+    navigate('/poultry/diagnostic/detail');
+  };
+
+  // Fix: Show All Diseases navigation
+  const handleShowAllDiseases = () => {
+    console.log('Navigating to all diseases');
+    setStep(STEPS.ALL_DISEASES);
+    navigate('/poultry/diagnostic/results');
   };
 
   /**
@@ -851,7 +864,7 @@ const BodyPartSelection = () => {
                           lineHeight: '1.3',
                           cursor: 'pointer'
                         }}
-                        onClick={() => viewDiseaseDetail(disease)}
+                        onClick={() => handleViewDetails(disease)}
                         >
                           {disease.name || disease.nama || disease.ten_benh || 'Unknown Disease'}
                         </h3>
@@ -930,7 +943,7 @@ const BodyPartSelection = () => {
                     {/* Action buttons */}
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                       <button
-                        onClick={() => viewDiseaseDetail(disease)}
+                        onClick={() => handleViewDetails(disease)}
                         style={{
                           flex: 1,
                           fontSize: '0.625rem',
@@ -1008,7 +1021,7 @@ const BodyPartSelection = () => {
 
         <button
           type="button"
-          onClick={() => setStep(STEPS.ALL_DISEASES)}
+          onClick={handleShowAllDiseases}
           className="btn btn-primary"
         >
           {t.showAllDiseases} →
@@ -1253,7 +1266,6 @@ const BodyPartSelection = () => {
                     <button
                       onClick={() => {
                         setSelectedForComparison(compareDisease);
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                       style={{
                         width: '100%',
@@ -1278,26 +1290,7 @@ const BodyPartSelection = () => {
           </div>
           
           {/* Footer actions */}
-          <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem' }}>
-            <button
-              onClick={() => viewDiseaseDetail(selectedForComparison)}
-              style={{
-                flex: 1,
-                padding: '0.75rem 1rem',
-                background: '#10B981',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '0.875rem',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = '#059669'}
-              onMouseLeave={(e) => e.currentTarget.style.background = '#10B981'}
-            >
-              View Full Disease Details
-            </button>
+          <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
             <button
               onClick={() => setSelectedForComparison(null)}
               style={{
