@@ -1067,6 +1067,7 @@ body {
   width: 260px;
   max-width: 80vw;
   mix-blend-mode: multiply;
+  margin-bottom: 40px;
 }
 
 .fw-splash-powered {
