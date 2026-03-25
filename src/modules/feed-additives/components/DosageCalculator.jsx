@@ -1033,7 +1033,7 @@ const DosageCalculator = () => {
                                 onClick={() => setShowReferenceView(true)}
                                 style={{
                                     padding: '0.5rem 1rem',
-                                    background: '#f59e0b',
+                                    background: '#10b981',
                                     color: 'white',
                                     border: 'none',
                                     borderRadius: '6px',
