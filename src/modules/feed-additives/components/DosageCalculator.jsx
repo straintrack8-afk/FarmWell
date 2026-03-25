@@ -465,6 +465,37 @@ const DosageCalculator = () => {
         }
     };
 
+    const handleInquirySubmit = async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        
+        // Web3Forms configuration
+        formData.append("access_key", "4d168932-50a6-4445-8527-ebd8a98eba33");
+        formData.append("subject", `FarmWell Inquiry from ${formData.get('name')}`);
+        formData.append("from_name", "FarmWell Contact Form");
+        
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert(t('inquirySuccess'));
+                setInquiryData({ name: '', email: '', phone: '' });
+            } else {
+                alert("Failed to send inquiry. Please try again.");
+                console.error("Web3Forms Error:", data);
+            }
+        } catch (error) {
+            alert("Failed to send inquiry. Please try again.");
+            console.error("Network Error:", error);
+        }
+    };
+
     const resetCalculation = () => {
         setCurrentStep(1);
         setShowCustomProtocol(false);
@@ -2575,7 +2606,7 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Request for Inquiry Form */}
-                                            <div className="no-print" style={{
+                                            <form onSubmit={handleInquirySubmit} className="no-print" style={{
                                                 background: '#f0fdf4',
                                                 border: '2px solid #86efac',
                                                 borderRadius: '12px',
@@ -2597,9 +2628,11 @@ const DosageCalculator = () => {
                                                         </label>
                                                         <input
                                                             type="text"
+                                                            name="name"
                                                             value={inquiryData.name}
                                                             onChange={(e) => setInquiryData(prev => ({ ...prev, name: e.target.value }))}
                                                             placeholder={t('enterName')}
+                                                            required
                                                             style={{
                                                                 width: '100%',
                                                                 padding: '0.75rem',
@@ -2616,9 +2649,11 @@ const DosageCalculator = () => {
                                                         </label>
                                                         <input
                                                             type="email"
+                                                            name="email"
                                                             value={inquiryData.email}
                                                             onChange={(e) => setInquiryData(prev => ({ ...prev, email: e.target.value }))}
                                                             placeholder={t('enterEmail')}
+                                                            required
                                                             style={{
                                                                 width: '100%',
                                                                 padding: '0.75rem',
@@ -2635,9 +2670,11 @@ const DosageCalculator = () => {
                                                         </label>
                                                         <input
                                                             type="tel"
+                                                            name="phone"
                                                             value={inquiryData.phone}
                                                             onChange={(e) => setInquiryData(prev => ({ ...prev, phone: e.target.value }))}
                                                             placeholder={t('enterPhone')}
+                                                            required
                                                             style={{
                                                                 width: '100%',
                                                                 padding: '0.75rem',
@@ -2651,34 +2688,7 @@ const DosageCalculator = () => {
                                                 </div>
 
                                                 <button
-                                                    onClick={() => {
-                                                        if (inquiryData.name && inquiryData.email && inquiryData.phone) {
-                                                            // Create email content
-                                                            const subject = `FarmWell Inquiry from ${inquiryData.name}`;
-                                                            const body = `
-New inquiry received from FarmWell website:
-
-Name: ${inquiryData.name}
-Email: ${inquiryData.email}
-Phone: ${inquiryData.phone}
-
----
-This inquiry was submitted via farmwell.vercel.app
-                                                            `;
-                                                            
-                                                            // Open user's email client with pre-filled data
-                                                            const mailtoLink = `mailto:phrastz@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                                                            window.location.href = mailtoLink;
-                                                            
-                                                            // Show success message
-                                                            alert(t('inquirySuccess'));
-                                                            
-                                                            // Clear form after submission
-                                                            setInquiryData({ name: '', email: '', phone: '' });
-                                                        } else {
-                                                            alert(t('fillAllFields'));
-                                                        }
-                                                    }}
+                                                    type="submit"
                                                     style={{
                                                         marginTop: '1.5rem',
                                                         padding: '0.75rem 1rem',
@@ -2698,7 +2708,7 @@ This inquiry was submitted via farmwell.vercel.app
                                                 <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '1rem', fontStyle: 'italic' }}>
                                                     {t('allFieldsRequired')}
                                                 </p>
-                                            </div>
+                                            </form>
                                         </div>
                                     )}
                                 </div>
