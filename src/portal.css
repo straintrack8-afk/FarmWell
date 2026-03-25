@@ -447,11 +447,11 @@ body {
 }
 
 .mc-feed::before {
-  background: linear-gradient(90deg, #6BAE3E, #8CC53F);
+  background: linear-gradient(90deg, var(--fw-teal), var(--fw-teal4));
 }
 
 .mc-pig::before {
-  background: linear-gradient(90deg, var(--fw-pig), #F07AB0);
+  background: linear-gradient(90deg, var(--fw-teal), var(--fw-teal4));
 }
 
 .mc-poultry::before {
@@ -459,7 +459,7 @@ body {
 }
 
 .mc-guide::before {
-  background: linear-gradient(90deg, var(--fw-orange), #F07840);
+  background: linear-gradient(90deg, var(--fw-teal), var(--fw-teal4));
 }
 
 .mc-ai::before {
@@ -485,11 +485,11 @@ body {
 }
 
 .mc-feed .fmc-icon-wrap {
-  background: #F0F8E8;
+  background: var(--fw-teal-lt);
 }
 
 .mc-pig .fmc-icon-wrap {
-  background: var(--fw-pig-lt);
+  background: var(--fw-teal-lt);
 }
 
 .mc-poultry .fmc-icon-wrap {
@@ -497,7 +497,7 @@ body {
 }
 
 .mc-guide .fmc-icon-wrap {
-  background: #FFF0E8;
+  background: var(--fw-teal-lt);
 }
 
 .mc-ai .fmc-icon-wrap {
@@ -582,13 +582,13 @@ body {
 }
 
 .mc-feed .fmc-tag {
-  background: #F0F8E8;
-  color: #6BAE3E;
+  background: var(--fw-teal-lt);
+  color: var(--fw-teal);
 }
 
 .mc-pig .fmc-tag {
-  background: var(--fw-pig-lt);
-  color: var(--fw-pig);
+  background: var(--fw-teal-lt);
+  color: var(--fw-teal);
 }
 
 .mc-poultry .fmc-tag {
@@ -597,8 +597,8 @@ body {
 }
 
 .mc-guide .fmc-tag {
-  background: #FFF0E8;
-  color: var(--fw-orange);
+  background: var(--fw-teal-lt);
+  color: var(--fw-teal);
 }
 
 .mc-ai .fmc-tag {
@@ -641,21 +641,21 @@ body {
 }
 
 .mc-feed .fmc-cta {
-  color: #6BAE3E;
+  color: var(--fw-teal);
 }
 
 .mc-feed .fmc-cta-arrow {
-  background: #F0F8E8;
-  color: #6BAE3E;
+  background: var(--fw-teal-lt);
+  color: var(--fw-teal);
 }
 
 .mc-pig .fmc-cta {
-  color: var(--fw-pig);
+  color: var(--fw-teal);
 }
 
 .mc-pig .fmc-cta-arrow {
-  background: var(--fw-pig-lt);
-  color: var(--fw-pig);
+  background: var(--fw-teal-lt);
+  color: var(--fw-teal);
 }
 
 .mc-poultry .fmc-cta {
@@ -668,12 +668,12 @@ body {
 }
 
 .mc-guide .fmc-cta {
-  color: var(--fw-orange);
+  color: var(--fw-teal);
 }
 
 .mc-guide .fmc-cta-arrow {
-  background: #FFF0E8;
-  color: var(--fw-orange);
+  background: var(--fw-teal-lt);
+  color: var(--fw-teal);
 }
 
 .mc-ai .fmc-cta {
