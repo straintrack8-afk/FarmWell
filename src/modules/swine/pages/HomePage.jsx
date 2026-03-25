@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { useLanguage } from '../../../contexts/LanguageContext';
 
 function HomePage() {
     const navigate = useNavigate();
     const { loading } = useDiagnosis();
     const { t } = useTranslation();
+    const { language } = useLanguage();
 
     const handleStartDiagnosis = () => {
         navigate('diagnostic');
@@ -27,92 +29,111 @@ function HomePage() {
         );
     }
 
+    const tagline = {
+        en: "An integrated swine management platform for disease diagnostics, biosecurity audits, and farm management support.",
+        id: "Platform manajemen babi terintegrasi untuk diagnostik penyakit, audit biosekuriti, dan dukungan manajemen peternakan.",
+        vi: "Nền tảng quản lý lợn tích hợp cho chẩn đoán bệnh, kiểm toán an toàn sinh học và hỗ trợ quản lý trang trại."
+    };
+
     return (
-        <div className="fw-page" style={{ minHeight: 'auto', background: 'transparent' }}>
-            {/* Header section similar to WelcomePage for consistent branding/spacing */}
-            <section className="fw-header-light" style={{ padding: '24px 20px 48px', background: 'transparent', borderBottom: 'none' }}>
-                <div className="fw-header-logo-wrap" style={{ cursor: 'default' }}>
-                    <img src="/images/PigWell_Logo.png" alt="PigWell" className="fw-header-logo" />
-                </div>
-                <p className="fw-header-sub">
-                    An integrated swine management platform for diagnostics, production analytics, financial planning, and farm biosecurity audits.
-                </p>
-            </section>
+        <div className="portal-layout">
+            <div className="portal-container">
+                <div className="portal-card" style={{ background: 'none' }}>
+                    {/* PigWell Logo (centered) */}
+                    <div className="page-header" style={{
+                        padding: '0.1875rem 1rem 2rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        textAlign: 'center'
+                    }}>
+                        <img
+                            src="/images/PigWell_Logo.png"
+                            alt="PigWell"
+                            style={{ 
+                                height: '200px', 
+                                width: 'auto', 
+                                marginBottom: '1.5rem',
+                                marginTop: '-3rem'
+                            }}
+                        />
+                        <p style={{
+                            fontSize: '1.125rem',
+                            color: '#4B5563',
+                            maxWidth: '600px',
+                            margin: '0 auto',
+                            lineHeight: '1.6'
+                        }}>
+                            {tagline[language]}
+                        </p>
+                    </div>
 
-            <div className="fw-section" style={{ paddingTop: 0, paddingBottom: '4rem' }}>
-                <div className="fw-modules-grid-2">
-                    {/* Disease Diagnosis Feature */}
-                    <div className="fw-module-card mc-pig" onClick={handleStartDiagnosis} style={{ cursor: 'pointer' }}>
-                        <div className="fmc-header">
-                            <div className="fmc-icon-wrap">
-                                <span className="fmc-emoji">⚕️</span>
-                            </div>
-                            <span className="mc-badge mb-live">✓ Active</span>
-                        </div>
-                        <div className="fmc-body">
-                            <div className="fmc-name">{t('swine.diagnosis.title')}</div>
-                            <div className="fmc-desc">{t('swine.diagnosis.description')}</div>
-                            <div className="fmc-tags">
-                                <span className="fmc-tag">{t('swine.diagnosis.features.ageSpecific')}</span>
-                                <span className="fmc-tag">{t('swine.diagnosis.features.symptomBased')}</span>
-                                <span className="fmc-tag">{t('swine.diagnosis.features.treatment')}</span>
-                            </div>
-                            <button className="fmc-cta" onClick={(e) => { e.stopPropagation(); handleStartDiagnosis(); }}>
+                    {/* Feature Cards */}
+                    <div className="feature-grid" style={{
+                        maxWidth: '900px',
+                        margin: '0 auto',
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                        gap: '1rem',
+                        border: '3px solid #10B981',
+                        borderRadius: '12px',
+                        padding: '1rem'
+                    }}>
+                        {/* Diagnostic Tool Card */}
+                        <div className="action-card" onClick={handleStartDiagnosis} style={{
+                            border: '2px solid #10B981',
+                            borderRadius: '8px'
+                        }}>
+                            <span className="action-card-icon"></span>
+                            <h3 className="action-card-title">
+                                {t('swine.diagnosis.title')}
+                            </h3>
+                            <p className="action-card-description">
+                                {t('swine.diagnosis.description')}
+                            </p>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>
                                 {t('swine.diagnosis.button')}
-                                <div className="fmc-cta-arrow">›</div>
                             </button>
                         </div>
-                    </div>
 
-                    {/* Biosecurity Assessment Feature */}
-                    <div className="fw-module-card mc-poultry" onClick={handleStartBiosecurity} style={{ cursor: 'pointer' }}>
-                        <div className="fmc-header">
-                            <div className="fmc-icon-wrap">
-                                <span className="fmc-emoji">🛡️</span>
-                            </div>
-                            <span className="mc-badge mb-live">✓ Active</span>
-                        </div>
-                        <div className="fmc-body">
-                            <div className="fmc-name">{t('swine.biosecurity.title')}</div>
-                            <div className="fmc-desc">{t('swine.biosecurity.description')}</div>
-                            <div className="fmc-tags">
-                                <span className="fmc-tag">{t('swine.biosecurity.features.questions')}</span>
-                                <span className="fmc-tag">{t('swine.biosecurity.features.scores')}</span>
-                                <span className="fmc-tag">{t('swine.biosecurity.features.reports')}</span>
-                            </div>
-                            <button className="fmc-cta" onClick={(e) => { e.stopPropagation(); handleStartBiosecurity(); }}>
+                        {/* Biosecurity Assessment Card */}
+                        <div className="action-card" onClick={handleStartBiosecurity} style={{
+                            border: '2px solid #10B981',
+                            borderRadius: '8px'
+                        }}>
+                            <span className="action-card-icon"></span>
+                            <h3 className="action-card-title">
+                                {t('swine.biosecurity.title')}
+                            </h3>
+                            <p className="action-card-description">
+                                {t('swine.biosecurity.description')}
+                            </p>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>
                                 {t('swine.biosecurity.button')}
-                                <div className="fmc-cta-arrow">›</div>
                             </button>
                         </div>
-                    </div>
-                </div>
 
-                {/* Second row for Calculator */}
-                <div className="fw-modules-grid-2" style={{ marginTop: '24px' }}>
-                    <div className="fw-module-card mc-feed" onClick={handleOpenCalculator} style={{ cursor: 'pointer' }}>
-                        <div className="fmc-header">
-                            <div className="fmc-icon-wrap">
-                                <span className="fmc-emoji">🧮</span>
-                            </div>
-                            <span className="mc-badge mb-new">✦ Updated</span>
-                        </div>
-                        <div className="fmc-body">
-                            <div className="fmc-name">{t('swine.calculator.title')}</div>
-                            <div className="fmc-desc">{t('swine.calculator.description')}</div>
-                            <div className="fmc-tags">
-                                <span className="fmc-tag">Cost Analysis</span>
-                                <span className="fmc-tag">Performance</span>
-                            </div>
-                            <button className="fmc-cta" onClick={(e) => { e.stopPropagation(); handleOpenCalculator(); }}>
+                        {/* Farm Calculator Card */}
+                        <div className="action-card" onClick={handleOpenCalculator} style={{
+                            border: '2px solid #10B981',
+                            borderRadius: '8px'
+                        }}>
+                            <span className="action-card-icon"></span>
+                            <h3 className="action-card-title">
+                                {t('swine.calculator.title')}
+                            </h3>
+                            <p className="action-card-description">
+                                {t('swine.calculator.description')}
+                            </p>
+                            <button className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>
                                 {t('swine.calculator.button')}
-                                <div className="fmc-cta-arrow">›</div>
                             </button>
                         </div>
+
                     </div>
-                </div>
+
+                    </div>
             </div>
-            {/* Footer Branding - removed since Welcome page doesn't have it explicitly mapped in these cards */}
         </div>
     );
 }
