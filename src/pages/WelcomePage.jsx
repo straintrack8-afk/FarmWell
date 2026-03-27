@@ -135,32 +135,8 @@ const WelcomePage = () => {
     return (
         <div className="fw-page">
             {/* ── TOPNAV ── */}
-            <SharedTopNav hideLogo />
+            <SharedTopNav />
 
-            {/* ── HERO HEADER  (light bg, logo centered) ── */}
-            <section className="fw-header-light">
-                <div className="fw-header-logo-wrap">
-                    <img src="/images/FarmWell_Logo.png" alt="FarmWell" className="fw-header-logo" />
-                </div>
-                <p className="fw-header-sub">
-                    {t('welcome.subtitle') || 'Integrated Livestock Diagnostic & Performance Platform'}
-                </p>
-            </section>
-
-            {/* ── FEATURE STRIP ── */}
-            <div className="fw-feature-strip">
-                <div className="fw-features-row">
-                    {features.map((feat, i) => (
-                        <div key={i} className="fw-feat" style={{ animationDelay: `${(i + 1) * 0.1}s` }}>
-                            <div className="fw-feat-icon">{feat.icon}</div>
-                            <div>
-                                <div className="fw-feat-title">{feat.title}</div>
-                                <div className="fw-feat-sub">{feat.sub}</div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
 
             {/* ── MODULES SECTION ── */}
             <div className="fw-section">
