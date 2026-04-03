@@ -299,3 +299,80 @@
 
 .oq-summary-label { color: var(--color-text-muted, #6c757d); }
 .oq-summary-val { font-weight: 600; color: var(--color-text, #212529); }
+
+/* ── Intro / Framing Screen ── */
+.oq-intro {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.oq-intro-icon {
+  font-size: 52px;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+}
+
+.oq-intro-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a2e1a;
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+}
+
+.oq-intro-desc {
+  font-size: 15px;
+  color: #5a6d5a;
+  line-height: 1.7;
+  max-width: 420px;
+  margin: 0 auto 2rem;
+}
+
+/* 3 benefit cards */
+.oq-intro-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 1.75rem;
+  text-align: left;
+}
+
+.oq-intro-benefit {
+  background: #fff;
+  border: 1.5px solid #d4e8d4;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.oq-benefit-icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.oq-benefit-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a2e1a;
+  margin-bottom: 2px;
+}
+
+.oq-benefit-desc {
+  font-size: 12px;
+  color: #6b7c6b;
+  line-height: 1.5;
+}
+
+/* Durasi info */
+.oq-intro-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #6b7c6b;
+  margin-bottom: 1.5rem;
+}

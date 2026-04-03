@@ -101,7 +101,7 @@ export default function OnboardingQuestionnaire({ onComplete }) {
   const { t, language } = useTranslation();
   const lang = language; // 'en' | 'id' | 'vi'
 
-  const [step, setStep]       = useState(1);  // 1-based, 8 = complete
+  const [step, setStep]       = useState(0);  // 0 = intro, 1-7 = questions, 8 = complete
   const [answers, setAnswers] = useState({
     livestock: '',   // 'Poultry' | 'Swine'
     subtype: '',     // 'Broiler' | 'Layer' | 'Color'  (only if Poultry)
@@ -185,10 +185,64 @@ export default function OnboardingQuestionnaire({ onComplete }) {
   // ── Render ──────────────────────────────────────────────────
   return (
     <div className="oq-container">
-        {/* Progress bar */}
-        {step < 8 && (
+        {/* Progress bar — hanya tampil saat step 1-7, bukan step 0 dan step 8 */}
+        {step >= 1 && step < 8 && (
           <div className="oq-progress-bar">
             <div className="oq-progress-fill" style={{ width: `${progress}%` }} />
+          </div>
+        )}
+
+        {/* ── STEP 0: Intro / Framing Screen ── */}
+        {step === 0 && (
+          <div className="oq-step oq-intro">
+
+            {/* Icon ilustrasi */}
+            <div className="oq-intro-icon">🌾</div>
+
+            {/* Heading */}
+            <h1 className="oq-intro-title">{t('onboarding.introTitle')}</h1>
+
+            {/* Deskripsi utama */}
+            <p className="oq-intro-desc">{t('onboarding.introDesc')}</p>
+
+            {/* 3 poin manfaat */}
+            <div className="oq-intro-benefits">
+              <div className="oq-intro-benefit">
+                <span className="oq-benefit-icon">🎯</span>
+                <div>
+                  <div className="oq-benefit-title">{t('onboarding.benefit1Title')}</div>
+                  <div className="oq-benefit-desc">{t('onboarding.benefit1Desc')}</div>
+                </div>
+              </div>
+              <div className="oq-intro-benefit">
+                <span className="oq-benefit-icon">🔒</span>
+                <div>
+                  <div className="oq-benefit-title">{t('onboarding.benefit2Title')}</div>
+                  <div className="oq-benefit-desc">{t('onboarding.benefit2Desc')}</div>
+                </div>
+              </div>
+              <div className="oq-intro-benefit">
+                <span className="oq-benefit-icon">⚡</span>
+                <div>
+                  <div className="oq-benefit-title">{t('onboarding.benefit3Title')}</div>
+                  <div className="oq-benefit-desc">{t('onboarding.benefit3Desc')}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Info durasi */}
+            <p className="oq-intro-time">
+              <span>🕐</span> {t('onboarding.introDuration')}
+            </p>
+
+            {/* Tombol mulai */}
+            <button
+              className="oq-btn-next oq-btn-next--full"
+              onClick={() => setStep(1)}
+            >
+              {t('onboarding.introStart')}
+            </button>
+
           </div>
         )}
 
