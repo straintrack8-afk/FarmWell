@@ -247,9 +247,17 @@ function GrowthChart({module: moduleProp, embedded = false}) {
     const getFlockBadge = () => {
         if (!flockContext) return null;
         
+        if (module === 'broiler') return 'Broiler Commercial';
+        
         const parts = [getModuleName()];
         
-        if (flockContext.breed_code && BREED_LABELS[flockContext.breed_code]) {
+        // Untuk color_chicken, tampilkan variant (choi/mia) dengan kapital
+        if (module === 'color_chicken') {
+            const variant = flockContext.variant || flockContext.breed_code;
+            if (variant && variant !== 'variant_a') {
+                parts.push(variant.charAt(0).toUpperCase() + variant.slice(1));
+            }
+        } else if (flockContext.breed_code && BREED_LABELS[flockContext.breed_code]) {
             parts.push(BREED_LABELS[flockContext.breed_code]);
         }
         
