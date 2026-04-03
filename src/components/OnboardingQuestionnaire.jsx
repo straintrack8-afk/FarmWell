@@ -196,8 +196,14 @@ export default function OnboardingQuestionnaire({ onComplete }) {
         {step === 0 && (
           <div className="oq-step oq-intro">
 
-            {/* Icon ilustrasi */}
-            <div className="oq-intro-icon">🌾</div>
+            {/* Logo FarmWell */}
+            <div className="oq-intro-logo">
+              <img
+                src="/images/FarmWell_Logo.png"
+                alt="FarmWell"
+                style={{ height: '80px', width: 'auto' }}
+              />
+            </div>
 
             {/* Heading */}
             <h1 className="oq-intro-title">{t('onboarding.introTitle')}</h1>
@@ -205,20 +211,13 @@ export default function OnboardingQuestionnaire({ onComplete }) {
             {/* Deskripsi utama */}
             <p className="oq-intro-desc">{t('onboarding.introDesc')}</p>
 
-            {/* 3 poin manfaat */}
+            {/* 2 poin manfaat */}
             <div className="oq-intro-benefits">
               <div className="oq-intro-benefit">
                 <span className="oq-benefit-icon">🎯</span>
                 <div>
                   <div className="oq-benefit-title">{t('onboarding.benefit1Title')}</div>
                   <div className="oq-benefit-desc">{t('onboarding.benefit1Desc')}</div>
-                </div>
-              </div>
-              <div className="oq-intro-benefit">
-                <span className="oq-benefit-icon">🔒</span>
-                <div>
-                  <div className="oq-benefit-title">{t('onboarding.benefit2Title')}</div>
-                  <div className="oq-benefit-desc">{t('onboarding.benefit2Desc')}</div>
                 </div>
               </div>
               <div className="oq-intro-benefit">

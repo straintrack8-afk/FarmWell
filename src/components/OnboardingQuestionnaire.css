@@ -306,10 +306,11 @@
   padding-top: 1rem;
 }
 
-.oq-intro-icon {
-  font-size: 52px;
-  margin-bottom: 1.25rem;
-  line-height: 1;
+.oq-intro-logo {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .oq-intro-title {
