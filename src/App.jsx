@@ -5,7 +5,7 @@ import WelcomePage from './pages/WelcomePage';
 import SwineApp from './modules/swine/App';
 import PoultryApp from './modules/poultry/App';
 import FeedAdditivesApp from './modules/feed-additives/App';
-import FarmGuideApp from './modules/farmguide/FarmGuideApp';
+// import FarmGuideApp from './modules/farmguide/FarmGuideApp'; // TODO: Uncomment when FarmGuide is ready
 import SplashScreen from './components/SplashScreen';
 import SharedTopNav from './components/SharedTopNav';
 import OnboardingQuestionnaire from './components/OnboardingQuestionnaire';
@@ -49,7 +49,7 @@ function AppContent() {
                     <Route path="/feed-additives/*" element={<FeedAdditivesApp />} />
                     <Route path="/swine/*" element={<SwineApp />} />
                     <Route path="/poultry/*" element={<PoultryApp />} />
-                    <Route path="/farmguide/*" element={<FarmGuideApp />} />
+                    {/* <Route path="/farmguide/*" element={<FarmGuideApp />} /> */}
                 </Routes>
             )}
         </>
