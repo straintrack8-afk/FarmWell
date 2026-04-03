@@ -173,7 +173,22 @@ function GrowthChart({module: moduleProp, embedded = false}) {
             const variant = context.variant || context.breed_code || 'choi';
             const sex = context.sex || 'male';
             const rangeData = getColorRange(variant, sex);
-            setStandardData(rangeData.map(r => ({ day: r.day, week: r.week, bw: r.bw_avg })));
+
+            if (viewMode === 'daily') {
+                setStandardData(rangeData.map(r => ({
+                    day: r.day,
+                    week: r.week,
+                    bw: r.bw_avg
+                })));
+            } else {
+                // Weekly: ambil hanya hari ke-7 setiap minggu (D7, D14, D21, ... D126)
+                const weeklyData = rangeData.filter(r => r.day % 7 === 0).map(r => ({
+                    week: r.week,
+                    day: r.day,
+                    bw: r.bw_avg
+                }));
+                setStandardData(weeklyData);
+            }
         } else if (module === 'parent_stock') {
             // Guard: jangan fetch ulang jika sudah ada data
             if (standardData.length > 0) return;
