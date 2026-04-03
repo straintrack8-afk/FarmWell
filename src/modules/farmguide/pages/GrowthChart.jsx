@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import SharedTopNav from '../../../components/SharedTopNav';
 import { BROILER_RANGE } from '../data/broilerRangeData';
+import { getColorRange } from '../data/colorChickenRangeData';
 import '../../../portal.css';
 
 const BROILER_WEEKLY_BW_STANDARD = BROILER_RANGE.filter(r => r.day % 7 === 0).map(r => ({
@@ -169,31 +170,10 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                 })
                 .catch(err => console.error('Failed to load layer standards:', err));
         } else if (module === 'color_chicken') {
-            fetch('/data/farmguide_data/breeds/color_chicken_standards.json')
-                .then(r => r.json())
-                .then(data => {
-                    setCcDailyData(data);
-                    const sex = context.sex || 'male';
-                    const breed = context.breed_code || 'variant_a';
-                    
-                    if (viewMode === 'daily') {
-                        const dailyData = data[sex]?.[breed]?.daily_data || [];
-                        const standards = dailyData.map(row => ({
-                            day: row[0],
-                            week: Math.ceil(row[0] / 7),
-                            bw: row[5]
-                        }));
-                        setStandardData(standards);
-                    } else {
-                        const weeklyData = data[sex]?.[breed]?.weekly_summary || [];
-                        const standards = weeklyData.map(row => ({
-                            week: row.week,
-                            bw: row.bw_g
-                        }));
-                        setStandardData(standards);
-                    }
-                })
-                .catch(err => console.error('Failed to load color chicken standards:', err));
+            const variant = context.variant || context.breed_code || 'choi';
+            const sex = context.sex || 'male';
+            const rangeData = getColorRange(variant, sex);
+            setStandardData(rangeData.map(r => ({ day: r.day, week: r.week, bw: r.bw_avg })));
         } else if (module === 'parent_stock') {
             // Guard: jangan fetch ulang jika sudah ada data
             if (standardData.length > 0) return;
