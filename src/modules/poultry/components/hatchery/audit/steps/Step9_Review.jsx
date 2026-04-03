@@ -279,14 +279,6 @@ function Step9_Review() {
                         <p><strong>Progress:</strong> {allSamples.length > 0 ? Math.round((collectedCount / allSamples.length) * 100) : 0}%</p>
                     </div>
                 );
-            case 'info': // For incubation data
-                const isIncubating = !!stepData.incubationStartDate;
-                return (
-                    <div>
-                        <p><strong>Status:</strong> {isIncubating ? translations.inProgress[language] : 'Not Started'}</p>
-                        {isIncubating && <p><strong>Start Date:</strong> {formatDate(stepData.incubationStartDate)}</p>}
-                    </div>
-                );
             default:
                 return <p>{translations.noData[language]}</p>;
         }
