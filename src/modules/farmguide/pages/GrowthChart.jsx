@@ -347,18 +347,6 @@ function GrowthChart({module: moduleProp, embedded = false}) {
             return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
         }).filter(s => s).join(' ');
 
-        // Build actual path (weekly only for now)
-        const actualPath = actualData.length > 0 
-            ? actualData.map((d, i) => {
-                const weekIndex = standardData.findIndex(s => s.week === d.week);
-                if (weekIndex === -1) return '';
-                const x = getX(weekIndex);
-                const y = getY(d.bw_actual_g);
-                if (isNaN(x) || isNaN(y) || !isFinite(x) || !isFinite(y)) return '';
-                return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
-            }).filter(s => s).join(' ')
-            : '';
-
         return (
             <div>
                 {/* Daily/Weekly Toggle for Broiler and Color Chicken */}
