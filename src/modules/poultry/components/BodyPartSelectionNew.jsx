@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import '../styles/DiseaseDiagnosis.css';
@@ -13,6 +14,7 @@ const CATEGORY_EMOJI = {
 };
 
 const BodyPartSelectionNew = () => {
+  const navigate = useNavigate();
   const { language } = useLanguage();
   
   const {
@@ -113,6 +115,7 @@ const BodyPartSelectionNew = () => {
 
   const handleDiseaseClick = (disease) => {
     viewDiseaseDetail(disease);
+    navigate('/poultry/diagnostic/detail');
   };
 
   return (
