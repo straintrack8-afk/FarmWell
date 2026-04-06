@@ -1,22 +1,18 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import '../styles/DiseaseDiagnosis.css';
 
 const CATEGORY_EMOJI = {
-  mortality:     { emoji: '💀', label: 'Mortality' },
-  fever:         { emoji: '🌡️', label: 'Fever' },
-  respiratory:   { emoji: '🫁', label: 'Respiratory' },
-  digestive:     { emoji: '🦠', label: 'Digestive' },
-  nervous:       { emoji: '🧠', label: 'Nervous' },
-  skin:          { emoji: '🩹', label: 'Skin' },
-  reproductive:  { emoji: '�', label: 'Reproductive' },
-  systemic:      { emoji: '⚡', label: 'Systemic' },
+  respiratory:      { emoji: '🐔', label: 'Head & Respiratory' },
+  digestive:        { emoji: '🌾', label: 'Digestive System' },
+  musculoskeletal:  { emoji: '🦴', label: 'Bones & Joints' },
+  integumentary:    { emoji: '�', label: 'Skin & Feathers' },
+  reproductive:     { emoji: '🥚', label: 'Reproductive System' },
+  general:          { emoji: '🌡️', label: 'Behavior & Systemic' },
 };
 
-const DiseaseDiagnosisNew = () => {
-  const navigate = useNavigate();
+const BodyPartSelectionNew = () => {
   const { language } = useLanguage();
   
   const {
@@ -27,10 +23,12 @@ const DiseaseDiagnosisNew = () => {
     toggleSymptom,
     clearSymptoms,
     calculateResults,
+    viewDiseaseDetail,
+    previousStep,
   } = useDiagnosis();
 
   const [currentStep, setCurrentStep] = useState(2);
-  const [activeCategory, setActiveCategory] = useState('respiratory');
+  const [activeCategory, setActiveCategory] = useState('head_respiratory');
   const [searchTerm, setSearchTerm] = useState('');
   const [mobileTab, setMobileTab] = useState('symptoms');
   const [showResults, setShowResults] = useState(false);
@@ -113,12 +111,16 @@ const DiseaseDiagnosisNew = () => {
     }).length;
   }, [activeSymptoms, selectedSymptoms]);
 
+  const handleDiseaseClick = (disease) => {
+    viewDiseaseDetail(disease);
+  };
+
   return (
     <div className="diagnosis-page">
       {/* Step Progress Bar */}
       <div className="dd-step-bar">
         <div className="dd-step-inner">
-          <div className={`dd-step ${currentStep >= 1 ? 'done' : ''}`} onClick={() => navigate('/swine/diagnosis/age')}>
+          <div className={`dd-step ${currentStep >= 1 ? 'done' : ''}`} onClick={previousStep}>
             <div className="dd-step-circle">{currentStep > 1 ? '✓' : '1'}</div>
             <div className="dd-step-text">
               <span className="dd-step-num">Step 1</span>
@@ -149,7 +151,7 @@ const DiseaseDiagnosisNew = () => {
         {/* Hero */}
         <div className="dd-hero">
           <div className="dd-hero-badge">
-            🐖 {ageLabel} · {selectedSymptoms.length} {language === 'en' ? 'symptom' : language === 'id' ? 'gejala' : 'triệu chứng'}{selectedSymptoms.length !== 1 ? 's' : ''} {language === 'en' ? 'selected' : language === 'id' ? 'dipilih' : 'đã chọn'}
+            🐔 {ageLabel} · {selectedSymptoms.length} {language === 'en' ? 'symptom' : language === 'id' ? 'gejala' : 'triệu chứng'}{selectedSymptoms.length !== 1 ? 's' : ''} {language === 'en' ? 'selected' : language === 'id' ? 'dipilih' : 'đã chọn'}
           </div>
           <h1>{language === 'en' ? 'What symptoms do you observe?' : language === 'id' ? 'Gejala apa yang Anda amati?' : 'Bạn quan sát thấy triệu chứng gì?'}</h1>
           <p>{language === 'en' ? 'Choose a body system below, then select every symptom you can see.' : language === 'id' ? 'Pilih sistem tubuh di bawah, lalu pilih setiap gejala yang Anda lihat.' : 'Chọn hệ thống cơ thể bên dưới, sau đó chọn mọi triệu chứng bạn thấy.'}</p>
@@ -328,8 +330,8 @@ const DiseaseDiagnosisNew = () => {
                     <div
                       key={disease.id || idx}
                       className={`dd-disease-card ${idx === 0 ? 'rank-1' : ''}`}
-                      onClick={() => navigate(`/swine/diagnosis/disease/${disease.id}`)}
-                      style={{ animationDelay: `${idx * 0.05}s` }}
+                      onClick={() => handleDiseaseClick(disease)}
+                      style={{ animationDelay: `${idx * 0.05}s`, cursor: 'pointer' }}
                     >
                       <div className="dd-d-rank">{idx + 1}</div>
                       <div className="dd-d-body">
@@ -371,10 +373,10 @@ const DiseaseDiagnosisNew = () => {
       {/* Action Bar */}
       <div className="dd-action-bar">
         <div className="dd-action-inner">
-          <button className="dd-btn-back" onClick={() => navigate('/swine/diagnosis/age')}>
+          <button className="dd-btn-back" onClick={previousStep}>
             ← {language === 'en' ? 'Back to Age' : language === 'id' ? 'Kembali ke Umur' : 'Quay lại Tuổi'}
           </button>
-          <button className="dd-btn-all" onClick={() => navigate('/swine/diseases')}>
+          <button className="dd-btn-all" onClick={() => window.location.href = '/poultry/diseases'}>
             {language === 'en' ? 'All Diseases' : language === 'id' ? 'Semua Penyakit' : 'Tất cả bệnh'}
           </button>
           <button
@@ -397,4 +399,4 @@ const DiseaseDiagnosisNew = () => {
   );
 };
 
-export default DiseaseDiagnosisNew;
+export default BodyPartSelectionNew;

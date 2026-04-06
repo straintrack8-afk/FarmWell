@@ -13,6 +13,7 @@ import PoultryLanding from './components/PoultryLanding';
 import LandingPage from './components/LandingPage';
 import AgeSelection from './components/AgeSelection';
 import BodyPartSelection from './components/BodyPartSelection';
+import BodyPartSelectionNew from './components/BodyPartSelectionNew';
 import SymptomSelection from './components/SymptomSelection';
 import ResultsList from './components/ResultsList';
 import DiseaseDetail from './components/DiseaseDetail';
@@ -115,7 +116,7 @@ function DiagnosticApp() {
                         <Header isOffline={isOffline} onBack={reset} />
                         <main style={{ flex: 1, padding: 0 }}>
                             {step === STEPS.AGE && <AgeSelection />}
-                            {step === STEPS.SYMPTOMS && <BodyPartSelection />}
+                            {step === STEPS.SYMPTOMS && <BodyPartSelectionNew />}
                             {step === STEPS.ALL_DISEASES && <AllDiseases />}
                             {step === STEPS.DETAIL && <DiseaseDetail />}
                         </main>

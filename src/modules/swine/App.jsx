@@ -65,7 +65,7 @@ function App() {
 
                     {/* Diagnosis Routes */}
                     <Route path="/diagnosis/age" element={<AgePage />} />
-                    <Route path="/diagnosis/symptoms" element={<SymptomsPage />} />
+                    <Route path="/diagnosis/symptoms" element={<DiseaseDiagnosisNew />} />
                     <Route path="/diagnosis/symptoms-new" element={<DiseaseDiagnosisNew />} />
                     <Route path="/diagnosis/results" element={<ResultsPage />} />
                     <Route path="/diagnosis/disease/:id" element={<DiseasePage />} />
