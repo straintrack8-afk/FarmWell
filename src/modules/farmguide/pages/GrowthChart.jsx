@@ -404,6 +404,41 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                     overflowX: 'auto'
                 }}>
                     <svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} style={{ maxWidth: '100%' }}>
+                        {/* Horizontal grid lines */}
+                        {[0, 0.25, 0.5, 0.75, 1].map((ratio, i) => {
+                            const y = padding.top + chartHeight * (1 - ratio);
+                            return (
+                                <line
+                                    key={`hg-${i}`}
+                                    x1={padding.left}
+                                    y1={y}
+                                    x2={width - padding.right}
+                                    y2={y}
+                                    stroke="var(--fw-border)"
+                                    strokeWidth="1"
+                                    opacity="0.5"
+                                />
+                            );
+                        })}
+
+                        {/* Vertical grid lines */}
+                        {standardData.map((d, i) => {
+                            const x = getX(i);
+                            if (isNaN(x) || !isFinite(x)) return null;
+                            return (
+                                <line
+                                    key={`vg-${i}`}
+                                    x1={x}
+                                    y1={padding.top}
+                                    x2={x}
+                                    y2={height - padding.bottom}
+                                    stroke="var(--fw-border)"
+                                    strokeWidth="1"
+                                    opacity="0.3"
+                                />
+                            );
+                        })}
+
                         <path
                             d={standardPath}
                             fill="none"
@@ -568,10 +603,10 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead style={{ position: 'sticky', top: 0, background: 'var(--fw-bg)', zIndex: 1 }}>
                                 <tr>
-                                    <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                    <th style={{ padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
                                         {viewMode === 'daily' ? (t('farmguide.day') || 'Day') : (t('farmguide.week') || 'Week')}
                                     </th>
-                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                    <th style={{ padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
                                         {t('farmguide.standard') || 'Standard'} (g)
                                     </th>
                                 </tr>
@@ -592,10 +627,10 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                                                 borderTop: '1px solid var(--fw-border)'
                                             }}
                                         >
-                                            <td style={{ padding: '0.75rem', fontSize: '0.875rem' }}>
+                                            <td style={{ padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem' }}>
                                                 {viewMode === 'daily' ? `D${std.day}` : `W${std.week}`}
                                             </td>
-                                            <td style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem' }}>
+                                            <td style={{ padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem' }}>
                                                 {std.bw}
                                             </td>
                                         </tr>
