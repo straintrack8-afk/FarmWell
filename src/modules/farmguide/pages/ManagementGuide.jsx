@@ -4,6 +4,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 import SharedTopNav from '../../../components/SharedTopNav';
 import ChecklistItem from '../components/ChecklistItem';
 import { BROILER_GUIDE, FEED_WEEKLY } from '../data/broilerGuideData';
+import { COLOR_CHICKEN_GUIDE, COLOR_CHICKEN_TARGETS } from '../data/colorChickenGuideData';
 import FlockSaya from './FlockSaya';
 import GrowthChart from './GrowthChart';
 import '../../../portal.css';
@@ -526,8 +527,8 @@ const ManagementGuide = () => {
     };
 
     const renderEnvironmentTab = () => {
-        if (module === 'broiler') {
-            const weekData = BROILER_GUIDE[selectedWeek - 1];
+        if (module === 'broiler' || module === 'color_chicken') {
+            const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
             
             const env = weekData.environment;
@@ -685,8 +686,8 @@ const ManagementGuide = () => {
     };
 
     const renderFeedTab = () => {
-        if (module === 'broiler') {
-            const weekData = BROILER_GUIDE[selectedWeek - 1];
+        if (module === 'broiler' || module === 'color_chicken') {
+            const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
             
             const feedInfo = weekData.feed;
@@ -1361,8 +1362,8 @@ const ManagementGuide = () => {
     };
 
     const renderChecklistTab = () => {
-        if (module === 'broiler') {
-            const weekData = BROILER_GUIDE[selectedWeek - 1];
+        if (module === 'broiler' || module === 'color_chicken') {
+            const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
             
             const items = weekData.checklist || [];
@@ -1700,13 +1701,14 @@ const ManagementGuide = () => {
                     </div>
                 )}
 
-                {/* ─── Phase Pill, Title, Tags + Alert (only for Guide + Broiler) ─── */}
-                {mainTab === 'guide' && module === 'broiler' && BROILER_GUIDE[selectedWeek - 1] && (
+                {/* ─── Phase Pill, Title, Tags + Alert (only for Guide + Broiler/Color Chicken) ─── */}
+                {mainTab === 'guide' && (module === 'broiler' || module === 'color_chicken') && (module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1]) && (
                     <div style={{ marginBottom: '1.5rem' }}>
                         {(() => {
-                            const weekData = BROILER_GUIDE[selectedWeek - 1];
+                            const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
                             const phaseColor = weekData.phase === 'Brooding' ? '#E8652A' : 
-                                             weekData.phase === 'Grower' ? '#1B7A6E' : '#C47A1A';
+                                             weekData.phase === 'Grower' ? '#1B7A6E' : 
+                                             weekData.phase === 'Finisher' ? '#C47A1A' : '#8B5CF6';
                             
                             return (
                                 <>

@@ -62,9 +62,8 @@ function GrowthChart({module: moduleProp, embedded = false}) {
     const { t } = useTranslation();
 
     const [flockContext, setFlockContext] = useState(null);
-    const [activeTab, setActiveTab] = useState('chart');
+    const [activeTab, setActiveTab] = useState('bw');
     const [standardData, setStandardData] = useState([]);
-    const [actualData, setActualData] = useState([]);
     const [feedData, setFeedData] = useState(null);
     const [viewMode, setViewMode] = useState(() => {
         return localStorage.getItem('farmguide_bw_view_mode') || 'weekly';
@@ -85,7 +84,6 @@ function GrowthChart({module: moduleProp, embedded = false}) {
         setFlockContext(context);
         
         loadStandardData(context);
-        loadActualData(context);
     }, []);
 
     useEffect(() => {
@@ -129,10 +127,16 @@ function GrowthChart({module: moduleProp, embedded = false}) {
     const handleWeekSelect = (week) => {
         setSelectedWeek(week);
         setSelectedDay(week * 7);
+        setTimeout(() => {
+            document.getElementById(`gc-row-w${week}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
     };
 
     const handleDaySelect = (day) => {
         setSelectedDay(day);
+        setTimeout(() => {
+            document.getElementById(`gc-row-d${day}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
     };
 
     const handleSwitchToDaily = () => {
@@ -226,13 +230,6 @@ function GrowthChart({module: moduleProp, embedded = false}) {
         }
     };
 
-    const loadActualData = (context) => {
-        if (!context?.id) return;
-        const history = JSON.parse(
-            localStorage.getItem(`farmguide_flock_${context.id}_history`) || '[]'
-        );
-        setActualData(history);
-    };
 
     const getModuleName = () => {
         const names = {
@@ -271,49 +268,10 @@ function GrowthChart({module: moduleProp, embedded = false}) {
         return parts.join(' · ');
     };
 
-    const getStatus = (actual, standard) => {
-        if (!actual || actual === 0) return 'no_data';
-        const pct = ((actual - standard) / standard) * 100;
-        if (pct >= -5) return 'on_track';
-        if (pct < -5) return 'below';
-        return 'above';
-    };
-
-    const renderStatusBanner = () => {
-        if (actualData.length === 0) return null;
-        
-        const latestActual = actualData[actualData.length - 1];
-        const latestStandard = standardData.find(s => s.week === latestActual.week);
-        
-        if (!latestStandard) return null;
-        
-        const pct = ((latestActual.bw_actual_g - latestStandard.bw) / latestStandard.bw) * 100;
-        const isOnTrack = pct >= -5;
-        
-        return (
-            <div style={{
-                padding: '1rem',
-                marginBottom: '1.5rem',
-                background: isOnTrack ? '#f0fdf4' : '#fff7ed',
-                border: `2px solid ${isOnTrack ? 'var(--fw-teal)' : 'var(--fw-orange)'}`,
-                borderRadius: '8px',
-                fontSize: '0.875rem',
-                color: 'var(--fw-text)'
-            }}>
-                <strong>{isOnTrack ? t('farmguide.onTrack') : t('farmguide.belowTarget')}</strong>
-                {' — '}
-                {isOnTrack 
-                    ? 'BW aktual dalam range standar minggu ini'
-                    : `BW aktual ${pct.toFixed(1)}% di bawah standar. Evaluasi manajemen.`
-                }
-            </div>
-        );
-    };
 
     const renderTabNav = () => {
         const tabs = [
-            { id: 'chart', label: t('farmguide.tabChart') || 'BW Chart' },
-            { id: 'table', label: t('farmguide.tabBWTable') || 'BW Table' },
+            { id: 'bw', label: t('farmguide.tabBWAndTable') || 'BW & Table' },
             { id: 'feedref', label: t('farmguide.tabFeedRef') || 'Feed Reference' },
         ];
         
@@ -449,20 +407,6 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                     </div>
                 )}
 
-                {actualData.length === 0 && (
-                    <div style={{
-                        padding: '1rem',
-                        marginBottom: '1rem',
-                        background: 'var(--fw-orange-lt)',
-                        border: '1px solid var(--fw-orange)',
-                        borderRadius: '8px',
-                        fontSize: '0.875rem',
-                        color: 'var(--fw-text)',
-                        textAlign: 'center'
-                    }}>
-                        {t('farmguide.noActualData') || 'No actual data yet. Enter flock data in My Flock to see comparison.'}
-                    </div>
-                )}
 
                 <div style={{
                     background: 'var(--fw-card)',
@@ -479,15 +423,6 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                             strokeWidth="2"
                             strokeDasharray="5,5"
                         />
-                        
-                        {actualPath && (
-                            <path
-                                d={actualPath}
-                                fill="none"
-                                stroke="var(--fw-orange)"
-                                strokeWidth="2"
-                            />
-                        )}
 
                         {standardData
                             .filter((_, i) => viewMode === 'daily' ? i % 7 === 0 : true)
@@ -496,36 +431,36 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                                 const x = getX(origIndex);
                                 const y = getY(d.bw);
                                 if (isNaN(x) || isNaN(y) || !isFinite(x) || !isFinite(y)) return null;
+                                
+                                const isSelected = viewMode === 'weekly' ? selectedWeek === d.week : selectedDay === d.day;
+                                
                                 return (
                                     <circle
                                         key={`std-${origIndex}`}
                                         cx={x}
                                         cy={y}
-                                        r="4"
-                                        fill="var(--fw-card)"
-                                        stroke="var(--fw-teal)"
+                                        r={isSelected ? 7 : 4}
+                                        fill={isSelected ? 'var(--fw-orange)' : 'var(--fw-card)'}
+                                        stroke={isSelected ? 'white' : 'var(--fw-teal)'}
                                         strokeWidth="2"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => {
+                                            if (viewMode === 'weekly') {
+                                                setSelectedWeek(d.week);
+                                                setTimeout(() => {
+                                                    document.getElementById(`gc-row-w${d.week}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                }, 50);
+                                            } else {
+                                                setSelectedDay(d.day);
+                                                setTimeout(() => {
+                                                    document.getElementById(`gc-row-d${d.day}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                }, 50);
+                                            }
+                                        }}
                                     />
                                 );
                             })
                         }
-
-                        {actualData.map((d, i) => {
-                            const weekIndex = standardData.findIndex(s => s.week === d.week);
-                            if (weekIndex === -1) return null;
-                            const x = getX(weekIndex);
-                            const y = getY(d.bw_actual_g);
-                            if (isNaN(x) || isNaN(y) || !isFinite(x) || !isFinite(y)) return null;
-                            return (
-                                <circle
-                                    key={`act-${i}`}
-                                    cx={x}
-                                    cy={y}
-                                    r="4"
-                                    fill="var(--fw-orange)"
-                                />
-                            );
-                        })}
 
                         <line
                             x1={padding.left}
@@ -614,146 +549,73 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                             </svg>
                             <span style={{ color: 'var(--fw-text)' }}>{t('farmguide.standard') || 'Standard'}</span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <svg width="30" height="2">
-                                <line x1="0" y1="1" x2="30" y2="1" stroke="var(--fw-orange)" strokeWidth="2" />
-                            </svg>
-                            <span style={{ color: 'var(--fw-text)' }}>{t('farmguide.actual') || 'Actual'}</span>
-                        </div>
                     </div>
                 </div>
             </div>
         );
     };
 
-    const renderTableTab = () => {
+    const renderBWTab = () => {
         if (standardData.length === 0) {
             return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
         }
 
         return (
             <div>
-                {/* Daily/Weekly Toggle for Broiler and Color Chicken */}
-                {(module === 'broiler' || module === 'color_chicken') && (
+                {renderChartTab()}
+                
+                {/* Table below chart */}
+                <div style={{ marginTop: '2rem' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--fw-text)', marginBottom: '1rem' }}>
+                        {t('farmguide.bwTable') || 'BW Standard Table'}
+                    </h3>
                     <div style={{
-                        display: 'flex',
-                        gap: '0.5rem',
-                        marginBottom: '1rem',
-                        padding: '0.25rem',
-                        background: 'var(--fw-bg)',
+                        background: 'var(--fw-card)',
+                        border: '1px solid var(--fw-border)',
                         borderRadius: '8px',
-                        width: 'fit-content'
+                        overflowX: 'auto',
+                        maxHeight: '400px',
+                        overflowY: 'auto'
                     }}>
-                        <button
-                            onClick={() => handleViewModeChange('weekly')}
-                            style={{
-                                padding: '0.5rem 1rem',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: viewMode === 'weekly' ? 'var(--fw-card)' : 'var(--fw-text)',
-                                background: viewMode === 'weekly' ? 'var(--fw-teal)' : 'transparent',
-                                border: 'none',
-                                borderRadius: '6px',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s'
-                            }}
-                        >
-                            {t('farmguide.weekly') || 'Weekly'}
-                        </button>
-                        <button
-                            onClick={() => handleViewModeChange('daily')}
-                            style={{
-                                padding: '0.5rem 1rem',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: viewMode === 'daily' ? 'var(--fw-card)' : 'var(--fw-text)',
-                                background: viewMode === 'daily' ? 'var(--fw-teal)' : 'transparent',
-                                border: 'none',
-                                borderRadius: '6px',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s'
-                            }}
-                        >
-                            {t('farmguide.daily') || 'Daily'}
-                        </button>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead style={{ position: 'sticky', top: 0, background: 'var(--fw-bg)', zIndex: 1 }}>
+                                <tr>
+                                    <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        {viewMode === 'daily' ? (t('farmguide.day') || 'Day') : (t('farmguide.week') || 'Week')}
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        {t('farmguide.standard') || 'Standard'} (g)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {standardData.map((std, idx) => {
+                                    const isSelected = viewMode === 'weekly' ? selectedWeek === std.week : selectedDay === std.day;
+                                    
+                                    return (
+                                        <tr 
+                                            key={idx}
+                                            id={viewMode === 'weekly' ? `gc-row-w${std.week}` : `gc-row-d${std.day}`}
+                                            style={isSelected ? {
+                                                background: 'var(--fw-teal)',
+                                                color: 'white',
+                                                fontWeight: '700'
+                                            } : {
+                                                borderTop: '1px solid var(--fw-border)'
+                                            }}
+                                        >
+                                            <td style={{ padding: '0.75rem', fontSize: '0.875rem' }}>
+                                                {viewMode === 'daily' ? `D${std.day}` : `W${std.week}`}
+                                            </td>
+                                            <td style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem' }}>
+                                                {std.bw}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
                     </div>
-                )}
-
-                <div style={{
-                    background: 'var(--fw-card)',
-                    border: '1px solid var(--fw-border)',
-                    borderRadius: '8px',
-                    overflowX: 'auto'
-                }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead>
-                            <tr style={{ background: 'var(--fw-bg)' }}>
-                                <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                    {viewMode === 'daily' ? (t('farmguide.day') || 'Day') : (t('farmguide.week') || 'Week')}
-                                </th>
-                                <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                    {t('farmguide.standard') || 'Standard'} (g)
-                                </th>
-                                <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                    {t('farmguide.actual') || 'Actual'} (g)
-                                </th>
-                                <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                    {t('farmguide.difference') || 'Diff'} (g)
-                                </th>
-                                <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                    {t('farmguide.difference') || 'Diff'} (%)
-                                </th>
-                                <th style={{ padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                    Status
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {standardData.map((std, idx) => {
-                                const actual = actualData.find(a => a.week === std.week);
-                                const actualBW = actual?.bw_actual_g || 0;
-                                const diff = actualBW > 0 ? actualBW - std.bw : null;
-                                const diffPct = actualBW > 0 ? ((actualBW - std.bw) / std.bw) * 100 : null;
-                                const status = getStatus(actualBW, std.bw);
-                                
-                                const statusColors = {
-                                    on_track: { color: 'var(--fw-teal)', text: t('farmguide.onTrack') || '✓ On Track' },
-                                    below: { color: 'var(--fw-orange)', text: t('farmguide.belowTarget') || '⚠ Below' },
-                                    above: { color: 'var(--fw-blue)', text: t('farmguide.aboveTarget') || '↑ Above' },
-                                    no_data: { color: 'var(--fw-sub)', text: '—' }
-                                };
-                                
-                                return (
-                                    <tr 
-                                        key={idx}
-                                        style={{ 
-                                            borderTop: '1px solid var(--fw-border)',
-                                            background: actualBW > 0 ? '#fffbeb' : 'transparent'
-                                        }}
-                                    >
-                                        <td style={{ padding: '0.75rem', fontSize: '0.875rem', color: 'var(--fw-text)' }}>
-                                            {viewMode === 'daily' ? `D${std.day}` : `W${std.week}`}
-                                        </td>
-                                        <td style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', color: 'var(--fw-text)' }}>
-                                            {std.bw}
-                                        </td>
-                                        <td style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', color: 'var(--fw-text)' }}>
-                                            {actualBW > 0 ? actualBW : '—'}
-                                        </td>
-                                        <td style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', color: 'var(--fw-text)' }}>
-                                            {diff !== null ? (diff > 0 ? `+${diff}` : diff) : '—'}
-                                        </td>
-                                        <td style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', color: 'var(--fw-text)' }}>
-                                            {diffPct !== null ? `${diffPct > 0 ? '+' : ''}${diffPct.toFixed(1)}%` : '—'}
-                                        </td>
-                                        <td style={{ padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem', fontWeight: '600', color: statusColors[status].color }}>
-                                            {statusColors[status].text}
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
                 </div>
             </div>
         );
@@ -938,10 +800,8 @@ function GrowthChart({module: moduleProp, embedded = false}) {
 
     const renderTabContent = () => {
         switch (activeTab) {
-            case 'chart':
-                return renderChartTab();
-            case 'table':
-                return renderTableTab();
+            case 'bw':
+                return renderBWTab();
             case 'feedref':
                 return renderFeedRefTab();
             default:
@@ -960,8 +820,7 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                 {renderTabNav()}
 
                 {/* Tab Content */}
-                {activeTab === 'chart' && renderChartTab()}
-                {activeTab === 'table' && renderTableTab()}
+                {activeTab === 'bw' && renderBWTab()}
                 {activeTab === 'feedref' && renderFeedRefTab()}
             </div>
         );
@@ -1010,8 +869,6 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                         {getFlockBadge()}
                     </div>
                 </div>
-
-                {renderStatusBanner()}
 
                 {renderTabNav()}
 
