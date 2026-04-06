@@ -5,6 +5,7 @@ import SharedTopNav from '../../../components/SharedTopNav';
 import ChecklistItem from '../components/ChecklistItem';
 import { BROILER_GUIDE, FEED_WEEKLY } from '../data/broilerGuideData';
 import { COLOR_CHICKEN_GUIDE, COLOR_CHICKEN_TARGETS } from '../data/colorChickenGuideData';
+import { getColorRange } from '../data/colorChickenRangeData';
 import FlockSaya from './FlockSaya';
 import GrowthChart from './GrowthChart';
 import '../../../portal.css';
@@ -583,7 +584,7 @@ const ManagementGuide = () => {
                                 {t('farmguide.lighting') || 'Cahaya'}
                             </div>
                             <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
-                                {env.light}
+                                {typeof env.light === 'object' ? (env.light[lang] ?? env.light['en']) : env.light}
                             </div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginTop: '0.25rem' }}>
                                 {env.light_lux}
@@ -1014,18 +1015,16 @@ const ManagementGuide = () => {
                 gain: row.gain_g,
                 feed: row.feed_g_day
             }));
-        } else if (viewMode === 'daily' && module === 'color_chicken' && ccDailyData) {
+        } else if (viewMode === 'daily' && module === 'color_chicken') {
+            const variant = flockContext?.variant || flockContext?.breed_code || 'choi';
             const sex = flockContext?.sex || 'male';
-            const breed = flockContext?.breed_code || 'variant_a';
-            const dailyData = ccDailyData[sex]?.[breed]?.daily_data || [];
-            
-            tableData = dailyData.map(row => ({
-                day: row[0],
-                week: Math.ceil(row[0] / 7),
-                bw: row[5],
-                gain: row[6],
-                feed: row[1],
-                fcr: row[3]
+            const rangeData = getColorRange(variant, sex);
+            tableData = rangeData.map((row, idx) => ({
+                day: row.day,
+                week: row.week,
+                bw: row.bw_avg,
+                gain: idx > 0 ? row.bw_avg - rangeData[idx - 1].bw_avg : null,
+                feed: row.feed_avg,
             }));
         } else if (module === 'broiler') {
             tableData = BROILER_WEEKLY_BW_STANDARD.map(row => ({
@@ -1047,16 +1046,17 @@ const ManagementGuide = () => {
                 feedPhase: row[4]
             }));
         } else if (module === 'color_chicken') {
+            // Weekly view: pick day 7 of each week (D7, D14, D21 ... D126)
+            const variant = flockContext?.variant || flockContext?.breed_code || 'choi';
             const sex = flockContext?.sex || 'male';
-            const breed = flockContext?.breed_code || 'variant_a';
-            const weeklyData = bwData[sex]?.[breed]?.weekly_summary || [];
-            
-            tableData = weeklyData.map(row => ({
+            const rangeData = getColorRange(variant, sex);
+            const weeklyRows = rangeData.filter(r => r.day % 7 === 0);
+            tableData = weeklyRows.map((row, idx) => ({
                 week: row.week,
-                bw: row.bw_g,
-                gain: row.adg_weekly * 7,
-                feed: row.fc_g_bird_day,
-                fcr: row.fcr
+                day: row.day,
+                bw: row.bw_avg,
+                gain: idx > 0 ? row.bw_avg - weeklyRows[idx - 1].bw_avg : null,
+                feed: row.feed_avg,
             }));
         } else if (module === 'parent_stock') {
             if (!bwData) {

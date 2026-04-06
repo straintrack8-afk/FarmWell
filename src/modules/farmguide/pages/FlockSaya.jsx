@@ -1,4 +1,4 @@
-﻿import React,{useState,useEffect}from'react';
+import React,{useState,useEffect}from'react';
 import{useNavigate,useParams}from'react-router-dom';
 import{useTranslation}from'../../../hooks/useTranslation';
 import SharedTopNav from'../../../components/SharedTopNav';
@@ -14,12 +14,12 @@ const diff=Math.floor((today-placed)/(1000*60*60*24))+1;
 return Math.min(Math.max(diff,1),56);
 };
 const getCurrentWeek=(day)=>Math.ceil(day/7);
-const getFlockStatus=(history,flock)=>{
+const getFlockStatus=(history,moduleId,variant,sex)=>{
 if(!history.length)return'no_data';
 const latest=history[history.length-1];
 let std;
-if(module==='color_chicken'&&flock){
-const rangeData=getColorRange(flock.variant||'choi',flock.sex||'male');
+if(moduleId==='color_chicken'){
+const rangeData=getColorRange(variant||'choi',sex||'male');
 std=rangeData.find(r=>r.day===latest.day);
 }else{
 std=BROILER_RANGE.find(r=>r.day===latest.day);
@@ -86,7 +86,7 @@ std=latest?rangeData.find(r=>r.day===latest.day):null;
 }else{
 std=latest?BROILER_RANGE.find(r=>r.day===latest.day):null;
 }
-const status=getFlockStatus(hist,flock);
+const status=getFlockStatus(hist,flock.module_id,flock.variant,flock.sex);
 const statusCfg=STATUS_CFG[status];
 return(
 <div key={flock.id} style={{padding:'1.5rem',background:'var(--fw-card)',border:'1px solid var(--fw-border)',borderRadius:'12px'}}>
@@ -242,7 +242,14 @@ return(
 <button onClick={()=>setCurrentView('list')} style={{marginBottom:'1rem',padding:'0.5rem 1rem',background:'var(--fw-bg)',color:'var(--fw-text)',border:'1px solid var(--fw-border)',borderRadius:'8px',cursor:'pointer'}}>← Back to List</button>
 <div style={{background:'var(--fw-card)',border:'1px solid var(--fw-border)',borderRadius:'12px',padding:'1.5rem',marginBottom:'1.5rem'}}>
 <h2 style={{margin:'0 0 0.5rem',fontSize:'1.5rem',color:'var(--fw-text)'}}>{selectedFlock.name}</h2>
-<p style={{margin:'0 0 0.5rem',fontSize:'0.875rem',color:'var(--fw-sub)'}}>{selectedFlock.breed_label} · {module==='broiler'?'Broiler':module}</p>
+<p style={{margin:'0 0 0.5rem',fontSize:'0.875rem',color:'var(--fw-sub)'}}>
+  {selectedFlock.module_id === 'color_chicken'
+    ? `Color Chicken${selectedFlock.variant ? ' · ' + selectedFlock.variant.charAt(0).toUpperCase() + selectedFlock.variant.slice(1) : ''}${selectedFlock.sex ? ' · ' + (selectedFlock.sex === 'male' ? '♂' : '♀') : ''}`
+    : selectedFlock.module_id === 'broiler' ? 'Broiler Commercial'
+    : selectedFlock.module_id === 'layer' ? 'Layer'
+    : selectedFlock.module_id === 'parent_stock' ? 'Parent Stock'
+    : selectedFlock.module_id}
+</p>
 <p style={{margin:0,fontSize:'0.875rem',color:'var(--fw-sub)'}}>{t('farmguide.day')} {currentDay} ({t('farmguide.week')} {currentWeek}) · {t('farmguide.population')}: {currentPop.toLocaleString()}</p>
 </div>
 <div style={{background:'var(--fw-card)',border:'1px solid var(--fw-border)',borderRadius:'12px',padding:'1.5rem',marginBottom:'1.5rem'}}>

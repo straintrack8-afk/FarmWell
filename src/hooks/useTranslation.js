@@ -8,5 +8,12 @@ export const useTranslation = () => {
         return getTranslation(translations, language, key, fallback);
     };
 
-    return { t, language };
+    const tSafe = (key) => {
+        const result = t(key);
+        // Jika hasilnya sama persis dengan key → translation tidak ditemukan
+        if (result === key) return null;
+        return result;
+    };
+
+    return { t, tSafe, language };
 };

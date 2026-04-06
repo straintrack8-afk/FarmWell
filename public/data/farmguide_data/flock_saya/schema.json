@@ -1,0 +1,116 @@
+{
+  "_meta": {
+    "type": "flock_saya_schema",
+    "version": "v6",
+    "note": "This schema defines the data model, entry fields, history storage, and AI advisory triggers for the Flock Saya feature across all modules."
+  },
+  "flock_context": {
+    "_description": "Saved once at start of flock cycle. Stored in localStorage.",
+    "fields": {
+      "flock_id":         {"type": "string",  "generated": true, "note": "UUID, auto-generated"},
+      "module_id":        {"type": "enum",    "values": ["broiler", "layer", "color_chicken", "parent_stock"]},
+      "breed_code":       {"type": "string",  "note": "Breed identifier — stored internally, never displayed in UI"},
+      "sex":              {"type": "enum",    "values": ["male", "female", "mixed", null], "note": "Required for color_chicken and parent_stock"},
+      "production_type":  {"type": "enum",    "values": ["commercial", "parent_stock"]},
+      "flock_name":       {"type": "string",  "optional": true, "note": "User-defined label, e.g. 'Kandang A Periode 3'"},
+      "placement_date":   {"type": "date",    "format": "YYYY-MM-DD"},
+      "initial_pop":      {"type": "integer", "unit": "ekor"},
+      "created_at":       {"type": "datetime","generated": true}
+    }
+  },
+  "weekly_entry": {
+    "_description": "Data entered each week (or each day for broiler). Max 5 weeks stored per flock for AI projection.",
+    "base_fields": {
+      "entry_id":         {"type": "string",  "generated": true},
+      "flock_id":         {"type": "string",  "ref": "flock_context.flock_id"},
+      "week_number":      {"type": "integer", "note": "Week of age at time of entry"},
+      "day_number":       {"type": "integer", "note": "Day of age — primary for broiler/color_chicken"},
+      "entry_date":       {"type": "date"},
+      "bw_actual_g":      {"type": "number",  "unit": "g/bird", "note": "Average BW from sample weighing"},
+      "bw_sample_size":   {"type": "integer", "optional": true, "note": "Number of birds weighed"},
+      "mortality_count":  {"type": "integer", "unit": "ekor"},
+      "mortality_cause":  {"type": "string",  "optional": true},
+      "feed_consumed_kg": {"type": "number",  "optional": true, "unit": "kg/hari"},
+      "fcr_actual":       {"type": "number",  "optional": true, "computed": "cum_feed_kg / (avg_bw * pop)"},
+      "notes":            {"type": "string",  "optional": true}
+    },
+    "layer_extra_fields": {
+      "ep_pct":           {"type": "number", "unit": "percent", "note": "Egg Production % (hen-day)"},
+      "egg_weight_g":     {"type": "number", "unit": "grams",  "note": "Average egg weight this week"}
+    },
+    "ps_extra_fields": {
+      "hatchability_pct": {"type": "number", "unit": "percent", "optional": true}
+    }
+  },
+  "history": {
+    "_description": "Rolling 5-week window per flock, stored in localStorage.",
+    "max_entries": 5,
+    "storage_key_pattern": "farmguide_flock_{flock_id}_history",
+    "computed_per_entry": {
+      "bw_standard_g":    "Looked up from breed standards JSON by week/day",
+      "bw_delta_g":       "bw_actual_g - bw_standard_g",
+      "bw_delta_pct":     "(bw_delta_g / bw_standard_g) * 100",
+      "status":           "on_track | below_target | above_target",
+      "livability_pct":   "((initial_pop - cum_mortality) / initial_pop) * 100"
+    },
+    "status_thresholds": {
+      "on_track":     {"bw_delta_pct_min": -5,   "bw_delta_pct_max": null},
+      "below_target": {"bw_delta_pct_max": -5},
+      "above_target": {"bw_delta_pct_min": 5}
+    }
+  },
+  "ai_advisory": {
+    "_description": "AI projection and advisory triggered from Flock Saya history. Minimum 2 data points required.",
+    "min_data_points": 2,
+    "triggers": [
+      {
+        "id": "below_target_consecutive",
+        "condition": "BW di bawah standar ≥5% selama ≥2 minggu berturut-turut",
+        "alert_level": "warning",
+        "message_id": "Performa di bawah target — pertimbangkan evaluasi pakan, kesehatan, dan kepadatan"
+      },
+      {
+        "id": "depletion_trend",
+        "condition": "Mortalitas mingguan >0.5% per minggu selama ≥2 minggu",
+        "alert_level": "critical",
+        "message_id": "Tren deplesi tinggi — evaluasi penyebab kematian dan kondisi kandang"
+      },
+      {
+        "id": "fcr_deviation",
+        "condition": "FCR aktual >10% di atas standar FCR untuk usia yang sama",
+        "alert_level": "warning",
+        "message_id": "FCR menyimpang — cek kualitas pakan dan konsumsi air"
+      },
+      {
+        "id": "layer_ep_drop",
+        "condition": "EP% turun >3% dalam satu minggu (setelah puncak produksi)",
+        "alert_level": "warning",
+        "message_id": "Penurunan EP% lebih cepat dari normal — evaluasi nutrisi, stres, dan penyakit"
+      }
+    ],
+    "projection": {
+      "method": "linear_regression_with_standard_curve",
+      "output": {
+        "projected_bw_at_harvest_g": "Proyeksi BW saat panen berdasarkan tren aktual",
+        "projected_harvest_day":     "Estimasi hari panen untuk mencapai target BW",
+        "confidence":                "low | medium | high berdasarkan jumlah data points"
+      },
+      "confidence_thresholds": {
+        "low":    {"min_data_points": 2},
+        "medium": {"min_data_points": 3},
+        "high":   {"min_data_points": 4}
+      }
+    },
+    "api_prompt_template": {
+      "_note": "Template untuk Anthropic API call dari AI Advisory screen",
+      "system": "Kamu adalah asisten manajemen peternakan unggas. Berikan analisis singkat dan rekomendasi praktis berdasarkan data performa flock yang diberikan. Gunakan bahasa Indonesia yang mudah dipahami peternak. Jangan sebut nama breed atau brand pakan.",
+      "user_template": "Data flock: {module} | Periode: Minggu {week_range} | Data: {history_json} | Standar: {standard_json}. Analisis tren BW aktual vs standar, hitung proyeksi BW panen, dan berikan 2–3 rekomendasi spesifik."
+    }
+  },
+  "localStorage_keys": {
+    "active_flock_context":  "farmguide_active_flock",
+    "flock_history_prefix":  "farmguide_flock_",
+    "checklist_state_prefix": "farmguide_checklist_",
+    "user_preferences":      "farmguide_user_prefs"
+  }
+}

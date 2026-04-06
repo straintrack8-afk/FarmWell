@@ -56,8 +56,8 @@ const WelcomePage = () => {
             id: 'farmguide',
             name: t('welcome.farmGuide.name') || 'FarmGuide — Farm Production Monitor',
             desc: t('welcome.farmGuide.desc') || 'Management guide, monitor actual vs standard BW, growth curve, AI advisory, and harvest projection.',
-            icon: null,
-            iconEmoji: '📱',
+            icon: '/FarmGuide_logo.png',
+            iconEmoji: null,
             tags: [
                 t('welcome.farmGuide.tags.tag1') || 'Broiler, Layer, Color',
                 t('welcome.farmGuide.tags.tag2') || 'Parent Stock, Commercial',
@@ -66,7 +66,7 @@ const WelcomePage = () => {
             status: 'new',
             ctaLabel: t('welcome.farmGuide.cta') || 'Open FarmGuide',
             colorClass: 'mc-guide',
-            path: null,
+            path: '/farmguide',
         },
     ];
 

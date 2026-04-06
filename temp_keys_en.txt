@@ -1,0 +1,6 @@
+﻿            bwStandard: "BW Standard",
+            bwActual2: "BW Actual",
+            feedStandard: "Feed Standard",
+            feedActual2: "Feed Actual",
+            notesPlaceholder: "Observations, special events, etc.",
+            standardPrefix: "Standard",

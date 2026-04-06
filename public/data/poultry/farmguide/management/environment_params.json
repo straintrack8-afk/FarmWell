@@ -1,0 +1,97 @@
+{
+  "_meta": {
+    "type": "broiler_environment_parameters",
+    "source": "broiler_management_handbook_2025",
+    "note": "Parameters based on bird behavior observation. Adjust to actual flock response. Whole-house brooding assumed.",
+    "temp_unit": "celsius",
+    "rh_unit": "percent",
+    "light_unit": "lux",
+    "ventilation_note": "Minimum ventilation to maintain temperature, remove CO2/NH3, supply fresh air. Increase as birds grow."
+  },
+  "brooding_setup": {
+    "pre_placement": {
+      "house_temp_whole_brooding_c": 30,
+      "brooder_edge_temp_c": 32,
+      "floor_temp_c_min": 28,
+      "floor_temp_c_max": 30,
+      "litter_temp_c_min": 28,
+      "litter_temp_c_max": 32,
+      "rh_pct_min": 60,
+      "rh_pct_max": 70,
+      "water_temp_c_min": 18,
+      "water_temp_c_max": 21
+    },
+    "vent_temperature_target": {
+      "temp_c_min": 39.4,
+      "temp_c_max": 40.5,
+      "note": "Cloacal/vent temperature — assess with thermometer + behavior observation"
+    }
+  },
+  "weekly_environment": {
+    "_description": "Target environment by bird weight (g) — adjust based on behavior, not age alone",
+    "by_weight_g": {
+      "columns": ["bw_g_approx", "house_temp_c", "brooder_edge_temp_c"],
+      "data": [
+        [44,   30, 32],
+        [100,  28, 30],
+        [180,  27, 28],
+        [290,  26, 27],
+        [425,  25, 26],
+        [590,  24, 25],
+        [790,  23, 24],
+        [1015, 22, 23],
+        [1260, 21, 21],
+        [1530, 20, 20]
+      ]
+    },
+    "by_week": {
+      "_description": "Approximate weekly environment targets for broiler. Adjust based on bird behavior.",
+      "columns": ["week", "days", "temp_c_min", "temp_c_max", "rh_pct_min", "rh_pct_max", "light_hours", "light_intensity_lux"],
+      "data": [
+        [1,  "1–7",   30, 32, 60, 70, 23, 30],
+        [2,  "8–14",  28, 30, 50, 65, 20, 20],
+        [3,  "15–21", 26, 28, 50, 65, 20, 10],
+        [4,  "22–28", 24, 26, 50, 65, 20, 10],
+        [5,  "29–35", 22, 24, 50, 65, 20, 8],
+        [6,  "36–42", 21, 23, 50, 65, 20, 8],
+        [7,  "43–49", 20, 22, 50, 65, 20, 8],
+        [8,  "50–56", 20, 21, 50, 65, 20, 8]
+      ],
+      "lighting_notes": {
+        "day_1_7":    "23 h light / 1 h dark. Intensity 30–40 lux. Gradually increase darkness to 4–6 h by day 7.",
+        "day_7_plus": "Min 4 h darkness per night (continuous block). Intensity 5–10 lux.",
+        "pre_catch":  "23 h light / 1 h dark for 3 days before catching. Reduce intensity during catching."
+      }
+    }
+  },
+  "ventilation_stages": {
+    "minimum": {
+      "trigger": "Cold weather / early age",
+      "purpose": "Remove CO2, NH3, moisture. Maintain temperature.",
+      "note": "Minimum rate must always be maintained regardless of temperature."
+    },
+    "transitional": {
+      "trigger": "Mild weather / growing birds",
+      "purpose": "Temperature regulation + air quality",
+      "note": "Increase inlet openings as bird age and heat production grows."
+    },
+    "tunnel": {
+      "trigger": "Hot weather / large birds",
+      "purpose": "Evaporative cooling + maximum airflow",
+      "note": "Close side inlets, use tunnel fans. Effective wind-chill cools birds above 20°C (68°F)."
+    }
+  },
+  "ammonia_targets": {
+    "max_ppm_litter": 25,
+    "max_ppm_bird_level": 10,
+    "note": "Ammonia above 25 ppm causes respiratory irritation. Check at bird level, not standing height."
+  },
+  "co2_targets": {
+    "max_ppm": 3000,
+    "note": "CO2 above 3000 ppm indicates inadequate ventilation."
+  },
+  "stocking_density": {
+    "typical_kg_m2": 33,
+    "note": "Comply with local regulations. Welfare certifications may set lower limits (e.g., 30 kg/m²)."
+  }
+}
