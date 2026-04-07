@@ -1,12 +1,14 @@
 import React from 'react';
+import{useTranslation}from'../../../hooks/useTranslation';
 
 // CHART: Daily Mortality Bar Chart
 export const DailyMortalityChart = ({ history, initialPop }) => {
+  const{t}=useTranslation();
   const mortData = history.filter(h => h.day && h.mortality > 0);
 
   if (!mortData.length) return (
     <p style={{ color: '#9ca3af', fontStyle: 'italic', fontSize: '13px' }}>
-      No mortality data recorded yet.
+      {t('farmguide.noMortalityData')||'No mortality data recorded yet.'}
     </p>
   );
 
@@ -29,9 +31,9 @@ export const DailyMortalityChart = ({ history, initialPop }) => {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
-        <h3 style={{ margin: 0, fontSize: '1.125rem', color: 'var(--fw-text)' }}>Daily Mortality</h3>
+        <h3 style={{ margin: 0, fontSize: '1.125rem', color: 'var(--fw-text)' }}>{t('farmguide.dailyMortality')||'Daily Mortality'}</h3>
         <span style={{ fontSize: '13px', color: '#6b7280' }}>
-          Total: {totalMort} birds ({((totalMort / initialPop) * 100).toFixed(2)}%)
+          {t('farmguide.totalBirds')||'Total'}: {totalMort} birds ({((totalMort / initialPop) * 100).toFixed(2)}%)
         </span>
       </div>
 
@@ -84,9 +86,9 @@ export const DailyMortalityChart = ({ history, initialPop }) => {
         {/* Legend */}
         <g transform={`translate(${pad.l}, ${H - 6})`}>
           <rect x="0" y="-7" width="14" height="9" fill="var(--fw-orange)" opacity="0.7" rx="1"/>
-          <text x="18" y="3" fontSize="10" fill="#374151">Normal</text>
+          <text x="18" y="3" fontSize="10" fill="#374151">{t('farmguide.normalMortality')||'Normal'}</text>
           <rect x="70" y="-7" width="14" height="9" fill="#EF4444" opacity="0.9" rx="1"/>
-          <text x="88" y="3" fontSize="10" fill="#374151">Spike (&gt;0.5%/day)</text>
+          <text x="88" y="3" fontSize="10" fill="#374151">{t('farmguide.spikeMortality')||'Spike (>0.5%/day)'}</text>
         </g>
       </svg>
     </div>

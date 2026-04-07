@@ -1,7 +1,9 @@
 import React from 'react';
 import { BROILER_RANGE } from '../data/broilerRangeData';
+import{useTranslation}from'../../../hooks/useTranslation';
 
 export default function CombinedChart({ history = [], initialPop = 10000 }) {
+  const{t}=useTranslation();
   const W = 800;
   const H = 300;
   const pad = { t: 20, r: 70, b: 50, l: 60 };
@@ -200,16 +202,16 @@ export default function CombinedChart({ history = [], initialPop = 10000 }) {
 
       <g transform={'translate(' + pad.l + ', ' + (H - 12) + ')'}>
         <line x1="0" y1="0" x2="16" y2="0" stroke="var(--fw-teal, #1B7A6E)" strokeWidth="2" />
-        <text x="20" y="4" fontSize="10" fill="#374151">BW Standard</text>
+        <text x="20" y="4" fontSize="10" fill="#374151">{t('farmguide.bwStandard')||'BW Standard'}</text>
 
         <line x1="90" y1="0" x2="106" y2="0" stroke="var(--fw-orange, #E8652A)" strokeWidth="2.5" />
-        <text x="110" y="4" fontSize="10" fill="#374151">BW Actual</text>
+        <text x="110" y="4" fontSize="10" fill="#374151">{t('farmguide.bwActual')||'BW Actual'}</text>
 
         <line x1="185" y1="0" x2="201" y2="0" stroke="#2563EB" strokeWidth="1.5" strokeDasharray="4,2" />
-        <text x="205" y="4" fontSize="10" fill="#374151">Feed Standard</text>
+        <text x="205" y="4" fontSize="10" fill="#374151">{t('farmguide.feedStandard')||'Feed Standard'}</text>
 
         <line x1="295" y1="0" x2="311" y2="0" stroke="var(--fw-orange, #E8652A)" strokeWidth="1.5" strokeDasharray="4,2" opacity="0.7" />
-        <text x="315" y="4" fontSize="10" fill="#374151">Feed Actual</text>
+        <text x="315" y="4" fontSize="10" fill="#374151">{t('farmguide.feedActual')||'Feed Actual'}</text>
       </g>
 
       {bwActPoints.length === 0 && (

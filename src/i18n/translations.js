@@ -342,7 +342,14 @@ export const translations = {
             noDataYet: "No data yet. Start by inputting daily data.",
             noMortalityData: "No mortality data recorded yet.",
             noHistory: "No history yet.",
-            depletion: "Depletion"
+            depletion: "Depletion",
+            viewDetail: "View Detail",
+            bwActualLabel: "BW Actual",
+            rangeLabel: "Range",
+            dailyMortality: "Daily Mortality",
+            totalBirds: "Total",
+            normalMortality: "Normal",
+            spikeMortality: "Spike (>0.5%/day)"
         },
         swine: {
             title: "PigWell",
@@ -1283,7 +1290,14 @@ export const translations = {
             noDataYet: "Belum ada data. Mulai dengan memasukkan data harian.",
             noMortalityData: "Belum ada data mortalitas tercatat.",
             noHistory: "Belum ada riwayat.",
-            depletion: "Deplesi"
+            depletion: "Deplesi",
+            viewDetail: "Lihat Detail",
+            bwActualLabel: "BB Aktual",
+            rangeLabel: "Rentang",
+            dailyMortality: "Mortalitas Harian",
+            totalBirds: "Total",
+            normalMortality: "Normal",
+            spikeMortality: "Lonjakan (>0,5%/hari)"
         },
         swine: {
             title: "PigWell",
@@ -2259,7 +2273,14 @@ export const translations = {
             noDataYet: "Chưa có dữ liệu. Bắt đầu bằng cách nhập dữ liệu hàng ngày.",
             noMortalityData: "Chưa có dữ liệu tỷ lệ chết nào được ghi nhận.",
             noHistory: "Chưa có lịch sử.",
-            depletion: "Hao hụt"
+            depletion: "Hao hụt",
+            viewDetail: "Xem chi tiết",
+            bwActualLabel: "KL thực tế",
+            rangeLabel: "Phạm vi",
+            dailyMortality: "Tỷ lệ chết hàng ngày",
+            totalBirds: "Tổng",
+            normalMortality: "Bình thường",
+            spikeMortality: "Đột biến (>0,5%/ngày)"
         },
         swine: {
             title: "PigWell",

@@ -96,7 +96,7 @@ return(
 </div>
 {latest&&std&&(
 <div style={{padding:'0.75rem',background:'var(--fw-bg)',borderRadius:'8px',marginBottom:'1rem'}}>
-<p style={{margin:0,fontSize:'0.875rem',color:'var(--fw-text)'}}>BW Actual: <strong>{latest.bw_actual_g}g</strong> · Range: {std.bw_low_alert}–{std.bw_high_alert}g · <span style={{color:statusCfg.color,fontWeight:'600'}}>{status==='on_track'?(t('farmguide.onTrack')||'✓ On Track'):status==='below'?(t('farmguide.belowTarget')||'⚠ Below Target'):status==='above'?(t('farmguide.aboveTarget')||'↑ Above Target'):(t('common.noData')||'No Data')}</span></p>
+<p style={{margin:0,fontSize:'0.875rem',color:'var(--fw-text)'}}>{t('farmguide.bwActualLabel')||'BW Actual'}: <strong>{latest.bw_actual_g}g</strong> · {t('farmguide.rangeLabel')||'Range'}: {std.bw_low_alert}–{std.bw_high_alert}g · <span style={{color:statusCfg.color,fontWeight:'600'}}>{status==='on_track'?(t('farmguide.onTrack')||'✓ On Track'):status==='below'?(t('farmguide.belowTarget')||'⚠ Below Target'):status==='above'?(t('farmguide.aboveTarget')||'↑ Above Target'):(t('common.noData')||'No Data')}</span></p>
 </div>
 )}
 {(()=>{
@@ -128,6 +128,7 @@ lastBW=lastEntry?.bw_actual_g||rangeData.find(r=>r.day===lastDay)?.bw_avg||0;
 lastBW=lastEntry?.bw_actual_g||BROILER_RANGE.find(r=>r.day===lastDay)?.bw_avg||0;
 }
 const fcr=(totalFeedKg>0&&lastBW>0&&currentPop>0)?(totalFeedKg/((lastBW*currentPop)/1000)).toFixed(2):null;
+console.log('FCR debug:',{module:flock.module_id,totalFeedG,totalFeedKg,lastBW,currentPop,fcr});
 let stdD1;
 if(module==='color_chicken'){
 const rangeData=getColorRange(flock.variant||'choi',flock.sex||'male');
@@ -176,7 +177,7 @@ return(adg||fcr||depletion!==null||lastDay>0)?(
 ):null;
 })()}
 <div style={{display:'flex',gap:'0.75rem'}}>
-<button onClick={()=>loadFlockDetail(flock.id)} style={{flex:1,padding:'0.625rem',background:'var(--fw-teal)',color:'white',border:'none',borderRadius:'8px',fontSize:'0.875rem',fontWeight:'600',cursor:'pointer'}}>View Detail</button>
+<button onClick={()=>loadFlockDetail(flock.id)} style={{flex:1,padding:'0.625rem',background:'var(--fw-teal)',color:'white',border:'none',borderRadius:'8px',fontSize:'0.875rem',fontWeight:'600',cursor:'pointer'}}>{t('farmguide.viewDetail')||'View Detail'}</button>
 <button onClick={()=>handleInputDay(flock)} style={{flex:1,padding:'0.625rem',background:'var(--fw-bg)',color:'var(--fw-text)',border:'1px solid var(--fw-border)',borderRadius:'8px',fontSize:'0.875rem',fontWeight:'600',cursor:'pointer'}}>{t('farmguide.inputData')}</button>
 </div>
 </div>
