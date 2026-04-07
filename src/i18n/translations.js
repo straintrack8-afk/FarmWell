@@ -322,7 +322,27 @@ export const translations = {
                 parentStock: {
                     desc: "Parent stock management with weekly BW monitoring and production tracking"
                 }
-            }
+            },
+            raisingDay: "Raising Day",
+            historyTitle: "History",
+            colDay: "Day",
+            colBWActual: "BW Actual",
+            colBWRange: "BW Range",
+            colDiff: "Diff",
+            colMortality: "Mortality",
+            colStatus: "Status",
+            aboveTarget: "↑ Above Target",
+            belowTarget: "⚠ Below Target",
+            onTrack: "✓ On Track",
+            bwStandard: "BW Standard",
+            bwActual: "BW Actual",
+            feedStandard: "Feed Standard",
+            feedActual: "Feed Actual",
+            performanceChart: "Performance Chart",
+            noDataYet: "No data yet. Start by inputting daily data.",
+            noMortalityData: "No mortality data recorded yet.",
+            noHistory: "No history yet.",
+            depletion: "Depletion"
         },
         swine: {
             title: "PigWell",
@@ -1243,7 +1263,27 @@ export const translations = {
                 parentStock: {
                     desc: "Manajemen parent stock dengan monitor BW mingguan dan tracking produksi"
                 }
-            }
+            },
+            raisingDay: "Hari Pemeliharaan",
+            historyTitle: "Riwayat",
+            colDay: "Hari",
+            colBWActual: "BB Aktual",
+            colBWRange: "Rentang BB",
+            colDiff: "Selisih",
+            colMortality: "Mortalitas",
+            colStatus: "Status",
+            aboveTarget: "↑ Di Atas Target",
+            belowTarget: "⚠ Di Bawah Target",
+            onTrack: "✓ Sesuai Target",
+            bwStandard: "BB Standar",
+            bwActual: "BB Aktual",
+            feedStandard: "Pakan Standar",
+            feedActual: "Pakan Aktual",
+            performanceChart: "Grafik Performa",
+            noDataYet: "Belum ada data. Mulai dengan memasukkan data harian.",
+            noMortalityData: "Belum ada data mortalitas tercatat.",
+            noHistory: "Belum ada riwayat.",
+            depletion: "Deplesi"
         },
         swine: {
             title: "PigWell",
@@ -2199,7 +2239,27 @@ export const translations = {
                 parentStock: {
                     desc: "Quản lý đàn bố mẹ với theo dõi trọng lượng hàng tuần và theo dõi sản xuất"
                 }
-            }
+            },
+            raisingDay: "Ngày nuôi",
+            historyTitle: "Lịch sử",
+            colDay: "Ngày",
+            colBWActual: "KL thực tế",
+            colBWRange: "Phạm vi KL",
+            colDiff: "Chênh lệch",
+            colMortality: "Tỷ lệ chết",
+            colStatus: "Trạng thái",
+            aboveTarget: "↑ Trên mục tiêu",
+            belowTarget: "⚠ Dưới mục tiêu",
+            onTrack: "✓ Đạt mục tiêu",
+            bwStandard: "KL tiêu chuẩn",
+            bwActual: "KL thực tế",
+            feedStandard: "Thức ăn tiêu chuẩn",
+            feedActual: "Thức ăn thực tế",
+            performanceChart: "Biểu đồ hiệu suất",
+            noDataYet: "Chưa có dữ liệu. Bắt đầu bằng cách nhập dữ liệu hàng ngày.",
+            noMortalityData: "Chưa có dữ liệu tỷ lệ chết nào được ghi nhận.",
+            noHistory: "Chưa có lịch sử.",
+            depletion: "Hao hụt"
         },
         swine: {
             title: "PigWell",

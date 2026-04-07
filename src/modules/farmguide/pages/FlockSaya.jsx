@@ -29,7 +29,7 @@ if(latest.bw_actual_g<std.bw_low_alert)return'below';
 if(latest.bw_actual_g>std.bw_high_alert)return'above';
 return'on_track';
 };
-const STATUS_CFG={on_track:{label:'✓ On Track',color:'#10b981'},below:{label:'⚠ Below Target',color:'var(--fw-orange)'},above:{label:'↑ Above Target',color:'#2563EB'},no_data:{label:'No Data',color:'#999'}};
+const STATUS_CFG=(t)=>({on_track:{label:t('farmguide.onTrack')||'✓ On Track',color:'#10b981'},below:{label:t('farmguide.belowTarget')||'⚠ Below Target',color:'var(--fw-orange)'},above:{label:t('farmguide.aboveTarget')||'↑ Above Target',color:'#2563EB'},no_data:{label:t('common.noData')||'No Data',color:'#999'}});
 function FlockSaya({module:moduleProp,embedded=false}){
 const navigate=useNavigate();
 const{module:moduleParam}=useParams();
@@ -149,7 +149,7 @@ const depletion=initialPop?((totalDead/initialPop)*100).toFixed(2):null;
 return(adg||fcr||depletion!==null||lastDay>0)?(
 <div style={{display:'grid',gridTemplateColumns:'repeat(4, 1fr)',gap:'0.5rem',marginTop:'0.75rem',marginBottom:'0.75rem'}}>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
-<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>Raising Day</div>
+<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.raisingDay')||'Raising Day'}</div>
 <div style={{fontSize:'1.5rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {lastDay>0?`D${lastDay}`:'—'}
 </div>
@@ -167,7 +167,7 @@ return(adg||fcr||depletion!==null||lastDay>0)?(
 </div>
 </div>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
-<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>Depletion</div>
+<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.depletion')||'Depletion'}</div>
 <div style={{fontSize:'1.5rem',fontWeight:'700',color:depletion>5?'#EF4444':'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {depletion!==null?`${depletion}%`:'—'}
 </div>
@@ -253,29 +253,29 @@ return(
 <p style={{margin:0,fontSize:'0.875rem',color:'var(--fw-sub)'}}>{t('farmguide.day')} {currentDay} ({t('farmguide.week')} {currentWeek}) · {t('farmguide.population')}: {currentPop.toLocaleString()}</p>
 </div>
 <div style={{background:'var(--fw-card)',border:'1px solid var(--fw-border)',borderRadius:'12px',padding:'1.5rem',marginBottom:'1.5rem'}}>
-<h3 style={{margin:'0 0 1rem',fontSize:'1.125rem',color:'var(--fw-text)'}}>{t('farmguide.combinedChart')||'Performance Chart'}</h3>
+<h3 style={{margin:'0 0 1rem',fontSize:'1.125rem',color:'var(--fw-text)'}}>{t('farmguide.performanceChart')||'Performance Chart'}</h3>
 {history.length>0?(
 <CombinedChart history={history} initialPop={selectedFlock.initial_pop}/>
 ):(
-<p style={{padding:'2rem',textAlign:'center',color:'var(--fw-sub)',background:'var(--fw-bg)',borderRadius:'8px'}}>No data yet. Start by inputting daily data.</p>
+<p style={{padding:'2rem',textAlign:'center',color:'var(--fw-sub)',background:'var(--fw-bg)',borderRadius:'8px'}}>{t('farmguide.noDataYet')||'No data yet. Start by inputting daily data.'}</p>
 )}
 </div>
 <div style={{background:'var(--fw-card)',border:'1px solid var(--fw-border)',borderRadius:'12px',padding:'1.5rem',marginBottom:'1.5rem'}}>
 <DailyMortalityChart history={history} initialPop={selectedFlock.initial_pop}/>
 </div>
 <div style={{background:'var(--fw-card)',border:'1px solid var(--fw-border)',borderRadius:'12px',padding:'1.5rem',marginBottom:'1.5rem'}}>
-<h3 style={{margin:'0 0 1rem',fontSize:'1.125rem',color:'var(--fw-text)'}}>{t('farmguide.history')||'History'}</h3>
+<h3 style={{margin:'0 0 1rem',fontSize:'1.125rem',color:'var(--fw-text)'}}>{t('farmguide.historyTitle')||'History'}</h3>
 {history.length>0?(
 <div style={{overflowX:'auto'}}>
 <table style={{width:'100%',borderCollapse:'collapse'}}>
 <thead>
 <tr style={{background:'var(--fw-bg)'}}>
-<th style={{padding:'0.75rem',textAlign:'left',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>Day</th>
-<th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>BW Actual</th>
-<th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>BW Range</th>
-<th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>Diff</th>
-<th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>Mortality</th>
-<th style={{padding:'0.75rem',textAlign:'center',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>Status</th>
+<th style={{padding:'0.75rem',textAlign:'left',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colDay')||'Day'}</th>
+<th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colBWActual')||'BW Actual'}</th>
+<th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colBWRange')||'BW Range'}</th>
+<th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colDiff')||'Diff'}</th>
+<th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colMortality')||'Mortality'}</th>
+<th style={{padding:'0.75rem',textAlign:'center',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colStatus')||'Status'}</th>
 </tr>
 </thead>
 <tbody>
@@ -290,7 +290,7 @@ std=BROILER_RANGE.find(r=>r.day===h.day);
 const getStatus=(bw,s)=>{if(!s||!bw)return'no_data';if(bw<s.bw_low_alert)return'below';if(bw>s.bw_high_alert)return'above';return'on_track';};
 const status=getStatus(h.bw_actual_g,std);
 const diff=std&&h.bw_actual_g?(h.bw_actual_g-std.bw_avg):null;
-const statusCfg=STATUS_CFG[status];
+const statusCfg=STATUS_CFG(t)[status]||STATUS_CFG(t).no_data;
 return(
 <tr key={i} style={{borderTop:'1px solid var(--fw-border)'}}>
 <td style={{padding:'0.75rem',fontSize:'0.875rem',color:'var(--fw-text)'}}>D{h.day}</td>
@@ -306,7 +306,7 @@ return(
 </table>
 </div>
 ):(
-<p style={{padding:'1rem',textAlign:'center',color:'var(--fw-sub)',background:'var(--fw-bg)',borderRadius:'8px'}}>No history yet.</p>
+<p style={{padding:'1rem',textAlign:'center',color:'var(--fw-sub)',background:'var(--fw-bg)',borderRadius:'8px'}}>{t('farmguide.noHistory')||'No history yet.'}</p>
 )}
 </div>
 <div style={{display:'flex',gap:'1rem'}}>
