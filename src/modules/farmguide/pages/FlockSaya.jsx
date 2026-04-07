@@ -29,7 +29,7 @@ if(latest.bw_actual_g<std.bw_low_alert)return'below';
 if(latest.bw_actual_g>std.bw_high_alert)return'above';
 return'on_track';
 };
-const STATUS_CFG=(t)=>({on_track:{label:t('farmguide.onTrack')||'✓ On Track',color:'#10b981'},below:{label:t('farmguide.belowTarget')||'⚠ Below Target',color:'var(--fw-orange)'},above:{label:t('farmguide.aboveTarget')||'↑ Above Target',color:'#2563EB'},no_data:{label:t('common.noData')||'No Data',color:'#999'}});
+const STATUS_CFG={on_track:{color:'#10b981'},below:{color:'var(--fw-orange)'},above:{color:'#2563EB'},no_data:{color:'#999'}};
 function FlockSaya({module:moduleProp,embedded=false}){
 const navigate=useNavigate();
 const{module:moduleParam}=useParams();
@@ -87,7 +87,7 @@ std=latest?rangeData.find(r=>r.day===latest.day):null;
 std=latest?BROILER_RANGE.find(r=>r.day===latest.day):null;
 }
 const status=getFlockStatus(hist,flock.module_id,flock.variant,flock.sex);
-const statusCfg=STATUS_CFG[status];
+const statusCfg=STATUS_CFG[status]||STATUS_CFG.no_data;
 return(
 <div key={flock.id} style={{padding:'1.5rem',background:'var(--fw-card)',border:'1px solid var(--fw-border)',borderRadius:'12px'}}>
 <div style={{marginBottom:'1rem'}}>
@@ -96,7 +96,7 @@ return(
 </div>
 {latest&&std&&(
 <div style={{padding:'0.75rem',background:'var(--fw-bg)',borderRadius:'8px',marginBottom:'1rem'}}>
-<p style={{margin:0,fontSize:'0.875rem',color:'var(--fw-text)'}}>BW Actual: <strong>{latest.bw_actual_g}g</strong> · Range: {std.bw_low_alert}–{std.bw_high_alert}g · <span style={{color:statusCfg.color,fontWeight:'600'}}>{statusCfg.label}</span></p>
+<p style={{margin:0,fontSize:'0.875rem',color:'var(--fw-text)'}}>BW Actual: <strong>{latest.bw_actual_g}g</strong> · Range: {std.bw_low_alert}–{std.bw_high_alert}g · <span style={{color:statusCfg.color,fontWeight:'600'}}>{status==='on_track'?(t('farmguide.onTrack')||'✓ On Track'):status==='below'?(t('farmguide.belowTarget')||'⚠ Below Target'):status==='above'?(t('farmguide.aboveTarget')||'↑ Above Target'):(t('common.noData')||'No Data')}</span></p>
 </div>
 )}
 {(()=>{
@@ -290,7 +290,7 @@ std=BROILER_RANGE.find(r=>r.day===h.day);
 const getStatus=(bw,s)=>{if(!s||!bw)return'no_data';if(bw<s.bw_low_alert)return'below';if(bw>s.bw_high_alert)return'above';return'on_track';};
 const status=getStatus(h.bw_actual_g,std);
 const diff=std&&h.bw_actual_g?(h.bw_actual_g-std.bw_avg):null;
-const statusCfg=STATUS_CFG(t)[status]||STATUS_CFG(t).no_data;
+const statusCfg=STATUS_CFG[status]||STATUS_CFG.no_data;
 return(
 <tr key={i} style={{borderTop:'1px solid var(--fw-border)'}}>
 <td style={{padding:'0.75rem',fontSize:'0.875rem',color:'var(--fw-text)'}}>D{h.day}</td>
@@ -298,7 +298,7 @@ return(
 <td style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',color:'var(--fw-sub)'}}>{std?std.bw_low_alert+'–'+std.bw_high_alert+'g':'—'}</td>
 <td style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',color:diff&&diff>=0?'#10b981':'var(--fw-orange)',fontWeight:'600'}}>{diff!==null?(diff>=0?'+':'')+diff+'g':'—'}</td>
 <td style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',color:'var(--fw-text)'}}>{h.mortality||0}</td>
-<td style={{padding:'0.75rem',textAlign:'center',fontSize:'0.75rem',color:statusCfg.color,fontWeight:'600'}}>{statusCfg.label}</td>
+<td style={{padding:'0.75rem',textAlign:'center',fontSize:'0.75rem',color:statusCfg.color,fontWeight:'600'}}>{status==='on_track'?(t('farmguide.onTrack')||'✓ On Track'):status==='below'?(t('farmguide.belowTarget')||'⚠ Below Target'):status==='above'?(t('farmguide.aboveTarget')||'↑ Above Target'):(t('common.noData')||'No Data')}</td>
 </tr>
 );
 })}
