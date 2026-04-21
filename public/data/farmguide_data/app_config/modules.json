@@ -74,7 +74,7 @@
     },
     {
       "module_id": "parent_stock",
-      "name": "Parent Stock (PS)",
+      "name": "Broiler PS",
       "icon": "🐣",
       "species": "broiler",
       "category": "parent_stock",
@@ -82,13 +82,14 @@
       "production_type_options": ["parent_stock"],
       "default_production_type": "parent_stock",
       "features": ["management_guide", "growth_chart", "flock_saya"],
-      "raising_period_weeks": 25,
-      "production_period_weeks": 64,
+      "raising_period_weeks": 24,
+      "production_period_weeks": 40,
+      "total_weeks": 64,
       "bw_data_granularity": "weekly",
       "sex_selector_required": true,
       "sex_options": ["female", "male"],
       "breed_selector": {
-        "required": true,
+        "required": false,
         "when": "flow_start",
         "display_in_screens": false
       }

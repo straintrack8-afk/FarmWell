@@ -10,7 +10,6 @@ import SplashScreen from './components/SplashScreen';
 import SharedTopNav from './components/SharedTopNav';
 import OnboardingQuestionnaire from './components/OnboardingQuestionnaire';
 import AnnouncementBanner from './components/AnnouncementBanner';
-import AdminPage from './pages/admin/AdminPage';
 import { useOnboarding } from './hooks/useOnboarding';
 
 // Show splash once per browser session (disappears after refresh or new tab)
@@ -30,13 +29,6 @@ function AppContent() {
             {/* Splash sits above everything and unmounts itself once done */}
             {!splashDone && (
                 <SplashScreen duration={3500} onComplete={handleSplashComplete} />
-            )}
-
-            {/* Admin route — always accessible, bypasses onboarding */}
-            {splashDone && (
-                <Routes>
-                    <Route path="/admin" element={<AdminPage />} />
-                </Routes>
             )}
 
             {/* Navbar untuk questionnaire (WelcomePage & modules render navbar sendiri) */}

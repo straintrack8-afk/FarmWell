@@ -59,10 +59,6 @@ async function notifyDeveloper(data, lang) {
     `📊 Population : ${data.populationLabel}`,
     `👤 Role       : ${data.role}`,
     `📍 Location   : ${data.country} — ${data.province}`,
-    `📧 Email     : ${data.email || '(tidak diisi)'}`,
-    `📰 Tips News : ${data.newsletterTips ? 'Ya' : 'Tidak'}`,
-    `🔔 Prod News : ${data.newsletterProduct ? 'Ya' : 'Tidak'}`,
-    `✅ Consent   : ${data.consentGiven ? 'Diberikan' : 'Tidak'}`,
     '',
     'RAW JSON',
     '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
@@ -86,10 +82,6 @@ async function notifyDeveloper(data, lang) {
         role: data.role,
         country: data.country,
         province: data.province,
-        user_email: data.email || '-',
-        newsletter_tips: data.newsletterTips ? 'Yes' : 'No',
-        newsletter_product: data.newsletterProduct ? 'Yes' : 'No',
-        consent_given: data.consentGiven ? 'Yes' : 'No',
         completed_at: data.completedAt,
         app_language: langLabel,
       }),
@@ -100,16 +92,16 @@ async function notifyDeveloper(data, lang) {
 }
 
 // ── Total steps helper ──────────────────────────────────────────
-// Poultry: Q1 → Q2(sub) → Q3 → Q4 → Q5 → Q6 → Q7 → Q8(email) = 8 steps
-// Swine  : Q1 → Q3 → Q4 → Q5 → Q6 → Q7 → Q8(email)           = 7 steps
-const TOTAL_STEPS_POULTRY = 8;
-const TOTAL_STEPS_SWINE   = 7;
+// Poultry: Q1 → Q2(sub) → Q3 → Q4 → Q5 → Q6 → Q7  = 7 steps
+// Swine  : Q1 → Q3 → Q4 → Q5 → Q6 → Q7            = 6 steps
+const TOTAL_STEPS_POULTRY = 7;
+const TOTAL_STEPS_SWINE   = 6;
 
 export default function OnboardingQuestionnaire({ onComplete }) {
   const { t, language } = useTranslation();
   const lang = language; // 'en' | 'id' | 'vi'
 
-  const [step, setStep]       = useState(0);  // 0 = intro, 1-7 = questions, 8 = email, 9 = complete
+  const [step, setStep]       = useState(0);  // 0 = intro, 1-7 = questions, 8 = complete
   const [answers, setAnswers] = useState({
     livestock: '',   // 'Poultry' | 'Swine'
     subtype: '',     // 'Broiler' | 'Layer' | 'Color'  (only if Poultry)
@@ -121,12 +113,6 @@ export default function OnboardingQuestionnaire({ onComplete }) {
     province: '',
   });
   const [rangeIdx, setRangeIdx] = useState(1);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [newsletterTips, setNewsletterTips] = useState(false);
-  const [newsletterProduct, setNewsletterProduct] = useState(false);
-  const [consentChecked, setConsentChecked] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
 
   const isPoultry = answers.livestock === 'Poultry';
   const totalSteps = isPoultry ? TOTAL_STEPS_POULTRY : TOTAL_STEPS_SWINE;
@@ -147,7 +133,7 @@ export default function OnboardingQuestionnaire({ onComplete }) {
   // ── Navigation helpers ──
   const nextStep = () => {
     if (step === 1 && answers.livestock === 'Swine') { setStep(3); return; }
-    if (step === 7) { setStep(8); return; }
+    if (step === 7) { handleComplete(); return; }
     setStep(s => s + 1);
   };
 
@@ -156,32 +142,25 @@ export default function OnboardingQuestionnaire({ onComplete }) {
     setStep(s => s - 1);
   };
 
-  const handleFinish = async () => {
-    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setEmailError(t('onboarding.emailInvalid'));
-      return;
-    }
-    setSubmitting(true);
-    const popLabel = RANGE_LABELS[lang]?.[rangeIdx] ?? RANGE_LABELS.en[rangeIdx];
+  const handleComplete = () => {
     const payload = {
       livestock: answers.livestock,
       subtype: answers.subtype || null,
       operation: answers.operation,
       population: answers.population,
-      populationLabel: popLabel,
+      populationLabel: RANGE_LABELS[lang]?.[rangeIdx] ?? RANGE_LABELS.en[rangeIdx],
       role: answers.role,
       country: answers.country,
       province: answers.province,
-      email: email.trim() || null,
-      newsletterTips,
-      newsletterProduct,
-      consentGiven: consentChecked,
       completedAt: new Date().toISOString(),
     };
+    
+    // Kirim notifikasi ke developer (non-blocking)
     notifyDeveloper(payload, lang);
+    
+    // Simpan ke localStorage
     onComplete(payload);
-    setSubmitting(false);
-    setStep(9);
+    setStep(8);
   };
 
   // ── Province list based on country ──
@@ -489,109 +468,8 @@ export default function OnboardingQuestionnaire({ onComplete }) {
           </div>
         )}
 
-        {/* ── STEP 8 : Email + Newsletter + Consent ── */}
+        {/* ── STEP 8 : Complete ── */}
         {step === 8 && (
-          <div className="oq-step">
-            <p className="oq-step-label">{stepLabel}</p>
-            <h2 className="oq-question">{t('onboarding.emailTitle')}</h2>
-            <p className="oq-desc">{t('onboarding.emailDesc')}</p>
-
-            {/* Email input */}
-            <div className="oq-field-wrap">
-              <label className="oq-field-label">{t('onboarding.emailLabel')}</label>
-              <div className="oq-input-wrap">
-                <span className="oq-input-icon">✉</span>
-                <input
-                  type="email"
-                  className={`oq-input${emailError ? ' oq-input--error' : ''}`}
-                  placeholder={t('onboarding.emailPlaceholder')}
-                  value={email}
-                  onChange={e => { setEmail(e.target.value); setEmailError(''); }}
-                  onBlur={e => {
-                    const val = e.target.value.trim();
-                    if (val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-                      setEmailError(t('onboarding.emailInvalid'));
-                    }
-                  }}
-                />
-              </div>
-              {emailError && <p className="oq-field-error">{emailError}</p>}
-              <p className="oq-field-hint">{t('onboarding.emailOptional')}</p>
-            </div>
-
-            {/* Newsletter */}
-            <div className="oq-newsletter-wrap">
-              <p className="oq-newsletter-title">{t('onboarding.newsletterTitle')}</p>
-
-              <label className="oq-checkbox-card">
-                <input type="checkbox" checked={newsletterTips} onChange={e => setNewsletterTips(e.target.checked)} />
-                <div className="oq-checkbox-content">
-                  <div className="oq-checkbox-top">
-                    <span className="oq-checkbox-icon">📰</span>
-                    <div>
-                      <div className="oq-checkbox-label">{t('onboarding.newsletter1Label')}</div>
-                      <div className="oq-checkbox-desc">{t('onboarding.newsletter1Desc')}</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="oq-checkbox-indicator" />
-              </label>
-
-              <label className="oq-checkbox-card">
-                <input type="checkbox" checked={newsletterProduct} onChange={e => setNewsletterProduct(e.target.checked)} />
-                <div className="oq-checkbox-content">
-                  <div className="oq-checkbox-top">
-                    <span className="oq-checkbox-icon">🔔</span>
-                    <div>
-                      <div className="oq-checkbox-label">{t('onboarding.newsletter2Label')}</div>
-                      <div className="oq-checkbox-desc">{t('onboarding.newsletter2Desc')}</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="oq-checkbox-indicator" />
-              </label>
-            </div>
-
-            {/* Unsubscribe note */}
-            <p className="oq-unsub-note">
-              <span>💬</span> {t('onboarding.unsubNote')}
-            </p>
-
-            {/* Consent */}
-            <label className="oq-consent-wrap">
-              <input type="checkbox" checked={consentChecked} onChange={e => setConsentChecked(e.target.checked)} />
-              <div className="oq-consent-box">
-                <div className="oq-consent-check-icon">{consentChecked ? '✓' : ''}</div>
-                <p className="oq-consent-text">{t('onboarding.consentText')}</p>
-              </div>
-            </label>
-
-            {/* Safety pills */}
-            <div className="oq-safety-row">
-              <span className="oq-safety-item">🔐 {t('onboarding.safety1')}</span>
-              <span className="oq-safety-item">🚫 {t('onboarding.safety2')}</span>
-              <span className="oq-safety-item">✉ {t('onboarding.safety3')}</span>
-            </div>
-
-            <div className="oq-nav">
-              <button className="oq-btn-back" onClick={() => setStep(7)}>{t('onboarding.back')}</button>
-              <button
-                className="oq-btn-next"
-                disabled={
-                  submitting ||
-                  !consentChecked ||
-                  (email.trim() !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
-                }
-                onClick={handleFinish}
-              >
-                {submitting ? '...' : t('onboarding.finish')}
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* ── STEP 9 : Complete ── */}
-        {step === 9 && (
           <div className="oq-step oq-complete">
             <div className="oq-complete-icon">✓</div>
             <h2 className="oq-complete-title">{t('onboarding.profileReady')}</h2>

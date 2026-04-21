@@ -27,13 +27,28 @@ export const flockStorage = {
 
     saveEntry(flockId, entry) {
         const history = this.getHistory(flockId);
-        const idx = history.findIndex(h => h.day === entry.day);
+        
+        // Layer entries use 'week' field, Broiler/Color Chicken use 'day' field
+        const isLayerEntry = entry.week !== undefined && entry.week !== null;
+        const idx = isLayerEntry
+            ? history.findIndex(h => Number(h.week) === Number(entry.week))
+            : history.findIndex(h => Number(h.day) === Number(entry.day));
+        
         if (idx >= 0) {
+            // Update existing entry
             history[idx] = entry;
         } else {
+            // Append new entry
             history.push(entry);
         }
-        history.sort((a, b) => a.day - b.day);
+        
+        // Sort by week for Layer, by day for others
+        if (isLayerEntry) {
+            history.sort((a, b) => Number(a.week || 0) - Number(b.week || 0));
+        } else {
+            history.sort((a, b) => Number(a.day || 0) - Number(b.day || 0));
+        }
+        
         localStorage.setItem(`farmguide_flock_${flockId}_history`, JSON.stringify(history));
     },
 

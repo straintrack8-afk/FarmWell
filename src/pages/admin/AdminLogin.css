@@ -1,0 +1,19 @@
+.al-overlay { min-height: 100vh; background: #f0f4f0; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; font-family: inherit; }
+.al-card { background: #fff; border-radius: 16px; border: 1.5px solid #d4e8d4; padding: 2.5rem 2rem; width: 100%; max-width: 400px; text-align: center; }
+.al-logo { margin-bottom: 1rem; }
+.al-badge { display: inline-block; background: #1B3A2D; color: #fff; font-size: 11px; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 1.25rem; letter-spacing: .04em; }
+.al-title { font-size: 20px; font-weight: 700; color: #1B3A2D; margin-bottom: .35rem; }
+.al-desc { font-size: 13px; color: #6b7c6b; margin-bottom: 1.75rem; }
+.al-form { text-align: left; }
+.al-field { margin-bottom: 1.25rem; }
+.al-label { display: block; font-size: 13px; font-weight: 600; color: #1B3A2D; margin-bottom: 6px; }
+.al-input { width: 100%; padding: 11px 14px; border: 1.5px solid #d4e8d4; border-radius: 10px; font-size: 14px; color: #1B3A2D; background: #fff; font-family: inherit; transition: border-color .15s; }
+.al-input:focus { outline: none; border-color: #1D9E75; }
+.al-input--error { border-color: #e53e3e; }
+.al-error { font-size: 12px; color: #e53e3e; margin-top: 4px; }
+.al-btn { width: 100%; background: #1D9E75; color: #fff; border: none; padding: 12px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background .15s; }
+.al-btn:hover { background: #0F6E56; }
+.al-btn:disabled { background: #b0d4c4; cursor: not-allowed; }
+.al-footer { margin-top: 1.5rem; }
+.al-back { font-size: 13px; color: #6b7c6b; text-decoration: none; }
+.al-back:hover { color: #1D9E75; }

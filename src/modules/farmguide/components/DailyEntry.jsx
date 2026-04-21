@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { getColorRange } from '../data/colorChickenRangeData';
 import { BROILER_RANGE } from '../data/broilerRangeData';
 
-export default function DailyEntry({ flock, history, onSave, onClose, t }) {
+export default function DailyEntry({ flock, history, onSave, onClose, t, module, variant, sex, initialDay, initialData }) {
+  const rangeData=(module==='color_chicken')?getColorRange(variant||'choi',sex||'male'):BROILER_RANGE;
+  const maxDay=rangeData.length>0?rangeData[rangeData.length-1].day:56;
   const calcCurrentDay = () => {
     const placed = new Date(flock.placement_date);
     const today = new Date();
     const diff = Math.floor((today - placed) / (1000 * 60 * 60 * 24)) + 1;
-    return Math.min(Math.max(diff, 1), 56);
+    return Math.min(Math.max(diff, 1), maxDay);
   };
 
-  const [selectedDay, setSelectedDay] = useState(calcCurrentDay());
-  const [bwInput, setBwInput] = useState('');
-  const [feedInput, setFeedInput] = useState('');
-  const [mortality, setMortality] = useState('');
-  const [notes, setNotes] = useState('');
+  const [selectedDay, setSelectedDay] = useState(initialDay || calcCurrentDay());
+  const [bwInput, setBwInput] = useState(initialData?.bw_actual_g || '');
+  const [feedInput, setFeedInput] = useState(initialData?.feed_actual_g || '');
+  const [mortality, setMortality] = useState(initialData?.mortality || '');
+  const [notes, setNotes] = useState(initialData?.notes || '');
 
-  const std = BROILER_RANGE.find(r => r.day === selectedDay) || null;
+  const std = rangeData.find(r => r.day === selectedDay) || null;
   const week = std ? std.week : Math.ceil(selectedDay / 7);
 
   const cumMortality = history.reduce((sum, h) => sum + (h.mortality || 0), 0);
@@ -82,7 +85,7 @@ export default function DailyEntry({ flock, history, onSave, onClose, t }) {
       }} onClick={e => e.stopPropagation()}>
 
         <h2 style={{ margin: '0 0 1rem', fontSize: '1.5rem', color: 'var(--fw-text)' }}>
-          {t('farmguide.inputDay') || 'Input Hari'} {selectedDay}
+          {t('farmguide.inputDay') || 'Input Data'}
         </h2>
         <p style={{ color: 'var(--fw-sub)', marginBottom: '16px', fontSize: '0.875rem' }}>{flock.name}</p>
 
@@ -94,10 +97,10 @@ export default function DailyEntry({ flock, history, onSave, onClose, t }) {
             <input
               type="number"
               min="1"
-              max="56"
+              max={maxDay}
               value={selectedDay}
               onChange={e => {
-                const v = Math.min(56, Math.max(1, parseInt(e.target.value) || 1));
+                const v = Math.min(maxDay, Math.max(1, parseInt(e.target.value) || 1));
                 setSelectedDay(v);
               }}
               style={{
@@ -249,7 +252,7 @@ export default function DailyEntry({ flock, history, onSave, onClose, t }) {
               fontSize: '1rem'
             }}
           >
-            {t('farmguide.inputData')} {t('farmguide.day')} {selectedDay}
+            {initialData ? (t('farmguide.update') || 'Update Entry') : (t('farmguide.saveEntry') || 'Save Entry')}
           </button>
           <button
             onClick={onClose}

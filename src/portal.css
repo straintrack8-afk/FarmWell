@@ -1200,3 +1200,76 @@ body {
     transform: translateY(0) scale(1);
   }
 }
+
+/* ─── PRINT STYLES ─── */
+@media print {
+  /* Page setup */
+  @page {
+    margin: 10mm;
+    size: A4;
+  }
+
+  /* Hide everything by default */
+  body > *:not(.print-content) { 
+    display: none !important; 
+  }
+  
+  /* Show only print content */
+  .print-content,
+  .print-content * { 
+    display: block !important; 
+    visibility: visible !important;
+  }
+
+  /* Hide navigation, buttons, tabs */
+  .tab-nav,
+  button,
+  .fw-topnav,
+  nav,
+  header { 
+    display: none !important; 
+  }
+
+  /* Charts and tables remain visible */
+  svg { 
+    display: inline !important; 
+  }
+  
+  table {
+    display: table !important;
+  }
+  
+  thead {
+    display: table-header-group !important;
+  }
+  
+  tbody {
+    display: table-row-group !important;
+  }
+  
+  tr {
+    display: table-row !important;
+  }
+  
+  th, td {
+    display: table-cell !important;
+  }
+
+  /* Typography */
+  body { 
+    font-size: 12pt; 
+    color: #000;
+    background: white;
+  }
+  
+  /* Force colors for charts */
+  * { 
+    -webkit-print-color-adjust: exact !important; 
+    print-color-adjust: exact !important; 
+  }
+  
+  /* Prevent page breaks inside elements */
+  .print-content > div {
+    page-break-inside: avoid;
+  }
+}

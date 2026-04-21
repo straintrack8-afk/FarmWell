@@ -36,8 +36,9 @@ function FarmGuideHome() {
                 breed_label: 'Broiler Commercial',
             }));
             navigate(`/farmguide/broiler/panduan`);
+        } else if (moduleId === 'parent_stock') {
+            navigate(`/farmguide/ps/broiler/panduan`);
         } else {
-            // Other modules use breed selector
             navigate(`/farmguide/${moduleId}/pilih-jenis`);
         }
     };

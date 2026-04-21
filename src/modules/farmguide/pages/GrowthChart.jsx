@@ -4,6 +4,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 import SharedTopNav from '../../../components/SharedTopNav';
 import { BROILER_RANGE } from '../data/broilerRangeData';
 import { getColorRange } from '../data/colorChickenRangeData';
+import { LAYER_RANGE } from '../data/layerRangeData';
 import '../../../portal.css';
 
 const BROILER_WEEKLY_BW_STANDARD = BROILER_RANGE.filter(r => r.day % 7 === 0).map(r => ({
@@ -163,16 +164,13 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                 })));
             }
         } else if (module === 'layer') {
-            fetch('/data/farmguide_data/breeds/layer_standards.json')
-                .then(r => r.json())
-                .then(data => {
-                    const standards = data.rearing_bw.data.map(row => ({
-                        week: row[0],
-                        bw: row[1]
-                    }));
-                    setStandardData(standards);
-                })
-                .catch(err => console.error('Failed to load layer standards:', err));
+            // Use LAYER_RANGE for all weeks W1-W80
+            setStandardData(LAYER_RANGE.map(row => ({
+                week: row.week,
+                bw: row.bw_avg,
+                ep_pct: row.ep_pct,
+                egg_weight_g: row.egg_weight_g
+            })));
         } else if (module === 'color_chicken') {
             const variant = context.variant || context.breed_code || 'choi';
             const sex = context.sex || 'male';
@@ -236,7 +234,7 @@ function GrowthChart({module: moduleProp, embedded = false}) {
             broiler: 'Broiler',
             layer: 'Layer',
             color_chicken: 'Color Chicken',
-            parent_stock: 'Parent Stock (PS)',
+            parent_stock: 'Parent Stock',
         };
         return names[module] || module;
     };
@@ -274,6 +272,11 @@ function GrowthChart({module: moduleProp, embedded = false}) {
             { id: 'bw', label: t('farmguide.tabBWAndTable') || 'BW & Table' },
             { id: 'feedref', label: t('farmguide.tabFeedRef') || 'Feed Reference' },
         ];
+        
+        // Add EP% chart tab for Layer module
+        if (module === 'layer') {
+            tabs.push({ id: 'ep', label: t('farmguide.tabEPChart') || 'EP% Chart' });
+        }
         
         return (
             <div style={{
@@ -551,7 +554,7 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                                             fontSize="10"
                                             fill="var(--fw-sub)"
                                         >
-                                            {viewMode === 'daily' ? `D${d.day}` : `W${d.week}`}
+                                            {module === 'layer' ? `W${d.week}` : (viewMode === 'daily' ? `D${d.day}` : `W${d.week}`)}
                                         </text>
                                     </g>
                                 );
@@ -628,7 +631,7 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                                             }}
                                         >
                                             <td style={{ padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem' }}>
-                                                {viewMode === 'daily' ? `D${std.day}` : `W${std.week}`}
+                                                {module === 'layer' ? `W${std.week}` : (viewMode === 'daily' ? `D${std.day}` : `W${std.week}`)}
                                             </td>
                                             <td style={{ padding: '0.75rem', textAlign: 'center', fontSize: '0.875rem' }}>
                                                 {std.bw}
@@ -821,12 +824,222 @@ function GrowthChart({module: moduleProp, embedded = false}) {
         );
     };
 
+    const renderEPTab = () => {
+        if (module !== 'layer') return null;
+        
+        // Filter production data W19-W80
+        const productionData = standardData.filter(d => d.week >= 19 && d.ep_pct !== null);
+        
+        if (productionData.length < 2) {
+            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading EP% data...</div>;
+        }
+
+        const width = 800;
+        const height = 320;
+        const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+        const chartWidth = width - padding.left - padding.right;
+        const chartHeight = height - padding.top - padding.bottom;
+
+        const n = productionData.length;
+        const epValues = productionData.map(d => d.ep_pct);
+        const minEP = 0;
+        const maxEP = 100;
+        const epRange = maxEP - minEP;
+
+        const getX = (index) => {
+            if (n <= 1) return padding.left;
+            return padding.left + (index / (n - 1)) * chartWidth;
+        };
+
+        const getY = (ep) => {
+            return padding.top + chartHeight - ((ep - minEP) / epRange) * chartHeight;
+        };
+
+        const epPath = productionData.map((d, i) => {
+            const x = getX(i);
+            const y = getY(d.ep_pct);
+            if (isNaN(x) || isNaN(y) || !isFinite(x) || !isFinite(y)) return '';
+            return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`;
+        }).filter(s => s).join(' ');
+
+        return (
+            <div>
+                <div style={{
+                    background: 'var(--fw-card)',
+                    border: '1px solid var(--fw-border)',
+                    borderRadius: '8px',
+                    padding: '1rem',
+                    overflowX: 'auto'
+                }}>
+                    <svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} style={{ maxWidth: '100%' }}>
+                        {/* Horizontal grid lines */}
+                        {[0, 0.25, 0.5, 0.75, 1].map((ratio, i) => {
+                            const y = padding.top + chartHeight * (1 - ratio);
+                            return (
+                                <line
+                                    key={`hg-${i}`}
+                                    x1={padding.left}
+                                    y1={y}
+                                    x2={width - padding.right}
+                                    y2={y}
+                                    stroke="var(--fw-border)"
+                                    strokeWidth="1"
+                                    opacity="0.5"
+                                />
+                            );
+                        })}
+
+                        {/* Vertical grid lines */}
+                        {productionData.filter((_, i) => i % 5 === 0).map((d, idx) => {
+                            const origIndex = productionData.indexOf(d);
+                            const x = getX(origIndex);
+                            if (isNaN(x) || !isFinite(x)) return null;
+                            return (
+                                <line
+                                    key={`vg-${idx}`}
+                                    x1={x}
+                                    y1={padding.top}
+                                    x2={x}
+                                    y2={height - padding.bottom}
+                                    stroke="var(--fw-border)"
+                                    strokeWidth="1"
+                                    opacity="0.3"
+                                />
+                            );
+                        })}
+
+                        <path
+                            d={epPath}
+                            fill="none"
+                            stroke="#C47A1A"
+                            strokeWidth="2"
+                        />
+
+                        {productionData.filter((_, i) => i % 2 === 0).map((d, idx) => {
+                            const origIndex = productionData.indexOf(d);
+                            const x = getX(origIndex);
+                            const y = getY(d.ep_pct);
+                            if (isNaN(x) || isNaN(y) || !isFinite(x) || !isFinite(y)) return null;
+                            
+                            const isSelected = selectedWeek === d.week;
+                            
+                            return (
+                                <circle
+                                    key={`ep-${origIndex}`}
+                                    cx={x}
+                                    cy={y}
+                                    r={isSelected ? 7 : 4}
+                                    fill={isSelected ? 'var(--fw-orange)' : 'var(--fw-card)'}
+                                    stroke={isSelected ? 'white' : '#C47A1A'}
+                                    strokeWidth="2"
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => {
+                                        setSelectedWeek(d.week);
+                                    }}
+                                />
+                            );
+                        })}
+
+                        <line
+                            x1={padding.left}
+                            y1={height - padding.bottom}
+                            x2={width - padding.right}
+                            y2={height - padding.bottom}
+                            stroke="var(--fw-border)"
+                            strokeWidth="1"
+                        />
+                        <line
+                            x1={padding.left}
+                            y1={padding.top}
+                            x2={padding.left}
+                            y2={height - padding.bottom}
+                            stroke="var(--fw-border)"
+                            strokeWidth="1"
+                        />
+
+                        {/* Y-axis labels */}
+                        {[0, 0.25, 0.5, 0.75, 1].map((ratio, i) => {
+                            const y = padding.top + chartHeight * (1 - ratio);
+                            const ep = Math.round(maxEP * ratio);
+                            return (
+                                <g key={`y-${i}`}>
+                                    <line
+                                        x1={padding.left - 5}
+                                        y1={y}
+                                        x2={padding.left}
+                                        y2={y}
+                                        stroke="var(--fw-border)"
+                                        strokeWidth="1"
+                                    />
+                                    <text
+                                        x={padding.left - 10}
+                                        y={y + 4}
+                                        textAnchor="end"
+                                        fontSize="10"
+                                        fill="var(--fw-sub)"
+                                    >
+                                        {ep}%
+                                    </text>
+                                </g>
+                            );
+                        })}
+
+                        {/* X-axis labels */}
+                        {productionData.filter((_, i) => i % 5 === 0).map((d, idx) => {
+                            const origIndex = productionData.indexOf(d);
+                            const x = getX(origIndex);
+                            if (isNaN(x) || !isFinite(x)) return null;
+                            return (
+                                <g key={`x-${origIndex}`}>
+                                    <line
+                                        x1={x}
+                                        y1={height - padding.bottom}
+                                        x2={x}
+                                        y2={height - padding.bottom + 5}
+                                        stroke="var(--fw-border)"
+                                        strokeWidth="1"
+                                    />
+                                    <text
+                                        x={x}
+                                        y={height - padding.bottom + 18}
+                                        textAnchor="middle"
+                                        fontSize="10"
+                                        fill="var(--fw-sub)"
+                                    >
+                                        W{d.week}
+                                    </text>
+                                </g>
+                            );
+                        })}
+                    </svg>
+
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '2rem',
+                        marginTop: '1rem',
+                        fontSize: '0.875rem'
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <svg width="30" height="2">
+                                <line x1="0" y1="1" x2="30" y2="1" stroke="#C47A1A" strokeWidth="2" />
+                            </svg>
+                            <span style={{ color: 'var(--fw-text)' }}>EP% (Egg Production)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     const renderTabContent = () => {
         switch (activeTab) {
             case 'bw':
                 return renderBWTab();
             case 'feedref':
                 return renderFeedRefTab();
+            case 'ep':
+                return renderEPTab();
             default:
                 return null;
         }
@@ -845,6 +1058,7 @@ function GrowthChart({module: moduleProp, embedded = false}) {
                 {/* Tab Content */}
                 {activeTab === 'bw' && renderBWTab()}
                 {activeTab === 'feedref' && renderFeedRefTab()}
+                {activeTab === 'ep' && renderEPTab()}
             </div>
         );
     }

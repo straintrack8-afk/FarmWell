@@ -1,0 +1,72 @@
+.ann-banner {
+  width: 100%;
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 2px solid transparent;
+  animation: annSlideDown 0.3s ease;
+}
+
+@keyframes annSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ann-banner--outbreak.ann-banner--high  { background: #FFF3CD; border-color: #FFCA28; }
+.ann-banner--outbreak.ann-banner--normal { background: #FFF8E1; border-color: #FFE082; }
+.ann-banner--product  { background: #E3F2FD; border-color: #90CAF9; }
+.ann-banner--tips     { background: #E1F5EE; border-color: #A5D6A7; }
+.ann-banner--update   { background: #F3E5F5; border-color: #CE93D8; }
+
+.ann-content { display: flex; align-items: flex-start; gap: 10px; flex: 1; }
+.ann-type-icon { font-size: 20px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
+.ann-text { flex: 1; }
+
+.ann-tag {
+  display: inline-block;
+  background: #FF8F00;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 20px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.ann-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.ann-banner--outbreak .ann-title { color: #6D3A00; }
+.ann-banner--product  .ann-title { color: #0C447C; }
+.ann-banner--tips     .ann-title { color: #085041; }
+.ann-banner--update   .ann-title { color: #4A1528; }
+
+.ann-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 5px; }
+.ann-meta-pill { font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 12px; }
+.ann-banner--outbreak .ann-meta-pill { background: #FFE082; color: #854F0B; }
+.ann-banner--product  .ann-meta-pill { background: #BBDEFB; color: #0C447C; }
+.ann-banner--tips     .ann-meta-pill { background: #C8E6C9; color: #085041; }
+.ann-banner--update   .ann-meta-pill { background: #E1BEE7; color: #4A1528; }
+
+.ann-body { font-size: 12px; line-height: 1.55; margin-bottom: 6px; }
+.ann-banner--outbreak .ann-body { color: #854F0B; }
+.ann-banner--product  .ann-body { color: #185FA5; }
+.ann-banner--tips     .ann-body { color: #0F6E56; }
+.ann-banner--update   .ann-body { color: #72243E; }
+
+.ann-link-btn {
+  font-size: 12px; font-weight: 700; border: none; background: none;
+  padding: 0; cursor: pointer; text-decoration: underline; font-family: inherit;
+}
+.ann-banner--outbreak .ann-link-btn { color: #633806; }
+.ann-banner--product  .ann-link-btn { color: #0C447C; }
+.ann-banner--tips     .ann-link-btn { color: #085041; }
+.ann-banner--update   .ann-link-btn { color: #4A1528; }
+
+.ann-close {
+  background: none; border: none; font-size: 16px; cursor: pointer;
+  flex-shrink: 0; padding: 0; line-height: 1; opacity: .5; margin-top: 1px;
+}
+.ann-close:hover { opacity: 1; }

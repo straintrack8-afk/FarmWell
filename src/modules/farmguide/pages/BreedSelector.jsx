@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import SharedTopNav from '../../../components/SharedTopNav';
@@ -27,12 +27,22 @@ const BREED_OPTIONS = {
 
 function BreedSelector() {
     const navigate = useNavigate();
-    const { module } = useParams();
+    const location = useLocation();
     const { t } = useTranslation();
     const { language } = useLanguage();
     const [modules, setModules] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedBreed, setSelectedBreed] = useState('');
+    
+    // Extract category and module from new URL structure
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    const category = pathParts[1]; // 'commercial' or 'ps'
+    const moduleSlug = pathParts[2]; // 'broiler', 'layer', 'color'
+    
+    // Map to internal module ID
+    const module = category === 'ps' ? 'parent_stock' : 
+                   moduleSlug === 'color' ? 'color_chicken' : 
+                   moduleSlug;
 
     useEffect(() => {
         // Broiler doesn't need breed selector - redirect to panduan
@@ -44,7 +54,7 @@ function BreedSelector() {
                 breed_code: null,
                 breed_label: null,
             }));
-            navigate(`/farmguide/broiler/panduan`, { replace: true });
+            navigate(`/farmguide/commercial/broiler/panduan`, { replace: true });
             return;
         }
 
@@ -92,11 +102,16 @@ function BreedSelector() {
         const moduleConfig = modules.find(m => m.module_id === module);
         const needsSex = moduleConfig?.sex_selector_required === true;
         
+        // If module needs sex, save default 'female' to localStorage and go directly to panduan
         if (needsSex) {
-            navigate(`/farmguide/${module}/pilih-kelamin`);
-        } else {
-            navigate(`/farmguide/${module}/panduan`);
+            const existing = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            localStorage.setItem('farmguide_active_flock', JSON.stringify({
+                ...existing,
+                sex: 'female'
+            }));
         }
+        
+        navigate(`/farmguide/${category}/${moduleSlug}/panduan`);
     };
 
     const handleContinue = () => {
@@ -110,7 +125,7 @@ function BreedSelector() {
             broiler: 'Broiler',
             layer: 'Layer',
             color_chicken: 'Color Chicken',
-            parent_stock: 'Parent Stock (PS)',
+            parent_stock: 'Parent Stock',
         };
         return moduleNames[module] || module;
     };

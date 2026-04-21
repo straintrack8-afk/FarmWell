@@ -1,0 +1,36 @@
+[
+  {
+    "id": "ann_h9_phutho_2026",
+    "active": true,
+    "type": "outbreak",
+    "priority": "high",
+    "startDate": "2026-04-07",
+    "endDate": "2026-05-07",
+    "tag": {
+      "en": "⚠ Outbreak Alert",
+      "id": "⚠ Peringatan Wabah",
+      "vi": "⚠ Cảnh báo dịch bệnh"
+    },
+    "title": {
+      "en": "Avian Influenza H9N2 Confirmed — Phú Thọ Province, Vietnam",
+      "id": "AI H9N2 Dikonfirmasi — Provinsi Phú Thọ, Vietnam",
+      "vi": "Xác nhận cúm gia cầm H9N2 — Tỉnh Phú Thọ, Việt Nam"
+    },
+    "meta": [
+      "📍 Phú Thọ, Vietnam",
+      "🦠 AI H9N2 Strain",
+      "🐔 Poultry"
+    ],
+    "body": {
+      "en": "Confirmed H9N2 cases in layer and broiler farms across Phú Thọ. Elevated mortality and significant egg production drop reported. Immediate biosecurity review recommended for all poultry operations in northern Vietnam.",
+      "id": "Kasus H9N2 dikonfirmasi di farm layer dan broiler di Phú Thọ. Peningkatan kematian dan penurunan produksi telur dilaporkan. Tinjau biosekuriti segera untuk semua unggas di Vietnam utara.",
+      "vi": "H9N2 được xác nhận tại các trại gà đẻ và gà thịt ở Phú Thọ. Tỷ lệ chết tăng và sản lượng trứng giảm đáng kể. Khuyến nghị xem xét an toàn sinh học ngay cho tất cả gia cầm miền Bắc."
+    },
+    "link": "/poultry",
+    "linkLabel": {
+      "en": "View Biosecurity Protocol →",
+      "id": "Lihat Protokol Biosekuriti →",
+      "vi": "Xem giao thức an toàn sinh học →"
+    }
+  }
+]

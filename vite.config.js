@@ -1,56 +1,67 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [
-    react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'icons/*.png', 'data/*.json'],
-      manifest: {
-        name: 'FarmWell',
-        short_name: 'FarmWell',
-        description: 'Comprehensive livestock health diagnostics',
-        theme_color: '#366092',
-        background_color: '#F9FAFB',
-        display: 'standalone',
-        orientation: 'portrait',
-        start_url: '/',
-        icons: [
-          {
-            src: '/icons/icon-192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: '/icons/icon-512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
-      },
-      workbox: {
-        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3 MB
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  
+  return {
+    plugins: [
+      react(),
+      VitePWA({
+        registerType: 'autoUpdate',
+        includeAssets: ['favicon.ico', 'icons/*.png', 'data/*.json'],
+        manifest: {
+          name: 'FarmWell',
+          short_name: 'FarmWell',
+          description: 'Comprehensive livestock health diagnostics',
+          theme_color: '#366092',
+          background_color: '#F9FAFB',
+          display: 'standalone',
+          orientation: 'portrait',
+          start_url: '/',
+          icons: [
+            {
+              src: '/icons/icon-192.png',
+              sizes: '192x192',
+              type: 'image/png'
+            },
+            {
+              src: '/icons/icon-512.png',
+              sizes: '512x512',
+              type: 'image/png'
+            }
+          ]
+        },
+        workbox: {
+          maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3 MB
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
               }
             }
-          }
-        ]
-      }
-    })
-  ],
+          ]
+        }
+      })
+    ],
+    define: {
+      'import.meta.env.VITE_GITHUB_TOKEN': JSON.stringify(env.VITE_GITHUB_TOKEN),
+      'import.meta.env.VITE_ADMIN_PASSWORD': JSON.stringify(env.VITE_ADMIN_PASSWORD),
+      'import.meta.env.VITE_GITHUB_OWNER': JSON.stringify(env.VITE_GITHUB_OWNER),
+      'import.meta.env.VITE_GITHUB_REPO': JSON.stringify(env.VITE_GITHUB_REPO),
+      'import.meta.env.VITE_ANNOUNCEMENTS_PATH': JSON.stringify(env.VITE_ANNOUNCEMENTS_PATH),
+    }
+  }
 })
