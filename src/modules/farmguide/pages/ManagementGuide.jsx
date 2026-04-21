@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import SharedTopNav from '../../../components/SharedTopNav';
 import ChecklistItem from '../components/ChecklistItem';
+import WeekDaySelector from '../components/WeekDaySelector';
 import { BROILER_GUIDE, FEED_WEEKLY } from '../data/broilerGuideData';
 import { COLOR_CHICKEN_GUIDE, COLOR_CHICKEN_TARGETS } from '../data/colorChickenGuideData';
 import { getColorRange } from '../data/colorChickenRangeData';
@@ -825,6 +826,152 @@ const ManagementGuide = () => {
                             </tbody>
                         </table>
                     </div>
+                    
+                    {/* Feed Chart for Broiler */}
+                    {module === 'broiler' && (() => {
+                        const chartData = viewMode === 'weekly' ? FEED_WEEKLY : BROILER_DAILY_BW;
+                        const chartHeight = 300;
+                        const chartWidth = 800;
+                        const padding = { top: 20, right: 40, bottom: 40, left: 60 };
+                        const plotWidth = chartWidth - padding.left - padding.right;
+                        const plotHeight = chartHeight - padding.top - padding.bottom;
+                        
+                        const maxFeed = viewMode === 'weekly' 
+                            ? Math.max(...FEED_WEEKLY.map(d => d.daily_g))
+                            : Math.max(...BROILER_DAILY_BW.map(d => d.feed_g_day));
+                        
+                        const xScale = viewMode === 'weekly'
+                            ? (week) => padding.left + ((week - 1) / 7) * plotWidth
+                            : (day) => padding.left + ((day - 1) / 55) * plotWidth;
+                        
+                        const yScale = (feed) => padding.top + plotHeight - (feed / 250) * plotHeight;
+                        
+                        const points = chartData.map(d => {
+                            const x = viewMode === 'weekly' ? xScale(d.week) : xScale(d.day);
+                            const y = viewMode === 'weekly' ? yScale(d.daily_g) : yScale(d.feed_g_day);
+                            return `${x},${y}`;
+                        }).join(' ');
+                        
+                        const currentX = viewMode === 'weekly' ? xScale(selectedWeek) : xScale(selectedDay);
+                        
+                        return (
+                            <div style={{ marginTop: '1.5rem' }}>
+                                <div style={{ 
+                                    fontSize: '0.875rem', 
+                                    fontWeight: '600', 
+                                    color: 'var(--fw-text)', 
+                                    marginBottom: '0.75rem' 
+                                }}>
+                                    {t('farmguide.feedChart') || 'Feed Consumption Curve'}
+                                </div>
+                                <div style={{ 
+                                    background: 'var(--fw-card)', 
+                                    border: '1px solid var(--fw-border)', 
+                                    borderRadius: '8px', 
+                                    padding: '1rem',
+                                    overflowX: 'auto'
+                                }}>
+                                    <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                        {/* Grid lines */}
+                                        {[0, 50, 100, 150, 200, 250].map(feed => (
+                                            <g key={feed}>
+                                                <line
+                                                    x1={padding.left}
+                                                    y1={yScale(feed)}
+                                                    x2={chartWidth - padding.right}
+                                                    y2={yScale(feed)}
+                                                    stroke="var(--fw-border)"
+                                                    strokeWidth="1"
+                                                    strokeDasharray="4,4"
+                                                />
+                                                <text
+                                                    x={padding.left - 10}
+                                                    y={yScale(feed) + 4}
+                                                    textAnchor="end"
+                                                    fontSize="11"
+                                                    fill="var(--fw-sub)"
+                                                >
+                                                    {feed}g
+                                                </text>
+                                            </g>
+                                        ))}
+                                        
+                                        {/* Feed line */}
+                                        <polyline
+                                            points={points}
+                                            fill="none"
+                                            stroke="var(--fw-orange)"
+                                            strokeWidth="3"
+                                        />
+                                        
+                                        {/* Current selection highlight */}
+                                        <line
+                                            x1={currentX}
+                                            y1={padding.top}
+                                            x2={currentX}
+                                            y2={chartHeight - padding.bottom}
+                                            stroke="var(--fw-teal)"
+                                            strokeWidth="2"
+                                            strokeDasharray="5,5"
+                                        />
+                                        
+                                        {/* X-axis labels */}
+                                        {viewMode === 'weekly' ? (
+                                            [1, 2, 3, 4, 5, 6, 7, 8].map(week => (
+                                                <text
+                                                    key={week}
+                                                    x={xScale(week)}
+                                                    y={chartHeight - padding.bottom + 20}
+                                                    textAnchor="middle"
+                                                    fontSize="11"
+                                                    fill="var(--fw-text)"
+                                                    fontWeight={week === selectedWeek ? '700' : '400'}
+                                                >
+                                                    W{week}
+                                                </text>
+                                            ))
+                                        ) : (
+                                            [1, 7, 14, 21, 28, 35, 42, 49, 56].map(day => (
+                                                <text
+                                                    key={day}
+                                                    x={xScale(day)}
+                                                    y={chartHeight - padding.bottom + 20}
+                                                    textAnchor="middle"
+                                                    fontSize="11"
+                                                    fill="var(--fw-text)"
+                                                >
+                                                    D{day}
+                                                </text>
+                                            ))
+                                        )}
+                                        
+                                        {/* Axis labels */}
+                                        <text
+                                            x={chartWidth / 2}
+                                            y={chartHeight - 5}
+                                            textAnchor="middle"
+                                            fontSize="12"
+                                            fill="var(--fw-sub)"
+                                            fontWeight="600"
+                                        >
+                                            {viewMode === 'weekly' ? (t('farmguide.week') || 'Week') : (t('farmguide.day') || 'Day')}
+                                        </text>
+                                        <text
+                                            x={15}
+                                            y={chartHeight / 2}
+                                            textAnchor="middle"
+                                            fontSize="12"
+                                            fill="var(--fw-sub)"
+                                            fontWeight="600"
+                                            transform={`rotate(-90, 15, ${chartHeight / 2})`}
+                                        >
+                                            {t('farmguide.dailyFeed') || 'Daily Feed (g)'}
+                                        </text>
+                                    </svg>
+                                </div>
+                            </div>
+                        );
+                    })()}
                 </div>
             );
         }
@@ -1012,8 +1159,7 @@ const ManagementGuide = () => {
                 day: row.day,
                 week: row.week,
                 bw: row.bw_g,
-                gain: row.gain_g,
-                feed: row.feed_g_day
+                gain: row.gain_g
             }));
         } else if (viewMode === 'daily' && module === 'color_chicken') {
             const variant = flockContext?.variant || flockContext?.breed_code || 'choi';
@@ -1031,8 +1177,7 @@ const ManagementGuide = () => {
                 week: row.week,
                 day: row.day,
                 bw: row.bw_g,
-                gain: row.gain_g,
-                feed: row.feed_g_day
+                gain: row.gain_g
             }));
         } else if (!bwData) {
             return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
@@ -1202,7 +1347,7 @@ const ManagementGuide = () => {
                                         FCR
                                     </th>
                                 )}
-                                {tableData[0].feed !== null && tableData[0].feed !== undefined && (
+                                {module !== 'broiler' && tableData[0].feed !== null && tableData[0].feed !== undefined && (
                                     <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
                                         {t('farmguide.feedPerDay') || 'Feed/Day'} (g)
                                     </th>
@@ -1307,7 +1452,7 @@ const ManagementGuide = () => {
                                                 {row.fcr ? row.fcr.toFixed(2) : '—'}
                                             </td>
                                         )}
-                                        {row.feed !== null && row.feed !== undefined && (
+                                        {module !== 'broiler' && row.feed !== null && row.feed !== undefined && (
                                             <td style={{ 
                                                 padding: '0.75rem', 
                                                 textAlign: 'right', 
@@ -1325,38 +1470,151 @@ const ManagementGuide = () => {
                     </table>
                 </div>
                 
-                {module === 'broiler' && (
-                    <div style={{
-                        marginTop: '1.5rem',
-                        padding: '1rem',
-                        textAlign: 'center',
-                        background: 'var(--fw-card)',
-                        border: '1px solid var(--fw-border)',
-                        borderRadius: '8px'
-                    }}>
-                        <div style={{ fontSize: '0.875rem', color: 'var(--fw-text)', marginBottom: '0.75rem' }}>
-                            {t('farmguide.viewGrowthChart') || 'View daily BW data in Growth Chart →'}
+                {module === 'broiler' && (() => {
+                    // BW Chart for Broiler
+                    const chartData = viewMode === 'weekly' 
+                        ? BROILER_WEEKLY_BW_STANDARD 
+                        : BROILER_DAILY_BW;
+                    
+                    const maxBW = Math.max(...chartData.map(d => d.bw_g));
+                    const chartHeight = 300;
+                    const chartWidth = 800;
+                    const padding = { top: 20, right: 40, bottom: 40, left: 60 };
+                    const plotWidth = chartWidth - padding.left - padding.right;
+                    const plotHeight = chartHeight - padding.top - padding.bottom;
+                    
+                    const xScale = viewMode === 'weekly'
+                        ? (week) => padding.left + ((week - 1) / 7) * plotWidth
+                        : (day) => padding.left + ((day - 1) / 55) * plotWidth;
+                    
+                    const yScale = (bw) => padding.top + plotHeight - (bw / 3500) * plotHeight;
+                    
+                    const points = chartData.map(d => {
+                        const x = viewMode === 'weekly' ? xScale(d.week) : xScale(d.day);
+                        const y = yScale(d.bw_g);
+                        return `${x},${y}`;
+                    }).join(' ');
+                    
+                    const currentX = viewMode === 'weekly' ? xScale(selectedWeek) : xScale(selectedDay);
+                    
+                    return (
+                        <div style={{ marginTop: '1.5rem' }}>
+                            <div style={{ 
+                                fontSize: '0.875rem', 
+                                fontWeight: '600', 
+                                color: 'var(--fw-text)', 
+                                marginBottom: '0.75rem' 
+                            }}>
+                                {t('farmguide.bwChart') || 'Standard BW Curve'}
+                            </div>
+                            <div style={{ 
+                                background: 'var(--fw-card)', 
+                                border: '1px solid var(--fw-border)', 
+                                borderRadius: '8px', 
+                                padding: '1rem',
+                                overflowX: 'auto'
+                            }}>
+                                <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                    {/* Grid lines */}
+                                    {[0, 500, 1000, 1500, 2000, 2500, 3000, 3500].map(bw => (
+                                        <g key={bw}>
+                                            <line
+                                                x1={padding.left}
+                                                y1={yScale(bw)}
+                                                x2={chartWidth - padding.right}
+                                                y2={yScale(bw)}
+                                                stroke="var(--fw-border)"
+                                                strokeWidth="1"
+                                                strokeDasharray="4,4"
+                                            />
+                                            <text
+                                                x={padding.left - 10}
+                                                y={yScale(bw) + 4}
+                                                textAnchor="end"
+                                                fontSize="11"
+                                                fill="var(--fw-sub)"
+                                            >
+                                                {bw}g
+                                            </text>
+                                        </g>
+                                    ))}
+                                    
+                                    {/* BW line */}
+                                    <polyline
+                                        points={points}
+                                        fill="none"
+                                        stroke="var(--fw-teal)"
+                                        strokeWidth="3"
+                                    />
+                                    
+                                    {/* Current selection highlight */}
+                                    <line
+                                        x1={currentX}
+                                        y1={padding.top}
+                                        x2={currentX}
+                                        y2={chartHeight - padding.bottom}
+                                        stroke="var(--fw-orange)"
+                                        strokeWidth="2"
+                                        strokeDasharray="5,5"
+                                    />
+                                    
+                                    {/* X-axis labels */}
+                                    {viewMode === 'weekly' ? (
+                                        [1, 2, 3, 4, 5, 6, 7, 8].map(week => (
+                                            <text
+                                                key={week}
+                                                x={xScale(week)}
+                                                y={chartHeight - padding.bottom + 20}
+                                                textAnchor="middle"
+                                                fontSize="11"
+                                                fill="var(--fw-text)"
+                                                fontWeight={week === selectedWeek ? '700' : '400'}
+                                            >
+                                                W{week}
+                                            </text>
+                                        ))
+                                    ) : (
+                                        [1, 7, 14, 21, 28, 35, 42, 49, 56].map(day => (
+                                            <text
+                                                key={day}
+                                                x={xScale(day)}
+                                                y={chartHeight - padding.bottom + 20}
+                                                textAnchor="middle"
+                                                fontSize="11"
+                                                fill="var(--fw-text)"
+                                            >
+                                                D{day}
+                                            </text>
+                                        ))
+                                    )}
+                                    
+                                    {/* Axis labels */}
+                                    <text
+                                        x={chartWidth / 2}
+                                        y={chartHeight - 5}
+                                        textAnchor="middle"
+                                        fontSize="12"
+                                        fill="var(--fw-sub)"
+                                        fontWeight="600"
+                                    >
+                                        {viewMode === 'weekly' ? (t('farmguide.week') || 'Week') : (t('farmguide.day') || 'Day')}
+                                    </text>
+                                    <text
+                                        x={15}
+                                        y={chartHeight / 2}
+                                        textAnchor="middle"
+                                        fontSize="12"
+                                        fill="var(--fw-sub)"
+                                        fontWeight="600"
+                                        transform={`rotate(-90, 15, ${chartHeight / 2})`}
+                                    >
+                                        {t('farmguide.bodyWeight') || 'Body Weight (g)'}
+                                    </text>
+                                </svg>
+                            </div>
                         </div>
-                        <button
-                            onClick={() => navigate(`/farmguide/${module}/grafik`)}
-                            style={{
-                                padding: '0.625rem 1.25rem',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: 'var(--fw-card)',
-                                background: 'var(--fw-teal)',
-                                border: 'none',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                transition: 'background 0.2s'
-                            }}
-                            onMouseOver={(e) => e.target.style.background = 'var(--fw-teal-dk)'}
-                            onMouseOut={(e) => e.target.style.background = 'var(--fw-teal)'}
-                        >
-                            {t('farmguide.growthChart') || 'Growth Chart'}
-                        </button>
-                    </div>
-                )}
+                    );
+                })()}
             </div>
         );
     };
@@ -1600,8 +1858,24 @@ const ManagementGuide = () => {
                 {/* ─── LEVEL 2: Sub-Tab Navigation (only for Guide) ─── */}
                 {renderSubTabNav()}
 
-                {/* ─── Weekly/Daily Toggle (only for Guide) ─── */}
-                {mainTab === 'guide' && (
+                {/* ─── Week/Day Selector ─── */}
+                {mainTab === 'guide' && module === 'broiler' && (
+                    <WeekDaySelector
+                        mode="weekly-daily"
+                        moduleType="broiler"
+                        selectedWeek={selectedWeek}
+                        selectedDay={selectedDay}
+                        viewMode={viewMode}
+                        onWeekChange={(w) => setSelectedWeek(w)}
+                        onDayChange={(d) => setSelectedDay(d)}
+                        onViewModeChange={(m) => setViewMode(m)}
+                        minWeek={1}
+                        maxWeek={8}
+                    />
+                )}
+
+                {/* ─── Weekly/Daily Toggle (only for non-Broiler modules) ─── */}
+                {mainTab === 'guide' && module !== 'broiler' && (
                     <div style={{
                         display: 'flex',
                         gap: '0.5rem',
@@ -1642,8 +1916,8 @@ const ManagementGuide = () => {
                     </div>
                 )}
 
-                {/* ─── Period Selector (only for Guide) ─── */}
-                {mainTab === 'guide' && (
+                {/* ─── Period Selector (only for non-Broiler modules) ─── */}
+                {mainTab === 'guide' && module !== 'broiler' && (
                     <div style={{
                         display: 'flex',
                         gap: '0.375rem',
