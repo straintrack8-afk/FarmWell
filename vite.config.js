@@ -7,6 +7,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   
   return {
+    server: {
+      historyApiFallback: true,
+    },
     plugins: [
       react(),
       VitePWA({

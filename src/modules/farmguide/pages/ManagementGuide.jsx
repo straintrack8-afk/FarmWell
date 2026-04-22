@@ -134,7 +134,10 @@ const ManagementGuide = () => {
     const [selectedWeek, setSelectedWeek] = useState(1);
     const [selectedDay, setSelectedDay] = useState(7);
     const [mainTab, setMainTab] = useState('guide');
-    const [activeTab, setActiveTab] = useState('environment');
+    const storageKey = `farmguide_activetab_${module}`;
+    const [activeTab, setActiveTab] = useState(() => {
+        return localStorage.getItem(storageKey) || 'environment';
+    });
     const [viewMode, setViewMode] = useState(() => {
         return localStorage.getItem('farmguide_bw_view_mode') || 'weekly';
     });
@@ -426,6 +429,7 @@ const ManagementGuide = () => {
         setMainTab(tabId);
         if (tabId === 'guide') {
             setActiveTab('environment');
+            localStorage.setItem(storageKey, 'environment');
         }
     };
 
@@ -505,7 +509,13 @@ const ManagementGuide = () => {
                     return (
                         <button
                             key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
+                            onClick={() => {
+                                setActiveTab(tab.id);
+                                localStorage.setItem(storageKey, tab.id);
+                                if (tab.id === 'checklist') {
+                                    setViewMode('weekly');
+                                }
+                            }}
                             style={{
                                 padding: '7px 14px',
                                 fontSize: '13px',
@@ -2060,13 +2070,13 @@ const ManagementGuide = () => {
                 {renderSubTabNav()}
 
                 {/* ─── Week/Day Selector ─── */}
-                {mainTab === 'guide' && module === 'broiler' && (
+                {mainTab === 'guide' && module === 'broiler' && activeTab !== 'references' && (
                     <WeekDaySelector
                         mode="weekday"
                         totalWeeks={8}
                         selectedWeek={selectedWeek}
                         selectedDay={selectedDay}
-                        showDailyToggle={true}
+                        showDailyToggle={activeTab !== 'checklist'}
                         selectedMode={viewMode}
                         onWeekChange={(w) => setSelectedWeek(Number(w))}
                         onDayChange={(d) => setSelectedDay(Number(d))}
@@ -2175,11 +2185,11 @@ const ManagementGuide = () => {
                     </div>
                 )}
 
-                {/* ─── Phase Pill, Title, Tags + Alert (only for Guide + Broiler/Color Chicken) ─── */}
-                {mainTab === 'guide' && (module === 'broiler' || module === 'color_chicken') && (module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1]) && !(module === 'broiler' && viewMode === 'daily') && !(module === 'broiler' && activeTab === 'feed') && !(module === 'broiler' && activeTab === 'bw') && (
+                {/* ─── Phase Pill, Title, Tags + Alert (only for Guide + Color Chicken) ─── */}
+                {mainTab === 'guide' && module === 'color_chicken' && COLOR_CHICKEN_GUIDE[selectedWeek - 1] && (
                     <div style={{ marginBottom: '1.5rem' }}>
                         {(() => {
-                            const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
+                            const weekData = COLOR_CHICKEN_GUIDE[selectedWeek - 1];
                             const phaseColor = weekData.phase === 'Brooding' ? '#E8652A' : 
                                              weekData.phase === 'Grower' ? '#1B7A6E' : 
                                              weekData.phase === 'Finisher' ? '#C47A1A' : '#8B5CF6';
