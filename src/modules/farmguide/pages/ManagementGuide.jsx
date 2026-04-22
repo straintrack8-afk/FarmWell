@@ -4,7 +4,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 import SharedTopNav from '../../../components/SharedTopNav';
 import ChecklistItem from '../components/ChecklistItem';
 import WeekDaySelector from '../components/WeekDaySelector';
-import { BROILER_GUIDE, FEED_WEEKLY } from '../data/broilerGuideData';
+import { BROILER_GUIDE, FEED_WEEKLY, BROILER_DAILY_ENV } from '../data/broilerGuideData';
 import { COLOR_CHICKEN_GUIDE, COLOR_CHICKEN_TARGETS } from '../data/colorChickenGuideData';
 import { getColorRange } from '../data/colorChickenRangeData';
 import FlockSaya from './FlockSaya';
@@ -433,7 +433,6 @@ const ManagementGuide = () => {
         const mainTabs = [
             { id: 'guide', label: 'Guide' },
             { id: 'flock', label: 'My Flock' },
-            { id: 'chart', label: 'Growth Chart' },
         ];
         
         return (
@@ -529,8 +528,254 @@ const ManagementGuide = () => {
     };
 
     const renderEnvironmentTab = () => {
-        if (module === 'broiler' || module === 'color_chicken') {
-            const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
+        if (module === 'broiler') {
+            // Daily mode: lookup by day
+            if (viewMode === 'daily') {
+                const day = selectedDay || ((selectedWeek - 1) * 7 + 1);
+                const dailyEnv = BROILER_DAILY_ENV.find(r => day >= r.minDay && day <= r.maxDay)
+                    || BROILER_DAILY_ENV[BROILER_DAILY_ENV.length - 1];
+                
+                const parentWeek = Math.ceil(day / 7);
+                const weekData = BROILER_GUIDE[parentWeek - 1];
+                const env = weekData?.environment;
+                
+                return (
+                    <div style={{ padding: '0 0 2rem 0' }}>
+                        {/* Day range badge */}
+                        <div style={{ marginBottom: '1rem' }}>
+                            <span style={{
+                                background: '#E1F5EE', color: '#0C3830',
+                                borderRadius: '20px', padding: '4px 14px',
+                                fontSize: '13px', fontWeight: '600'
+                            }}>
+                                Day {dailyEnv.dayRange}
+                            </span>
+                        </div>
+
+                        {/* Main env cards */}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '12px', marginBottom: '1rem' }}>
+                            <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '12px', padding: '1rem' }}>
+                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🌡️</div>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>Room Temperature</div>
+                                <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--fw-text)' }}>{dailyEnv.room_temp}</div>
+                            </div>
+                            <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '12px', padding: '1rem' }}>
+                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>💧</div>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>Relative Humidity</div>
+                                <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--fw-text)' }}>{dailyEnv.rh}</div>
+                            </div>
+                            <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '12px', padding: '1rem' }}>
+                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>💡</div>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>Lighting</div>
+                                <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--fw-text)' }}>{dailyEnv.lighting}</div>
+                            </div>
+                            <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '12px', padding: '1rem' }}>
+                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🌬️</div>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>Ventilation</div>
+                                <div style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--fw-text)' }}>{dailyEnv.ventilation}</div>
+                            </div>
+                        </div>
+
+                        {/* Specs Grid */}
+                        {weekData && (
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                                gap: '0.75rem',
+                                marginBottom: '1.5rem'
+                            }}>
+                                {weekData.specs
+                                    .filter(spec => spec.labelKey !== 'specBrooderEdge' && spec.labelKey !== 'specLightIntensity')
+                                    .map((spec, idx) => (
+                                        <div key={idx} style={{
+                                            padding: '1rem',
+                                            background: 'var(--fw-card)',
+                                            border: '1px solid var(--fw-border)',
+                                            borderRadius: '8px'
+                                        }}>
+                                            <div style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{spec.icon}</div>
+                                            <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>
+                                                {spec.labelKey ? (tSafe('farmguide.' + spec.labelKey) ?? spec.label) : spec.label}
+                                            </div>
+                                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)' }}>
+                                                {spec.value}
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
+                        )}
+
+                        {/* Note */}
+                        {dailyEnv.note && (
+                            <div style={{
+                                background: 'var(--fw-card)', border: '1px solid var(--fw-border)',
+                                borderRadius: '10px', padding: '0.875rem 1rem',
+                                fontSize: '13px', color: 'var(--fw-sub)', lineHeight: '1.5'
+                            }}>
+                                💡 {dailyEnv.note[language] || dailyEnv.note.en}
+                            </div>
+                        )}
+
+                        {/* Gas limits */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '1rem' }}>
+                            <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '10px', padding: '0.875rem 1rem' }}>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)' }}>NH₃</div>
+                                <div style={{ fontWeight: '700' }}>{'< 10 ppm'}</div>
+                            </div>
+                            <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '10px', padding: '0.875rem 1rem' }}>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)' }}>CO₂</div>
+                                <div style={{ fontWeight: '700' }}>{'< 2,500 ppm'}</div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Weekly mode: existing behavior
+            const weekData = BROILER_GUIDE[selectedWeek - 1];
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            const env = weekData.environment;
+            
+            return (
+                <div>
+                    {/* 4 Main Parameter Cards */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gap: '1rem',
+                        marginBottom: '1.5rem'
+                    }}>
+                        <div style={{
+                            padding: '1.5rem',
+                            background: 'var(--fw-card)',
+                            border: '2px solid var(--fw-border)',
+                            borderRadius: '12px'
+                        }}>
+                            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌡️</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                {t('farmguide.tempTarget') || 'Suhu'}
+                            </div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                {env.temp}
+                            </div>
+                        </div>
+                        
+                        <div style={{
+                            padding: '1.5rem',
+                            background: 'var(--fw-card)',
+                            border: '2px solid var(--fw-border)',
+                            borderRadius: '12px'
+                        }}>
+                            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💧</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                {t('farmguide.humidity') || 'RH'}
+                            </div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                {env.rh}
+                            </div>
+                        </div>
+                        
+                        <div style={{
+                            padding: '1.5rem',
+                            background: 'var(--fw-card)',
+                            border: '2px solid var(--fw-border)',
+                            borderRadius: '12px'
+                        }}>
+                            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💡</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                {t('farmguide.lighting') || 'Cahaya'}
+                            </div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                {typeof env.light === 'object' ? (env.light[lang] ?? env.light['en']) : env.light}
+                            </div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginTop: '0.25rem' }}>
+                                {env.light_lux}
+                            </div>
+                        </div>
+                        
+                        <div style={{
+                            padding: '1.5rem',
+                            background: 'var(--fw-card)',
+                            border: '2px solid var(--fw-border)',
+                            borderRadius: '12px'
+                        }}>
+                            <div style={{ marginBottom: '0.5rem' }}>
+                                <VentilationIcon size={32} color="var(--fw-teal)" />
+                            </div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                {t('farmguide.ventilation') || 'Ventilasi'}
+                            </div>
+                            <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>
+                                {env.ventKey ? (tSafe('farmguide.' + env.ventKey) ?? env.ventilation) : env.ventilation}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {/* Specs Grid */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                        gap: '0.75rem',
+                        marginBottom: '1.5rem'
+                    }}>
+                        {weekData.specs.map((spec, idx) => (
+                            <div key={idx} style={{
+                                padding: '1rem',
+                                background: 'var(--fw-card)',
+                                border: '1px solid var(--fw-border)',
+                                borderRadius: '8px'
+                            }}>
+                                <div style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{spec.icon}</div>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>
+                                    {spec.labelKey ? (tSafe('farmguide.' + spec.labelKey) ?? spec.label) : spec.label}
+                                </div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)' }}>
+                                    {spec.value}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    {/* Air Quality Row */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                        gap: '0.75rem',
+                        padding: '1rem',
+                        background: 'var(--fw-card)',
+                        border: '1px solid var(--fw-border)',
+                        borderRadius: '8px'
+                    }}>
+                        <div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>NH₃</div>
+                            <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>{env.nh3}</div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>CO₂</div>
+                            <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>{env.co2}</div>
+                        </div>
+                    </div>
+                    
+                    {/* Daily Mode Note */}
+                    {viewMode === 'daily' && (
+                        <div style={{
+                            marginTop: '1rem',
+                            padding: '0.75rem 1rem',
+                            background: 'var(--fw-teal-lt)',
+                            border: '1px solid var(--fw-teal)',
+                            borderRadius: '8px',
+                            fontSize: '0.875rem',
+                            color: 'var(--fw-text)'
+                        }}>
+                            {(t('farmguide.envWeeklyNote') || '💡 Environment parameters apply for the entire week (W{week})').replace('{week}', selectedWeek)}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+        
+        if (module === 'color_chicken') {
+            const weekData = COLOR_CHICKEN_GUIDE[selectedWeek - 1];
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
             
             const env = weekData.environment;
@@ -749,24 +994,25 @@ const ManagementGuide = () => {
                         borderRadius: '12px',
                         overflow: 'hidden'
                     }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                            <thead>
-                                <tr style={{ background: 'var(--fw-bg)' }}>
-                                    <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                        {viewMode === 'weekly' ? 'Week' : 'Day'}
-                                    </th>
-                                    <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                        Phase
-                                    </th>
-                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                        Daily (g)
-                                    </th>
-                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
-                                        Cumulative (g)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div style={viewMode === 'daily' ? { maxHeight: '320px', overflowY: 'auto', border: '1px solid var(--fw-border)', borderRadius: '8px' } : {}}>
+                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                <thead>
+                                    <tr style={{ background: 'var(--fw-bg)' }}>
+                                        <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                            {viewMode === 'weekly' ? 'Week' : 'Day'}
+                                        </th>
+                                        <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                            Phase
+                                        </th>
+                                        <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                            Daily (g)
+                                        </th>
+                                        <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                            Cumulative (g)
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 {viewMode === 'weekly' ? (
                                     FEED_WEEKLY.map(row => {
                                         const isActive = row.week === selectedWeek;
@@ -823,8 +1069,9 @@ const ManagementGuide = () => {
                                         });
                                     })()
                                 )}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     
                     {/* Feed Chart for Broiler */}
@@ -862,7 +1109,7 @@ const ManagementGuide = () => {
                                     color: 'var(--fw-text)', 
                                     marginBottom: '0.75rem' 
                                 }}>
-                                    {t('farmguide.feedChart') || 'Feed Consumption Curve'}
+                                    {t('farmguide.feedChart') || 'Standard Feed Curve'}
                                 </div>
                                 <div style={{ 
                                     background: 'var(--fw-card)', 
@@ -1247,52 +1494,6 @@ const ManagementGuide = () => {
         
         return (
             <div>
-                {/* Daily/Weekly Toggle for Broiler and Color Chicken */}
-                {(module === 'broiler' || module === 'color_chicken') && (
-                    <div style={{
-                        display: 'flex',
-                        gap: '0.5rem',
-                        marginBottom: '1rem',
-                        padding: '0.25rem',
-                        background: 'var(--fw-bg)',
-                        borderRadius: '8px',
-                        width: 'fit-content'
-                    }}>
-                        <button
-                            onClick={() => handleViewModeChange('weekly')}
-                            style={{
-                                padding: '0.5rem 1rem',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: viewMode === 'weekly' ? 'var(--fw-card)' : 'var(--fw-text)',
-                                background: viewMode === 'weekly' ? 'var(--fw-teal)' : 'transparent',
-                                border: 'none',
-                                borderRadius: '6px',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s'
-                            }}
-                        >
-                            {t('farmguide.weekly') || 'Weekly'}
-                        </button>
-                        <button
-                            onClick={() => handleViewModeChange('daily')}
-                            style={{
-                                padding: '0.5rem 1rem',
-                                fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: viewMode === 'daily' ? 'var(--fw-card)' : 'var(--fw-text)',
-                                background: viewMode === 'daily' ? 'var(--fw-teal)' : 'transparent',
-                                border: 'none',
-                                borderRadius: '6px',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s'
-                            }}
-                        >
-                            {t('farmguide.daily') || 'Daily'}
-                        </button>
-                    </div>
-                )}
-
                 <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)', marginBottom: '0.75rem' }}>
                     {viewMode === 'daily' 
                         ? `${t('farmguide.day') || 'Day'} ${selectedDay} — ${t('farmguide.stdBW') || 'Standard BW'}`
@@ -1861,16 +2062,15 @@ const ManagementGuide = () => {
                 {/* ─── Week/Day Selector ─── */}
                 {mainTab === 'guide' && module === 'broiler' && (
                     <WeekDaySelector
-                        mode="weekly-daily"
-                        moduleType="broiler"
+                        mode="weekday"
+                        totalWeeks={8}
                         selectedWeek={selectedWeek}
                         selectedDay={selectedDay}
-                        viewMode={viewMode}
-                        onWeekChange={(w) => setSelectedWeek(w)}
-                        onDayChange={(d) => setSelectedDay(d)}
-                        onViewModeChange={(m) => setViewMode(m)}
-                        minWeek={1}
-                        maxWeek={8}
+                        showDailyToggle={true}
+                        selectedMode={viewMode}
+                        onWeekChange={(w) => setSelectedWeek(Number(w))}
+                        onDayChange={(d) => setSelectedDay(Number(d))}
+                        onModeChange={(m) => setViewMode(m)}
                     />
                 )}
 
@@ -1976,7 +2176,7 @@ const ManagementGuide = () => {
                 )}
 
                 {/* ─── Phase Pill, Title, Tags + Alert (only for Guide + Broiler/Color Chicken) ─── */}
-                {mainTab === 'guide' && (module === 'broiler' || module === 'color_chicken') && (module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1]) && (
+                {mainTab === 'guide' && (module === 'broiler' || module === 'color_chicken') && (module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1]) && !(module === 'broiler' && viewMode === 'daily') && !(module === 'broiler' && activeTab === 'feed') && !(module === 'broiler' && activeTab === 'bw') && (
                     <div style={{ marginBottom: '1.5rem' }}>
                         {(() => {
                             const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
@@ -2071,7 +2271,6 @@ const ManagementGuide = () => {
                 <div className="content-area">
                     {mainTab === 'guide' && renderTabContent()}
                     {mainTab === 'flock' && <FlockSaya module={module} embedded={true} />}
-                    {mainTab === 'chart' && <GrowthChart module={module} embedded={true} />}
                 </div>
             </div>
         </div>

@@ -6,8 +6,10 @@ const WeekDaySelector = ({
     totalWeeks,
     rearingEndWeek,
     selectedWeek,
+    selectedDay,
     selectedPhase,              // 'rearing' | 'production' (only for mode='phase')
     onWeekChange,
+    onDayChange,
     onPhaseChange,              // (phase) => void (only for mode='phase')
     showDailyToggle = false,
     selectedMode = 'weekly',
@@ -181,23 +183,45 @@ const WeekDaySelector = ({
 
     // Weekday mode logic (for Broiler/Color Chicken) - original implementation
     const phase = selectedWeek <= rearingEndWeek ? 'rearing' : 'production';
-    const isPrevDisabled = selectedWeek <= 1;
-    const isNextDisabled = selectedWeek >= totalWeeks;
+    
+    // Calculate boundaries based on mode
+    const maxDay = totalWeeks * 7;
+    const startDayOfWeek = (selectedWeek - 1) * 7 + 1;
+    const endDayOfWeek = selectedWeek * 7;
+    
+    const isPrevDisabled = selectedMode === 'daily' 
+        ? selectedDay <= 1 
+        : selectedWeek <= 1;
+    const isNextDisabled = selectedMode === 'daily' 
+        ? selectedDay >= totalWeeks * 7 
+        : selectedWeek >= totalWeeks;
 
     const handlePrev = () => {
         if (!isPrevDisabled) {
-            onWeekChange(selectedWeek - 1);
+            if (selectedMode === 'daily') {
+                onDayChange(selectedDay - 1);
+            } else {
+                onWeekChange(selectedWeek - 1);
+            }
         }
     };
 
     const handleNext = () => {
         if (!isNextDisabled) {
-            onWeekChange(selectedWeek + 1);
+            if (selectedMode === 'daily') {
+                onDayChange(selectedDay + 1);
+            } else {
+                onWeekChange(selectedWeek + 1);
+            }
         }
     };
 
     const handleDropdownChange = (e) => {
-        onWeekChange(parseInt(e.target.value));
+        if (selectedMode === 'daily') {
+            onDayChange(parseInt(e.target.value));
+        } else {
+            onWeekChange(parseInt(e.target.value));
+        }
     };
 
     const getPhaseLabel = (week) => {
@@ -305,7 +329,7 @@ const WeekDaySelector = ({
 
             {/* Dropdown */}
             <select
-                value={selectedWeek}
+                value={selectedMode === 'daily' ? selectedDay : selectedWeek}
                 onChange={handleDropdownChange}
                 style={{
                     width: '180px',
@@ -320,11 +344,19 @@ const WeekDaySelector = ({
                     fontFamily: 'inherit'
                 }}
             >
-                {Array.from({ length: totalWeeks }, (_, i) => i + 1).map(week => (
-                    <option key={week} value={week}>
-                        {t('farmguide.week_label')} {week} — {getPhaseLabel(week)}
-                    </option>
-                ))}
+                {selectedMode === 'daily' ? (
+                    Array.from({ length: totalWeeks * 7 }, (_, i) => i + 1).map(day => (
+                        <option key={day} value={day}>
+                            {t('farmguide.day') || 'Day'} {day}
+                        </option>
+                    ))
+                ) : (
+                    Array.from({ length: totalWeeks }, (_, i) => i + 1).map(week => (
+                        <option key={week} value={week}>
+                            {t('farmguide.week') || 'Week'} {week}
+                        </option>
+                    ))
+                )}
             </select>
 
             {/* Next Arrow */}
@@ -351,14 +383,6 @@ const WeekDaySelector = ({
             >
                 ›
             </button>
-
-            {/* Phase Badge */}
-            <div style={phaseBadgeStyle}>
-                {phase === 'rearing' 
-                    ? (t('farmguide.phase_rearing') || 'Rearing')
-                    : (t('farmguide.phase_production') || 'Production')
-                }
-            </div>
         </div>
     );
 };

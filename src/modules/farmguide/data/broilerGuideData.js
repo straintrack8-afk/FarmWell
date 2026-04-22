@@ -3,6 +3,81 @@
 // specs.label / environment.ventilation: still use labelKey/ventKey → translations.js
 // title: still uses titleKey → translations.js
 
+export const BROILER_DAILY_ENV = [
+  {
+    dayRange: '0–3', minDay: 0, maxDay: 3,
+    brooder_edge_temp: '35°C',
+    room_temp: '35–33°C',
+    rh: '55–60%',
+    lighting: '23 hrs/day, 30–40 lux',
+    ventilation: 'Minimum active',
+    note: { en: 'Confine chicks to brooder area. Prevent air drafts.', id: 'Batasi anak ayam di area brooder. Cegah angin.', vi: 'Giữ gà con trong khu vực úm. Tránh gió.' }
+  },
+  {
+    dayRange: '4–7', minDay: 4, maxDay: 7,
+    brooder_edge_temp: '34°C',
+    room_temp: '32–31°C',
+    rh: '55–60%',
+    lighting: '23 hrs/day, 30–40 lux',
+    ventilation: 'Minimum active',
+    note: { en: 'Transition to automated feeders. Expand brooding area gradually.', id: 'Transisi ke feeder otomatis. Perluas area brooding secara bertahap.', vi: 'Chuyển sang máng ăn tự động. Mở rộng khu vực úm dần dần.' }
+  },
+  {
+    dayRange: '8–14', minDay: 8, maxDay: 14,
+    brooder_edge_temp: '32°C',
+    room_temp: '30–28°C',
+    rh: '55–60%',
+    lighting: '20 hrs/day, 5–10 lux',
+    ventilation: 'Increase gradually',
+    note: { en: 'Monitor feed transition Starter → Grower around D10–13.', id: 'Monitor transisi pakan Starter → Grower sekitar H10–13.', vi: 'Theo dõi chuyển đổi thức ăn Starter → Grower khoảng N10–13.' }
+  },
+  {
+    dayRange: '15–21', minDay: 15, maxDay: 21,
+    brooder_edge_temp: '29°C',
+    room_temp: '28–26°C',
+    rh: '55–60%',
+    lighting: '20 hrs/day, 5–10 lux',
+    ventilation: 'Increase gradually',
+    note: { en: 'Adjust drinker and feeder heights in line with bird growth.', id: 'Sesuaikan tinggi tempat minum dan pakan sesuai pertumbuhan.', vi: 'Điều chỉnh chiều cao máng uống và máng ăn theo sự tăng trưởng.' }
+  },
+  {
+    dayRange: '22–24', minDay: 22, maxDay: 24,
+    brooder_edge_temp: null,
+    room_temp: '25–23°C',
+    rh: '55–65%',
+    lighting: '18 hrs/day, 5–10 lux',
+    ventilation: 'Active — based on bird behavior',
+    note: { en: 'Monitor feed transition Grower → Finisher around D25.', id: 'Monitor transisi pakan Grower → Finisher sekitar H25.', vi: 'Theo dõi chuyển đổi thức ăn Grower → Finisher khoảng N25.' }
+  },
+  {
+    dayRange: '25–28', minDay: 25, maxDay: 28,
+    brooder_edge_temp: null,
+    room_temp: '23–21°C',
+    rh: '55–65%',
+    lighting: '18 hrs/day, 5–10 lux',
+    ventilation: 'Active — based on bird behavior',
+    note: { en: 'Monitor feed physical quality. Adjust ventilation as birds grow.', id: 'Monitor kualitas fisik pakan. Sesuaikan ventilasi seiring pertumbuhan.', vi: 'Theo dõi chất lượng thức ăn. Điều chỉnh thông gió theo sự phát triển.' }
+  },
+  {
+    dayRange: '29–35', minDay: 29, maxDay: 35,
+    brooder_edge_temp: null,
+    room_temp: '21–19°C',
+    rh: '60–70%',
+    lighting: '18 hrs/day, 5–10 lux',
+    ventilation: 'Optimal — maintain temp',
+    note: { en: 'Obtain individual body weights. Calculate flock CV%/uniformity%.', id: 'Timbang bobot badan individu. Hitung CV%/keseragaman kawanan.', vi: 'Cân trọng lượng cá thể. Tính CV%/độ đồng đều đàn.' }
+  },
+  {
+    dayRange: '36–56', minDay: 36, maxDay: 56,
+    brooder_edge_temp: null,
+    room_temp: '19–17°C',
+    rh: '60–70%',
+    lighting: '18 hrs/day, 5–10 lux',
+    ventilation: 'Optimal — maintain temp',
+    note: { en: 'Continue weekly weighing. Maintain optimal ventilation for bird comfort.', id: 'Lanjutkan penimbangan mingguan. Jaga ventilasi optimal untuk kenyamanan unggas.', vi: 'Tiếp tục cân hàng tuần. Duy trì thông gió tối ưu cho sự thoải mái của gia cầm.' }
+  },
+];
+
 export const BROILER_GUIDE = [
   {
     week: 1, phase: 'Brooding', title: 'Chick Placement & Early Brooding', titleKey: 'w1Title', emoji: '🐣',
