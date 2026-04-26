@@ -148,7 +148,7 @@ const WeekDaySelector = ({
                 >
                     {weekOptions.map(week => (
                         <option key={week} value={week}>
-                            {t('farmguide.week_label')} {week}
+                            {t('farmguide.week') || 'Week'} {week}
                         </option>
                     ))}
                 </select>

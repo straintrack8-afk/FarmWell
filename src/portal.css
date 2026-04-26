@@ -1226,7 +1226,8 @@ body {
   button,
   .fw-topnav,
   nav,
-  header { 
+  header,
+  .no-print { 
     display: none !important; 
   }
 

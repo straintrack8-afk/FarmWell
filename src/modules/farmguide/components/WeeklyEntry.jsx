@@ -211,6 +211,36 @@ const WeeklyEntry = ({ flock, history, onSave, onClose, t, initialWeek, initialD
                         />
                     </div>
 
+                    {/* Feed Actual - Available for ALL weeks */}
+                    <div style={{ marginBottom: '1rem' }}>
+                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)', marginBottom: '0.5rem' }}>
+                            {t('farmguide.feedActual') || 'Feed Actual (g/day)'}
+                        </label>
+                        <input
+                            type="number"
+                            value={feedActual}
+                            onChange={(e) => setFeedActual(e.target.value)}
+                            step="0.1"
+                            min="0"
+                            placeholder="e.g., 115"
+                            style={{
+                                width: '100%',
+                                padding: '0.75rem',
+                                fontSize: '1rem',
+                                border: '1px solid var(--fw-border)',
+                                borderRadius: '8px',
+                                background: 'var(--fw-card)',
+                                color: 'var(--fw-text)',
+                                fontFamily: 'inherit'
+                            }}
+                        />
+                        {std && std.feed_g_day && (
+                            <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginTop: '0.25rem' }}>
+                                {t('farmguide.feedStandard') || 'Standard'}: {std.feed_g_day} g/day
+                            </div>
+                        )}
+                    </div>
+
                     {/* Production Phase Fields (W19-W80) */}
                     {isProduction && (
                         <>
@@ -254,31 +284,6 @@ const WeeklyEntry = ({ flock, history, onSave, onClose, t, initialWeek, initialD
                                     step="0.1"
                                     min="0"
                                     placeholder="e.g., 64.2"
-                                    style={{
-                                        width: '100%',
-                                        padding: '0.75rem',
-                                        fontSize: '1rem',
-                                        border: '1px solid var(--fw-border)',
-                                        borderRadius: '8px',
-                                        background: 'var(--fw-card)',
-                                        color: 'var(--fw-text)',
-                                        fontFamily: 'inherit'
-                                    }}
-                                />
-                            </div>
-
-                            {/* Feed Actual */}
-                            <div style={{ marginBottom: '1rem' }}>
-                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)', marginBottom: '0.5rem' }}>
-                                    {t('farmguide.feedPerDay') || 'Feed/Day'} (g)
-                                </label>
-                                <input
-                                    type="number"
-                                    value={feedActual}
-                                    onChange={(e) => setFeedActual(e.target.value)}
-                                    step="0.1"
-                                    min="0"
-                                    placeholder="e.g., 115"
                                     style={{
                                         width: '100%',
                                         padding: '0.75rem',

@@ -96,13 +96,15 @@ loadFlocks();
 };
 const handleSaveEntry=(entry)=>{
 flockStorage.saveEntry(selectedFlock.id,entry);
-setHistory(flockStorage.getHistory(selectedFlock.id));
+const newHistory = flockStorage.getHistory(selectedFlock.id);
+setHistory(newHistory);
 setShowDailyEntry(false);
 };
 const handleBackToList=()=>{setCurrentView('list');setSelectedFlock(null);localStorage.removeItem(storageKey);};
 const handleInputDay=(flock)=>{setSelectedFlock(flock);setHistory(flockStorage.getHistory(flock.id));setEditingEntry(null);setShowDailyEntry(true);};
 const handleEditEntry=(entry)=>{setEditingEntry(entry);setShowDailyEntry(true);};
-const handlePrintFlock=(flock)=>{const flockHistory=flockStorage.getHistory(flock.id);setSelectedFlock(flock);setHistory(flockHistory);setCurrentView('detail');setTimeout(()=>{const element=document.querySelector('.print-content');if(!element){window.print();return;}html2pdf().set({margin:10,filename:`${flock.name}_report.pdf`,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(element).save();},800);};const renderListView=()=>(
+const handlePrint=(filename)=>{const noPrintElements=document.querySelectorAll('.no-print');noPrintElements.forEach(el=>{el.dataset.prevDisplay=el.style.display;el.style.display='none';});const element=document.querySelector('.print-content');if(!element){window.print();noPrintElements.forEach(el=>{el.style.display=el.dataset.prevDisplay||'';delete el.dataset.prevDisplay;});return;}html2pdf().set({margin:10,filename:filename||'flock_report.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(element).save().then(()=>{noPrintElements.forEach(el=>{el.style.display=el.dataset.prevDisplay||'';delete el.dataset.prevDisplay;});});};
+const handlePrintFlock=(flock)=>{const flockHistory=flockStorage.getHistory(flock.id);setSelectedFlock(flock);setHistory(flockHistory);setCurrentView('detail');setTimeout(()=>{handlePrint(`${flock.name}_report.pdf`);},800);};const renderListView=()=>(
 <div>
 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1.5rem'}}>
 <h1 style={{margin:0,fontSize:'1.75rem',color:'var(--fw-text)'}}>{t('farmguide.flockSaya')||'Flock Saya'}</h1>
@@ -301,7 +303,7 @@ DOC: {flock.placement_date} · {t('farmguide.closedOn')||'Closed'}: {closedDate}
 {t('farmguide.viewDetail')||'View Detail'}
 </button>
 <button onClick={()=>handlePrintFlock(flock)} style={{padding:'0.5rem 1rem',background:'var(--fw-teal)',color:'white',border:'none',borderRadius:'8px',fontSize:'0.875rem',cursor:'pointer'}}>
-🖨️ {t('farmguide.printSave')||'Print / Save PDF'}
+🖨️ {t('farmguide.printSave') || 'Print / Save PDF'||'Print / Save PDF'}
 </button>
 </div>
 </div>
@@ -422,7 +424,7 @@ history.length>0?(
 <div style={{background:'var(--fw-card)',border:'1px solid var(--fw-border)',borderRadius:'12px',padding:'1.5rem',marginBottom:'1.5rem'}}>
 <h3 style={{margin:'0 0 1rem',fontSize:'1.125rem',color:'var(--fw-text)'}}>{t('farmguide.historyTitle')||'History'}</h3>
 {history.length>0?(
-<div style={{overflowX:'auto'}}>
+<div style={{maxHeight:'500px',overflowY:'auto',overflowX:'auto'}}>
 <table style={{width:'100%',borderCollapse:'collapse'}}>
 <thead>
 <tr style={{background:'var(--fw-bg)'}}>
@@ -436,12 +438,12 @@ history.length>0?(
 <th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colMortality')||'Mortality'}</th>
 <th style={{padding:'0.75rem',textAlign:'center',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colStatus')||'Status'}</th>
 {selectedFlock?.status!=='closed'&&(
-<th style={{padding:'0.75rem',textAlign:'center',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.edit')||'Edit'}</th>
+<th className="no-print" style={{padding:'0.75rem',textAlign:'center',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.edit') || 'Edit'}</th>
 )}
 </tr>
 </thead>
 <tbody>
-{history.filter(h=>selectedFlock.module_id==='layer'?(h.week&&!isNaN(h.week)&&h.week>=1&&h.week<=80):(h.day&&!isNaN(h.day)&&h.day>=1&&h.day<=56)).slice(-10).map((h,i)=>{
+{history.filter(h=>selectedFlock.module_id==='layer'?(h.week&&!isNaN(h.week)&&h.week>=1&&h.week<=80):(h.day&&!isNaN(h.day)&&h.day>=1&&h.day<=56)).map((h,i)=>{
 let std;
 if(selectedFlock.module_id==='layer'){
 std=getLayerStd(h.week);
@@ -482,7 +484,7 @@ return(
 <td style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',color:'var(--fw-text)'}}>{h.mortality||0}</td>
 <td style={{padding:'0.75rem',textAlign:'center',fontSize:'0.75rem',color:statusCfg.color,fontWeight:'600'}}>{status==='on_track'?(t('farmguide.onTrack')||'✓ On Track'):status==='below'?(t('farmguide.belowTarget')||'⚠ Below Target'):status==='above'?(t('farmguide.aboveTarget')||'↑ Above Target'):(t('common.noData')||'No Data')}</td>
 {selectedFlock?.status!=='closed'&&(
-<td style={{padding:'0.75rem',textAlign:'center'}}>
+<td className="no-print" style={{padding:'0.75rem',textAlign:'center'}}>
 <button onClick={()=>handleEditEntry(h)} style={{background:'none',border:'none',cursor:'pointer',fontSize:'1rem',color:'var(--fw-teal)'}} title="Edit">✏️</button>
 </td>
 )}
@@ -496,9 +498,9 @@ return(
 <p style={{padding:'1rem',textAlign:'center',color:'var(--fw-sub)',background:'var(--fw-bg)',borderRadius:'8px'}}>{t('farmguide.noHistory')||'No history yet.'}</p>
 )}
 </div>
-<div style={{display:'flex',flexDirection:'column',gap:'0.5rem'}}>
+<div className="no-print" style={{display:'flex',flexDirection:'column',gap:'0.5rem'}}>
 <button onClick={()=>handleInputDay(selectedFlock)} style={{width:'100%',padding:'0.75rem',background:'var(--fw-teal)',color:'white',border:'none',borderRadius:'8px',fontSize:'1rem',fontWeight:'600',cursor:'pointer'}}>{t('farmguide.inputData')}</button>
-<button onClick={()=>{const element=document.querySelector('.print-content');if(!element){window.print();return;}html2pdf().set({margin:10,filename:`${selectedFlock.name}_report.pdf`,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(element).save();}} style={{width:'100%',padding:'0.75rem',background:'transparent',border:'2px solid var(--fw-teal)',color:'var(--fw-teal)',borderRadius:'8px',fontSize:'0.875rem',fontWeight:'600',cursor:'pointer'}}>🖨️ {t('farmguide.printSave')||'Print / Save PDF'}</button>
+<button onClick={()=>handlePrint(`${selectedFlock.name}_report.pdf`)} style={{width:'100%',padding:'0.75rem',background:'transparent',border:'2px solid var(--fw-teal)',color:'var(--fw-teal)',borderRadius:'8px',fontSize:'0.875rem',fontWeight:'600',cursor:'pointer'}}>🖨️ {t('farmguide.printSave') || 'Print / Save PDF'||'Print / Save PDF'}</button>
 </div>
 </div>
 </div>

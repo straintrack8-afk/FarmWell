@@ -29,7 +29,8 @@ export const flockStorage = {
         const history = this.getHistory(flockId);
         
         // Layer entries use 'week' field, Broiler/Color Chicken use 'day' field
-        const isLayerEntry = entry.week !== undefined && entry.week !== null;
+        const isLayerEntry = entry.module_id === 'layer' || 
+            (entry.week !== undefined && entry.day === undefined);
         const idx = isLayerEntry
             ? history.findIndex(h => Number(h.week) === Number(entry.week))
             : history.findIndex(h => Number(h.day) === Number(entry.day));

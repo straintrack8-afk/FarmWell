@@ -25,7 +25,7 @@ function FarmGuideHome() {
     }, []);
 
     const handleModuleClick = (moduleId) => {
-        // Broiler goes directly to panduan (no breed selector)
+        // Broiler, Layer, and Color Chicken go directly to panduan (no breed selector)
         if (moduleId === 'broiler') {
             // Set default context for broiler
             const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
@@ -36,6 +36,27 @@ function FarmGuideHome() {
                 breed_label: 'Broiler Commercial',
             }));
             navigate(`/farmguide/broiler/panduan`);
+        } else if (moduleId === 'layer') {
+            // Set default context for layer (no breed variants)
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            localStorage.setItem('farmguide_active_flock', JSON.stringify({
+                ...ctx,
+                module_id: 'layer',
+                breed_code: 'layer',
+                breed_label: 'Layer Commercial',
+            }));
+            navigate(`/farmguide/layer/panduan`);
+        } else if (moduleId === 'color_chicken') {
+            // Set default context for color chicken (choi male)
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            localStorage.setItem('farmguide_active_flock', JSON.stringify({
+                ...ctx,
+                module_id: 'color_chicken',
+                breed_code: 'choi',
+                sex: 'male',
+                breed_label: 'Color Chicken',
+            }));
+            navigate(`/farmguide/color_chicken/panduan`);
         } else if (moduleId === 'parent_stock') {
             navigate(`/farmguide/ps/broiler/panduan`);
         } else {
