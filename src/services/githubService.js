@@ -1,5 +1,5 @@
 const GITHUB_API = 'https://api.github.com';
-const TOKEN  = 'import.meta.env.VITE_GITHUB_TOKEN';
+const TOKEN  = import.meta.env.VITE_GITHUB_TOKEN;
 const OWNER  = 'straintrack8-afk';
 const REPO   = 'FarmWell';
 const PATH   = 'public/data/announcements.json';
