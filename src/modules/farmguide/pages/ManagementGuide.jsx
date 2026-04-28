@@ -9,6 +9,8 @@ import { COLOR_CHICKEN_GUIDE, COLOR_CHICKEN_TARGETS } from '../data/colorChicken
 import { getColorRange } from '../data/colorChickenRangeData';
 import { LAYER_GUIDE } from '../data/layerGuideData';
 import { LAYER_RANGE, LAYER_REARING, LAYER_PRODUCTION, getLayerStd, getLayerPhase } from '../data/layerRangeData';
+import { PS_FEMALE_BW, PS_MALE_BW, PS_FEMALE_FEED, PS_MALE_FEED, PS_EGG_PRODUCTION, PS_BROODING_DAILY, PS_CHECKLIST_DAILY } from '../data/broilerPSRangeData';
+import { BROILER_PS_GUIDE } from '../data/broilerPSGuideData';
 import FlockSaya from './FlockSaya';
 import GrowthChart from './GrowthChart';
 import '../../../portal.css';
@@ -17,7 +19,7 @@ const WEEK_RANGES = {
     broiler: { min: 1, max: 8, label: 'Minggu' },
     layer: { min: 1, max: 80, label: 'Minggu' },
     color_chicken: { min: 1, max: 18, label: 'Minggu' },
-    parent_stock: { min: 1, max: 25, label: 'Minggu' },
+    parent_stock: { min: 1, max: 64, label: 'Minggu' },
 };
 
 const BROILER_DAILY_BW = [
@@ -133,7 +135,10 @@ const ManagementGuide = () => {
     const lang = language || 'en';
 
     const [flockContext, setFlockContext] = useState(null);
-    const [selectedWeek, setSelectedWeek] = useState(1);
+    const [selectedWeek, setSelectedWeek] = useState(() => {
+        const saved = JSON.parse(localStorage.getItem('farmguide_ps_phase') || '{}');
+        return saved.phase === 'production' ? 25 : 1;
+    });
     const [selectedDay, setSelectedDay] = useState(7);
     const [mainTab, setMainTab] = useState('guide');
     const storageKey = `farmguide_activetab_${module}`;
@@ -160,6 +165,17 @@ const ManagementGuide = () => {
         const saved = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
         return saved.sex || 'male';
     });
+    
+    // Parent Stock state
+    const [psSex, setPsSex] = useState(() => {
+        const saved = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+        return saved.sex || 'female';
+    });
+    const [psPhase, setPsPhase] = useState(() => {
+        const saved = JSON.parse(localStorage.getItem('farmguide_ps_phase') || '{}');
+        return saved.phase || 'rearing';
+    });
+    const [psBroodingDay, setPsBroodingDay] = useState(1); // For W1 brooding daily selector
     
     // Checklist state
     const [checkedItems, setCheckedItems] = useState({});
@@ -247,6 +263,36 @@ const ManagementGuide = () => {
         }
     }, [selectedWeek, selectedDay, activeTab, bwData, module, viewMode]);
 
+    useEffect(() => {
+        // Auto-scroll for parent_stock BW tab
+        if (module === 'parent_stock' && activeTab === 'bw') {
+            setTimeout(() => {
+                document.getElementById(`ps-bw-row-${selectedWeek}`)
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    }, [selectedWeek, activeTab, module]);
+
+    useEffect(() => {
+        // Auto-scroll for parent_stock Feed tab
+        if (module === 'parent_stock' && activeTab === 'feed') {
+            setTimeout(() => {
+                document.getElementById(`ps-feed-row-${selectedWeek}`)
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    }, [selectedWeek, activeTab, module]);
+
+    useEffect(() => {
+        // Auto-scroll for parent_stock Egg Production tab
+        if (module === 'parent_stock' && activeTab === 'eggProduction') {
+            setTimeout(() => {
+                document.getElementById(`ps-ep-row-${selectedWeek}`)
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    }, [selectedWeek, activeTab, module]);
+
     const loadBWData = () => {
         if (module === 'layer') {
             fetch('/data/farmguide_data/breeds/layer_standards.json')
@@ -331,6 +377,24 @@ const ManagementGuide = () => {
         const flock = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
         flock.sex = sex;
         localStorage.setItem('farmguide_active_flock', JSON.stringify(flock));
+    };
+
+    const handlePSSexChange = (sex) => {
+        setPsSex(sex);
+        const flock = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+        flock.sex = sex;
+        localStorage.setItem('farmguide_active_flock', JSON.stringify(flock));
+    };
+
+    const handlePSPhaseChange = (phase) => {
+        setPsPhase(phase);
+        localStorage.setItem('farmguide_ps_phase', JSON.stringify({ phase }));
+        // Set week to first week of selected phase
+        if (phase === 'rearing') {
+            setSelectedWeek(1);
+        } else {
+            setSelectedWeek(25);
+        }
     };
 
     const getModuleName = () => {
@@ -542,8 +606,19 @@ const ManagementGuide = () => {
             { id: 'references', label: 'References' },
         ];
         
-        // Add Egg Production tab for Layer module only
+        // Add Egg Production tab for Layer and Parent Stock modules
         if (module === 'layer') {
+            subTabs = [
+                { id: 'environment', label: t('farmguide.tabEnvironment') || 'Environment' },
+                { id: 'feed', label: t('farmguide.tabFeed') || 'Feed Program' },
+                { id: 'bw', label: t('farmguide.tabBW') || 'Body Weight' },
+                { id: 'eggProduction', label: t('farmguide.eggProduction') || 'Egg Production' },
+                { id: 'checklist', label: t('farmguide.tabChecklist') || 'Checklist' },
+                { id: 'references', label: 'References' },
+            ];
+        }
+        
+        if (module === 'parent_stock') {
             subTabs = [
                 { id: 'environment', label: t('farmguide.tabEnvironment') || 'Environment' },
                 { id: 'feed', label: t('farmguide.tabFeed') || 'Feed Program' },
@@ -596,6 +671,242 @@ const ManagementGuide = () => {
     };
 
     const renderEnvironmentTab = () => {
+        if (module === 'parent_stock') {
+            const isPSBrooding = selectedWeek === 1;
+            
+            if (isPSBrooding) {
+                // BROODING MODE (W1, D1-D28)
+                const dayData = PS_BROODING_DAILY[psBroodingDay - 1];
+                if (!dayData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+                
+                return (
+                    <div>
+                        {/* Day selector */}
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)', marginBottom: '0.5rem', display: 'block' }}>
+                                {t('farmguide.broodingDaily') || 'Daily Brooding Data'} (D1-D28)
+                            </label>
+                            <select
+                                value={psBroodingDay}
+                                onChange={(e) => setPsBroodingDay(Number(e.target.value))}
+                                style={{
+                                    padding: '0.5rem 1rem',
+                                    fontSize: '0.875rem',
+                                    border: '1px solid var(--fw-border)',
+                                    borderRadius: '8px',
+                                    background: 'var(--fw-card)',
+                                    color: 'var(--fw-text)',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {Array.from({ length: 28 }, (_, i) => i + 1).map(day => (
+                                    <option key={day} value={day}>Day {day}</option>
+                                ))}
+                            </select>
+                        </div>
+                        
+                        {/* Main env cards */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gap: '1rem',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <div style={{
+                                padding: '1.5rem',
+                                background: 'var(--fw-card)',
+                                border: '2px solid var(--fw-border)',
+                                borderRadius: '12px'
+                            }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌡️</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                    {t('farmguide.tempTarget') || 'Temperature'}
+                                </div>
+                                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                    {dayData.temp_min}–{dayData.temp_max}°C
+                                </div>
+                            </div>
+                            
+                            <div style={{
+                                padding: '1.5rem',
+                                background: 'var(--fw-card)',
+                                border: '2px solid var(--fw-border)',
+                                borderRadius: '12px'
+                            }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💧</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                    {t('farmguide.humidity') || 'Humidity'}
+                                </div>
+                                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                    {dayData.humidity}
+                                </div>
+                            </div>
+                            
+                            <div style={{
+                                padding: '1.5rem',
+                                background: 'var(--fw-card)',
+                                border: '2px solid var(--fw-border)',
+                                borderRadius: '12px'
+                            }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💡</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                    {t('farmguide.lighting') || 'Lighting'}
+                                </div>
+                                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                    {dayData.lighting_hours} hrs
+                                </div>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginTop: '0.25rem' }}>
+                                    {dayData.light_lux_brooding} lux (brooding)
+                                </div>
+                            </div>
+                            
+                            <div style={{
+                                padding: '1.5rem',
+                                background: 'var(--fw-card)',
+                                border: '2px solid var(--fw-border)',
+                                borderRadius: '12px'
+                            }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌬️</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                    {t('farmguide.ventilation') || 'Ventilation'}
+                                </div>
+                                <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>
+                                    {t('farmguide.' + dayData.ventilation) || dayData.ventilation}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Brooder density card */}
+                        <div style={{
+                            padding: '1rem',
+                            background: 'var(--fw-card)',
+                            border: '1px solid var(--fw-border)',
+                            borderRadius: '8px',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>
+                                {t('farmguide.broodingDensity') || 'Brooder Density'}
+                            </div>
+                            <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>
+                                {dayData.brooder_density} birds/m²
+                            </div>
+                        </div>
+                        
+                        {/* Notes */}
+                        {dayData.notes && (
+                            <div style={{
+                                background: 'var(--fw-card)',
+                                border: '1px solid var(--fw-border)',
+                                borderRadius: '10px',
+                                padding: '0.875rem 1rem',
+                                fontSize: '13px',
+                                color: 'var(--fw-sub)',
+                                lineHeight: '1.5'
+                            }}>
+                                💡 {t('farmguide.' + dayData.notes) || dayData.notes}
+                            </div>
+                        )}
+                    </div>
+                );
+            } else {
+                // WEEKLY MODE (W2-W64)
+                const weekData = BROILER_PS_GUIDE.find(w => w.week === selectedWeek);
+                if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+                
+                const env = weekData.environment;
+                
+                return (
+                    <div>
+                        {/* 4 Main Parameter Cards */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gap: '1rem',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <div style={{
+                                padding: '1.5rem',
+                                background: 'var(--fw-card)',
+                                border: '2px solid var(--fw-border)',
+                                borderRadius: '12px'
+                            }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌡️</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                    {t('farmguide.tempTarget') || 'Temperature'}
+                                </div>
+                                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                    {typeof env.temperature === 'object' ? (env.temperature[language] || env.temperature.en) : env.temperature}
+                                </div>
+                            </div>
+                            
+                            <div style={{
+                                padding: '1.5rem',
+                                background: 'var(--fw-card)',
+                                border: '2px solid var(--fw-border)',
+                                borderRadius: '12px'
+                            }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💧</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                    {t('farmguide.humidity') || 'Humidity'}
+                                </div>
+                                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                    {typeof env.humidity === 'object' ? (env.humidity[language] || env.humidity.en) : env.humidity}
+                                </div>
+                            </div>
+                            
+                            <div style={{
+                                padding: '1.5rem',
+                                background: 'var(--fw-card)',
+                                border: '2px solid var(--fw-border)',
+                                borderRadius: '12px'
+                            }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💡</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                    {t('farmguide.lighting') || 'Lighting'}
+                                </div>
+                                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>
+                                    {typeof env.lighting === 'object' ? (env.lighting[language] || env.lighting.en) : env.lighting}
+                                </div>
+                                {env.lightIntensity && (
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginTop: '0.25rem' }}>
+                                        {typeof env.lightIntensity === 'object' ? (env.lightIntensity[language] || env.lightIntensity.en) : env.lightIntensity}
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <div style={{
+                                padding: '1.5rem',
+                                background: 'var(--fw-card)',
+                                border: '2px solid var(--fw-border)',
+                                borderRadius: '12px'
+                            }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌬️</div>
+                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
+                                    {t('farmguide.ventilation') || 'Ventilation'}
+                                </div>
+                                <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>
+                                    {typeof env.ventilation === 'object' ? (env.ventilation[language] || env.ventilation.en) : env.ventilation}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Note */}
+                        <div style={{
+                            background: 'var(--fw-card)',
+                            border: '1px solid var(--fw-border)',
+                            borderRadius: '10px',
+                            padding: '0.875rem 1rem',
+                            fontSize: '13px',
+                            color: 'var(--fw-sub)',
+                            lineHeight: '1.5'
+                        }}>
+                            💡 {t('farmguide.envSameForAll') || 'Environment parameters are the same for all variants.'}
+                        </div>
+                    </div>
+                );
+            }
+        }
+        
         if (module === 'broiler') {
             // Daily mode: lookup by day
             if (viewMode === 'daily') {
@@ -1127,6 +1438,263 @@ const ManagementGuide = () => {
     };
 
     const renderFeedTab = () => {
+        if (module === 'parent_stock') {
+            // Select data based on sex
+            const rawData = psSex === 'female' ? PS_FEMALE_FEED : PS_MALE_FEED;
+            
+            // Filter by phase
+            const filteredData = rawData.filter(entry => {
+                if (psPhase === 'rearing') {
+                    return entry.week <= 24;
+                } else {
+                    return entry.week >= 25;
+                }
+            });
+            
+            // Calculate cumulative feed from first week of current phase
+            let cumulative = 0;
+            const tableData = filteredData.map(entry => {
+                cumulative += entry.feed_g_day * 7; // Weekly cumulative
+                return {
+                    week: entry.week,
+                    phase: entry.phase,
+                    feed_g_day: entry.feed_g_day,
+                    cumulative: cumulative
+                };
+            });
+            
+            // Chart data
+            const maxFeed = Math.max(...filteredData.map(d => d.feed_g_day));
+            const chartHeight = 300;
+            const chartWidth = 800;
+            const marginLeft = 65;
+            const marginBottom = 40;
+            const marginTop = 20;
+            const marginRight = 20;
+            const plotWidth = chartWidth - marginLeft - marginRight;
+            const plotHeight = chartHeight - marginTop - marginBottom;
+            
+            const minWeek = psPhase === 'rearing' ? 1 : 25;
+            const maxWeek = psPhase === 'rearing' ? 24 : 64;
+            const xScale = (week) => marginLeft + ((week - minWeek) / (maxWeek - minWeek)) * plotWidth;
+            const yMax = Math.ceil((maxFeed * 1.1) / 20) * 20;
+            const yScale = (feed) => chartHeight - marginBottom - (feed / yMax) * plotHeight;
+            
+            // X-axis ticks
+            const xTicks = psPhase === 'rearing' 
+                ? [1, 4, 8, 12, 16, 20, 24]
+                : [25, 30, 35, 40, 45, 50, 55, 60, 64];
+            
+            // Y-axis ticks (every 20g)
+            const yTicks = [];
+            for (let i = 0; i <= yMax; i += 20) {
+                yTicks.push(i);
+            }
+            
+            return (
+                <div>
+                    {/* Section header */}
+                    <div style={{ 
+                        fontSize: '1rem', 
+                        fontWeight: '600', 
+                        color: 'var(--fw-text)', 
+                        marginBottom: '0.75rem' 
+                    }}>
+                        Week {selectedWeek} — Feed Program ({psSex === 'female' ? 'Female' : 'Male'})
+                    </div>
+                    
+                    {/* Feed Table */}
+                    <div style={{
+                        maxHeight: '420px',
+                        overflowY: 'auto',
+                        background: 'var(--fw-card)',
+                        border: '1px solid var(--fw-border)',
+                        borderRadius: '8px'
+                    }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                <tr style={{ background: 'var(--fw-bg)' }}>
+                                    <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Week
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Phase
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Feed/Day (g)
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Cumulative (g)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tableData.map(entry => {
+                                    const isActive = entry.week === selectedWeek;
+                                    return (
+                                        <tr
+                                            key={entry.week}
+                                            id={`ps-feed-row-${entry.week}`}
+                                            style={{ 
+                                                borderTop: '1px solid var(--fw-border)',
+                                                background: isActive ? '#E1F5EE' : 'transparent'
+                                            }}
+                                        >
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.week}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.phase}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                textAlign: 'right',
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.feed_g_day}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                textAlign: 'right',
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.cumulative.toLocaleString()}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    {/* Feed Chart */}
+                    <div style={{ marginTop: '1.5rem' }}>
+                        <div style={{ 
+                            fontSize: '0.875rem', 
+                            fontWeight: '600', 
+                            color: 'var(--fw-text)', 
+                            marginBottom: '0.75rem' 
+                        }}>
+                            {t('farmguide.feedChart') || 'Standard Feed Curve'}
+                        </div>
+                        <div style={{ 
+                            background: 'var(--fw-card)', 
+                            border: '1px solid var(--fw-border)', 
+                            borderRadius: '8px', 
+                            padding: '1rem',
+                            overflowX: 'auto'
+                        }}>
+                            <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                {/* Y-axis gridlines */}
+                                {yTicks.map(tick => (
+                                    <line
+                                        key={`y-grid-${tick}`}
+                                        x1={marginLeft}
+                                        y1={yScale(tick)}
+                                        x2={chartWidth - marginRight}
+                                        y2={yScale(tick)}
+                                        stroke="var(--fw-border)"
+                                        strokeWidth="1"
+                                        strokeDasharray="4,4"
+                                    />
+                                ))}
+                                
+                                {/* X-axis ticks */}
+                                {xTicks.map(week => (
+                                    <text
+                                        key={week}
+                                        x={xScale(week)}
+                                        y={chartHeight - marginBottom + 20}
+                                        textAnchor="middle"
+                                        fontSize="11"
+                                        fill="var(--fw-text)"
+                                        fontWeight={week === selectedWeek ? '700' : '400'}
+                                    >
+                                        W{week}
+                                    </text>
+                                ))}
+                                
+                                {/* Y-axis labels */}
+                                {yTicks.map(tick => (
+                                    <text
+                                        key={tick}
+                                        x={marginLeft - 10}
+                                        y={yScale(tick) + 4}
+                                        textAnchor="end"
+                                        fontSize="11"
+                                        fill="var(--fw-sub)"
+                                    >
+                                        {tick}g
+                                    </text>
+                                ))}
+                                
+                                {/* Axis labels */}
+                                <text
+                                    x={chartWidth / 2}
+                                    y={chartHeight - 5}
+                                    textAnchor="middle"
+                                    fontSize="12"
+                                    fill="var(--fw-sub)"
+                                    fontWeight="600"
+                                >
+                                    {t('farmguide.week') || 'Week'}
+                                </text>
+                                <text
+                                    x={15}
+                                    y={chartHeight / 2}
+                                    textAnchor="middle"
+                                    fontSize="12"
+                                    fill="var(--fw-sub)"
+                                    fontWeight="600"
+                                    transform={`rotate(-90, 15, ${chartHeight / 2})`}
+                                >
+                                    Feed/Day (g)
+                                </text>
+                                
+                                {/* Line path */}
+                                <polyline
+                                    points={filteredData.map(d => `${xScale(d.week)},${yScale(d.feed_g_day)}`).join(' ')}
+                                    fill="none"
+                                    stroke="var(--fw-teal)"
+                                    strokeWidth="3"
+                                />
+                                
+                                {/* Single highlight circle at selected week */}
+                                {(() => {
+                                    const selectedData = filteredData.find(d => d.week === selectedWeek);
+                                    if (selectedData) {
+                                        return (
+                                            <circle
+                                                cx={xScale(selectedData.week)}
+                                                cy={yScale(selectedData.feed_g_day)}
+                                                r="6"
+                                                fill="#0C3830"
+                                            />
+                                        );
+                                    }
+                                    return null;
+                                })()}
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        
         if (module === 'broiler' || module === 'color_chicken') {
             const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
@@ -1933,6 +2501,253 @@ const ManagementGuide = () => {
     ];
 
     const renderBWTab = () => {
+        if (module === 'parent_stock') {
+            // Select data based on sex
+            const rawData = psSex === 'female' ? PS_FEMALE_BW : PS_MALE_BW;
+            
+            // Filter by phase
+            const filteredData = rawData.filter(entry => {
+                if (psPhase === 'rearing') {
+                    return entry.week >= 1 && entry.week <= 24;
+                } else {
+                    return entry.week >= 25 && entry.week <= 64;
+                }
+            });
+            
+            // Calculate weekly gain
+            const tableData = filteredData.map((entry, idx) => ({
+                week: entry.week,
+                bw: entry.bw,
+                gain: idx > 0 ? entry.bw - filteredData[idx - 1].bw : null
+            }));
+            
+            // Chart data
+            const maxBW = Math.max(...filteredData.map(d => d.bw));
+            const chartHeight = 300;
+            const chartWidth = 700;
+            const marginLeft = 65;
+            const marginBottom = 40;
+            const marginTop = 20;
+            const marginRight = 20;
+            const plotWidth = chartWidth - marginLeft - marginRight;
+            const plotHeight = chartHeight - marginTop - marginBottom;
+            
+            const minWeek = psPhase === 'rearing' ? 1 : 25;
+            const maxWeek = psPhase === 'rearing' ? 24 : 64;
+            const xScale = (week) => marginLeft + ((week - minWeek) / (maxWeek - minWeek)) * plotWidth;
+            const yScale = (bw) => chartHeight - marginBottom - (bw / (maxBW * 1.1)) * plotHeight;
+            
+            // X-axis ticks
+            const xTicks = psPhase === 'rearing' 
+                ? [1, 4, 8, 12, 16, 20, 24]
+                : [25, 30, 35, 40, 45, 50, 55, 60, 64];
+            
+            // Y-axis ticks (every 500g)
+            const yTicks = [];
+            for (let i = 0; i <= Math.ceil(maxBW * 1.1 / 500) * 500; i += 500) {
+                yTicks.push(i);
+            }
+            
+            // Line path
+            const linePath = filteredData.map((d, i) => {
+                const x = xScale(d.week);
+                const y = yScale(d.bw);
+                return i === 0 ? `M ${x} ${y}` : `L ${x} ${y}`;
+            }).join(' ');
+            
+            return (
+                <div>
+                    {/* Section header */}
+                    <div style={{ 
+                        fontSize: '1rem', 
+                        fontWeight: '600', 
+                        color: 'var(--fw-text)', 
+                        marginBottom: '0.75rem' 
+                    }}>
+                        Week {selectedWeek} — Standard BW ({psSex === 'female' ? 'Female' : 'Male'})
+                    </div>
+                    
+                    {/* BW Table */}
+                    <div style={{
+                        maxHeight: '420px',
+                        overflowY: 'auto',
+                        background: 'var(--fw-card)',
+                        border: '1px solid var(--fw-border)',
+                        borderRadius: '8px'
+                    }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                <tr style={{ background: 'var(--fw-bg)' }}>
+                                    <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Week
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Standard BW (g)
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Weekly Gain (g)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tableData.map(entry => {
+                                    const isActive = entry.week === selectedWeek;
+                                    return (
+                                        <tr
+                                            key={entry.week}
+                                            id={`ps-bw-row-${entry.week}`}
+                                            style={{ 
+                                                borderTop: '1px solid var(--fw-border)',
+                                                background: isActive ? '#E1F5EE' : 'transparent'
+                                            }}
+                                        >
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.week}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                textAlign: 'right',
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.bw}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                textAlign: 'right',
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.gain !== null ? entry.gain : '—'}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    {/* BW Chart */}
+                    <div style={{ marginTop: '1.5rem' }}>
+                        <div style={{ 
+                            fontSize: '0.875rem', 
+                            fontWeight: '600', 
+                            color: 'var(--fw-text)', 
+                            marginBottom: '0.75rem' 
+                        }}>
+                            {t('farmguide.bwChart') || 'Body Weight Standard Curve'}
+                        </div>
+                        <div style={{ 
+                            background: 'var(--fw-card)', 
+                            border: '1px solid var(--fw-border)', 
+                            borderRadius: '8px', 
+                            padding: '1rem',
+                            overflowX: 'auto'
+                        }}>
+                            <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                {/* Y-axis gridlines */}
+                                {yTicks.map(tick => (
+                                    <line
+                                        key={`y-grid-${tick}`}
+                                        x1={marginLeft}
+                                        y1={yScale(tick)}
+                                        x2={chartWidth - marginRight}
+                                        y2={yScale(tick)}
+                                        stroke="var(--fw-border)"
+                                        strokeWidth="1"
+                                        strokeDasharray="4,4"
+                                    />
+                                ))}
+                                
+                                {/* X-axis ticks */}
+                                {xTicks.map(week => (
+                                    <text
+                                        key={week}
+                                        x={xScale(week)}
+                                        y={chartHeight - marginBottom + 20}
+                                        textAnchor="middle"
+                                        fontSize="11"
+                                        fill="var(--fw-text)"
+                                        fontWeight={week === selectedWeek ? '700' : '400'}
+                                    >
+                                        W{week}
+                                    </text>
+                                ))}
+                                
+                                {/* Y-axis labels */}
+                                {yTicks.map(tick => (
+                                    <text
+                                        key={tick}
+                                        x={marginLeft - 10}
+                                        y={yScale(tick) + 4}
+                                        textAnchor="end"
+                                        fontSize="11"
+                                        fill="var(--fw-sub)"
+                                    >
+                                        {tick}g
+                                    </text>
+                                ))}
+                                
+                                {/* Axis labels */}
+                                <text
+                                    x={chartWidth / 2}
+                                    y={chartHeight - 5}
+                                    textAnchor="middle"
+                                    fontSize="12"
+                                    fill="var(--fw-sub)"
+                                    fontWeight="600"
+                                >
+                                    {t('farmguide.week') || 'Week'}
+                                </text>
+                                <text
+                                    x={15}
+                                    y={chartHeight / 2}
+                                    textAnchor="middle"
+                                    fontSize="12"
+                                    fill="var(--fw-sub)"
+                                    fontWeight="600"
+                                    transform={`rotate(-90, 15, ${chartHeight / 2})`}
+                                >
+                                    {t('farmguide.bodyWeight') || 'Body Weight (g)'}
+                                </text>
+                                
+                                {/* Line path */}
+                                <polyline
+                                    points={filteredData.map(d => `${xScale(d.week)},${yScale(d.bw)}`).join(' ')}
+                                    fill="none"
+                                    stroke="var(--fw-teal)"
+                                    strokeWidth="3"
+                                />
+                                
+                                {/* Single highlight circle at selected week */}
+                                {(() => {
+                                    const selectedData = filteredData.find(d => d.week === selectedWeek);
+                                    if (selectedData) {
+                                        return (
+                                            <circle
+                                                cx={xScale(selectedData.week)}
+                                                cy={yScale(selectedData.bw)}
+                                                r="6"
+                                                fill="#0C3830"
+                                            />
+                                        );
+                                    }
+                                    return null;
+                                })()}
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        
         let tableData = [];
         
         // Handle daily view for Broiler and Color Chicken
@@ -2648,6 +3463,261 @@ const ManagementGuide = () => {
     };
 
     const renderEggProductionTab = () => {
+        if (module === 'parent_stock') {
+            // Show message if in Rearing phase (W1-W24)
+            if (selectedWeek < 25) {
+                return (
+                    <div style={{ 
+                        padding: '2rem', 
+                        textAlign: 'center', 
+                        background: 'var(--fw-card)',
+                        border: '1px solid var(--fw-border)',
+                        borderRadius: '8px',
+                        color: 'var(--fw-text)'
+                    }}>
+                        {t('farmguide.epStartsW25') || 'Egg production data starts from Week 25 (Production phase).'}
+                    </div>
+                );
+            }
+            
+            // Production phase (W25+): show table and chart
+            const chartHeight = 300;
+            const chartWidth = 800;
+            const marginLeft = 65;
+            const marginBottom = 40;
+            const marginTop = 20;
+            const marginRight = 20;
+            const plotWidth = chartWidth - marginLeft - marginRight;
+            const plotHeight = chartHeight - marginTop - marginBottom;
+            
+            const minWeek = 25;
+            const maxWeek = 64;
+            const xScale = (week) => marginLeft + ((week - minWeek) / (maxWeek - minWeek)) * plotWidth;
+            const yScale = (ep) => chartHeight - marginBottom - (ep / 100) * plotHeight;
+            
+            // X-axis ticks
+            const xTicks = [25, 30, 35, 40, 45, 50, 55, 60, 64];
+            
+            // Y-axis ticks (every 20%)
+            const yTicks = [0, 20, 40, 60, 80, 100];
+            
+            return (
+                <div>
+                    {/* Section header */}
+                    <div style={{ 
+                        fontSize: '1rem', 
+                        fontWeight: '600', 
+                        color: 'var(--fw-text)', 
+                        marginBottom: '0.75rem' 
+                    }}>
+                        Week {selectedWeek} — Egg Production
+                    </div>
+                    
+                    {/* EP Data Table */}
+                    <div style={{
+                        maxHeight: '420px',
+                        overflowY: 'auto',
+                        background: 'var(--fw-card)',
+                        border: '1px solid var(--fw-border)',
+                        borderRadius: '8px'
+                    }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
+                                <tr style={{ background: 'var(--fw-bg)' }}>
+                                    <th style={{ padding: '0.75rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Week
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        EP%
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        {t('farmguide.hePerBird') || 'HE/Bird/Week'}
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Hatchability%
+                                    </th>
+                                    <th style={{ padding: '0.75rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)' }}>
+                                        Cum. Chicks
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {PS_EGG_PRODUCTION.map(entry => {
+                                    const isActive = entry.week === selectedWeek;
+                                    return (
+                                        <tr
+                                            key={entry.week}
+                                            id={`ps-ep-row-${entry.week}`}
+                                            style={{ 
+                                                borderTop: '1px solid var(--fw-border)',
+                                                background: isActive ? '#E1F5EE' : 'transparent'
+                                            }}
+                                        >
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.week}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                textAlign: 'right',
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.ep_pct != null ? entry.ep_pct + '%' : '—'}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                textAlign: 'right',
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.hatching_eggs_bird_week != null ? entry.hatching_eggs_bird_week : '—'}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                textAlign: 'right',
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.hatchability_pct != null ? entry.hatchability_pct + '%' : '—'}
+                                            </td>
+                                            <td style={{ 
+                                                padding: '0.75rem', 
+                                                textAlign: 'right',
+                                                fontSize: isActive ? 'calc(0.875rem * 1.1)' : '0.875rem',
+                                                fontWeight: isActive ? '700' : '400',
+                                                color: 'var(--fw-text)'
+                                            }}>
+                                                {entry.chicks_cum != null ? entry.chicks_cum.toLocaleString() : '—'}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    {/* EP% Chart */}
+                    <div style={{ marginTop: '1.5rem' }}>
+                        <div style={{ 
+                            fontSize: '0.875rem', 
+                            fontWeight: '600', 
+                            color: 'var(--fw-text)', 
+                            marginBottom: '0.75rem' 
+                        }}>
+                            {t('farmguide.epChart') || 'Egg Production Chart (W25-W64)'}
+                        </div>
+                        <div style={{ 
+                            background: 'var(--fw-card)', 
+                            border: '1px solid var(--fw-border)', 
+                            borderRadius: '8px', 
+                            padding: '1rem',
+                            overflowX: 'auto'
+                        }}>
+                            <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                {/* Y-axis gridlines */}
+                                {yTicks.map(tick => (
+                                    <line
+                                        key={`y-grid-${tick}`}
+                                        x1={marginLeft}
+                                        y1={yScale(tick)}
+                                        x2={chartWidth - marginRight}
+                                        y2={yScale(tick)}
+                                        stroke="var(--fw-border)"
+                                        strokeWidth="1"
+                                        strokeDasharray="4,4"
+                                    />
+                                ))}
+                                
+                                {/* X-axis ticks */}
+                                {xTicks.map(week => (
+                                    <text
+                                        key={week}
+                                        x={xScale(week)}
+                                        y={chartHeight - marginBottom + 20}
+                                        textAnchor="middle"
+                                        fontSize="11"
+                                        fill="var(--fw-text)"
+                                        fontWeight={week === selectedWeek ? '700' : '400'}
+                                    >
+                                        W{week}
+                                    </text>
+                                ))}
+                                
+                                {/* Y-axis labels */}
+                                {yTicks.map(tick => (
+                                    <text
+                                        key={tick}
+                                        x={marginLeft - 10}
+                                        y={yScale(tick) + 4}
+                                        textAnchor="end"
+                                        fontSize="11"
+                                        fill="var(--fw-sub)"
+                                    >
+                                        {tick}%
+                                    </text>
+                                ))}
+                                
+                                {/* Axis labels */}
+                                <text
+                                    x={chartWidth / 2}
+                                    y={chartHeight - 5}
+                                    textAnchor="middle"
+                                    fontSize="12"
+                                    fill="var(--fw-sub)"
+                                    fontWeight="600"
+                                >
+                                    {t('farmguide.week') || 'Week'}
+                                </text>
+                                <text
+                                    x={15}
+                                    y={chartHeight / 2}
+                                    textAnchor="middle"
+                                    fontSize="12"
+                                    fill="var(--fw-sub)"
+                                    fontWeight="600"
+                                    transform={`rotate(-90, 15, ${chartHeight / 2})`}
+                                >
+                                    EP% (H.D.)
+                                </text>
+                                
+                                {/* Line path */}
+                                <polyline
+                                    points={PS_EGG_PRODUCTION.map(d => `${xScale(d.week)},${yScale(d.ep_pct)}`).join(' ')}
+                                    fill="none"
+                                    stroke="var(--fw-teal)"
+                                    strokeWidth="3"
+                                />
+                                
+                                {/* Single highlight circle at selected week */}
+                                {(() => {
+                                    const selectedData = PS_EGG_PRODUCTION.find(d => d.week === selectedWeek);
+                                    if (selectedData) {
+                                        return (
+                                            <circle
+                                                cx={xScale(selectedData.week)}
+                                                cy={yScale(selectedData.ep_pct)}
+                                                r="6"
+                                                fill="#0C3830"
+                                            />
+                                        );
+                                    }
+                                    return null;
+                                })()}
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        
         if (module !== 'layer') return null;
         
         // Only show for W19+ (Production phase)
@@ -2850,6 +3920,184 @@ const ManagementGuide = () => {
     };
 
     const renderChecklistTab = () => {
+        if (module === 'parent_stock') {
+            const isPSBrooding = selectedWeek === 1;
+            
+            if (isPSBrooding) {
+                // DAILY MODE (W1, D1-D28)
+                const dayData = PS_CHECKLIST_DAILY[psBroodingDay - 1];
+                if (!dayData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+                
+                const routineItems = dayData.routine || [];
+                const milestoneItems = dayData.milestone || [];
+                const allItems = [...routineItems, ...milestoneItems];
+                const completedCount = allItems.filter(itemKey => checkedItems[itemKey]).length;
+                const totalCount = allItems.length;
+                const progressPct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+                
+                return (
+                    <div>
+                        {/* Day selector */}
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)', marginBottom: '0.5rem', display: 'block' }}>
+                                {t('farmguide.broodingDaily') || 'Daily Brooding Data'} (D1-D28)
+                            </label>
+                            <select
+                                value={psBroodingDay}
+                                onChange={(e) => setPsBroodingDay(Number(e.target.value))}
+                                style={{
+                                    padding: '0.5rem 1rem',
+                                    fontSize: '0.875rem',
+                                    border: '1px solid var(--fw-border)',
+                                    borderRadius: '8px',
+                                    background: 'var(--fw-card)',
+                                    color: 'var(--fw-text)',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                {Array.from({ length: 28 }, (_, i) => i + 1).map(day => (
+                                    <option key={day} value={day}>Day {day}</option>
+                                ))}
+                            </select>
+                        </div>
+                        
+                        {/* Progress Bar */}
+                        <div style={{
+                            padding: '1rem',
+                            background: 'var(--fw-card)',
+                            border: '1px solid var(--fw-border)',
+                            borderRadius: '8px',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                <span style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)' }}>
+                                    ✓ {completedCount} / {totalCount} completed
+                                </span>
+                                <span style={{ fontSize: '0.875rem', fontWeight: '700', color: 'var(--fw-teal)' }}>
+                                    {progressPct}%
+                                </span>
+                            </div>
+                            
+                            <div style={{
+                                width: '100%',
+                                height: '8px',
+                                background: 'var(--fw-border)',
+                                borderRadius: '4px',
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{
+                                    width: `${progressPct}%`,
+                                    height: '100%',
+                                    background: 'var(--fw-teal)',
+                                    transition: 'width 0.3s'
+                                }} />
+                            </div>
+                        </div>
+                        
+                        {/* Daily Routine Section */}
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <h4 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--fw-text)', marginBottom: '0.75rem' }}>
+                                📋 {t('farmguide.dailyRoutine') || 'Daily Routine'}
+                            </h4>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                {routineItems.map(itemKey => (
+                                    <ChecklistItem
+                                        key={itemKey}
+                                        id={itemKey}
+                                        text={t('farmguide.' + itemKey) || itemKey}
+                                        priority="medium"
+                                        checked={!!checkedItems[itemKey]}
+                                        onToggle={handleChecklistToggle}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                        
+                        {/* Milestone Tasks Section */}
+                        {milestoneItems.length > 0 && (
+                            <div style={{ marginBottom: '1.5rem' }}>
+                                <h4 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--fw-text)', marginBottom: '0.75rem' }}>
+                                    🎯 {t('farmguide.milestones') || 'Milestone Tasks'}
+                                </h4>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                    {milestoneItems.map(itemKey => (
+                                        <ChecklistItem
+                                            key={itemKey}
+                                            id={itemKey}
+                                            text={t('farmguide.' + itemKey) || itemKey}
+                                            priority="high"
+                                            checked={!!checkedItems[itemKey]}
+                                            onToggle={handleChecklistToggle}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                );
+            } else {
+                // WEEKLY MODE (W2-W64)
+                const weekData = BROILER_PS_GUIDE.find(w => w.week === selectedWeek);
+                if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+                
+                const items = weekData.checklist || [];
+                const completedCount = items.filter((item, idx) => checkedItems[`ps-w${selectedWeek}-${idx}`]).length;
+                const totalCount = items.length;
+                const progressPct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+                
+                return (
+                    <div>
+                        {/* Progress Bar */}
+                        <div style={{
+                            padding: '1rem',
+                            background: 'var(--fw-card)',
+                            border: '1px solid var(--fw-border)',
+                            borderRadius: '8px',
+                            marginBottom: '1.5rem'
+                        }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                                <span style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)' }}>
+                                    ✓ {completedCount} / {totalCount} completed
+                                </span>
+                                <span style={{ fontSize: '0.875rem', fontWeight: '700', color: 'var(--fw-teal)' }}>
+                                    {progressPct}%
+                                </span>
+                            </div>
+                            
+                            <div style={{
+                                width: '100%',
+                                height: '8px',
+                                background: 'var(--fw-border)',
+                                borderRadius: '4px',
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{
+                                    width: `${progressPct}%`,
+                                    height: '100%',
+                                    background: 'var(--fw-teal)',
+                                    transition: 'width 0.3s'
+                                }} />
+                            </div>
+                        </div>
+                        
+                        {/* Checklist Items */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                            {items.map((item, idx) => (
+                                <ChecklistItem
+                                    key={`ps-w${selectedWeek}-${idx}`}
+                                    id={`ps-w${selectedWeek}-${idx}`}
+                                    text={typeof item === 'object' ? (item[language] || item.en) : item}
+                                    priority="medium"
+                                    checked={!!checkedItems[`ps-w${selectedWeek}-${idx}`]}
+                                    onToggle={handleChecklistToggle}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                );
+            }
+        }
+        
         if (module === 'broiler' || module === 'color_chicken') {
             const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
@@ -3054,6 +4302,76 @@ const ManagementGuide = () => {
     };
 
     const renderReferencesTab = () => {
+        if (module === 'parent_stock') {
+            return (
+                <div style={{ maxWidth: '700px', padding: '8px 0' }}>
+                    <h3 style={{ marginBottom: '8px' }}>
+                        {t('farmguide.aboutStandards') || 'About These Standards'}
+                    </h3>
+                    <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
+                        Performance standards for broiler parent stock (PS) in this app represent{' '}
+                        <strong>averaged ranges</strong> derived from multiple PS breed management
+                        handbooks. Values are general guidelines for PS rearing and production —
+                        not specifications from any specific breed or genetics company.
+                    </p>
+
+                    <h4 style={{ marginBottom: '8px' }}>
+                        {'Methodology'}
+                    </h4>
+                    <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
+                        Body weight standards are derived by averaging performance data from
+                        multiple PS breed handbooks covering both rearing (W1–W24) and
+                        production (W25–W64) phases, for both male and female separately.
+                        Feed and egg production data follow the same multi-source averaging
+                        approach. An acceptable tolerance of ±3% is applied to account for
+                        normal on-farm variation.
+                    </p>
+
+                    <h4 style={{ marginBottom: '12px' }}>
+                        {'References'}
+                    </h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
+                        {[
+                            { title: 'Broiler PS Management Handbook',      year: '2023', type: 'Management Guide' },
+                            { title: 'Broiler PS Performance Objectives',   year: '2021', type: 'Performance Data' },
+                            { title: 'PS Production Pocket Guide',          year: '2024', type: 'Field Reference'  },
+                        ].map((ref, i) => (
+                            <div key={i} style={{
+                                padding: '12px 16px', background: 'white',
+                                borderRadius: '8px', border: '1px solid var(--fw-border)',
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                            }}>
+                                <div>
+                                    <div style={{ fontWeight: '600', fontSize: '14px' }}>{ref.title}</div>
+                                    <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginTop: '2px' }}>
+                                        {ref.type} · {ref.year}
+                                    </div>
+                                </div>
+                                <span style={{
+                                    fontSize: '11px', padding: '3px 10px',
+                                    background: 'var(--fw-teal-lt, #E6F5F2)',
+                                    color: 'var(--fw-teal)', borderRadius: '20px', fontWeight: '600',
+                                }}>Verified</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div style={{
+                        background: '#FFF9EC', border: '1px solid #F6D860',
+                        borderRadius: '8px', padding: '14px 16px',
+                        fontSize: '13px', color: '#6b5b00', lineHeight: '1.6',
+                    }}>
+                        <strong>⚠ Disclaimer:</strong> Performance data shown in this application
+                        is aggregated from multiple industry sources and represents general
+                        guidance only. This data is not affiliated with, endorsed by, or sourced
+                        directly from any specific breed company or genetics supplier. Actual
+                        performance will vary based on genetics, environment, nutrition, health
+                        status, and management practices.
+                    </div>
+                </div>
+            );
+        }
+        
         const isColorChicken = module === 'color_chicken';
         
         return (
@@ -3331,8 +4649,73 @@ const ManagementGuide = () => {
                     </>
                 )}
 
-                {/* ─── Weekly/Daily Toggle (only for non-Broiler/non-Layer/non-ColorChicken modules) ─── */}
-                {mainTab === 'guide' && module !== 'broiler' && module !== 'layer' && module !== 'color_chicken' && (
+                {/* ─── Sex Toggle + Week Selector (Parent Stock) ─── */}
+                {mainTab === 'guide' && module === 'parent_stock' && activeTab !== 'references' && (
+                    <>
+                        {/* Row 1: Sex toggle */}
+                        <div style={{
+                            display: 'flex',
+                            gap: '12px',
+                            alignItems: 'center',
+                            marginBottom: '8px'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                border: '1px solid #0C3830',
+                                borderRadius: '20px',
+                                overflow: 'hidden'
+                            }}>
+                                <button
+                                    onClick={() => handlePSSexChange('female')}
+                                    style={{
+                                        padding: '0.5rem 1rem',
+                                        fontSize: '0.875rem',
+                                        fontWeight: '600',
+                                        color: psSex === 'female' ? 'white' : '#0C3830',
+                                        background: psSex === 'female' ? '#0C3830' : 'transparent',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s',
+                                        fontFamily: 'inherit'
+                                    }}
+                                >
+                                    ♀ {t('farmguide.female') || 'Female'}
+                                </button>
+                                <button
+                                    onClick={() => handlePSSexChange('male')}
+                                    style={{
+                                        padding: '0.5rem 1rem',
+                                        fontSize: '0.875rem',
+                                        fontWeight: '600',
+                                        color: psSex === 'male' ? 'white' : '#0C3830',
+                                        background: psSex === 'male' ? '#0C3830' : 'transparent',
+                                        border: 'none',
+                                        borderLeft: '1px solid #0C3830',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s',
+                                        fontFamily: 'inherit'
+                                    }}
+                                >
+                                    ♂ {t('farmguide.male') || 'Male'}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Row 2: WeekDaySelector with phase toggle */}
+                        <WeekDaySelector
+                            mode="phase"
+                            totalWeeks={64}
+                            rearingEndWeek={24}
+                            selectedWeek={selectedWeek}
+                            selectedPhase={psPhase}
+                            onWeekChange={(w) => setSelectedWeek(Number(w))}
+                            onPhaseChange={handlePSPhaseChange}
+                        />
+                    </>
+                )}
+
+                {/* ─── Weekly/Daily Toggle (only for non-Broiler/non-Layer/non-ColorChicken/non-PS modules) ─── */}
+                {mainTab === 'guide' && module !== 'broiler' && module !== 'layer' && module !== 'color_chicken' && module !== 'parent_stock' && (
                     <div style={{
                         display: 'flex',
                         gap: '0.5rem',
@@ -3373,8 +4756,8 @@ const ManagementGuide = () => {
                     </div>
                 )}
 
-                {/* ─── Period Selector (only for non-Broiler/non-Layer/non-ColorChicken modules) ─── */}
-                {mainTab === 'guide' && module !== 'broiler' && module !== 'layer' && module !== 'color_chicken' && (
+                {/* ─── Period Selector (only for non-Broiler/non-Layer/non-ColorChicken/non-PS modules) ─── */}
+                {mainTab === 'guide' && module !== 'broiler' && module !== 'layer' && module !== 'color_chicken' && module !== 'parent_stock' && (
                     <div style={{
                         display: 'flex',
                         gap: '0.375rem',

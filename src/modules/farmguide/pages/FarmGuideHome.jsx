@@ -58,7 +58,16 @@ function FarmGuideHome() {
             }));
             navigate(`/farmguide/color_chicken/panduan`);
         } else if (moduleId === 'parent_stock') {
-            navigate(`/farmguide/ps/broiler/panduan`);
+            // Set default context for parent stock (broiler PS female)
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            localStorage.setItem('farmguide_active_flock', JSON.stringify({
+                ...ctx,
+                module_id: 'parent_stock',
+                breed_code: 'broiler_ps',
+                sex: 'female',
+                breed_label: 'Broiler PS',
+            }));
+            navigate(`/farmguide/parent_stock/panduan`);
         } else {
             navigate(`/farmguide/${moduleId}/pilih-jenis`);
         }
@@ -120,7 +129,6 @@ function FarmGuideHome() {
         <div className="fw-page">
             <SharedTopNav />
 
-            {/* Hero Section */}
             <div className="page-header" style={{
                 padding: '2rem 1rem 2rem',
                 display: 'flex',
@@ -131,11 +139,7 @@ function FarmGuideHome() {
                 <img
                     src="/FarmGuide_logo.png"
                     alt="FarmGuide"
-                    style={{ 
-                        height: '120px', 
-                        width: 'auto', 
-                        marginBottom: '1rem'
-                    }}
+                    style={{ height: '120px', width: 'auto', marginBottom: '1rem' }}
                 />
                 <p style={{
                     fontSize: '1.125rem',
@@ -148,68 +152,131 @@ function FarmGuideHome() {
                 </p>
             </div>
 
-            {/* Module Selection */}
             <div className="fw-section">
-                {/* All Modules Label */}
-                <div style={{ marginBottom: '1rem' }}>
-                    <div style={{ 
-                        fontSize: '0.75rem', 
-                        fontWeight: '700', 
-                        letterSpacing: '0.05em', 
-                        color: 'var(--fw-sub)',
-                        textTransform: 'uppercase'
-                    }}>
-                        {t('farmguide.allModules') || 'ALL MODULES'}
-                    </div>
-                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', maxWidth: '960px', margin: '0 auto' }}>
 
-                {/* Module Cards Grid */}
-                <div className="fw-modules-grid-2">
-                    {modules.map(module => {
-                        const isNew = module.status === 'new';
-                        return (
-                        <div
-                            key={module.module_id}
-                            className="fw-module-card mc-guide"
-                            onClick={() => handleModuleClick(module.module_id)}
-                            style={{ 
-                                cursor: 'pointer',
-                                borderTop: `4px solid ${isNew ? 'var(--fw-orange)' : 'var(--fw-teal)'}` 
-                            }}
-                        >
-                            <div className="fmc-header">
-                                <div className="fmc-icon-wrap">
-                                    <span className="fmc-emoji">{getModuleIcon(module.icon)}</span>
+                    {/* COMMERCIAL COLUMN */}
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--fw-teal)' }} />
+                            <span style={{ fontSize: '0.75rem', fontWeight: '700', letterSpacing: '0.08em', color: 'var(--fw-sub)', textTransform: 'uppercase' }}>Commercial</span>
+                        </div>
+                        <div style={{ borderBottom: '2px solid var(--fw-teal)', marginBottom: '16px' }} />
+
+                        {/* Broiler */}
+                        <div className="fw-module-card mc-guide" onClick={() => handleModuleClick('broiler')}
+                            style={{ cursor: 'pointer', borderLeft: '4px solid var(--fw-teal)', marginBottom: '12px', padding: '14px 16px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ fontSize: '1.5rem' }}>🐔</span>
+                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Broiler</span>
                                 </div>
-                                {getStatusBadge(module.status)}
+                                <span style={{ fontSize: '11px', color: 'var(--fw-teal)', fontWeight: '600' }}>Active</span>
                             </div>
-                            <div className="fmc-body">
-                                <div className="fmc-name">{module.name}</div>
-                                <div className="fmc-desc">
-                                    {module.module_id === 'broiler' && (t('farmguide.modules.broiler.desc') || 'Commercial broiler production monitoring with daily BW tracking and performance analysis')}
-                                    {module.module_id === 'layer' && (t('farmguide.modules.layer.desc') || 'Layer production monitoring with egg production tracking and rearing performance')}
-                                    {module.module_id === 'color_chicken' && (t('farmguide.modules.colorChicken.desc') || 'Color chicken production with daily growth monitoring for male and female birds')}
-                                    {module.module_id === 'parent_stock' && (t('farmguide.modules.parentStock.desc') || 'Parent stock management with weekly BW monitoring and production tracking')}
-                                </div>
-                                <div className="fmc-tags">
-                                    {getModuleTags(module).map((tag, idx) => (
-                                        <span key={idx} className="fmc-tag">{tag}</span>
-                                    ))}
-                                </div>
-                                <button 
-                                    className="fmc-cta" 
-                                    onClick={(e) => { 
-                                        e.stopPropagation(); 
-                                        handleModuleClick(module.module_id); 
-                                    }}
-                                >
-                                    {t('farmguide.openModule') || 'Open Module'}
-                                    <div className="fmc-cta-arrow">›</div>
-                                </button>
+                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
+                                {['D1–D56', 'Guide', 'My Flock'].map(tag => (
+                                    <span key={tag} className="fmc-tag">{tag}</span>
+                                ))}
                             </div>
                         </div>
-                        );
-                    })}
+
+                        {/* Layer */}
+                        <div className="fw-module-card mc-guide" onClick={() => handleModuleClick('layer')}
+                            style={{ cursor: 'pointer', borderLeft: '4px solid var(--fw-teal)', marginBottom: '12px', padding: '14px 16px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ fontSize: '1.5rem' }}>🥚</span>
+                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Layer</span>
+                                </div>
+                                <span style={{ fontSize: '11px', color: 'var(--fw-teal)', fontWeight: '600' }}>Active</span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
+                                {['W1–W80', 'Guide', 'My Flock'].map(tag => (
+                                    <span key={tag} className="fmc-tag">{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Color Chicken */}
+                        <div className="fw-module-card mc-guide" onClick={() => handleModuleClick('color_chicken')}
+                            style={{ cursor: 'pointer', borderLeft: '4px solid var(--fw-orange)', marginBottom: '12px', padding: '14px 16px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ fontSize: '1.5rem' }}>🐓</span>
+                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Color Chicken</span>
+                                </div>
+                                <span style={{ fontSize: '11px', color: 'var(--fw-orange)', fontWeight: '600' }}>New</span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
+                                {['W1–W18', '♂/♀', 'Guide', 'My Flock'].map(tag => (
+                                    <span key={tag} className="fmc-tag">{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* PARENT STOCK COLUMN */}
+                    <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--fw-orange)' }} />
+                            <span style={{ fontSize: '0.75rem', fontWeight: '700', letterSpacing: '0.08em', color: 'var(--fw-sub)', textTransform: 'uppercase' }}>Parent Stock</span>
+                        </div>
+                        <div style={{ borderBottom: '2px solid var(--fw-orange)', marginBottom: '16px' }} />
+
+                        {/* Broiler PS */}
+                        <div className="fw-module-card mc-guide" onClick={() => handleModuleClick('parent_stock')}
+                            style={{ cursor: 'pointer', borderLeft: '4px solid var(--fw-teal)', marginBottom: '12px', padding: '14px 16px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ fontSize: '1.5rem' }}>🐣</span>
+                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Broiler PS</span>
+                                </div>
+                                <span style={{ fontSize: '11px', color: 'var(--fw-teal)', fontWeight: '600' }}>Active</span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
+                                {['W1–W64', '♂/♀', 'Guide', 'My Flock'].map(tag => (
+                                    <span key={tag} className="fmc-tag">{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Layer PS - Coming Soon */}
+                        <div style={{ borderLeft: '4px solid #ccc', marginBottom: '12px', padding: '14px 16px',
+                            background: 'white', borderRadius: '8px', border: '1px solid var(--fw-border)',
+                            borderLeftColor: '#ccc', opacity: 0.6 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ fontSize: '1.5rem' }}>🥚</span>
+                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Layer PS</span>
+                                </div>
+                                <span style={{ fontSize: '11px', color: '#999', fontWeight: '600' }}>Coming Soon</span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
+                                {['W1–W70', '♂/♀'].map(tag => (
+                                    <span key={tag} className="fmc-tag">{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Color PS - Coming Soon */}
+                        <div style={{ borderLeft: '4px solid #ccc', marginBottom: '12px', padding: '14px 16px',
+                            background: 'white', borderRadius: '8px', border: '1px solid var(--fw-border)',
+                            borderLeftColor: '#ccc', opacity: 0.6 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ fontSize: '1.5rem' }}>🐓</span>
+                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Color PS</span>
+                                </div>
+                                <span style={{ fontSize: '11px', color: '#999', fontWeight: '600' }}>Coming Soon</span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
+                                {['W1–W30', '♂/♀'].map(tag => (
+                                    <span key={tag} className="fmc-tag">{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
