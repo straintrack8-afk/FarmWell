@@ -1041,7 +1041,23 @@ export const translations = {
             summaryOp: 'Operation',
             summaryPop: 'Population',
             summaryRole: 'Role',
-            summaryLocation: 'Location'
+            summaryLocation: 'Location',
+            emailTitle: 'Stay Connected (Optional)',
+            emailDesc: 'Get expert livestock health tips and product updates delivered to your inbox.',
+            emailLabel: 'Email Address',
+            emailPlaceholder: 'your@email.com',
+            emailInvalid: 'Please enter a valid email address',
+            emailOptional: 'You can skip this step and complete your profile anytime',
+            newsletterTitle: 'Choose Your Updates',
+            newsletter1Label: 'Weekly Health & Management Tips',
+            newsletter1Desc: 'Expert advice on disease prevention, biosecurity, and best practices',
+            newsletter2Label: 'New Product & Feature Announcements',
+            newsletter2Desc: 'Be the first to know about new tools and updates',
+            unsubNote: 'You can unsubscribe anytime from any email',
+            consentText: 'I agree to receive emails from FarmWell and understand I can opt out anytime',
+            safety1: 'Your data is secure',
+            safety2: 'No spam, ever',
+            safety3: 'Unsubscribe anytime'
         }
     },
     id: {
@@ -2121,7 +2137,23 @@ export const translations = {
             summaryOp: 'Operasional',
             summaryPop: 'Populasi',
             summaryRole: 'Peran',
-            summaryLocation: 'Lokasi'
+            summaryLocation: 'Lokasi',
+            emailTitle: 'Tetap Terhubung (Opsional)',
+            emailDesc: 'Dapatkan tips kesehatan ternak dan update produk langsung ke inbox Anda.',
+            emailLabel: 'Alamat Email',
+            emailPlaceholder: 'email@anda.com',
+            emailInvalid: 'Masukkan alamat email yang valid',
+            emailOptional: 'Anda bisa melewati langkah ini dan melengkapi profil kapan saja',
+            newsletterTitle: 'Pilih Update Anda',
+            newsletter1Label: 'Tips Kesehatan & Manajemen Mingguan',
+            newsletter1Desc: 'Saran ahli tentang pencegahan penyakit, biosekuriti, dan praktik terbaik',
+            newsletter2Label: 'Pengumuman Produk & Fitur Baru',
+            newsletter2Desc: 'Jadilah yang pertama tahu tentang tools dan update baru',
+            unsubNote: 'Anda dapat berhenti berlangganan kapan saja dari email mana pun',
+            consentText: 'Saya setuju menerima email dari FarmWell dan memahami saya dapat berhenti kapan saja',
+            safety1: 'Data Anda aman',
+            safety2: 'Tanpa spam',
+            safety3: 'Berhenti kapan saja'
         }
     },
     vi: {
@@ -3207,7 +3239,23 @@ export const translations = {
             summaryOp: 'Hình thức',
             summaryPop: 'Quy mô',
             summaryRole: 'Vai trò',
-            summaryLocation: 'Địa điểm'
+            summaryLocation: 'Địa điểm',
+            emailTitle: 'Kết Nối Với Chúng Tôi (Tùy Chọn)',
+            emailDesc: 'Nhận lời khuyên chuyên gia về sức khỏe gia súc và cập nhật sản phẩm qua email.',
+            emailLabel: 'Địa Chỉ Email',
+            emailPlaceholder: 'email@cua-ban.com',
+            emailInvalid: 'Vui lòng nhập địa chỉ email hợp lệ',
+            emailOptional: 'Bạn có thể bỏ qua bước này và hoàn tất hồ sơ bất cứ lúc nào',
+            newsletterTitle: 'Chọn Nội Dung Nhận',
+            newsletter1Label: 'Mẹo Sức Khỏe & Quản Lý Hàng Tuần',
+            newsletter1Desc: 'Lời khuyên chuyên gia về phòng ngừa dịch bệnh, an toàn sinh học và thực hành tốt nhất',
+            newsletter2Label: 'Thông Báo Sản Phẩm & Tính Năng Mới',
+            newsletter2Desc: 'Là người đầu tiên biết về các công cụ và cập nhật mới',
+            unsubNote: 'Bạn có thể hủy đăng ký bất cứ lúc nào từ bất kỳ email nào',
+            consentText: 'Tôi đồng ý nhận email từ FarmWell và hiểu rằng tôi có thể từ chối bất cứ lúc nào',
+            safety1: 'Dữ liệu của bạn được bảo mật',
+            safety2: 'Không spam',
+            safety3: 'Hủy bất cứ lúc nào'
         }
     }
 };

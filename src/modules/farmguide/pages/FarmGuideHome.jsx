@@ -3,12 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import SharedTopNav from '../../../components/SharedTopNav';
 import '../../../portal.css';
+import { flockStorage } from '../utils/flockStorage';
 
 function FarmGuideHome() {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [modules, setModules] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [activeFlocks, setActiveFlocks] = useState([]);
+
+    useEffect(() => {
+        const flocks = flockStorage.getAllFlocks();
+        setActiveFlocks(flocks.filter(f => f && f.id));
+    }, []);
 
     useEffect(() => {
         // Fetch modules data from JSON
@@ -71,6 +78,29 @@ function FarmGuideHome() {
         } else {
             navigate(`/farmguide/${moduleId}/pilih-jenis`);
         }
+    };
+
+    const getModuleEmoji = (moduleId) => {
+        const map = { broiler: '🐔', layer: '🥚', color_chicken: '🐓', parent_stock: '🐣' };
+        return map[moduleId] || '🐾';
+    };
+
+    const getModuleLabel = (moduleId) => {
+        const map = { 
+            broiler: 'Broiler', 
+            layer: 'Layer', 
+            color_chicken: 'Color Chicken', 
+            parent_stock: 'Broiler PS' 
+        };
+        return map[moduleId] || moduleId;
+    };
+
+    const handleFlockClick = (flock) => {
+        localStorage.setItem('farmguide_active_flock', JSON.stringify({
+            ...flock,
+            module: flock.module_id,
+        }));
+        navigate(`/farmguide/${flock.module_id}/panduan`);
     };
 
     const getModuleIcon = (icon) => {
@@ -151,6 +181,63 @@ function FarmGuideHome() {
                     {t('farmguide.subtitle') || 'Production monitor and management reference for poultry farming'}
                 </p>
             </div>
+
+            {activeFlocks.length > 0 && (
+                <div className="fw-section" style={{ paddingTop: 0 }}>
+                    <div style={{ 
+                        maxWidth: '960px', 
+                        margin: '0 auto',
+                        marginBottom: '8px'
+                    }}>
+                        <div style={{ 
+                            fontSize: '0.75rem', fontWeight: '700', 
+                            letterSpacing: '0.05em', color: 'var(--fw-sub)',
+                            textTransform: 'uppercase', marginBottom: '10px'
+                        }}>
+                            🗂 My Active Flocks
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {activeFlocks.map(flock => (
+                                <div
+                                    key={flock.id}
+                                    onClick={() => handleFlockClick(flock)}
+                                    style={{
+                                        display: 'flex', justifyContent: 'space-between',
+                                        alignItems: 'center', padding: '12px 16px',
+                                        background: 'white', borderRadius: '10px',
+                                        border: '1px solid var(--fw-border)',
+                                        borderLeft: '4px solid var(--fw-teal)',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <span style={{ fontSize: '1.3rem' }}>
+                                            {getModuleEmoji(flock.module_id)}
+                                        </span>
+                                        <div>
+                                            <div style={{ fontWeight: '700', fontSize: '14px' }}>
+                                                {flock.name || getModuleLabel(flock.module_id)}
+                                            </div>
+                                            <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginTop: '2px' }}>
+                                                {getModuleLabel(flock.module_id)}
+                                                {flock.current_week ? ` · Week ${flock.current_week}` : ''}
+                                                {flock.current_day ? ` · Day ${flock.current_day}` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span style={{ 
+                                        fontSize: '11px', padding: '3px 10px',
+                                        background: 'var(--fw-teal-lt, #E6F5F2)',
+                                        color: 'var(--fw-teal)', borderRadius: '20px', fontWeight: '600'
+                                    }}>
+                                        Open →
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="fw-section">
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', maxWidth: '960px', margin: '0 auto' }}>

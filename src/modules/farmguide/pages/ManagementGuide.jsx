@@ -136,8 +136,15 @@ const ManagementGuide = () => {
 
     const [flockContext, setFlockContext] = useState(null);
     const [selectedWeek, setSelectedWeek] = useState(() => {
-        const saved = JSON.parse(localStorage.getItem('farmguide_ps_phase') || '{}');
-        return saved.phase === 'production' ? 25 : 1;
+        if (typeof window !== 'undefined') {
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const currentModule = ctx.module_id || ctx.module || '';
+            if (currentModule === 'parent_stock') {
+                const saved = JSON.parse(localStorage.getItem('farmguide_ps_phase') || '{}');
+                return saved.phase === 'production' ? 25 : 1;
+            }
+        }
+        return 1;
     });
     const [selectedDay, setSelectedDay] = useState(7);
     const [mainTab, setMainTab] = useState('guide');
