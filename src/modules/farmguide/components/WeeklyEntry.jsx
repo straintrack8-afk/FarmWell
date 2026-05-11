@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getLayerStd, getLayerPhase } from '../data/layerRangeData';
+import { LAYER_PS_FEMALE_BW, LAYER_PS_MALE_BW } from '../data/layerPSRangeData';
+import { PS_FEMALE_BW, PS_MALE_BW } from '../data/broilerPSRangeData';
 
-const WeeklyEntry = ({ flock, history, onSave, onClose, t, initialWeek, initialData }) => {
+const WeeklyEntry = ({ flock, history, onSave, onClose, t, initialWeek, initialData, module, sex }) => {
     const [week, setWeek] = useState(initialWeek || 1);
     const [bwActual, setBwActual] = useState('');
     const [epActual, setEpActual] = useState('');
@@ -22,9 +24,23 @@ const WeeklyEntry = ({ flock, history, onSave, onClose, t, initialWeek, initialD
         }
     }, [initialData]);
 
-    const std = getLayerStd(week);
-    const phase = getLayerPhase(week);
-    const isProduction = week >= 19;
+    const std = (() => {
+      if (module === 'layer_ps') {
+        const bwArr = sex === 'male' ? LAYER_PS_MALE_BW : LAYER_PS_FEMALE_BW;
+        const row = bwArr.find(r => r.week === week) || {};
+        return { bw_low: null, bw_high: null, bw_avg: row.bw_g || null, ep_pct: null, egg_weight_g: null, feed_g_day: null };
+      }
+      if (module === 'parent_stock') {
+        const bwArr = sex === 'male' ? PS_MALE_BW : PS_FEMALE_BW;
+        const row = bwArr.find(r => r.week === week) || {};
+        return { bw_low: null, bw_high: null, bw_avg: row.bw_g || null, ep_pct: null, egg_weight_g: null, feed_g_day: null };
+      }
+      return getLayerStd(week);
+    })();
+    const isProduction = module === 'layer_ps' ? week >= 19 : module === 'parent_stock' ? week >= 25 : week >= 19;
+    const phase = (module === 'layer_ps' || module === 'parent_stock')
+      ? (isProduction ? 'Production' : 'Rearing')
+      : getLayerPhase(week);
 
     const handleSubmit = (e) => {
         e.preventDefault();

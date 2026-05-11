@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { getColorRange } from '../data/colorChickenRangeData';
 import { BROILER_RANGE } from '../data/broilerRangeData';
 import { LAYER_RANGE } from '../data/layerRangeData';
+import { LAYER_PS_FEMALE_BW, LAYER_PS_MALE_BW } from '../data/layerPSRangeData';
 import{useTranslation}from'../../../hooks/useTranslation';
 
 export default function CombinedChart({ history = [], initialPop = 10000, module, variant, sex }) {
@@ -9,7 +10,17 @@ export default function CombinedChart({ history = [], initialPop = 10000, module
   
   // Layer uses week-based data, others use day-based
   const isLayer = module === 'layer';
-  
+  const isLayerPS = module === 'layer_ps';
+  const isParentStock = module === 'parent_stock';
+
+  if (isLayerPS) {
+    return (
+      <div>
+        <LayerPSBWChart history={history} sex={sex} />
+      </div>
+    );
+  }
+
   // For Layer: render two separate charts
   if (isLayer) {
     return (
@@ -22,6 +33,92 @@ export default function CombinedChart({ history = [], initialPop = 10000, module
   
   // For Broiler/Color Chicken: render combined chart
   return <BroilerCombinedChart history={history} initialPop={initialPop} module={module} variant={variant} sex={sex} t={t} />;
+}
+
+function LayerPSBWChart({ history, sex }) {
+  const [tooltip, setTooltip] = useState(null);
+  const rangeData = sex === 'male' ? LAYER_PS_MALE_BW : LAYER_PS_FEMALE_BW;
+
+  const W = 800, H = 280;
+  const pad = { t: 40, r: 40, b: 50, l: 60 };
+  const cW = W - pad.l - pad.r;
+  const cH = H - pad.t - pad.b;
+
+  const bwMax = Math.max(
+    ...rangeData.map(r => r.bw_g || 0),
+    ...history.filter(h => h.bw_actual_g).map(h => h.bw_actual_g),
+    1
+  ) * 1.1;
+
+  const maxX = 75;
+  const xScale = (val) => pad.l + ((val - 1) / (maxX - 1)) * cW;
+  const yBW = (val) => Math.max(pad.t, pad.t + cH - ((val / bwMax) * cH));
+
+  const buildPath = (points) => points.length < 2 ? '' :
+    points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${xScale(p.x)} ${yBW(p.value)}`).join(' ');
+
+  const bwStdPoints = rangeData.map(r => ({ x: r.week, value: r.bw_g }));
+  const bwActPoints = history.filter(h => h.bw_actual_g && h.week).map(h => ({ x: h.week, value: h.bw_actual_g }));
+  const bwStdPath = buildPath(bwStdPoints);
+  const bwActPath = buildPath(bwActPoints);
+
+  const bwMaxRounded = Math.ceil(bwMax / 400) * 400;
+  const bwYLabels = Array.from({ length: 5 }, (_, i) => 
+    Math.round((bwMaxRounded / 4) * i)
+  );
+  const xAxisLabels = [1, 10, 20, 30, 40, 50, 60, 70, 75];
+
+  return (
+    <div style={{ marginBottom: '24px' }}>
+      <div style={{ fontWeight: '600', fontSize: '14px', marginBottom: '8px' }}>
+        Body Weight — Standard vs Actual ({sex === 'male' ? 'Male' : 'Female'})
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%' }}
+        onMouseLeave={() => setTooltip(null)}>
+        {/* Grid lines */}
+        {bwYLabels.map(y => (
+          <g key={y}>
+            <line x1={pad.l} y1={yBW(y)} x2={W - pad.r} y2={yBW(y)}
+              stroke="#E5E7EB" strokeWidth="1" />
+            <text x={pad.l - 8} y={yBW(y) + 4} textAnchor="end"
+              fontSize="11" fill="#9CA3AF">{y}g</text>
+          </g>
+        ))}
+        {/* X axis labels */}
+        {xAxisLabels.map(w => (
+          <text key={w} x={xScale(w)} y={H - 10} textAnchor="middle"
+            fontSize="11" fill="#9CA3AF">W{w}</text>
+        ))}
+        {/* Standard line */}
+        {bwStdPath && <path d={bwStdPath} fill="none" stroke="var(--fw-teal)" strokeWidth="2" />}
+        {/* Actual line */}
+        {bwActPath && <path d={bwActPath} fill="none" stroke="var(--fw-orange)" strokeWidth="2.5" strokeDasharray="none" />}
+        {/* Actual dots */}
+        {bwActPoints.map((p, i) => (
+          <circle key={i} cx={xScale(p.x)} cy={yBW(p.value)} r="4"
+            fill="var(--fw-orange)" stroke="white" strokeWidth="1.5"
+            style={{ cursor: 'pointer' }}
+            onMouseEnter={() => setTooltip({ week: p.x, bw: p.value, x: xScale(p.x), y: yBW(p.value) })} />
+        ))}
+        {/* Tooltip */}
+        {tooltip && (
+          <g>
+            <rect x={tooltip.x + 10} y={tooltip.y - 30} width="120" height="40"
+              fill="white" stroke="#E5E7EB" strokeWidth="1" rx="6" />
+            <text x={tooltip.x + 70} y={tooltip.y - 14} textAnchor="middle"
+              fontSize="11" fontWeight="600" fill="#111">Week {tooltip.week}</text>
+            <text x={tooltip.x + 70} y={tooltip.y + 2} textAnchor="middle"
+              fontSize="11" fill="var(--fw-orange)">BW Actual: {tooltip.bw}g</text>
+          </g>
+        )}
+      </svg>
+      {/* Legend */}
+      <div style={{ display: 'flex', gap: '16px', fontSize: '12px', marginTop: '4px' }}>
+        <span><span style={{ color: 'var(--fw-teal)' }}>—</span> BW Standard</span>
+        <span><span style={{ color: 'var(--fw-orange)' }}>—</span> BW Actual</span>
+      </div>
+    </div>
+  );
 }
 
 // Layer Body Weight Chart Component

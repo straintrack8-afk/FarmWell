@@ -100,7 +100,13 @@ function FarmGuideHome() {
             ...flock,
             module: flock.module_id,
         }));
-        navigate(`/farmguide/${flock.module_id}/panduan`);
+        if (flock.module_id === 'layer_ps') {
+            navigate('/farmguide/ps/layer/panduan');
+        } else if (flock.module_id === 'parent_stock') {
+            navigate('/farmguide/ps/broiler/panduan');
+        } else {
+            navigate(`/farmguide/${flock.module_id}/panduan`);
+        }
     };
 
     const getModuleIcon = (icon) => {
@@ -327,19 +333,27 @@ function FarmGuideHome() {
                             </div>
                         </div>
 
-                        {/* Layer PS - Coming Soon */}
-                        <div style={{ borderLeft: '4px solid #ccc', marginBottom: '12px', padding: '14px 16px',
-                            background: 'white', borderRadius: '8px', border: '1px solid var(--fw-border)',
-                            borderLeftColor: '#ccc', opacity: 0.6 }}>
+                        {/* Layer PS - Active */}
+                        <div
+                            onClick={() => {
+                                localStorage.setItem('farmguide_active_flock', JSON.stringify({
+                                    module_id: 'layer_ps',
+                                    module: 'layer_ps',
+                                }));
+                                navigate('/farmguide/ps/layer/panduan');
+                            }}
+                            style={{ borderLeft: '4px solid var(--fw-teal)', marginBottom: '12px', padding: '14px 16px',
+                                background: 'white', borderRadius: '8px', border: '1px solid var(--fw-border)',
+                                cursor: 'pointer' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                     <span style={{ fontSize: '1.5rem' }}>🥚</span>
                                     <span style={{ fontWeight: '700', fontSize: '1rem' }}>Layer PS</span>
                                 </div>
-                                <span style={{ fontSize: '11px', color: '#999', fontWeight: '600' }}>Coming Soon</span>
+                                <span style={{ fontSize: '11px', color: 'var(--fw-teal)', fontWeight: '600' }}>Active</span>
                             </div>
                             <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-                                {['W1–W70', '♂/♀'].map(tag => (
+                                {['W1–W75', '♂/♀', 'Guide'].map(tag => (
                                     <span key={tag} className="fmc-tag">{tag}</span>
                                 ))}
                             </div>

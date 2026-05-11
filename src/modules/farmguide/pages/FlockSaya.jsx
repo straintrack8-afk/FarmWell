@@ -393,7 +393,7 @@ return(
 </p>
 <p style={{margin:0,fontSize:'0.875rem',color:'var(--fw-sub)'}}>{ageDisplay} · {t('farmguide.population')}: {currentPop.toLocaleString()}</p>
 </div>
-{selectedFlock.module_id==='layer'?(
+{(selectedFlock.module_id==='layer'||selectedFlock.module_id==='layer_ps'||selectedFlock.module_id==='parent_stock')?(
 history.length>0?(
 <CombinedChart history={history} initialPop={selectedFlock.initial_pop} module={selectedFlock.module_id} variant={selectedFlock.variant} sex={selectedFlock.sex}/>
 ):(
@@ -428,7 +428,7 @@ history.length>0?(
 <table style={{width:'100%',borderCollapse:'collapse'}}>
 <thead>
 <tr style={{background:'var(--fw-bg)'}}>
-<th style={{padding:'0.75rem',textAlign:'left',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{selectedFlock.module_id==='layer'?(t('farmguide.week')||'Week'):(t('farmguide.colDay')||'Day')}</th>
+<th style={{padding:'0.75rem',textAlign:'left',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{(selectedFlock.module_id==='layer'||selectedFlock.module_id==='layer_ps'||selectedFlock.module_id==='parent_stock')?(t('farmguide.week')||'Week'):(t('farmguide.colDay')||'Day')}</th>
 <th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colBWActual')||'BW Actual'}</th>
 <th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colBWRange')||'BW Range'}</th>
 <th style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-sub)'}}>{t('farmguide.colDiff')||'Diff'}</th>
@@ -443,7 +443,7 @@ history.length>0?(
 </tr>
 </thead>
 <tbody>
-{history.filter(h=>selectedFlock.module_id==='layer'?(h.week&&!isNaN(h.week)&&h.week>=1&&h.week<=80):(h.day&&!isNaN(h.day)&&h.day>=1&&h.day<=56)).map((h,i)=>{
+{history.filter(h=>(selectedFlock.module_id==='layer'||selectedFlock.module_id==='layer_ps'||selectedFlock.module_id==='parent_stock')?(h.week&&h.week>=1):(h.day&&h.day>=1&&h.day<=56)).map((h,i)=>{
 let std;
 if(selectedFlock.module_id==='layer'){
 std=getLayerStd(h.week);
@@ -474,7 +474,7 @@ const diff=std&&h.bw_actual_g?(h.bw_actual_g-std.bw_avg):null;
 const statusCfg=STATUS_CFG[status]||STATUS_CFG.no_data;
 return(
 <tr key={i} style={{borderTop:'1px solid var(--fw-border)'}}>
-<td style={{padding:'0.75rem',fontSize:'0.875rem',color:'var(--fw-text)'}}>{selectedFlock.module_id==='layer'?`W${h.week}`:`D${h.day}`}</td>
+<td style={{padding:'0.75rem',fontSize:'0.875rem',color:'var(--fw-text)'}}>{(selectedFlock.module_id==='layer'||selectedFlock.module_id==='layer_ps'||selectedFlock.module_id==='parent_stock')?`W${h.week}`:`D${h.day}`}</td>
 <td style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',color:'var(--fw-text)',fontWeight:'600'}}>{h.bw_actual_g?h.bw_actual_g+'g':'—'}</td>
 <td style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',color:'var(--fw-sub)'}}>{std?(selectedFlock.module_id==='layer'?std.bw_low+'–'+std.bw_high+'g':std.bw_low_alert+'–'+std.bw_high_alert+'g'):'—'}</td>
 <td style={{padding:'0.75rem',textAlign:'right',fontSize:'0.875rem',color:diff&&diff>=0?'#10b981':'var(--fw-orange)',fontWeight:'600'}}>{diff!==null?(diff>=0?'+':'')+diff+'g':'—'}</td>
@@ -513,7 +513,7 @@ return(
 {currentView==='add'&&renderAddView()}
 {currentView==='detail'&&renderDetailView()}
 {showDailyEntry&&selectedFlock&&(
-selectedFlock.module_id==='layer'?(
+(selectedFlock.module_id==='layer'||selectedFlock.module_id==='layer_ps'||selectedFlock.module_id==='parent_stock')?(
 <WeeklyEntry
 flock={selectedFlock}
 history={history}
@@ -522,6 +522,8 @@ onClose={()=>{setShowDailyEntry(false);setEditingEntry(null);}}
 t={t}
 initialWeek={editingEntry?.week||null}
 initialData={editingEntry||null}
+module={selectedFlock.module_id}
+sex={selectedFlock.sex||'female'}
 />
 ):(
 <DailyEntry
@@ -550,7 +552,7 @@ return(
 {currentView==='detail'&&renderDetailView()}
 </div>
 {showDailyEntry&&selectedFlock&&(
-selectedFlock.module_id==='layer'?(
+(selectedFlock.module_id==='layer'||selectedFlock.module_id==='layer_ps'||selectedFlock.module_id==='parent_stock')?(
 <WeeklyEntry
 flock={selectedFlock}
 history={history}
@@ -559,6 +561,8 @@ onClose={()=>{setShowDailyEntry(false);setEditingEntry(null);}}
 t={t}
 initialWeek={editingEntry?.week||null}
 initialData={editingEntry||null}
+module={selectedFlock.module_id}
+sex={selectedFlock.sex||'female'}
 />
 ):(
 <DailyEntry
