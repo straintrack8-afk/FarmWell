@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { feedAdditivesTranslations } from '../translations';
-import SharedHeader from '../../../components/SharedHeader';
-import SharedFooter from '../../../components/SharedFooter';
-import SharedTopNav from '../../../components/SharedTopNav';
 import * as XLSX from 'xlsx';
 
 const DosageCalculator = () => {
-    const { language } = useLanguage();
+    const { language, setLanguage } = useLanguage();
+    const navigate = useNavigate();
     const t = (key) => feedAdditivesTranslations[language]?.[key] || feedAdditivesTranslations['en'][key];
     const [currentStep, setCurrentStep] = useState(1);
     const [showCustomProtocol, setShowCustomProtocol] = useState(false);
@@ -964,65 +963,293 @@ const DosageCalculator = () => {
         });
     };
 
+    const languages = [
+        { code: 'en', label: 'EN' },
+        { code: 'id', label: 'ID' },
+        { code: 'vi', label: 'VI' },
+    ];
+
+    const SwineIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <path d="M12 2v2"/>
+            <path d="M8 3.5C6 5 5 7 5 9"/>
+            <path d="M16 3.5C18 5 19 7 19 9"/>
+            <path d="M9 9h.01M15 9h.01"/>
+            <path d="M9 13c1 1 5 1 6 0"/>
+            <path d="M10 7h4"/>
+            <path d="M8 17l-1 4M16 17l1 4"/>
+        </svg>
+    );
+
+    const PoultryIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2c0 0-2 1-2 4 0 1.5.5 2.5 1 3"/>
+            <path d="M9 6C7 6 4 7.5 4 11c0 2 1 3.5 2.5 4.5"/>
+            <path d="M15 7c2 0 5 1.5 5 5 0 2-1 3.5-2.5 4.5"/>
+            <ellipse cx="12" cy="15" rx="5" ry="4"/>
+            <path d="M9 19l-1 3M15 19l1 3"/>
+            <path d="M10 13h.01M14 13h.01"/>
+        </svg>
+    );
+
+    // Production Category icons
+    const BreedingIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8 2 5 5 5 8c0 2 1 3.5 2.5 4.5"/>
+            <path d="M12 2c4 0 7 3 7 6 0 2-1 3.5-2.5 4.5"/>
+            <path d="M8 12c0 3 1.5 5.5 4 6.5"/>
+            <path d="M16 12c0 3-1.5 5.5-4 6.5"/>
+            <circle cx="12" cy="19" r="2"/>
+            <path d="M9 8h6M12 6v4"/>
+        </svg>
+    );
+
+    const CommercialIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="10" width="18" height="11" rx="2"/>
+            <path d="M7 10V7a5 5 0 0110 0v3"/>
+            <path d="M12 14v3"/>
+            <path d="M9 17h6"/>
+        </svg>
+    );
+
+    // Swine Specific icons
+    const SowGestationIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="13" rx="7" ry="5"/>
+            <path d="M9 13h.01M15 13h.01"/>
+            <path d="M10 16c.5.5 3.5.5 4 0"/>
+            <path d="M5 10C3.5 9 3 7.5 3 6c0-1 .5-2 1.5-2"/>
+            <path d="M19 10c1.5-1 2-2.5 2-4 0-1-.5-2-1.5-2"/>
+            <circle cx="12" cy="5" r="1.5" fill="currentColor"/>
+            <path d="M8 18l-1 3M16 18l1 3"/>
+        </svg>
+    );
+
+    const SowLactationIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="12" rx="7" ry="5"/>
+            <path d="M9 12h.01M15 12h.01"/>
+            <path d="M10 15c.5.5 3.5.5 4 0"/>
+            <path d="M5 9C3.5 8 3 6.5 3 5"/>
+            <path d="M19 9c1.5-1 2-2.5 2-4"/>
+            <path d="M8 4c0 0 1-2 4-2s4 2 4 2"/>
+            <path d="M8 17l-1 3M16 17l1 3"/>
+            <circle cx="9" cy="19" r="1" fill="currentColor"/>
+            <circle cx="15" cy="19" r="1" fill="currentColor"/>
+        </svg>
+    );
+
+    const BoarIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="13" rx="7" ry="5"/>
+            <path d="M9 13h.01M15 13h.01"/>
+            <path d="M10 16c.5.5 3.5.5 4 0"/>
+            <path d="M5 10C3.5 9 3 7 3 5.5"/>
+            <path d="M19 10c1.5-1 2-3 2-4.5"/>
+            <path d="M3 5.5L1 4M21 5.5L23 4"/>
+            <path d="M8 18l-1 3M16 18l1 3"/>
+            <path d="M16 8c1-1 3-1 3 1"/>
+        </svg>
+    );
+
+    const NurseryIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="14" rx="5" ry="4"/>
+            <path d="M9 14h.01M15 14h.01"/>
+            <path d="M10 17c.5.5 3.5.5 4 0"/>
+            <path d="M7 11C5.5 10 5 8.5 5 7"/>
+            <path d="M17 11c1.5-1 2-2.5 2-4"/>
+            <path d="M9 19l-.5 2M15 19l.5 2"/>
+            <path d="M9 9a3 3 0 016 0"/>
+        </svg>
+    );
+
+    const GrowerIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="13" rx="6" ry="4.5"/>
+            <path d="M9 13h.01M15 13h.01"/>
+            <path d="M10 16c.5.5 3.5.5 4 0"/>
+            <path d="M6 10C4 9 3 7 3 5.5"/>
+            <path d="M18 10c2-1 3-3 3-4.5"/>
+            <path d="M8 18l-1 3M16 18l1 3"/>
+            <path d="M8 8a4 4 0 018 0"/>
+            <path d="M10 6l2-3 2 3"/>
+        </svg>
+    );
+
+    const FinisherIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="13" rx="7" ry="5"/>
+            <path d="M9 13h.01M15 13h.01"/>
+            <path d="M10 16c.5.5 3.5.5 4 0"/>
+            <path d="M5 10C3.5 9 3 7 3 5.5"/>
+            <path d="M19 10c1.5-1 2-3 2-4.5"/>
+            <path d="M8 18l-1 3M16 18l1 3"/>
+            <path d="M8 8a4 4 0 018 0"/>
+            <path d="M7 10l1-2M17 10l-1-2"/>
+        </svg>
+    );
+
+    // Poultry Specific icons
+    const BroilerIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3c-1 0-2 .5-2 1.5S11 6 12 6s2-.5 2-1.5S13 3 12 3z"/>
+            <path d="M8 6C6 6 4 8 4 11c0 2 1 3.5 3 4.5"/>
+            <path d="M16 6c2 0 4 2 4 5 0 2-1 3.5-3 4.5"/>
+            <ellipse cx="12" cy="16" rx="5" ry="4"/>
+            <path d="M9 15h.01M15 15h.01"/>
+            <path d="M9 20l-1 2M15 20l1 2"/>
+        </svg>
+    );
+
+    const LayerIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3c-1 0-2 .5-2 1.5S11 6 12 6s2-.5 2-1.5S13 3 12 3z"/>
+            <path d="M8 6C6 6 4 8 4 11c0 2 1 3.5 3 4.5"/>
+            <path d="M16 6c2 0 4 2 4 5 0 2-1 3.5-3 4.5"/>
+            <ellipse cx="12" cy="16" rx="5" ry="4"/>
+            <path d="M9 15h.01M15 15h.01"/>
+            <path d="M9 20l-1 2M15 20l1 2"/>
+            <ellipse cx="18" cy="20" rx="2.5" ry="3" transform="rotate(-15 18 20)"/>
+        </svg>
+    );
+
+    const ColorChickenIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3c-1 0-2 .5-2 1.5S11 6 12 6s2-.5 2-1.5S13 3 12 3z"/>
+            <path d="M14 4c1-1 3-1.5 4-1"/>
+            <path d="M8 6C6 6 4 8 4 11c0 2 1 3.5 3 4.5"/>
+            <path d="M16 6c2 0 4 2 4 5 0 2-1 3.5-3 4.5"/>
+            <ellipse cx="12" cy="16" rx="5" ry="4"/>
+            <path d="M9 15h.01M15 15h.01"/>
+            <path d="M9 20l-1 2M15 20l1 2"/>
+            <path d="M10 13c.5-.5 1.5-.5 2 0"/>
+        </svg>
+    );
+
+    const BroilerBreederIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 3c-.8 0-1.5.5-1.5 1.5S8.2 6 9 6s1.5-.5 1.5-1.5S9.8 3 9 3z"/>
+            <path d="M6 6C4 6 2 8 2 11c0 2 1 3 2.5 4"/>
+            <ellipse cx="9" cy="16" rx="4" ry="3.5"/>
+            <path d="M7 20l-.5 2M11 20l.5 2"/>
+            <path d="M15 3c.8 0 1.5.5 1.5 1.5S15.8 6 15 6s-1.5-.5-1.5-1.5S14.2 3 15 3z"/>
+            <path d="M18 6c2 0 4 2 4 5 0 2-1 3-2.5 4"/>
+            <ellipse cx="15" cy="16" rx="4" ry="3.5"/>
+            <path d="M13 20l-.5 2M17 20l.5 2"/>
+        </svg>
+    );
+
+    const LayerBreederIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 3c-.8 0-1.5.5-1.5 1.5S8.2 6 9 6s1.5-.5 1.5-1.5S9.8 3 9 3z"/>
+            <path d="M6 6C4 6 2 8 2 11c0 2 1 3 2.5 4"/>
+            <ellipse cx="9" cy="16" rx="4" ry="3.5"/>
+            <path d="M7 20l-.5 2M11 20l.5 2"/>
+            <ellipse cx="20" cy="19" rx="2" ry="2.5" transform="rotate(-10 20 19)"/>
+            <path d="M15 3c.8 0 1.5.5 1.5 1.5S15.8 6 15 6s-1.5-.5-1.5-1.5S14.2 3 15 3z"/>
+            <ellipse cx="15" cy="15" rx="3.5" ry="3"/>
+            <path d="M13 19l-.5 2M17 19l.5 2"/>
+        </svg>
+    );
+
+    const ColorBreederIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 3c-.8 0-1.5.5-1.5 1.5S8.2 6 9 6s1.5-.5 1.5-1.5S9.8 3 9 3z"/>
+            <path d="M10.5 4c.8-.8 2.5-1.2 3.5-.8"/>
+            <path d="M6 6C4 6 2 8 2 11c0 2 1 3 2.5 4"/>
+            <ellipse cx="9" cy="16" rx="4" ry="3.5"/>
+            <path d="M7 20l-.5 2M11 20l.5 2"/>
+            <path d="M15 3c.8 0 1.5.5 1.5 1.5S15.8 6 15 6s-1.5-.5-1.5-1.5S14.2 3 15 3z"/>
+            <path d="M18 6c2 0 4 2 4 5 0 2-1 3-2.5 4"/>
+            <ellipse cx="15" cy="16" rx="4" ry="3.5"/>
+            <path d="M13 20l-.5 2M17 20l.5 2"/>
+        </svg>
+    );
+
+    const specificCategoryIcons = {
+        sow_gestation: <SowGestationIcon />,
+        sow_lactation: <SowLactationIcon />,
+        boar: <BoarIcon />,
+        nursery: <NurseryIcon />,
+        grower: <GrowerIcon />,
+        finisher: <FinisherIcon />,
+        broiler_breeder: <BroilerBreederIcon />,
+        layer_breeder: <LayerBreederIcon />,
+        color_breeder: <ColorBreederIcon />,
+        broiler: <BroilerIcon />,
+        layer: <LayerIcon />,
+        color_chicken: <ColorChickenIcon />,
+    };
+
+    const FeedApplicationIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 14, height: 14, stroke: 'var(--fw-green3)', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+            <path d="M3 7h18M3 12h18M3 17h18"/>
+        </svg>
+    );
+
+    const WaterApplicationIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 14, height: 14, stroke: 'var(--fw-green3)', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+            <path d="M12 2l6 9a6 6 0 11-12 0l6-9z"/>
+        </svg>
+    );
+
     return (
-        <div className="fw-page">
-            <SharedTopNav />
-            {currentStep === 1 && (
-                <SharedHeader
-                    title={t('title')}
-                    subtitle={t('calculatorSubtitle')}
-                    showBackButton={false}
-                    backPath="/"
-                />
-            )}
+        <div className="fw-module-page">
 
-            <div className="fw-section" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', flex: 1, padding: 'clamp(0.5rem, 3vw, 2rem)' }}>
+            {/* ── COMPACT HEADER ── */}
+            <div className="fw-mod-top">
+                <div
+                    className="fw-mod-top-logo"
+                    onClick={() => navigate('/')}
+                    title="Back to Home"
+                >
+                    <img src="/images/feed_additives_logo.svg" alt="Feed Module" />
+                </div>
+                <div className="fw-mod-top-lang">
+                    {languages.map(lang => (
+                        <button
+                            key={lang.code}
+                            className={`fw-mod-top-lang-btn${language === lang.code ? ' active' : ''}`}
+                            onClick={() => setLanguage(lang.code)}
+                        >
+                            {lang.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
 
-                {/* Progress Steps */}
-                <div style={{
-                    background: 'white',
-                    padding: '1rem',
-                    borderRadius: '12px',
-                    marginBottom: '2rem',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                        {[1, 2, 3, 4].map(step => (
-                            <div key={step} style={{ flex: 1, textAlign: 'center', padding: '0 2px' }}>
-                                <div style={{
-                                    width: 'clamp(28px, 8vw, 40px)',
-                                    height: 'clamp(28px, 8vw, 40px)',
-                                    borderRadius: '50%',
-                                    background: currentStep >= step ? '#10b981' : '#e5e7eb',
-                                    color: 'white',
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontWeight: '700',
-                                    fontSize: 'clamp(0.75rem, 3vw, 1rem)',
-                                    marginBottom: '0.35rem'
-                                }}>
-                                    {step}
+            {/* ── WHITE CARD ── */}
+            <div className="fw-mod-card">
+
+                {/* Step indicator */}
+                <div className="fw-mod-steps">
+                    {[
+                        { n: 1, label: t('step1') || 'Animal' },
+                        { n: 2, label: t('step2') || 'Flock' },
+                        { n: 3, label: t('step3') || 'Product' },
+                        { n: 4, label: t('step4') || 'Results' },
+                    ].map((step, i, arr) => (
+                        <React.Fragment key={step.n}>
+                            <div className="fw-mod-step">
+                                <div className={`fw-mod-step-circle ${currentStep > step.n ? 'done' : currentStep === step.n ? 'active' : 'pending'}`}>
+                                    {step.n}
                                 </div>
-                                <div style={{ fontSize: 'clamp(0.6rem, 2.5vw, 0.875rem)', color: '#6b7280', lineHeight: 1.2 }}>
-                                    {step === 1 && t('step1')}
-                                    {step === 2 && t('step2')}
-                                    {step === 3 && t('step3')}
-                                    {step === 4 && t('step4')}
+                                <div className={`fw-mod-step-label${currentStep === step.n ? ' active' : ''}`}>
+                                    {step.label}
                                 </div>
                             </div>
-                        ))}
-                    </div>
+                            {i < arr.length - 1 && (
+                                <div className={`fw-mod-step-line${currentStep > step.n ? ' done' : ''}`} />
+                            )}
+                        </React.Fragment>
+                    ))}
                 </div>
 
-                {/* Step Content */}
-                <div style={{
-                    background: 'white',
-                    padding: 'clamp(0.625rem, 3vw, 2rem)',
-                    borderRadius: '12px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                    minHeight: '400px'
-                }}>
+                {/* Scrollable content */}
+                <div className="fw-mod-content">
                     {/* Reference Data View Toggle */}
                     {!showReferenceView && currentStep === 1 && (
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -1076,7 +1303,7 @@ const DosageCalculator = () => {
                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
                                     {t('selectAnimalType')}
                                 </label>
-                                <div className="fw-modules-grid-2" style={{ marginBottom: '1.5rem' }}>
+                                <div className="fw-animal-grid" style={{ marginBottom: '1.5rem' }}>
                                     {['swine', 'poultry'].map(type => (
                                         <div
                                             key={type}
@@ -1087,32 +1314,13 @@ const DosageCalculator = () => {
                                                     specificCategory: ''
                                                 });
                                             }}
-                                            className={`fw-module-card ${type === 'swine' ? 'mc-pig' : 'mc-poultry'} ${referenceSelection.animalType === type ? 'selected' : ''}`}
-                                            style={{
-                                                cursor: 'pointer',
-                                                border: referenceSelection.animalType === type
-                                                    ? `2px solid ${type === 'swine' ? '#ec4899' : '#84cc16'}`
-                                                    : '2px solid transparent',
-                                                transform: referenceSelection.animalType === type ? 'scale(1.02)' : 'scale(1)',
-                                                boxShadow: referenceSelection.animalType === type
-                                                    ? `0 10px 25px ${type === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
-                                                    : ''
-                                            }}
+                                            className={`fw-animal-card${referenceSelection.animalType === type ? ' selected' : ''}`}
                                         >
-                                            <div className="fmc-header" style={{ marginBottom: '0.5rem' }}>
-                                                <div className="fmc-icon-wrap" style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white', borderRadius: '8px' }}>
-                                                    <span className="fmc-emoji" style={{ fontSize: '1.5rem' }}>
-                                                        {type === 'swine' ? '🐷' : '🐔'}
-                                                    </span>
-                                                </div>
-                                                {referenceSelection.animalType === type && (
-                                                    <span className="mc-badge" style={{ background: type === 'swine' ? '#ec4899' : '#84cc16', color: 'white' }}>
-                                                        {t('selected')}
-                                                    </span>
-                                                )}
+                                            <div className="fw-animal-card-icon">
+                                                {type === 'swine' ? <SwineIcon /> : <PoultryIcon />}
                                             </div>
-                                            <div className="fmc-body">
-                                                <div className="fmc-name" style={{ fontSize: '1.25rem', textTransform: 'capitalize' }}>{t(type)}</div>
+                                            <div className="fw-animal-card-name" style={{ textTransform: 'capitalize' }}>
+                                                {t(type)}
                                             </div>
                                         </div>
                                     ))}
@@ -1124,10 +1332,11 @@ const DosageCalculator = () => {
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
                                             {t('selectProductionCategory')}
                                         </label>
-                                        <div className="fw-modules-grid-2">
+                                        <div className="fw-animal-grid">
                                             {['breeding', 'commercial'].map(cat => (
                                                 <div
                                                     key={cat}
+                                                    className={`fw-animal-card${referenceSelection.productionCategory === cat ? ' selected' : ''}`}
                                                     onClick={() => {
                                                         setReferenceSelection(prev => ({
                                                             ...prev,
@@ -1135,25 +1344,12 @@ const DosageCalculator = () => {
                                                             specificCategory: ''
                                                         }));
                                                     }}
-                                                    className={`fw-module-card ${referenceSelection.animalType === 'swine' ? 'mc-pig' : 'mc-poultry'} ${referenceSelection.productionCategory === cat ? 'selected' : ''}`}
-                                                    style={{
-                                                        cursor: 'pointer',
-                                                        border: referenceSelection.productionCategory === cat
-                                                            ? `2px solid ${referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16'}`
-                                                            : '2px solid transparent',
-                                                        transform: referenceSelection.productionCategory === cat ? 'scale(1.02)' : 'scale(1)',
-                                                        boxShadow: referenceSelection.productionCategory === cat
-                                                            ? `0 10px 25px ${referenceSelection.animalType === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
-                                                            : ''
-                                                    }}
                                                 >
-                                                    <div className="fmc-body" style={{ marginTop: 0, paddingBottom: '1.5rem', paddingTop: '1.5rem' }}>
-                                                        <div className="fmc-name" style={{ textTransform: 'capitalize', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                            {referenceSelection.productionCategory === cat && (
-                                                                <span style={{ color: referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16' }}>✓</span>
-                                                            )}
-                                                            {t(cat)}
-                                                        </div>
+                                                    <div className="fw-animal-card-icon">
+                                                        {cat === 'breeding' ? <BreedingIcon /> : <CommercialIcon />}
+                                                    </div>
+                                                    <div className="fw-animal-card-name" style={{ textTransform: 'capitalize' }}>
+                                                        {t(cat)}
                                                     </div>
                                                 </div>
                                             ))}
@@ -1167,47 +1363,22 @@ const DosageCalculator = () => {
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>
                                             {t('selectSpecificCategory')}
                                         </label>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '1.5rem' }}>
+                                        <div className="fw-animal-grid">
                                             {animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].map(cat => (
                                                 <div
                                                     key={cat.id}
+                                                    className={`fw-animal-card${referenceSelection.specificCategory === cat.id ? ' selected' : ''}`}
                                                     onClick={() => {
                                                         setReferenceSelection(prev => ({
                                                             ...prev,
                                                             specificCategory: cat.id
                                                         }));
                                                     }}
-                                                    className={`fw-module-card ${referenceSelection.animalType === 'swine' ? 'mc-pig' : 'mc-poultry'} ${referenceSelection.specificCategory === cat.id ? 'selected' : ''}`}
-                                                    style={{
-                                                        cursor: 'pointer',
-                                                        border: referenceSelection.specificCategory === cat.id
-                                                            ? `2px solid ${referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16'}`
-                                                            : '2px solid transparent',
-                                                        transform: referenceSelection.specificCategory === cat.id ? 'scale(1.02)' : 'scale(1)',
-                                                        boxShadow: referenceSelection.specificCategory === cat.id
-                                                            ? `0 10px 25px ${referenceSelection.animalType === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
-                                                            : '',
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        justifyContent: 'center',
-                                                        minHeight: '100px'
-                                                    }}
                                                 >
-                                                    {cat.icon && (
-                                                        <div className="fmc-header" style={{ paddingBottom: 0 }}>
-                                                            <div className="fmc-icon-wrap" style={{ background: 'transparent', fontSize: '2.5rem', width: 'auto', height: 'auto', border: 'none' }}>
-                                                                {cat.icon}
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                    <div className="fmc-body" style={{ padding: '1.5rem', textAlign: 'center', marginTop: 0 }}>
-                                                        <div className="fmc-name" style={{ fontSize: '1.125rem', marginBottom: 0 }}>
-                                                            {referenceSelection.specificCategory === cat.id && (
-                                                                <span style={{ color: referenceSelection.animalType === 'swine' ? '#ec4899' : '#84cc16', marginRight: '0.5rem' }}>✓</span>
-                                                            )}
-                                                            {t(cat.id)}
-                                                        </div>
+                                                    <div className="fw-animal-card-icon">
+                                                        {specificCategoryIcons[cat.id] || <CommercialIcon />}
                                                     </div>
+                                                    <div className="fw-animal-card-name">{t(cat.id)}</div>
                                                 </div>
                                             ))}
                                         </div>
@@ -1698,7 +1869,7 @@ const DosageCalculator = () => {
                                         <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem', fontSize: '1.125rem' }}>
                                             {t('selectAnimalType')}
                                         </label>
-                                        <div className="fw-modules-grid-2">
+                                        <div className="fw-animal-grid">
                                             {['swine', 'poultry'].map(type => (
                                                 <div
                                                     key={type}
@@ -1707,37 +1878,18 @@ const DosageCalculator = () => {
                                                         updateData('productionCategory', '');
                                                         updateData('specificCategory', '');
                                                     }}
-                                                    className={`fw-module-card ${type === 'swine' ? 'mc-pig' : 'mc-poultry'} ${calculationData.animalType === type ? 'selected' : ''}`}
-                                                    style={{
-                                                        cursor: 'pointer',
-                                                        border: calculationData.animalType === type
-                                                            ? `2px solid ${type === 'swine' ? '#ec4899' : '#84cc16'}`
-                                                            : '2px solid transparent',
-                                                        transform: calculationData.animalType === type ? 'scale(1.02)' : 'scale(1)',
-                                                        boxShadow: calculationData.animalType === type
-                                                            ? `0 10px 25px ${type === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
-                                                            : ''
-                                                    }}
+                                                    className={`fw-animal-card${calculationData.animalType === type ? ' selected' : ''}`}
                                                 >
-                                                    <div className="fmc-header">
-                                                        <div className="fmc-icon-wrap" style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'white', borderRadius: '8px' }}>
-                                                            <span className="fmc-emoji" style={{ fontSize: '1.5rem' }}>
-                                                                {type === 'swine' ? '🐷' : '🐔'}
-                                                            </span>
-                                                        </div>
-                                                        {calculationData.animalType === type && (
-                                                            <span className="mc-badge" style={{ background: type === 'swine' ? '#ec4899' : '#84cc16', color: 'white' }}>
-                                                                {t('selected')}
-                                                            </span>
-                                                        )}
+                                                    <div className="fw-animal-card-icon">
+                                                        {type === 'swine' ? <SwineIcon /> : <PoultryIcon />}
                                                     </div>
-                                                    <div className="fmc-body">
-                                                        <div className="fmc-name" style={{ textTransform: 'capitalize' }}>{t(type)}</div>
-                                                        <div className="fmc-desc">
-                                                            {type === 'swine'
-                                                                ? t('swineDescription')
-                                                                : t('poultryDescription')}
-                                                        </div>
+                                                    <div className="fw-animal-card-name" style={{ textTransform: 'capitalize' }}>
+                                                        {t(type)}
+                                                    </div>
+                                                    <div className="fw-animal-card-desc">
+                                                        {type === 'swine'
+                                                            ? t('swineDescription')
+                                                            : t('poultryDescription')}
                                                     </div>
                                                 </div>
                                             ))}
@@ -1750,39 +1902,26 @@ const DosageCalculator = () => {
                                             <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem', fontSize: '1.125rem' }}>
                                                 {t('selectProductionCategory')}
                                             </label>
-                                            <div className="fw-modules-grid-2">
+                                            <div className="fw-animal-grid">
                                                 {['breeding', 'commercial'].map(category => (
                                                     <div
                                                         key={category}
+                                                        className={`fw-animal-card${calculationData.productionCategory === category ? ' selected' : ''}`}
                                                         onClick={() => {
                                                             updateData('productionCategory', category);
                                                             updateData('specificCategory', '');
                                                         }}
-                                                        className={`fw-module-card ${calculationData.animalType === 'swine' ? 'mc-pig' : 'mc-poultry'} ${calculationData.productionCategory === category ? 'selected' : ''}`}
-                                                        style={{
-                                                            cursor: 'pointer',
-                                                            border: calculationData.productionCategory === category
-                                                                ? `2px solid ${calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16'}`
-                                                                : '2px solid transparent',
-                                                            transform: calculationData.productionCategory === category ? 'scale(1.02)' : 'scale(1)',
-                                                            boxShadow: calculationData.productionCategory === category
-                                                                ? `0 10px 25px ${calculationData.animalType === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
-                                                                : ''
-                                                        }}
                                                     >
-                                                        <div className="fmc-body" style={{ marginTop: 0, paddingBottom: '1.5rem', paddingTop: '1.5rem' }}>
-                                                            <div className="fmc-name" style={{ textTransform: 'capitalize', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                                {calculationData.productionCategory === category && (
-                                                                    <span style={{ color: calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16' }}>✓</span>
-                                                                )}
-                                                                {t(category)}
-                                                            </div>
-                                                            <div className="fmc-desc" style={{ marginTop: '0.5rem' }}>
-                                                                {category === 'breeding'
-                                                                    ? t('breedingDescription').replace('{animalType}', t(`animalType${calculationData.animalType.charAt(0).toUpperCase() + calculationData.animalType.slice(1)}`))
-                                                                    : t('commercialDescription').replace('{animalType}', t(`animalType${calculationData.animalType.charAt(0).toUpperCase() + calculationData.animalType.slice(1)}`))
-                                                                }
-                                                            </div>
+                                                        <div className="fw-animal-card-icon">
+                                                            {category === 'breeding' ? <BreedingIcon /> : <CommercialIcon />}
+                                                        </div>
+                                                        <div className="fw-animal-card-name" style={{ textTransform: 'capitalize' }}>
+                                                            {t(category)}
+                                                        </div>
+                                                        <div className="fw-animal-card-desc">
+                                                            {category === 'breeding'
+                                                                ? t('breedingDescription').replace('{animalType}', t(`animalType${calculationData.animalType.charAt(0).toUpperCase() + calculationData.animalType.slice(1)}`))
+                                                                : t('commercialDescription').replace('{animalType}', t(`animalType${calculationData.animalType.charAt(0).toUpperCase() + calculationData.animalType.slice(1)}`))}
                                                         </div>
                                                     </div>
                                                 ))}
@@ -1796,42 +1935,17 @@ const DosageCalculator = () => {
                                             <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem', fontSize: '1.125rem' }}>
                                                 {t('selectSpecificCategory')}
                                             </label>
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '1.5rem' }}>
+                                            <div className="fw-animal-grid">
                                                 {animalCategories[calculationData.animalType][calculationData.productionCategory].map(cat => (
                                                     <div
                                                         key={cat.id}
+                                                        className={`fw-animal-card${calculationData.specificCategory === cat.id ? ' selected' : ''}`}
                                                         onClick={() => updateData('specificCategory', cat.id)}
-                                                        className={`fw-module-card ${calculationData.animalType === 'swine' ? 'mc-pig' : 'mc-poultry'} ${calculationData.specificCategory === cat.id ? 'selected' : ''}`}
-                                                        style={{
-                                                            cursor: 'pointer',
-                                                            border: calculationData.specificCategory === cat.id
-                                                                ? `2px solid ${calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16'}`
-                                                                : '2px solid transparent',
-                                                            transform: calculationData.specificCategory === cat.id ? 'scale(1.02)' : 'scale(1)',
-                                                            boxShadow: calculationData.specificCategory === cat.id
-                                                                ? `0 10px 25px ${calculationData.animalType === 'swine' ? 'rgba(236,72,153,0.2)' : 'rgba(132,204,22,0.2)'}`
-                                                                : '',
-                                                            display: 'flex',
-                                                            flexDirection: 'column',
-                                                            justifyContent: 'center',
-                                                            minHeight: '100px'
-                                                        }}
                                                     >
-                                                        {cat.icon && (
-                                                            <div className="fmc-header" style={{ paddingBottom: 0 }}>
-                                                                <div className="fmc-icon-wrap" style={{ background: 'transparent', fontSize: '2.5rem', width: 'auto', height: 'auto', border: 'none' }}>
-                                                                    {cat.icon}
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                        <div className="fmc-body" style={{ padding: '1.5rem', textAlign: 'center', marginTop: 0 }}>
-                                                            <div className="fmc-name" style={{ fontSize: '1.125rem', marginBottom: 0 }}>
-                                                                {calculationData.specificCategory === cat.id && (
-                                                                    <span style={{ color: calculationData.animalType === 'swine' ? '#ec4899' : '#84cc16', marginRight: '0.5rem' }}>✓</span>
-                                                                )}
-                                                                {t(cat.id)}
-                                                            </div>
+                                                        <div className="fw-animal-card-icon">
+                                                            {specificCategoryIcons[cat.id] || <CommercialIcon />}
                                                         </div>
+                                                        <div className="fw-animal-card-name">{t(cat.id)}</div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -1842,196 +1956,125 @@ const DosageCalculator = () => {
 
                             {/* Step 2: Flock/Herd Information */}
                             {currentStep === 2 && (
-                                <div>
-                                    <h2 style={{ fontSize: 'clamp(1.125rem, 4vw, 1.5rem)', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                        {t('step2')}
-                                    </h2>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
-                                    <div style={{ maxWidth: '600px' }}>
-                                        {/* Population */}
-                                        <div style={{ marginBottom: '1.5rem' }}>
-                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                                {t('populationSize')}
-                                            </label>
-                                            <input
-                                                type="number"
-                                                value={calculationData.population}
-                                                onChange={(e) => updateData('population', e.target.value)}
-                                                placeholder={t('enterPopulation')}
-                                                min="1"
-                                                style={{
-                                                    width: '100%',
-                                                    padding: '0.75rem',
-                                                    border: '2px solid #e5e7eb',
-                                                    borderRadius: '8px',
-                                                    fontSize: '1rem'
-                                                }}
-                                            />
-                                        </div>
-
-                                        {/* Age */}
-                                        <div style={{ marginBottom: '1.5rem' }}>
-                                            <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                                {t('currentAge')}
-                                            </label>
-                                            <div style={{ display: 'flex', gap: '0.75rem' }}>
-                                                <input
-                                                    type="number"
-                                                    value={calculationData.age}
-                                                    onChange={(e) => updateData('age', e.target.value)}
-                                                    placeholder={t('age')}
-                                                    min="1"
-                                                    style={{
-                                                        flex: 2,
-                                                        minWidth: 0,
-                                                        padding: '0.75rem',
-                                                        border: '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        fontSize: '1rem',
-                                                        boxSizing: 'border-box'
-                                                    }}
-                                                />
-                                                <select
-                                                    value={calculationData.ageUnit}
-                                                    onChange={(e) => updateData('ageUnit', e.target.value)}
-                                                    style={{
-                                                        flex: 1,
-                                                        minWidth: 0,
-                                                        padding: '0.75rem',
-                                                        border: '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        fontSize: '1rem',
-                                                        boxSizing: 'border-box'
-                                                    }}
-                                                >
-                                                    <option value="days">{t('days')}</option>
-                                                    <option value="weeks">{t('weeks')}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        {/* Gender (for breeders only) */}
-                                        {calculationData.productionCategory === 'breeding' && (
-                                            <div style={{ marginBottom: '1.5rem' }}>
-                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                                    {t('genderLabel')}
-                                                </label>
-                                                <select
-                                                    value={calculationData.gender}
-                                                    onChange={(e) => updateData('gender', e.target.value)}
-                                                    style={{
-                                                        width: '100%',
-                                                        padding: '0.75rem',
-                                                        border: '2px solid #e5e7eb',
-                                                        borderRadius: '8px',
-                                                        fontSize: '1rem'
-                                                    }}
-                                                >
-                                                    <option value="female">{t('genderFemale')}</option>
-                                                    <option value="male">{t('genderMale')}</option>
-                                                    <option value="mixed">{t('genderMixed')}</option>
-                                                </select>
-
-                                                {calculationData.gender === 'mixed' && (
-                                                    <div style={{ marginTop: '1rem', padding: '1rem', background: '#f9fafb', borderRadius: '8px' }}>
-                                                        <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
-                                                            {t('genderRatio')}
-                                                        </label>
-                                                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                                                            <input
-                                                                type="number"
-                                                                value={calculationData.femaleRatio}
-                                                                onChange={(e) => updateData('femaleRatio', e.target.value)}
-                                                                min="1"
-                                                                style={{
-                                                                    flex: 1,
-                                                                    minWidth: 0,
-                                                                    padding: '0.5rem',
-                                                                    border: '1px solid #e5e7eb',
-                                                                    borderRadius: '4px'
-                                                                }}
-                                                            />
-                                                            <span style={{ flexShrink: 0 }}>:</span>
-                                                            <input
-                                                                type="number"
-                                                                value={calculationData.maleRatio}
-                                                                onChange={(e) => updateData('maleRatio', e.target.value)}
-                                                                min="1"
-                                                                style={{
-                                                                    flex: 1,
-                                                                    minWidth: 0,
-                                                                    padding: '0.5rem',
-                                                                    border: '1px solid #e5e7eb',
-                                                                    borderRadius: '4px'
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
+                                    {/* Population */}
+                                    <div className="fw-form-group">
+                                        <label className="fw-form-label">{t('populationSize')}</label>
+                                        <input
+                                            className="fw-form-input"
+                                            type="number"
+                                            value={calculationData.population}
+                                            onChange={(e) => updateData('population', e.target.value)}
+                                            placeholder="e.g. 10000"
+                                            min="1"
+                                        />
                                     </div>
+
+                                    {/* Age */}
+                                    <div className="fw-form-group">
+                                        <label className="fw-form-label">{t('currentAge')}</label>
+                                        <div className="fw-form-row">
+                                            <input
+                                                className="fw-form-input"
+                                                type="number"
+                                                value={calculationData.age}
+                                                onChange={(e) => updateData('age', e.target.value)}
+                                                placeholder="e.g. 21"
+                                                min="1"
+                                            />
+                                            <select
+                                                className="fw-form-select"
+                                                value={calculationData.ageUnit}
+                                                onChange={(e) => updateData('ageUnit', e.target.value)}
+                                            >
+                                                <option value="days">{t('days')}</option>
+                                                <option value="weeks">{t('weeks')}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    {/* Gender — only for breeders */}
+                                    {calculationData.productionCategory === 'breeding' && (
+                                        <div className="fw-form-group">
+                                            <label className="fw-form-label">{t('genderLabel')}</label>
+                                            <select
+                                                className="fw-form-select"
+                                                value={calculationData.gender}
+                                                onChange={(e) => updateData('gender', e.target.value)}
+                                            >
+                                                <option value="female">{t('genderFemale')}</option>
+                                                <option value="male">{t('genderMale')}</option>
+                                                <option value="mixed">{t('genderMixed')}</option>
+                                            </select>
+
+                                            {calculationData.gender === 'mixed' && (
+                                                <div className="fw-form-sub-box">
+                                                    <label className="fw-form-label">{t('genderRatio')}</label>
+                                                    <div className="fw-form-ratio">
+                                                        <input
+                                                            className="fw-form-input"
+                                                            type="number"
+                                                            value={calculationData.femaleRatio}
+                                                            onChange={(e) => updateData('femaleRatio', e.target.value)}
+                                                            min="1"
+                                                            placeholder="♀"
+                                                        />
+                                                        <span className="fw-form-ratio-sep">:</span>
+                                                        <input
+                                                            className="fw-form-input"
+                                                            type="number"
+                                                            value={calculationData.maleRatio}
+                                                            onChange={(e) => updateData('maleRatio', e.target.value)}
+                                                            min="1"
+                                                            placeholder="♂"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+
                                 </div>
                             )}
 
                             {/* Step 3: Product Selection */}
                             {currentStep === 3 && (
-                                <div>
-                                    <h2 style={{ fontSize: 'clamp(1.125rem, 4vw, 1.5rem)', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                        {t('step3')}: {t('selectProduct')}
-                                    </h2>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
-                                    <div style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                                        gap: '1rem',
-                                        marginBottom: '2rem'
-                                    }}>
+                                    {/* Product list */}
+                                    <div className="fw-product-list">
                                         {getAvailableProducts().map(product => {
                                             const isSelected = calculationData.selectedProduct?.id === product.id;
+                                            const perUnit = product.application.dosage.per_unit
+                                                ? (product.application.dosage.per_unit.includes('ton') ? ' ton' : ` ${product.application.dosage.per_unit}`)
+                                                : ' ton';
+                                            const dosageText = `${product.application.dosage.amount}${product.application.dosage.unit} / ${product.application.dosage.per}${perUnit}`;
+                                            const benefits = (product.benefits.primary[language] || product.benefits.primary['en']).slice(0, 2);
+
                                             return (
                                                 <div
                                                     key={product.id}
+                                                    className={`fw-product-card${isSelected ? ' selected' : ''}`}
                                                     onClick={() => updateData('selectedProduct', product)}
-                                                    style={{
-                                                        background: isSelected ? '#ecfdf5' : 'white',
-                                                        border: `2px solid ${isSelected ? '#10b981' : '#e5e7eb'}`,
-                                                        borderRadius: '12px',
-                                                        padding: '1.5rem',
-                                                        cursor: 'pointer',
-                                                        transition: 'all 0.2s',
-                                                        boxShadow: isSelected ? '0 4px 6px -1px rgba(16, 185, 129, 0.1), 0 2px 4px -1px rgba(16, 185, 129, 0.06)' : '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        gap: '0.75rem',
-                                                        transform: isSelected ? 'translateY(-2px)' : 'none'
-                                                    }}
                                                 >
-                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', width: '100%' }}>
-                                                        <h3 style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1f2937', margin: 0 }}>
-                                                            {product.name}
-                                                        </h3>
+                                                    <div className="fw-product-card-top">
+                                                        <div className="fw-product-card-name">{product.name}</div>
                                                         {product.popular && (
-                                                            <span style={{
-                                                                background: '#fef3c7',
-                                                                color: '#92400e',
-                                                                padding: '0.25rem 0.5rem',
-                                                                borderRadius: '4px',
-                                                                fontSize: '0.75rem',
-                                                                fontWeight: '600'
-                                                            }}>
-                                                                {t('popular')}
-                                                            </span>
+                                                            <span className="fw-product-popular-badge">{t('popular')}</span>
                                                         )}
                                                     </div>
-                                                    <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                                                        {product.application.method === 'feed' ? t('applicationFeed') : t('applicationWater')} • {product.application.dosage.amount}{product.application.dosage.unit}/{product.application.dosage.per}{product.application.dosage.per_unit || ' ton'}
+
+                                                    <div className="fw-product-meta">
+                                                        <span className="fw-product-method-badge">
+                                                            {product.application.method === 'feed' ? t('applicationFeed') || 'Feed' : t('applicationWater') || 'Water'}
+                                                        </span>
+                                                        <span className="fw-product-dosage">{dosageText}</span>
                                                     </div>
-                                                    <div style={{ fontSize: '0.875rem', color: '#374151', flex: 1 }}>
-                                                        {(product.benefits.primary[language] || product.benefits.primary['en']).slice(0, 2).map((benefit, i) => (
-                                                            <div key={i} style={{ marginBottom: '0.25rem' }}>
-                                                                {benefit}
-                                                            </div>
+
+                                                    <div className="fw-product-benefits">
+                                                        {benefits.map((benefit, i) => (
+                                                            <div key={i} className="fw-product-benefit-item">{benefit}</div>
                                                         ))}
                                                     </div>
                                                 </div>
@@ -2039,793 +2082,308 @@ const DosageCalculator = () => {
                                         })}
                                     </div>
 
-                                    {/* Price Input */}
+                                    {/* Price input — only shows when product selected */}
                                     {calculationData.selectedProduct && (
-                                        <div style={{
-                                            background: '#f0fdf4',
-                                            border: '2px solid #86efac',
-                                            borderRadius: '12px',
-                                            padding: '1.5rem',
-                                            maxWidth: '500px',
-                                            width: '100%',
-                                            boxSizing: 'border-box'
-                                        }}>
-                                            <h3 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                                {t('productPrice').replace(' (VND/kg):', '')}
-                                            </h3>
-                                            <div>
-                                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                                    {t('productPrice')}
-                                                </label>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: 0 }}>
-                                                    <input
-                                                        type="number"
-                                                        value={calculationData.productPrice}
-                                                        onChange={(e) => updateData('productPrice', e.target.value)}
-                                                        min="0"
-                                                        step="1000"
-                                                        style={{
-                                                            flex: 1,
-                                                            minWidth: 0,
-                                                            padding: '0.75rem',
-                                                            border: '2px solid #d1d5db',
-                                                            borderRadius: '8px',
-                                                            fontSize: '1rem',
-                                                            fontWeight: '600'
-                                                        }}
-                                                    />
-                                                    <span style={{ fontSize: '1rem', fontWeight: '600', color: '#6b7280', whiteSpace: 'nowrap', flexShrink: 0 }}>
-                                                        VND/kg
-                                                    </span>
-                                                </div>
-                                                <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem' }}>
-                                                    {t('enterPriceHint')}
-                                                </p>
+                                        <div className="fw-price-box">
+                                            <div className="fw-price-box-title">{t('productPrice') || 'Product Price'}</div>
+                                            <div className="fw-price-input-row">
+                                                <input
+                                                    className="fw-form-input"
+                                                    type="number"
+                                                    value={calculationData.productPrice}
+                                                    onChange={(e) => updateData('productPrice', e.target.value)}
+                                                    min="0"
+                                                    step="1000"
+                                                />
+                                                <span className="fw-price-unit">VND/kg</span>
                                             </div>
+                                            <div className="fw-price-hint">{t('enterPriceHint') || 'Enter price per kilogram'}</div>
                                         </div>
                                     )}
+
                                 </div>
                             )}
 
                             {/* Step 4: Protocol & Results */}
                             {currentStep === 4 && (
-                                <div>
-                                    <h2 style={{ fontSize: 'clamp(1.125rem, 4vw, 1.5rem)', fontWeight: '600', marginBottom: '1.5rem' }}>
-                                        {t('step4')}
-                                    </h2>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
-                                    {/* Template Protocol Selection */}
-                                    <div style={{ marginBottom: '2rem' }}>
-                                        <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                            {t('templateProtocol')}
-                                        </h3>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
-                                            {/* Standard Prevention Card */}
-                                            <button
+                                    {/* Template Protocol */}
+                                    <div className="fw-form-group">
+                                        <label className="fw-form-label">{t('templateProtocol') || 'Template Protocol'}</label>
+                                        <div className="fw-protocol-grid">
+                                            <div
+                                                className={`fw-protocol-card${calculationData.protocolPeriods.length === 2 ? ' selected' : ''}`}
                                                 onClick={() => useTemplate('standard')}
-                                                style={{
-                                                    padding: 'clamp(0.75rem, 3vw, 1rem)',
-                                                    border: '2px solid #d1fae5',
-                                                    borderRadius: '12px',
-                                                    background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-                                                    cursor: 'pointer',
-                                                    textAlign: 'left',
-                                                    transition: 'all 0.2s',
-                                                    boxShadow: '0 2px 8px rgba(16,185,129,0.1)'
-                                                }}
-                                                onMouseOver={(e) => {
-                                                    e.currentTarget.style.borderColor = '#10b981';
-                                                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(16,185,129,0.2)';
-                                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                                }}
-                                                onMouseOut={(e) => {
-                                                    e.currentTarget.style.borderColor = '#d1fae5';
-                                                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(16,185,129,0.1)';
-                                                    e.currentTarget.style.transform = 'translateY(0)';
-                                                }}
                                             >
-                                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}></div>
-                                                <div style={{ fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', fontWeight: '700', color: '#065f46', marginBottom: '0.35rem', lineHeight: 1.3 }}>
-                                                    {t('standardPreventionTitle')}
-                                                </div>
-                                                <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#059669', fontWeight: '500' }}>
-                                                    {t('standardPreventionDesc')}
-                                                </div>
-                                            </button>
-
-                                            {/* Intensive Treatment Card */}
-                                            <button
+                                                <div className="fw-protocol-card-name">{t('standardPreventionTitle') || 'Standard Prevention'}</div>
+                                                <div className="fw-protocol-card-desc">{t('standardPreventionDesc') || 'Day 1-5 + Day 25-29'}</div>
+                                            </div>
+                                            <div
+                                                className={`fw-protocol-card${calculationData.protocolPeriods.length === 1 && calculationData.protocolPeriods[0].endDay === 7 ? ' selected' : ''}`}
                                                 onClick={() => useTemplate('intensive')}
-                                                style={{
-                                                    padding: 'clamp(0.75rem, 3vw, 1rem)',
-                                                    border: '2px solid #a7f3d0',
-                                                    borderRadius: '12px',
-                                                    background: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)',
-                                                    cursor: 'pointer',
-                                                    textAlign: 'left',
-                                                    transition: 'all 0.2s',
-                                                    boxShadow: '0 2px 8px rgba(16,185,129,0.1)'
-                                                }}
-                                                onMouseOver={(e) => {
-                                                    e.currentTarget.style.borderColor = '#10b981';
-                                                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(16,185,129,0.2)';
-                                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                                }}
-                                                onMouseOut={(e) => {
-                                                    e.currentTarget.style.borderColor = '#a7f3d0';
-                                                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(16,185,129,0.1)';
-                                                    e.currentTarget.style.transform = 'translateY(0)';
-                                                }}
                                             >
-                                                <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}></div>
-                                                <div style={{ fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)', fontWeight: '700', color: '#065f46', marginBottom: '0.35rem', lineHeight: 1.3 }}>
-                                                    {t('intensiveTreatmentTitle')}
-                                                </div>
-                                                <div style={{ fontSize: 'clamp(0.7rem, 2.2vw, 0.8rem)', color: '#059669', fontWeight: '500' }}>
-                                                    {t('intensiveTreatmentDesc')}
-                                                </div>
-                                            </button>
+                                                <div className="fw-protocol-card-name">{t('intensiveTreatmentTitle') || 'Intensive Treatment'}</div>
+                                                <div className="fw-protocol-card-desc">{t('intensiveTreatmentDesc') || 'Day 1-7 continuous'}</div>
+                                            </div>
                                         </div>
-
-                                        <button
-                                            onClick={() => setShowCustomProtocol(!showCustomProtocol)}
-                                            style={{
-                                                color: '#10b981',
-                                                background: 'none',
-                                                border: 'none',
-                                                cursor: 'pointer',
-                                                fontSize: '1rem',
-                                                fontWeight: '600',
-                                                padding: '0.5rem 0'
-                                            }}
-                                        >
-                                            {showCustomProtocol ? t('hideCustomProtocol') : t('createCustomProtocol')}
-                                        </button>
                                     </div>
+
+                                    {/* Custom Protocol Toggle */}
+                                    <button
+                                        className="fw-custom-protocol-toggle"
+                                        onClick={() => setShowCustomProtocol(!showCustomProtocol)}
+                                    >
+                                        {showCustomProtocol ? '− ' + (t('hideCustomProtocol') || 'Hide Custom Protocol') : '+ ' + (t('createCustomProtocol') || 'Create Custom Protocol')}
+                                    </button>
 
                                     {/* Custom Protocol Builder */}
                                     {showCustomProtocol && (
-                                        <div style={{ marginBottom: '2rem', paddingTop: '1rem', borderTop: '1px solid #e5e7eb' }}>
-                                            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                                {t('customProtocolLabel')}
-                                            </h3>
-
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                             {calculationData.protocolPeriods.map((period, index) => (
-                                                <div key={index} style={{
-                                                    background: '#f9fafb',
-                                                    padding: '1rem',
-                                                    borderRadius: '8px',
-                                                    marginBottom: '1rem'
-                                                }}>
-                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                                        <strong>{t('periodLabel')} {index + 1}</strong>
+                                                <div key={index} className="fw-form-sub-box">
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                        <span className="fw-form-label">{t('periodLabel') || 'Period'} {index + 1}</span>
                                                         {calculationData.protocolPeriods.length > 1 && (
                                                             <button
                                                                 onClick={() => removePeriod(index)}
-                                                                style={{
-                                                                    background: '#fee2e2',
-                                                                    color: '#dc2626',
-                                                                    border: 'none',
-                                                                    padding: '0.25rem 0.75rem',
-                                                                    borderRadius: '4px',
-                                                                    cursor: 'pointer',
-                                                                    fontSize: '0.875rem'
-                                                                }}
+                                                                style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '6px', padding: '3px 10px', fontSize: '11px', fontWeight: '700', cursor: 'pointer', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                                                             >
-                                                                {t('removeButton')}
+                                                                {t('removeButton') || 'Remove'}
                                                             </button>
                                                         )}
                                                     </div>
-                                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-                                                        <div>
-                                                            <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
-                                                                {t('startDayLabel')}
-                                                            </label>
-                                                            <input
-                                                                type="number"
-                                                                value={period.startDay}
-                                                                onChange={(e) => updatePeriod(index, 'startDay', e.target.value)}
-                                                                min="1"
-                                                                style={{
-                                                                    width: '100%',
-                                                                    padding: '0.5rem',
-                                                                    border: '1px solid #e5e7eb',
-                                                                    borderRadius: '4px'
-                                                                }}
-                                                            />
+                                                    <div className="fw-form-row">
+                                                        <div className="fw-form-group" style={{ flex: 1 }}>
+                                                            <label className="fw-form-label">{t('startDayLabel') || 'Start Day'}</label>
+                                                            <input className="fw-form-input" type="number" value={period.startDay} min="1"
+                                                                onChange={(e) => updatePeriod(index, 'startDay', e.target.value)} />
                                                         </div>
-                                                        <div>
-                                                            <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
-                                                                {t('endDayLabel')}
-                                                            </label>
-                                                            <input
-                                                                type="number"
-                                                                value={period.endDay}
-                                                                onChange={(e) => updatePeriod(index, 'endDay', e.target.value)}
-                                                                min={period.startDay}
-                                                                style={{
-                                                                    width: '100%',
-                                                                    padding: '0.5rem',
-                                                                    border: '1px solid #e5e7eb',
-                                                                    borderRadius: '4px'
-                                                                }}
-                                                            />
+                                                        <div className="fw-form-group" style={{ flex: 1 }}>
+                                                            <label className="fw-form-label">{t('endDayLabel') || 'End Day'}</label>
+                                                            <input className="fw-form-input" type="number" value={period.endDay} min={period.startDay}
+                                                                onChange={(e) => updatePeriod(index, 'endDay', e.target.value)} />
                                                         </div>
-                                                        <div>
-                                                            <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
-                                                                Duration:
-                                                            </label>
-                                                            <div style={{
-                                                                padding: '0.5rem',
-                                                                background: 'white',
-                                                                border: '1px solid #e5e7eb',
-                                                                borderRadius: '4px',
-                                                                fontWeight: '600'
-                                                            }}>
-                                                                {period.endDay - period.startDay + 1} days
+                                                        <div className="fw-form-group" style={{ flex: 0.8 }}>
+                                                            <label className="fw-form-label">Duration</label>
+                                                            <div className="fw-form-input" style={{ background: 'var(--fw-green-ltr)', color: 'var(--fw-green3)', fontWeight: 700 }}>
+                                                                {period.endDay - period.startDay + 1}d
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             ))}
-
                                             <button
                                                 onClick={addPeriod}
-                                                style={{
-                                                    padding: '0.75rem 1.5rem',
-                                                    background: '#10b981',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '8px',
-                                                    cursor: 'pointer',
-                                                    fontSize: '1rem',
-                                                    fontWeight: '600',
-                                                    marginTop: '0.5rem'
-                                                }}
+                                                style={{ background: 'var(--fw-green-lt)', color: 'var(--fw-green3)', border: 'none', borderRadius: '10px', padding: '10px', fontSize: '12px', fontWeight: '700', cursor: 'pointer', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                                             >
-                                                Add Another Period
+                                                + {t('addPeriod') || 'Add Another Period'}
                                             </button>
                                         </div>
                                     )}
 
                                     {/* Calculate Button */}
-                                    <button
-                                        onClick={calculateResults}
-                                        style={{
-                                            width: '100%',
-                                            padding: '1rem',
-                                            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '8px',
-                                            cursor: 'pointer',
-                                            fontSize: '1.125rem',
-                                            fontWeight: '700',
-                                            marginBottom: '2rem'
-                                        }}
-                                    >
-                                        {t('calculateDosage')}
+                                    <button className="fw-calculate-btn" onClick={calculateResults}>
+                                        {t('calculateDosage') || 'Calculate Dosage & Cost'}
                                     </button>
 
-                                    {/* Results Display */}
+                                    {/* Results */}
                                     {calculationData.results && (
-                                        <div className="print-content" style={{
-                                            background: '#f0fdf4',
-                                            border: '2px solid #86efac',
-                                            borderRadius: '12px',
-                                            padding: 'clamp(0.75rem, 3vw, 2rem)'
-                                        }}>
-                                            {/* Print Header - Only visible when printing */}
-                                            <div className="print-header">
-                                                <img src="/images/FarmWell_Logo.png" alt="FarmWell" />
-                                                <div>
-                                                    <h1>{t('title')}</h1>
-                                                    <p>{t('subtitle')}</p>
-                                                    <p style={{ marginTop: '0.5rem', fontSize: '0.75rem' }}>
-                                                        {t('generated')} {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                            <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: '#166534' }}>
-                                                {t('calculationResults')}
-                                            </h3>
+                                        <div className="fw-results-box">
+                                            <div className="fw-results-title">{t('calculationResults') || 'Calculation Results'}</div>
 
                                             {/* Summary */}
-                                            <div className="calculation-summary" style={{
-                                                background: 'white',
-                                                padding: '1.5rem',
-                                                borderRadius: '8px',
-                                                marginBottom: '1.5rem'
-                                            }}>
-                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))', gap: '1rem' }}>
-                                                    <div>
-                                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('product')}</div>
-                                                        <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                            {calculationData.selectedProduct.name}
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('population')}</div>
-                                                        <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                            {parseInt(calculationData.population).toLocaleString()} {t('animals')}
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('totalTreatmentDays')}</div>
-                                                        <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                            {calculationData.results.totalDays} {t('days')}
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t('numberOfPeriods')}</div>
-                                                        <div style={{ fontSize: '1.125rem', fontWeight: '700' }}>
-                                                            {calculationData.protocolPeriods.length} {t('numberOfPeriods').toLowerCase().includes('period') ? '' : 'periods'}
-                                                        </div>
-                                                    </div>
+                                            <div className="fw-results-summary">
+                                                <div className="fw-results-summary-item">
+                                                    <div className="fw-results-summary-label">{t('product') || 'Product'}</div>
+                                                    <div className="fw-results-summary-value">{calculationData.selectedProduct.name}</div>
+                                                </div>
+                                                <div className="fw-results-summary-item">
+                                                    <div className="fw-results-summary-label">{t('population') || 'Population'}</div>
+                                                    <div className="fw-results-summary-value">{parseInt(calculationData.population).toLocaleString()}</div>
+                                                </div>
+                                                <div className="fw-results-summary-item">
+                                                    <div className="fw-results-summary-label">{t('totalTreatmentDays') || 'Treatment Days'}</div>
+                                                    <div className="fw-results-summary-value">{calculationData.results.totalDays} {t('days') || 'days'}</div>
+                                                </div>
+                                                <div className="fw-results-summary-item">
+                                                    <div className="fw-results-summary-label">{t('numberOfPeriods') || 'Periods'}</div>
+                                                    <div className="fw-results-summary-value">{calculationData.protocolPeriods.length}</div>
                                                 </div>
                                             </div>
 
                                             {/* Period Breakdown */}
-                                            <h4 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                                {t('periodBreakdown')}
-                                            </h4>
+                                            <div className="fw-form-label" style={{ marginBottom: '-6px' }}>{t('periodBreakdown') || 'Period Breakdown'}</div>
                                             {calculationData.results.periods.map((period, index) => (
-                                                <div key={index} className="period-breakdown" style={{
-                                                    background: 'white',
-                                                    padding: '1rem',
-                                                    borderRadius: '8px',
-                                                    marginBottom: '1rem'
-                                                }}>
-                                                    <div style={{ fontWeight: '700', marginBottom: '0.75rem' }}>
-                                                        {t('period')} {index + 1}: {t('day')} {period.startDay}-{period.endDay} ({period.days} {t('days')})
+                                                <div key={index} className="fw-period-card">
+                                                    <div className="fw-period-card-title">
+                                                        {t('period') || 'Period'} {index + 1}: {t('day') || 'Day'} {period.startDay}–{period.endDay} ({period.days} {t('days') || 'days'})
                                                     </div>
-                                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))', gap: '0.5rem', fontSize: '0.875rem' }}>
-                                                        <div>{t('totalWater')} {parseFloat(period.totalWaterL).toLocaleString()} L</div>
-                                                        <div>{t('totalFeed')} {parseFloat(period.totalFeedKg).toLocaleString()} kg</div>
-                                                        <div style={{ color: '#10b981', fontWeight: '600' }}>
-                                                            {t('productNeeded')} {parseFloat(period.productNeeded).toLocaleString()} g
-                                                        </div>
-                                                        <div style={{ color: '#f59e0b', fontWeight: '600' }}>
-                                                            {t('cost')} {parseInt(period.cost).toLocaleString()} VND
-                                                        </div>
+                                                    <div className="fw-period-stats">
+                                                        <div className="fw-period-stat">{t('totalWater') || 'Water'}: {parseFloat(period.totalWaterL).toLocaleString()} L</div>
+                                                        <div className="fw-period-stat">{t('totalFeed') || 'Feed'}: {parseFloat(period.totalFeedKg).toLocaleString()} kg</div>
+                                                        <div className="fw-period-stat highlight">{t('productNeeded') || 'Product'}: {parseFloat(period.productNeeded).toLocaleString()} g</div>
+                                                        <div className="fw-period-stat cost">{t('cost') || 'Cost'}: {parseInt(period.cost).toLocaleString()} VND</div>
                                                     </div>
                                                 </div>
                                             ))}
 
                                             {/* Total Investment */}
-                                            <div className="total-investment" style={{
-                                                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                                                color: 'white',
-                                                padding: '1.5rem',
-                                                borderRadius: '8px',
-                                                marginTop: '1.5rem'
-                                            }}>
-                                                <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem' }}>
-                                                    {t('totalInvestment')}
-                                                </h4>
-                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '1rem' }}>
+                                            <div className="fw-total-investment">
+                                                <div className="fw-total-investment-title">{t('totalInvestment') || 'Total Investment'}</div>
+                                                <div className="fw-total-investment-grid">
                                                     <div>
-                                                        <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalProduct')}</div>
-                                                        <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
-                                                            {(calculationData.results.totalProductGrams / 1000).toFixed(2)} kg
-                                                        </div>
+                                                        <div className="fw-total-investment-item-label">{t('totalProduct') || 'Total Product'}</div>
+                                                        <div className="fw-total-investment-item-value">{(calculationData.results.totalProductGrams / 1000).toFixed(2)} kg</div>
                                                     </div>
                                                     <div>
-                                                        <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('totalCost')}</div>
-                                                        <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
-                                                            {calculationData.results.totalCost.toLocaleString()} VND
-                                                        </div>
+                                                        <div className="fw-total-investment-item-label">{t('totalCost') || 'Total Cost'}</div>
+                                                        <div className="fw-total-investment-item-value">{calculationData.results.totalCost.toLocaleString()} VND</div>
                                                     </div>
                                                     <div>
-                                                        <div style={{ fontSize: '0.875rem', opacity: 0.9 }}>{t('costPerAnimal')}</div>
-                                                        <div style={{ fontSize: '1.25rem', fontWeight: '700' }}>
-                                                            {Math.round(calculationData.results.costPerAnimal).toLocaleString()} VND
-                                                        </div>
+                                                        <div className="fw-total-investment-item-label">{t('costPerAnimal') || 'Per Animal'}</div>
+                                                        <div className="fw-total-investment-item-value small">{Math.round(calculationData.results.costPerAnimal).toLocaleString()} VND</div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             {/* Expected Benefits */}
-                                            <div className="expected-benefits" style={{
-                                                background: 'white',
-                                                padding: '1.5rem',
-                                                borderRadius: '8px',
-                                                marginTop: '1.5rem'
-                                            }}>
-                                                <h4 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '1rem', color: '#166534' }}>
-                                                    {t('expectedBenefits')}
-                                                </h4>
+                                            <div className="fw-benefits-box">
+                                                <div className="fw-benefits-title">{t('expectedBenefits') || 'Expected Benefits'}</div>
                                                 {(calculationData.selectedProduct.benefits.primary[language] || calculationData.selectedProduct.benefits.primary['en']).map((benefit, i) => (
-                                                    <div key={i} style={{ marginBottom: '0.5rem', paddingLeft: '1.5rem', position: 'relative' }}>
-                                                        <span style={{ position: 'absolute', left: 0 }}></span>
-                                                        {benefit}
-                                                    </div>
+                                                    <div key={i} className="fw-product-benefit-item">{benefit}</div>
                                                 ))}
-                                                <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#6b7280', fontStyle: 'italic' }}>
-                                                    {t('benefitsNote')}
-                                                </div>
+                                                <div className="fw-benefits-note">{t('benefitsNote') || 'Results may vary based on farm conditions.'}</div>
                                             </div>
 
-                                            {/* Daily Calculation Details */}
-                                            <div style={{
-                                                background: '#f0fdf4',
-                                                border: '2px solid #86efac',
-                                                borderRadius: '12px',
-                                                padding: '1.5rem',
-                                                marginTop: '1.5rem'
-                                            }}>
-                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                                                    <h4 style={{ fontSize: 'clamp(1rem, 3.5vw, 1.25rem)', fontWeight: '700', color: '#065f46', flex: 1, minWidth: '120px' }}>
-                                                        {t('dailyCalculationDetails')}
-                                                    </h4>
+                                            {/* Daily Details Toggle */}
+                                            <div className="fw-price-box">
+                                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                    <div className="fw-price-box-title">{t('dailyCalculationDetails') || 'Daily Calculation Details'}</div>
                                                     <button
                                                         onClick={() => setShowDailyDetails(!showDailyDetails)}
-                                                        style={{
-                                                            background: '#10b981',
-                                                            color: 'white',
-                                                            border: 'none',
-                                                            padding: '0.4rem 0.75rem',
-                                                            borderRadius: '6px',
-                                                            cursor: 'pointer',
-                                                            fontSize: '0.8rem',
-                                                            fontWeight: '600',
-                                                            flexShrink: 0,
-                                                            whiteSpace: 'nowrap'
-                                                        }}
+                                                        style={{ background: 'var(--fw-green)', color: 'white', border: 'none', borderRadius: '8px', padding: '6px 12px', fontSize: '11px', fontWeight: '700', cursor: 'pointer', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                                                     >
-                                                        {showDailyDetails ? ' ' + t('hideDetails') : ' ' + t('showDetails')}
+                                                        {showDailyDetails ? (t('hideDetails') || 'Hide') : (t('showDetails') || 'Show Details')}
                                                     </button>
                                                 </div>
-
-                                                {showDailyDetails && (
-                                                    <div>
-                                                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem' }}>
-                                                            {t('dailyDetailsDescription')}
-                                                        </p>
-
-                                                        {calculationData.results.periods.map((period, periodIndex) => (
-                                                            <div key={periodIndex} style={{ marginBottom: '2rem' }}>
-                                                                <div style={{
-                                                                    background: '#10b981',
-                                                                    color: 'white',
-                                                                    padding: '0.75rem 1rem',
-                                                                    borderRadius: '8px 8px 0 0',
-                                                                    fontWeight: '700',
-                                                                    fontSize: '1rem'
-                                                                }}>
-                                                                    {t('period')} {periodIndex + 1}
-                                                                </div>
-
-                                                                <div style={{ overflowX: 'auto' }}>
-                                                                    <table className="daily-details-table" style={{
-                                                                        width: '100%',
-                                                                        background: 'white',
-                                                                        borderCollapse: 'collapse',
-                                                                        fontSize: '0.875rem'
-                                                                    }}>
-                                                                        <thead>
-                                                                            <tr style={{ background: '#f3f4f6' }}>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'left', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('dayColumn')}</th>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('ageColumn')}</th>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('waterPerAnimal')}</th>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('totalWaterL')}</th>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('feedPerAnimal')}</th>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem' }}>{t('totalFeedKg')}</th>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem', color: '#10b981' }}>{t('productG')}</th>
-                                                                                <th style={{ padding: '0.4rem 0.35rem', textAlign: 'right', borderBottom: '2px solid #e5e7eb', fontSize: '0.75rem', color: '#f59e0b' }}>{t('costVND')}</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            {period.dailyBreakdown.map((day, dayIndex) => (
-                                                                                <tr key={dayIndex} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', fontSize: '0.75rem' }}>{day.day}</td>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{day.ageInDays}</td>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{day.waterPerAnimal.toFixed(1)}</td>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{parseFloat(day.totalWaterL).toLocaleString()}</td>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{day.feedPerAnimal.toFixed(1)}</td>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem' }}>{parseFloat(day.totalFeedKg).toLocaleString()}</td>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem', color: '#10b981', fontWeight: '600' }}>
-                                                                                        {parseFloat(day.productNeeded).toLocaleString()}
-                                                                                    </td>
-                                                                                    <td style={{ padding: '0.4rem 0.35rem', textAlign: 'right', fontSize: '0.75rem', color: '#f59e0b', fontWeight: '600' }}>
-                                                                                        {day.cost.toLocaleString()}
-                                                                                    </td>
-                                                                                </tr>
-                                                                            ))}
-                                                                            <tr style={{ background: '#d1fae5', fontWeight: '700' }}>
-                                                                                <td colSpan="3" style={{ padding: '0.75rem' }}>{t('totalPeriod')}</td>
-                                                                                <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalWaterL).toLocaleString()}</td>
-                                                                                <td style={{ padding: '0.75rem', textAlign: 'right' }}></td>
-                                                                                <td style={{ padding: '0.75rem', textAlign: 'right' }}>{parseFloat(period.totalFeedKg).toLocaleString()}</td>
-                                                                                <td style={{ padding: '0.75rem', textAlign: 'right', color: '#10b981' }}>
-                                                                                    {parseFloat(period.productNeeded).toLocaleString()}
-                                                                                </td>
-                                                                                <td style={{ padding: '0.75rem', textAlign: 'right', color: '#f59e0b' }}>
-                                                                                    {parseInt(period.cost).toLocaleString()}
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        ))}
+                                                {showDailyDetails && calculationData.results.periods.map((period, periodIndex) => (
+                                                    <div key={periodIndex} style={{ overflowX: 'auto', borderRadius: '8px', marginTop: '8px' }}>
+                                                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px', background: 'white' }}>
+                                                            <thead>
+                                                                <tr style={{ background: 'var(--fw-green)', color: 'white' }}>
+                                                                    <th style={{ padding: '6px 8px', textAlign: 'left' }}>{t('dayColumn') || 'Day'}</th>
+                                                                    <th style={{ padding: '6px 8px', textAlign: 'right' }}>{t('waterPerAnimal') || 'Water/animal'}</th>
+                                                                    <th style={{ padding: '6px 8px', textAlign: 'right' }}>{t('productG') || 'Product (g)'}</th>
+                                                                    <th style={{ padding: '6px 8px', textAlign: 'right' }}>{t('costVND') || 'Cost'}</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {period.dailyBreakdown.map((day, i) => (
+                                                                    <tr key={i} style={{ borderBottom: '1px solid #f0f0f0' }}>
+                                                                        <td style={{ padding: '5px 8px' }}>{day.day}</td>
+                                                                        <td style={{ padding: '5px 8px', textAlign: 'right' }}>{day.waterPerAnimal.toFixed(0)} ml</td>
+                                                                        <td style={{ padding: '5px 8px', textAlign: 'right', color: 'var(--fw-green3)', fontWeight: 600 }}>{parseFloat(day.productNeeded).toLocaleString()}</td>
+                                                                        <td style={{ padding: '5px 8px', textAlign: 'right', color: '#E08000', fontWeight: 600 }}>{day.cost.toLocaleString()}</td>
+                                                                    </tr>
+                                                                ))}
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-                                                )}
+                                                ))}
                                             </div>
 
                                             {/* Export Buttons */}
-                                            <div className="no-print" style={{
-                                                display: 'flex',
-                                                gap: '0.75rem',
-                                                marginTop: '2rem',
-                                                justifyContent: 'center'
-                                            }}>
-                                                <button
-                                                    onClick={exportToExcel}
-                                                    style={{
-                                                        flex: 1,
-                                                        padding: '0.75rem 0.5rem',
-                                                        background: 'linear-gradient(135deg, #10b981, #059669)',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        borderRadius: '8px',
-                                                        cursor: 'pointer',
-                                                        fontSize: 'clamp(0.8rem, 3vw, 1rem)',
-                                                        fontWeight: '600',
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        gap: '0.4rem',
-                                                        textAlign: 'center'
-                                                    }}
-                                                >
-                                                    {t('exportToExcel')}
-                                                </button>
-                                                <button
-                                                    onClick={printPDF}
-                                                    style={{
-                                                        flex: 1,
-                                                        padding: '0.75rem 0.5rem',
-                                                        background: 'linear-gradient(135deg, #10b981, #059669)',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        borderRadius: '8px',
-                                                        cursor: 'pointer',
-                                                        fontSize: 'clamp(0.8rem, 3vw, 1rem)',
-                                                        fontWeight: '600',
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        gap: '0.4rem',
-                                                        textAlign: 'center'
-                                                    }}
-                                                >
-                                                    {t('printPDF')}
-                                                </button>
+                                            <div className="fw-export-row">
+                                                <button className="fw-export-btn" onClick={exportToExcel}>{t('exportToExcel') || 'Export Excel'}</button>
+                                                <button className="fw-export-btn" onClick={printPDF}>{t('printPDF') || 'Print PDF'}</button>
                                             </div>
 
-                                            {/* Request for Inquiry Form */}
-                                            <form onSubmit={handleInquirySubmit} className="no-print" style={{
-                                                background: '#f0fdf4',
-                                                border: '2px solid #86efac',
-                                                borderRadius: '12px',
-                                                padding: 'clamp(1rem, 4vw, 2rem)',
-                                                marginTop: '2rem',
-                                                boxSizing: 'border-box'
-                                            }}>
-                                                <h4 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1rem', color: '#065f46' }}>
-                                                    {t('requestForInquiry')}
-                                                </h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1.5rem' }}>
-                                                    {t('inquiryDescription')}
-                                                </p>
-
-                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))', gap: '1rem' }}>
-                                                    <div>
-                                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                            {t('name')} *
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            name="name"
-                                                            value={inquiryData.name}
+                                            {/* Inquiry Form */}
+                                            <div className="fw-inquiry-box">
+                                                <div className="fw-inquiry-title">{t('requestForInquiry') || 'Request for Inquiry'}</div>
+                                                <div className="fw-inquiry-desc">{t('inquiryDescription') || 'Interested in this product? Our team will reach out to you.'}</div>
+                                                <form onSubmit={handleInquirySubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                                    <div className="fw-form-group">
+                                                        <label className="fw-form-label">{t('name') || 'Name'} *</label>
+                                                        <input className="fw-form-input" type="text" name="name" value={inquiryData.name}
                                                             onChange={(e) => setInquiryData(prev => ({ ...prev, name: e.target.value }))}
-                                                            placeholder={t('enterName')}
-                                                            required
-                                                            style={{
-                                                                width: '100%',
-                                                                padding: '0.75rem',
-                                                                border: '2px solid #e5e7eb',
-                                                                borderRadius: '8px',
-                                                                fontSize: '1rem',
-                                                                boxSizing: 'border-box'
-                                                            }}
-                                                        />
+                                                            placeholder={t('enterName') || 'Enter your name'} required />
                                                     </div>
-                                                    <div>
-                                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                            {t('email')} *
-                                                        </label>
-                                                        <input
-                                                            type="email"
-                                                            name="email"
-                                                            value={inquiryData.email}
+                                                    <div className="fw-form-group">
+                                                        <label className="fw-form-label">{t('email') || 'Email'} *</label>
+                                                        <input className="fw-form-input" type="email" name="email" value={inquiryData.email}
                                                             onChange={(e) => setInquiryData(prev => ({ ...prev, email: e.target.value }))}
-                                                            placeholder={t('enterEmail')}
-                                                            required
-                                                            style={{
-                                                                width: '100%',
-                                                                padding: '0.75rem',
-                                                                border: '2px solid #e5e7eb',
-                                                                borderRadius: '8px',
-                                                                fontSize: '1rem',
-                                                                boxSizing: 'border-box'
-                                                            }}
-                                                        />
+                                                            placeholder={t('enterEmail') || 'Enter your email'} required />
                                                     </div>
-                                                    <div>
-                                                        <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
-                                                            {t('phoneNumber')} *
-                                                        </label>
-                                                        <input
-                                                            type="tel"
-                                                            name="phone"
-                                                            value={inquiryData.phone}
+                                                    <div className="fw-form-group">
+                                                        <label className="fw-form-label">{t('phoneNumber') || 'Phone'} *</label>
+                                                        <input className="fw-form-input" type="tel" name="phone" value={inquiryData.phone}
                                                             onChange={(e) => setInquiryData(prev => ({ ...prev, phone: e.target.value }))}
-                                                            placeholder={t('enterPhone')}
-                                                            required
-                                                            style={{
-                                                                width: '100%',
-                                                                padding: '0.75rem',
-                                                                border: '2px solid #e5e7eb',
-                                                                borderRadius: '8px',
-                                                                fontSize: '1rem',
-                                                                boxSizing: 'border-box'
-                                                            }}
-                                                        />
+                                                            placeholder={t('enterPhone') || 'Enter your phone'} required />
                                                     </div>
-                                                </div>
-
-                                                <button
-                                                    type="submit"
-                                                    style={{
-                                                        marginTop: '1.5rem',
-                                                        padding: '0.75rem 1rem',
-                                                        background: '#10b981',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        borderRadius: '8px',
-                                                        cursor: 'pointer',
-                                                        fontSize: '1rem',
-                                                        fontWeight: '600',
-                                                        width: '100%'
-                                                    }}
-                                                >
-                                                    {t('submitInquiry')}
-                                                </button>
-
-                                                <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '1rem', fontStyle: 'italic' }}>
-                                                    {t('allFieldsRequired')}
-                                                </p>
-                                            </form>
+                                                    <button type="submit" className="fw-inquiry-submit">{t('submitInquiry') || 'Submit Inquiry'}</button>
+                                                </form>
+                                                <div className="fw-inquiry-note">{t('allFieldsRequired') || '* All fields required. Information kept confidential.'}</div>
+                                            </div>
                                         </div>
                                     )}
+
                                 </div>
                             )}
 
-                            {/* Navigation Buttons */}
-                            <div className="navigation-buttons" style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                flexWrap: 'wrap',
-                                gap: '0.75rem',
-                                marginTop: '2rem',
-                                paddingTop: '2rem',
-                                borderTop: '1px solid #e5e7eb'
-                            }}>
-                                {currentStep === 4 ? (
-                                    // Results page navigation
-                                    <div style={{ display: 'flex', gap: '0.75rem', width: '100%' }}>
-                                        <button
-                                            onClick={prevStep}
-                                            style={{
-                                                flex: 1,
-                                                minWidth: 0,
-                                                padding: '0.75rem 0.5rem',
-                                                background: '#10b981',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '8px',
-                                                cursor: 'pointer',
-                                                fontSize: 'clamp(0.8rem, 3vw, 1rem)',
-                                                fontWeight: '600',
-                                                textAlign: 'center'
-                                            }}
-                                        >
-                                            {t('previous')}
-                                        </button>
-                                        <button
-                                            onClick={resetCalculation}
-                                            style={{
-                                                flex: 1,
-                                                minWidth: 0,
-                                                padding: '0.75rem 0.5rem',
-                                                background: 'linear-gradient(135deg, #10b981, #059669)',
-                                                color: 'white',
-                                                border: 'none',
-                                                borderRadius: '8px',
-                                                cursor: 'pointer',
-                                                fontSize: 'clamp(0.8rem, 3vw, 1rem)',
-                                                fontWeight: '600',
-                                                textAlign: 'center'
-                                            }}
-                                        >
-                                            ↺ {t('newCalculation')}
-                                        </button>
-                                    </div>
-                                ) : (
-                                    // Other pages navigation
-                                    <>
-                                        {currentStep > 1 && (
-                                            <button
-                                                onClick={prevStep}
-                                                style={{
-                                                    padding: '0.75rem 1rem',
-                                                    background: '#10b981',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '8px',
-                                                    cursor: 'pointer',
-                                                    fontSize: '1rem',
-                                                    fontWeight: '600',
-                                                    flexShrink: 0,
-                                                    whiteSpace: 'nowrap'
-                                                }}
-                                            >
-                                                {t('previous')}
-                                            </button>
-                                        )}
-
-                                        {currentStep < 4 && (
-                                            <button
-                                                onClick={nextStep}
-                                                disabled={
-                                                    (currentStep === 1 && !calculationData.specificCategory) ||
-                                                    (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
-                                                    (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
-                                                }
-                                                style={{
-                                                    padding: '0.75rem 1rem',
-                                                    background: '#10b981',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '8px',
-                                                    cursor: 'pointer',
-                                                    fontSize: '1rem',
-                                                    fontWeight: '600',
-                                                    flexShrink: 0,
-                                                    whiteSpace: 'nowrap',
-                                                    marginLeft: 'auto',
-                                                    opacity: (
-                                                        (currentStep === 1 && !calculationData.specificCategory) ||
-                                                        (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
-                                                        (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
-                                                    ) ? 0.5 : 1
-                                                }}
-                                            >
-                                                {t('next')}
-                                            </button>
-                                        )}
-                                    </>
-                                )}
-                            </div>
                         </>
                     )}
-                </div>
             </div>
-            <SharedFooter />
+
+            {/* Navigation */}
+            <div className="fw-step-nav">
+                {/* Left side — Previous or empty */}
+                {currentStep > 1 ? (
+                    <button className="fw-step-nav-btn prev" onClick={prevStep}>
+                        ← {t('previous') || 'Previous'}
+                    </button>
+                ) : (
+                    <div />
+                )}
+
+                {/* Right side — Next (steps 1-3) or New Calculation (step 4) */}
+                {currentStep < 4 ? (
+                    <button
+                        className="fw-step-nav-btn next"
+                        onClick={nextStep}
+                        disabled={
+                            (currentStep === 1 && !calculationData.specificCategory) ||
+                            (currentStep === 2 && (!calculationData.population || !calculationData.age)) ||
+                            (currentStep === 3 && (!calculationData.selectedProduct || !calculationData.productPrice))
+                        }
+                    >
+                        {t('next') || 'Next'} →
+                    </button>
+                ) : (
+                    <button
+                        className="fw-step-nav-btn next"
+                        onClick={resetCalculation}
+                        style={{ width: 'auto', paddingLeft: '20px', paddingRight: '20px' }}
+                    >
+                        ↺ {t('newCalculation') || 'New Calculation'}
+                    </button>
+                )}
+            </div>
+
+            <div className="fw-mod-bnav">
+                <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>Home</span>
+                </button>
+                <button className="fw-mod-bnav-alerts" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                    <span>Alerts</span>
+                </button>
+            </div>
+
         </div>
+    </div>
     );
 };
 
