@@ -1,0 +1,196 @@
+{
+  "_meta": {
+    "type": "farmguide_app_config",
+    "version": "v6",
+    "ui_language": "id",
+    "data_language": "en",
+    "design": {
+      "primary_bg": "#0C3830",
+      "accent_color": "#F97316",
+      "font_body": "Nunito",
+      "font_mono": "DM Mono"
+    }
+  },
+  "modules": [
+    {
+      "module_id": "broiler",
+      "name": "Broiler",
+      "icon": "🐔",
+      "species": "broiler",
+      "category": "commercial",
+      "status": "active",
+      "production_type_options": ["commercial", "parent_stock"],
+      "default_production_type": "commercial",
+      "features": ["management_guide", "growth_chart", "flock_saya", "vaccine_schedule"],
+      "raising_period_days": 56,
+      "bw_data_granularity": "daily",
+      "sex_selector_required": false,
+      "breed_selector": {
+        "required": true,
+        "when": "flow_start",
+        "display_in_screens": false
+      }
+    },
+    {
+      "module_id": "layer",
+      "name": "Layer",
+      "icon": "🥚",
+      "species": "layer",
+      "category": "commercial",
+      "status": "active",
+      "production_type_options": ["commercial"],
+      "default_production_type": "commercial",
+      "features": ["management_guide", "growth_chart", "flock_saya", "vaccine_schedule"],
+      "raising_period_weeks": 19,
+      "production_period_weeks": 100,
+      "bw_data_granularity": "weekly",
+      "sex_selector_required": false,
+      "breed_selector": {
+        "required": true,
+        "when": "flow_start",
+        "display_in_screens": false
+      },
+      "flock_saya_extra_fields": ["ep_pct", "egg_weight_g"]
+    },
+    {
+      "module_id": "color_chicken",
+      "name": "Ayam Warna",
+      "icon": "🐓",
+      "species": "color_chicken",
+      "category": "commercial",
+      "status": "active",
+      "production_type_options": ["commercial"],
+      "default_production_type": "commercial",
+      "features": ["management_guide", "growth_chart", "flock_saya"],
+      "raising_period_days": 126,
+      "bw_data_granularity": "daily",
+      "sex_selector_required": true,
+      "sex_options": ["male", "female"],
+      "breed_selector": {
+        "required": true,
+        "when": "flow_start",
+        "display_in_screens": false
+      }
+    },
+    {
+      "module_id": "parent_stock",
+      "name": "Parent Stock (PS)",
+      "icon": "🐣",
+      "species": "broiler",
+      "category": "parent_stock",
+      "status": "active",
+      "production_type_options": ["parent_stock"],
+      "default_production_type": "parent_stock",
+      "features": ["management_guide", "growth_chart", "flock_saya"],
+      "raising_period_weeks": 25,
+      "production_period_weeks": 64,
+      "bw_data_granularity": "weekly",
+      "sex_selector_required": true,
+      "sex_options": ["female", "male"],
+      "breed_selector": {
+        "required": true,
+        "when": "flow_start",
+        "display_in_screens": false
+      }
+    }
+  ],
+  "screens": [
+    {
+      "screen_id": "home",
+      "name_id": "Beranda",
+      "path": "/",
+      "status": "active",
+      "description": "Module selector — Broiler, Layer, Ayam Warna, PS"
+    },
+    {
+      "screen_id": "breed_selector",
+      "name_id": "Pilih Jenis",
+      "path": "/:module/pilih-jenis",
+      "status": "active",
+      "description": "Flow-start breed selection. Breed is stored in context, never shown inside screens."
+    },
+    {
+      "screen_id": "sex_selector",
+      "name_id": "Pilih Jenis Kelamin",
+      "path": "/:module/pilih-kelamin",
+      "status": "active",
+      "description": "Shown only for Color Chicken and Parent Stock modules",
+      "modules": ["color_chicken", "parent_stock"]
+    },
+    {
+      "screen_id": "management_guide",
+      "name_id": "Panduan Mingguan",
+      "path": "/:module/panduan",
+      "status": "active",
+      "description": "Weekly management guide: env params, feed program, BW comparison, interactive checklist"
+    },
+    {
+      "screen_id": "growth_chart",
+      "name_id": "Grafik Pertumbuhan",
+      "path": "/:module/grafik",
+      "status": "active",
+      "description": "Actual vs standard BW dual-line chart. Status banner (On Track / Di Bawah Target). BW table with Aktual + Selisih."
+    },
+    {
+      "screen_id": "flock_saya",
+      "name_id": "Flock Saya",
+      "path": "/:module/flock-saya",
+      "status": "active",
+      "description": "User saves flock context (breed, age, week). 5 weeks history + AI projection. Depletion trend detection."
+    },
+    {
+      "screen_id": "flock_entry",
+      "name_id": "Catat Data Flock",
+      "path": "/:module/flock-saya/catat",
+      "status": "active",
+      "description": "Weekly/daily data entry: BW aktual, mortalitas, konsumsi pakan. Layer adds EP% and egg weight."
+    },
+    {
+      "screen_id": "flock_history",
+      "name_id": "Riwayat Performa",
+      "path": "/:module/flock-saya/riwayat",
+      "status": "active",
+      "description": "5-week history table. BW aktual vs standar, selisih, FCR aktual."
+    },
+    {
+      "screen_id": "ai_advisory",
+      "name_id": "AI Advisory",
+      "path": "/:module/flock-saya/ai",
+      "status": "active",
+      "description": "AI-powered performance projection and depletion trend detection based on 5-week history."
+    },
+    {
+      "screen_id": "vaccine_schedule",
+      "name_id": "Jadwal Vaksin",
+      "path": "/:module/vaksin",
+      "status": "on_development",
+      "description": "Universal vaccine schedule screen. Placeholder — Tambahkan Nanti.",
+      "placeholder_label": "On Development — Tambahkan Nanti"
+    },
+    {
+      "screen_id": "roadmap",
+      "name_id": "Roadmap",
+      "path": "/roadmap",
+      "status": "internal",
+      "description": "Internal roadmap screen for development tracking"
+    }
+  ],
+  "navigation_flow": {
+    "broiler": ["home", "breed_selector", "management_guide", "growth_chart", "flock_saya", "vaccine_schedule"],
+    "layer": ["home", "breed_selector", "management_guide", "growth_chart", "flock_saya", "vaccine_schedule"],
+    "color_chicken": ["home", "breed_selector", "sex_selector", "management_guide", "growth_chart", "flock_saya"],
+    "parent_stock": ["home", "breed_selector", "sex_selector", "management_guide", "growth_chart", "flock_saya"]
+  },
+  "product_matrix": {
+    "rows": ["broiler", "layer", "color_chicken"],
+    "cols": ["commercial", "parent_stock"],
+    "active": {
+      "broiler_commercial":      true,
+      "broiler_parent_stock":    true,
+      "layer_commercial":        true,
+      "layer_parent_stock":      true,
+      "color_chicken_commercial": true,
+      "color_chicken_parent_stock": false
+    }
+  }
+}

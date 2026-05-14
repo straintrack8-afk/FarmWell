@@ -4,6 +4,7 @@ import { useBroilerAssessment } from '../../contexts/BroilerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
 import { useTranslation } from '../../../../hooks/useTranslation';
 import { getLocalizedText, loadAssessment, saveAssessment, clearAssessment } from '../../utils/assessmentUtils';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function BroilerAssessmentDashboard() {
     const navigate = useNavigate();
@@ -150,6 +151,7 @@ function BroilerAssessmentDashboard() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Broiler Biosecurity" />
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Header */}

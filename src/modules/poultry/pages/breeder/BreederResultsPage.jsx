@@ -5,6 +5,7 @@ import { useLanguage } from '../../../../contexts/LanguageContext';
 import { useTranslation } from '../../../../hooks/useTranslation';
 import '../../../../portal.css';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function BreederResultsPage() {
     const navigate = useNavigate();
@@ -70,6 +71,7 @@ function BreederResultsPage() {
 
     return (
         <>
+            <PoultryTopNav title="Breeder Assessment" />
             <style>{`
                 @media print {
                     .portal-layout {

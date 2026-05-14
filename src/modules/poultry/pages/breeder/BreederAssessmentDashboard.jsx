@@ -4,6 +4,7 @@ import { useBreederAssessment } from '../../contexts/BreederAssessmentContext';
 import { useTranslation } from '../../../../hooks/useTranslation';
 import { useLanguage } from '../../../../contexts/LanguageContext';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function BreederAssessmentDashboard() {
     const navigate = useNavigate();
@@ -77,6 +78,7 @@ function BreederAssessmentDashboard() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Breeder Assessment" />
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Header */}

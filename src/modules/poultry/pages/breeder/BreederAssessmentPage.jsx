@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useBreederAssessment } from '../../contexts/BreederAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function BreederAssessmentPage() {
     const navigate = useNavigate();
@@ -77,6 +78,7 @@ function BreederAssessmentPage() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Breeder Assessment" />
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Header */}

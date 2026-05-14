@@ -12,6 +12,7 @@ import {
     calculateOverallScore
 } from '../../utils/assessmentUtils';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function BroilerAssessmentLanding() {
     const navigate = useNavigate();
@@ -130,6 +131,7 @@ function BroilerAssessmentLanding() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Broiler Biosecurity" />
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Header */}

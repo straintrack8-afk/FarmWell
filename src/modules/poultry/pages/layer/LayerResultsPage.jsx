@@ -6,6 +6,7 @@ import { useTranslation } from '../../../../hooks/useTranslation';
 import { loadAssessment, setCurrentAssessmentId } from '../../utils/layerAssessmentUtils';
 import '../../../../portal.css';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function LayerResultsPage() {
     const navigate = useNavigate();
@@ -110,6 +111,7 @@ function LayerResultsPage() {
 
     return (
         <>
+            <PoultryTopNav title="Layer Assessment" />
             <style>{`
                 @media print {
                     /* Hide non-printable elements */

@@ -1,9 +1,17 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
-import { getSeverityColor, getCategoryClass } from '../utils/diseaseFieldMapping';
+import PoultryTopNav from './common/PoultryTopNav';
+
+const DiagnosticToolsIcon = () => (
+    <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+        <path d="M11 8v6M8 11h6"/>
+    </svg>
+);
 
 // Translation object for AllDiseases page
 const translations = {
@@ -128,34 +136,30 @@ const translations = {
 
 function AllDiseases() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { diseases, setStep, viewDiseaseDetail } = useDiagnosis();
+    const { diseases, setStep } = useDiagnosis();
     const { language } = useLanguage();
     const normalizedLang = (language === 'vt' || language === 'vn') ? 'vi' : language;
     const t = translations[normalizedLang] || translations.en;
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState(t.all);
-    const [selectedSeverity, setSelectedSeverity] = useState(t.all);
-    
-    // Check if we're in standalone route or within diagnostic flow
-    const isStandaloneRoute = location.pathname === '/poultry/diseases';
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedSeverity, setSelectedSeverity] = useState('all');
     
     // Update filter values when language changes
     useEffect(() => {
-        setSelectedCategory(t.all);
-        setSelectedSeverity(t.all);
-    }, [t.all]);
+        setSelectedCategory('all');
+        setSelectedSeverity('all');
+    }, [language]);
 
     // Get unique categories and severities
     const categories = useMemo(() => {
         const cats = new Set(diseases.map(d => d.category || d.kategori).filter(Boolean));
-        return [t.all, ...Array.from(cats).sort()];
-    }, [diseases, t.all]);
+        return Array.from(cats).sort();
+    }, [diseases]);
 
     const severities = useMemo(() => {
         const sevs = new Set(diseases.map(d => d.severity || d.tingkat_keparahan).filter(Boolean));
-        return [t.all, ...Array.from(sevs).sort()];
-    }, [diseases, t.all]);
+        return Array.from(sevs).sort();
+    }, [diseases]);
 
     // Filter diseases
     const filteredDiseases = useMemo(() => {
@@ -166,300 +170,162 @@ function AllDiseases() {
             
             const matchesSearch = !searchQuery || 
                 diseaseName.toLowerCase().includes(searchQuery.toLowerCase());
-            const matchesCategory = selectedCategory === t.all || diseaseCategory === selectedCategory;
-            const matchesSeverity = selectedSeverity === t.all || diseaseSeverity === selectedSeverity;
+            const matchesCategory = selectedCategory === 'all' || diseaseCategory === selectedCategory;
+            const matchesSeverity = selectedSeverity === 'all' || diseaseSeverity === selectedSeverity;
             
             return matchesSearch && matchesCategory && matchesSeverity;
         });
-    }, [diseases, searchQuery, selectedCategory, selectedSeverity, t.all]);
+    }, [diseases, searchQuery, selectedCategory, selectedSeverity]);
 
-    const handleDiseaseClick = (disease) => {
-        console.log('Disease card clicked:', disease.id || disease.nama);
-        viewDiseaseDetail(disease);
-        if (isStandaloneRoute) {
-            // Navigate to detail page with disease ID as query param
-            navigate(`/poultry/diagnostic/detail?diseaseId=${disease.id}`);
-        } else {
-            // Within diagnostic flow, use step navigation AND navigate
-            setStep(STEPS.DETAIL);
-            navigate('/poultry/diagnostic/detail');
-        }
+    const getCategoryBadgeClass = (category) => {
+        const map = {
+            'Viral': 'fw-badge-viral',
+            'Bacterial': 'fw-badge-bacterial',
+            'Parasitic': 'fw-badge-parasitic',
+            'Fungal': 'fw-badge-fungal',
+            'Ectoparasitic': 'fw-badge-other',
+            'Nutritional': 'fw-badge-other',
+            'Metabolic': 'fw-badge-other',
+            'Cardiovascular': 'fw-badge-other',
+            'Reproductive': 'fw-badge-other',
+            'Toxicological': 'fw-badge-other',
+            'Environmental': 'fw-badge-other',
+            'Management': 'fw-badge-other',
+            'Digestive': 'fw-badge-other',
+        };
+        return map[category] || 'fw-badge-other';
+    };
+
+    const getSeverityBadgeClass = (severity) => {
+        if (!severity) return '';
+        const s = severity.toLowerCase();
+        if (s === 'high') return 'fw-badge-high';
+        if (s === 'medium') return 'fw-badge-medium';
+        if (s === 'low') return 'fw-badge-low';
+        return 'fw-badge-other';
     };
 
     return (
-        <div style={{ 
-            minHeight: '100vh', 
-            background: 'var(--bg-primary)',
-            paddingBottom: '2rem'
-        }}>
-            <div className="container" style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem 1rem' }}>
-                {/* Header */}
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <h1 style={{
-                        fontSize: '2rem',
-                        fontWeight: '800',
-                        marginBottom: '0.5rem',
-                        background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text'
-                    }}>
-                        {t.pageTitle}
-                    </h1>
-                    <p style={{ fontSize: '1rem', color: '#6B7280' }}>
-                        {t.browseText.replace('{count}', diseases.length)}
-                    </p>
-                </div>
+        <div className="fw-module-page">
+            <PoultryTopNav title={t.pageTitle.replace('All Poultry ', '').replace('Semua ', '').replace('Tất Cả ', '') || 'All Diseases'} />
 
-                {/* Filters */}
-                <div style={{
-                    background: 'white',
-                    borderRadius: '12px',
-                    padding: '1.5rem',
-                    marginBottom: '1.5rem',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-                }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
-                        {/* Search */}
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                {t.searchLabel}
-                            </label>
-                            <input
-                                type="text"
-                                placeholder={t.searchPlaceholder}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                style={{
-                                    width: '100%',
-                                    padding: '0.75rem',
-                                    border: '2px solid #E5E7EB',
-                                    borderRadius: '8px',
-                                    fontSize: '0.875rem',
-                                    outline: 'none',
-                                    transition: 'border-color 0.2s'
-                                }}
-                                onFocus={(e) => e.target.style.borderColor = '#10B981'}
-                                onBlur={(e) => e.target.style.borderColor = '#E5E7EB'}
-                            />
-                        </div>
+            <div className="fw-mod-card">
 
-                        {/* Category Filter */}
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                {t.categoryLabel}
-                            </label>
-                            <select
-                                value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                                style={{
-                                    width: '100%',
-                                    padding: '0.75rem',
-                                    border: '2px solid #E5E7EB',
-                                    borderRadius: '8px',
-                                    fontSize: '0.875rem',
-                                    outline: 'none',
-                                    cursor: 'pointer',
-                                    background: 'white'
-                                }}
-                            >
-                                {categories.map(cat => (
-                                    <option key={cat} value={cat}>{t[cat] || cat}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* Severity Filter */}
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                                {t.severityLabel}
-                            </label>
-                            <select
-                                value={selectedSeverity}
-                                onChange={(e) => setSelectedSeverity(e.target.value)}
-                                style={{
-                                    width: '100%',
-                                    padding: '0.75rem',
-                                    border: '2px solid #E5E7EB',
-                                    borderRadius: '8px',
-                                    fontSize: '0.875rem',
-                                    outline: 'none',
-                                    cursor: 'pointer',
-                                    background: 'white'
-                                }}
-                            >
-                                {severities.map(sev => (
-                                    <option key={sev} value={sev}>{t[sev] || sev}</option>
-                                ))}
-                            </select>
-                        </div>
+                {/* Filter bar */}
+                <div className="fw-disease-filter-bar">
+                    <div className="fw-disease-search">
+                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder={t.searchPlaceholder}
+                        />
                     </div>
-
-                    {/* Results count */}
-                    <div style={{ marginTop: '1rem', fontSize: '0.875rem', color: '#6B7280' }}>
+                    <div className="fw-disease-filter-row">
+                        <select
+                            className="fw-disease-select"
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                        >
+                            <option value="all">{t.categoryLabel}: {t.all}</option>
+                            {categories.map(cat => (
+                                <option key={cat} value={cat}>{t[cat] || cat}</option>
+                            ))}
+                        </select>
+                        <select
+                            className="fw-disease-select"
+                            value={selectedSeverity}
+                            onChange={(e) => setSelectedSeverity(e.target.value)}
+                        >
+                            <option value="all">{t.severityLabel}: {t.all}</option>
+                            {severities.map(sev => (
+                                <option key={sev} value={sev}>{t[sev] || sev}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="fw-disease-count">
                         {t.showing} <strong>{filteredDiseases.length}</strong> {t.of} {diseases.length} {t.diseases}
                     </div>
                 </div>
 
-                {/* Disease Grid */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                    gap: '1.5rem',
-                    padding: '1.5rem',
-                    border: '3px solid #10B981',
-                    borderRadius: '12px',
-                    background: '#F0FDF4'
-                }}>
-                    {filteredDiseases.map(disease => (
-                        <div
-                            key={disease.id}
-                            onClick={() => handleDiseaseClick(disease)}
-                            style={{
-                                background: 'white',
-                                borderRadius: '12px',
-                                padding: '1.25rem',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s',
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                                border: '2px solid #10B981'
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'translateY(-4px)';
-                                e.currentTarget.style.boxShadow = '0 8px 16px rgba(16, 185, 129, 0.15)';
-                                e.currentTarget.style.borderColor = '#10B981';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-                                e.currentTarget.style.borderColor = '#10B981';
-                            }}
-                        >
-                            {/* Disease Name */}
-                            <h3 style={{
-                                fontSize: '1.125rem',
-                                fontWeight: '700',
-                                marginBottom: '0.75rem',
-                                color: '#111827',
-                                lineHeight: '1.4'
-                            }}>
-                                {disease.name || disease.nama || disease.ten_benh}
-                            </h3>
-
-                            {/* Badges */}
-                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
-                                {/* Category */}
-                                {(disease.category || disease.kategori) && (
-                                    <span className={getCategoryClass(disease.category || disease.kategori)} style={{
-                                        padding: '0.25rem 0.75rem',
-                                        borderRadius: '6px',
-                                        fontSize: '0.75rem',
-                                        fontWeight: '600'
-                                    }}>
-                                        {t[disease.category || disease.kategori] || disease.category || disease.kategori}
-                                    </span>
-                                )}
-
-                                {/* Severity */}
-                                {(disease.severity || disease.tingkat_keparahan) && (
-                                    <span style={{
-                                        padding: '0.25rem 0.75rem',
-                                        borderRadius: '6px',
-                                        fontSize: '0.75rem',
-                                        fontWeight: '600',
-                                        background: getSeverityColor(disease.severity || disease.tingkat_keparahan) + '20',
-                                        color: getSeverityColor(disease.severity || disease.tingkat_keparahan)
-                                    }}>
-                                        {t[disease.severity || disease.tingkat_keparahan] || disease.severity || disease.tingkat_keparahan}
-                                    </span>
-                                )}
-
-                                {/* Zoonotic */}
-                                {(disease.zoonotic || disease.zoonosis) && (
-                                    <span style={{
-                                        padding: '0.25rem 0.75rem',
-                                        borderRadius: '6px',
-                                        fontSize: '0.75rem',
-                                        fontWeight: '600',
-                                        background: '#FEE2E2',
-                                        color: '#DC2626'
-                                    }}>
-                                        {t.zoonotic}
-                                    </span>
-                                )}
-                            </div>
-
-                            {/* Description preview */}
-                            {(disease.description || disease.deskripsi) && (
-                                <p style={{
-                                    fontSize: '0.875rem',
-                                    color: '#6B7280',
-                                    lineHeight: '1.5',
-                                    marginBottom: '0.75rem',
-                                    display: '-webkit-box',
-                                    WebkitLineClamp: 2,
-                                    WebkitBoxOrient: 'vertical',
-                                    overflow: 'hidden'
-                                }}>
-                                    {disease.description || disease.deskripsi}
-                                </p>
-                            )}
-
-                            {/* Age Groups */}
-                            {(disease.ageGroups || disease.kelompok_umur) && (disease.ageGroups || disease.kelompok_umur).length > 0 && (
-                                <div style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>
-                                    <strong>{t.affects}:</strong> {(disease.ageGroups || disease.kelompok_umur).join(', ')}
-                                </div>
-                            )}
-
-                            {/* Click to view */}
-                            <div style={{
-                                marginTop: '1rem',
-                                paddingTop: '1rem',
-                                borderTop: '1px solid #E5E7EB',
-                                fontSize: '0.875rem',
-                                color: '#10B981',
-                                fontWeight: '600',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.5rem'
-                            }}>
-                                {t.viewDetails} →
-                            </div>
+                {/* Disease list */}
+                <div className="fw-disease-list">
+                    {filteredDiseases.length === 0 ? (
+                        <div className="fw-disease-empty">
+                            <div className="fw-disease-empty-title">{t.noResults}</div>
+                            <div className="fw-disease-empty-sub">{t.tryAdjusting}</div>
                         </div>
-                    ))}
+                    ) : (
+                        filteredDiseases.map((disease) => {
+                            const name = disease.name?.[language] || disease.name?.en || disease.name || disease.nama || disease.ten_benh || '';
+                            const desc = disease.description?.[language] || disease.description?.en || disease.description || disease.deskripsi || '';
+                            const category = disease.category || disease.kategori;
+                            const severity = disease.severity || disease.tingkat_keparahan;
+                            const isZoonotic = disease.zoonotic || disease.is_zoonotic || disease.zoonosis;
+                            const affects = disease.age_groups?.[language] || disease.age_groups?.en || disease.ageGroups || disease.kelompok_umur || '';
+
+                            return (
+                                <div
+                                    key={disease.id || name}
+                                    className="fw-disease-card"
+                                    onClick={() => {
+                                        if (setStep) setStep(STEPS.DETAIL);
+                                        navigate('/poultry/diagnostic/detail', { state: { disease } });
+                                    }}
+                                >
+                                    <div className="fw-disease-card-name">{name}</div>
+                                    <div className="fw-disease-badges">
+                                        {category && (
+                                            <span className={`fw-disease-badge ${getCategoryBadgeClass(category)}`}>
+                                                {t[category] || category}
+                                            </span>
+                                        )}
+                                        {severity && (
+                                            <span className={`fw-disease-badge ${getSeverityBadgeClass(severity)}`}>
+                                                {t[severity] || severity}
+                                            </span>
+                                        )}
+                                        {isZoonotic && (
+                                            <span className="fw-disease-badge fw-badge-zoonotic">
+                                                <svg viewBox="0 0 24 24" style={{ width: 9, height: 9 }}>
+                                                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                                </svg>
+                                                {t.zoonotic?.replace('⚠️ ', '') || 'Zoonotic'}
+                                            </span>
+                                        )}
+                                    </div>
+                                    {desc && (
+                                        <div className="fw-disease-card-desc">
+                                            {desc.length > 80 ? desc.substring(0, 80) + '...' : desc}
+                                        </div>
+                                    )}
+                                    {affects && (
+                                        <div className="fw-disease-card-affects">
+                                            <strong>{t.affects}:</strong> {Array.isArray(affects) ? affects.join(', ') : affects}
+                                        </div>
+                                    )}
+                                    <div className="fw-disease-card-link">{t.viewDetails} →</div>
+                                </div>
+                            );
+                        })
+                    )}
                 </div>
 
-                {/* No results */}
-                {filteredDiseases.length === 0 && (
-                    <div style={{
-                        textAlign: 'center',
-                        padding: '3rem',
-                        background: 'white',
-                        borderRadius: '12px',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
-                    }}>
-                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
-                        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem', color: '#374151' }}>
-                            {t.noResults}
-                        </h3>
-                        <p style={{ color: '#6B7280' }}>
-                            {t.tryAdjusting}
-                        </p>
-                    </div>
-                )}
-
-                {/* Back Button */}
-                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+                {/* Bottom nav */}
+                <div className="fw-mod-bnav">
+                    <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span>Home</span>
+                    </button>
                     <button
-                        onClick={() => setStep(STEPS.SYMPTOMS)}
-                        className="btn btn-secondary"
-                        style={{
-                            padding: '0.75rem 2rem',
-                            fontSize: '1rem'
-                        }}
+                        className="fw-mod-bnav-alerts"
+                        onClick={() => navigate('/poultry/diagnostic')}
                     >
-                        {t.backButton}
+                        <DiagnosticToolsIcon />
+                        <span>Diagnostic</span>
                     </button>
                 </div>
             </div>

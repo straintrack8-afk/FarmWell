@@ -1,48 +1,84 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
+import PoultryTopNav from './common/PoultryTopNav';
 
-function ProgressBar({ step, t }) {
+const DiagnosticToolsIcon = () => (
+    <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+        <path d="M11 8v6M8 11h6"/>
+    </svg>
+);
+
+const AgeIconAll = () => (
+    <svg viewBox="0 0 24 24" style={{ width: 26, height: 26, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <path d="M12 2C9 2 7 5 7 8c0 2 .8 3.5 2 4.5"/>
+        <path d="M12 2c3 0 5 3 5 6 0 2-.8 3.5-2 4.5"/>
+        <ellipse cx="12" cy="16" rx="5" ry="4"/>
+        <path d="M9 20l-.5 2M15 20l.5 2"/>
+        <path d="M9 14h.01M15 14h.01"/>
+    </svg>
+);
+
+const AgeIconChick = () => (
+    <svg viewBox="0 0 24 24" style={{ width: 26, height: 26, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <ellipse cx="12" cy="15" rx="4" ry="3.5"/>
+        <path d="M10 19l-.5 2M14 19l.5 2"/>
+        <circle cx="12" cy="8" r="3"/>
+        <path d="M10 7l-2-2M14 7l2-2"/>
+        <path d="M10 10c0 2 1 3 2 4"/>
+    </svg>
+);
+
+const AgeIconGrower = () => (
+    <svg viewBox="0 0 24 24" style={{ width: 26, height: 26, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <path d="M12 3c-1 0-2 .5-2 1.5S11 6 12 6s2-.5 2-1.5S13 3 12 3z"/>
+        <path d="M8 6C6 7 5 9 5 11c0 1.5.5 2.8 1.5 3.8"/>
+        <path d="M16 6c2 1 3 3 3 5 0 1.5-.5 2.8-1.5 3.8"/>
+        <ellipse cx="12" cy="16" rx="5" ry="4"/>
+        <path d="M9 20l-.5 2M15 20l.5 2"/>
+    </svg>
+);
+
+const AgeIconAdult = () => (
+    <svg viewBox="0 0 24 24" style={{ width: 26, height: 26, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <path d="M12 2c-1 0-2 .5-2 1.5S11 5 12 5s2-.5 2-1.5S13 2 12 2z"/>
+        <path d="M14 3c1-1 3-1.5 4-1"/>
+        <path d="M8 5C6 5 3 7.5 3 10c0 2 1 3.5 3 4.5"/>
+        <path d="M16 5c2 0 5 2.5 5 5 0 2-1 3.5-3 4.5"/>
+        <ellipse cx="12" cy="16" rx="6" ry="5"/>
+        <path d="M9 21l-1 2M15 21l1 2"/>
+        <path d="M9 14h.01M15 14h.01"/>
+    </svg>
+);
+
+function DiagnosisSteps({ currentStep, t }) {
     const steps = [
-        { num: 1, label: t('poultry.diagnosis.steps.age') },
-        { num: 2, label: t('poultry.diagnosis.steps.bodyPartSymptoms') },
-        { num: 3, label: t('poultry.diagnosis.steps.results') }
+        { num: 1, label: t('poultry.diagnosis.steps.age') || 'Age' },
+        { num: 2, label: t('poultry.diagnosis.steps.bodyPartSymptoms') || 'Symptoms' },
+        { num: 3, label: t('poultry.diagnosis.steps.results') || 'Results' },
     ];
-
     return (
-        <div style={{
-            background: 'white',
-            padding: '1rem',
-            borderRadius: '12px',
-            marginBottom: '2rem',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                {steps.map(s => (
-                    <div key={s.num} style={{ flex: 1, textAlign: 'center', padding: '0 2px' }}>
-                        <div style={{
-                            width: 'clamp(28px, 8vw, 40px)',
-                            height: 'clamp(28px, 8vw, 40px)',
-                            borderRadius: '50%',
-                            background: step >= s.num ? '#10b981' : '#e5e7eb',
-                            color: 'white',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: '700',
-                            fontSize: 'clamp(0.75rem, 3vw, 1rem)',
-                            marginBottom: '0.35rem'
-                        }}>
-                            {s.num}
+        <div className="fw-mod-steps">
+            {steps.map((step, i) => (
+                <React.Fragment key={step.num}>
+                    <div className="fw-mod-step">
+                        <div className={`fw-mod-step-circle ${currentStep > step.num ? 'done' : currentStep === step.num ? 'active' : 'pending'}`}>
+                            {step.num}
                         </div>
-                        <div style={{ fontSize: 'clamp(0.6rem, 2.5vw, 0.875rem)', color: '#6b7280', lineHeight: 1.2 }}>
-                            {s.label}
+                        <div className={`fw-mod-step-label${currentStep === step.num ? ' active' : ''}`}>
+                            {step.label}
                         </div>
                     </div>
-                ))}
-            </div>
+                    {i < steps.length - 1 && (
+                        <div className={`fw-mod-step-line${currentStep > step.num ? ' done' : ''}`} />
+                    )}
+                </React.Fragment>
+            ))}
         </div>
     );
 }
@@ -50,6 +86,7 @@ function ProgressBar({ step, t }) {
 function AgeSelection() {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { language } = useLanguage();
     const {
         selectedAge,
         setAge,
@@ -57,196 +94,66 @@ function AgeSelection() {
         ageGroups
     } = useDiagnosis();
 
-    // Debug: Track when selectedAge changes
-    useEffect(() => {
-        console.log('⚡ selectedAge changed to:', selectedAge);
-    }, [selectedAge]);
-
-    const handleSelectAge = (ageId) => {
-        console.log('🔵 Age selected:', ageId);
-        console.log('🔵 Before setAge - selectedAge:', selectedAge);
-        setAge(ageId);
-        console.log('🔵 After setAge - selectedAge:', selectedAge); // Still old value due to async state update
+    const ageIcons = {
+        0: <AgeIconAll />,
+        1: <AgeIconChick />,
+        2: <AgeIconGrower />,
+        3: <AgeIconAdult />,
     };
-
-    const handleContinue = (e) => {
-        console.log('🟢 Continue clicked');
-        console.log('🟢 Current selectedAge:', selectedAge);
-        
-        e.preventDefault(); // Prevent any default form behavior
-        
-        if (!selectedAge) {
-            console.log('🔴 No age selected - returning');
-            return; // Don't proceed if no age is selected
-        }
-        
-        console.log('🟢 Navigating to symptoms page...');
-        // Set the step first, then navigate
-        setStep(STEPS.SYMPTOMS);
-        navigate('/poultry/diagnostic/symptoms');
-        console.log('🟢 Navigate called');
-    };
-
-    const themeGradient = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
 
     return (
-        <div style={{
-            minHeight: '100vh',
-            background: 'var(--bg-primary)',
-            paddingBottom: selectedAge ? '20px' : '2rem'
-        }}>
-            <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
-                <ProgressBar step={1} t={t} />
+        <div className="fw-module-page">
+            <PoultryTopNav title="Disease Diagnosis" />
 
-                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                    <h1 style={{
-                        fontSize: '2.5rem',
-                        fontWeight: '800',
-                        marginBottom: '1rem',
-                        background: 'var(--primary)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text'
-                    }}>
-                        {t('poultry.diagnosis.age.title')}
-                    </h1>
-                    <p style={{ fontSize: '1.125rem', color: '#6B7280' }}>
-                        {t('poultry.diagnosis.age.subtitle')}
-                    </p>
-                </div>
+            <div className="fw-mod-card">
+                <DiagnosisSteps currentStep={1} t={t} />
 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                    gap: '1.5rem',
-                    padding: '1rem'
-                }}>
-                    {ageGroups && ageGroups.map((age, index) => (
-                        <div
-                            key={age.id}
-                            style={{
-                                background: selectedAge === age.id ? themeGradient : 'white',
-                                borderRadius: '1.5rem',
-                                padding: '2.5rem 1.5rem',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                                boxShadow: selectedAge === age.id
-                                    ? '0 20px 40px rgba(16, 185, 129, 0.25)'
-                                    : '0 4px 20px rgba(16, 185, 129, 0.05)',
-                                border: selectedAge === age.id ? '2px solid transparent' : '2px solid rgba(16, 185, 129, 0.15)',
-                                textAlign: 'center',
-                                position: 'relative',
-                                overflow: 'hidden'
-                            }}
-                            onClick={() => handleSelectAge(age.id)}
-                            onMouseEnter={(e) => {
-                                if (selectedAge !== age.id) {
-                                    e.currentTarget.style.transform = 'translateY(-8px)';
-                                    e.currentTarget.style.boxShadow = '0 12px 30px rgba(16, 185, 129, 0.15)';
-                                    e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.5)';
-                                }
-                            }}
-                            onMouseLeave={(e) => {
-                                if (selectedAge !== age.id) {
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(16, 185, 129, 0.05)';
-                                    e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.15)';
-                                }
-                            }}
-                        >
-                            {/* Decorative circle for selected state */}
-                            {selectedAge === age.id && (
-                                <div style={{
-                                    position: 'absolute',
-                                    top: '-40px',
-                                    right: '-40px',
-                                    width: '120px',
-                                    height: '120px',
-                                    borderRadius: '50%',
-                                    background: 'rgba(255, 255, 255, 0.1)',
-                                    pointerEvents: 'none'
-                                }} />
-                            )}
-
-                            <div style={{ position: 'relative', zIndex: 1 }}>
-                                <div style={{
-                                    fontSize: '4rem',
-                                    marginBottom: '1rem',
-                                    filter: selectedAge === age.id ? 'brightness(1.2)' : 'none'
-                                }}>
-                                    {age.icon || ''}
-                                </div>
-                                <div style={{
-                                    fontSize: '1.25rem',
-                                    fontWeight: '700',
-                                    marginBottom: '0.5rem',
-                                    color: selectedAge === age.id ? 'white' : '#111827'
-                                }}>
-                                    {age.shortLabel || age.label}
-                                </div>
-                                <div style={{
-                                    fontSize: '0.875rem',
-                                    color: selectedAge === age.id ? 'rgba(255, 255, 255, 0.9)' : '#6B7280',
-                                    lineHeight: '1.5'
-                                }}>
-                                    {age.shortLabel ? age.label : ''}
-                                </div>
-                            </div>
-
-                            {/* Checkmark for selected */}
-                            {selectedAge === age.id && (
-                                <div style={{
-                                    position: 'absolute',
-                                    top: '1rem',
-                                    right: '1rem',
-                                    width: '32px',
-                                    height: '32px',
-                                    borderRadius: '50%',
-                                    background: 'rgba(255, 255, 255, 0.3)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '1.25rem'
-                                }}>
-
-                                </div>
-                            )}
+                <div className="fw-mod-content">
+                    <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '15px', fontWeight: '800', color: 'var(--fw-text)', marginBottom: '4px' }}>
+                            {t('poultry.diagnosis.selectAge') || 'Select Age Group'}
                         </div>
-                    ))}
-                </div>
-            </div>
-
-            {selectedAge && (
-                <div className="action-bar" style={{ animation: 'slideUp 0.3s ease-out' }}>
-                    <div className="action-bar-content">
-                        <div className="action-bar-info">
-                            {t('poultry.diagnosis.age.selected')}: <strong style={{ color: 'white' }}>
-                                {ageGroups.find(a => a.id === selectedAge)?.label}
-                            </strong>
+                        <div style={{ fontSize: '11px', color: 'var(--fw-sub)' }}>
+                            {t('poultry.diagnosis.selectAgeSubtitle') || 'Choose the age group of the affected birds'}
                         </div>
-                        <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={handleContinue}
-                        >
-                            {t('poultry.diagnosis.age.continue')}
-                        </button>
+                    </div>
+
+                    <div className="fw-animal-grid">
+                        {ageGroups.map((group, index) => {
+                            const isSelected = selectedAge === group.id || selectedAge === group.value;
+                            return (
+                                <div
+                                    key={group.id || group.value || index}
+                                    className={`fw-animal-card${isSelected ? ' selected' : ''}`}
+                                    onClick={() => {
+                                        setAge(group.id || group.value);
+                                        setStep(STEPS.SYMPTOMS);
+                                        navigate('/poultry/diagnostic/symptoms');
+                                    }}
+                                >
+                                    <div className="fw-animal-card-icon">
+                                        {ageIcons[index] || <AgeIconGrower />}
+                                    </div>
+                                    <div className="fw-animal-card-name">
+                                        {group.label?.[language] || group.label || group.name || group.id}
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
-            )}
 
-            <style>{`
-                @keyframes slideUp {
-                    from {
-                        transform: translateY(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateY(0);
-                        opacity: 1;
-                    }
-                }
-            `}</style>
+                <div className="fw-mod-bnav">
+                    <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span>Home</span>
+                    </button>
+                    <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry/diagnostic')}>
+                        <DiagnosticToolsIcon />
+                        <span>Diagnostic</span>
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }

@@ -1282,19 +1282,10 @@ const DosageCalculator = () => {
                                     {t('referenceData')}
                                 </h2>
                                 <button
+                                    className="fw-ref-back-btn"
                                     onClick={() => setShowReferenceView(false)}
-                                    style={{
-                                        padding: '0.5rem 1rem',
-                                        background: '#6b7280',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '6px',
-                                        cursor: 'pointer',
-                                        fontSize: '0.875rem',
-                                        fontWeight: '600'
-                                    }}
                                 >
-                                    {t('backToCalculator')}
+                                    {t('backToCalculator') || 'Back to Calculator'}
                                 </button>
                             </div>
 
@@ -1394,9 +1385,9 @@ const DosageCalculator = () => {
                                     borderRadius: '8px',
                                     marginTop: '2rem'
                                 }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                                        <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1f2937', margin: 0 }}>
-                                            {referenceSelection.specificCategory === 'broiler_breeder' 
+                                    <div className="fw-ref-header">
+                                        <div className="fw-ref-title">
+                                            {referenceSelection.specificCategory === 'broiler_breeder'
                                                 ? t('broilerBreederReferenceTitle')
                                                 : referenceSelection.specificCategory === 'broiler'
                                                     ? t('commercialTitle')
@@ -1404,47 +1395,15 @@ const DosageCalculator = () => {
                                                         ? t('layerTitle')
                                                         : referenceSelection.specificCategory === 'color_chicken'
                                                             ? t('colorTitle')
-                                                            : t('referenceDataTitle') + ' ' + animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label
+                                                            : (t('referenceDataTitle') || 'Reference Data') + ': ' + (animalCategories[referenceSelection.animalType][referenceSelection.productionCategory].find(c => c.id === referenceSelection.specificCategory)?.label || '')
                                             }
-                                        </h3>
-                                        <div style={{ display: 'flex', gap: '0.75rem' }}>
-                                            <button
-                                                onClick={exportReferenceToExcel}
-                                                className="no-print"
-                                                style={{
-                                                    padding: '0.5rem 1rem',
-                                                    background: '#10b981',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '6px',
-                                                    cursor: 'pointer',
-                                                    fontSize: '0.875rem',
-                                                    fontWeight: '600',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '0.5rem'
-                                                }}
-                                            >
-                                                {t('exportExcel')}
+                                        </div>
+                                        <div className="fw-ref-actions">
+                                            <button className="fw-ref-btn excel no-print" onClick={exportReferenceToExcel}>
+                                                {t('exportExcel') || 'Export Excel'}
                                             </button>
-                                            <button
-                                                onClick={printReferenceData}
-                                                className="no-print"
-                                                style={{
-                                                    padding: '0.5rem 1rem',
-                                                    background: '#3b82f6',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '6px',
-                                                    cursor: 'pointer',
-                                                    fontSize: '0.875rem',
-                                                    fontWeight: '600',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '0.5rem'
-                                                }}
-                                            >
-                                                {t('printPDF')}
+                                            <button className="fw-ref-btn pdf no-print" onClick={printReferenceData}>
+                                                {t('printPDF') || 'Print PDF'}
                                             </button>
                                         </div>
                                     </div>
@@ -1452,33 +1411,33 @@ const DosageCalculator = () => {
                                     {/* Broiler - Daily Data from Comprehensive Database */}
                                     {referenceSelection.specificCategory === 'broiler' && (
                                         <div>
-                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('dailyPerformanceData')}</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    {t('commercialSource')}
+                                            <div className="fw-ref-info-box">
+                                                <div className="fw-ref-info-title">{t('dailyPerformanceData') || 'Daily Performance Data'}</div>
+                                                <div className="fw-ref-info-desc">
+                                                    {t('commercialSource') || 'Ross 308 Performance Objectives'}
                                                     <br />
-                                                    {t('commercialBreed')}
-                                                </p>
+                                                    {t('commercialBreed') || 'Ross 308 Broiler'}
+                                                </div>
                                             </div>
-                                            <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('commercialTableHeaders.day')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('commercialTableHeaders.bodyWeight')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('commercialTableHeaders.feed')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('commercialTableHeaders.water')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>{t('commercialTableHeaders.fcr')}</th>
+                                                        <tr>
+                                                            <th>{t('commercialTableHeaders.day') || 'Day No.'}</th>
+                                                            <th>{t('commercialTableHeaders.bodyWeight') || 'Body Weight (g)'}</th>
+                                                            <th>{t('commercialTableHeaders.feed') || 'Feed (g/day)'}</th>
+                                                            <th>{t('commercialTableHeaders.water') || 'Water (ml/day)'}</th>
+                                                            <th>{t('commercialTableHeaders.fcr') || 'FCR'}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         {consumptionData.poultry_commercial.broiler.daily_data.map(dayData => (
                                                             <tr key={dayData.day} style={{ background: dayData.day % 7 === 0 ? '#f3f4f6' : 'white' }}>
-                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb', fontWeight: dayData.day % 7 === 0 ? '600' : 'normal' }}>{dayData.day}</td>
-                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.bw_g}</td>
-                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.feed_g}</td>
-                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.water_ml}</td>
-                                                                <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{dayData.fcr.toFixed(3)}</td>
+                                                                <td style={{ fontWeight: dayData.day % 7 === 0 ? 600 : 400 }}>{dayData.day}</td>
+                                                                <td>{dayData.bw_g}</td>
+                                                                <td>{dayData.feed_g}</td>
+                                                                <td>{dayData.water_ml}</td>
+                                                                <td>{dayData.fcr.toFixed(3)}</td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
@@ -1490,24 +1449,24 @@ const DosageCalculator = () => {
                                     {/* Layer - Complete Weekly Data from Comprehensive Database */}
                                     {referenceSelection.specificCategory === 'layer' && (
                                         <div>
-                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataLayer')}</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    {t('layerSource')}<br />
-                                                    {t('layerBreed')}
-                                                </p>
+                                            <div className="fw-ref-info-box">
+                                                <div className="fw-ref-info-title">{t('completeWeeklyDataLayer') || 'Complete Weekly Data — Layer'}</div>
+                                                <div className="fw-ref-info-desc">
+                                                    {t('layerSource') || 'Hy-Line W-36 Management Guide'}<br />
+                                                    {t('layerBreed') || 'Hy-Line W-36'}
+                                                </div>
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('rearingPhase')} (Weeks 1-18)</h5>
-                                            <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-phase-title">{t('rearingPhase') || 'Rearing Phase'}</div>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('layerTableHeaders.week')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Body Weight (g)</th>
+                                                        <tr>
+                                                            <th>{t('layerTableHeaders.week') || 'Week No.'}</th>
+                                                            <th>Feed (g/day)</th>
+                                                            <th>Water (ml/day)</th>
+                                                            <th>Body Weight (g)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1517,10 +1476,10 @@ const DosageCalculator = () => {
                                                             const avgBW = ((data.bw_g_min + data.bw_g_max) / 2).toFixed(0);
                                                             return (
                                                                 <tr key={data.week}>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgFeed}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgWater}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgBW}</td>
+                                                                    <td>{data.week}</td>
+                                                                    <td>{avgFeed}</td>
+                                                                    <td>{avgWater}</td>
+                                                                    <td>{avgBW}</td>
                                                                 </tr>
                                                             );
                                                         })}
@@ -1529,26 +1488,26 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Production Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('productionPhase')} (Weeks 18-100)</h5>
-                                            <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-phase-title">{t('productionPhase') || 'Production Phase'}</div>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('layerTableHeaders.week')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Production %</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Egg Weight (g)</th>
+                                                        <tr>
+                                                            <th>{t('layerTableHeaders.week') || 'Week No.'}</th>
+                                                            <th>Production %</th>
+                                                            <th>Feed (g/day)</th>
+                                                            <th>Water (ml/day)</th>
+                                                            <th>Egg Weight (g)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         {consumptionData.poultry_commercial.layer.production_weeks_18_100.map(data => (
                                                             <tr key={data.week} style={{ background: data.week % 10 === 0 ? '#f3f4f6' : 'white' }}>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontWeight: data.week % 10 === 0 ? '600' : 'normal' }}>{data.week}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.prod_pct.toFixed(1)}%</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_ml}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.egg_wt_g}</td>
+                                                                <td style={{ fontWeight: data.week % 10 === 0 ? 600 : 400 }}>{data.week}</td>
+                                                                <td>{data.prod_pct.toFixed(1)}%</td>
+                                                                <td>{data.feed_g}</td>
+                                                                <td>{data.water_ml}</td>
+                                                                <td>{data.egg_wt_g}</td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
@@ -1560,20 +1519,20 @@ const DosageCalculator = () => {
                                     {/* Color Chicken - Formula with Adjustment and Daily Details */}
                                     {referenceSelection.specificCategory === 'color_chicken' && (
                                         <div>
-                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('calculationMethod')}</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
+                                            <div className="fw-ref-info-box">
+                                                <div className="fw-ref-info-title">{t('calculationMethod') || 'Calculation Method'}</div>
+                                                <div className="fw-ref-info-desc">
                                                     Water (ml/bird/day) = 5.28 × Age (days) × 0.70<br />
                                                     Feed (g/bird/day) = Water ÷ 1.77
-                                                </p>
+                                                </div>
                                             </div>
-                                            <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('colorTableHeaders.day')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/bird/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Feed (g/bird/day)</th>
+                                                        <tr>
+                                                            <th>{t('colorTableHeaders.day') || 'Day No.'}</th>
+                                                            <th>Water (ml/bird/day)</th>
+                                                            <th>Feed (g/bird/day)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1582,9 +1541,9 @@ const DosageCalculator = () => {
                                                             const feed = water / 1.77;
                                                             return (
                                                                 <tr key={day} style={{ background: day % 7 === 0 ? '#f3f4f6' : 'white' }}>
-                                                                    <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb', fontWeight: day % 7 === 0 ? '600' : 'normal' }}>{day}</td>
-                                                                    <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{water.toFixed(1)}</td>
-                                                                    <td style={{ padding: '0.5rem 0.75rem', border: '1px solid #e5e7eb' }}>{feed.toFixed(1)}</td>
+                                                                    <td style={{ fontWeight: day % 7 === 0 ? 600 : 400 }}>{day}</td>
+                                                                    <td>{water.toFixed(1)}</td>
+                                                                    <td>{feed.toFixed(1)}</td>
                                                                 </tr>
                                                             );
                                                         })}
@@ -1597,28 +1556,28 @@ const DosageCalculator = () => {
                                     {/* Broiler Breeder - Complete Weekly Data (v2.2) */}
                                     {referenceSelection.specificCategory === 'broiler_breeder' && (
                                         <div>
-                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataBroilerBreeder')}</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    {t('broilerBreederSource')}<br />
-                                                    {t('broilerBreederBreed')}<br />
-                                                    {t('broilerBreederNote')}
-                                                </p>
+                                            <div className="fw-ref-info-box">
+                                                <div className="fw-ref-info-title">{t('completeWeeklyDataBroilerBreeder') || 'Complete Weekly Data — Broiler Breeder'}</div>
+                                                <div className="fw-ref-info-desc">
+                                                    {t('broilerBreederSource') || 'Ross 308 Parent Stock Management Guide'}<br />
+                                                    {t('broilerBreederBreed') || 'Ross 308 Parent Stock'}<br />
+                                                    {t('broilerBreederNote') || 'Female data. Male values differ.'}
+                                                </div>
                                             </div>
 
                                             {/* Complete Table - All Weeks */}
-                                            <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWeek')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderDays')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderBW')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderGain')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderFeed')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWater')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderEnergy')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>{t('tableHeaderNote')}</th>
+                                                        <tr>
+                                                            <th>{t('tableHeaderWeek') || 'Week No.'}</th>
+                                                            <th>{t('tableHeaderDays')}</th>
+                                                            <th>{t('tableHeaderBW')}</th>
+                                                            <th>{t('tableHeaderGain')}</th>
+                                                            <th>{t('tableHeaderFeed')}</th>
+                                                            <th>{t('tableHeaderWater')}</th>
+                                                            <th>{t('tableHeaderEnergy')}</th>
+                                                            <th>{t('tableHeaderNote')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1629,14 +1588,14 @@ const DosageCalculator = () => {
                                                                 <tr key={data.week} style={{
                                                                     background: hasNote ? '#fef3c7' : (isRearing ? '#f0fdf4' : 'white')
                                                                 }}>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontWeight: data.week % 10 === 0 ? '600' : 'normal' }}>{data.week}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.days}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.bw_g}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.gain_g}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{(data.feed_g * 1.8).toFixed(0)}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.energy_kcal}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontSize: '0.875rem', color: '#059669' }}>
+                                                                    <td style={{ fontWeight: data.week % 10 === 0 ? 600 : 400 }}>{data.week}</td>
+                                                                    <td>{data.days}</td>
+                                                                    <td>{data.bw_g}</td>
+                                                                    <td>{data.gain_g}</td>
+                                                                    <td>{data.feed_g}</td>
+                                                                    <td>{(data.feed_g * 1.8).toFixed(0)}</td>
+                                                                    <td>{data.energy_kcal}</td>
+                                                                    <td style={{ fontSize: '0.875rem', color: '#059669' }}>
                                                                         {data.note || (data.week === 64 ? t('endOfCycle') : '-')}
                                                                     </td>
                                                                 </tr>
@@ -1646,15 +1605,17 @@ const DosageCalculator = () => {
                                                 </table>
                                             </div>
 
-                                            <div style={{ marginTop: '1rem', padding: '1rem', background: '#fef3c7', borderRadius: '6px', fontSize: '0.875rem' }}>
-                                                <p style={{ fontWeight: '600', marginBottom: '0.5rem' }}>{t('keyMilestones')}</p>
-                                                <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-                                                    <li><strong>Week 0</strong>: {t('milestoneWeek0').split(': ')[1]}</li>
-                                                    <li><strong>Week 21</strong>: {t('milestoneWeek21').split(': ')[1]}</li>
-                                                    <li><strong>Week 25</strong>: {t('milestoneWeek25').split(': ')[1]}</li>
-                                                    <li><strong>Week 30</strong>: {t('milestoneWeek30').split(': ')[1]}</li>
-                                                    <li><strong>Week 64</strong>: {t('milestoneWeek64').split(': ')[1]}</li>
-                                                </ul>
+                                            <div className="fw-ref-info-box" style={{ background: '#fef3c7' }}>
+                                                <div className="fw-ref-info-title">{t('keyMilestones')}</div>
+                                                <div className="fw-ref-info-desc">
+                                                    <ul style={{ marginLeft: '1.5rem', marginTop: '4px' }}>
+                                                        <li><strong>Week 0</strong>: {t('milestoneWeek0').split(': ')[1]}</li>
+                                                        <li><strong>Week 21</strong>: {t('milestoneWeek21').split(': ')[1]}</li>
+                                                        <li><strong>Week 25</strong>: {t('milestoneWeek25').split(': ')[1]}</li>
+                                                        <li><strong>Week 30</strong>: {t('milestoneWeek30').split(': ')[1]}</li>
+                                                        <li><strong>Week 64</strong>: {t('milestoneWeek64').split(': ')[1]}</li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     )}
@@ -1662,33 +1623,33 @@ const DosageCalculator = () => {
                                     {/* Color Breeder - Complete Weekly Data */}
                                     {referenceSelection.specificCategory === 'color_breeder' && (
                                         <div>
-                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('completeWeeklyDataColorBreeder')}</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
-                                                    {t('broilerBreederSource')}<br />
-                                                    {t('broilerBreederBreed')}
-                                                </p>
+                                            <div className="fw-ref-info-box">
+                                                <div className="fw-ref-info-title">{t('completeWeeklyDataColorBreeder') || 'Complete Weekly Data — Color Breeder'}</div>
+                                                <div className="fw-ref-info-desc">
+                                                    {t('broilerBreederSource') || 'Ross 308 Parent Stock Management Guide'}<br />
+                                                    {t('broilerBreederBreed') || 'Ross 308 Parent Stock'}
+                                                </div>
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('pulletRearingPhase')} (Weeks 1-24)</h5>
-                                            <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-phase-title">{t('pulletRearingPhase') || 'Pullet Rearing Phase'}</div>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWeek')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderFeed')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWater')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>{t('tableHeaderBW')}</th>
+                                                        <tr>
+                                                            <th>{t('tableHeaderWeek') || 'Week No.'}</th>
+                                                            <th>{t('tableHeaderFeed')}</th>
+                                                            <th>{t('tableHeaderWater')}</th>
+                                                            <th>{t('tableHeaderBW')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         {consumptionData.poultry_breeding.color_breeder.female_pullet_rearing_weeks_0_24.map(data => (
                                                             <tr key={data.week}>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{(data.feed_g * 2.0).toFixed(0)}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.bw_g}</td>
+                                                                <td>{data.week}</td>
+                                                                <td>{data.feed_g}</td>
+                                                                <td>{(data.feed_g * 2.0).toFixed(0)}</td>
+                                                                <td>{data.bw_g}</td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
@@ -1696,26 +1657,26 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Production Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('productionPhase')} - 20°C (Weeks 24-70)</h5>
-                                            <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-phase-title">{t('productionPhase') || 'Production Phase'} - 20°C</div>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWeek')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Production %</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderFeed')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('tableHeaderWater')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>{t('tableHeaderNote')}</th>
+                                                        <tr>
+                                                            <th>{t('tableHeaderWeek') || 'Week No.'}</th>
+                                                            <th>Production %</th>
+                                                            <th>{t('tableHeaderFeed')}</th>
+                                                            <th>{t('tableHeaderWater')}</th>
+                                                            <th>{t('tableHeaderNote')}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         {consumptionData.poultry_breeding.color_breeder.female_production_20C_weeks_24_70.map(data => (
                                                             <tr key={data.week} style={{ background: data.note ? '#fef3c7' : 'white' }}>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.prod_pct}%</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_g}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{(data.feed_g * 2.0).toFixed(0)}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb', fontSize: '0.875rem', color: '#059669' }}>
+                                                                <td>{data.week}</td>
+                                                                <td>{data.prod_pct}%</td>
+                                                                <td>{data.feed_g}</td>
+                                                                <td>{(data.feed_g * 2.0).toFixed(0)}</td>
+                                                                <td style={{ fontSize: '0.875rem', color: '#059669' }}>
                                                                     {data.note || '-'}
                                                                 </td>
                                                             </tr>
@@ -1729,24 +1690,24 @@ const DosageCalculator = () => {
                                     {/* Layer Breeder - Using Layer Data + Fixed Production */}
                                     {referenceSelection.specificCategory === 'layer_breeder' && (
                                         <div>
-                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>Layer Breeder Data</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
+                                            <div className="fw-ref-info-box">
+                                                <div className="fw-ref-info-title">Layer Breeder Data</div>
+                                                <div className="fw-ref-info-desc">
                                                     {t('layerBreederRearingNote')}<br />
                                                     {t('layerBreederProductionNote')}
-                                                </p>
+                                                </div>
                                             </div>
 
                                             {/* Rearing Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem', color: '#065f46' }}>{t('rearingPhase')} (Weeks 1-18)</h5>
-                                            <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-phase-title">{t('rearingPhase') || 'Rearing Phase'}</div>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>{t('layerTableHeaders.week')}</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Feed (g/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (ml/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Body Weight (g)</th>
+                                                        <tr>
+                                                            <th>{t('layerTableHeaders.week') || 'Week No.'}</th>
+                                                            <th>Feed (g/day)</th>
+                                                            <th>Water (ml/day)</th>
+                                                            <th>Body Weight (g)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -1756,10 +1717,10 @@ const DosageCalculator = () => {
                                                             const avgBW = ((data.bw_g_min + data.bw_g_max) / 2).toFixed(0);
                                                             return (
                                                                 <tr key={data.week}>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.week}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgFeed}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgWater}</td>
-                                                                    <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{avgBW}</td>
+                                                                    <td>{data.week}</td>
+                                                                    <td>{avgFeed}</td>
+                                                                    <td>{avgWater}</td>
+                                                                    <td>{avgBW}</td>
                                                                 </tr>
                                                             );
                                                         })}
@@ -1768,14 +1729,14 @@ const DosageCalculator = () => {
                                             </div>
 
                                             {/* Production Phase */}
-                                            <h5 style={{ fontWeight: '600', marginTop: '1.5rem', marginBottom: '0.75rem' }}>{t('productionPhase')} (Week 20+)</h5>
-                                            <div style={{ background: 'white', padding: '1.5rem', borderRadius: '6px' }}>
-                                                <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>{t('fixedBreedingValues')}</p>
-                                                <p>Feed: 160 g/bird/day</p>
-                                                <p>Water: 280 ml/bird/day</p>
-                                                <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '0.5rem', fontStyle: 'italic' }}>
-                                                    {t('feedRestrictionNote')}
-                                                </p>
+                                            <div className="fw-ref-phase-title">{t('productionPhase') || 'Production Phase'}</div>
+                                            <div className="fw-ref-info-box" style={{ background: 'white' }}>
+                                                <div className="fw-ref-info-title">{t('fixedBreedingValues')}</div>
+                                                <div className="fw-ref-info-desc">
+                                                    Feed: 160 g/bird/day<br />
+                                                    Water: 280 ml/bird/day<br />
+                                                    <em style={{ color: 'var(--fw-muted)' }}>{t('feedRestrictionNote')}</em>
+                                                </div>
                                             </div>
                                         </div>
                                     )}
@@ -1783,27 +1744,27 @@ const DosageCalculator = () => {
                                     {/* Swine - Weight Based */}
                                     {['nursery', 'grower', 'finisher'].includes(referenceSelection.specificCategory) && (
                                         <div>
-                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('calcMethodWeightBased')}</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
+                                            <div className="fw-ref-info-box">
+                                                <div className="fw-ref-info-title">{t('calcMethodWeightBased')}</div>
+                                                <div className="fw-ref-info-desc">
                                                     {t('dataSourceNRC11th')}
-                                                </p>
+                                                </div>
                                             </div>
-                                            <div style={{ overflowX: 'auto' }}>
-                                                <table style={{ width: '100%', background: 'white', borderCollapse: 'collapse', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                                            <div className="fw-ref-table-wrap">
+                                                <table className="fw-ref-table">
                                                     <thead>
-                                                        <tr style={{ background: '#10b981', color: 'white' }}>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Weight (kg)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669', borderRight: '1px solid rgba(255,255,255,0.2)' }}>Water (L/pig/day)</th>
-                                                            <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '2px solid #059669' }}>Feed (kg/pig/day)</th>
+                                                        <tr>
+                                                            <th>Weight (kg)</th>
+                                                            <th>Water (L/pig/day)</th>
+                                                            <th>Feed (kg/pig/day)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         {consumptionData.swine_commercial[referenceSelection.specificCategory].data_by_weight.map(data => (
                                                             <tr key={data.weight_kg}>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.weight_kg}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.water_L}</td>
-                                                                <td style={{ padding: '0.75rem', border: '1px solid #e5e7eb' }}>{data.feed_kg}</td>
+                                                                <td>{data.weight_kg}</td>
+                                                                <td>{data.water_L}</td>
+                                                                <td>{data.feed_kg}</td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
@@ -1815,13 +1776,13 @@ const DosageCalculator = () => {
                                     {/* Swine Breeding - Fixed Values */}
                                     {['sow_gestation', 'sow_lactation', 'boar'].includes(referenceSelection.specificCategory) && (
                                         <div>
-                                            <div style={{ background: '#d1fae5', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
-                                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#065f46' }}>{t('calcMethodFixed')}</h4>
-                                                <p style={{ fontSize: '0.875rem', color: '#064e3b' }}>
+                                            <div className="fw-ref-info-box">
+                                                <div className="fw-ref-info-title">{t('calcMethodFixed')}</div>
+                                                <div className="fw-ref-info-desc">
                                                     {t('dataSourceNRC')}
-                                                </p>
+                                                </div>
                                             </div>
-                                            <div style={{ background: 'white', padding: '1.5rem', borderRadius: '6px' }}>
+                                            <div className="fw-ref-info-box" style={{ background: 'white' }}>
                                                 {referenceSelection.specificCategory === 'sow_gestation' && (
                                                     <div>
                                                         <p style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>{t('sow_gestation')}</p>

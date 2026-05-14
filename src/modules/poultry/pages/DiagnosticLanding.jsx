@@ -2,208 +2,151 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
 
+const AllDiseasesIcon = () => (
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="2"/>
+        <path d="M9 12h6M9 16h4"/>
+    </svg>
+);
+
+const DiagnosisIcon = () => (
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+        <path d="M11 8v6M8 11h6"/>
+    </svg>
+);
+
+const CompareIcon = () => (
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <path d="M18 3l3 3-3 3"/>
+        <path d="M21 6H9"/>
+        <path d="M6 21l-3-3 3-3"/>
+        <path d="M3 18h12"/>
+        <path d="M12 3v18"/>
+    </svg>
+);
+
 const translations = {
-  en: {
-    pageTitle: 'Disease Diagnostic Tools',
-    pageSubtitle: 'Comprehensive tools for poultry disease diagnosis, comparison, and information management',
-    allDiseases: {
-      title: 'All Diseases & Conditions',
-      description: 'Browse complete disease database with detailed information on 129 poultry diseases'
+    en: {
+        pageTitle: 'Diagnostic Tools',
+        selectTool: 'Select Tool',
+        allDiseases: { name: 'All Diseases & Conditions', desc: 'Browse 129 poultry diseases with detailed info' },
+        diagnosis: { name: 'Diagnosis Tool', desc: 'Select symptoms to diagnose with confidence scoring' },
+        compare: { name: 'Compare Diseases', desc: 'Side-by-side disease comparison tool' },
+        home: 'Home',
+        poultrywell: 'PoultryWell',
     },
-    diagnosis: {
-      title: 'Diagnosis Tools',
-      description: 'Select symptoms to diagnose conditions with confidence scoring and treatment recommendations'
+    id: {
+        pageTitle: 'Alat Diagnostik',
+        selectTool: 'Pilih Alat',
+        allDiseases: { name: 'Semua Penyakit & Kondisi', desc: 'Jelajahi 129 penyakit unggas dengan info lengkap' },
+        diagnosis: { name: 'Alat Diagnosis', desc: 'Pilih gejala untuk mendiagnosis dengan skor kepercayaan' },
+        compare: { name: 'Bandingkan Penyakit', desc: 'Perbandingan karakteristik penyakit secara berdampingan' },
+        home: 'Beranda',
+        poultrywell: 'PoultryWell',
     },
-    compare: {
-      title: 'Compare Diseases',
-      description: 'Side-by-side comparison of disease characteristics, symptoms, and treatment options'
+    vi: {
+        pageTitle: 'Công Cụ Chẩn Đoán',
+        selectTool: 'Chọn Công Cụ',
+        allDiseases: { name: 'Tất Cả Bệnh & Tình Trạng', desc: 'Duyệt 129 bệnh gia cầm với thông tin chi tiết' },
+        diagnosis: { name: 'Công Cụ Chẩn Đoán', desc: 'Chọn triệu chứng để chẩn đoán với điểm tin cậy' },
+        compare: { name: 'So Sánh Bệnh', desc: 'Công cụ so sánh đặc điểm bệnh song song' },
+        home: 'Trang chủ',
+        poultrywell: 'PoultryWell',
     },
-    openTool: 'Open Tool'
-  },
-  id: {
-    pageTitle: 'Alat Diagnostik Penyakit',
-    pageSubtitle: 'Alat komprehensif untuk diagnosis penyakit unggas, perbandingan, dan manajemen informasi',
-    allDiseases: {
-      title: 'Semua Penyakit & Kondisi',
-      description: 'Jelajahi database penyakit lengkap dengan informasi detail tentang 129 penyakit unggas'
-    },
-    diagnosis: {
-      title: 'Alat Diagnosis',
-      description: 'Pilih gejala untuk mendiagnosis kondisi dengan skor kepercayaan dan rekomendasi pengobatan'
-    },
-    compare: {
-      title: 'Bandingkan Penyakit',
-      description: 'Perbandingan side-by-side karakteristik penyakit, gejala, dan pilihan pengobatan'
-    },
-    openTool: 'Buka Alat'
-  },
-  vi: {
-    pageTitle: 'Công Cụ Chẩn Đoán Bệnh',
-    pageSubtitle: 'Công cụ toàn diện cho chẩn đoán bệnh gia cầm, so sánh và quản lý thông tin',
-    allDiseases: {
-      title: 'Tất Cả Bệnh & Tình Trạng',
-      description: 'Duyệt cơ sở dữ liệu bệnh đầy đủ với thông tin chi tiết về 129 bệnh gia cầm'
-    },
-    diagnosis: {
-      title: 'Công Cụ Chẩn Đoán',
-      description: 'Chọn triệu chứng để chẩn đoán tình trạng với điểm tin cậy và khuyến nghị điều trị'
-    },
-    compare: {
-      title: 'So Sánh Bệnh',
-      description: 'So sánh đặc điểm bệnh, triệu chứng và phương án điều trị song song'
-    },
-    openTool: 'Mở Công Cụ'
-  }
 };
 
 const DiagnosticLanding = () => {
-  const navigate = useNavigate();
-  const { language } = useLanguage();
-  const t = translations[language] || translations.en;
+    const navigate = useNavigate();
+    const { language } = useLanguage();
+    const t = translations[language] || translations.en;
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  
-  const tools = [
-    {
-      id: 'all-diseases',
-      icon: '📋',
-      title: t.allDiseases.title,
-      description: t.allDiseases.description,
-      route: '/poultry/diseases',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
-    },
-    {
-      id: 'diagnosis',
-      icon: '🔍',
-      title: t.diagnosis.title,
-      description: t.diagnosis.description,
-      route: '/poultry/diagnostic/age',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
-    },
-    {
-      id: 'compare',
-      icon: '⚖️',
-      title: t.compare.title,
-      description: t.compare.description,
-      route: '/poultry/compare',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
-    }
-  ];
-  
-  return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #F0FDF4, #FFFFFF, #DBEAFE)', padding: '3rem 0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-        
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <div style={{ marginBottom: '1rem' }}>
-            <span style={{ fontSize: '4rem' }}>🐔</span>
-          </div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.75rem' }}>
-            {t.pageTitle}
-          </h1>
-          <p style={{ fontSize: '1.125rem', color: '#6B7280', maxWidth: '700px', margin: '0 auto', lineHeight: '1.6' }}>
-            {t.pageSubtitle}
-          </p>
-        </div>
-        
-        {/* Tool Cards Grid */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-          gap: '1.5rem',
-          padding: '0 0.5rem'
-        }}>
-          {tools.map(tool => (
-            <ToolCard
-              key={tool.id}
-              {...tool}
-              onClick={() => navigate(tool.route)}
-              buttonText={t.openTool}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+    useEffect(() => { window.scrollTo(0, 0); }, []);
 
-const ToolCard = ({ icon, title, description, gradient, onClick, buttonText }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
-  
-  return (
-    <div 
-      style={{
-        background: 'white',
-        borderRadius: '16px',
-        boxShadow: isHovered ? '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)' : '0 10px 15px -3px rgba(0,0,0,0.1)',
-        overflow: 'hidden',
-        transition: 'all 0.3s',
-        transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
-        cursor: 'pointer',
-        border: '2px solid #E5E7EB'
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
-    >
-      {/* Icon Header with Gradient */}
-      <div style={{
-        background: gradient,
-        padding: '2rem',
-        textAlign: 'center'
-      }}>
-        <div style={{ fontSize: '4rem', marginBottom: '0.5rem' }}>{icon}</div>
-      </div>
-      
-      {/* Content */}
-      <div style={{ padding: '1.5rem' }}>
-        <h3 style={{ 
-          fontSize: '1.5rem', 
-          fontWeight: 'bold', 
-          color: '#111827', 
-          marginBottom: '0.75rem' 
-        }}>
-          {title}
-        </h3>
-        <p style={{ 
-          color: '#6B7280', 
-          fontSize: '0.875rem', 
-          marginBottom: '2rem', 
-          lineHeight: '1.6' 
-        }}>
-          {description}
-        </p>
-        
-        {/* Button */}
-        <button
-          style={{
-            width: '100%',
-            background: '#10B981',
-            color: 'white',
-            padding: '0.75rem 1.5rem',
-            borderRadius: '8px',
-            border: 'none',
-            fontWeight: '600',
-            fontSize: '1rem',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.5rem'
-          }}
-          onMouseEnter={e => e.target.style.background = '#059669'}
-          onMouseLeave={e => e.target.style.background = '#10B981'}
-        >
-          <span>{buttonText}</span>
-          <span>→</span>
-        </button>
-      </div>
-    </div>
-  );
+    const tools = [
+        {
+            id: 'all-diseases',
+            icon: <AllDiseasesIcon />,
+            name: t.allDiseases.name,
+            desc: t.allDiseases.desc,
+            route: '/poultry/diseases',
+        },
+        {
+            id: 'diagnosis',
+            icon: <DiagnosisIcon />,
+            name: t.diagnosis.name,
+            desc: t.diagnosis.desc,
+            route: '/poultry/diagnostic/age',
+        },
+        {
+            id: 'compare',
+            icon: <CompareIcon />,
+            name: t.compare.name,
+            desc: t.compare.desc,
+            route: '/poultry/compare',
+        },
+    ];
+
+    return (
+        <div className="fw-module-page">
+
+            {/* ── COMPACT HEADER ── */}
+            <div className="fw-mod-top" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                <button
+                    onClick={() => navigate('/poultry')}
+                    title="PoultryWell"
+                    style={{ background: 'rgba(255,255,255,0.15)', border: 'none', borderRadius: '10px', padding: '4px', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexShrink: 0, transition: 'opacity 0.2s' }}
+                    onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
+                    onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                >
+                    <img src="/images/PoultryWell_Logo.png" alt="PoultryWell" style={{ width: 32, height: 32, objectFit: 'contain' }} />
+                </button>
+                <div style={{ fontSize: '13px', fontWeight: '800', color: 'white', letterSpacing: '0.5px' }}>
+                    {t.pageTitle}
+                </div>
+                <div style={{ width: '80px' }} />
+            </div>
+
+            {/* ── WHITE CARD ── */}
+            <div className="fw-mod-card">
+                <div className="fw-mod-content">
+                    <div className="fw-welcome-section-label">{t.selectTool}</div>
+
+                    {/* Tool list — horizontal cards */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        {tools.map(tool => (
+                            <div
+                                key={tool.id}
+                                onClick={() => navigate(tool.route)}
+                                style={{ background: '#f7fbf8', borderRadius: '14px', border: '0.5px solid #dff0e6', padding: '20px 16px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', transition: 'box-shadow 0.15s, border-color 0.15s' }}
+                                onMouseEnter={e => { e.currentTarget.style.borderColor = '#2EAA5E'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(46,170,94,0.12)'; }}
+                                onMouseLeave={e => { e.currentTarget.style.borderColor = '#dff0e6'; e.currentTarget.style.boxShadow = 'none'; }}
+                            >
+                                <div style={{ width: '48px', height: '48px', background: '#ddf2e8', borderRadius: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                    {tool.icon}
+                                </div>
+                                <div style={{ flex: 1, minWidth: 0 }}>
+                                    <div style={{ fontSize: '13px', fontWeight: '800', color: '#1a2e1a', marginBottom: '2px' }}>{tool.name}</div>
+                                    <div style={{ fontSize: '11px', color: '#6a8a6a', lineHeight: 1.4 }}>{tool.desc}</div>
+                                </div>
+                                <div style={{ fontSize: '20px', color: '#2EAA5E', fontWeight: '700', flexShrink: 0, lineHeight: 1 }}>›</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* ── BOTTOM NAV ── */}
+                <div className="fw-mod-bnav">
+                    <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span>{t.home}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default DiagnosticLanding;

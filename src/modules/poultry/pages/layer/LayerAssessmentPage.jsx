@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLayerAssessment } from '../../contexts/LayerAssessmentContext';
 import { useLanguage } from '../../../../contexts/LanguageContext';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function LayerAssessmentPage() {
     const navigate = useNavigate();
@@ -77,6 +78,7 @@ function LayerAssessmentPage() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Layer Assessment" />
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Header */}

@@ -5,36 +5,52 @@ import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
 import { getFieldValue, getUILabels, getSeverityColor, getCategoryClass } from '../utils/diseaseFieldMapping';
 import { useTranslation } from 'react-i18next';
+import PoultryTopNav from './common/PoultryTopNav';
 
 // Print-specific styles
 const printStyles = `
 @media print {
-  /* Hide navigation and buttons */
-  .fw-page > *:not(.portal-layout),
+  /* Hide navigation, header, bottom nav, buttons */
+  .fw-mod-top,
+  .fw-mod-steps,
+  .fw-mod-bnav,
+  .fw-disease-filter-bar,
+  [role="alert"],
   .action-buttons,
-  button,
-  .btn {
+  button {
     display: none !important;
   }
-  
+
+  /* Show all content */
+  .fw-module-page,
+  .fw-mod-card,
+  .fw-mod-content,
+  .container,
+  .card {
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
   /* Reset page margins */
   @page {
     margin: 1cm;
     size: A4;
   }
-  
+
   body {
     margin: 0;
     padding: 0;
   }
-  
+
   /* Container adjustments */
   .container {
     max-width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
   }
-  
+
   .card {
     box-shadow: none !important;
     border: none !important;
@@ -42,51 +58,51 @@ const printStyles = `
     margin: 0 !important;
     page-break-inside: avoid;
   }
-  
+
   /* Optimize spacing */
   h1 {
     font-size: 1.5rem !important;
     margin-bottom: 0.5rem !important;
     page-break-after: avoid;
   }
-  
+
   h3 {
     font-size: 1.1rem !important;
     margin-top: 1rem !important;
     margin-bottom: 0.5rem !important;
     page-break-after: avoid;
   }
-  
+
   h4 {
     font-size: 0.9rem !important;
     margin-bottom: 0.5rem !important;
     page-break-after: avoid;
   }
-  
+
   /* Prevent orphans and widows */
   p, li {
     orphans: 3;
     widows: 3;
   }
-  
+
   /* Section breaks */
   hr {
     margin: 0.75rem 0 !important;
     page-break-after: avoid;
   }
-  
+
   /* Keep sections together */
   .zoonotic-warning,
   .confidence-box {
     page-break-inside: avoid;
     margin-bottom: 0.75rem !important;
   }
-  
+
   /* Symptom grids */
   div[style*="grid"] {
     display: block !important;
   }
-  
+
   div[style*="grid"] > div {
     display: inline-block;
     width: 48%;
@@ -95,34 +111,34 @@ const printStyles = `
     page-break-inside: avoid;
     vertical-align: top;
   }
-  
+
   /* Lists */
   ul {
     margin: 0.5rem 0 !important;
     padding-left: 1.2rem !important;
   }
-  
+
   li {
     margin-bottom: 0.25rem !important;
     line-height: 1.4 !important;
   }
-  
+
   /* Badges and tags */
   .badge, span[style*="padding"] {
     padding: 0.15rem 0.4rem !important;
     font-size: 0.7rem !important;
   }
-  
+
   /* Remove unnecessary spacing */
   div[style*="paddingBottom"] {
     padding-bottom: 0 !important;
   }
-  
+
   /* Compact content sections */
   div[style*="marginBottom: '2rem'"] {
     margin-bottom: 1rem !important;
   }
-  
+
   div[style*="marginBottom: '1.5rem'"] {
     margin-bottom: 0.75rem !important;
   }
@@ -184,6 +200,56 @@ function DiseaseDetail() {
         navigate('/poultry/diagnostic/symptoms');
     };
 
+    const handlePrint = () => {
+        const contentEl = document.querySelector('.container');
+        if (!contentEl) {
+            window.print();
+            return;
+        }
+
+        const printWindow = window.open('', '_blank', 'width=800,height=600');
+        printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>${disease.name || 'Disease Detail'} - FarmWell</title>
+                <meta charset="UTF-8">
+                <style>
+                    body {
+                        font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+                        padding: 2cm;
+                        color: #1a2e1a;
+                        font-size: 12pt;
+                        line-height: 1.6;
+                    }
+                    h1 { font-size: 20pt; margin-bottom: 8px; }
+                    h3 { font-size: 13pt; margin-top: 20px; margin-bottom: 8px; color: #1E7A42; border-bottom: 1px solid #C8E8D4; padding-bottom: 4px; }
+                    h4 { font-size: 11pt; margin-top: 12px; margin-bottom: 6px; }
+                    p { margin: 6px 0; }
+                    ul { margin: 6px 0; padding-left: 20px; }
+                    li { margin-bottom: 4px; }
+                    .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 9pt; font-weight: 600; margin-right: 4px; background: #e8e8e8; }
+                    .card { border: 1px solid #C8E8D4; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+                    .matched { background: #F4FBF7; border: 1px solid #2EAA5E; border-radius: 6px; padding: 6px 10px; margin: 4px 0; color: #1E7A42; font-weight: 600; }
+                    .unmatched { background: #f8f8f8; border: 1px solid #e0e0e0; border-radius: 6px; padding: 6px 10px; margin: 4px 0; }
+                    hr { border: none; border-top: 1px solid #C8E8D4; margin: 16px 0; }
+                    .no-print { display: none !important; }
+                    @page { margin: 2cm; size: A4; }
+                </style>
+            </head>
+            <body>
+                ${contentEl.innerHTML}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+            printWindow.print();
+            printWindow.close();
+        }, 500);
+    };
+
     // Inject print styles
     useEffect(() => {
         const styleId = 'disease-detail-print-styles';
@@ -216,7 +282,9 @@ function DiseaseDetail() {
     const unmatchedSymptoms = allSymptoms.filter(s => !selectedSymptoms.includes(s));
 
     return (
-        <div className="container" style={{ paddingBottom: '2rem' }}>
+        <>
+            <PoultryTopNav title="Disease Detail" />
+            <div className="container" style={{ paddingBottom: '2rem' }}>
             {/* Main Content Card */}
             <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
                 {/* Disease Header */}
@@ -242,8 +310,8 @@ function DiseaseDetail() {
                         {disease.severity && (
                             <span style={{
                                 padding: '0.25rem 0.75rem',
-                                background: disease.severity === 'High' ? '#FEE2E2' : disease.severity === 'Medium' ? '#FEF3C7' : '#DBEAFE',
-                                color: disease.severity === 'High' ? '#991B1B' : disease.severity === 'Medium' ? '#92400E' : '#1E40AF',
+                                background: disease.severity === 'High' ? '#FEE2E2' : disease.severity === 'Medium' ? '#FFF7ED' : '#F0FDF4',
+                                color: disease.severity === 'High' ? '#991B1B' : disease.severity === 'Medium' ? '#C2410C' : '#166534',
                                 borderRadius: '12px',
                                 fontSize: '0.75rem',
                                 fontWeight: '600'
@@ -255,12 +323,20 @@ function DiseaseDetail() {
                         {disease.zoonotic && (
                             <span style={{
                                 padding: '0.25rem 0.75rem',
-                                background: '#FEF3C7',
-                                color: '#92400E',
+                                background: '#DDF2E8',
+                                color: '#1E7A42',
                                 borderRadius: '12px',
                                 fontSize: '0.75rem',
-                                fontWeight: '600'
+                                fontWeight: '700',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px'
                             }}>
+                                <svg style={{ width: 11, height: 11 }} viewBox="0 0 24 24" fill="none" stroke="#1E7A42" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
                                 {labels.zoonoticBadge}
                             </span>
                         )}
@@ -288,7 +364,7 @@ function DiseaseDetail() {
                             padding: '1rem',
                             background: '#F0FDF4',
                             borderRadius: '8px',
-                            border: '2px solid #10B981'
+                            border: '1.5px solid #2EAA5E'
                         }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                                 <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#059669' }}>
@@ -308,7 +384,7 @@ function DiseaseDetail() {
                                 <div style={{
                                     width: `${Math.min(disease.percentage, 100)}%`,
                                     height: '100%',
-                                    background: disease.percentage >= 70 ? '#10B981' : disease.percentage >= 40 ? '#F59E0B' : '#EF4444',
+                                    background: disease.percentage >= 70 ? '#2EAA5E' : disease.percentage >= 40 ? '#E08000' : '#dc2626',
                                     transition: 'width 0.3s'
                                 }} />
                             </div>
@@ -326,18 +402,22 @@ function DiseaseDetail() {
                     <div style={{ 
                         marginBottom: '1.5rem',
                         padding: '1rem',
-                        background: '#FEF3C7',
-                        border: '2px solid #F59E0B',
-                        borderRadius: '8px',
+                        background: '#F4FBF7',
+                        border: '1.5px solid #C8E8D4',
+                        borderRadius: '12px',
                         display: 'flex',
                         gap: '1rem'
                     }}>
-                        <div style={{ fontSize: '1.5rem', flexShrink: 0 }}>⚠️</div>
+                        <svg style={{ flexShrink: 0, width: 22, height: 22, marginTop: 2 }} viewBox="0 0 24 24" fill="none" stroke="#1E7A42" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
                         <div style={{ flex: 1 }}>
-                            <div style={{ fontWeight: '600', color: '#92400E', marginBottom: '0.5rem' }}>
+                            <div style={{ fontWeight: '700', color: '#1E7A42', marginBottom: '0.5rem', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
                                 {labels.zoonoticHazard}
                             </div>
-                            <div style={{ fontSize: '0.875rem', color: '#92400E', lineHeight: '1.6' }}>
+                            <div style={{ fontSize: '0.875rem', color: '#1E5C3A', lineHeight: '1.6' }}>
                                 {labels.zoonoticWarning}
                             </div>
                         </div>
@@ -350,7 +430,8 @@ function DiseaseDetail() {
                     {getField('description') && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                📝 {labels.description}
+                                <svg style={{ width: 18, height: 18, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }} viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/></svg>
+                                {labels.description}
                             </h3>
                             <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
                                 {getField('description')}
@@ -364,7 +445,8 @@ function DiseaseDetail() {
                     {allSymptoms.length > 0 && (
                         <div style={{ marginBottom: '2rem' }}>
                             <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                🩺 {labels.clinicalSigns}
+                                <svg style={{ width: 18, height: 18, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }} viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                {labels.clinicalSigns}
                             </h3>
                             
                             {/* Matched Symptoms */}
@@ -385,14 +467,14 @@ function DiseaseDetail() {
                                                 style={{
                                                     padding: '0.75rem 1rem',
                                                     background: '#F0FDF4',
-                                                    border: '2px solid #10B981',
+                                                    border: '1.5px solid #2EAA5E',
                                                     borderRadius: '8px',
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     gap: '0.5rem'
                                                 }}
                                             >
-                                                <span style={{ color: '#10B981', fontWeight: 'bold', fontSize: '1.125rem' }}>✓</span>
+                                                <span style={{ color: '#2EAA5E', fontWeight: 'bold', fontSize: '1.125rem' }}>✓</span>
                                                 <span style={{ color: '#059669', fontWeight: '500' }}>{symptom}</span>
                                             </div>
                                         ))}
@@ -440,7 +522,8 @@ function DiseaseDetail() {
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '2rem' }}>
                                 <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    🦠 {labels.transmission}
+                                    <svg style={{ width: 18, height: 18, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }} viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/></svg>
+                                    {labels.transmission}
                                 </h3>
                                 <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                     {getField('transmission').map((item, i) => (
@@ -459,7 +542,8 @@ function DiseaseDetail() {
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '2rem' }}>
                                 <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    🔬 {labels.diagnosis}
+                                    <svg style={{ width: 18, height: 18, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }} viewBox="0 0 24 24"><path d="M6 3h12M6 8h12M6 13h12M6 18h12"/></svg>
+                                    {labels.diagnosis}
                                 </h3>
                                 <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                     {getField('diagnosis').map((item, i) => (
@@ -478,7 +562,8 @@ function DiseaseDetail() {
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '2rem' }}>
                                 <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    💊 {labels.treatment}
+                                    <svg style={{ width: 18, height: 18, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }} viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3"/><path d="M16 19h6M19 16v6"/></svg>
+                                    {labels.treatment}
                                 </h3>
                                 <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                     {getField('treatment').map((item, i) => (
@@ -497,7 +582,8 @@ function DiseaseDetail() {
                             <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                             <div style={{ marginBottom: '2rem' }}>
                                 <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    🛡️ {labels.control}
+                                    <svg style={{ width: 18, height: 18, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }} viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                    {labels.control}
                                 </h3>
                                 <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
                                     {getField('control').map((item, i) => (
@@ -520,7 +606,8 @@ function DiseaseDetail() {
                                 <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '1.5rem 0' }} />
                                 <div style={{ marginBottom: '2rem' }}>
                                     <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        💉 {labels.vaccineRecommendations}
+                                        <svg style={{ width: 18, height: 18, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }} viewBox="0 0 24 24"><path d="M18 2l4 4-10 10H8v-4L18 2z"/><path d="M8 16L2 22"/></svg>
+                                        {labels.vaccineRecommendations}
                                     </h3>
                                     
                                     {!hasVaccines ? (
@@ -531,7 +618,7 @@ function DiseaseDetail() {
                                             borderRadius: '8px'
                                         }}>
                                             <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                                                <div style={{ fontSize: '1.5rem', flexShrink: 0 }}>💉</div>
+                                                <svg style={{ flexShrink: 0, width: 24, height: 24 }} viewBox="0 0 24 24" fill="none" stroke="#2EAA5E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2l4 4-10 10H8v-4L18 2z"/><path d="M8 16L2 22"/></svg>
                                                 <div>
                                                     <p style={{ 
                                                         margin: 0,
@@ -633,114 +720,55 @@ function DiseaseDetail() {
             </div>
 
             {/* Action Buttons - 2x2 Grid */}
-            <div className="action-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.5rem' }}>
-                {/* Row 1: Back to Results + New Diagnosis */}
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <button
-                        style={{ 
-                            flex: 1, 
-                            minWidth: 0,
-                            padding: '0.875rem 1.5rem',
-                            borderRadius: '12px',
-                            border: 'none',
-                            background: '#10B981',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s'
-                        }}
-                        onClick={handleBackToSymptoms}
-                        onMouseEnter={(e) => {
-                            e.target.style.background = '#059669';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.background = '#10B981';
-                        }}
-                    >
-                        {labels.backToResults}
-                    </button>
-                    <button
-                        style={{ 
-                            flex: 1, 
-                            minWidth: 0,
-                            padding: '0.875rem 1.5rem',
-                            borderRadius: '12px',
-                            border: 'none',
-                            background: '#10B981',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s'
-                        }}
-                        onClick={handleNewDiagnosis}
-                        onMouseEnter={(e) => {
-                            e.target.style.background = '#059669';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.background = '#10B981';
-                        }}
-                    >
-                        {labels.newDiagnosis}
-                    </button>
-                </div>
-                {/* Row 2: All Diseases + Print */}
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <button
-                        style={{ 
-                            flex: 1, 
-                            minWidth: 0,
-                            padding: '0.875rem 1.5rem',
-                            borderRadius: '12px',
-                            border: 'none',
-                            background: '#10B981',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s'
-                        }}
-                        onClick={() => {
-                            setStep(STEPS.ALL_DISEASES);
-                            navigate('/poultry/diseases');
-                        }}
-                        onMouseEnter={(e) => {
-                            e.target.style.background = '#059669';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.background = '#10B981';
-                        }}
-                    >
-                        {labels.allDiseases}
-                    </button>
-                    <button
-                        style={{ 
-                            flex: 1, 
-                            minWidth: 0,
-                            padding: '0.875rem 1.5rem',
-                            borderRadius: '12px',
-                            border: 'none',
-                            background: '#10B981',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s'
-                        }}
-                        onClick={() => window.print()}
-                        onMouseEnter={(e) => {
-                            e.target.style.background = '#059669';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.background = '#10B981';
-                        }}
-                    >
-                        {labels.print}
-                    </button>
-                </div>
+            <div className="action-buttons" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '1.5rem' }}>
+                <button
+                    style={{ padding: '0.75rem 1.25rem', background: '#2EAA5E', color: 'white', border: 'none', borderRadius: '12px', fontWeight: '700', cursor: 'pointer', fontSize: '0.875rem', fontFamily: 'Plus Jakarta Sans, sans-serif', transition: 'opacity 0.15s' }}
+                    onClick={handleBackToSymptoms}
+                >
+                    {labels.backToResults}
+                </button>
+                <button
+                    style={{ padding: '0.75rem 1.25rem', background: '#2EAA5E', color: 'white', border: 'none', borderRadius: '12px', fontWeight: '700', cursor: 'pointer', fontSize: '0.875rem', fontFamily: 'Plus Jakarta Sans, sans-serif', transition: 'opacity 0.15s' }}
+                    onClick={handleNewDiagnosis}
+                >
+                    {labels.newDiagnosis}
+                </button>
+                <button
+                    style={{ padding: '0.75rem 1.25rem', background: '#2EAA5E', color: 'white', border: 'none', borderRadius: '12px', fontWeight: '700', cursor: 'pointer', fontSize: '0.875rem', fontFamily: 'Plus Jakarta Sans, sans-serif', transition: 'opacity 0.15s' }}
+                    onClick={() => {
+                        setStep(STEPS.ALL_DISEASES);
+                        navigate('/poultry/diseases');
+                    }}
+                >
+                    {labels.allDiseases}
+                </button>
+                <button
+                    style={{ padding: '0.75rem 1.25rem', background: '#2EAA5E', color: 'white', border: 'none', borderRadius: '12px', fontWeight: '700', cursor: 'pointer', fontSize: '0.875rem', fontFamily: 'Plus Jakarta Sans, sans-serif', transition: 'opacity 0.15s' }}
+                    onClick={handlePrint}
+                >
+                    {labels.print}
+                </button>
             </div>
         </div>
+
+        <div className="fw-mod-bnav">
+            <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                <svg viewBox="0 0 24 24" style={{ width: 18, height: 18, stroke: 'white', fill: 'none', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span>Home</span>
+            </button>
+            <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry/diagnostic')}>
+                <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                    <path d="M11 8v6M8 11h6"/>
+                </svg>
+                <span>Diagnostic</span>
+            </button>
+        </div>
+        </>
     );
 }
 

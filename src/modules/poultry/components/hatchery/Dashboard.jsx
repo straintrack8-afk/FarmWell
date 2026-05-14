@@ -6,6 +6,7 @@ import Header from '../common/Header';
 import ScoreBadge from './common/ScoreBadge';
 import { formatDate, formatRelativeTime, daysUntilDue } from '../../utils/hatchery/dateUtils';
 import '../../hatchery.css';
+import PoultryTopNav from '../common/PoultryTopNav';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -39,6 +40,7 @@ function Dashboard() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Hatchery Audit" />
             <div className="portal-container">
                 <div className="portal-card">
                     <Header />

@@ -6,6 +6,7 @@ import { getLocalizedText } from '../../utils/assessmentUtils';
 import QuestionCard from '../../components/biosecurity/QuestionCard';
 import CategoryProgress from '../../components/biosecurity/CategoryProgress';
 import '../../biosecurity.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function BroilerAssessmentPage() {
     const navigate = useNavigate();
@@ -146,6 +147,7 @@ function BroilerAssessmentPage() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Broiler Biosecurity" />
             <div className="portal-container">
                 <div className="portal-card">
                     <div className="assessment-page">

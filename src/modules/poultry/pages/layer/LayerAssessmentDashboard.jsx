@@ -4,6 +4,7 @@ import { useLayerAssessment } from '../../contexts/LayerAssessmentContext';
 import { useTranslation } from '../../../../hooks/useTranslation';
 import { useLanguage } from '../../../../contexts/LanguageContext';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function LayerAssessmentDashboard() {
     const navigate = useNavigate();
@@ -76,6 +77,7 @@ function LayerAssessmentDashboard() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Layer Assessment" />
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Main Content */}

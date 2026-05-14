@@ -1,0 +1,123 @@
+{
+  "_meta": {
+    "type": "broiler_weekly_checklist",
+    "source": "broiler_management_handbook_2025",
+    "note": "Checklist items derived from Key Management Timetable. Adapt to local conditions and regulations.",
+    "species": "broiler"
+  },
+  "checklists": {
+    "week_1": {
+      "days": "1–7",
+      "focus": "Chick start — kualitas DOC, brooding, nafsu makan",
+      "items": [
+        {"id": "w1_01", "text": "Timbang sampel DOC (min 1% populasi) dan catat bobot rata-rata serta CV%", "priority": "critical"},
+        {"id": "w1_02", "text": "Pastikan suhu kandang 30–32°C di zona brooding, lantai 28–30°C", "priority": "critical"},
+        {"id": "w1_03", "text": "Periksa RH kandang 60–70%", "priority": "critical"},
+        {"id": "w1_04", "text": "Pastikan pakan starter tersedia ad lib di atas kertas brooding", "priority": "critical"},
+        {"id": "w1_05", "text": "Cek suhu vent (kloaka) anak ayam 39.4–40.5°C dalam 2 jam pertama", "priority": "critical"},
+        {"id": "w1_06", "text": "Evaluasi crop fill 8 dan 24 jam setelah chick-in (target: 95%+ crop terisi pada jam ke-8)", "priority": "high"},
+        {"id": "w1_07", "text": "Cahaya 23 jam ON / 1 jam OFF, intensitas 30–40 lux", "priority": "high"},
+        {"id": "w1_08", "text": "Periksa perilaku ayam: penyebaran merata = suhu sesuai", "priority": "high"},
+        {"id": "w1_09", "text": "Hari 7: Timbang individu min 1% atau 100 ekor (mana lebih besar), catat BW dan CV%", "priority": "critical"},
+        {"id": "w1_10", "text": "Target BW hari 7 minimal 4.5× bobot DOC", "priority": "critical"},
+        {"id": "w1_11", "text": "Pastikan ventilasi minimum aktif — CO2 < 3000 ppm, NH3 < 10 ppm", "priority": "high"},
+        {"id": "w1_12", "text": "Mulai perpindahan dari paper ke feeder otomatis di hari 4–6", "priority": "medium"},
+        {"id": "w1_13", "text": "Mulai tambah gelap secara bertahap — capai 4–6 jam gelap di hari ke-7", "priority": "medium"}
+      ]
+    },
+    "week_2": {
+      "days": "8–14",
+      "focus": "Nafsu makan, transisi ke grower, perluasan kandang",
+      "items": [
+        {"id": "w2_01", "text": "Timbang bulk (min 1% atau 100 ekor) di hari 14, bandingkan dengan standar", "priority": "critical"},
+        {"id": "w2_02", "text": "Sesuaikan suhu kandang mengikuti BW ayam (target 28–30°C pada BW ~200–400g)", "priority": "high"},
+        {"id": "w2_03", "text": "Transisi pakan starter ke grower (sekitar hari 10–13)", "priority": "high"},
+        {"id": "w2_04", "text": "Pertahankan min 4 jam gelap per malam (satu blok), intensitas cahaya 5–10 lux", "priority": "high"},
+        {"id": "w2_05", "text": "Sesuaikan ketinggian nipple drinker dan feeder sesuai pertumbuhan", "priority": "medium"},
+        {"id": "w2_06", "text": "Perluasan area brooding ke seluruh kandang jika belum dilakukan", "priority": "medium"},
+        {"id": "w2_07", "text": "Pantau kualitas litter — kering, gembur, tidak keras", "priority": "medium"},
+        {"id": "w2_08", "text": "Cek rasio air : pakan (normal 1.6–2.0)", "priority": "medium"}
+      ]
+    },
+    "week_3": {
+      "days": "15–21",
+      "focus": "Pertumbuhan cepat, kontrol lingkungan, pakan grower",
+      "items": [
+        {"id": "w3_01", "text": "Timbang bulk di hari 21, catat BW vs standar dan hitung keseragaman", "priority": "critical"},
+        {"id": "w3_02", "text": "Sesuaikan suhu ke 26–28°C (berat ayam ~500–800g)", "priority": "high"},
+        {"id": "w3_03", "text": "Periksa kualitas fisik pakan (pellet) — tidak hancur, tidak berdebu", "priority": "high"},
+        {"id": "w3_04", "text": "Tingkatkan ventilasi sesuai pertumbuhan", "priority": "high"},
+        {"id": "w3_05", "text": "Sesuaikan ketinggian feeder dan drinker", "priority": "medium"},
+        {"id": "w3_06", "text": "Periksa litter quality — footpad dermatitis early sign", "priority": "medium"},
+        {"id": "w3_07", "text": "Monitor konsumsi air dan pakan, bandingkan dengan referensi", "priority": "medium"}
+      ]
+    },
+    "week_4": {
+      "days": "22–28",
+      "focus": "Monitoring BW, kualitas litter, persiapan transisi ke finisher",
+      "items": [
+        {"id": "w4_01", "text": "Timbang bulk di hari 28, catat BW dan FCR kumulatif", "priority": "critical"},
+        {"id": "w4_02", "text": "Sesuaikan suhu ke 24–26°C", "priority": "high"},
+        {"id": "w4_03", "text": "Pertimbangkan transisi starter/grower ke finisher (BW ~800–1000g)", "priority": "high"},
+        {"id": "w4_04", "text": "Evaluasi keseragaman flock — CV% target <10%", "priority": "high"},
+        {"id": "w4_05", "text": "Periksa kondisi kaki (footpad, hock burn)", "priority": "medium"},
+        {"id": "w4_06", "text": "Sesuaikan kepadatan ventilasi tunnel jika cuaca panas", "priority": "medium"},
+        {"id": "w4_07", "text": "Pantau mortalitas dan catat penyebab kematian", "priority": "medium"}
+      ]
+    },
+    "week_5": {
+      "days": "29–35",
+      "focus": "Monitoring pertumbuhan, efisiensi pakan, prediksi berat panen",
+      "items": [
+        {"id": "w5_01", "text": "Timbang bulk di hari 35, bandingkan BW aktual vs standar", "priority": "critical"},
+        {"id": "w5_02", "text": "Hitung FCR kumulatif dan bandingkan dengan target", "priority": "critical"},
+        {"id": "w5_03", "text": "Sesuaikan suhu ke 22–24°C", "priority": "high"},
+        {"id": "w5_04", "text": "Aktifkan ventilasi transitional/tunnel sesuai kondisi cuaca", "priority": "high"},
+        {"id": "w5_05", "text": "Evaluasi prediksi berat panen — apakah perlu penyesuaian jadwal?", "priority": "high"},
+        {"id": "w5_06", "text": "Periksa kualitas air minum — bersih, suhu normal", "priority": "medium"},
+        {"id": "w5_07", "text": "Cek kondisi kawanan — leg health, gait scoring jika perlu", "priority": "medium"}
+      ]
+    },
+    "week_6": {
+      "days": "36–42",
+      "focus": "Persiapan panen, kesehatan kaki, heat stress management",
+      "items": [
+        {"id": "w6_01", "text": "Timbang bulk di hari 42, catat bobot dan proyeksikan ke hari panen", "priority": "critical"},
+        {"id": "w6_02", "text": "Sesuaikan suhu ke 21–23°C — aktifkan evaporative cooling jika >28°C luar", "priority": "high"},
+        {"id": "w6_03", "text": "Pastikan ventilasi tunnel berjalan optimal", "priority": "high"},
+        {"id": "w6_04", "text": "Evaluasi kondisi litter — ganti / kurangi kelembaban jika perlu", "priority": "high"},
+        {"id": "w6_05", "text": "Konfirmasi jadwal panen dengan pabrik/processer", "priority": "medium"},
+        {"id": "w6_06", "text": "Pantau gejala heat stress: megap-megap, sayap terbuka, minum meningkat", "priority": "medium"}
+      ]
+    },
+    "week_7": {
+      "days": "43–49",
+      "focus": "Mendekati panen, feed withdrawal planning",
+      "items": [
+        {"id": "w7_01", "text": "Timbang bulk (opsional, min 100 ekor) untuk konfirmasi BW panen", "priority": "critical"},
+        {"id": "w7_02", "text": "Rencanakan waktu feed withdrawal (8–12 jam sebelum catching)", "priority": "critical"},
+        {"id": "w7_03", "text": "Pastikan kandang terang 23 jam / 1 jam gelap selama 3 hari sebelum catching", "priority": "high"},
+        {"id": "w7_04", "text": "Koordinasi jadwal catching crew dan transporter", "priority": "high"},
+        {"id": "w7_05", "text": "Siapkan dokumen pengiriman: SKKH, surat jalan", "priority": "medium"}
+      ]
+    },
+    "week_8": {
+      "days": "50–56+",
+      "focus": "Catching dan pengiriman (jika panen di minggu ke-8)",
+      "items": [
+        {"id": "w8_01", "text": "Feed withdrawal sesuai jadwal — air tetap tersedia sampai catching", "priority": "critical"},
+        {"id": "w8_02", "text": "Kurangi intensitas cahaya saat proses catching untuk mengurangi stres", "priority": "high"},
+        {"id": "w8_03", "text": "Catching dilakukan dengan tenang, hindari cedera dan DOA", "priority": "high"},
+        {"id": "w8_04", "text": "Densitas per keranjang/crate sesuai kapasitas dan suhu", "priority": "high"},
+        {"id": "w8_05", "text": "Catat bobot truk keluar dan hitung bobot rata-rata final", "priority": "high"},
+        {"id": "w8_06", "text": "Dokumentasi final: BW final, mortalitas total, FCR final, livability", "priority": "medium"},
+        {"id": "w8_07", "text": "Laporkan hasil ke Flock Saya untuk analisis performa", "priority": "medium"}
+      ]
+    }
+  },
+  "priority_legend": {
+    "critical": "Wajib dilakukan, berpengaruh langsung ke performa dan kesehatan",
+    "high":     "Sangat disarankan, penting untuk hasil optimal",
+    "medium":   "Disarankan, mendukung konsistensi manajemen"
+  }
+}

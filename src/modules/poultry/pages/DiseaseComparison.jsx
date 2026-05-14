@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import PoultryTopNav from '../components/common/PoultryTopNav';
 
 const translations = {
   en: {
@@ -164,85 +165,68 @@ const DiseaseComparison = () => {
   });
   
   return (
-    <div style={{ minHeight: '100vh', background: '#F9FAFB', padding: '2rem 0' }}>
-      <style>{`
-        .comparison-container { max-width: 1280px; margin: 0 auto; padding: 0 0.5rem; }
-        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .symptom-overlap-box { background: linear-gradient(to right, #D1FAE5, #A7F3D0); border-radius: 8px; padding: 1rem; margin-top: 1.5rem; border: 2px solid #10B981; }
-        .symptom-overlap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; font-size: 0.875rem; }
-        
-        .side-by-side-wrapper { border: 2px solid #10B981; border-radius: 8px; padding: 0.5rem; background: #F0FDF4; }
-        .side-by-side-grid { display: flex; gap: 0; border: 1px solid #D1D5DB; border-radius: 6px; overflow: hidden; }
-        .side-by-side-cell { flex: 1; min-width: 0; word-wrap: break-word; overflow-wrap: anywhere; padding: 0.5rem; background: white; }
-        .side-by-side-cell-left { border-right: 2px solid #10B981; }
-        .side-by-side-text { font-size: 0.75rem; color: #6B7280; line-height: 1.4; margin: 0; }
-        
-        .card-box { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 0.75rem; }
-        
-        @media (min-width: 640px) {
-          .comparison-container { padding: 0 1rem; }
-          .card-box { padding: 1.5rem; }
-          .side-by-side-wrapper { padding: 1rem; }
-          .side-by-side-cell { padding: 1rem; }
-          .side-by-side-text { font-size: 0.875rem; line-height: 1.5; }
-          .symptom-overlap-grid { gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-        }
-      `}</style>
-      <div className="comparison-container">
-        
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
-            🔬 {t.pageTitle}
-          </h1>
-          <p style={{ color: '#6B7280' }}>
-            {t.pageSubtitle}
-          </p>
-        </div>
-        
-        <div className="comparison-grid">
-          <SelectionBox
-            title={t.disease1}
-            translations={t}
-            search={search1}
-            setSearch={setSearch1}
-            category={category1}
-            setCategory={setCategory1}
-            severity={severity1}
-            setSeverity={setSeverity1}
-            filteredDiseases={filtered1}
-            selected={selectedDisease1}
-            setSelected={setSelectedDisease1}
-          />
-          
-          <SelectionBox
-            title={t.disease2}
-            translations={t}
-            search={search2}
-            setSearch={setSearch2}
-            category={category2}
-            setCategory={setCategory2}
-            severity={severity2}
-            setSeverity={setSeverity2}
-            filteredDiseases={filtered2}
-            selected={selectedDisease2}
-            setSelected={setSelectedDisease2}
-          />
-        </div>
-        
-        {selectedDisease1 && selectedDisease2 ? (
-          <ComparisonDisplay 
-            disease1={selectedDisease1}
-            disease2={selectedDisease2}
-            translations={t}
-          />
-        ) : (
-          <div style={{ background: 'white', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', padding: '3rem', textAlign: 'center' }}>
-            <div style={{ color: '#D1D5DB', marginBottom: '0.5rem', fontSize: '3rem' }}>⚖️</div>
-            <p style={{ color: '#6B7280' }}>
-              {t.selectDiseasePrompt}
-            </p>
+    <div className="fw-module-page">
+      <PoultryTopNav title={t.pageTitle} />
+      <div className="fw-mod-card">
+        <div className="fw-mod-content">
+          <p className="fw-mod-subtitle">{t.pageSubtitle}</p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <SelectionBox
+              title={t.disease1}
+              translations={t}
+              search={search1}
+              setSearch={setSearch1}
+              category={category1}
+              setCategory={setCategory1}
+              severity={severity1}
+              setSeverity={setSeverity1}
+              filteredDiseases={filtered1}
+              selected={selectedDisease1}
+              setSelected={setSelectedDisease1}
+            />
+
+            <SelectionBox
+              title={t.disease2}
+              translations={t}
+              search={search2}
+              setSearch={setSearch2}
+              category={category2}
+              setCategory={setCategory2}
+              severity={severity2}
+              setSeverity={setSeverity2}
+              filteredDiseases={filtered2}
+              selected={selectedDisease2}
+              setSelected={setSelectedDisease2}
+            />
           </div>
-        )}
+
+          {selectedDisease1 && selectedDisease2 ? (
+            <ComparisonDisplay
+              disease1={selectedDisease1}
+              disease2={selectedDisease2}
+              translations={t}
+            />
+          ) : (
+            <div className="fw-compare-box" style={{ justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '2.5rem 1rem' }}>
+              <svg style={{ width: 36, height: 36, stroke: '#C8E8D4', fill: 'none', strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round', marginBottom: 12 }} viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <p style={{ color: 'var(--fw-muted)', fontSize: '12px', fontWeight: 600 }}>
+                {t.selectDiseasePrompt}
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div className="fw-mod-bnav">
+          <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Home</span>
+          </button>
+          <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry/diagnostic')}>
+            <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+            <span>Diagnostic</span>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -263,138 +247,75 @@ const SelectionBox = ({
 }) => {
   const CATEGORIES = ['Viral', 'Bacterial', 'Parasitic', 'Fungal', 'Nutritional', 'Other'];
   const SEVERITIES = ['High', 'Medium', 'Low'];
-  
-  
+
   return (
-    <div className="card-box">
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827', marginBottom: '1rem' }}>{title}</h2>
-      
-      <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>
-          🔍 {translations.searchDisease}
-        </label>
+    <div className="fw-compare-box">
+      <div className="fw-compare-box-label">{title}</div>
+
+      <div className="fw-compare-search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         <input
           type="text"
           placeholder={translations.searchPlaceholder}
           value={search}
           onChange={e => setSearch(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '0.5rem 1rem',
-            border: '1px solid #D1D5DB',
-            borderRadius: '8px',
-            fontSize: '0.875rem'
-          }}
         />
       </div>
-      
-      <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>
-          📁 {translations.category}
-        </label>
-        <select
-          value={category}
-          onChange={e => setCategory(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '0.5rem 1rem',
-            border: '1px solid #D1D5DB',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            background: 'white',
-            cursor: 'pointer'
-          }}
-        >
-          <option value="">{translations.allCategories}</option>
+
+      <div className="fw-compare-filter-row">
+        <select className="fw-compare-select" value={category} onChange={e => setCategory(e.target.value)}>
+          <option value="">{translations.category}</option>
           {CATEGORIES.map(cat => (
             <option key={cat} value={cat}>{cat}</option>
           ))}
         </select>
-      </div>
-      
-      <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>
-          ⚡ {translations.severity}
-        </label>
-        <select
-          value={severity}
-          onChange={e => setSeverity(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '0.5rem 1rem',
-            border: '1px solid #D1D5DB',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            background: 'white',
-            cursor: 'pointer'
-          }}
-        >
-          <option value="">{translations.allSeverities}</option>
+        <select className="fw-compare-select" value={severity} onChange={e => setSeverity(e.target.value)}>
+          <option value="">{translations.severity}</option>
           {SEVERITIES.map(sev => (
             <option key={sev} value={sev}>{sev}</option>
           ))}
         </select>
       </div>
-      
-      <div style={{ borderTop: '1px solid #E5E7EB', paddingTop: '1rem' }}>
-        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>
-          📋 {translations.selectDisease} ({filteredDiseases.length} {translations.results})
-        </label>
-        <select
-          value={selected?.id || ''}
-          onChange={e => {
-            const diseaseId = e.target.value ? parseInt(e.target.value) : null;
-            const disease = filteredDiseases.find(d => d.id === diseaseId);
-            setSelected(disease || null);
-          }}
-          style={{
-            width: '100%',
-            padding: '0.5rem 1rem',
-            border: '1px solid #D1D5DB',
-            borderRadius: '8px',
-            fontSize: '0.875rem',
-            background: 'white',
-            cursor: 'pointer'
-          }}
-        >
-          <option value="">{translations.selectDiseasePlaceholder}</option>
-          {filteredDiseases.map(disease => (
-            <option key={disease.id} value={disease.id}>
-              {disease.name || disease.nama}
-            </option>
-          ))}
-        </select>
-        
-        {selected && (
-          <div style={{
-            marginTop: '0.75rem',
-            padding: '0.75rem',
-            background: '#D1FAE5',
-            border: '2px solid #10B981',
-            borderRadius: '8px'
-          }}>
-            <h3 style={{ fontWeight: '600', fontSize: '0.875rem', color: '#111827', marginBottom: '0.5rem' }}>
-              {selected.name || selected.nama}
-            </h3>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#DBEAFE', color: '#1E40AF', borderRadius: '4px' }}>
-                {selected.category || selected.kategori}
-              </span>
-              <span style={{
-                fontSize: '0.75rem',
-                padding: '0.25rem 0.5rem',
-                borderRadius: '4px',
-                background: (selected.severity || selected.tingkat_keparahan) === 'High' ? '#FEE2E2' :
-                            (selected.severity || selected.tingkat_keparahan) === 'Medium' ? '#FEF3C7' : '#D1FAE5',
-                color: (selected.severity || selected.tingkat_keparahan) === 'High' ? '#991B1B' :
-                       (selected.severity || selected.tingkat_keparahan) === 'Medium' ? '#92400E' : '#065F46'
-              }}>
-                {selected.severity || selected.tingkat_keparahan}
-              </span>
-            </div>
+
+      <select
+        className="fw-compare-dropdown"
+        value={selected?.id || ''}
+        onChange={e => {
+          const diseaseId = e.target.value ? parseInt(e.target.value) : null;
+          const disease = filteredDiseases.find(d => d.id === diseaseId);
+          setSelected(disease || null);
+        }}
+      >
+        <option value="">{translations.selectDisease} ({filteredDiseases.length} {translations.results})</option>
+        {filteredDiseases.map(disease => (
+          <option key={disease.id} value={disease.id}>
+            {disease.name || disease.nama}
+          </option>
+        ))}
+      </select>
+
+      {selected && (
+        <div className="fw-compare-selected-card">
+          <div className="fw-compare-selected-name">{selected.name || selected.nama}</div>
+          <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '9px', padding: '2px 7px', background: '#E2E8F0', color: '#334155', borderRadius: '10px', fontWeight: 600 }}>
+              {selected.category || selected.kategori}
+            </span>
+            <span style={{
+              fontSize: '9px',
+              padding: '2px 7px',
+              borderRadius: '10px',
+              fontWeight: 600,
+              background: (selected.severity || selected.tingkat_keparahan) === 'High' ? '#FEE2E2' :
+                          (selected.severity || selected.tingkat_keparahan) === 'Medium' ? '#FFF7ED' : '#F0FDF4',
+              color: (selected.severity || selected.tingkat_keparahan) === 'High' ? '#991B1B' :
+                     (selected.severity || selected.tingkat_keparahan) === 'Medium' ? '#C2410C' : '#166534'
+            }}>
+              {selected.severity || selected.tingkat_keparahan}
+            </span>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -407,211 +328,178 @@ const ComparisonDisplay = ({ disease1, disease2, translations }) => {
   const unique2 = symptoms2.filter(id => !symptoms1.includes(id));
   const total = new Set([...symptoms1, ...symptoms2]).size;
   const overlapPct = total > 0 ? Math.round((common.length / total) * 100) : 0;
-  
+
   const getSymptomName = (id) => {
     const s1 = (disease1.symptomsEnhanced || disease1.gejala_lengkap || []).find(s => s.id === id);
     const s2 = (disease2.symptomsEnhanced || disease2.gejala_lengkap || []).find(s => s.id === id);
     return (s1 || s2)?.name || (s1 || s2)?.nama || id;
   };
-  
+
+  const sevBg = (sev) => sev === 'High' ? '#FEE2E2' : sev === 'Medium' ? '#FFF7ED' : '#F0FDF4';
+  const sevCol = (sev) => sev === 'High' ? '#991B1B' : sev === 'Medium' ? '#C2410C' : '#166534';
+
   return (
-    <div className="card-box">
-      
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.5rem', paddingBottom: '1rem', borderBottom: '1px solid #E5E7EB' }}>
-        <div style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
-            {disease1.name || disease1.nama}
-          </h2>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#DBEAFE', color: '#1E40AF', borderRadius: '4px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+
+      {/* Disease headers */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+        <div className="fw-compare-selected-card">
+          <div className="fw-compare-selected-name">{disease1.name || disease1.nama}</div>
+          <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '9px', padding: '2px 7px', background: '#E2E8F0', color: '#334155', borderRadius: '10px', fontWeight: 600 }}>
               {disease1.category || disease1.kategori}
             </span>
-            <span style={{
-              fontSize: '0.75rem',
-              padding: '0.25rem 0.75rem',
-              borderRadius: '4px',
-              background: (disease1.severity || disease1.tingkat_keparahan) === 'High' ? '#FEE2E2' : '#FEF3C7',
-              color: (disease1.severity || disease1.tingkat_keparahan) === 'High' ? '#991B1B' : '#92400E'
-            }}>
+            <span style={{ fontSize: '9px', padding: '2px 7px', borderRadius: '10px', fontWeight: 600, background: sevBg(disease1.severity || disease1.tingkat_keparahan), color: sevCol(disease1.severity || disease1.tingkat_keparahan) }}>
               {disease1.severity || disease1.tingkat_keparahan}
             </span>
             {(disease1.zoonotic || disease1.zoonotik) && (
-              <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#FED7AA', color: '#9A3412', borderRadius: '4px' }}>
+              <span style={{ fontSize: '9px', padding: '2px 7px', background: '#DDF2E8', color: '#1E7A42', borderRadius: '10px', fontWeight: 600 }}>
                 {translations.zoonotic}
               </span>
             )}
           </div>
         </div>
-        <div style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>
-            {disease2.name || disease2.nama}
-          </h2>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#DBEAFE', color: '#1E40AF', borderRadius: '4px' }}>
+        <div className="fw-compare-selected-card">
+          <div className="fw-compare-selected-name">{disease2.name || disease2.nama}</div>
+          <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '9px', padding: '2px 7px', background: '#E2E8F0', color: '#334155', borderRadius: '10px', fontWeight: 600 }}>
               {disease2.category || disease2.kategori}
             </span>
-            <span style={{
-              fontSize: '0.75rem',
-              padding: '0.25rem 0.75rem',
-              borderRadius: '4px',
-              background: (disease2.severity || disease2.tingkat_keparahan) === 'High' ? '#FEE2E2' : '#FEF3C7',
-              color: (disease2.severity || disease2.tingkat_keparahan) === 'High' ? '#991B1B' : '#92400E'
-            }}>
+            <span style={{ fontSize: '9px', padding: '2px 7px', borderRadius: '10px', fontWeight: 600, background: sevBg(disease2.severity || disease2.tingkat_keparahan), color: sevCol(disease2.severity || disease2.tingkat_keparahan) }}>
               {disease2.severity || disease2.tingkat_keparahan}
             </span>
             {(disease2.zoonotic || disease2.zoonotik) && (
-              <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.75rem', background: '#FED7AA', color: '#9A3412', borderRadius: '4px' }}>
+              <span style={{ fontSize: '9px', padding: '2px 7px', background: '#DDF2E8', color: '#1E7A42', borderRadius: '10px', fontWeight: 600 }}>
                 {translations.zoonotic}
               </span>
             )}
           </div>
         </div>
       </div>
-      
-      <div className="symptom-overlap-box">
-        <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>📊 {translations.symptomOverlap}</h3>
-        <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}>
-          <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#059669' }}>{overlapPct}%</div>
-          <div style={{ fontSize: '0.875rem', color: '#6B7280' }}>{common.length} {translations.commonSymptoms}</div>
+
+      {/* Similarity Score */}
+      <div className="fw-sim-card">
+        <div className="fw-sim-title">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          {translations.symptomOverlap}
         </div>
-        <div style={{ width: '100%', background: '#E5E7EB', borderRadius: '9999px', height: '12px', marginBottom: '1rem' }}>
-          <div style={{ background: '#10B981', height: '12px', borderRadius: '9999px', width: `${overlapPct}%` }}></div>
+        <div className="fw-sim-pct">{overlapPct}%</div>
+        <div className="fw-sim-sub">{common.length} {translations.commonSymptoms}</div>
+        <div className="fw-sim-bar-wrap">
+          <div className="fw-sim-bar" style={{ width: `${overlapPct}%` }}></div>
         </div>
-        <div className="symptom-overlap-grid">
-          <div style={{ padding: '0.5rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
-            <h4 style={{ fontWeight: '600', color: '#059669', marginBottom: '0.5rem' }}>
-              {translations.uniqueSymptoms}
-            </h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {unique1.map((id, i) => (
-                <li key={i} style={{ color: '#6B7280', fontSize: '0.75rem', marginBottom: '0.125rem' }}>
-                  • {getSymptomName(id)}
-                </li>
-              ))}
-            </ul>
+      </div>
+
+      {/* Symptom breakdown */}
+      <div className="fw-cmp-section">
+        <div className="fw-cmp-section-title">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          {translations.clinicalSigns}
+        </div>
+        <div className="fw-cmp-cols">
+          <div className="fw-cmp-col">
+            <div className="fw-cmp-col-title">{translations.uniqueSymptoms}</div>
+            {unique1.map((id, i) => (
+              <div key={i} style={{ marginBottom: '3px' }}>• {getSymptomName(id)}</div>
+            ))}
           </div>
-          <div style={{ padding: '0.5rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
-            <h4 style={{ fontWeight: '600', color: '#047857', marginBottom: '0.5rem' }}>{translations.common}</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {common.map((id, i) => (
-                <li key={i} style={{ color: '#6B7280', fontSize: '0.75rem', marginBottom: '0.125rem' }}>
-                  • {getSymptomName(id)}
-                </li>
-              ))}
-            </ul>
+          <div className="fw-cmp-col-common">
+            <div className="fw-cmp-col-title">{translations.common} ({common.length})</div>
+            {common.map((id, i) => (
+              <div key={i} style={{ marginBottom: '3px' }}>• {getSymptomName(id)}</div>
+            ))}
           </div>
-          <div style={{ padding: '0.5rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
-            <h4 style={{ fontWeight: '600', color: '#059669', marginBottom: '0.5rem' }}>
-              {translations.uniqueSymptoms}
-            </h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {unique2.map((id, i) => (
-                <li key={i} style={{ color: '#6B7280', fontSize: '0.75rem', marginBottom: '0.125rem' }}>
-                  • {getSymptomName(id)}
-                </li>
-              ))}
-            </ul>
+          <div className="fw-cmp-col">
+            <div className="fw-cmp-col-title">{translations.uniqueSymptoms}</div>
+            {unique2.map((id, i) => (
+              <div key={i} style={{ marginBottom: '3px' }}>• {getSymptomName(id)}</div>
+            ))}
           </div>
         </div>
       </div>
-      
-      <div style={{ marginTop: '1.5rem' }}>
-        <SideBySideSection title={`📝 ${translations.description}`}
-          translations={translations} 
-          content1={disease1.description || disease1.deskripsi}
-          content2={disease2.description || disease2.deskripsi}
-        />
-      </div>
-      
-      <div style={{ marginTop: '1.5rem' }}>
-        <SideBySideList title={`🩺 ${translations.clinicalSigns}`}
-          translations={translations}
-          list1={disease1.clinicalSigns || disease1.tanda_klinis || []}
-          list2={disease2.clinicalSigns || disease2.tanda_klinis || []}
-        />
-      </div>
-      
-      <div style={{ marginTop: '1.5rem' }}>
-        <SideBySideList title={`🦠 ${translations.transmission}`}
-          translations={translations}
-          list1={disease1.transmission || disease1.transmisi || []}
-          list2={disease2.transmission || disease2.transmisi || []}
-        />
-      </div>
-      
-      <div style={{ marginTop: '1.5rem' }}>
-        <SideBySideList title={`🔬 ${translations.diagnosis}`}
-          translations={translations}
-          list1={disease1.diagnosis || disease1.diagnosa || []}
-          list2={disease2.diagnosis || disease2.diagnosa || []}
-        />
-      </div>
-      
-      <div style={{ marginTop: '1.5rem' }}>
-        <SideBySideList title={`💊 ${translations.treatment}`}
-          translations={translations}
-          list1={disease1.treatment || disease1.pengobatan || []}
-          list2={disease2.treatment || disease2.pengobatan || []}
-        />
-      </div>
-      
-      <div style={{ marginTop: '1.5rem' }}>
-        <SideBySideList title={`🛡️ ${translations.preventionControl}`}
-          translations={translations}
-          list1={disease1.control || disease1.pengendalian || disease1.pencegahan || []}
-          list2={disease2.control || disease2.pengendalian || disease2.pencegahan || []}
-        />
-      </div>
-      
+
+      {/* Description */}
+      <SideBySideSection
+        title={translations.description}
+        icon={<svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/></svg>}
+        translations={translations}
+        content1={disease1.description || disease1.deskripsi}
+        content2={disease2.description || disease2.deskripsi}
+      />
+
+      {/* Transmission */}
+      <SideBySideList
+        title={translations.transmission}
+        icon={<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12"/></svg>}
+        translations={translations}
+        list1={disease1.transmission || disease1.transmisi || []}
+        list2={disease2.transmission || disease2.transmisi || []}
+      />
+
+      {/* Diagnosis */}
+      <SideBySideList
+        title={translations.diagnosis}
+        icon={<svg viewBox="0 0 24 24"><path d="M6 3h12M6 8h12M6 13h12M6 18h12"/></svg>}
+        translations={translations}
+        list1={disease1.diagnosis || disease1.diagnosa || []}
+        list2={disease2.diagnosis || disease2.diagnosa || []}
+      />
+
+      {/* Treatment */}
+      <SideBySideList
+        title={translations.treatment}
+        icon={<svg viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3"/><path d="M16 19h6M19 16v6"/></svg>}
+        translations={translations}
+        list1={disease1.treatment || disease1.pengobatan || []}
+        list2={disease2.treatment || disease2.pengobatan || []}
+      />
+
+      {/* Prevention & Control */}
+      <SideBySideList
+        title={translations.preventionControl}
+        icon={<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
+        translations={translations}
+        list1={disease1.control || disease1.pengendalian || disease1.pencegahan || []}
+        list2={disease2.control || disease2.pengendalian || disease2.pencegahan || []}
+      />
+
     </div>
   );
 };
 
-const SideBySideSection = ({ title, translations, content1, content2 }) => (
-  <div className="side-by-side-wrapper">
-    <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>{title}</h3>
-    <div className="side-by-side-grid">
-      <div className="side-by-side-cell side-by-side-cell-left">
-        <p className="side-by-side-text">
-          {content1 || translations.noInformation}
-        </p>
-      </div>
-      <div className="side-by-side-cell">
-        <p className="side-by-side-text">
-          {content2 || translations.noInformation}
-        </p>
-      </div>
+const SideBySideSection = ({ title, icon, translations, content1, content2 }) => (
+  <div className="fw-cmp-section">
+    <div className="fw-cmp-section-title">{icon}{title}</div>
+    <div className="fw-cmp-cols">
+      <div className="fw-cmp-col">{content1 || translations.noInformation}</div>
+      <div className="fw-cmp-col">{content2 || translations.noInformation}</div>
     </div>
   </div>
 );
 
-const SideBySideList = ({ title, translations, list1, list2 }) => (
-  <div className="side-by-side-wrapper">
-    <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>{title}</h3>
-    <div className="side-by-side-grid">
-      <div className="side-by-side-cell side-by-side-cell-left">
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {list1.length > 0 ? list1.map((item, i) => (
-            <li key={i} className="side-by-side-text" style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-              <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
-              <span>{item}</span>
-            </li>
-          )) : (
-            <li className="side-by-side-text" style={{ fontStyle: 'italic', color: '#9CA3AF' }}>{translations.noInformation}</li>
-          )}
-        </ul>
+const SideBySideList = ({ title, icon, translations, list1, list2 }) => (
+  <div className="fw-cmp-section">
+    <div className="fw-cmp-section-title">{icon}{title}</div>
+    <div className="fw-cmp-cols">
+      <div className="fw-cmp-col">
+        {list1.length > 0 ? list1.map((item, i) => (
+          <div key={i} style={{ marginBottom: '3px', display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
+            <span style={{ color: '#2EAA5E', fontWeight: 700 }}>•</span>
+            <span>{item}</span>
+          </div>
+        )) : (
+          <span style={{ fontStyle: 'italic', color: 'var(--fw-muted)' }}>{translations.noInformation}</span>
+        )}
       </div>
-      <div className="side-by-side-cell">
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {list2.length > 0 ? list2.map((item, i) => (
-            <li key={i} className="side-by-side-text" style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-              <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
-              <span>{item}</span>
-            </li>
-          )) : (
-            <li className="side-by-side-text" style={{ fontStyle: 'italic', color: '#9CA3AF' }}>{translations.noInformation}</li>
-          )}
-        </ul>
+      <div className="fw-cmp-col">
+        {list2.length > 0 ? list2.map((item, i) => (
+          <div key={i} style={{ marginBottom: '3px', display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
+            <span style={{ color: '#2EAA5E', fontWeight: 700 }}>•</span>
+            <span>{item}</span>
+          </div>
+        )) : (
+          <span style={{ fontStyle: 'italic', color: 'var(--fw-muted)' }}>{translations.noInformation}</span>
+        )}
       </div>
     </div>
   </div>

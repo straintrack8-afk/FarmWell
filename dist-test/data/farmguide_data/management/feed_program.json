@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "type": "broiler_feed_program",
+    "source": "broiler_management_handbook_2025",
+    "note": "Feed phase timing is approximate and should be adjusted based on actual BW vs standard. Transition smoothly — never allow feed gaps.",
+    "unit_energy": "kcal_ME_per_kg",
+    "unit_protein": "percent"
+  },
+  "feed_phases": {
+    "_description": "Standard 3-phase broiler feed program. Some operations use 4-phase (add finisher 2).",
+    "phases": [
+      {
+        "phase_id": "starter",
+        "name_en": "Starter",
+        "name_id": "Starter",
+        "days_typical": "0–10",
+        "days_range": "0–13",
+        "trigger_switch": "Body weight ~300–400 g OR 10–13 days",
+        "form": "Crumble",
+        "energy_kcal_per_kg_min": 2950,
+        "energy_kcal_per_kg_max": 3050,
+        "crude_protein_pct_min": 22.0,
+        "crude_protein_pct_max": 24.0,
+        "note": "Critical phase — appetite development. Good crumble quality essential."
+      },
+      {
+        "phase_id": "grower",
+        "name_en": "Grower",
+        "name_id": "Grower",
+        "days_typical": "11–24",
+        "days_range": "10–28",
+        "trigger_switch": "Body weight ~800–1000 g OR day 21–28",
+        "form": "Pellet",
+        "energy_kcal_per_kg_min": 3050,
+        "energy_kcal_per_kg_max": 3150,
+        "crude_protein_pct_min": 20.0,
+        "crude_protein_pct_max": 22.0,
+        "note": "Rapid growth phase. Monitor FCR and BW vs standard weekly."
+      },
+      {
+        "phase_id": "finisher",
+        "name_en": "Finisher",
+        "name_id": "Finisher",
+        "days_typical": "25–slaughter",
+        "days_range": "21–56+",
+        "trigger_switch": "Day 21–28 based on flock BW",
+        "form": "Pellet",
+        "energy_kcal_per_kg_min": 3100,
+        "energy_kcal_per_kg_max": 3200,
+        "crude_protein_pct_min": 18.0,
+        "crude_protein_pct_max": 20.0,
+        "note": "Focus on feed efficiency and meat yield. Withdrawal period required before slaughter per local regulation."
+      }
+    ]
+  },
+  "feed_withdrawal": {
+    "pre_slaughter_hours_typical": 8,
+    "pre_slaughter_hours_max": 12,
+    "water_maintain": true,
+    "note": "Follow local regulations and processor specifications. Water must always remain available."
+  },
+  "feed_consumption_reference": {
+    "_description": "Approximate daily and cumulative feed consumption by age. Actual consumption varies with feed form, energy, temperature.",
+    "columns": ["day", "daily_intake_g_bird", "cum_intake_g_bird"],
+    "data": [
+      [1,  13,  13],
+      [3,  18,  50],
+      [7,  35,  180],
+      [10, 50,  350],
+      [14, 68,  600],
+      [21, 100, 1350],
+      [28, 130, 2350],
+      [35, 160, 3500],
+      [42, 190, 4800],
+      [49, 215, 6200],
+      [56, 230, 7700]
+    ]
+  },
+  "water_to_feed_ratio": {
+    "normal_ratio": "1.6–2.0",
+    "hot_weather_ratio": "2.0–3.0",
+    "note": "Monitor water-to-feed ratio daily. Sudden drop = drinker blockage or illness. Sudden rise = diarrhea or high temperature."
+  }
+}

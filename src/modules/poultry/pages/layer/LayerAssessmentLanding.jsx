@@ -12,6 +12,7 @@ import {
     calculateOverallScore
 } from '../../utils/layerAssessmentUtils';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function LayerAssessmentLanding() {
     const navigate = useNavigate();
@@ -146,6 +147,7 @@ function LayerAssessmentLanding() {
 
     return (
         <div className="portal-layout">
+            <PoultryTopNav title="Layer Assessment" />
             <div className="portal-container">
                 <div className="portal-card">
                     {/* Header */}

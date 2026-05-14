@@ -14,7 +14,7 @@ const WelcomePage = () => {
             id: 'feed-additives',
             name: t('welcome.feedAdditivesModule') || 'Feed Module',
             tag: 'Nutrition',
-            icon: '/images/feed_additives_logo.png',
+            icon: '/images/feed_additives_logo.svg',
             colorClass: 'mod-feed',
             path: '/feed-additives',
             status: 'live',

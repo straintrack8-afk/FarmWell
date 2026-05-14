@@ -3,15 +3,55 @@ import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import '../styles/DiseaseDiagnosis.css';
+import PoultryTopNav from './common/PoultryTopNav';
 
-const CATEGORY_EMOJI = {
-  respiratory:      { emoji: '🐔', label: 'Head & Respiratory' },
-  digestive:        { emoji: '🌾', label: 'Digestive System' },
-  musculoskeletal:  { emoji: '🦴', label: 'Bones & Joints' },
-  integumentary:    { emoji: '�', label: 'Skin & Feathers' },
-  reproductive:     { emoji: '🥚', label: 'Reproductive System' },
-  general:          { emoji: '🌡️', label: 'Behavior & Systemic' },
+const CatIcons = {
+  respiratory: () => (
+    <svg viewBox="0 0 24 24"><path d="M6 4v6a6 6 0 0012 0V4"/><path d="M6 4a2 2 0 014 0"/><path d="M14 4a2 2 0 014 0"/><path d="M9 14c0 3 1.5 5 3 6"/><path d="M15 14c0 3-1.5 5-3 6"/></svg>
+  ),
+  digestive: () => (
+    <svg viewBox="0 0 24 24"><path d="M8 4c0 0-2 2-2 6s2 6 2 6"/><path d="M16 4c0 0 2 2 2 6s-2 6-2 6"/><path d="M8 10h8"/><path d="M8 14h8"/><path d="M10 18c0 2 1 3 2 3s2-1 2-3"/></svg>
+  ),
+  musculoskeletal: () => (
+    <svg viewBox="0 0 24 24"><path d="M6 6c0-1.1.9-2 2-2h1v3H8a2 2 0 01-2-2z"/><path d="M18 6a2 2 0 01-2 2h-1V5h1a2 2 0 012 2z"/><path d="M9 7h6v10H9z"/><path d="M8 16H7a2 2 0 000 4h1v-3"/><path d="M16 16h1a2 2 0 010 4h-1v-3"/></svg>
+  ),
+  integumentary: () => (
+    <svg viewBox="0 0 24 24"><path d="M12 3c-1 0-2 .5-2 1.5S11 6 12 6s2-.5 2-1.5S13 3 12 3z"/><path d="M14 4c1-1 3-1 4-.5"/><path d="M8 6C6 7 4 9 4 12c0 2 1 3.5 3 4.5"/><path d="M16 6c2 1 4 3 4 6 0 2-1 3.5-3 4.5"/><ellipse cx="12" cy="16" rx="5" ry="4"/></svg>
+  ),
+  reproductive: () => (
+    <svg viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="5" ry="6"/><path d="M12 8V4"/><path d="M9 6l3-3 3 3"/></svg>
+  ),
+  general: () => (
+    <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+  ),
 };
+
+function DiagnosisSteps({ currentStep }) {
+    const steps = [
+        { num: 1, label: 'Age' },
+        { num: 2, label: 'Symptoms' },
+        { num: 3, label: 'Results' },
+    ];
+    return (
+        <div className="fw-mod-steps">
+            {steps.map((step, i) => (
+                <React.Fragment key={step.num}>
+                    <div className="fw-mod-step">
+                        <div className={`fw-mod-step-circle ${currentStep > step.num ? 'done' : currentStep === step.num ? 'active' : 'pending'}`}>
+                            {currentStep > step.num ? '✓' : step.num}
+                        </div>
+                        <div className={`fw-mod-step-label${currentStep === step.num ? ' active' : ''}`}>
+                            {step.label}
+                        </div>
+                    </div>
+                    {i < steps.length - 1 && (
+                        <div className={`fw-mod-step-line${currentStep > step.num ? ' done' : ''}`} />
+                    )}
+                </React.Fragment>
+            ))}
+        </div>
+    );
+}
 
 const BodyPartSelectionNew = () => {
   const navigate = useNavigate();
@@ -62,26 +102,6 @@ const BodyPartSelectionNew = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSymptoms.length]);
 
-  const activeSymptoms = useMemo(() => {
-    if (!symptomCategories) return [];
-    
-    if (searchTerm) {
-      const allSymptoms = [];
-      Object.entries(symptomCategories).forEach(([catId, catData]) => {
-        catData.symptoms.forEach(sym => {
-          allSymptoms.push(sym);
-        });
-      });
-      return allSymptoms.filter(sym => {
-        const symName = typeof sym === 'string' ? sym : sym.name || sym;
-        return symName.toLowerCase().includes(searchTerm.toLowerCase());
-      });
-    }
-    
-    const catData = symptomCategories[activeCategory];
-    return catData ? catData.symptoms : [];
-  }, [symptomCategories, activeCategory, searchTerm]);
-
   const getCategorySelectedCount = (catId) => {
     if (!symptomCategories || !symptomCategories[catId]) return 0;
     const catData = symptomCategories[catId];
@@ -94,307 +114,126 @@ const BodyPartSelectionNew = () => {
     }).length;
   };
 
-  const activeCategoryName = useMemo(() => {
-    if (searchTerm) {
-      return `🔍 ${language === 'en' ? 'Search' : language === 'id' ? 'Pencarian' : 'Tìm kiếm'}: "${searchTerm}"`;
-    }
-    const meta = CATEGORY_EMOJI[activeCategory];
-    const catData = symptomCategories?.[activeCategory];
-    return meta && catData ? `${meta.emoji} ${catData.label || meta.label}` : '';
-  }, [symptomCategories, activeCategory, searchTerm, language]);
-
-  const selectedInActiveCategory = useMemo(() => {
-    return activeSymptoms.filter(sym => {
-      const symName = typeof sym === 'string' ? sym : sym.name || sym;
-      return selectedSymptoms.some(selSym => {
-        const selSymName = typeof selSym === 'string' ? selSym : selSym.name || selSym;
-        return symName === selSymName;
-      });
-    }).length;
-  }, [activeSymptoms, selectedSymptoms]);
-
   const handleDiseaseClick = (disease) => {
     viewDiseaseDetail(disease);
     navigate('/poultry/diagnostic/detail');
   };
 
+  const totalSelected = selectedSymptoms ? selectedSymptoms.length : 0;
+
   return (
-    <div className="diagnosis-page">
-      {/* Step Progress Bar */}
-      <div className="dd-step-bar">
-        <div className="dd-step-inner">
-          <div className={`dd-step ${currentStep >= 1 ? 'done' : ''}`} onClick={previousStep}>
-            <div className="dd-step-circle">{currentStep > 1 ? '✓' : '1'}</div>
-            <div className="dd-step-text">
-              <span className="dd-step-num">Step 1</span>
-              <span className="dd-step-name">{language === 'en' ? 'Age' : language === 'id' ? 'Umur' : 'Tuổi'}</span>
-            </div>
-          </div>
-          <div className={`dd-step-connector ${currentStep >= 2 ? 'done' : ''}`}></div>
-          <div className={`dd-step ${currentStep === 2 ? 'now' : currentStep > 2 ? 'done' : ''}`}>
-            <div className="dd-step-circle">{currentStep > 2 ? '✓' : '2'}</div>
-            <div className="dd-step-text">
-              <span className="dd-step-num">Step 2</span>
-              <span className="dd-step-name">{language === 'en' ? 'Symptoms' : language === 'id' ? 'Gejala' : 'Triệu chứng'}</span>
-            </div>
-          </div>
-          <div className={`dd-step-connector ${showResults ? 'done' : ''}`}></div>
-          <div className={`dd-step ${showResults ? 'now' : ''}`}>
-            <div className="dd-step-circle">{showResults ? '✓' : '3'}</div>
-            <div className="dd-step-text">
-              <span className="dd-step-num">Step 3</span>
-              <span className="dd-step-name">{language === 'en' ? 'Results' : language === 'id' ? 'Hasil' : 'Kết quả'}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="fw-module-page">
+      <PoultryTopNav title="Disease Diagnosis" />
 
-      {/* Main Content */}
-      <main className="dd-main">
-        {/* Hero */}
-        <div className="dd-hero">
-          <div className="dd-hero-badge">
-            🐔 {ageLabel} · {selectedSymptoms.length} {language === 'en' ? 'symptom' : language === 'id' ? 'gejala' : 'triệu chứng'}{selectedSymptoms.length !== 1 ? 's' : ''} {language === 'en' ? 'selected' : language === 'id' ? 'dipilih' : 'đã chọn'}
-          </div>
-          <h1>{language === 'en' ? 'What symptoms do you observe?' : language === 'id' ? 'Gejala apa yang Anda amati?' : 'Bạn quan sát thấy triệu chứng gì?'}</h1>
-          <p>{language === 'en' ? 'Choose a body system below, then select every symptom you can see.' : language === 'id' ? 'Pilih sistem tubuh di bawah, lalu pilih setiap gejala yang Anda lihat.' : 'Chọn hệ thống cơ thể bên dưới, sau đó chọn mọi triệu chứng bạn thấy.'}</p>
-        </div>
+      <div className="fw-mod-card">
+        <DiagnosisSteps currentStep={2} />
 
-        {/* Search */}
-        <div className="dd-search-row">
-          <div className="dd-search-wrap">
-            <span className="dd-search-ico">🔍</span>
+        <div className="fw-mod-content">
+
+          {/* Age + count tag */}
+          <div className="fw-age-tag">
+            ✓ {ageLabel} · {totalSelected} {totalSelected === 1 ? 'symptom' : 'symptoms'} selected
+          </div>
+
+          {/* Search */}
+          <div className="fw-sym-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
             <input
-              className="dd-search-input"
               type="text"
-              placeholder={language === 'en' ? 'Search symptoms…' : language === 'id' ? 'Cari gejala…' : 'Tìm triệu chứng…'}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search symptoms..."
             />
           </div>
-          <button
-            className={`dd-search-clear ${searchTerm ? 'show' : ''}`}
-            onClick={() => setSearchTerm('')}
-          >
-            ✕ {language === 'en' ? 'Clear' : language === 'id' ? 'Hapus' : 'Xóa'}
-          </button>
-        </div>
 
-        {/* Mobile Tabs */}
-        <div className="dd-mobile-tabs">
-          <button
-            className={`dd-mobile-tab ${mobileTab === 'symptoms' ? 'on' : ''}`}
-            onClick={() => setMobileTab('symptoms')}
-          >
-            <span className="tab-icon">🩺</span>
-            {language === 'en' ? 'Symptoms' : language === 'id' ? 'Gejala' : 'Triệu chứng'}
-          </button>
-          <button
-            className={`dd-mobile-tab ${mobileTab === 'selected' ? 'on' : ''}`}
-            onClick={() => setMobileTab('selected')}
-          >
-            <span className="tab-icon">📋</span>
-            {language === 'en' ? 'Selected' : language === 'id' ? 'Dipilih' : 'Đã chọn'}
-            <span className="tab-badge">{selectedSymptoms.length}</span>
-          </button>
-          <button
-            className={`dd-mobile-tab ${mobileTab === 'results' ? 'on' : ''}`}
-            onClick={() => setMobileTab('results')}
-          >
-            <span className="tab-icon">📊</span>
-            {language === 'en' ? 'Results' : language === 'id' ? 'Hasil' : 'Kết quả'}
-          </button>
-        </div>
-
-        {/* Symptoms Panel */}
-        <div className={`dd-mobile-panel ${mobileTab === 'symptoms' ? 'on' : ''}`}>
-          <div className="dd-sec-label">{language === 'en' ? 'Body System' : language === 'id' ? 'Sistem Tubuh' : 'Hệ thống cơ thể'}</div>
-          
-          {/* Category Grid */}
-          <div className="dd-cat-grid">
-            {symptomCategories && Object.entries(symptomCategories).map(([catId, catData]) => {
-              const meta = CATEGORY_EMOJI[catId] || { emoji: '📋', label: catId };
-              const selCount = getCategorySelectedCount(catId);
+          {/* Category grid */}
+          <div className="fw-welcome-section-label">Body System</div>
+          <div className="fw-cat-grid">
+            {Object.entries(symptomCategories || {}).map(([catId, catData]) => {
+              const Icon = CatIcons[catId] || CatIcons.general;
+              const isActive = activeCategory === catId;
+              const catSymCount = selectedSymptoms?.filter(selSym => {
+                return catData.symptoms?.some(catSym => {
+                  const catSymName = typeof catSym === 'string' ? catSym : catSym.name || catSym;
+                  const selSymName = typeof selSym === 'string' ? selSym : selSym.name || selSym;
+                  return catSymName === selSymName;
+                });
+              }).length || 0;
               return (
                 <div
                   key={catId}
-                  className={`dd-cat-card ${activeCategory === catId ? 'active' : ''} ${selCount > 0 ? 'has-sel' : ''}`}
+                  className={`fw-cat-card${isActive ? ' active' : ''}`}
                   onClick={() => selectCategory(catId)}
                 >
-                  <div className="dd-cat-sel-badge">{selCount}</div>
-                  <div className="dd-cat-emoji-wrap">{meta.emoji}</div>
-                  <span className="dd-cat-name">{catData.label || meta.label}</span>
+                  {catSymCount > 0 && <div className="fw-cat-badge">{catSymCount}</div>}
+                  <Icon />
+                  <div className="fw-cat-name">
+                    {typeof catData.label === 'string' ? catData.label : catData.label?.[language] || catId}
+                  </div>
                 </div>
               );
             })}
           </div>
 
-          {/* Symptom Panel */}
-          <div className="dd-sym-panel">
-            <div className="dd-sym-panel-head">
-              <div className="dd-sym-panel-title">{activeCategoryName}</div>
-              <div className={`dd-sym-count-badge ${selectedInActiveCategory > 0 ? 'show' : ''}`}>
-                {selectedInActiveCategory} {language === 'en' ? 'selected' : language === 'id' ? 'dipilih' : 'đã chọn'}
-              </div>
-            </div>
-            <div className="dd-sym-panel-body">
-              {activeSymptoms.length === 0 ? (
-                <div className="dd-empty-chips">
-                  <div className="dd-empty-chips-icon">😔</div>
-                  <div className="dd-empty-chips-msg">
-                    {language === 'en' ? 'No symptoms match your search' : language === 'id' ? 'Tidak ada gejala yang cocok dengan pencarian Anda' : 'Không có triệu chứng nào khớp với tìm kiếm của bạn'}
-                  </div>
-                </div>
-              ) : (
-                <div className="dd-sym-chips">
-                  {activeSymptoms.map((symptom, idx) => {
-                    const symName = typeof symptom === 'string' ? symptom : symptom.name || symptom;
-                    const isSelected = selectedSymptoms.some(s => {
-                      const sName = typeof s === 'string' ? s : s.name || s;
-                      return sName === symName;
-                    });
-                    return (
-                      <div
-                        key={idx}
-                        className={`dd-sym-chip ${isSelected ? 'selected' : ''}`}
-                        onClick={() => handleToggleSym(symptom)}
-                      >
-                        <span>{symName}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Selected Panel */}
-        <div className={`dd-mobile-panel ${mobileTab === 'selected' ? 'on' : ''}`}>
-          <div className="dd-sel-bar">
-            <div className="dd-sel-bar-top">
-              <div className="dd-sel-bar-label">
-                {language === 'en' ? 'Selected symptoms' : language === 'id' ? 'Gejala yang dipilih' : 'Triệu chứng đã chọn'}
-                <span className="dd-sel-count-pill">{selectedSymptoms.length}</span>
-              </div>
-              <div className="dd-sel-bar-actions">
-                <button className="dd-btn-clear-all" onClick={handleClearAll}>
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                    <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-                  </svg>
-                  {language === 'en' ? 'Clear all' : language === 'id' ? 'Hapus semua' : 'Xóa tất cả'}
-                </button>
-              </div>
-            </div>
-            <div className="dd-sel-pills">
-              {selectedSymptoms.length === 0 ? (
-                <span style={{ fontSize: '12px', color: 'rgba(255,255,255,.35)', padding: '4px 0' }}>
-                  {language === 'en' ? 'No symptoms selected yet' : language === 'id' ? 'Belum ada gejala yang dipilih' : 'Chưa chọn triệu chứng nào'}
-                </span>
-              ) : (
-                selectedSymptoms.map((symptom, idx) => {
-                  const symName = typeof symptom === 'string' ? symptom : symptom.name || symptom;
-                  return (
-                    <div key={idx} className="dd-sel-pill">
-                      {symName}
-                      <button className="dd-sel-pill-del" onClick={() => handleToggleSym(symptom)}>
-                        ✕
-                      </button>
-                    </div>
-                  );
+          {/* Symptoms for active category */}
+          {activeCategory && symptomCategories?.[activeCategory] && (
+            <div className="fw-sym-chips-wrap">
+              {(symptomCategories[activeCategory].symptoms || [])
+                .filter(sym => {
+                  if (!searchTerm) return true;
+                  const symName = typeof sym === 'string' ? sym : sym.name || sym;
+                  return symName.toLowerCase().includes(searchTerm.toLowerCase());
                 })
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Results Panel */}
-        <div className={`dd-mobile-panel ${mobileTab === 'results' ? 'on' : ''}`}>
-          <div className="dd-results-section">
-            <div className="dd-results-head">
-              {language === 'en' ? 'Possible Conditions' : language === 'id' ? 'Kondisi yang Mungkin' : 'Tình trạng có thể'}
-            </div>
-            <div>
-              {selectedSymptoms.length === 0 ? (
-                <div className="dd-empty-results">
-                  <div className="dd-empty-results-icon">🔬</div>
-                  <div className="dd-empty-results-msg">
-                    {language === 'en' ? 'Select symptoms to see possible conditions' : language === 'id' ? 'Pilih gejala untuk melihat kondisi yang mungkin' : 'Chọn triệu chứng để xem tình trạng có thể'}
-                  </div>
-                </div>
-              ) : results && results.length > 0 ? (
-                results.slice(0, 10).map((disease, idx) => {
-                  const pct = Math.round(disease.percentage || disease.score || disease.confidence || 0);
-                  const name = disease.name || disease.nama || 'Unknown';
-                  const diseaseType = disease.category || disease.type || 'viral';
-                  const isNotifiable = disease.notifiable || false;
-                  
+                .map((sym, i) => {
+                  const symName = typeof sym === 'string' ? sym : sym.name || sym;
+                  const isSelected = selectedSymptoms?.some(s => {
+                    const sName = typeof s === 'string' ? s : s.name || s;
+                    return sName === symName;
+                  });
                   return (
                     <div
-                      key={disease.id || idx}
-                      className={`dd-disease-card ${idx === 0 ? 'rank-1' : ''}`}
-                      onClick={() => handleDiseaseClick(disease)}
-                      style={{ animationDelay: `${idx * 0.05}s`, cursor: 'pointer' }}
+                      key={sym.id || i}
+                      className={`fw-sym-chip${isSelected ? ' selected' : ''}`}
+                      onClick={() => handleToggleSym(sym)}
                     >
-                      <div className="dd-d-rank">{idx + 1}</div>
-                      <div className="dd-d-body">
-                        <div className="dd-d-name">{name}</div>
-                        <div className="dd-d-bar">
-                          <div className="dd-d-fill" style={{ width: `${pct}%` }}></div>
-                        </div>
-                        <div className="dd-d-tags">
-                          <span className={`dd-d-tag ${diseaseType.toLowerCase().includes('viral') || diseaseType.toLowerCase().includes('virus') ? 'viral' : diseaseType.toLowerCase().includes('bact') ? 'bact' : ''}`}>
-                            {diseaseType}
-                          </span>
-                          {isNotifiable && (
-                            <span className="dd-d-tag notif">
-                              {language === 'en' ? 'Notifiable' : language === 'id' ? 'Wajib Lapor' : 'Báo cáo bắt buộc'}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="dd-d-score">
-                        <div className="dd-d-pct">
-                          {pct}<span className="dd-d-pct-unit">%</span>
-                        </div>
-                      </div>
+                      {symName}
                     </div>
                   );
-                })
-              ) : (
-                <div className="dd-empty-results">
-                  <div className="dd-empty-results-msg">
-                    {language === 'en' ? 'No matching conditions found' : language === 'id' ? 'Tidak ada kondisi yang cocok' : 'Không tìm thấy tình trạng nào'}
-                  </div>
-                </div>
-              )}
+                })}
             </div>
-          </div>
-        </div>
-      </main>
+          )}
 
-      {/* Action Bar */}
-      <div className="dd-action-bar">
-        <div className="dd-action-inner">
-          <button className="dd-btn-back" onClick={previousStep}>
-            ← {language === 'en' ? 'Back to Age' : language === 'id' ? 'Kembali ke Umur' : 'Quay lại Tuổi'}
-          </button>
-          <button className="dd-btn-all" onClick={() => window.location.href = '/poultry/diseases'}>
-            {language === 'en' ? 'All Diseases' : language === 'id' ? 'Semua Penyakit' : 'Tất cả bệnh'}
-          </button>
+          {/* Selected bar */}
+          {totalSelected > 0 && (
+            <div className="fw-sym-selected-bar">
+              <span className="fw-sym-selected-label">Selected symptoms</span>
+              <span className="fw-sym-selected-count">{totalSelected}</span>
+              <button className="fw-sym-clear-btn" onClick={handleClearAll}>Clear all</button>
+            </div>
+          )}
+
+          {/* See Results */}
           <button
-            className="dd-btn-diagnose"
-            disabled={selectedSymptoms.length === 0}
+            className="fw-see-results-btn"
+            disabled={totalSelected === 0}
             onClick={() => {
-              setShowResults(true);
-              if (window.innerWidth <= 640) {
-                setMobileTab('results');
-              } else {
-                document.querySelector('.dd-results-section')?.scrollIntoView({ behavior: 'smooth' });
-              }
+              calculateResults();
+              navigate('/poultry/diagnostic/results');
             }}
           >
-            {language === 'en' ? 'See Results' : language === 'id' ? 'Lihat Hasil' : 'Xem kết quả'} →
+            See Results →
+          </button>
+
+        </div>
+
+        <div className="fw-mod-bnav">
+          <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Home</span>
+          </button>
+          <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry/diagnostic')}>
+            <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+            <span>Diagnostic</span>
           </button>
         </div>
       </div>

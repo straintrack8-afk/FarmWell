@@ -51,7 +51,7 @@ function PoultryDisclaimerModal({ language = 'en', onAccept }) {
             <div
                 style={{
                     backgroundColor: 'white',
-                    borderRadius: '12px',
+                    borderRadius: '20px',
                     maxWidth: '600px',
                     width: '100%',
                     padding: '2rem',
@@ -67,16 +67,19 @@ function PoultryDisclaimerModal({ language = 'en', onAccept }) {
                         style={{
                             width: '48px',
                             height: '48px',
-                            borderRadius: '50%',
-                            backgroundColor: '#FEF3C7',
+                            borderRadius: '14px',
+                            backgroundColor: '#DDF2E8',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            flexShrink: 0,
-                            fontSize: '1.5rem'
+                            flexShrink: 0
                         }}
                     >
-                        
+                        <svg viewBox="0 0 24 24" style={{ width: 24, height: 24, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+                            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
                     </div>
                     <h2
                         id="poultry-disclaimer-title"
@@ -94,9 +97,9 @@ function PoultryDisclaimerModal({ language = 'en', onAccept }) {
                 {/* Content */}
                 <div
                     style={{
-                        backgroundColor: '#FFFBEB',
-                        border: '1px solid #FCD34D',
-                        borderRadius: '8px',
+                        backgroundColor: '#F4FBF7',
+                        border: '1px solid #C8E8D4',
+                        borderRadius: '10px',
                         padding: '1rem',
                         marginBottom: '1.5rem'
                     }}
@@ -105,7 +108,7 @@ function PoultryDisclaimerModal({ language = 'en', onAccept }) {
                         style={{
                             fontSize: '0.875rem',
                             lineHeight: '1.6',
-                            color: '#92400E',
+                            color: '#1E5C3A',
                             margin: 0
                         }}
                     >
@@ -134,7 +137,7 @@ function PoultryDisclaimerModal({ language = 'en', onAccept }) {
                                 height: '20px',
                                 marginTop: '2px',
                                 cursor: 'pointer',
-                                accentColor: '#667eea',
+                                accentColor: '#2EAA5E',
                                 flexShrink: 0
                             }}
                             aria-label={lang.checkboxLabel}
@@ -158,21 +161,22 @@ function PoultryDisclaimerModal({ language = 'en', onAccept }) {
                     style={{
                         width: '100%',
                         padding: '0.75rem 1.5rem',
-                        backgroundColor: isChecked ? '#667eea' : '#D1D5DB',
+                        backgroundColor: isChecked ? '#2EAA5E' : '#D1D5DB',
                         color: 'white',
                         border: 'none',
-                        borderRadius: '8px',
+                        borderRadius: '12px',
                         fontSize: '1rem',
-                        fontWeight: '600',
+                        fontWeight: '700',
                         cursor: isChecked ? 'pointer' : 'not-allowed',
                         transition: 'all 0.2s',
-                        opacity: isChecked ? 1 : 0.6
+                        opacity: isChecked ? 1 : 0.6,
+                        fontFamily: 'Plus Jakarta Sans, sans-serif'
                     }}
                     onMouseEnter={(e) => {
-                        if (isChecked) e.currentTarget.style.backgroundColor = '#5568d3';
+                        if (isChecked) e.currentTarget.style.backgroundColor = '#1E7A42';
                     }}
                     onMouseLeave={(e) => {
-                        if (isChecked) e.currentTarget.style.backgroundColor = '#667eea';
+                        if (isChecked) e.currentTarget.style.backgroundColor = '#2EAA5E';
                     }}
                 >
                     {lang.continueButton}

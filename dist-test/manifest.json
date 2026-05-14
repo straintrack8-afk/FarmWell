@@ -1,0 +1,31 @@
+{
+    "name": "FarmWell",
+    "short_name": "FarmWell",
+    "description": "Comprehensive poultry and swine health diagnostics",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#F9FAFB",
+    "theme_color": "#366092",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "medical",
+        "health",
+        "utilities"
+    ],
+    "lang": "en",
+    "dir": "ltr"
+}

@@ -6,7 +6,6 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import '../../portal.css';
 import './poultry.css';
 import { STEPS } from './utils/constants';
-import SharedTopNav from '../../components/SharedTopNav';
 import PoultryDiagnosisWrapper from './components/disease-diagnosis/PoultryDiagnosisWrapper';
 import Header from './components/common/Header';
 import PoultryLanding from './components/PoultryLanding';
@@ -35,7 +34,6 @@ import LayerAssessmentPage from './pages/layer/LayerAssessmentPage';
 import LayerResultsPage from './pages/layer/LayerResultsPage';
 import DiseaseComparison from './pages/DiseaseComparison';
 import DiagnosticLanding from './pages/DiagnosticLanding';
-import { useTranslation } from '../../hooks/useTranslation';
 
 
 function DiagnosticApp() {
@@ -56,18 +54,18 @@ function DiagnosticApp() {
         } else if (location.pathname === '/poultry/diagnostic/symptoms' && step !== STEPS.SYMPTOMS) {
             console.log('Forcing SYMPTOMS step for /diagnostic/symptoms route');
             setStep(STEPS.SYMPTOMS);
-        } else if (location.pathname === '/poultry/diagnostic/results' && step !== STEPS.ALL_DISEASES) {
-            console.log('Forcing ALL_DISEASES step for /diagnostic/results route');
-            setStep(STEPS.ALL_DISEASES);
+        } else if (location.pathname === '/poultry/diagnostic/results' && step !== STEPS.RESULTS) {
+            console.log('Forcing RESULTS step for /diagnostic/results route');
+            setStep(STEPS.RESULTS);
         } else if (location.pathname === '/poultry/diagnostic/detail' && step !== STEPS.DETAIL) {
             console.log('Forcing DETAIL step for /diagnostic/detail route');
             setStep(STEPS.DETAIL);
         }
     }, [location.pathname, step, setStep]);
 
-    // Redirect invalid steps to SYMPTOMS (we removed BODY_PART and RESULTS pages)
+    // Redirect invalid steps to SYMPTOMS
     useEffect(() => {
-        if (step === STEPS.BODY_PART || step === STEPS.RESULTS) {
+        if (step === STEPS.BODY_PART) {
             console.log('Redirecting invalid step to SYMPTOMS:', step);
             setStep(STEPS.SYMPTOMS);
         }
@@ -117,6 +115,7 @@ function DiagnosticApp() {
                         <main style={{ flex: 1, padding: 0 }}>
                             {step === STEPS.AGE && <AgeSelection />}
                             {step === STEPS.SYMPTOMS && <BodyPartSelectionNew />}
+                            {step === STEPS.RESULTS && <ResultsList />}
                             {step === STEPS.ALL_DISEASES && <AllDiseases />}
                             {step === STEPS.DETAIL && <DiseaseDetail />}
                         </main>
@@ -128,19 +127,11 @@ function DiagnosticApp() {
 }
 
 function App() {
-    const { t } = useTranslation();
     const location = useLocation();
     const isPoultryHomePage = location.pathname === '/poultry' || location.pathname === '/poultry/';
 
     return (
         <div className="fw-page">
-            <SharedTopNav
-                logoSrc={isPoultryHomePage ? "/images/FarmWell_Logo.png" : "/images/PoultryWell_Logo.png"}
-                logoAlt={isPoultryHomePage ? "FarmWell" : "PoultryWell"}
-                logoHref={isPoultryHomePage ? "/" : "/poultry"}
-                logoScale={1}
-                imageScale={isPoultryHomePage ? 1 : 1.25}
-            />
             <div className="portal-layout" style={{ background: 'transparent', padding: 0 }}>
                 <div className="portal-container" style={{ maxWidth: '100%', padding: 0 }}>
                     <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
@@ -240,18 +231,6 @@ function App() {
                 </div>
             </div>
 
-            {/* ── SUPPORTED BY ── */}
-            <div className="fw-supported">
-                <div className="fw-sup-label">{t('common.poweredBy').toUpperCase()}</div>
-                <div className="fw-sup-logos">
-                    <img src="/images/Vaksindo_logo.png" alt="Vaksindo" className="fw-vaksindo-logo" />
-                </div>
-            </div>
-
-            {/* ── FOOTER ── */}
-            <footer className="fw-footer" style={{ marginTop: 'auto' }}>
-                <div className="fw-footer-copy">© 2025 FarmWell · Integrated Livestock Platform</div>
-            </footer>
         </div>
     );
 }

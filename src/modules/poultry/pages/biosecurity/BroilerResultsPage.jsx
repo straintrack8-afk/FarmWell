@@ -6,6 +6,7 @@ import { useTranslation } from '../../../../hooks/useTranslation';
 import { getLocalizedText } from '../../utils/assessmentUtils';
 import '../../../../portal.css';
 import '../../poultry.css';
+import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function BroilerResultsPage() {
     const navigate = useNavigate();
@@ -207,6 +208,7 @@ function BroilerResultsPage() {
 
     return (
         <>
+            <PoultryTopNav title="Broiler Biosecurity" />
             <style>{`
                 @media print {
                     /* Hide non-printable elements */

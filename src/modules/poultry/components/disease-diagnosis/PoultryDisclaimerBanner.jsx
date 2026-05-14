@@ -38,8 +38,8 @@ function PoultryDisclaimerBanner({ language = 'en' }) {
                 position: 'sticky',
                 top: 0,
                 zIndex: 40,
-                backgroundColor: '#FFFBEB',
-                borderBottom: '2px solid #FCD34D',
+                backgroundColor: '#F4FBF7',
+                borderBottom: '1.5px solid #C8E8D4',
                 transition: 'all 0.3s ease'
             }}
             role="alert"
@@ -62,13 +62,18 @@ function PoultryDisclaimerBanner({ language = 'en' }) {
                     }}
                     onClick={toggleCollapse}
                 >
-                    <span style={{ flexShrink: 0, fontSize: '1.1rem', color: '#F59E0B' }}>ⓘ</span>
+                    <svg style={{ flexShrink: 0, width: 16, height: 16 }} viewBox="0 0 24 24" fill="none" stroke="#1E7A42" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
                     <div style={{ flex: 1 }}>
                         <span
                             style={{
                                 fontSize: '0.875rem',
-                                fontWeight: '600',
-                                color: '#92400E'
+                                fontWeight: '700',
+                                color: '#1E7A42',
+                                fontFamily: 'Plus Jakarta Sans, sans-serif'
                             }}
                         >
                             {lang.title}
@@ -77,7 +82,7 @@ function PoultryDisclaimerBanner({ language = 'en' }) {
                             <span
                                 style={{
                                     fontSize: '0.75rem',
-                                    color: '#B45309',
+                                    color: '#4a8a6a',
                                     marginLeft: '0.5rem'
                                 }}
                             >
@@ -95,7 +100,7 @@ function PoultryDisclaimerBanner({ language = 'en' }) {
                             backgroundColor: 'transparent',
                             border: 'none',
                             cursor: 'pointer',
-                            color: '#F59E0B',
+                            color: '#2EAA5E',
                             display: 'flex',
                             alignItems: 'center',
                             fontSize: '1rem',
@@ -114,7 +119,7 @@ function PoultryDisclaimerBanner({ language = 'en' }) {
                         style={{
                             marginTop: '0.75rem',
                             paddingTop: '0.75rem',
-                            borderTop: '1px solid #FCD34D',
+                            borderTop: '1px solid #C8E8D4',
                             animation: 'poultryBannerSlideDown 0.3s ease'
                         }}
                     >
@@ -122,8 +127,9 @@ function PoultryDisclaimerBanner({ language = 'en' }) {
                             style={{
                                 fontSize: '0.8125rem',
                                 lineHeight: '1.5',
-                                color: '#92400E',
-                                margin: 0
+                                color: '#1E5C3A',
+                                margin: 0,
+                                fontFamily: 'Plus Jakarta Sans, sans-serif'
                             }}
                         >
                             {lang.shortText}
