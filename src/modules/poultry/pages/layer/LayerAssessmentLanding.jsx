@@ -11,7 +11,6 @@ import {
     shouldShowQuestion,
     calculateOverallScore
 } from '../../utils/layerAssessmentUtils';
-import '../../poultry.css';
 import PoultryTopNav from '../../components/common/PoultryTopNav';
 
 function LayerAssessmentLanding() {
@@ -130,256 +129,118 @@ function LayerAssessmentLanding() {
 
     if (!assessmentData) {
         return (
-            <div style={{
-                minHeight: '100vh',
-                background: '#f8fafc',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-                <div style={{ textAlign: 'center', padding: '4rem' }}>
-                    <div className="spinner"></div>
-                    <p style={{ marginTop: '1rem', color: '#6b7280' }}>Loading assessment...</p>
+            <div className="fw-module-page">
+                <PoultryTopNav title="Layer Assessment" />
+                <div className="fw-mod-card">
+                    <div className="fw-mod-content">
+                        <div className="fw-bio-empty">
+                            <div className="fw-bio-empty-title">Loading...</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="portal-layout">
+        <div className="fw-module-page">
             <PoultryTopNav title="Layer Assessment" />
-            <div className="portal-container">
-                <div className="portal-card">
-                    {/* Header */}
-                    
-                    {/* Page Title */}
-                    <div style={{ marginBottom: '1.5rem', marginTop: '1.5rem' }}>
-                        <h1 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.375rem', color: '#1e293b' }}>
-                            {t('poultry.layer.landing.title')}
-                        </h1>
-                        <p style={{ color: '#64748b', fontSize: '0.9375rem' }}>
-                            {t('poultry.layer.landing.subtitle')}
-                        </p>
-                    </div>
+            <div className="fw-mod-card">
+                <div className="fw-mod-content">
 
-                    {/* Statistics Cards — 2×2 */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                        {/* Total Audits */}
-                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.pink}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.layer.landing.totalAssessments')}</div>
-                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{stats.total}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{stats.completed} {t('poultry.layer.landing.completed')}</div>
+                    {/* Stats Grid */}
+                    <div className="fw-bio-stats-grid">
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.layer.landing.totalAssessments') || 'Total'}</div>
+                            <div className="fw-bio-stat-value">{stats.total}</div>
+                            <div className="fw-bio-stat-sub">{stats.completed} {t('poultry.layer.landing.completed') || 'completed'}</div>
                         </div>
-
-                        {/* Last Score */}
-                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.green}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>{t('poultry.layer.landing.lastScore')}</div>
-                            <div style={{ fontSize: '2rem', fontWeight: '800', color: stats.lastScore !== null ? (stats.lastScore >= 80 ? '#10B981' : stats.lastScore >= 60 ? '#3B82F6' : stats.lastScore >= 40 ? '#F59E0B' : '#EF4444') : '#1e293b', lineHeight: 1 }}>
-                                {stats.lastScore !== null ? stats.lastScore : 'N/A'}
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.layer.landing.lastScore') || 'Last Score'}</div>
+                            <div className={`fw-bio-stat-value ${stats.lastScore !== null ? 'green' : 'na'}`}>
+                                {stats.lastScore !== null ? `${stats.lastScore}%` : 'N/A'}
                             </div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.layer.landing.latestCompleted')}</div>
+                            <div className="fw-bio-stat-sub">{t('poultry.layer.landing.latestCompleted') || 'latest'}</div>
                         </div>
-
-                        {/* Good Audits */}
-                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.amber}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.layer.landing.goodAssessments')}</div>
-                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{stats.goodAssessments}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
-                                {stats.completed > 0 ? Math.round((stats.goodAssessments / stats.completed) * 100) : 0}% {t('poultry.layer.landing.ofCompleted')}
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.layer.landing.goodAssessments') || 'Good'}</div>
+                            <div className="fw-bio-stat-value green">{stats.goodAssessments}</div>
+                            <div className="fw-bio-stat-sub">
+                                {stats.completed > 0 ? Math.round((stats.goodAssessments / stats.completed) * 100) : 0}% {t('poultry.layer.landing.ofCompleted') || 'of completed'}
                             </div>
                         </div>
-
-                        {/* Poor Audits */}
-                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.red}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.layer.landing.poorAssessments')}</div>
-                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#EF4444', lineHeight: 1 }}>{stats.poorAssessments}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.layer.landing.requiresAttention')}</div>
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.layer.landing.poorAssessments') || 'Poor'}</div>
+                            <div className="fw-bio-stat-value red">{stats.poorAssessments}</div>
+                            <div className="fw-bio-stat-sub">{t('poultry.layer.landing.requiresAttention') || 'requires attention'}</div>
                         </div>
                     </div>
 
-                    {/* Quick Actions */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
-                        <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>{t('poultry.layer.landing.quickActions')}</h2>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
-                            <button
-                                className="btn btn-primary"
-                                onClick={handleStartNewAssessment}
-                            >
-                                {t('poultry.layer.landing.startNewAssessment')}
+                    <button className="fw-bio-action-btn" onClick={handleStartNewAssessment}>
+                        {t('poultry.layer.landing.startNewAssessment') || '+ Start New Assessment'}
+                    </button>
+
+                    <div className="fw-welcome-section-label">
+                        {t('poultry.layer.landing.recentAssessments') || 'Recent Assessments'}
+                    </div>
+
+                    {savedAssessments.length === 0 ? (
+                        <div className="fw-bio-empty">
+                            <div className="fw-bio-empty-icon">
+                                <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/></svg>
+                            </div>
+                            <div className="fw-bio-empty-title">{t('poultry.layer.landing.noAssessmentsYet') || 'No Assessments Yet'}</div>
+                            <div className="fw-bio-empty-sub">{t('poultry.layer.landing.noAssessmentsText') || 'Start your first layer assessment'}</div>
+                            <button className="fw-bio-action-btn" style={{ marginTop: 4 }} onClick={handleStartNewAssessment}>
+                                {t('poultry.layer.landing.startFirstAssessment') || 'Start First Assessment'}
                             </button>
-                            <button
-                                className="btn btn-primary"
-                                onClick={() => {
-                                    const recentAuditsSection = document.getElementById('recent-assessments');
-                                    if (recentAuditsSection) {
-                                        recentAuditsSection.scrollIntoView({ behavior: 'smooth' });
+                        </div>
+                    ) : (
+                        savedAssessments.map((assessment) => {
+                            const answeredCount = Object.keys(assessment.answers || {}).length;
+                            const totalQuestions = getVisibleQuestionCount(assessmentData, assessment.answers || {});
+                            const percentage = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+                            const isCompleted = answeredCount === totalQuestions && totalQuestions > 0;
+                            const scoreResult = isCompleted ? calculateOverallScore(assessmentData, assessment.answers || {}) : null;
+                            const score = scoreResult ? scoreResult.percentage : null;
+                            const dateStr = new Date(assessment.lastModified).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                            return (
+                                <div
+                                    key={assessment.id}
+                                    className="fw-bio-assess-item"
+                                    onClick={() => isCompleted
+                                        ? (setCurrentAssessmentId(assessment.id), navigate(`/poultry/layer-assessment/results?id=${assessment.id}`))
+                                        : handleContinueAssessment(assessment.id)
                                     }
-                                }}
-                            >
-                                {t('poultry.layer.landing.viewAssessmentHistory')}
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Recent Assessments */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }} id="recent-assessments">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                            <h2 style={{ fontSize: '1.1rem', fontWeight: '700' }}>{t('poultry.layer.landing.recentAssessments')}</h2>
-                        </div>
-
-                        {savedAssessments.length === 0 ? (
-                            <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>{t('poultry.layer.landing.noAssessmentsYet')}</h3>
-                                <p style={{ color: '#64748b', marginBottom: '1.5rem', maxWidth: '440px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
-                                    {t('poultry.layer.landing.noAssessmentsText')}
-                                </p>
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={handleStartNewAssessment}
                                 >
-                                    {t('poultry.layer.landing.startFirstAssessment')}
-                                </button>
-                            </div>
-
-                        ) : (
-                            <div style={{ overflowX: 'auto' }}>
-                                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0.75rem' }}>
-                                    <thead>
-                                        <tr style={{ textAlign: 'left' }}>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {t('poultry.layer.landing.idDate')}
-                                            </th>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {t('poultry.layer.landing.progressScore')}
-                                            </th>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {t('poultry.layer.landing.status')}
-                                            </th>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>
-                                                {t('poultry.layer.landing.actions')}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {savedAssessments.map(assessment => {
-                                            const answeredCount = Object.keys(assessment.answers || {}).length;
-                                            const totalQuestions = getVisibleQuestionCount(assessmentData, assessment.answers || {});
-                                            const percentage = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
-                                            const isCompleted = answeredCount === totalQuestions && totalQuestions > 0;
-
-                                            const scoreResult = isCompleted ? calculateOverallScore(assessmentData, assessment.answers || {}) : null;
-                                            const score = scoreResult ? scoreResult.percentage : null;
-
-                                            const lastModified = new Date(assessment.lastModified);
-                                            const dateStr = lastModified.toLocaleDateString('en-US', {
-                                                month: 'short',
-                                                day: 'numeric',
-                                                year: 'numeric'
-                                            });
-
-                                            return (
-                                                <tr key={assessment.id} style={{
-                                                    background: '#f9fafb',
-                                                    borderRadius: '0.75rem'
-                                                }}>
-                                                    <td style={{ padding: '1.25rem', borderTopLeftRadius: '0.75rem', borderBottomLeftRadius: '0.75rem' }}>
-                                                        <div style={{ fontWeight: '600', color: '#1e293b', fontSize: '0.9375rem', marginBottom: '0.2rem' }}>
-                                                            {assessment.metadata?.assessmentId || assessment.id}
-                                                        </div>
-                                                        <div style={{ color: '#64748b', fontSize: '0.8125rem' }}>
-                                                            {dateStr}
-                                                        </div>
-                                                    </td>
-                                                    <td style={{ padding: '1.25rem' }}>
-                                                        {isCompleted ? (
-                                                            <div style={{ fontWeight: '700', fontSize: '1.25rem', color: score >= 80 ? '#10B981' : score >= 60 ? '#3B82F6' : score >= 40 ? '#F59E0B' : '#EF4444' }}>
-                                                                {score}
-                                                            </div>
-                                                        ) : (
-                                                            <div>
-                                                                <div style={{ fontSize: '0.875rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.3rem' }}>
-                                                                    {answeredCount} / {totalQuestions} {t('poultry.biosecurity.dashboard.answered')}
-                                                                </div>
-                                                                <div style={{ height: '6px', background: '#e5e7eb', borderRadius: '999px', overflow: 'hidden', width: '120px' }}>
-                                                                    <div style={{ height: '100%', width: `${percentage}%`, background: '#ec4899', borderRadius: '999px' }}></div>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </td>
-                                                    <td style={{ padding: '1.25rem' }}>
-                                                        <span style={{
-                                                            padding: '0.375rem 0.875rem',
-                                                            borderRadius: '9999px',
-                                                            fontSize: '0.75rem',
-                                                            fontWeight: '600',
-                                                            backgroundColor: isCompleted ? '#D1FAE5' : '#FEF3C7',
-                                                            color: isCompleted ? '#065F46' : '#92400E'
-                                                        }}>
-                                                            {isCompleted ? t('poultry.layer.landing.completed') : t('poultry.layer.landing.inProgress')}
-                                                        </span>
-                                                    </td>
-                                                    <td style={{ padding: '1.25rem', textAlign: 'right', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
-                                                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                                            <button
-                                                                onClick={() => {
-                                                                    if (isCompleted) {
-                                                                        setCurrentAssessmentId(assessment.id);
-                                                                        navigate(`/poultry/layer-assessment/results?id=${assessment.id}`);
-                                                                    } else {
-                                                                        handleContinueAssessment(assessment.id);
-                                                                    }
-                                                                }}
-                                                                style={{
-                                                                    padding: '0.5rem 1rem',
-                                                                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                                                                    border: 'none',
-                                                                    borderRadius: '0.5rem',
-                                                                    color: 'white',
-                                                                    fontSize: '0.8125rem',
-                                                                    fontWeight: '600',
-                                                                    cursor: 'pointer',
-                                                                    transition: 'all 0.2s ease',
-                                                                    boxShadow: isCompleted ? '0 2px 8px rgba(16, 185, 129, 0.3)' : 'none'
-                                                                }}
-                                                            >
-                                                                {isCompleted ? t('poultry.layer.landing.viewReport') : t('poultry.layer.landing.continue')}
-                                                            </button>
-                                                            <button
-                                                                onClick={(e) => handleDeleteAssessment(assessment.id, e)}
-                                                                style={{
-                                                                    padding: '0.5rem',
-                                                                    background: 'transparent',
-                                                                    border: 'none',
-                                                                    borderRadius: '0.5rem',
-                                                                    color: '#94a3b8',
-                                                                    fontSize: '0.8125rem',
-                                                                    cursor: 'pointer',
-                                                                    transition: 'all 0.2s ease'
-                                                                }}
-                                                                onMouseEnter={(e) => {
-                                                                    e.currentTarget.style.background = '#FEE2E2';
-                                                                    e.currentTarget.style.color = '#EF4444';
-                                                                }}
-                                                                onMouseLeave={(e) => {
-                                                                    e.currentTarget.style.background = 'transparent';
-                                                                    e.currentTarget.style.color = '#94a3b8';
-                                                                }}
-                                                                title="Delete Assessment"
-                                                            >
-                                                                {t('poultry.layer.landing.delete')}
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-                    </div>
-
+                                    <div className={`fw-bio-assess-score${score !== null && score < 60 ? ' poor' : ''}`}>
+                                        {isCompleted ? `${score}%` : `${percentage}%`}
                                     </div>
+                                    <div className="fw-bio-assess-info">
+                                        <div className="fw-bio-assess-name">{assessment.metadata?.assessmentId || assessment.id}</div>
+                                        <div className="fw-bio-assess-date">
+                                            {dateStr} · {isCompleted ? (t('poultry.layer.landing.completed') || 'Completed') : `${answeredCount}/${totalQuestions}`}
+                                        </div>
+                                    </div>
+                                    <button onClick={(e) => handleDeleteAssessment(assessment.id, e)} style={{ background: 'none', border: 'none', color: '#ccc', cursor: 'pointer', fontSize: 16, padding: '4px', flexShrink: 0 }}>✕</button>
+                                    <div className="fw-bio-assess-arrow">›</div>
+                                </div>
+                            );
+                        })
+                    )}
+                </div>
+
+                <div className="fw-mod-bnav">
+                    <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span>Home</span>
+                    </button>
+                    <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry')}>
+                        <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>PoultryWell</span>
+                    </button>
+                </div>
             </div>
         </div>
     );

@@ -40,13 +40,13 @@ function BroilerAssessmentPage() {
 
     if (isLoading) {
         return (
-            <div className="portal-layout">
-                <div className="portal-container">
-                    <div className="portal-card" style={{ textAlign: 'center', padding: '4rem' }}>
-                        <div className="spinner"></div>
-                        <p className="text-muted" style={{ marginTop: '1rem' }}>
-                            Loading assessment...
-                        </p>
+            <div className="fw-module-page">
+                <PoultryTopNav title="Broiler Biosecurity" />
+                <div className="fw-mod-card">
+                    <div className="fw-mod-content" style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <div className="fw-bio-empty">
+                            <div className="fw-bio-empty-title">Loading...</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,9 +55,10 @@ function BroilerAssessmentPage() {
 
     if (error) {
         return (
-            <div className="portal-layout">
-                <div className="portal-container">
-                    <div className="portal-card" style={{ textAlign: 'center', padding: '4rem' }}>
+            <div className="fw-module-page">
+                <PoultryTopNav title="Broiler Biosecurity" />
+                <div className="fw-mod-card">
+                    <div className="fw-mod-content" style={{ alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{ fontSize: '3rem' }}></div>
                         <h2 className="text-danger">Failed to Load</h2>
                         <p className="text-muted">{error}</p>
@@ -76,9 +77,10 @@ function BroilerAssessmentPage() {
 
     if (!currentQuestion || !currentCategory) {
         return (
-            <div className="portal-layout">
-                <div className="portal-container">
-                    <div className="portal-card" style={{ textAlign: 'center', padding: '4rem' }}>
+            <div className="fw-module-page">
+                <PoultryTopNav title="Broiler Biosecurity" />
+                <div className="fw-mod-card">
+                    <div className="fw-mod-content" style={{ alignItems: 'center', justifyContent: 'center' }}>
                         <div style={{ fontSize: '3rem' }}></div>
                         <h2>No Question Available</h2>
                         <p className="text-muted">Please return to dashboard</p>
@@ -146,10 +148,10 @@ function BroilerAssessmentPage() {
     };
 
     return (
-        <div className="portal-layout">
+        <div className="fw-module-page">
             <PoultryTopNav title="Broiler Biosecurity" />
-            <div className="portal-container">
-                <div className="portal-card">
+            <div className="fw-mod-card" style={{ overflow: 'auto' }}>
+                <div style={{ padding: '16px' }}>
                     <div className="assessment-page">
                         {/* Header */}
                         <div className="assessment-header">
@@ -217,46 +219,41 @@ function BroilerAssessmentPage() {
 
                                 {/* Navigation Buttons */}
                                 <div className="assessment-navigation">
+                                    {/* Previous — always reserve space */}
                                     <div className="nav-left">
-                                        {!isFirstQuestion && (
-                                            <button
-                                                onClick={handlePrevious}
-                                                className="btn btn-primary"
-                                            >
-                                                Previous
+                                        {!isFirstQuestion ? (
+                                            <button onClick={handlePrevious} className="btn btn-primary">
+                                                ← Prev
                                             </button>
+                                        ) : (
+                                            <div />
                                         )}
                                     </div>
 
-                                    {!isLastQuestion() && (
-                                        <div className="nav-center">
-                                            <button
-                                                onClick={handleSaveAndExit}
-                                                className="btn btn-primary"
-                                            >
-                                                 Save & Exit
-                                            </button>
-                                        </div>
-                                    )}
+                                    {/* Save & Exit — center */}
+                                    <div className="nav-center">
+                                        <button
+                                            onClick={handleSaveAndExit}
+                                            className="btn btn-primary"
+                                            style={{ background: '#1E7A42' }}
+                                        >
+                                            Save & Exit
+                                        </button>
+                                    </div>
 
+                                    {/* Next / Complete — right */}
                                     <div className="nav-right">
                                         {isLastQuestion() ? (
                                             <button
                                                 onClick={handleComplete}
                                                 className="btn btn-primary"
-                                                style={{
-                                                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                                                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
-                                                }}
+                                                style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
                                             >
-                                                 Complete & Save
+                                                Complete ✓
                                             </button>
                                         ) : (
-                                            <button
-                                                onClick={handleNext}
-                                                className="btn btn-primary"
-                                            >
-                                                Next
+                                            <button onClick={handleNext} className="btn btn-primary">
+                                                Next →
                                             </button>
                                         )}
                                     </div>

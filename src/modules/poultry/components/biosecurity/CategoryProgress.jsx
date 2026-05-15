@@ -105,9 +105,6 @@ function CategoryProgress({
                                                             }}
                                                         />
                                                     </div>
-                                                    <span className="category-weight">
-                                                        {Math.round((category.weight || 0) * 100)}%
-                                                    </span>
                                                 </div>
                                             </div>
                                         </div>

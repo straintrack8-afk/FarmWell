@@ -30,13 +30,24 @@ function BreederAssessmentDashboard() {
 
     if (isLoading) {
         return (
-            <div className="portal-layout">
-                <div className="portal-container">
-                    <div className="portal-card" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="fw-module-page">
+                <PoultryTopNav title="Breeder Assessment" />
+                <div className="fw-mod-card">
+                    <div className="fw-mod-content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
                         <div style={{ textAlign: 'center' }}>
                             <div className="spinner"></div>
                             <p style={{ marginTop: '1rem', color: '#6b7280' }}>Loading assessment...</p>
                         </div>
+                    </div>
+                    <div className="fw-mod-bnav">
+                        <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <span>Home</span>
+                        </button>
+                        <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry')}>
+                            <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>PoultryWell</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -45,21 +56,25 @@ function BreederAssessmentDashboard() {
 
     if (error) {
         return (
-            <div className="portal-layout">
-                <div className="portal-container">
-                    <div className="portal-card" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
-                            <h2 style={{ color: '#ef4444', marginBottom: '0.5rem' }}>Error Loading Assessment</h2>
-                            <p style={{ color: '#6b7280' }}>{error}</p>
-                            <button
-                                onClick={() => window.location.reload()}
-                                className="btn btn-primary"
-                                style={{ marginTop: '1rem' }}
-                            >
-                                Retry
-                            </button>
-                        </div>
+            <div className="fw-module-page">
+                <PoultryTopNav title="Breeder Assessment" />
+                <div className="fw-mod-card">
+                    <div className="fw-mod-content" style={{ textAlign: 'center', padding: '4rem' }}>
+                        <h2 style={{ color: '#ef4444', marginBottom: '0.5rem' }}>Error Loading Assessment</h2>
+                        <p style={{ color: '#6b7280' }}>{error}</p>
+                        <button onClick={() => window.location.reload()} className="btn btn-primary" style={{ marginTop: '1rem' }}>
+                            Retry
+                        </button>
+                    </div>
+                    <div className="fw-mod-bnav">
+                        <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <span>Home</span>
+                        </button>
+                        <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry')}>
+                            <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>PoultryWell</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -77,65 +92,35 @@ function BreederAssessmentDashboard() {
     };
 
     return (
-        <div className="portal-layout">
+        <div className="fw-module-page">
             <PoultryTopNav title="Breeder Assessment" />
-            <div className="portal-container">
-                <div className="portal-card">
-                    {/* Header */}
-                    
-                    {/* Main Content */}
-                    <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-                        {/* Title */}
-                        <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                            <div>
-                                <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                                    {t('poultry.breeder.dashboard.title')}
-                                </h1>
-                                <p style={{ color: '#6b7280' }}>{t('poultry.breeder.dashboard.subtitle')}</p>
-                            </div>
-                            <button
-                                onClick={handleBackToLanding}
-                                style={{
-                                    background: '#10B981',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '6px',
-                                    padding: '0.5rem 1rem',
-                                    cursor: 'pointer',
-                                    fontSize: '0.875rem',
-                                    fontWeight: '500',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.5rem'
-                                }}
-                            >
-                                {t('poultry.breeder.dashboard.backToDashboard')}
-                            </button>
-                        </div>
+            <div className="fw-mod-card">
+                <div className="fw-mod-content">
+                    <p className="fw-mod-subtitle">{t('poultry.breeder.dashboard.subtitle')}</p>
 
-                        {/* Progress Overview — 2×2 metric cards */}
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #366092', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.breeder.dashboard.totalQuestions')}</div>
-                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{progressStats?.totalCount || 0}</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.breeder.dashboard.allCategories')}</div>
-                            </div>
-                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.breeder.dashboard.answered')}</div>
-                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{progressStats?.answeredCount || 0}</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.breeder.dashboard.questionsCompleted')}</div>
-                            </div>
-                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #F59E0B', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.breeder.dashboard.progress')}</div>
-                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#F59E0B', lineHeight: 1 }}>{progressStats?.percentage?.toFixed(0) || 0}%</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.breeder.dashboard.overallCompletion')}</div>
-                            </div>
-                            <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #8B5CF6', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                                <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.breeder.dashboard.currentScore')}</div>
-                                <div style={{ fontSize: '2rem', fontWeight: '800', color: overallScore > 0 ? '#8B5CF6' : '#94a3b8', lineHeight: 1 }}>{overallScore > 0 ? `${overallScore.toFixed(0)}%` : 'N/A'}</div>
-                                <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{riskConfig?.labelText || '-'}</div>
-                            </div>
+                    {/* Stats */}
+                    <div className="fw-bio-stats-grid">
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.breeder.dashboard.totalQuestions')}</div>
+                            <div className="fw-bio-stat-value">{progressStats?.totalCount || 0}</div>
+                            <div className="fw-bio-stat-sub">{t('poultry.breeder.dashboard.allCategories')}</div>
                         </div>
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.breeder.dashboard.answered')}</div>
+                            <div className="fw-bio-stat-value green">{progressStats?.answeredCount || 0}</div>
+                            <div className="fw-bio-stat-sub">{t('poultry.breeder.dashboard.questionsCompleted')}</div>
+                        </div>
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.breeder.dashboard.progress')}</div>
+                            <div className="fw-bio-stat-value amber">{progressStats?.percentage?.toFixed(0) || 0}%</div>
+                            <div className="fw-bio-stat-sub">{t('poultry.breeder.dashboard.overallCompletion')}</div>
+                        </div>
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.breeder.dashboard.currentScore')}</div>
+                            <div className={`fw-bio-stat-value ${overallScore > 0 ? 'green' : 'na'}`}>{overallScore > 0 ? `${overallScore.toFixed(0)}%` : 'N/A'}</div>
+                            <div className="fw-bio-stat-sub">{riskConfig?.labelText || '-'}</div>
+                        </div>
+                    </div>
 
                         {/* Category Grid */}
                         <div style={{
@@ -283,40 +268,20 @@ function BreederAssessmentDashboard() {
                         </div>
 
                         {/* Action Buttons */}
-                        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '2rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
                             {(progressStats?.percentage >= 100 || progressStats?.answeredCount === progressStats?.totalCount) && (
                                 <>
-                                    <button
-                                        onClick={() => window.print()}
-                                        className="btn btn-primary"
-                                        style={{
-                                            padding: '1rem 2rem',
-                                            fontSize: '1.125rem',
-                                            background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                                            boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
-                                        }}
-                                    >
+                                    <button className="fw-bio-action-btn" onClick={() => window.print()}>
                                         {t('poultry.breeder.dashboard.printAssessmentSummary')}
                                     </button>
-                                    <button
-                                        onClick={() => navigate('/poultry/breeder-assessment')}
-                                        className="btn btn-primary"
-                                        style={{
-                                            padding: '1rem 2rem',
-                                            fontSize: '1.125rem',
-                                            border: '2px solid #6b7280',
-                                            color: '#374151'
-                                        }}
-                                    >
+                                    <button className="fw-bio-action-btn secondary" onClick={() => navigate('/poultry/breeder-assessment')}>
                                         {t('poultry.breeder.dashboard.backToMainDashboard')}
                                     </button>
                                 </>
                             )}
-                        </div>
-
-                        {/* Discard Button */}
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', marginBottom: '2rem' }}>
                             <button
+                                className="fw-bio-action-btn"
+                                style={{ background: 'white', border: '2px solid #ef4444', color: '#ef4444' }}
                                 onClick={() => {
                                     if (confirm(t('poultry.breeder.dashboard.discardConfirm'))) {
                                         const { clearAssessment, getCurrentAssessmentId } = require('../../utils/breederAssessmentUtils');
@@ -327,35 +292,24 @@ function BreederAssessmentDashboard() {
                                         }
                                     }
                                 }}
-                                className="btn"
-                                style={{
-                                    padding: '0.75rem 1.5rem',
-                                    fontSize: '1rem',
-                                    background: 'white',
-                                    border: '2px solid #ef4444',
-                                    color: '#ef4444',
-                                    fontWeight: '600',
-                                    borderRadius: '8px',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s'
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = '#ef4444';
-                                    e.currentTarget.style.color = 'white';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = 'white';
-                                    e.currentTarget.style.color = '#ef4444';
-                                }}
                             >
-                                 {t('poultry.breeder.dashboard.discardAssessment')}
+                                {t('poultry.breeder.dashboard.discardAssessment')}
                             </button>
                         </div>
                     </div>
+                    <div className="fw-mod-bnav">
+                        <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <span>Home</span>
+                        </button>
+                        <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry')}>
+                            <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>PoultryWell</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
 }
 
 export default BreederAssessmentDashboard;

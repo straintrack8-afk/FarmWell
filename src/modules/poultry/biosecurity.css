@@ -408,10 +408,11 @@
 /* Assessment Navigation */
 .assessment-navigation {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
+    gap: 8px;
+    margin-top: 16px;
+    width: 100%;
 }
 
 .nav-left,
@@ -421,13 +422,19 @@
 }
 
 .nav-center {
-    display: flex;
-    justify-content: center;
+    flex: 1;
 }
 
 .nav-right {
-    display: flex;
-    justify-content: flex-end;
+    flex: 1;
+}
+
+.assessment-navigation .btn {
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 13px;
+    border-radius: 10px;
+    white-space: nowrap;
 }
 
 /* Category Progress Component */
@@ -942,14 +949,13 @@
     }
 
     .assessment-navigation {
-        flex-direction: column;
+      flex-direction: row;
+      gap: 6px;
     }
 
-    .nav-left,
-    .nav-center,
-    .nav-right {
-        width: 100%;
-        justify-content: center;
+    .assessment-navigation .btn {
+      font-size: 11px;
+      padding: 9px 4px;
     }
 
     .categories-grid {

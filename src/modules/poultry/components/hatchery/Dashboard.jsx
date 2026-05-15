@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useHatcheryAudit } from '../../contexts/HatcheryAuditContext';
 import { useTranslation } from '../../../../hooks/useTranslation';
-import Header from '../common/Header';
 import ScoreBadge from './common/ScoreBadge';
 import { formatDate, formatRelativeTime, daysUntilDue } from '../../utils/hatchery/dateUtils';
 import '../../hatchery.css';
@@ -39,332 +38,101 @@ function Dashboard() {
 
 
     return (
-        <div className="portal-layout">
+        <div className="fw-module-page">
             <PoultryTopNav title="Hatchery Audit" />
-            <div className="portal-container">
-                <div className="portal-card">
-                    <Header />
-
-                    {/* Page Title */}
-                    <div style={{ marginBottom: '1.5rem', marginTop: '1.5rem' }}>
-                        <h1 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.375rem', color: '#1e293b' }}>
-                            {t('poultry.hatchery.dashboard.title')}
-                        </h1>
-                        <p style={{ color: '#64748b', fontSize: '0.9375rem' }}>
-                            {t('poultry.hatchery.dashboard.subtitle')}
-                        </p>
-                    </div>
+            <div className="fw-mod-card">
+                <div className="fw-mod-content">
 
                     {/* Storage Warning */}
                     {storageInfo && storageInfo.isNearLimit && (
-                        <div style={{
-                            background: '#fef3c7',
-                            border: '1px solid #F59E0B',
-                            borderRadius: '0.75rem',
-                            padding: '0.875rem 1.25rem',
-                            marginBottom: '1.25rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.75rem'
-                        }}>
-                            <div>
-                                <strong>{t('poultry.hatchery.dashboard.storageWarning')}:</strong> You're using {storageInfo.percentUsed}% of available storage ({storageInfo.sizeMB} MB).
-                                Consider exporting old audits to free up space.
-                            </div>
+                        <div style={{ background: '#F4FBF7', border: '1px solid #C8E8D4', borderRadius: '10px', padding: '10px 14px', fontSize: '12px', color: '#1E5C3A' }}>
+                            ⚠️ Storage {storageInfo.percentUsed}% used ({storageInfo.sizeMB} MB). Consider exporting old audits.
                         </div>
                     )}
 
-                    {/* Statistics Cards — 2×2 */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                        {/* Total Audits */}
-                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.blue}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.hatchery.dashboard.totalAudits')}</div>
-                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{statistics?.totalAudits || 0}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{statistics?.completedAudits || 0} {t('poultry.hatchery.dashboard.completed')}</div>
+                    {/* Stats Grid */}
+                    <div className="fw-bio-stats-grid">
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.hatchery.dashboard.totalAudits') || 'Total Audits'}</div>
+                            <div className="fw-bio-stat-value">{statistics?.totalAudits || 0}</div>
+                            <div className="fw-bio-stat-sub">{statistics?.completedAudits || 0} {t('poultry.hatchery.dashboard.completed') || 'completed'}</div>
                         </div>
-
-                        {/* Last Audit Score */}
-                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.green}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>{t('poultry.hatchery.dashboard.lastScore')}</div>
-                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#1e293b', lineHeight: 1 }}>{lastAudit?.summary?.environmental?.score || 'N/A'}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{lastAudit ? (lastAudit.summary?.environmental?.classification || '-') : '-'}</div>
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.hatchery.dashboard.lastScore') || 'Last Score'}</div>
+                            <div className={`fw-bio-stat-value ${lastAudit ? 'green' : 'na'}`}>
+                                {lastAudit?.summary?.environmental?.score || 'N/A'}
+                            </div>
+                            <div className="fw-bio-stat-sub">{lastAudit?.summary?.environmental?.classification || '-'}</div>
                         </div>
-
-                        {/* Good Audits */}
-                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.amber}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.hatchery.dashboard.goodAudits')}</div>
-                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>{statistics?.goodCount || 0}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
-                                {statistics?.totalAudits > 0 ? Math.round((statistics.goodCount / statistics.completedAudits) * 100) : 0}% {t('poultry.hatchery.dashboard.ofTotal')}
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.hatchery.dashboard.goodAudits') || 'Good'}</div>
+                            <div className="fw-bio-stat-value green">{statistics?.goodCount || 0}</div>
+                            <div className="fw-bio-stat-sub">
+                                {statistics?.completedAudits > 0 ? Math.round((statistics.goodCount / statistics.completedAudits) * 100) : 0}% {t('poultry.hatchery.dashboard.ofTotal') || 'of total'}
                             </div>
                         </div>
-
-                        {/* Poor Audits */}
-                        <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: `4px solid ${accents.red}`, boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
-                            <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>{t('poultry.hatchery.dashboard.poorAudits')}</div>
-                            <div style={{ fontSize: '2rem', fontWeight: '800', color: '#EF4444', lineHeight: 1 }}>{statistics?.poorCount || 0}</div>
-                            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>{t('poultry.hatchery.dashboard.requiresAttention')}</div>
+                        <div className="fw-bio-stat-card">
+                            <div className="fw-bio-stat-label">{t('poultry.hatchery.dashboard.poorAudits') || 'Poor'}</div>
+                            <div className="fw-bio-stat-value red">{statistics?.poorCount || 0}</div>
+                            <div className="fw-bio-stat-sub">{t('poultry.hatchery.dashboard.requiresAttention') || 'requires attention'}</div>
                         </div>
                     </div>
 
-                    {/* Quick Actions */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
-                        <h2 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '1rem' }}>{t('poultry.hatchery.dashboard.quickActions')}</h2>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem' }}>
-                            <button
-                                className="btn btn-primary"
-                                onClick={handleStartNewAudit}
-                            >
-                                {t('poultry.hatchery.dashboard.startNewAudit')}
-                            </button>
-                            <button
-                                className="btn btn-primary"
-                                onClick={handleViewHistory}
-                            >
-                                {t('poultry.hatchery.dashboard.viewAuditHistory')}
-                            </button>
-                            <button
-                                className="btn btn-primary"
-                                onClick={() => navigate('/poultry/hatchery-audit/settings')}
-                            >
-                                {t('poultry.hatchery.dashboard.settings')}
-                            </button>
-                        </div>
+                    <button className="fw-bio-action-btn" onClick={handleStartNewAudit}>
+                        {t('poultry.hatchery.dashboard.startNewAudit') || '+ Start New Audit'}
+                    </button>
+                    <button className="fw-bio-action-btn secondary" onClick={handleViewHistory}>
+                        {t('poultry.hatchery.dashboard.viewAuditHistory') || 'View Audit History'}
+                    </button>
+                    <button className="fw-bio-action-btn secondary" onClick={() => navigate('/poultry/hatchery-audit/settings')}>
+                        {t('poultry.hatchery.dashboard.settings') || 'Settings'}
+                    </button>
+
+                    <div className="fw-welcome-section-label">
+                        {t('poultry.hatchery.dashboard.recentAudits') || 'Recent Audits'}
                     </div>
 
-                    {/* Recent Audits */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1.25rem', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }} id="recent-audits">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                            <h2 style={{ fontSize: '1.1rem', fontWeight: '700' }}>{t('poultry.hatchery.dashboard.recentAudits')}</h2>
-                            {completedAudits.length > 0 && (
-                                <button
-                                    onClick={handleViewHistory}
-                                    className="btn btn-outline"
-                                    style={{ padding: '0.5rem 1rem', fontSize: '0.8125rem' }}
-                                >
-                                    {t('poultry.hatchery.dashboard.viewAll')}
-                                </button>
-                            )}
+                    {completedAudits.length === 0 ? (
+                        <div className="fw-bio-empty">
+                            <div className="fw-bio-empty-icon">
+                                <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/></svg>
+                            </div>
+                            <div className="fw-bio-empty-title">{t('poultry.hatchery.dashboard.noAuditsYet') || 'No Audits Yet'}</div>
+                            <div className="fw-bio-empty-sub">{t('poultry.hatchery.dashboard.noAuditsText') || 'Start your first hatchery audit'}</div>
+                            <button className="fw-bio-action-btn" style={{ marginTop: 4 }} onClick={handleStartNewAudit}>
+                                {t('poultry.hatchery.dashboard.startFirstAudit') || 'Start First Audit'}
+                            </button>
                         </div>
-
-                        {completedAudits.length === 0 ? (
-                            <div style={{ textAlign: 'center', padding: '3rem 2rem' }}>
-                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '0.75rem', color: '#1e293b' }}>{t('poultry.hatchery.dashboard.noAuditsYet')}</h3>
-                                <p style={{ color: '#64748b', marginBottom: '1.5rem', maxWidth: '440px', margin: '0 auto 1.5rem', fontSize: '0.9rem' }}>
-                                    {t('poultry.hatchery.dashboard.noAuditsText')}
-                                </p>
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={handleStartNewAudit}
-                                >
-                                    {t('poultry.hatchery.dashboard.startFirstAudit')}
-                                </button>
+                    ) : (
+                        completedAudits.slice(-5).reverse().map(audit => (
+                            <div
+                                key={audit.id}
+                                className="fw-bio-assess-item"
+                                onClick={() => handleViewReport(audit.id)}
+                            >
+                                <div className="fw-bio-assess-score">
+                                    {audit.summary?.environmental?.score || 'N/A'}
+                                </div>
+                                <div className="fw-bio-assess-info">
+                                    <div className="fw-bio-assess-name">{audit.auditNumber} · {audit.info?.location || ''}</div>
+                                    <div className="fw-bio-assess-date">{formatDate(audit.auditDate)} · {audit.summary?.environmental?.classification || audit.status}</div>
+                                </div>
+                                <div className="fw-bio-assess-arrow">›</div>
                             </div>
-
-                        ) : (
-                            <div style={{ overflowX: 'auto' }}>
-                                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0.75rem' }}>
-                                    <thead>
-                                        <tr style={{ textAlign: 'left' }}>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {t('poultry.hatchery.dashboard.auditNumber')}
-                                            </th>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {t('poultry.hatchery.dashboard.date')}
-                                            </th>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {t('poultry.hatchery.dashboard.location')}
-                                            </th>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {t('poultry.hatchery.dashboard.score')}
-                                            </th>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                                {t('poultry.hatchery.dashboard.status')}
-                                            </th>
-                                            <th style={{ padding: '0.75rem', fontSize: '0.875rem', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>
-                                                {t('poultry.hatchery.dashboard.actions')}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {completedAudits.slice(-5).reverse().map(audit => (
-                                            <tr key={audit.id} style={{
-                                                background: '#f9fafb',
-                                                borderRadius: '0.75rem'
-                                            }}>
-                                                <td style={{ padding: '1.25rem', fontWeight: '600', borderTopLeftRadius: '0.75rem', borderBottomLeftRadius: '0.75rem' }}>
-                                                    {audit.auditNumber}
-                                                </td>
-                                                <td style={{ padding: '1.25rem', fontSize: '0.9375rem' }}>
-                                                    {formatDate(audit.auditDate)}
-                                                </td>
-                                                <td style={{ padding: '1.25rem', fontSize: '0.9375rem' }}>
-                                                    {audit.info?.location || 'N/A'}
-                                                </td>
-                                                <td style={{ padding: '1.25rem' }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                        <span style={{ fontWeight: '700', fontSize: '1.25rem' }}>
-                                                            {audit.summary?.environmental?.score || 'N/A'}
-                                                        </span>
-                                                        <ScoreBadge
-                                                            classification={audit.summary?.environmental?.classification}
-                                                            showIcon={true}
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td style={{ padding: '1.25rem' }}>
-                                                    <span style={{
-                                                        padding: '0.375rem 0.875rem',
-                                                        borderRadius: '9999px',
-                                                        fontSize: '0.875rem',
-                                                        fontWeight: '600',
-                                                        backgroundColor: '#D1FAE5',
-                                                        color: '#065F46'
-                                                    }}>
-                                                        {audit.status}
-                                                    </span>
-                                                </td>
-                                                <td style={{ padding: '1.25rem', textAlign: 'right', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem' }}>
-                                                    <button
-                                                        onClick={() => handleViewReport(audit.id)}
-                                                        className="btn btn-primary"
-                                                        style={{
-                                                            padding: '0.625rem 1.25rem',
-                                                            borderRadius: '0.5rem',
-                                                            fontSize: '0.875rem',
-                                                            fontWeight: '600',
-                                                            cursor: 'pointer',
-                                                            transition: 'all 0.2s ease',
-                                                            boxShadow: '0 2px 8px rgba(16, 185, 129, 0.3)'
-                                                        }}
-                                                        onMouseEnter={(e) => {
-                                                            e.currentTarget.style.transform = 'translateY(-2px)';
-                                                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.4)';
-                                                        }}
-                                                        onMouseLeave={(e) => {
-                                                            e.currentTarget.style.transform = 'translateY(0)';
-                                                            e.currentTarget.style.boxShadow = '0 2px 8px rgba(16, 185, 129, 0.3)';
-                                                        }}
-                                                    >
-                                                        {t('poultry.hatchery.dashboard.viewReport')}
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Last Audit Summary */}
-                    {lastAudit && (
-                        <div style={{
-                            background: 'white',
-                            borderRadius: '1.5rem',
-                            padding: '2rem',
-                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
-                        }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                                <h2 style={{ fontSize: '1.375rem', fontWeight: '700' }}>
-                                    {t('poultry.hatchery.dashboard.lastAuditSummary')}
-                                </h2>
-                                <span style={{ fontSize: '0.875rem', color: '#6B7280' }}>
-                                    {formatRelativeTime(lastAudit.completedAt)}
-                                </span>
-                            </div>
-
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
-                                <div>
-                                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.5rem' }}>
-                                        {t('poultry.hatchery.dashboard.vaccineStorage')}
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <span style={{ fontSize: '1.75rem', fontWeight: '800' }}>
-                                            {lastAudit.summary?.vaccineStorage?.percentage || 0}%
-                                        </span>
-                                        <ScoreBadge
-                                            classification={lastAudit.summary?.vaccineStorage?.classification}
-                                            showIcon={false}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.5rem' }}>
-                                        {t('poultry.hatchery.dashboard.equipment')}
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <span style={{ fontSize: '1.75rem', fontWeight: '800' }}>
-                                            {lastAudit.summary?.equipment?.percentage || 0}%
-                                        </span>
-                                        <ScoreBadge
-                                            classification={lastAudit.summary?.equipment?.classification}
-                                            showIcon={false}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.5rem' }}>
-                                        {t('poultry.hatchery.dashboard.techniques')}
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <span style={{ fontSize: '1.75rem', fontWeight: '800' }}>
-                                            {lastAudit.summary?.techniques?.percentage || 0}%
-                                        </span>
-                                        <ScoreBadge
-                                            classification={lastAudit.summary?.techniques?.classification}
-                                            showIcon={false}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '0.5rem' }}>
-                                        {t('poultry.hatchery.dashboard.environmental')}
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <span style={{ fontSize: '1.75rem', fontWeight: '800' }}>
-                                            {lastAudit.summary?.environmental?.score || 'N/A'}
-                                        </span>
-                                        <ScoreBadge
-                                            classification={lastAudit.summary?.environmental?.classification}
-                                            showIcon={true}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {lastAudit.issues && lastAudit.issues.length > 0 && (
-                                <div style={{ marginTop: '2rem' }}>
-                                    <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '1rem' }}>
-                                        {t('poultry.hatchery.dashboard.criticalIssues')} ({lastAudit.issues.length})
-                                    </h3>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                        {lastAudit.issues.slice(0, 3).map((issue, index) => (
-                                            <div key={index} style={{
-                                                padding: '1rem 1.25rem',
-                                                background: issue.priority === 'critical' ? '#FEE2E2' : '#FEF3C7',
-                                                border: `1px solid ${issue.priority === 'critical' ? '#FCA5A5' : '#FDE68A'}`,
-                                                borderRadius: '0.75rem',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '1rem'
-                                            }}>
-                                                <span style={{ fontSize: '1.5rem' }}>{issue.priority === 'critical' ? '' : ''}</span>
-                                                <div>
-                                                    <strong>{issue.category}:</strong> {issue.issue}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                        ))
                     )}
                 </div>
-                {/* End of white container */}
+
+                <div className="fw-mod-bnav">
+                    <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span>Home</span>
+                    </button>
+                    <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry')}>
+                        <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, stroke: 'white', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>PoultryWell</span>
+                    </button>
+                </div>
             </div>
         </div>
     );

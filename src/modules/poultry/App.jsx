@@ -132,105 +132,98 @@ function App() {
 
     return (
         <div className="fw-page">
-            <div className="portal-layout" style={{ background: 'transparent', padding: 0 }}>
-                <div className="portal-container" style={{ maxWidth: '100%', padding: 0 }}>
-                    <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
-                        <main style={{ flex: 1, padding: 0 }}>
-                            <Routes>
-                                <Route path="/" element={<PoultryLanding />} />
-                                {/* Disease Diagnostic Tools Landing Page */}
-                                <Route path="/diagnostic" element={<DiagnosticLanding />} />
-                                {/* All Diseases Page */}
-                                <Route path="/diseases" element={
-                                    <DiagnosisProvider>
-                                        <AllDiseases />
-                                    </DiagnosisProvider>
-                                } />
-                                {/* Specific diagnostic routes */}
-                                <Route path="/diagnostic/age" element={
-                                    <DiagnosisProvider>
-                                        <DiagnosticApp />
-                                    </DiagnosisProvider>
-                                } />
-                                <Route path="/diagnostic/symptoms" element={
-                                    <DiagnosisProvider>
-                                        <DiagnosticApp />
-                                    </DiagnosisProvider>
-                                } />
-                                <Route path="/diagnostic/results" element={
-                                    <DiagnosisProvider>
-                                        <DiagnosticApp />
-                                    </DiagnosisProvider>
-                                } />
-                                <Route path="/diagnostic/detail" element={
-                                    <DiagnosisProvider>
-                                        <DiagnosticApp />
-                                    </DiagnosisProvider>
-                                } />
-                                <Route path="/hatchery-audit/*" element={<HatcheryAuditRouter />} />
+            <main>
+                <Routes>
+                    <Route path="/" element={<PoultryLanding />} />
+                    {/* Disease Diagnostic Tools Landing Page */}
+                    <Route path="/diagnostic" element={<DiagnosticLanding />} />
+                    {/* All Diseases Page */}
+                    <Route path="/diseases" element={
+                        <DiagnosisProvider>
+                            <AllDiseases />
+                        </DiagnosisProvider>
+                    } />
+                    {/* Specific diagnostic routes */}
+                    <Route path="/diagnostic/age" element={
+                        <DiagnosisProvider>
+                            <DiagnosticApp />
+                        </DiagnosisProvider>
+                    } />
+                    <Route path="/diagnostic/symptoms" element={
+                        <DiagnosisProvider>
+                            <DiagnosticApp />
+                        </DiagnosisProvider>
+                    } />
+                    <Route path="/diagnostic/results" element={
+                        <DiagnosisProvider>
+                            <DiagnosticApp />
+                        </DiagnosisProvider>
+                    } />
+                    <Route path="/diagnostic/detail" element={
+                        <DiagnosisProvider>
+                            <DiagnosticApp />
+                        </DiagnosisProvider>
+                    } />
+                    <Route path="/hatchery-audit/*" element={<HatcheryAuditRouter />} />
 
-                                {/* Broiler Biosecurity Assessment Routes */}
-                                <Route path="/biosecurity" element={<BroilerAssessmentLanding />} />
-                                <Route path="/biosecurity/assessment" element={
-                                    <BroilerAssessmentProvider>
-                                        <BroilerAssessmentDashboard />
-                                    </BroilerAssessmentProvider>
-                                } />
-                                <Route path="/biosecurity/questions" element={
-                                    <BroilerAssessmentProvider>
-                                        <BroilerAssessmentPage />
-                                    </BroilerAssessmentProvider>
-                                } />
-                                <Route path="/biosecurity/results" element={
-                                    <BroilerAssessmentProvider>
-                                        <BroilerResultsPage />
-                                    </BroilerAssessmentProvider>
-                                } />
+                    {/* Broiler Biosecurity Assessment Routes */}
+                    <Route path="/biosecurity" element={<BroilerAssessmentLanding />} />
+                    <Route path="/biosecurity/assessment" element={
+                        <BroilerAssessmentProvider>
+                            <BroilerAssessmentDashboard />
+                        </BroilerAssessmentProvider>
+                    } />
+                    <Route path="/biosecurity/questions" element={
+                        <BroilerAssessmentProvider>
+                            <BroilerAssessmentPage />
+                        </BroilerAssessmentProvider>
+                    } />
+                    <Route path="/biosecurity/results" element={
+                        <BroilerAssessmentProvider>
+                            <BroilerResultsPage />
+                        </BroilerAssessmentProvider>
+                    } />
 
-                                {/* Breeder Farm Biosecurity Assessment Routes */}
-                                <Route path="/breeder-assessment" element={<BreederAssessmentLanding />} />
-                                <Route path="/breeder-assessment/dashboard" element={
-                                    <BreederAssessmentProvider>
-                                        <BreederAssessmentDashboard />
-                                    </BreederAssessmentProvider>
-                                } />
-                                <Route path="/breeder-assessment/questions" element={
-                                    <BreederAssessmentProvider>
-                                        <BreederAssessmentPage />
-                                    </BreederAssessmentProvider>
-                                } />
-                                <Route path="/breeder-assessment/results" element={
-                                    <BreederAssessmentProvider>
-                                        <BreederResultsPage />
-                                    </BreederAssessmentProvider>
-                                } />
+                    {/* Breeder Farm Biosecurity Assessment Routes */}
+                    <Route path="/breeder-assessment" element={<BreederAssessmentLanding />} />
+                    <Route path="/breeder-assessment/dashboard" element={
+                        <BreederAssessmentProvider>
+                            <BreederAssessmentDashboard />
+                        </BreederAssessmentProvider>
+                    } />
+                    <Route path="/breeder-assessment/questions" element={
+                        <BreederAssessmentProvider>
+                            <BreederAssessmentPage />
+                        </BreederAssessmentProvider>
+                    } />
+                    <Route path="/breeder-assessment/results" element={
+                        <BreederAssessmentProvider>
+                            <BreederResultsPage />
+                        </BreederAssessmentProvider>
+                    } />
 
-                                {/* Layer Farm Biosecurity Assessment Routes */}
-                                <Route path="/layer-assessment" element={<LayerAssessmentLanding />} />
-                                <Route path="/layer-assessment/dashboard" element={
-                                    <LayerAssessmentProvider>
-                                        <LayerAssessmentDashboard />
-                                    </LayerAssessmentProvider>
-                                } />
-                                <Route path="/layer-assessment/questions" element={
-                                    <LayerAssessmentProvider>
-                                        <LayerAssessmentPage />
-                                    </LayerAssessmentProvider>
-                                } />
-                                <Route path="/layer-assessment/results" element={
-                                    <LayerAssessmentProvider>
-                                        <LayerResultsPage />
-                                    </LayerAssessmentProvider>
-                                } />
+                    {/* Layer Farm Biosecurity Assessment Routes */}
+                    <Route path="/layer-assessment" element={<LayerAssessmentLanding />} />
+                    <Route path="/layer-assessment/dashboard" element={
+                        <LayerAssessmentProvider>
+                            <LayerAssessmentDashboard />
+                        </LayerAssessmentProvider>
+                    } />
+                    <Route path="/layer-assessment/questions" element={
+                        <LayerAssessmentProvider>
+                            <LayerAssessmentPage />
+                        </LayerAssessmentProvider>
+                    } />
+                    <Route path="/layer-assessment/results" element={
+                        <LayerAssessmentProvider>
+                            <LayerResultsPage />
+                        </LayerAssessmentProvider>
+                    } />
 
-                                {/* Disease Comparison Page */}
-                                <Route path="/compare" element={<DiseaseComparison />} />
-                            </Routes>
-                        </main>
-                    </div>
-                </div>
-            </div>
-
+                    {/* Disease Comparison Page */}
+                    <Route path="/compare" element={<DiseaseComparison />} />
+                </Routes>
+            </main>
         </div>
     );
 }

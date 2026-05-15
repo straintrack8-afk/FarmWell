@@ -32,10 +32,13 @@ function LayerAssessmentPage() {
 
     if (isLoading || !category || !question) {
         return (
-            <div className="portal-layout">
-                <div className="portal-container">
-                    <div className="portal-card" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <div className="spinner"></div>
+            <div className="fw-module-page">
+                <PoultryTopNav title="Layer Assessment" />
+                <div className="fw-mod-card">
+                    <div className="fw-mod-content" style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <div className="fw-bio-empty">
+                            <div className="fw-bio-empty-title">Loading...</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -77,10 +80,10 @@ function LayerAssessmentPage() {
     const showRiskWarning = questionScore < (question.risk_assessment?.trigger_score || 5);
 
     return (
-        <div className="portal-layout">
+        <div className="fw-module-page">
             <PoultryTopNav title="Layer Assessment" />
-            <div className="portal-container">
-                <div className="portal-card">
+            <div className="fw-mod-card" style={{ overflow: 'auto' }}>
+                <div style={{ padding: '16px' }}>
                     {/* Header */}
                     
                     {/* Progress Bar */}
