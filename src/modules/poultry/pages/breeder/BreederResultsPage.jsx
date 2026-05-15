@@ -388,7 +388,7 @@ function BreederResultsPage() {
                                                             }}>
                                                                 {item.actions.map((rec, i) => (
                                                                     <li key={i} style={{ marginBottom: '0.25rem' }}>
-                                                                        {rec}
+                                                                        {rec.replace(/^\d+\.\s*/, '')}
                                                                     </li>
                                                                 ))}
                                                             </ol>
@@ -478,7 +478,7 @@ function BreederResultsPage() {
                                                             }}>
                                                                 {item.actions.map((rec, i) => (
                                                                     <li key={i} style={{ marginBottom: '0.25rem' }}>
-                                                                        {rec}
+                                                                        {rec.replace(/^\d+\.\s*/, '')}
                                                                     </li>
                                                                 ))}
                                                             </ol>
@@ -498,46 +498,26 @@ function BreederResultsPage() {
                             </div>
 
                             {/* Action Buttons */}
-                            <div style={{
-                                padding: '2rem',
-                                borderTop: '1px solid #e5e7eb',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                gap: '1rem',
-                                flexWrap: 'wrap'
-                            }}>
-                                <button
-                                    onClick={handlePrint}
-                                    className="btn btn-primary"
-                                    style={{
-                                        padding: '0.75rem 2rem'
-                                    }}
-                                >
-                                    {t('poultry.breeder.results.printReport')}
-                                </button>
-                                <button
-                                    onClick={handleBackToLanding}
-                                    className="btn btn-secondary"
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        borderRadius: '12px'
-                                    }}
-                                >
-                                    {t('poultry.breeder.results.backToDashboard')}
-                                </button>
-                                <button
-                                    onClick={handleNewAssessment}
-                                    className="btn btn-primary"
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        borderRadius: '8px',
-                                        fontWeight: '600',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s'
-                                    }}
-                                >
-                                    {t('poultry.breeder.results.newAssessment')}
-                                </button>
+                            <div className="assessment-navigation">
+                                <div className="nav-left">
+                                    <button onClick={handlePrint} className="btn btn-primary">
+                                        {t('poultry.breeder.results.printReport')}
+                                    </button>
+                                </div>
+                                <div className="nav-center">
+                                    <button
+                                        onClick={handleBackToLanding}
+                                        className="btn btn-primary"
+                                        style={{ background: '#1E7A42' }}
+                                    >
+                                        {t('poultry.breeder.results.backToDashboard')}
+                                    </button>
+                                </div>
+                                <div className="nav-right">
+                                    <button onClick={handleNewAssessment} className="btn btn-primary">
+                                        {t('poultry.breeder.results.newAssessment')}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

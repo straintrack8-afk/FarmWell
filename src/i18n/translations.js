@@ -768,7 +768,11 @@ export const translations = {
                     discardConfirm: "Are you sure you want to discard this assessment? This action cannot be undone.",
                     focusArea: "FOCUS AREA",
                     questions: "questions",
-                    answered: "answered"
+                    answered: "answered",
+                    startNew: "+ Start New Assessment",
+                    continueAssessment: "Continue Assessment",
+                    startFresh: "Start Fresh",
+                    viewResults: "View Results →"
                 },
                 results: {
                     reportTitle: "Broiler Farm Biosecurity Assessment Report",
@@ -1830,7 +1834,11 @@ export const translations = {
                     discardConfirm: "Apakah Anda yakin ingin membuang penilaian ini? Tindakan ini tidak dapat dibatalkan.",
                     focusArea: "AREA FOKUS",
                     questions: "pertanyaan",
-                    answered: "dijawab"
+                    answered: "dijawab",
+                    startNew: "+ Mulai Penilaian Baru",
+                    continueAssessment: "Lanjutkan Penilaian",
+                    startFresh: "Mulai Baru",
+                    viewResults: "Lihat Hasil →"
                 },
                 results: {
                     reportTitle: "Laporan Penilaian Biosekuriti Peternakan Broiler",
@@ -2932,7 +2940,12 @@ export const translations = {
                     questions: "câu hỏi",
                     complete: "Hoàn thành",
                     reviewAnswers: "Xem lại câu trả lời",
-                    focusArea: "KHU VỰC TẬP TRUNG"
+                    focusArea: "KHU VỰC TẬP TRUNG",
+                    answered: "đã trả lời",
+                    startNew: "+ Bắt Đầu Đánh Giá Mới",
+                    continueAssessment: "Tiếp Tục Đánh Giá",
+                    startFresh: "Bắt Đầu Lại",
+                    viewResults: "Xem Kết Quả →"
                 },
                 results: {
                     reportTitle: "Báo cáo Đánh giá An toàn Sinh học Trang trại Gà thịt",

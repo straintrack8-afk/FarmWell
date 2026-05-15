@@ -477,7 +477,7 @@ function LayerResultsPage() {
                                                             }}>
                                                                 {item.actions.map((rec, i) => (
                                                                     <li key={i} style={{ marginBottom: '0.25rem' }}>
-                                                                        {rec}
+                                                                        {rec.replace(/^\d+\.\s*/, '')}
                                                                     </li>
                                                                 ))}
                                                             </ol>
@@ -567,7 +567,7 @@ function LayerResultsPage() {
                                                             }}>
                                                                 {item.actions.map((rec, i) => (
                                                                     <li key={i} style={{ marginBottom: '0.25rem' }}>
-                                                                        {rec}
+                                                                        {rec.replace(/^\d+\.\s*/, '')}
                                                                     </li>
                                                                 ))}
                                                             </ol>
@@ -587,51 +587,26 @@ function LayerResultsPage() {
                             </div>
 
                             {/* Action Buttons */}
-                            <div style={{
-                                padding: '2rem',
-                                borderTop: '1px solid #e5e7eb',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                gap: '1rem',
-                                flexWrap: 'wrap'
-                            }}>
-                                <button
-                                    onClick={handlePrint}
-                                    className="btn btn-primary"
-                                    style={{
-                                        padding: '0.75rem 2rem'
-                                    }}
-                                >
-                                    {t('poultry.layer.results.printReport')}
-                                </button>
-                                <button
-                                    onClick={handleBackToLanding}
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        background: 'white',
-                                        color: '#374151',
-                                        border: '2px solid #d1d5db',
-                                        borderRadius: '8px',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s'
-                                    }}
-                                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#9ca3af'}
-                                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#d1d5db'}
-                                >
-                                    {t('poultry.layer.results.backToDashboard')}
-                                </button>
-                                <button
-                                    onClick={handleNewAssessment}
-                                    className="btn btn-primary"
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        borderRadius: '8px'
-                                    }}
-                                >
-                                    {t('poultry.layer.results.newAssessment')}
-                                </button>
+                            <div className="assessment-navigation">
+                                <div className="nav-left">
+                                    <button onClick={handlePrint} className="btn btn-primary">
+                                        {t('poultry.layer.results.printReport')}
+                                    </button>
+                                </div>
+                                <div className="nav-center">
+                                    <button
+                                        onClick={handleBackToLanding}
+                                        className="btn btn-primary"
+                                        style={{ background: '#1E7A42' }}
+                                    >
+                                        {t('poultry.layer.results.backToDashboard')}
+                                    </button>
+                                </div>
+                                <div className="nav-right">
+                                    <button onClick={handleNewAssessment} className="btn btn-primary">
+                                        {t('poultry.layer.results.newAssessment')}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -681,43 +681,26 @@ function BroilerResultsPage() {
                             </div>
 
                             {/* Action Buttons */}
-                            <div style={{
-                                padding: '2rem',
-                                borderTop: '1px solid #e5e7eb',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                gap: '1rem',
-                                flexWrap: 'wrap'
-                            }}>
-                                <button
-                                    onClick={handlePrint}
-                                    className="btn btn-primary"
-                                    style={{
-                                        padding: '0.75rem 2rem'
-                                    }}
-                                >
-                                    {t('poultry.biosecurity.results.printReport')}
-                                </button>
-                                <button
-                                    onClick={handleBackToLanding}
-                                    className="btn btn-secondary"
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        borderRadius: '12px'
-                                    }}
-                                >
-                                    {t('poultry.biosecurity.results.backToDashboard')}
-                                </button>
-                                <button
-                                    onClick={handleNewAssessment}
-                                    className="btn btn-primary"
-                                    style={{
-                                        padding: '0.75rem 2rem',
-                                        borderRadius: '8px'
-                                    }}
-                                >
-                                    {t('poultry.biosecurity.results.newAssessment')}
-                                </button>
+                            <div className="assessment-navigation">
+                                <div className="nav-left">
+                                    <button onClick={handlePrint} className="btn btn-primary">
+                                        {t('poultry.biosecurity.results.printReport')}
+                                    </button>
+                                </div>
+                                <div className="nav-center">
+                                    <button
+                                        onClick={handleBackToLanding}
+                                        className="btn btn-primary"
+                                        style={{ background: '#1E7A42' }}
+                                    >
+                                        {t('poultry.biosecurity.results.backToDashboard')}
+                                    </button>
+                                </div>
+                                <div className="nav-right">
+                                    <button onClick={handleNewAssessment} className="btn btn-primary">
+                                        {t('poultry.biosecurity.results.newAssessment')}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

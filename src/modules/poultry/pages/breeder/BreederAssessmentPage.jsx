@@ -278,44 +278,39 @@ function BreederAssessmentPage() {
                         )}
 
                         {/* Navigation Buttons */}
-                        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <button
-                                onClick={handlePrevious}
-                                disabled={currentQuestionIndex === 0}
-                                className="btn"
-                                style={{
-                                    padding: '0.75rem 1.5rem',
-                                    background: 'white',
-                                    border: '2px solid #e5e7eb',
-                                    opacity: currentQuestionIndex === 0 ? 0.5 : 1,
-                                    cursor: currentQuestionIndex === 0 ? 'not-allowed' : 'pointer'
-                                }}
-                            >
-                                Previous
-                            </button>
-                            <div style={{ display: 'flex', gap: '1rem' }}>
-                                {!isLastQuestion && (
+                        <div className="assessment-navigation">
+                            <div className="nav-left">
+                                {currentQuestionIndex !== 0 ? (
+                                    <button onClick={handlePrevious} className="btn btn-primary">
+                                        ← Prev
+                                    </button>
+                                ) : (
+                                    <div />
+                                )}
+                            </div>
+                            <div className="nav-center">
+                                <button
+                                    onClick={handleSaveAndExit}
+                                    className="btn btn-primary"
+                                    style={{ background: '#1E7A42' }}
+                                >
+                                    Save & Exit
+                                </button>
+                            </div>
+                            <div className="nav-right">
+                                {isLastQuestion ? (
                                     <button
-                                        onClick={handleSaveAndExit}
+                                        onClick={handleNext}
                                         className="btn btn-primary"
-                                        style={{
-                                            padding: '0.75rem 1.5rem',
-                                            fontWeight: '600'
-                                        }}
+                                        style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
                                     >
-                                         Save & Exit
+                                        Complete ✓
+                                    </button>
+                                ) : (
+                                    <button onClick={handleNext} className="btn btn-primary">
+                                        Next →
                                     </button>
                                 )}
-                                <button
-                                    onClick={handleNext}
-                                    className="btn btn-primary"
-                                    style={{
-                                        padding: '0.75rem 1.5rem',
-                                        background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)'
-                                    }}
-                                >
-                                    {isLastQuestion ? 'Complete & Save' : 'Next'}
-                                </button>
                             </div>
                         </div>
                     </div>
