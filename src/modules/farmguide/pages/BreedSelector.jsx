@@ -1,309 +1,230 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useLanguage } from '../../../contexts/LanguageContext';
-import SharedTopNav from '../../../components/SharedTopNav';
 import '../../../portal.css';
 
-const BREED_OPTIONS = {
-    broiler: [
-        { code: 'breed_a', label: 'AA Plus' },
-        { code: 'breed_b', label: 'Indian River' },
-        { code: 'breed_c', label: 'Ross 308FF' },
-    ],
-    layer: [
-        { code: 'commercial_layer', label: 'Commercial Layer' },
-    ],
-    color_chicken: [
-        { code: 'choi', label: 'Choi' },
-        { code: 'mia', label: 'Mia' },
-    ],
-    parent_stock: [
-        { code: 'breed_a', label: 'AA Plus' },
-        { code: 'breed_b', label: 'Indian River' },
-        { code: 'breed_c', label: 'Ross 308FF' },
-    ],
-};
+const BreedIcon = () => (
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+        style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+    </svg>
+);
+
+const BROILER_BREEDS = [
+    {
+        code: 'ross',
+        label: 'Ross',
+        company: 'Aviagen',
+        jsonFile: '/data/farmguide_data/breeds/broiler_ross.json',
+        w6_bw: '3,086g',
+        w8_fcr: '1.776',
+    },
+    {
+        code: 'cobb',
+        label: 'Cobb',
+        company: 'Cobb-Vantress',
+        jsonFile: '/data/farmguide_data/breeds/broiler_cobb.json',
+        w6_bw: '3,278g',
+        w8_fcr: '1.842',
+    },
+    {
+        code: 'arboracres',
+        label: 'Arbor Acres',
+        company: 'Aviagen',
+        jsonFile: '/data/farmguide_data/breeds/broiler_arboracres.json',
+        w6_bw: '2,981g',
+        w8_fcr: '1.810',
+    },
+    {
+        code: 'indianriver',
+        label: 'Indian River',
+        company: 'Aviagen',
+        jsonFile: '/data/farmguide_data/breeds/broiler_indianriver.json',
+        w6_bw: '2,995g',
+        w8_fcr: '1.822',
+    },
+];
+
+const PS_BROILER_BREEDS = [
+    {
+        id: 'ps_ross308ff',
+        label: 'Ross',
+        badge: 'Aviagen · 2021',
+        jsonFile: '/data/farmguide_data/breeds/ps_broiler_ross308ff.json',
+        stats: [
+            { label: 'BW W25', value: '2,970 g' },
+            { label: 'Peak prod.', value: '88.2%' },
+        ],
+    },
+    {
+        id: 'ps_arboracresplus',
+        label: 'Arbor Acres',
+        badge: 'Aviagen · 2021',
+        jsonFile: '/data/farmguide_data/breeds/ps_broiler_arboracresplus.json',
+        stats: [
+            { label: 'BW W25', value: '2,970 g' },
+            { label: 'Peak prod.', value: '89.6%' },
+        ],
+    },
+    {
+        id: 'ps_indianriver',
+        label: 'Indian River',
+        badge: 'Aviagen · 2021',
+        jsonFile: '/data/farmguide_data/breeds/ps_broiler_indianriver.json',
+        stats: [
+            { label: 'BW W25', value: '2,965 g' },
+            { label: 'Peak prod.', value: '88.5%' },
+        ],
+    },
+    {
+        id: 'ps_cobb500sf',
+        label: 'Cobb',
+        badge: 'Cobb-Vantress · 2026',
+        jsonFile: '/data/farmguide_data/breeds/ps_broiler_cobb500sf.json',
+        stats: [
+            { label: 'BW W25', value: '3,220 g' },
+            { label: 'Peak prod.', value: '86.0%' },
+        ],
+    },
+];
 
 function BreedSelector() {
     const navigate = useNavigate();
     const location = useLocation();
     const { t } = useTranslation();
-    const { language } = useLanguage();
-    const [modules, setModules] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedBreed, setSelectedBreed] = useState('');
-    
-    // Extract category and module from new URL structure
+    const { language, setLanguage } = useLanguage();
+    const [selectedBreed, setSelectedBreed] = useState(null);
+
     const pathParts = location.pathname.split('/').filter(Boolean);
-    const category = pathParts[1]; // 'commercial' or 'ps'
-    const moduleSlug = pathParts[2]; // 'broiler', 'layer', 'color'
-    
-    // Map to internal module ID
-    const module = category === 'ps' ? 'parent_stock' : 
-                   moduleSlug === 'color' ? 'color_chicken' : 
-                   moduleSlug;
+    const category = pathParts[1];
+    const moduleSlug = pathParts[2];
 
-    useEffect(() => {
-        // Broiler doesn't need breed selector - redirect to panduan
-        if (module === 'broiler') {
-            const existing = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
-            localStorage.setItem('farmguide_active_flock', JSON.stringify({
-                ...existing,
-                module_id: 'broiler',
-                breed_code: null,
-                breed_label: null,
-            }));
-            navigate(`/farmguide/commercial/broiler/panduan`, { replace: true });
-            return;
-        }
+    const languages = [
+        { code: 'en', label: 'EN' },
+        { code: 'id', label: 'ID' },
+        { code: 'vi', label: 'VI' },
+    ];
 
-        // Fetch modules config for other modules
-        fetch('/data/farmguide_data/app_config/modules.json')
-            .then(res => res.json())
-            .then(data => {
-                setModules(data.modules);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error('Failed to load modules config:', err);
-                setLoading(false);
-            });
-    }, [module, navigate]);
-
-    useEffect(() => {
-        // Auto-select if only one option (layer case)
-        if (!loading && modules.length > 0) {
-            const options = BREED_OPTIONS[module] || [];
-            if (options.length === 1) {
-                handleBreedSelect(options[0].code);
-            }
-        }
-    }, [module, loading, modules]);
-
-    const handleBreedSelect = (breedCode) => {
-        // Save to localStorage
+    const handleBreedSelect = (breed) => {
         const existing = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
-        
-        const updated = {
+        localStorage.setItem('farmguide_active_flock', JSON.stringify({
             ...existing,
-            module_id: module,
-            breed_code: breedCode,
+            module_id: moduleSlug,
+            breed_code: breed.code || breed.id,
+            breed_label: breed.label,
+            breed_json: breed.jsonFile,
             selected_at: new Date().toISOString(),
-        };
-        
-        localStorage.setItem('farmguide_active_flock', JSON.stringify(updated));
-        
-        // Navigate to next screen
-        navigateNext();
-    };
-
-    const navigateNext = () => {
-        const moduleConfig = modules.find(m => m.module_id === module);
-        const needsSex = moduleConfig?.sex_selector_required === true;
-        
-        // If module needs sex, save default 'female' to localStorage and go directly to panduan
-        if (needsSex) {
-            const existing = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
-            localStorage.setItem('farmguide_active_flock', JSON.stringify({
-                ...existing,
-                sex: 'female'
-            }));
-        }
-        
+        }));
         navigate(`/farmguide/${category}/${moduleSlug}/panduan`);
     };
 
-    const handleContinue = () => {
-        if (selectedBreed) {
-            handleBreedSelect(selectedBreed);
-        }
-    };
-
     const getModuleName = () => {
-        const moduleNames = {
-            broiler: 'Broiler',
-            layer: 'Layer',
-            color_chicken: 'Color Chicken',
-            parent_stock: 'Parent Stock',
-        };
-        return moduleNames[module] || module;
+        if (category === 'ps' && moduleSlug === 'broiler') return 'Broiler PS';
+        if (moduleSlug === 'broiler') return 'Broiler Commercial';
+        if (moduleSlug === 'layer') return 'Layer Commercial';
+        if (moduleSlug === 'color') return 'Color Chicken';
+        if (category === 'ps') return 'Parent Stock';
+        return moduleSlug;
     };
 
-    // Broiler module should not render (already redirected in useEffect)
-    if (module === 'broiler') {
-        return null;
-    }
-
-    const options = BREED_OPTIONS[module] || [];
-
-    // If only one option (layer or color_chicken), show loading while auto-selecting
-    if (options.length === 1 && loading) {
-        return (
-            <div className="fw-page">
-                <SharedTopNav />
-                <div className="fw-section" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ textAlign: 'center', color: 'var(--fw-sub)' }}>
-                        Loading...
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    // If only one option and loaded, it will auto-navigate (don't render selector)
-    if (options.length === 1) {
-        return null;
-    }
-
-    // Loading state for multi-option modules
-    if (loading) {
-        return (
-            <div className="fw-page">
-                <SharedTopNav />
-                <div className="fw-section" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ textAlign: 'center', color: 'var(--fw-sub)' }}>
-                        Loading...
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    const breeds = (category === 'ps' && moduleSlug === 'broiler') ? PS_BROILER_BREEDS
+        : (moduleSlug === 'broiler') ? BROILER_BREEDS : [];
 
     return (
-        <div className="fw-page">
-            <SharedTopNav />
+        <div className="fw-module-page">
 
-            <div className="fw-section">
-                {/* Breadcrumb */}
-                <div style={{ 
-                    marginBottom: '1.5rem',
-                    fontSize: '0.875rem',
-                    color: 'var(--fw-sub)'
-                }}>
-                    <span 
-                        onClick={() => navigate('/farmguide')}
-                        style={{ cursor: 'pointer', textDecoration: 'underline' }}
-                    >
-                        FarmGuide
-                    </span>
-                    {' > '}
-                    <span>{getModuleName()}</span>
+            <div className="fw-mod-top">
+                <div className="fw-mod-top-logo" onClick={() => navigate('/')} title="Back to Home">
+                    <img
+                        src="/images/FarmWell_Logo.png"
+                        alt="FarmWell"
+                        style={{ width: 34, height: 34, objectFit: 'contain' }}
+                    />
                 </div>
-
-                {/* Header */}
-                <div className="fw-sec-header">
-                    <div className="fw-sec-title">{t('farmguide.selectBreed') || 'Select Breed'}</div>
-                    <div className="fw-sec-sub">{t('farmguide.selectBreedSubtitle') || 'Choose the breed for your flock'}</div>
-                </div>
-
-                {/* Breed Selector Form */}
-                <div style={{ 
-                    marginTop: '2rem',
-                    maxWidth: '500px'
-                }}>
-                    {/* Label */}
-                    <label style={{
-                        display: 'block',
-                        fontSize: '0.875rem',
-                        fontWeight: '600',
-                        color: 'var(--fw-text)',
-                        marginBottom: '0.5rem'
-                    }}>
-                        {t('farmguide.breedLabel') || 'Breed'}
-                    </label>
-
-                    {/* Dropdown */}
-                    <select
-                        value={selectedBreed}
-                        onChange={(e) => setSelectedBreed(e.target.value)}
-                        style={{
-                            width: '100%',
-                            padding: '0.75rem 1rem',
-                            fontSize: '1rem',
-                            fontFamily: 'inherit',
-                            color: selectedBreed ? 'var(--fw-text)' : 'var(--fw-sub)',
-                            background: 'var(--fw-card)',
-                            border: '2px solid var(--fw-border)',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            transition: 'border-color 0.2s',
-                            outline: 'none'
-                        }}
-                        onFocus={(e) => {
-                            e.target.style.borderColor = 'var(--fw-teal)';
-                        }}
-                        onBlur={(e) => {
-                            e.target.style.borderColor = 'var(--fw-border)';
-                        }}
-                    >
-                        <option value="" disabled>
-                            {t('farmguide.selectPlaceholder') || '— Select breed —'}
-                        </option>
-                        {options.map(option => (
-                            <option key={option.code} value={option.code}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </select>
-
-                    {/* Continue Button */}
-                    <button
-                        onClick={handleContinue}
-                        disabled={!selectedBreed}
-                        style={{
-                            marginTop: '1.5rem',
-                            padding: '0.875rem 2rem',
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            color: selectedBreed ? 'var(--fw-card)' : 'var(--fw-muted)',
-                            background: selectedBreed ? 'var(--fw-teal)' : 'var(--fw-border)',
-                            border: 'none',
-                            borderRadius: '8px',
-                            cursor: selectedBreed ? 'pointer' : 'not-allowed',
-                            transition: 'all 0.2s',
-                            opacity: selectedBreed ? 1 : 0.6
-                        }}
-                        onMouseOver={(e) => {
-                            if (selectedBreed) {
-                                e.target.style.background = 'var(--fw-teal-dk)';
-                            }
-                        }}
-                        onMouseOut={(e) => {
-                            if (selectedBreed) {
-                                e.target.style.background = 'var(--fw-teal)';
-                            }
-                        }}
-                    >
-                        {t('farmguide.continue') || 'Continue →'}
-                    </button>
-                </div>
-
-                {/* Back Link */}
-                <div style={{ marginTop: '2rem' }}>
-                    <a
-                        onClick={() => navigate('/farmguide')}
-                        style={{
-                            color: 'var(--fw-sub)',
-                            fontSize: '0.875rem',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            textDecoration: 'none',
-                            transition: 'color 0.2s'
-                        }}
-                        onMouseOver={(e) => {
-                            e.target.style.color = 'var(--fw-teal)';
-                            e.target.style.textDecoration = 'underline';
-                        }}
-                        onMouseOut={(e) => {
-                            e.target.style.color = 'var(--fw-sub)';
-                            e.target.style.textDecoration = 'none';
-                        }}
-                    >
-                        {t('farmguide.backToModules') || '← Back to Modules'}
-                    </a>
+                <div className="fw-mod-top-lang">
+                    {languages.map(lang => (
+                        <button
+                            key={lang.code}
+                            className={`fw-mod-top-lang-btn${language === lang.code ? ' active' : ''}`}
+                            onClick={() => setLanguage(lang.code)}
+                        >
+                            {lang.label}
+                        </button>
+                    ))}
                 </div>
             </div>
+
+            <div className="fw-mod-card">
+                <div className="fw-mod-content">
+
+                    <div className="fw-welcome-section-label">
+                        FarmGuide — {getModuleName()}
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '18px 0 12px' }}>
+                        <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#2EAA5E', flexShrink: 0 }} />
+                        <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.1em', color: '#b8c2bc', textTransform: 'uppercase' }}>
+                            {t('farmguide.selectBreed') || 'Select Breed'}
+                        </span>
+                        <span style={{ flex: 1, height: '0.5px', background: '#e5e7eb' }} />
+                    </div>
+
+                    <div className="fw-module-grid-2">
+                        {breeds.map(breed => (
+                            <div
+                                key={breed.code || breed.id}
+                                className="fw-mod-item-card mod-poultry"
+                                onClick={() => handleBreedSelect(breed)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <div className="fw-mod-item-icon-wrap">
+                                    <BreedIcon />
+                                </div>
+                                <div className="fw-mod-item-name">{breed.label}</div>
+                                <div className="fw-mod-item-tag">{breed.badge || (breed.company + ' · 2022')}</div>
+                                <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 3 }}>
+                                    {breed.stats ? breed.stats.map((s, i) => (
+                                        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+                                            <span style={{ color: 'var(--fw-sub)' }}>{s.label}</span>
+                                            <span style={{ color: 'var(--fw-text)', fontWeight: 600 }}>{s.value}</span>
+                                        </div>
+                                    )) : (<>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+                                            <span style={{ color: 'var(--fw-sub)' }}>W6 target</span>
+                                            <span style={{ color: 'var(--fw-text)', fontWeight: 600 }}>{breed.w6_bw}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+                                            <span style={{ color: 'var(--fw-sub)' }}>W8 FCR</span>
+                                            <span style={{ color: 'var(--fw-text)', fontWeight: 600 }}>{breed.w8_fcr}</span>
+                                        </div>
+                                    </>)}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {breeds.length === 0 && (
+                        <div style={{ textAlign: 'center', padding: '3rem 0', color: 'var(--fw-sub)' }}>
+                            {t('farmguide.noBreedsAvailable') || 'No breeds available for this module.'}
+                        </div>
+                    )}
+
+                </div>
+
+                <div className="fw-mod-bnav">
+                    <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+                        <span>Home</span>
+                    </button>
+                    <button className="fw-mod-bnav-alerts" onClick={() => navigate('/farmguide')}>
+                        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" /><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" /></svg>
+                        <span>FarmGuide</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
     );
 }

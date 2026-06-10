@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "type": "broiler_performance_objectives",
+    "breed": "ross",
+    "breed_label": "Ross",
+    "source": "Ross 308 AP Broiler Performance Objectives 2022 (Aviagen)",
+    "version": "2022",
+    "unit_bw": "grams",
+    "unit_feed": "g/bird/day",
+    "unit_cum_feed": "g/bird",
+    "sex": "as_hatched",
+    "raising_period_days": 56,
+    "note": "On-farm body weight (feed present in intestinal tract). FCR includes initial body weight and does not account for mortality. Values are rounded."
+  },
+  "as_hatched": {
+    "columns": ["week", "day", "bw_g", "daily_gain_g", "av_daily_gain_g", "daily_intake_g", "cum_intake_g", "fcr"],
+    "weekly_summary": [
+      { "week": 1, "day": 7,  "bw_g": 214,  "daily_gain_g": 33, "av_daily_gain_g": 24, "daily_intake_g": 35,  "cum_intake_g": 165,  "fcr": 0.772 },
+      { "week": 2, "day": 14, "bw_g": 540,  "daily_gain_g": 57, "av_daily_gain_g": 35, "daily_intake_g": 68,  "cum_intake_g": 537,  "fcr": 0.995 },
+      { "week": 3, "day": 21, "bw_g": 1033, "daily_gain_g": 80, "av_daily_gain_g": 47, "daily_intake_g": 107, "cum_intake_g": 1167, "fcr": 1.130 },
+      { "week": 4, "day": 28, "bw_g": 1657, "daily_gain_g": 95, "av_daily_gain_g": 58, "daily_intake_g": 148, "cum_intake_g": 2083, "fcr": 1.257 },
+      { "week": 5, "day": 35, "bw_g": 2360, "daily_gain_g": 103,"av_daily_gain_g": 66, "daily_intake_g": 184, "cum_intake_g": 3268, "fcr": 1.386 },
+      { "week": 6, "day": 42, "bw_g": 3086, "daily_gain_g": 103,"av_daily_gain_g": 72, "daily_intake_g": 212, "cum_intake_g": 4674, "fcr": 1.516 },
+      { "week": 7, "day": 49, "bw_g": 3791, "daily_gain_g": 98, "av_daily_gain_g": 76, "daily_intake_g": 230, "cum_intake_g": 6235, "fcr": 1.646 },
+      { "week": 8, "day": 56, "bw_g": 4446, "daily_gain_g": 90, "av_daily_gain_g": 79, "daily_intake_g": 239, "cum_intake_g": 7884, "fcr": 1.776 }
+    ]
+  }
+}

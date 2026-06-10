@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "type": "broiler_performance_objectives",
+    "breed": "cobb",
+    "breed_label": "Cobb",
+    "source": "Cobb 500 Broiler Performance & Nutrition Supplement 2022 (Cobb-Vantress)",
+    "version": "2022",
+    "unit_bw": "grams",
+    "unit_feed": "g/bird/day",
+    "unit_cum_feed": "g/bird",
+    "sex": "as_hatched",
+    "raising_period_days": 56,
+    "note": "Average Daily Gain = (weight - weight at day 0) / age in days. Feed Conversion does not account for broiler mortality. Values are rounded."
+  },
+  "as_hatched": {
+    "columns": ["week", "day", "bw_g", "daily_gain_g", "av_daily_gain_g", "cum_feed_conversion", "daily_intake_g", "cum_intake_g"],
+    "weekly_summary": [
+      { "week": 1, "day": 7,  "bw_g": 202,  "daily_gain_g": 34, "av_daily_gain_g": 22.9, "cum_feed_conversion": 0.891, "daily_intake_g": null, "cum_intake_g": 180  },
+      { "week": 2, "day": 14, "bw_g": 570,  "daily_gain_g": 67, "av_daily_gain_g": 37.7, "cum_feed_conversion": 1.029, "daily_intake_g": 80,   "cum_intake_g": 588  },
+      { "week": 3, "day": 21, "bw_g": 1116, "daily_gain_g": 87, "av_daily_gain_g": 51.1, "cum_feed_conversion": 1.182, "daily_intake_g": 125,  "cum_intake_g": 1320 },
+      { "week": 4, "day": 28, "bw_g": 1783, "daily_gain_g": 101,"av_daily_gain_g": 62.2, "cum_feed_conversion": 1.322, "daily_intake_g": 165,  "cum_intake_g": 2359 },
+      { "week": 5, "day": 35, "bw_g": 2521, "daily_gain_g": 108,"av_daily_gain_g": 70.8, "cum_feed_conversion": 1.441, "daily_intake_g": 194,  "cum_intake_g": 3635 },
+      { "week": 6, "day": 42, "bw_g": 3278, "daily_gain_g": 108,"av_daily_gain_g": 77.1, "cum_feed_conversion": 1.555, "daily_intake_g": 220,  "cum_intake_g": 5100 },
+      { "week": 7, "day": 49, "bw_g": 4001, "daily_gain_g": 99, "av_daily_gain_g": 80.8, "cum_feed_conversion": 1.686, "daily_intake_g": 247,  "cum_intake_g": 6749 },
+      { "week": 8, "day": 56, "bw_g": 4641, "daily_gain_g": 84, "av_daily_gain_g": 82.1, "cum_feed_conversion": 1.842, "daily_intake_g": 262,  "cum_intake_g": 8549 }
+    ]
+  }
+}

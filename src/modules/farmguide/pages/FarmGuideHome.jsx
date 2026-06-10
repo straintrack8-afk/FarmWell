@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import SharedTopNav from '../../../components/SharedTopNav';
 import '../../../portal.css';
 import { flockStorage } from '../utils/flockStorage';
@@ -8,6 +9,7 @@ import { flockStorage } from '../utils/flockStorage';
 function FarmGuideHome() {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { language, setLanguage } = useLanguage();
     const [modules, setModules] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeFlocks, setActiveFlocks] = useState([]);
@@ -34,15 +36,7 @@ function FarmGuideHome() {
     const handleModuleClick = (moduleId) => {
         // Broiler, Layer, and Color Chicken go directly to panduan (no breed selector)
         if (moduleId === 'broiler') {
-            // Set default context for broiler
-            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
-            localStorage.setItem('farmguide_active_flock', JSON.stringify({
-                ...ctx,
-                module_id: 'broiler',
-                breed_code: null,
-                breed_label: 'Broiler Commercial',
-            }));
-            navigate(`/farmguide/broiler/panduan`);
+            navigate('/farmguide/commercial/broiler/pilih-jenis');
         } else if (moduleId === 'layer') {
             // Set default context for layer (no breed variants)
             const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
@@ -65,16 +59,7 @@ function FarmGuideHome() {
             }));
             navigate(`/farmguide/color_chicken/panduan`);
         } else if (moduleId === 'parent_stock') {
-            // Set default context for parent stock (broiler PS female)
-            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
-            localStorage.setItem('farmguide_active_flock', JSON.stringify({
-                ...ctx,
-                module_id: 'parent_stock',
-                breed_code: 'broiler_ps',
-                sex: 'female',
-                breed_label: 'Broiler PS',
-            }));
-            navigate(`/farmguide/parent_stock/panduan`);
+            navigate('/farmguide/ps/broiler/pilih-jenis');
         } else {
             navigate(`/farmguide/${moduleId}/pilih-jenis`);
         }
@@ -148,13 +133,103 @@ function FarmGuideHome() {
         return tags;
     };
 
+    const languages = [
+        { code: 'en', label: 'EN' },
+        { code: 'id', label: 'ID' },
+        { code: 'vi', label: 'VI' },
+    ];
+
+    const BroilerIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+    );
+    const LayerIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+            <ellipse cx="12" cy="10" rx="5" ry="6"/>
+            <path d="M7 18c0 2 2.2 3 5 3s5-1 5-3"/>
+        </svg>
+    );
+    const ColorIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            <path d="M16 4l2 1M6 4l-2 1M12 2v2"/>
+        </svg>
+    );
+    const BroilerPSIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            <circle cx="18" cy="5" r="2.5"/>
+        </svg>
+    );
+    const LayerPSIcon = () => (
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 22, height: 22, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+            <ellipse cx="12" cy="10" rx="5" ry="6"/>
+            <path d="M7 18c0 2 2.2 3 5 3s5-1 5-3"/>
+            <ellipse cx="19" cy="19" rx="2" ry="2.5"/>
+        </svg>
+    );
+
+    const moduleMeta = {
+        broiler:        { icon: <BroilerIcon />,   desc: 'D1\u2013D56 management guide' },
+        layer:          { icon: <LayerIcon />,     desc: 'W1\u2013W80 production reference' },
+        color_chicken:  { icon: <ColorIcon />,     desc: 'W1\u2013W18 local breed guide' },
+        broiler_ps:     { icon: <BroilerPSIcon />, desc: 'W1\u2013W64 breeder reference' },
+        layer_ps:       { icon: <LayerPSIcon />,   desc: 'W1\u2013W75 breeder guide' },
+        color_ps:       { icon: <ColorIcon />,     desc: 'Coming soon' },
+    };
+
+    const allModules = [
+        { id: 'broiler',       label: 'Broiler',       status: 'active' },
+        { id: 'layer',         label: 'Layer',          status: 'active' },
+        { id: 'color_chicken', label: 'Color Chicken',  status: 'new' },
+        { id: 'broiler_ps',    label: 'Broiler PS',     status: 'active' },
+        { id: 'layer_ps',      label: 'Layer PS',       status: 'active' },
+        { id: 'color_ps',      label: 'Color PS',       status: 'coming_soon' },
+    ];
+
+    const commercialModules = allModules.filter(m => !m.id.endsWith('_ps'));
+    const parentStockModules = allModules.filter(m => m.id.endsWith('_ps'));
+
+    const handleCardClick = (modId) => {
+        if (modId === 'layer_ps') {
+            localStorage.setItem('farmguide_active_flock', JSON.stringify({ module_id: 'layer_ps', module: 'layer_ps' }));
+            navigate('/farmguide/ps/layer/panduan');
+        } else if (modId === 'broiler_ps') {
+            handleModuleClick('parent_stock');
+        } else {
+            handleModuleClick(modId);
+        }
+    };
+
+    const renderModuleCard = (mod) => {
+        const meta = moduleMeta[mod.id] || { icon: <BroilerIcon />, desc: '' };
+        const isDisabled = mod.id === 'color_ps' || mod.status === 'coming_soon';
+        return (
+            <div
+                key={mod.id}
+                className={`fw-mod-item-card mod-poultry${isDisabled ? ' disabled' : ''}`}
+                onClick={() => !isDisabled && handleCardClick(mod.id)}
+                style={isDisabled ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+            >
+                <div className="fw-mod-item-icon-wrap">
+                    {meta.icon}
+                </div>
+                <div className="fw-mod-item-name">{mod.label}</div>
+                <div className="fw-mod-item-tag">{meta.desc}</div>
+            </div>
+        );
+    };
+
     if (loading) {
         return (
-            <div className="fw-page">
-                <SharedTopNav />
-                <div className="fw-section" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ textAlign: 'center', color: 'var(--fw-sub)' }}>
-                        Loading modules...
+            <div className="fw-module-page">
+                <div className="fw-mod-card">
+                    <div className="fw-mod-content" style={{ textAlign: 'center', padding: '4rem' }}>
+                        Loading...
                     </div>
                 </div>
             </div>
@@ -162,222 +237,71 @@ function FarmGuideHome() {
     }
 
     return (
-        <div className="fw-page">
-            <SharedTopNav />
-
-            <div className="page-header" style={{
-                padding: '2rem 1rem 2rem',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center'
-            }}>
-                <img
-                    src="/FarmGuide_logo.png"
-                    alt="FarmGuide"
-                    style={{ height: '120px', width: 'auto', marginBottom: '1rem' }}
-                />
-                <p style={{
-                    fontSize: '1.125rem',
-                    color: '#4B5563',
-                    maxWidth: '600px',
-                    margin: '0 auto',
-                    lineHeight: '1.6'
-                }}>
-                    {t('farmguide.subtitle') || 'Production monitor and management reference for poultry farming'}
-                </p>
+        <div className="fw-module-page">
+            {/* ── COMPACT HEADER ── */}
+            <div className="fw-mod-top">
+                <div
+                    className="fw-mod-top-logo"
+                    onClick={() => navigate('/')}
+                    title="Back to Home"
+                >
+                    <img src="/images/FarmWell_Logo.png" alt="FarmWell" style={{ width: 34, height: 34, objectFit: 'contain' }} />
+                </div>
+                <div className="fw-mod-top-lang">
+                    {languages.map(lang => (
+                        <button
+                            key={lang.code}
+                            className={`fw-mod-top-lang-btn${language === lang.code ? ' active' : ''}`}
+                            onClick={() => setLanguage(lang.code)}
+                        >
+                            {lang.label}
+                        </button>
+                    ))}
+                </div>
             </div>
 
-            {activeFlocks.length > 0 && (
-                <div className="fw-section" style={{ paddingTop: 0 }}>
-                    <div style={{ 
-                        maxWidth: '960px', 
-                        margin: '0 auto',
-                        marginBottom: '8px'
-                    }}>
-                        <div style={{ 
-                            fontSize: '0.75rem', fontWeight: '700', 
-                            letterSpacing: '0.05em', color: 'var(--fw-sub)',
-                            textTransform: 'uppercase', marginBottom: '10px'
-                        }}>
-                            🗂 My Active Flocks
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            {activeFlocks.map(flock => (
-                                <div
-                                    key={flock.id}
-                                    onClick={() => handleFlockClick(flock)}
-                                    style={{
-                                        display: 'flex', justifyContent: 'space-between',
-                                        alignItems: 'center', padding: '12px 16px',
-                                        background: 'white', borderRadius: '10px',
-                                        border: '1px solid var(--fw-border)',
-                                        borderLeft: '4px solid var(--fw-teal)',
-                                        cursor: 'pointer',
-                                    }}
-                                >
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                        <span style={{ fontSize: '1.3rem' }}>
-                                            {getModuleEmoji(flock.module_id)}
-                                        </span>
-                                        <div>
-                                            <div style={{ fontWeight: '700', fontSize: '14px' }}>
-                                                {flock.name || getModuleLabel(flock.module_id)}
-                                            </div>
-                                            <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginTop: '2px' }}>
-                                                {getModuleLabel(flock.module_id)}
-                                                {flock.current_week ? ` · Week ${flock.current_week}` : ''}
-                                                {flock.current_day ? ` · Day ${flock.current_day}` : ''}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span style={{ 
-                                        fontSize: '11px', padding: '3px 10px',
-                                        background: 'var(--fw-teal-lt, #E6F5F2)',
-                                        color: 'var(--fw-teal)', borderRadius: '20px', fontWeight: '600'
-                                    }}>
-                                        Open →
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
+            {/* ── WHITE CARD ── */}
+            <div className="fw-mod-card">
+                <div className="fw-mod-content">
+                    <div className="fw-welcome-section-label">
+                        FarmGuide � All Modules
+                    </div>
+
+                    {/* Commercial section */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '18px 0 12px' }}>
+                        <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#2EAA5E', flexShrink: 0 }} />
+                        <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.1em', color: '#b8c2bc', textTransform: 'uppercase' }}>
+                            Commercial
+                        </span>
+                        <span style={{ flex: 1, height: '0.5px', background: '#e5e7eb' }} />
+                    </div>
+                    <div className="fw-module-grid-2">
+                        {commercialModules.map(renderModuleCard)}
+                    </div>
+
+                    {/* Parent Stock section */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '18px 0 12px' }}>
+                        <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#E87B35', flexShrink: 0 }} />
+                        <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.1em', color: '#b8c2bc', textTransform: 'uppercase' }}>
+                            Parent Stock
+                        </span>
+                        <span style={{ flex: 1, height: '0.5px', background: '#e5e7eb' }} />
+                    </div>
+                    <div className="fw-module-grid-2">
+                        {parentStockModules.map(renderModuleCard)}
                     </div>
                 </div>
-            )}
 
-            <div className="fw-section">
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', maxWidth: '960px', margin: '0 auto' }}>
-
-                    {/* COMMERCIAL COLUMN */}
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-                            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--fw-teal)' }} />
-                            <span style={{ fontSize: '0.75rem', fontWeight: '700', letterSpacing: '0.08em', color: 'var(--fw-sub)', textTransform: 'uppercase' }}>Commercial</span>
-                        </div>
-                        <div style={{ borderBottom: '2px solid var(--fw-teal)', marginBottom: '16px' }} />
-
-                        {/* Broiler */}
-                        <div className="fw-module-card mc-guide" onClick={() => handleModuleClick('broiler')}
-                            style={{ cursor: 'pointer', borderLeft: '4px solid var(--fw-teal)', marginBottom: '12px', padding: '14px 16px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ fontSize: '1.5rem' }}>🐔</span>
-                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Broiler</span>
-                                </div>
-                                <span style={{ fontSize: '11px', color: 'var(--fw-teal)', fontWeight: '600' }}>Active</span>
-                            </div>
-                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-                                {['D1–D56', 'Guide', 'My Flock'].map(tag => (
-                                    <span key={tag} className="fmc-tag">{tag}</span>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Layer */}
-                        <div className="fw-module-card mc-guide" onClick={() => handleModuleClick('layer')}
-                            style={{ cursor: 'pointer', borderLeft: '4px solid var(--fw-teal)', marginBottom: '12px', padding: '14px 16px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ fontSize: '1.5rem' }}>🥚</span>
-                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Layer</span>
-                                </div>
-                                <span style={{ fontSize: '11px', color: 'var(--fw-teal)', fontWeight: '600' }}>Active</span>
-                            </div>
-                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-                                {['W1–W80', 'Guide', 'My Flock'].map(tag => (
-                                    <span key={tag} className="fmc-tag">{tag}</span>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Color Chicken */}
-                        <div className="fw-module-card mc-guide" onClick={() => handleModuleClick('color_chicken')}
-                            style={{ cursor: 'pointer', borderLeft: '4px solid var(--fw-orange)', marginBottom: '12px', padding: '14px 16px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ fontSize: '1.5rem' }}>🐓</span>
-                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Color Chicken</span>
-                                </div>
-                                <span style={{ fontSize: '11px', color: 'var(--fw-orange)', fontWeight: '600' }}>New</span>
-                            </div>
-                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-                                {['W1–W18', '♂/♀', 'Guide', 'My Flock'].map(tag => (
-                                    <span key={tag} className="fmc-tag">{tag}</span>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* PARENT STOCK COLUMN */}
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-                            <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--fw-orange)' }} />
-                            <span style={{ fontSize: '0.75rem', fontWeight: '700', letterSpacing: '0.08em', color: 'var(--fw-sub)', textTransform: 'uppercase' }}>Parent Stock</span>
-                        </div>
-                        <div style={{ borderBottom: '2px solid var(--fw-orange)', marginBottom: '16px' }} />
-
-                        {/* Broiler PS */}
-                        <div className="fw-module-card mc-guide" onClick={() => handleModuleClick('parent_stock')}
-                            style={{ cursor: 'pointer', borderLeft: '4px solid var(--fw-teal)', marginBottom: '12px', padding: '14px 16px' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ fontSize: '1.5rem' }}>🐣</span>
-                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Broiler PS</span>
-                                </div>
-                                <span style={{ fontSize: '11px', color: 'var(--fw-teal)', fontWeight: '600' }}>Active</span>
-                            </div>
-                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-                                {['W1–W64', '♂/♀', 'Guide', 'My Flock'].map(tag => (
-                                    <span key={tag} className="fmc-tag">{tag}</span>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Layer PS - Active */}
-                        <div
-                            onClick={() => {
-                                localStorage.setItem('farmguide_active_flock', JSON.stringify({
-                                    module_id: 'layer_ps',
-                                    module: 'layer_ps',
-                                }));
-                                navigate('/farmguide/ps/layer/panduan');
-                            }}
-                            style={{ borderLeft: '4px solid var(--fw-teal)', marginBottom: '12px', padding: '14px 16px',
-                                background: 'white', borderRadius: '8px', border: '1px solid var(--fw-border)',
-                                cursor: 'pointer' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ fontSize: '1.5rem' }}>🥚</span>
-                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Layer PS</span>
-                                </div>
-                                <span style={{ fontSize: '11px', color: 'var(--fw-teal)', fontWeight: '600' }}>Active</span>
-                            </div>
-                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-                                {['W1–W75', '♂/♀', 'Guide'].map(tag => (
-                                    <span key={tag} className="fmc-tag">{tag}</span>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Color PS - Coming Soon */}
-                        <div style={{ borderLeft: '4px solid #ccc', marginBottom: '12px', padding: '14px 16px',
-                            background: 'white', borderRadius: '8px', border: '1px solid var(--fw-border)',
-                            borderLeftColor: '#ccc', opacity: 0.6 }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <span style={{ fontSize: '1.5rem' }}>🐓</span>
-                                    <span style={{ fontWeight: '700', fontSize: '1rem' }}>Color PS</span>
-                                </div>
-                                <span style={{ fontSize: '11px', color: '#999', fontWeight: '600' }}>Coming Soon</span>
-                            </div>
-                            <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
-                                {['W1–W30', '♂/♀'].map(tag => (
-                                    <span key={tag} className="fmc-tag">{tag}</span>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
+                {/* ── BOTTOM NAV ── */}
+                <div className="fw-mod-bnav">
+                    <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+                        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span>Home</span>
+                    </button>
+                    <button className="fw-mod-bnav-alerts" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                        <span>Alerts</span>
+                    </button>
                 </div>
             </div>
         </div>

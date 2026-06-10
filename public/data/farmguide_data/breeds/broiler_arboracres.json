@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "type": "broiler_performance_objectives",
+    "breed": "arboracres",
+    "breed_label": "Arbor Acres",
+    "source": "Arbor Acres Plus Broiler Performance Objectives 2022 (Aviagen)",
+    "version": "2022",
+    "unit_bw": "grams",
+    "unit_feed": "g/bird/day",
+    "unit_cum_feed": "g/bird",
+    "sex": "as_hatched",
+    "raising_period_days": 56,
+    "note": "On-farm body weight (feed present in intestinal tract). FCR includes initial body weight and does not account for mortality. Values are rounded."
+  },
+  "as_hatched": {
+    "columns": ["week", "day", "bw_g", "daily_gain_g", "av_daily_gain_g", "daily_intake_g", "cum_intake_g", "fcr"],
+    "weekly_summary": [
+      { "week": 1, "day": 7,  "bw_g": 209,  "daily_gain_g": 32, "av_daily_gain_g": 24, "daily_intake_g": 35,  "cum_intake_g": 168,  "fcr": 0.803 },
+      { "week": 2, "day": 14, "bw_g": 527,  "daily_gain_g": 56, "av_daily_gain_g": 34, "daily_intake_g": 67,  "cum_intake_g": 538,  "fcr": 1.021 },
+      { "week": 3, "day": 21, "bw_g": 1006, "daily_gain_g": 77, "av_daily_gain_g": 46, "daily_intake_g": 106, "cum_intake_g": 1163, "fcr": 1.157 },
+      { "week": 4, "day": 28, "bw_g": 1611, "daily_gain_g": 92, "av_daily_gain_g": 56, "daily_intake_g": 146, "cum_intake_g": 2069, "fcr": 1.285 },
+      { "week": 5, "day": 35, "bw_g": 2287, "daily_gain_g": 99, "av_daily_gain_g": 64, "daily_intake_g": 181, "cum_intake_g": 3237, "fcr": 1.416 },
+      { "week": 6, "day": 42, "bw_g": 2981, "daily_gain_g": 98, "av_daily_gain_g": 70, "daily_intake_g": 206, "cum_intake_g": 4612, "fcr": 1.548 },
+      { "week": 7, "day": 49, "bw_g": 3649, "daily_gain_g": 93, "av_daily_gain_g": 74, "daily_intake_g": 222, "cum_intake_g": 6125, "fcr": 1.680 },
+      { "week": 8, "day": 56, "bw_g": 4263, "daily_gain_g": 84, "av_daily_gain_g": 75, "daily_intake_g": 228, "cum_intake_g": 7708, "fcr": 1.810 }
+    ]
+  }
+}

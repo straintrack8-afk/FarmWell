@@ -133,8 +133,8 @@ const getVentilationLabel = (ventValue, t) => {
 
 const ManagementGuide = ({ module: moduleProp } = {}) => {
     const navigate = useNavigate();
-    const { module: moduleParam } = useParams();
-    const module = moduleProp || moduleParam;
+    const { module: moduleParam, moduleSlug } = useParams();
+    const module = moduleProp || moduleParam || moduleSlug;
     const { t, tSafe, language } = useTranslation();
     const lang = language || 'en';
 
@@ -309,16 +309,89 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
     }, [selectedWeek, activeTab, module]);
 
     const loadBWData = () => {
-        if (module === 'layer') {
+        if (module === 'broiler') {
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const breedJson = ctx.breed_json || '/data/farmguide_data/breeds/broiler_ross.json';
+            fetch(breedJson)
+                .then(r => r.json())
+                .then(data => {
+                    const weekly = data.as_hatched.weekly_summary;
+                    const weeklyStandard = weekly.map((row, idx) => ({
+                        week: row.week,
+                        day: row.day,
+                        bw_g: row.bw_g,
+                        gain_g: idx > 0 ? row.bw_g - weekly[idx - 1].bw_g : null,
+                    }));
+                    const dailyStandard = [];
+                    for (let i = 0; i < weekly.length; i++) {
+                        const startDay = i === 0 ? 1 : weekly[i - 1].day + 1;
+                        const endDay = weekly[i].day;
+                        const startBw = i === 0 ? 44 : weekly[i - 1].bw_g;
+                        const endBw = weekly[i].bw_g;
+                        const days = endDay - startDay + 1;
+                        for (let d = 0; d < days; d++) {
+                            const day = startDay + d;
+                            const bw_g = Math.round(startBw + ((endBw - startBw) * (d + 1) / days));
+                            const week = weekly[i].week;
+                            dailyStandard.push({
+                                day,
+                                week,
+                                bw_g,
+                                gain_g: day > 1 ? bw_g - (dailyStandard[dailyStandard.length - 1]?.bw_g || 44) : null,
+                            });
+                        }
+                    }
+                    setBwData({ weeklyStandard, dailyStandard, meta: data._meta });
+                })
+                .catch(err => console.error('Failed to load broiler breed BW data:', err));
+        } else if (module === 'layer') {
             fetch('/data/farmguide_data/breeds/layer_standards.json')
                 .then(r => r.json())
                 .then(data => setBwData(data))
                 .catch(err => console.error('Failed to load layer BW data:', err));
         } else if (module === 'parent_stock') {
-            fetch('/data/farmguide_data/breeds/ps_standards.json')
-                .then(r => r.json())
-                .then(data => setBwData(data))
-                .catch(err => console.error('Failed to load PS BW data:', err));
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const breedJson = ctx.breed_json;
+            if (breedJson && breedJson.includes('ps_broiler')) {
+                fetch(breedJson)
+                    .then(r => r.json())
+                    .then(data => {
+                        const weeklyStandard = (data.female_bw_inseason || [])
+                            .filter(r => r.week > 0)
+                            .map(r => ({
+                                week: r.week,
+                                day: r.day,
+                                bw_g: r.bw_g,
+                                weekly_gain_g: r.weekly_gain_g,
+                                feed_g_bird_day: r.feed_g_bird_day
+                            }));
+                        const weeklyProduction = (data.weekly_production || []).map(r => ({
+                            prod_week: r.prod_week,
+                            age_weeks: r.age_weeks,
+                            hen_housed_pct: r.hen_housed_pct,
+                            eggs_bird_week: r.eggs_bird_week,
+                            eggs_bird_cum: r.eggs_bird_cum,
+                            hatching_eggs_week: r.hatching_eggs_week,
+                            hatching_eggs_cum: r.hatching_eggs_cum,
+                            hatchability_pct: r.hatchability_pct,
+                            chicks_week: r.chicks_week,
+                            chicks_cum: r.chicks_cum
+                        }));
+                        setBwData({
+                            ...data,
+                            weeklyStandard,
+                            weeklyProduction,
+                            breedLabel: data.breed_label,
+                            source: data.source
+                        });
+                    })
+                    .catch(err => console.error('Failed to load PS breed BW data:', err));
+            } else {
+                fetch('/data/farmguide_data/breeds/ps_standards.json')
+                    .then(r => r.json())
+                    .then(data => setBwData(data))
+                    .catch(err => console.error('Failed to load PS BW data:', err));
+            }
         } else if (module === 'color_chicken') {
             fetch('/data/farmguide_data/breeds/color_chicken_standards.json')
                 .then(r => r.json())
@@ -451,7 +524,16 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         
         // Broiler uses generic label (no breed/sex)
         if (module === 'broiler') {
-            return 'Broiler Commercial';
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            return ctx.breed_label ? 'Broiler · ' + ctx.breed_label : 'Broiler Commercial';
+        }
+
+        // Parent Stock (PS) — read breed_label directly, works for all 4 PS breeds
+        if (module === 'parent_stock') {
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const label = ctx.breed_label;
+            if (label) return 'Parent Stock (PS) · ' + label;
+            return 'Parent Stock (PS)';
         }
         
         const parts = [getModuleName()];
@@ -1525,7 +1607,18 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
     const renderFeedTab = () => {
         if (module === 'parent_stock') {
             // Select data based on sex
-            const rawData = psSex === 'female' ? PS_FEMALE_FEED : PS_MALE_FEED;
+            let rawData;
+            if (bwData && bwData.weeklyStandard) {
+                rawData = bwData.weeklyStandard
+                    .filter(r => r.feed_g_bird_day !== null && r.feed_g_bird_day !== undefined)
+                    .map(r => ({
+                        week: r.week,
+                        phase: r.week <= 24 ? 'rearing' : 'production',
+                        feed_g_day: r.feed_g_bird_day,
+                    }));
+            } else {
+                rawData = psSex === 'female' ? PS_FEMALE_FEED : PS_MALE_FEED;
+            }
             
             // Filter by phase
             const filteredData = rawData.filter(entry => {
@@ -2630,7 +2723,15 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
     const renderBWTab = () => {
         if (module === 'parent_stock') {
             // Select data based on sex
-            const rawData = psSex === 'female' ? PS_FEMALE_BW : PS_MALE_BW;
+            let rawData;
+            if (bwData && bwData.weeklyStandard) {
+                rawData = bwData.weeklyStandard.map(r => ({
+                    week: r.week,
+                    bw: r.bw_g,
+                }));
+            } else {
+                rawData = psSex === 'female' ? PS_FEMALE_BW : PS_MALE_BW;
+            }
             
             // Filter by phase
             const filteredData = rawData.filter(entry => {
@@ -2958,7 +3059,10 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         
         // Handle daily view for Broiler and Color Chicken
         if (viewMode === 'daily' && module === 'broiler') {
-            tableData = BROILER_DAILY_BW.map(row => ({
+            if (!bwData || !bwData.dailyStandard) {
+                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
+            }
+            tableData = bwData.dailyStandard.map(row => ({
                 day: row.day,
                 week: row.week,
                 bw: row.bw_g,
@@ -2974,7 +3078,10 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 feed: row.feed_avg,
             }));
         } else if (module === 'broiler') {
-            tableData = BROILER_WEEKLY_BW_STANDARD.map(row => ({
+            if (!bwData || !bwData.weeklyStandard) {
+                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
+            }
+            tableData = bwData.weeklyStandard.map(row => ({
                 week: row.week,
                 day: row.day,
                 bw: row.bw_g,
@@ -3703,6 +3810,17 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             
             // X-axis ticks
             const xTicks = [25, 30, 35, 40, 45, 50, 55, 60, 64];
+
+            // Use breed-specific production data if available, else fallback to generic
+            const epData = (bwData && bwData.weeklyProduction)
+                ? bwData.weeklyProduction.map(r => ({
+                    week: r.age_weeks,
+                    ep_pct: r.hen_housed_pct,
+                    hatching_eggs_bird_week: r.hatching_eggs_week,
+                    hatchability_pct: r.hatchability_pct,
+                    chicks_bird_cum: r.chicks_cum,
+                }))
+                : PS_EGG_PRODUCTION;
             
             // Y-axis ticks (every 20%)
             const yTicks = [0, 20, 40, 60, 80, 100];
@@ -3748,7 +3866,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {PS_EGG_PRODUCTION.map(entry => {
+                                {epData.map(entry => {
                                     const isActive = entry.week === selectedWeek;
                                     return (
                                         <tr
@@ -3896,7 +4014,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 
                                 {/* Line path */}
                                 <polyline
-                                    points={PS_EGG_PRODUCTION.map(d => `${xScale(d.week)},${yScale(d.ep_pct)}`).join(' ')}
+                                    points={epData.map(d => `${xScale(d.week)},${yScale(d.ep_pct)}`).join(' ')}
                                     fill="none"
                                     stroke="var(--fw-teal)"
                                     strokeWidth="3"
@@ -3904,7 +4022,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 
                                 {/* Single highlight circle at selected week */}
                                 {(() => {
-                                    const selectedData = PS_EGG_PRODUCTION.find(d => d.week === selectedWeek);
+                                    const selectedData = epData.find(d => d.week === selectedWeek);
                                     if (selectedData) {
                                         return (
                                             <circle
@@ -5324,6 +5442,30 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 <div className="content-area">
                     {mainTab === 'guide' && renderTabContent()}
                     {mainTab === 'flock' && <FlockSaya module={module} embedded={true} />}
+                </div>
+
+                {/* Bottom Nav */}
+                <div className="fw-mod-bnav">
+                    <button
+                        className="fw-mod-bnav-home"
+                        onClick={() => navigate('/')}
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}>
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                        <span>Home</span>
+                    </button>
+                    <button
+                        className="fw-mod-bnav-alerts"
+                        onClick={() => navigate('/farmguide')}
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{width:18,height:18}}>
+                            <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                        </svg>
+                        <span>FarmGuide</span>
+                    </button>
                 </div>
             </div>
         </div>

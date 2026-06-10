@@ -10,6 +10,10 @@ function FarmGuideApp() {
     return (
         <Routes>
             <Route path="/" element={<FarmGuideHome />} />
+            <Route path=":category/:moduleSlug/pilih-jenis" element={<BreedSelector />} />
+            <Route path=":category/:moduleSlug/panduan" element={<ManagementGuide />} />
+            <Route path=":category/:moduleSlug/grafik" element={<GrowthChart />} />
+            <Route path=":category/:moduleSlug/flock-saya" element={<FlockSaya />} />
             <Route path=":module/pilih-jenis" element={<BreedSelector />} />
             <Route path=":module/panduan" element={<ManagementGuide />} />
             <Route path="ps/broiler/panduan" element={<ManagementGuide module="parent_stock" />} />

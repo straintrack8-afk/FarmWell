@@ -164,7 +164,7 @@ return(lastWeek>0)?(
 <div style={{display:'grid',gridTemplateColumns:isMobile?'repeat(2, 1fr)':'repeat(4, 1fr)',gap:'0.5rem',marginTop:'0.75rem',marginBottom:'0.75rem'}}>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.raisingWeek')||'Raising Week'}</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 W{lastWeek}
 </div>
 </div>
@@ -172,13 +172,13 @@ W{lastWeek}
 <>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.epPct')||'EP%'}</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {epPct?`${epPct.toFixed(1)}%`:'—'}
 </div>
 </div>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.eggWeight')||'Egg Weight'}</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {eggWeight?`${eggWeight.toFixed(1)}g`:'—'}
 </div>
 </div>
@@ -186,14 +186,14 @@ W{lastWeek}
 ):(
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>ADG</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {adg?`${adg} g/d`:'—'}
 </div>
 </div>
 )}
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.livability')||'Livability'}</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:livability<95?'#EF4444':'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:livability<95?'#EF4444':'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {livability?`${livability}%`:'—'}
 </div>
 </div>
@@ -246,25 +246,25 @@ return(adg||fcr||depletion!==null||lastDay>0)?(
 <div style={{display:'grid',gridTemplateColumns:isMobile?'repeat(2, 1fr)':'repeat(4, 1fr)',gap:'0.5rem',marginTop:'0.75rem',marginBottom:'0.75rem'}}>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.raisingDay')||'Raising Day'}</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {lastDay>0?`D${lastDay}`:'—'}
 </div>
 </div>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>ADG</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {adg?`${adg} g/day`:'—'}
 </div>
 </div>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>FCR</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {fcr??'—'}
 </div>
 </div>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.depletion')||'Depletion'}</div>
-<div style={{fontSize:'1.5rem',fontWeight:'700',color:depletion>5?'#EF4444':'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:depletion>5?'#EF4444':'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {depletion!==null?`${depletion}%`:'—'}
 </div>
 </div>
@@ -500,7 +500,7 @@ return(
 </div>
 <div className="no-print" style={{display:'flex',flexDirection:'column',gap:'0.5rem'}}>
 <button onClick={()=>handleInputDay(selectedFlock)} style={{width:'100%',padding:'0.75rem',background:'var(--fw-teal)',color:'white',border:'none',borderRadius:'8px',fontSize:'1rem',fontWeight:'600',cursor:'pointer'}}>{t('farmguide.inputData')}</button>
-<button onClick={()=>handlePrint(`${selectedFlock.name}_report.pdf`)} style={{width:'100%',padding:'0.75rem',background:'transparent',border:'2px solid var(--fw-teal)',color:'var(--fw-teal)',borderRadius:'8px',fontSize:'0.875rem',fontWeight:'600',cursor:'pointer'}}>🖨️ {t('farmguide.printSave') || 'Print / Save PDF'||'Print / Save PDF'}</button>
+<button onClick={()=>handlePrint(`${selectedFlock.name}_report.pdf`)} style={{width:'100%',padding:'0.75rem',background:'var(--fw-teal)',border:'none',color:'white',borderRadius:'8px',fontSize:'0.875rem',fontWeight:'600',cursor:'pointer'}}>🖨️ {t('farmguide.printSave') || 'Print / Save PDF'||'Print / Save PDF'}</button>
 </div>
 </div>
 </div>
