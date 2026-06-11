@@ -47,6 +47,59 @@ const BROILER_BREEDS = [
     },
 ];
 
+const PS_LAYER_BREEDS = [
+    {
+        id: 'ps_lohmann_brown',
+        label: 'Lohmann Brown',
+        badge: 'Lohmann Tierzucht',
+        jsonFile: '/data/farmguide_data/breeds/ps_layer_lohmann_brown.json',
+        stats: [
+            { label: 'Age 50% prod.', value: 'W21–22' },
+            { label: 'Peak prod.', value: '92.9%' },
+        ],
+    },
+    {
+        id: 'ps_isa_brown',
+        label: 'ISA Brown',
+        badge: 'Hendrix Genetics',
+        jsonFile: '/data/farmguide_data/breeds/ps_layer_isa_brown.json',
+        stats: [
+            { label: 'Age 50% prod.', value: 'W20–21' },
+            { label: 'Peak prod.', value: '93.2%' },
+        ],
+    },
+    {
+        id: 'ps_hyline_brown',
+        label: 'Hy-Line Brown',
+        badge: 'Hy-Line International',
+        jsonFile: '/data/farmguide_data/breeds/ps_layer_hyline_brown.json',
+        stats: [
+            { label: 'Age 50% prod.', value: '151 days' },
+            { label: 'Peak prod.', value: '96.9%' },
+        ],
+    },,
+    {
+        id: 'ps_novogen_brown',
+        label: 'Novogen Brown',
+        badge: 'Novogen',
+        jsonFile: '/data/farmguide_data/breeds/ps_layer_novogen_brown.json',
+        stats: [
+            { label: 'Age 50% prod.', value: 'W20–21' },
+            { label: 'Peak prod.', value: '92.5%' },
+        ],
+    },
+    {
+        id: 'ps_hyline_w36',
+        label: 'Hy-Line W-36',
+        badge: 'Hy-Line International',
+        jsonFile: '/data/farmguide_data/breeds/ps_layer_hyline_w36.json',
+        stats: [
+            { label: 'Age 50% prod.', value: '143 days' },
+            { label: 'Peak prod.', value: '95.0%' },
+        ],
+    }
+];
+
 const PS_BROILER_BREEDS = [
     {
         id: 'ps_ross308ff',
@@ -122,6 +175,7 @@ function BreedSelector() {
 
     const getModuleName = () => {
         if (category === 'ps' && moduleSlug === 'broiler') return 'Broiler PS';
+        if (category === 'ps' && moduleSlug === 'layer') return 'Layer PS';
         if (moduleSlug === 'broiler') return 'Broiler Commercial';
         if (moduleSlug === 'layer') return 'Layer Commercial';
         if (moduleSlug === 'color') return 'Color Chicken';
@@ -130,6 +184,7 @@ function BreedSelector() {
     };
 
     const breeds = (category === 'ps' && moduleSlug === 'broiler') ? PS_BROILER_BREEDS
+        : (category === 'ps' && moduleSlug === 'layer') ? PS_LAYER_BREEDS
         : (moduleSlug === 'broiler') ? BROILER_BREEDS : [];
 
     return (

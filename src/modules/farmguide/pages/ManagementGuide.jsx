@@ -392,6 +392,54 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     .then(data => setBwData(data))
                     .catch(err => console.error('Failed to load PS BW data:', err));
             }
+        } else if (module === 'layer_ps') {
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const breedJson = ctx.breed_json;
+            if (breedJson && breedJson.includes('ps_layer')) {
+                fetch(breedJson)
+                    .then(r => r.json())
+                    .then(data => {
+                        const weeklyStandard = [
+                            ...(data.female_bw_rearing || []).map(r => ({
+                                week: r.week,
+                                bw_g: r.bw_g,
+                                bw_range_low: r.bw_range_low || null,
+                                bw_range_high: r.bw_range_high || null,
+                                feed_g_bird_day: r.feed_g_bird_day || null,
+                                phase: 'rearing'
+                            })),
+                            ...(data.female_bw_production || []).map(r => ({
+                                week: r.week,
+                                bw_g: r.bw_g,
+                                bw_range_low: null,
+                                bw_range_high: null,
+                                feed_g_bird_day: r.feed_g_bird_day || null,
+                                phase: 'production'
+                            }))
+                        ];
+                        const weeklyProduction = (data.weekly_production || []).map(r => ({
+                            age_weeks: r.age_weeks,
+                            prod_week: r.age_weeks,
+                            hen_housed_pct: r.lay_rate_hd_pct,
+                            eggs_bird_week: r.eggs_bird_week,
+                            eggs_bird_cum: r.eggs_bird_cum,
+                            hatching_eggs_week: r.he_bird_week,
+                            hatching_eggs_cum: r.he_bird_cum,
+                            hatchability_pct: r.hatchability_pct ?? r.settable_pct ?? null,
+                            chicks_week: r.chicks_bird_week,
+                            chicks_cum: r.chicks_bird_cum,
+                            feed_g_bird_day: r.feed_g_bird_day || null
+                        }));
+                        setBwData({
+                            ...data,
+                            weeklyStandard,
+                            weeklyProduction,
+                            breedLabel: data.breed_label,
+                            isLayerPS: true
+                        });
+                    })
+                    .catch(err => console.error('Failed to load Layer PS breed data:', err));
+            }
         } else if (module === 'color_chicken') {
             fetch('/data/farmguide_data/breeds/color_chicken_standards.json')
                 .then(r => r.json())
@@ -534,6 +582,14 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             const label = ctx.breed_label;
             if (label) return 'Parent Stock (PS) · ' + label;
             return 'Parent Stock (PS)';
+        }
+
+        // Layer PS — read breed_label directly, works for all 3 Layer PS breeds
+        if (module === 'layer_ps') {
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const label = ctx.breed_label;
+            if (label) return 'Layer PS · ' + label;
+            return 'Layer PS';
         }
         
         const parts = [getModuleName()];
@@ -2505,8 +2561,112 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         }
         
         if (module === 'layer_ps') {
+            // ── REARING: numeric feed table ─────────────────────────────────────────────────
+            if (psPhase === 'rearing') {
+                const rearingRows = (bwData?.weeklyStandard || []).filter(r => r.phase === 'rearing' && r.feed_g_bird_day != null);
+                if (rearingRows.length === 0) return (
+                    <div style={{ padding: '2rem', textAlign: 'center', color: '#4A6B4A' }}>
+                        No feed data available for this breed.
+                    </div>
+                );
+                let cumulative = 0;
+                const tableRows = rearingRows.map(r => {
+                    const weekTotal = Math.round((r.feed_g_bird_day || 0) * 7);
+                    cumulative += weekTotal;
+                    return { week: Number(r.week), daily: r.feed_g_bird_day, cumulative };
+                });
+                const activeWeek = Number(selectedWeek);
+                return (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                        {/* Section header */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                            <div style={{
+                                width: '32px', height: '32px', borderRadius: '8px',
+                                background: '#2EAA5E', display: 'flex',
+                                alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                            }}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="3" y1="6" x2="21" y2="6"/>
+                                    <line x1="3" y1="12" x2="21" y2="12"/>
+                                    <line x1="3" y1="18" x2="21" y2="18"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div style={{ fontWeight: '700', fontSize: '14px', color: '#1A2E1A' }}>
+                      Rearing Feed Program
+                                </div>
+                                <div style={{ fontSize: '12px', color: '#4A6B4A' }}>
+                                    {bwData?.breedLabel || ''} · W1–W{rearingRows[rearingRows.length - 1]?.week}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Table */}
+                        <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white' }}>
+                            {/* Header */}
+                            <div style={{
+                                display: 'grid', gridTemplateColumns: '56px 1fr 1fr',
+                                background: '#2EAA5E', padding: '10px 14px', gap: '8px'
+                            }}>
+                                {[
+                      'Week',
+                      'Feed/Day (g)',
+                      'Cumulative (g)'
+                                ].map((h, i) => (
+                                    <div key={i} style={{
+                                        fontSize: '11px', fontWeight: '700', color: 'white',
+                                        textAlign: i === 0 ? 'center' : 'right',
+                                        textTransform: 'uppercase', letterSpacing: '0.04em'
+                                    }}>{h}</div>
+                                ))}
+                            </div>
+
+                            {/* Rows */}
+                            {tableRows.map((row, idx) => {
+                                const isActive = row.week === activeWeek;
+                                return (
+                                    <div key={idx} style={{
+                                        display: 'grid', gridTemplateColumns: '56px 1fr 1fr',
+                                        padding: '9px 14px', gap: '8px',
+                                        background: isActive ? 'rgba(46,170,94,0.10)' : idx % 2 === 0 ? 'white' : '#F2F4F2',
+                                        borderBottom: idx < tableRows.length - 1 ? '1px solid #DFF0E6' : 'none'
+                                    }}>
+                                        <div style={{ textAlign: 'center' }}>
+                                            <span style={{
+                                                display: 'inline-block', minWidth: '28px', padding: '2px 6px',
+                                                borderRadius: '6px',
+                                                background: isActive ? '#2EAA5E' : 'transparent',
+                                                color: isActive ? 'white' : '#4A6B4A',
+                                                fontSize: '12px', fontWeight: isActive ? '700' : '500'
+                                            }}>
+                                                {row.week}
+                                            </span>
+                                        </div>
+                                        <div style={{
+                                            textAlign: 'right', fontSize: '13px',
+                                            fontWeight: isActive ? '700' : '500',
+                                            color: isActive ? '#2EAA5E' : '#1A2E1A'
+                                        }}>
+                                            {row.daily}
+                                        </div>
+                                        <div style={{
+                                            textAlign: 'right', fontSize: '13px',
+                                            fontWeight: isActive ? '700' : '400',
+                                            color: isActive ? '#2EAA5E' : '#4A6B4A'
+                                        }}>
+                                            {row.cumulative.toLocaleString()}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            }
+
+            // ── PRODUCTION: qualitative text cards (unchanged) ───────────────────────────────────
             if (!layerPSGuideEntry) return (
-                <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>
+                <div style={{ padding: '2rem', textAlign: 'center', color: '#4A6B4A' }}>
                     No data available
                 </div>
             );
@@ -2515,12 +2675,12 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     <div style={{
                         display: 'inline-block', padding: '4px 14px', borderRadius: '20px',
-                        background: psPhase === 'production' ? 'var(--fw-orange)' : 'var(--fw-teal)',
+                        background: 'var(--fw-orange)',
                         color: 'white', fontSize: '13px', fontWeight: '700', marginBottom: '4px'
                     }}>
-                        {psPhase === 'production' ? '🥚 Production' : '🐣 Rearing'} · Week {selectedWeek}
+                        🥚 Production · Week {selectedWeek}
                     </div>
-                    <div style={{ fontSize: '13px', color: 'var(--fw-sub)', marginBottom: '8px' }}>
+                    <div style={{ fontSize: '13px', color: '#4A6B4A', marginBottom: '8px' }}>
                         {layerPSGuideEntry.phaseRange?.[lang] || layerPSGuideEntry.phaseRange?.en}
                     </div>
                     {[
@@ -2530,13 +2690,13 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     ].map((item, i) => (
                         <div key={i} style={{
                             background: 'white', borderRadius: '10px', padding: '14px 16px',
-                            border: '1px solid var(--fw-border)',
+                            border: '1px solid #DFF0E6',
                             display: 'flex', alignItems: 'flex-start', gap: '12px'
                         }}>
                             <span style={{ fontSize: '1.3rem' }}>{item.icon}</span>
                             <div>
                                 <div style={{ fontWeight: '700', fontSize: '13px', marginBottom: '4px' }}>{item.label}</div>
-                                <div style={{ fontSize: '14px', color: 'var(--fw-text)' }}>
+                                <div style={{ fontSize: '14px', color: '#1A2E1A' }}>
                                     {item.value?.[lang] || item.value?.en || '—'}
                                 </div>
                             </div>
@@ -2977,11 +3137,13 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         }
 
         if (module === 'layer_ps') {
-            const bwData = psSex === 'male' ? LAYER_PS_MALE_BW : LAYER_PS_FEMALE_BW;
+            const bwRows = (bwData && bwData.weeklyStandard)
+                ? bwData.weeklyStandard
+                : (psSex === 'male' ? LAYER_PS_MALE_BW : LAYER_PS_FEMALE_BW);
             const phaseData = psPhase === 'production'
-                ? bwData.filter(r => r.week >= 19)
-                : bwData.filter(r => r.week <= 18);
-            const selectedRow = bwData.find(r => r.week === selectedWeek);
+                ? bwRows.filter(r => r.week >= 19)
+                : bwRows.filter(r => r.week <= 18);
+            const selectedRow = bwRows.find(r => r.week === selectedWeek);
 
             const minBW = Math.min(...phaseData.map(r => r.bw_g));
             const maxBW = Math.max(...phaseData.map(r => r.bw_g));
@@ -4050,7 +4212,15 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     </div>
                 );
             }
-            const epData = LAYER_PS_EP;
+            const epData = (bwData && bwData.weeklyProduction && bwData.weeklyProduction.length > 0)
+                ? bwData.weeklyProduction.map(r => ({
+                    week: r.prod_week || r.age_weeks,
+                    ep_pct: r.hen_housed_pct,
+                    he_pct: r.hatchability_pct,
+                    egg_weight_g: null,
+                    saleable_chicks_cum: r.chicks_cum,
+                }))
+                : LAYER_PS_EP;
             const selectedRow = epData.find(r => r.week === selectedWeek) || epData[0];
             const minW = 19, maxW = 75;
             const toX = (w) => ((w - minW) / (maxW - minW)) * 680 + 60;
@@ -4082,30 +4252,6 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 <div style={{ fontSize: '20px', fontWeight: '700', color: 'var(--fw-teal)' }}>{kpi.value}</div>
                             </div>
                         ))}
-                    </div>
-                    {/* Chart */}
-                    <div style={{ background: 'white', borderRadius: '10px', border: '1px solid var(--fw-border)', padding: '16px', overflowX: 'auto' }}>
-                        <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>
-                            <span style={{ color: 'var(--fw-teal)' }}>— EP%</span>
-                            <span style={{ color: 'var(--fw-orange)', marginLeft: '16px' }}>— HE%</span>
-                        </div>
-                        <svg viewBox="0 0 800 280" style={{ width: '100%', minWidth: '400px' }}>
-                            {yTicks.map(y => (
-                                <g key={y}>
-                                    <line x1="60" y1={toY(y)} x2="760" y2={toY(y)} stroke="#E5E7EB" strokeWidth="1" />
-                                    <text x="52" y={toY(y) + 4} textAnchor="end" fontSize="10" fill="#9CA3AF">{y}%</text>
-                                </g>
-                            ))}
-                            {xTicks.map(w => (
-                                <text key={w} x={toX(w)} y="268" textAnchor="middle" fontSize="10" fill="#9CA3AF">W{w}</text>
-                            ))}
-                            <path d={epLine} fill="none" stroke="var(--fw-teal)" strokeWidth="2.5" />
-                            <path d={heLine} fill="none" stroke="var(--fw-orange)" strokeWidth="2" strokeDasharray="5,3" />
-                            {selectedRow && selectedRow.ep_pct != null && (
-                                <circle cx={toX(selectedRow.week)} cy={toY(selectedRow.ep_pct)} r="5"
-                                    fill="var(--fw-teal)" stroke="white" strokeWidth="2" />
-                            )}
-                        </svg>
                     </div>
                     {/* Table */}
                     <div style={{ overflowY: 'auto', maxHeight: '380px', borderRadius: '10px', border: '1px solid var(--fw-border)' }}>
@@ -4140,6 +4286,30 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 })}
                             </tbody>
                         </table>
+                    </div>
+                    {/* Chart */}
+                    <div style={{ background: 'white', borderRadius: '10px', border: '1px solid var(--fw-border)', padding: '16px', overflowX: 'auto' }}>
+                        <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>
+                            <span style={{ color: 'var(--fw-teal)' }}>— EP%</span>
+                            <span style={{ color: 'var(--fw-orange)', marginLeft: '16px' }}>— HE%</span>
+                        </div>
+                        <svg viewBox="0 0 800 280" style={{ width: '100%', minWidth: '400px' }}>
+                            {yTicks.map(y => (
+                                <g key={y}>
+                                    <line x1="60" y1={toY(y)} x2="760" y2={toY(y)} stroke="#E5E7EB" strokeWidth="1" />
+                                    <text x="52" y={toY(y) + 4} textAnchor="end" fontSize="10" fill="#9CA3AF">{y}%</text>
+                                </g>
+                            ))}
+                            {xTicks.map(w => (
+                                <text key={w} x={toX(w)} y="268" textAnchor="middle" fontSize="10" fill="#9CA3AF">W{w}</text>
+                            ))}
+                            <path d={epLine} fill="none" stroke="var(--fw-teal)" strokeWidth="2.5" />
+                            <path d={heLine} fill="none" stroke="var(--fw-orange)" strokeWidth="2" strokeDasharray="5,3" />
+                            {selectedRow && selectedRow.ep_pct != null && (
+                                <circle cx={toX(selectedRow.week)} cy={toY(selectedRow.ep_pct)} r="5"
+                                    fill="var(--fw-teal)" stroke="white" strokeWidth="2" />
+                            )}
+                        </svg>
                     </div>
                 </div>
             );

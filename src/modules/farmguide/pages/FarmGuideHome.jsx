@@ -86,7 +86,7 @@ function FarmGuideHome() {
             module: flock.module_id,
         }));
         if (flock.module_id === 'layer_ps') {
-            navigate('/farmguide/ps/layer/panduan');
+            navigate('/farmguide/ps/layer/pilih-jenis');
         } else if (flock.module_id === 'parent_stock') {
             navigate('/farmguide/ps/broiler/panduan');
         } else {
@@ -197,7 +197,7 @@ function FarmGuideHome() {
     const handleCardClick = (modId) => {
         if (modId === 'layer_ps') {
             localStorage.setItem('farmguide_active_flock', JSON.stringify({ module_id: 'layer_ps', module: 'layer_ps' }));
-            navigate('/farmguide/ps/layer/panduan');
+            navigate('/farmguide/ps/layer/pilih-jenis');
         } else if (modId === 'broiler_ps') {
             handleModuleClick('parent_stock');
         } else {
