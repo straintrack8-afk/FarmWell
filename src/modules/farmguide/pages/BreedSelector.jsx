@@ -244,7 +244,7 @@ function BreedSelector() {
                 <div className="fw-mod-content">
 
                     <div className="fw-welcome-section-label">
-                        FarmGuide â€” {getModuleName()}
+                        FarmGuide — {getModuleName()}
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '18px 0 12px' }}>
