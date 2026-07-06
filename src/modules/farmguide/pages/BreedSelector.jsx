@@ -55,8 +55,8 @@ const PS_COLOR_BREEDS = [
         badge: 'Hubbard Premium',
         jsonFile: '/data/farmguide_data/breeds/ps_color_ja57.json',
         stats: [
-            { label: 'Rearing', value: 'W1â€“W24' },
-            { label: 'Production', value: 'W25â€“W70' },
+            { label: 'Rearing', value: 'W1–W24' },
+            { label: 'Production', value: 'W25–W70' },
         ],
     },
     {
@@ -66,8 +66,8 @@ const PS_COLOR_BREEDS = [
         badge: 'Hubbard Premium',
         jsonFile: '/data/farmguide_data/breeds/ps_color_ja57ki.json',
         stats: [
-            { label: 'Rearing', value: 'W1â€“W24' },
-            { label: 'Production', value: 'W25â€“W70' },
+            { label: 'Rearing', value: 'W1–W24' },
+            { label: 'Production', value: 'W25–W70' },
         ],
     },
 ];
@@ -205,6 +205,7 @@ function BreedSelector() {
         if (category === 'ps' && moduleSlug === 'layer') return 'Layer PS';
         if (moduleSlug === 'broiler') return 'Broiler Commercial';
         if (moduleSlug === 'layer') return 'Layer Commercial';
+        if (category === 'ps' && moduleSlug === 'color') return 'Color PS';
         if (moduleSlug === 'color') return 'Color Chicken';
         if (category === 'ps') return 'Parent Stock';
         return moduleSlug;
