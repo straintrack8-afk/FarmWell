@@ -179,7 +179,7 @@ function FarmGuideHome() {
         color_chicken:  { icon: <ColorIcon />,     desc: 'W1\u2013W18 local breed guide' },
         broiler_ps:     { icon: <BroilerPSIcon />, desc: 'W1\u2013W64 breeder reference' },
         layer_ps:       { icon: <LayerPSIcon />,   desc: 'W1\u2013W75 breeder guide' },
-        color_ps:       { icon: <ColorIcon />,     desc: 'Coming soon' },
+        color_ps:       { icon: <ColorIcon />,     desc: 'W1–W70 breeder guide' },
     };
 
     const allModules = [
@@ -188,7 +188,7 @@ function FarmGuideHome() {
         { id: 'color_chicken', label: 'Color Chicken',  status: 'new' },
         { id: 'broiler_ps',    label: 'Broiler PS',     status: 'active' },
         { id: 'layer_ps',      label: 'Layer PS',       status: 'active' },
-        { id: 'color_ps',      label: 'Color PS',       status: 'coming_soon' },
+        { id: 'color_ps',      label: 'Color PS',       status: 'active' },
     ];
 
     const commercialModules = allModules.filter(m => !m.id.endsWith('_ps'));
@@ -198,6 +198,9 @@ function FarmGuideHome() {
         if (modId === 'layer_ps') {
             localStorage.setItem('farmguide_active_flock', JSON.stringify({ module_id: 'layer_ps', module: 'layer_ps' }));
             navigate('/farmguide/ps/layer/pilih-jenis');
+        } else if (modId === 'color_ps') {
+            localStorage.setItem('farmguide_active_flock', JSON.stringify({ module_id: 'color_ps', module: 'color_ps' }));
+            navigate('/farmguide/ps/color/pilih-jenis');
         } else if (modId === 'broiler_ps') {
             handleModuleClick('parent_stock');
         } else {
@@ -207,7 +210,7 @@ function FarmGuideHome() {
 
     const renderModuleCard = (mod) => {
         const meta = moduleMeta[mod.id] || { icon: <BroilerIcon />, desc: '' };
-        const isDisabled = mod.id === 'color_ps' || mod.status === 'coming_soon';
+        const isDisabled = mod.status === 'coming_soon';
         return (
             <div
                 key={mod.id}

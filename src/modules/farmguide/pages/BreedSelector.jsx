@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useLanguage } from '../../../contexts/LanguageContext';
@@ -47,6 +47,32 @@ const BROILER_BREEDS = [
     },
 ];
 
+const PS_COLOR_BREEDS = [
+    {
+        id: 'ja57',
+        code: 'ja57',
+        label: 'JA57',
+        badge: 'Hubbard Premium',
+        jsonFile: '/data/farmguide_data/breeds/ps_color_ja57.json',
+        stats: [
+            { label: 'Rearing', value: 'W1â€“W24' },
+            { label: 'Production', value: 'W25â€“W70' },
+        ],
+    },
+    {
+        id: 'ja57ki',
+        code: 'ja57ki',
+        label: 'JA57Ki',
+        badge: 'Hubbard Premium',
+        jsonFile: '/data/farmguide_data/breeds/ps_color_ja57ki.json',
+        stats: [
+            { label: 'Rearing', value: 'W1â€“W24' },
+            { label: 'Production', value: 'W25â€“W70' },
+        ],
+    },
+];
+
+
 const PS_LAYER_BREEDS = [
     {
         id: 'ps_lohmann_brown',
@@ -54,7 +80,7 @@ const PS_LAYER_BREEDS = [
         badge: 'Lohmann Tierzucht',
         jsonFile: '/data/farmguide_data/breeds/ps_layer_lohmann_brown.json',
         stats: [
-            { label: 'Age 50% prod.', value: 'W21–22' },
+            { label: 'Age 50% prod.', value: 'W21â€“22' },
             { label: 'Peak prod.', value: '92.9%' },
         ],
     },
@@ -64,7 +90,7 @@ const PS_LAYER_BREEDS = [
         badge: 'Hendrix Genetics',
         jsonFile: '/data/farmguide_data/breeds/ps_layer_isa_brown.json',
         stats: [
-            { label: 'Age 50% prod.', value: 'W20–21' },
+            { label: 'Age 50% prod.', value: 'W20â€“21' },
             { label: 'Peak prod.', value: '93.2%' },
         ],
     },
@@ -77,14 +103,15 @@ const PS_LAYER_BREEDS = [
             { label: 'Age 50% prod.', value: '151 days' },
             { label: 'Peak prod.', value: '96.9%' },
         ],
-    },,
+    },
+,
     {
         id: 'ps_novogen_brown',
         label: 'Novogen Brown',
         badge: 'Novogen',
         jsonFile: '/data/farmguide_data/breeds/ps_layer_novogen_brown.json',
         stats: [
-            { label: 'Age 50% prod.', value: 'W20–21' },
+            { label: 'Age 50% prod.', value: 'W20â€“21' },
             { label: 'Peak prod.', value: '92.5%' },
         ],
     },
@@ -104,7 +131,7 @@ const PS_BROILER_BREEDS = [
     {
         id: 'ps_ross308ff',
         label: 'Ross',
-        badge: 'Aviagen · 2021',
+        badge: 'Aviagen Â· 2021',
         jsonFile: '/data/farmguide_data/breeds/ps_broiler_ross308ff.json',
         stats: [
             { label: 'BW W25', value: '2,970 g' },
@@ -114,7 +141,7 @@ const PS_BROILER_BREEDS = [
     {
         id: 'ps_arboracresplus',
         label: 'Arbor Acres',
-        badge: 'Aviagen · 2021',
+        badge: 'Aviagen Â· 2021',
         jsonFile: '/data/farmguide_data/breeds/ps_broiler_arboracresplus.json',
         stats: [
             { label: 'BW W25', value: '2,970 g' },
@@ -124,7 +151,7 @@ const PS_BROILER_BREEDS = [
     {
         id: 'ps_indianriver',
         label: 'Indian River',
-        badge: 'Aviagen · 2021',
+        badge: 'Aviagen Â· 2021',
         jsonFile: '/data/farmguide_data/breeds/ps_broiler_indianriver.json',
         stats: [
             { label: 'BW W25', value: '2,965 g' },
@@ -134,7 +161,7 @@ const PS_BROILER_BREEDS = [
     {
         id: 'ps_cobb500sf',
         label: 'Cobb',
-        badge: 'Cobb-Vantress · 2026',
+        badge: 'Cobb-Vantress Â· 2026',
         jsonFile: '/data/farmguide_data/breeds/ps_broiler_cobb500sf.json',
         stats: [
             { label: 'BW W25', value: '3,220 g' },
@@ -185,6 +212,7 @@ function BreedSelector() {
 
     const breeds = (category === 'ps' && moduleSlug === 'broiler') ? PS_BROILER_BREEDS
         : (category === 'ps' && moduleSlug === 'layer') ? PS_LAYER_BREEDS
+        : (category === 'ps' && moduleSlug === 'color') ? PS_COLOR_BREEDS
         : (moduleSlug === 'broiler') ? BROILER_BREEDS : [];
 
     return (
@@ -215,7 +243,7 @@ function BreedSelector() {
                 <div className="fw-mod-content">
 
                     <div className="fw-welcome-section-label">
-                        FarmGuide — {getModuleName()}
+                        FarmGuide â€” {getModuleName()}
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '18px 0 12px' }}>
@@ -238,7 +266,7 @@ function BreedSelector() {
                                     <BreedIcon />
                                 </div>
                                 <div className="fw-mod-item-name">{breed.label}</div>
-                                <div className="fw-mod-item-tag">{breed.badge || (breed.company + ' · 2022')}</div>
+                                <div className="fw-mod-item-tag">{breed.badge || (breed.company + ' Â· 2022')}</div>
                                 <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 3 }}>
                                     {breed.stats ? breed.stats.map((s, i) => (
                                         <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
@@ -285,3 +313,4 @@ function BreedSelector() {
 }
 
 export default BreedSelector;
+

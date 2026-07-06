@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+﻿import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import SharedTopNav from '../../../components/SharedTopNav';
@@ -23,6 +23,7 @@ const WEEK_RANGES = {
     color_chicken: { min: 1, max: 18, label: 'Minggu' },
     parent_stock: { min: 1, max: 64, label: 'Minggu' },
     layer_ps: { min: 1, max: 75, label: 'Minggu' },
+    color_ps: { min: 1, max: 70, label: 'Week' },
 };
 
 const BROILER_DAILY_BW = [
@@ -440,6 +441,51 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     })
                     .catch(err => console.error('Failed to load Layer PS breed data:', err));
             }
+        } else if (module === 'color_ps') {
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const breedJson = ctx.breed_json;
+            if (breedJson && breedJson.includes('ps_color')) {
+                fetch(breedJson)
+                    .then(r => r.json())
+                    .then(data => {
+                        const weeklyStandard = [
+                            ...(data.female_bw_rearing || []).map(r => ({
+                                week: r.week,
+                                bw_g: r.bw_g,
+                                feed_g_bird_day: r.feed_g_bird_day || null,
+                                phase: 'rearing'
+                            })),
+                            ...(data.female_bw_production || []).map(r => ({
+                                week: r.week,
+                                bw_g: r.bw_g,
+                                feed_g_bird_day: null,
+                                phase: 'production'
+                            }))
+                        ];
+                        const weeklyProduction = (data.weekly_production || []).map(r => ({
+                            age_weeks: r.age_weeks,
+                            prod_week: r.age_weeks,
+                            hen_housed_pct: r.prod_pct,
+                            eggs_bird_week: r.eggs_bird_week,
+                            eggs_bird_cum: r.eggs_bird_cum,
+                            egg_weight_g: r.egg_weight_g,
+                            hatching_eggs_week: r.he_bird_week,
+                            hatching_eggs_cum: r.he_bird_cum,
+                            hatchability_pct: r.he_pct_te ?? null,
+                            chicks_week: null,
+                            chicks_cum: null,
+                            feed_g_bird_day: null
+                        }));
+                        setBwData({
+                            ...data,
+                            weeklyStandard,
+                            weeklyProduction,
+                            breedLabel: data.breed_label,
+                            isColorPS: true
+                        });
+                    })
+                    .catch(err => console.error('Failed to load Color PS breed data:', err));
+            }
         } else if (module === 'color_chicken') {
             fetch('/data/farmguide_data/breeds/color_chicken_standards.json')
                 .then(r => r.json())
@@ -541,6 +587,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             color_chicken: 'Color Chicken',
             parent_stock: 'Parent Stock (PS)',
             layer_ps: 'Layer PS',
+            color_ps: 'Color PS',
         };
         return names[module] || module;
     };
@@ -590,6 +637,13 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             const label = ctx.breed_label;
             if (label) return 'Layer PS · ' + label;
             return 'Layer PS';
+        }
+
+        if (module === 'color_ps') {
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const label = ctx.breed_label;
+            if (label) return 'Color PS · ' + label;
+            return 'Color PS';
         }
         
         const parts = [getModuleName()];
@@ -798,6 +852,17 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         }
 
         if (module === 'layer_ps') {
+            subTabs = [
+                { id: 'environment', label: t('farmguide.tabEnvironment') || 'Environment' },
+                { id: 'feed', label: t('farmguide.tabFeed') || 'Feed Program' },
+                { id: 'bw', label: t('farmguide.tabBW') || 'Body Weight' },
+                { id: 'eggProduction', label: t('farmguide.eggProduction') || 'Egg Production' },
+                { id: 'checklist', label: t('farmguide.tabChecklist') || 'Checklist' },
+                { id: 'references', label: 'References' },
+            ];
+        }
+
+        if (module === 'color_ps') {
             subTabs = [
                 { id: 'environment', label: t('farmguide.tabEnvironment') || 'Environment' },
                 { id: 'feed', label: t('farmguide.tabFeed') || 'Feed Program' },
@@ -1332,6 +1397,51 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             );
         }
         
+        if (module === 'color_ps') {
+            const guideWeek = Math.min(selectedWeek, 18);
+            const weekData = COLOR_CHICKEN_GUIDE[guideWeek - 1];
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            const env = weekData.environment;
+            return (
+                <div>
+                    {selectedWeek > 18 && (
+                        <div style={{ padding: '8px 14px', marginBottom: '16px', background: 'rgba(46,170,94,0.08)', borderLeft: '3px solid #2EAA5E', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#4A6B4A' }}>
+                            Showing W18 environment reference for weeks W19–24.
+                        </div>
+                    )}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+                        <div style={{ padding: '1.5rem', background: 'var(--fw-card)', border: '2px solid var(--fw-border)', borderRadius: '12px' }}>
+                            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌡️</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>Temperature</div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.temp}</div>
+                        </div>
+                        <div style={{ padding: '1.5rem', background: 'var(--fw-card)', border: '2px solid var(--fw-border)', borderRadius: '12px' }}>
+                            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💧</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>Humidity</div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.rh}</div>
+                        </div>
+                        <div style={{ padding: '1.5rem', background: 'var(--fw-card)', border: '2px solid var(--fw-border)', borderRadius: '12px' }}>
+                            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💡</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>Lighting</div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.light?.[lang] || env.light?.en || env.light}</div>
+                            {env.light_lux && <div style={{ fontSize: '0.875rem', color: 'var(--fw-sub)', marginTop: '0.25rem' }}>{env.light_lux}</div>}
+                        </div>
+                        <div style={{ padding: '1.5rem', background: 'var(--fw-card)', border: '2px solid var(--fw-border)', borderRadius: '12px' }}>
+                            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌬️</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>Ventilation</div>
+                            <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.ventilation}</div>
+                        </div>
+                    </div>
+                    {(env.nh3 || env.co2) && (
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                            {env.nh3 && <div style={{ padding: '1rem', background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '10px' }}><div style={{ fontSize: '0.75rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '4px' }}>NH₃</div><div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.nh3}</div></div>}
+                            {env.co2 && <div style={{ padding: '1rem', background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '10px' }}><div style={{ fontSize: '0.75rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '4px' }}>CO₂</div><div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.co2}</div></div>}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
         if (module === 'color_chicken') {
             const weekData = COLOR_CHICKEN_GUIDE[selectedWeek - 1];
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
@@ -2705,7 +2815,233 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 </div>
             );
         }
+        if (module === 'color_ps') {
+            if (psPhase === 'rearing') {
+                const rearingRows = (bwData?.weeklyStandard || []).filter(r => r.phase === 'rearing' && r.feed_g_bird_day != null);
+                if (rearingRows.length === 0) return (
+                    <div style={{ padding: '2rem', textAlign: 'center', color: '#4A6B4A' }}>
+                        No feed data available for this breed.
+                    </div>
+                );
+                let cumulative = 0;
+                const tableRows = rearingRows.map(r => {
+                    const weekTotal = Math.round((r.feed_g_bird_day || 0) * 7);
+                    cumulative += weekTotal;
+                    return { week: Number(r.week), daily: r.feed_g_bird_day, cumulative };
+                });
+                const activeWeek = Number(selectedWeek);
+                return (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#2EAA5E', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="3" y1="6" x2="21" y2="6"/>
+                                    <line x1="3" y1="12" x2="21" y2="12"/>
+                                    <line x1="3" y1="18" x2="21" y2="18"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div style={{ fontWeight: '700', fontSize: '14px', color: '#1A2E1A' }}>Rearing Feed Program</div>
+                                <div style={{ fontSize: '12px', color: '#4A6B4A' }}>{bwData?.breedLabel || ''} · W1–W{rearingRows[rearingRows.length - 1]?.week}</div>
+                            </div>
+                        </div>
+                        <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: '56px 1fr 1fr', background: '#2EAA5E', padding: '10px 14px', gap: '8px' }}>
+                                {['Week', 'Feed/Day (g)', 'Cumulative (g)'].map((h, i) => (
+                                    <div key={i} style={{ fontSize: '11px', fontWeight: '700', color: 'white', textAlign: i === 0 ? 'center' : 'right', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{h}</div>
+                                ))}
+                            </div>
+                            {tableRows.map((row, idx) => {
+                                const isActive = row.week === activeWeek;
+                                return (
+                                    <div key={idx} style={{ display: 'grid', gridTemplateColumns: '56px 1fr 1fr', padding: '9px 14px', gap: '8px', background: isActive ? 'rgba(46,170,94,0.10)' : idx % 2 === 0 ? 'white' : '#F2F4F2', borderBottom: idx < tableRows.length - 1 ? '1px solid #DFF0E6' : 'none' }}>
+                                        <div style={{ textAlign: 'center' }}>
+                                            <span style={{ display: 'inline-block', minWidth: '28px', padding: '2px 6px', borderRadius: '6px', background: isActive ? '#2EAA5E' : 'transparent', color: isActive ? 'white' : '#4A6B4A', fontSize: '12px', fontWeight: isActive ? '700' : '500' }}>{row.week}</span>
+                                        </div>
+                                        <div style={{ textAlign: 'right', fontSize: '13px', fontWeight: isActive ? '700' : '500', color: isActive ? '#2EAA5E' : '#1A2E1A' }}>{row.daily}</div>
+                                        <div style={{ textAlign: 'right', fontSize: '13px', fontWeight: isActive ? '700' : '400', color: isActive ? '#2EAA5E' : '#4A6B4A' }}>{row.cumulative.toLocaleString()}</div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            }
+            return (
+                <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)', background: 'var(--fw-card)', borderRadius: '12px', border: '1px solid var(--fw-border)' }}>
+                    Coming soon — Production feed program
+                </div>
+            );
+        }
+        if (module === 'color_chicken') {
+            const sex = colorSex || 'female';
+            const variant = colorVariant || 'variant_a';
+            const weeklyData = bwData?.[sex]?.[variant]?.weekly_summary || [];
+            const guideEntry = COLOR_CHICKEN_GUIDE[selectedWeek - 1];
+            const feedGuide = guideEntry?.feed;
+            const keyPoint = guideEntry?.key_points?.[0];
 
+            if (weeklyData.length === 0) return (
+                <div style={{ padding: '2rem', textAlign: 'center', color: '#4A6B4A' }}>
+                    No feed data available.
+                </div>
+            );
+
+            // Build cumulative
+            let cumulative = 0;
+            const tableRows = weeklyData.map(r => {
+                const weekTotal = Math.round((r.fc_g_bird_day || 0) * 7);
+                cumulative += weekTotal;
+                return { week: Number(r.week), daily: r.fc_g_bird_day, cumulative };
+            });
+            const activeWeek = Number(selectedWeek);
+
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                    {/* Numeric table header */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                        <div style={{
+                            width: '32px', height: '32px', borderRadius: '8px',
+                            background: '#2EAA5E', display: 'flex',
+                            alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                        }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <line x1="3" y1="12" x2="21" y2="12"/>
+                                <line x1="3" y1="18" x2="21" y2="18"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div style={{ fontWeight: '700', fontSize: '14px', color: '#1A2E1A' }}>
+                                Weekly Feed Program
+                            </div>
+                            <div style={{ fontSize: '12px', color: '#4A6B4A' }}>
+                                Color Chicken · {variant === 'variant_a' ? 'Tipe A' : 'Tipe B'} · W1–W{weeklyData[weeklyData.length - 1]?.week}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Numeric table */}
+                    <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white', marginBottom: '16px' }}>
+                        {/* Header */}
+                        <div style={{
+                            display: 'grid', gridTemplateColumns: '56px 1fr 1fr',
+                            background: '#2EAA5E', padding: '10px 14px', gap: '8px'
+                        }}>
+                            {['Week', 'Feed/Day (g)', 'Cumulative (g)'].map((h, i) => (
+                                <div key={i} style={{
+                                    fontSize: '11px', fontWeight: '700', color: 'white',
+                                    textAlign: i === 0 ? 'center' : 'right',
+                                    textTransform: 'uppercase', letterSpacing: '0.04em'
+                                }}>{h}</div>
+                            ))}
+                        </div>
+                        {/* Rows */}
+                        {tableRows.map((row, idx) => {
+                            const isActive = row.week === activeWeek;
+                            return (
+                                <div key={idx} style={{
+                                    display: 'grid', gridTemplateColumns: '56px 1fr 1fr',
+                                    padding: '9px 14px', gap: '8px',
+                                    background: isActive ? 'rgba(46,170,94,0.10)' : idx % 2 === 0 ? 'white' : '#F2F4F2',
+                                    borderBottom: idx < tableRows.length - 1 ? '1px solid #DFF0E6' : 'none'
+                                }}>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <span style={{
+                                            display: 'inline-block', minWidth: '28px', padding: '2px 6px',
+                                            borderRadius: '6px',
+                                            background: isActive ? '#2EAA5E' : 'transparent',
+                                            color: isActive ? 'white' : '#4A6B4A',
+                                            fontSize: '12px', fontWeight: isActive ? '700' : '500'
+                                        }}>
+                                            {row.week}
+                                        </span>
+                                    </div>
+                                    <div style={{
+                                        textAlign: 'right', fontSize: '13px',
+                                        fontWeight: isActive ? '700' : '500',
+                                        color: isActive ? '#2EAA5E' : '#1A2E1A'
+                                    }}>
+                                        {row.daily}
+                                    </div>
+                                    <div style={{
+                                        textAlign: 'right', fontSize: '13px',
+                                        fontWeight: isActive ? '700' : '400',
+                                        color: isActive ? '#2EAA5E' : '#4A6B4A'
+                                    }}>
+                                        {row.cumulative.toLocaleString()}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Qualitative section */}
+                    {feedGuide && (
+                        <>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+                                <div style={{
+                                    width: '32px', height: '32px', borderRadius: '8px',
+                                    background: '#E8F5EE', display: 'flex',
+                                    alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                                }}>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2EAA5E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                        <path d="M2 17l10 5 10-5"/>
+                                        <path d="M2 12l10 5 10-5"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div style={{ fontWeight: '700', fontSize: '14px', color: '#1A2E1A' }}>
+                                        Feed phase — Week {selectedWeek}
+                                    </div>
+                                    <div style={{ fontSize: '12px', color: '#4A6B4A' }}>
+                                        {feedGuide.phase} · {feedGuide.duration}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                                {[
+                                    { label: 'Phase', value: feedGuide.phase },
+                                    { label: 'Form', value: feedGuide.form },
+                                    { label: 'Size', value: feedGuide.size },
+                                    { label: 'Duration', value: feedGuide.duration },
+                                ].map((item, i) => (
+                                    <div key={i} style={{
+                                        background: 'white', borderRadius: '10px',
+                                        padding: '12px 14px', border: '1px solid #DFF0E6'
+                                    }}>
+                                        <div style={{ fontSize: '11px', fontWeight: '700', color: '#4A6B4A', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+                                            {item.label}
+                                        </div>
+                                        <div style={{ fontSize: '13px', color: '#1A2E1A' }}>
+                                            {item.value || '—'}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Note bar from key_points[0] */}
+                            {keyPoint && (
+                                <div style={{
+                                    background: 'rgba(46,170,94,0.07)',
+                                    borderLeft: '3px solid #2EAA5E',
+                                    borderRadius: '0 8px 8px 0',
+                                    padding: '10px 14px',
+                                    marginTop: '12px',
+                                    fontSize: '13px',
+                                    color: '#1A2E1A',
+                                    lineHeight: '1.5'
+                                }}>
+                                    {keyPoint.text?.[lang] || keyPoint.text?.en}
+                                </div>
+                            )}
+                        </>
+                    )}
+                </div>
+            );
+        }
         return (
             <div style={{
                 padding: '2rem',
@@ -3212,6 +3548,87 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             <text x="12" y="150" textAnchor="middle" fontSize="10" fill="#6B7280"
                                 transform="rotate(-90, 12, 150)">Body Weight</text>
                         </svg>
+                    </div>
+                </div>
+            );
+        }
+
+        if (module === 'color_ps') {
+            if (!bwData?.weeklyStandard) return (
+                <div style={{ padding: '2rem', textAlign: 'center', color: '#4A6B4A' }}>
+                    No data available for this breed.
+                </div>
+            );
+            const isRearing = psPhase === 'rearing';
+            const bwRows = bwData.weeklyStandard.filter(r =>
+                isRearing ? r.phase === 'rearing' : r.phase === 'production'
+            );
+            const activeWeek = Number(selectedWeek);
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                    {/* Section header */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                        <div style={{
+                            width: '32px', height: '32px', borderRadius: '8px',
+                            background: '#2EAA5E', display: 'flex',
+                            alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                        }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div style={{ fontWeight: '700', fontSize: '14px', color: '#1A2E1A' }}>
+                                {isRearing ? 'Rearing Body Weight' : 'Production Body Weight'}
+                            </div>
+                            <div style={{ fontSize: '12px', color: '#4A6B4A' }}>
+                                {bwData?.breedLabel || ''} · {isRearing ? 'W1–W24' : 'W25–W70'}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Table */}
+                    <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white' }}>
+                        <div style={{
+                            display: 'grid', gridTemplateColumns: '56px 1fr',
+                            background: '#2EAA5E', padding: '10px 14px', gap: '8px'
+                        }}>
+                            {['Week', 'Body Weight (g)'].map((h, i) => (
+                                <div key={i} style={{
+                                    fontSize: '11px', fontWeight: '700', color: 'white',
+                                    textAlign: i === 0 ? 'center' : 'right',
+                                    textTransform: 'uppercase', letterSpacing: '0.04em'
+                                }}>{h}</div>
+                            ))}
+                        </div>
+                        {bwRows.map((row, idx) => {
+                            const isActive = Number(row.week) === activeWeek;
+                            return (
+                                <div key={idx} style={{
+                                    display: 'grid', gridTemplateColumns: '56px 1fr',
+                                    padding: '9px 14px', gap: '8px',
+                                    background: isActive ? 'rgba(46,170,94,0.10)' : idx % 2 === 0 ? 'white' : '#F2F4F2',
+                                    borderBottom: idx < bwRows.length - 1 ? '1px solid #DFF0E6' : 'none'
+                                }}>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <span style={{
+                                            display: 'inline-block', minWidth: '28px', padding: '2px 6px',
+                                            borderRadius: '6px',
+                                            background: isActive ? '#2EAA5E' : 'transparent',
+                                            color: isActive ? 'white' : '#4A6B4A',
+                                            fontSize: '12px', fontWeight: isActive ? '700' : '500'
+                                        }}>{row.week}</span>
+                                    </div>
+                                    <div style={{
+                                        textAlign: 'right', fontSize: '13px',
+                                        fontWeight: isActive ? '700' : '500',
+                                        color: isActive ? '#2EAA5E' : '#1A2E1A'
+                                    }}>
+                                        {row.bw_g ? row.bw_g.toLocaleString() : '—'}
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             );
@@ -4315,6 +4732,90 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             );
         }
 
+        if (module === 'color_ps') {
+            const productionRows = (bwData?.weeklyProduction || []).filter(r => r.age_weeks >= 22);
+            if (productionRows.length === 0) return (
+                <div style={{ padding: '2rem', textAlign: 'center', color: '#4A6B4A' }}>
+                    No production data available.
+                </div>
+            );
+            const activeWeek = Number(selectedWeek);
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                    {/* Section header */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                        <div style={{
+                            width: '32px', height: '32px', borderRadius: '8px',
+                            background: '#2EAA5E', display: 'flex',
+                            alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                        }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 8v4l3 3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div style={{ fontWeight: '700', fontSize: '14px', color: '#1A2E1A' }}>
+                                Egg Production
+                            </div>
+                            <div style={{ fontSize: '12px', color: '#4A6B4A' }}>
+                                {bwData?.breedLabel || ''} · W22–W70
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Table */}
+                    <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white' }}>
+                        <div style={{
+                            display: 'grid', gridTemplateColumns: '52px 1fr 1fr 1fr 1fr',
+                            background: '#2EAA5E', padding: '10px 14px', gap: '8px'
+                        }}>
+                            {['Week', 'Prod %', 'Eggs/Hen/Wk', 'Cum Eggs', 'Egg Wt (g)'].map((h, i) => (
+                                <div key={i} style={{
+                                    fontSize: '11px', fontWeight: '700', color: 'white',
+                                    textAlign: i === 0 ? 'center' : 'right',
+                                    textTransform: 'uppercase', letterSpacing: '0.04em'
+                                }}>{h}</div>
+                            ))}
+                        </div>
+                        {productionRows.map((row, idx) => {
+                            const isActive = Number(row.age_weeks) === activeWeek;
+                            return (
+                                <div key={idx} style={{
+                                    display: 'grid', gridTemplateColumns: '52px 1fr 1fr 1fr 1fr',
+                                    padding: '9px 14px', gap: '8px',
+                                    background: isActive ? 'rgba(46,170,94,0.10)' : idx % 2 === 0 ? 'white' : '#F2F4F2',
+                                    borderBottom: idx < productionRows.length - 1 ? '1px solid #DFF0E6' : 'none'
+                                }}>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <span style={{
+                                            display: 'inline-block', minWidth: '28px', padding: '2px 6px',
+                                            borderRadius: '6px',
+                                            background: isActive ? '#2EAA5E' : 'transparent',
+                                            color: isActive ? 'white' : '#4A6B4A',
+                                            fontSize: '12px', fontWeight: isActive ? '700' : '500'
+                                        }}>{row.age_weeks}</span>
+                                    </div>
+                                    <div style={{ textAlign: 'right', fontSize: '13px', fontWeight: isActive ? '700' : '500', color: isActive ? '#2EAA5E' : '#1A2E1A' }}>
+                                        {row.hen_housed_pct != null ? `${row.hen_housed_pct}%` : '—'}
+                                    </div>
+                                    <div style={{ textAlign: 'right', fontSize: '13px', fontWeight: isActive ? '700' : '400', color: isActive ? '#2EAA5E' : '#1A2E1A' }}>
+                                        {row.eggs_bird_week != null ? row.eggs_bird_week.toFixed(1) : '—'}
+                                    </div>
+                                    <div style={{ textAlign: 'right', fontSize: '13px', fontWeight: isActive ? '700' : '400', color: isActive ? '#2EAA5E' : '#4A6B4A' }}>
+                                        {row.eggs_bird_cum != null ? row.eggs_bird_cum.toFixed(1) : '—'}
+                                    </div>
+                                    <div style={{ textAlign: 'right', fontSize: '13px', fontWeight: isActive ? '700' : '400', color: isActive ? '#2EAA5E' : '#4A6B4A' }}>
+                                        {row.egg_weight_g != null ? row.egg_weight_g.toFixed(1) : '—'}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        }
+
         if (module !== 'layer') return null;
         
         // Only show for W19+ (Production phase)
@@ -4695,6 +5196,51 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             }
         }
         
+        if (module === 'color_ps') {
+            const guideWeek = Math.min(selectedWeek, 18);
+            const weekData = COLOR_CHICKEN_GUIDE[guideWeek - 1];
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            const items = weekData.checklist || [];
+            const completedCount = items.filter(item => checkedItems[item.id]).length;
+            const totalCount = items.length;
+            const progressPct = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+            return (
+                <div>
+                    {selectedWeek > 18 && (
+                        <div style={{ padding: '8px 14px', marginBottom: '16px', background: 'rgba(46,170,94,0.08)', borderLeft: '3px solid #2EAA5E', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#4A6B4A' }}>
+                            Showing W18 checklist reference for weeks W19–24.
+                        </div>
+                    )}
+                    <div style={{ padding: '1rem', background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <span style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-text)' }}>✓ {completedCount} / {totalCount} selesai</span>
+                            <span style={{ fontSize: '0.875rem', fontWeight: '700', color: 'var(--fw-teal)' }}>{progressPct}%</span>
+                        </div>
+                        <div style={{ height: '8px', background: 'var(--fw-border)', borderRadius: '4px', overflow: 'hidden' }}>
+                            <div style={{ height: '100%', width: progressPct + '%', background: '#2EAA5E', borderRadius: '4px', transition: 'width 0.3s' }} />
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        {items.map(item => (
+                            <div key={item.id} onClick={() => toggleCheckItem(item.id)} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', padding: '1rem', background: checkedItems[item.id] ? 'rgba(46,170,94,0.06)' : 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '10px', cursor: 'pointer' }}>
+                                <div style={{ width: '20px', height: '20px', borderRadius: '50%', border: checkedItems[item.id] ? 'none' : '2px solid var(--fw-border)', background: checkedItems[item.id] ? '#2EAA5E' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>
+                                    {checkedItems[item.id] && <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                                </div>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ fontSize: '0.875rem', color: checkedItems[item.id] ? 'var(--fw-sub)' : 'var(--fw-text)', textDecoration: checkedItems[item.id] ? 'line-through' : 'none', lineHeight: '1.5' }}>
+                                        {item.text?.[lang] || item.text?.en || item.text}
+                                    </div>
+                                    {item.priority === 'critical' && !checkedItems[item.id] && (
+                                        <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#E53E3E', marginTop: '4px', display: 'inline-block' }}>● Critical</span>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
         if (module === 'broiler' || module === 'color_chicken') {
             const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
@@ -5351,8 +5897,10 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 )}
 
                 {/* ─── Sex Toggle + Week Selector (Parent Stock / Layer PS) ─── */}
-                {mainTab === 'guide' && (module === 'parent_stock' || module === 'layer_ps') && activeTab !== 'references' && (
+                {mainTab === 'guide' && (module === 'parent_stock' || module === 'layer_ps' || module === 'color_ps') && activeTab !== 'references' && (
                     <>
+                        {(module === 'parent_stock' || module === 'layer_ps') && (
+                        <>
                         {/* Row 1: Sex toggle */}
                         <div style={{
                             display: 'flex',
@@ -5401,12 +5949,14 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 </button>
                             </div>
                         </div>
+                        </>
+                        )}
 
                         {/* Row 2: WeekDaySelector with phase toggle */}
                         <WeekDaySelector
                             mode="phase"
-                            totalWeeks={module === 'layer_ps' ? 75 : 64}
-                            rearingEndWeek={module === 'layer_ps' ? 18 : 24}
+                            totalWeeks={module === 'layer_ps' ? 75 : module === 'color_ps' ? 70 : 64}
+                            rearingEndWeek={module === 'layer_ps' ? 18 : module === 'color_ps' ? 24 : 24}
                             selectedWeek={selectedWeek}
                             selectedPhase={psPhase}
                             onWeekChange={(w) => setSelectedWeek(Number(w))}
@@ -5416,7 +5966,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 )}
 
                 {/* ─── Weekly/Daily Toggle (only for non-Broiler/non-Layer/non-ColorChicken/non-PS/non-LayerPS modules) ─── */}
-                {mainTab === 'guide' && module !== 'broiler' && module !== 'layer' && module !== 'color_chicken' && module !== 'parent_stock' && module !== 'layer_ps' && (
+                {mainTab === 'guide' && module !== 'broiler' && module !== 'layer' && module !== 'color_chicken' && module !== 'parent_stock' && module !== 'layer_ps' && module !== 'color_ps' && (
                     <div style={{
                         display: 'flex',
                         gap: '0.5rem',
@@ -5458,7 +6008,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 )}
 
                 {/* ─── Period Selector (only for non-Broiler/non-Layer/non-ColorChicken/non-PS/non-LayerPS modules) ─── */}
-                {mainTab === 'guide' && module !== 'broiler' && module !== 'layer' && module !== 'color_chicken' && module !== 'parent_stock' && module !== 'layer_ps' && (
+                {mainTab === 'guide' && module !== 'broiler' && module !== 'layer' && module !== 'color_chicken' && module !== 'parent_stock' && module !== 'layer_ps' && module !== 'color_ps' && (
                     <div style={{
                         display: 'flex',
                         gap: '0.375rem',

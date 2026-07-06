@@ -73,6 +73,27 @@
       }
     },
     {
+      "module_id": "color_ps",
+      "name": "Color PS",
+      "icon": "🐓",
+      "species": "color_chicken",
+      "category": "parent_stock",
+      "status": "active",
+      "production_type_options": ["parent_stock"],
+      "default_production_type": "parent_stock",
+      "features": ["management_guide", "growth_chart"],
+      "raising_period_weeks": 24,
+      "production_period_weeks": 46,
+      "total_weeks": 70,
+      "bw_data_granularity": "weekly",
+      "sex_selector_required": false,
+      "breed_selector": {
+        "required": true,
+        "when": "flow_start",
+        "display_in_screens": false
+      }
+    },
+    {
       "module_id": "parent_stock",
       "name": "Broiler PS",
       "icon": "🐣",
@@ -180,7 +201,8 @@
     "broiler": ["home", "breed_selector", "management_guide", "growth_chart", "flock_saya", "vaccine_schedule"],
     "layer": ["home", "breed_selector", "management_guide", "growth_chart", "flock_saya", "vaccine_schedule"],
     "color_chicken": ["home", "breed_selector", "sex_selector", "management_guide", "growth_chart", "flock_saya"],
-    "parent_stock": ["home", "breed_selector", "sex_selector", "management_guide", "growth_chart", "flock_saya"]
+    "parent_stock": ["home", "breed_selector", "sex_selector", "management_guide", "growth_chart", "flock_saya"],
+    "color_ps": ["home", "breed_selector", "management_guide", "growth_chart"]
   },
   "product_matrix": {
     "rows": ["broiler", "layer", "color_chicken"],
@@ -191,7 +213,7 @@
       "layer_commercial":        true,
       "layer_parent_stock":      true,
       "color_chicken_commercial": true,
-      "color_chicken_parent_stock": false
+      "color_chicken_parent_stock": true
     }
   }
 }
