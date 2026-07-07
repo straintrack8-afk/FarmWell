@@ -3590,10 +3590,10 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     {/* Table */}
                     <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white' }}>
                         <div style={{
-                            display: 'grid', gridTemplateColumns: '56px 1fr',
+                            display: 'grid', gridTemplateColumns: '56px 1fr 1fr',
                             background: '#2EAA5E', padding: '10px 14px', gap: '8px'
                         }}>
-                            {['Week', 'Body Weight (g)'].map((h, i) => (
+                            {['Week', 'Body Weight (g)', 'Weekly Gain (g)'].map((h, i) => (
                                 <div key={i} style={{
                                     fontSize: '11px', fontWeight: '700', color: 'white',
                                     textAlign: i === 0 ? 'center' : 'right',
@@ -3605,7 +3605,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             const isActive = Number(row.week) === activeWeek;
                             return (
                                 <div key={idx} style={{
-                                    display: 'grid', gridTemplateColumns: '56px 1fr',
+                                    display: 'grid', gridTemplateColumns: '56px 1fr 1fr',
                                     padding: '9px 14px', gap: '8px',
                                     background: isActive ? 'rgba(46,170,94,0.10)' : idx % 2 === 0 ? 'white' : '#F2F4F2',
                                     borderBottom: idx < bwRows.length - 1 ? '1px solid #DFF0E6' : 'none'
@@ -3625,6 +3625,13 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                         color: isActive ? '#2EAA5E' : '#1A2E1A'
                                     }}>
                                         {row.bw_g ? row.bw_g.toLocaleString() : '—'}
+                                    </div>
+                                    <div style={{
+                                        textAlign: 'right', fontSize: '13px',
+                                        fontWeight: isActive ? '700' : '400',
+                                        color: isActive ? '#2EAA5E' : '#4A6B4A'
+                                    }}>
+                                        {idx === 0 ? '—' : (row.bw_g && bwRows[idx-1]?.bw_g) ? '+' + (row.bw_g - bwRows[idx-1].bw_g) : '—'}
                                     </div>
                                 </div>
                             );
