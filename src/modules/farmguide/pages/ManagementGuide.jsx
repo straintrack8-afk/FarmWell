@@ -4740,6 +4740,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 </div>
             );
             const activeWeek = Number(selectedWeek);
+            const selectedRow = productionRows.find(r => r.age_weeks === activeWeek) || productionRows[0];
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                     {/* Section header */}
@@ -4762,6 +4763,21 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 {bwData?.breedLabel || ''} · W22–W70
                             </div>
                         </div>
+                    </div>
+
+                    {/* KPI Cards */}
+                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '12px' }}>
+                        {[
+                            { label: 'Prod %', value: selectedRow?.hen_housed_pct != null ? selectedRow.hen_housed_pct + '%' : '—' },
+                            { label: 'Eggs/Hen/Wk', value: selectedRow?.eggs_bird_week != null ? selectedRow.eggs_bird_week.toFixed(1) : '—' },
+                            { label: 'Cum Eggs', value: selectedRow?.eggs_bird_cum != null ? selectedRow.eggs_bird_cum.toFixed(1) : '—' },
+                            { label: 'Egg Wt (g)', value: selectedRow?.egg_weight_g != null ? selectedRow.egg_weight_g.toFixed(1) : '—' },
+                        ].map((kpi, idx) => (
+                            <div key={idx} style={{ background: 'white', borderRadius: '10px', padding: '12px 16px', border: '1px solid #DFF0E6', minWidth: '110px', flex: '1' }}>
+                                <div style={{ fontSize: '11px', color: '#4A6B4A', marginBottom: '4px' }}>{kpi.label}</div>
+                                <div style={{ fontSize: '20px', fontWeight: '700', color: '#2EAA5E' }}>{kpi.value}</div>
+                            </div>
+                        ))}
                     </div>
 
                     {/* Table */}
