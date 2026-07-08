@@ -4772,6 +4772,12 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             );
             const activeWeek = Number(selectedWeek);
             const selectedRow = productionRows.find(r => r.age_weeks === activeWeek) || productionRows[0];
+            const epRows = productionRows.filter(r => r.hen_housed_pct != null);
+            const minEPW = epRows.length ? epRows[0].age_weeks : 22;
+            const maxEPW = epRows.length ? epRows[epRows.length-1].age_weeks : 70;
+            const toX = (w) => ((w - minEPW) / Math.max(maxEPW - minEPW, 1)) * 720 + 40;
+            const toY = (v) => 270 - (v / 100) * 230;
+            const epPathD = epRows.map((r, i) => `${i === 0 ? 'M' : 'L'} ${toX(r.age_weeks)} ${toY(r.hen_housed_pct)}`).join(' ');
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                     {/* Section header */}
@@ -4858,6 +4864,25 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 </div>
                             );
                         })}
+                    </div>
+                    <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '16px' }}>Egg Production Curve</div>
+                    <div style={{ background: 'white', borderRadius: '10px', border: '1px solid #DFF0E6', padding: '16px', overflowX: 'auto', marginTop: '8px' }}>
+                        <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px', color: '#2EAA5E' }}>— Prod %</div>
+                        <svg viewBox="0 0 800 300" style={{ width: '100%', minWidth: '400px' }}>
+                            {[0,20,40,60,80,100].map(y => (
+                                <g key={y}>
+                                    <line x1="40" y1={toY(y)} x2="760" y2={toY(y)} stroke="#E5E7EB" strokeWidth="1" />
+                                    <text x="32" y={toY(y)+4} textAnchor="end" fontSize="10" fill="#9CA3AF">{y}%</text>
+                                </g>
+                            ))}
+                            <path d={epPathD} fill="none" stroke="#2EAA5E" strokeWidth="2.5" />
+                            {selectedRow?.hen_housed_pct != null && (
+                                <circle cx={toX(selectedRow.age_weeks)} cy={toY(selectedRow.hen_housed_pct)} r="5" fill="#2EAA5E" stroke="white" strokeWidth="2" />
+                            )}
+                            {epRows.filter((_, i) => i % Math.ceil(epRows.length / 8) === 0).map(r => (
+                                <text key={r.age_weeks} x={toX(r.age_weeks)} y="290" textAnchor="middle" fontSize="10" fill="#6B7280">W{r.age_weeks}</text>
+                            ))}
+                        </svg>
                     </div>
                 </div>
             );
