@@ -3564,6 +3564,14 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 isRearing ? r.phase === 'rearing' : r.phase === 'production'
             );
             const activeWeek = Number(selectedWeek);
+            const minBW = Math.min(...bwRows.map(r => r.bw_g));
+            const maxBW = Math.max(...bwRows.map(r => r.bw_g));
+            const minW = Math.min(...bwRows.map(r => r.week));
+            const maxW = Math.max(...bwRows.map(r => r.week));
+            const toX = (w) => ((w - minW) / Math.max(maxW - minW, 1)) * 720 + 40;
+            const toY = (bw) => 270 - ((bw - minBW) / Math.max(maxBW - minBW, 1)) * 230;
+            const pathD = bwRows.map((r, i) => `${i === 0 ? 'M' : 'L'} ${toX(r.week)} ${toY(r.bw_g)}`).join(' ');
+            const selectedBWRow = bwRows.find(r => Number(r.week) === activeWeek);
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                     {/* Section header */}
@@ -3636,6 +3644,22 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 </div>
                             );
                         })}
+                    </div>
+                    <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '16px' }}>Standard BW Curve</div>
+                    <div style={{ background: 'white', borderRadius: '10px', border: '1px solid #DFF0E6', padding: '16px', overflowX: 'auto', marginTop: '8px' }}>
+                        <svg viewBox="0 0 800 300" style={{ width: '100%', minWidth: '400px' }}>
+                            {[0,1,2,3,4].map(i => (
+                                <line key={i} x1="40" y1={40 + i*57} x2="760" y2={40 + i*57} stroke="#E5E7EB" strokeWidth="1" />
+                            ))}
+                            <path d={pathD} fill="none" stroke="#2EAA5E" strokeWidth="2.5" />
+                            {selectedBWRow && (
+                                <circle cx={toX(selectedBWRow.week)} cy={toY(selectedBWRow.bw_g)} r="5" fill="#2EAA5E" stroke="white" strokeWidth="2" />
+                            )}
+                            {bwRows.filter((_, i) => i % Math.ceil(bwRows.length / 8) === 0).map(r => (
+                                <text key={r.week} x={toX(r.week)} y="290" textAnchor="middle" fontSize="10" fill="#6B7280">W{r.week}</text>
+                            ))}
+                            <text x="12" y="150" textAnchor="middle" fontSize="10" fill="#6B7280" transform="rotate(-90, 12, 150)">Body Weight</text>
+                        </svg>
                     </div>
                 </div>
             );
