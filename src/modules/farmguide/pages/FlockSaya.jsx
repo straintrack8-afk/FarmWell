@@ -34,6 +34,18 @@ if(latest.bw_actual_g>std.bw_high_alert)return'above';
 return'on_track';
 };
 const STATUS_CFG={on_track:{color:'#10b981'},below:{color:'var(--fw-orange)'},above:{color:'#2563EB'},no_data:{color:'#999'}};
+const BROILER_BREEDS = [
+  { code: 'ross',        label: 'Ross',         jsonFile: '/data/farmguide_data/breeds/broiler_ross.json' },
+  { code: 'cobb',        label: 'Cobb',         jsonFile: '/data/farmguide_data/breeds/broiler_cobb.json' },
+  { code: 'arboracres',  label: 'Arbor Acres',  jsonFile: '/data/farmguide_data/breeds/broiler_arboracres.json' },
+  { code: 'indianriver', label: 'Indian River',  jsonFile: '/data/farmguide_data/breeds/broiler_indianriver.json' },
+];
+const LAYER_BREEDS = [
+  { code: 'hisex_brown',  label: 'Hisex Brown',  jsonFile: '/data/farmguide_data/breeds/layer_commercial_hisex_brown.json' },
+  { code: 'hyline_brown', label: 'Hy-Line Brown', jsonFile: '/data/farmguide_data/breeds/layer_commercial_hyline_brown.json' },
+  { code: 'isa_brown',    label: 'ISA Brown',     jsonFile: '/data/farmguide_data/breeds/layer_commercial_isa_brown.json' },
+  { code: 'shaver_brown', label: 'Shaver Brown',  jsonFile: '/data/farmguide_data/breeds/layer_commercial_shaver_brown.json' },
+];
 function FlockSaya({module:moduleProp,embedded=false}){
 const navigate=useNavigate();
 const{module:moduleParam}=useParams();
@@ -56,7 +68,7 @@ const[selectedFlock,setSelectedFlock]=useState(null);
 const[history,setHistory]=useState([]);
 const[showDailyEntry,setShowDailyEntry]=useState(false);
 const[editingEntry,setEditingEntry]=useState(null);
-const[formData,setFormData]=useState({name:'',placement_date:'',initial_pop:'',notes:'',variant:'choi',sex:'male'});
+const[formData,setFormData]=useState({name:'',placement_date:'',initial_pop:'',breed_code:'',breed_label:'',breed_json:'',notes:'',variant:'choi',sex:'male'});
 useEffect(()=>{loadFlocks();const saved=localStorage.getItem(storageKey);if(saved){const{view,flockId}=JSON.parse(saved);if(view==='detail'&&flockId){const flock=flockStorage.getFlock(flockId);if(flock){setSelectedFlock(flock);setHistory(flockStorage.getHistory(flockId));setCurrentView('detail');}}}},[]);
 useEffect(()=>{localStorage.setItem(storageKey,JSON.stringify({view:currentView,flockId:selectedFlock?.id||null}));},[currentView,selectedFlock]);
 const loadFlocks=()=>{
@@ -68,11 +80,12 @@ const loadFlockDetail=(flockId)=>{
 const flock=flockStorage.getFlock(flockId);
 if(flock){setSelectedFlock(flock);setHistory(flockStorage.getHistory(flockId));setCurrentView('detail');}
 };
-const handleAddFlock=()=>{setFormData({name:'',placement_date:'',initial_pop:'',notes:'',variant:'choi',sex:'male'});setCurrentView('add');};
+const handleAddFlock=()=>{setFormData({name:'',placement_date:'',initial_pop:'',breed_code:'',breed_label:'',breed_json:'',notes:'',variant:'choi',sex:'male'});setCurrentView('add');};
 const handleSaveFlock=(e)=>{
 e.preventDefault();
 if(!formData.name||!formData.placement_date||!formData.initial_pop)return alert('Please fill required fields');
-const flock={id:flockStorage.generateId(),name:formData.name,module_id:module,breed_code:null,breed_label:null,sex:module==='color_chicken'?formData.sex:null,variant:module==='color_chicken'?formData.variant:null,placement_date:formData.placement_date,initial_pop:parseInt(formData.initial_pop),notes:formData.notes,created_at:new Date().toISOString(),status:'active'};
+if((module==='broiler'||module==='layer')&&!formData.breed_code)return alert('Please select a breed');
+const flock={id:flockStorage.generateId(),name:formData.name,module_id:module,breed_code:formData.breed_code||null,breed_label:formData.breed_label||null,breed_json:formData.breed_json||null,sex:module==='color_chicken'?formData.sex:null,variant:module==='color_chicken'?formData.variant:null,placement_date:formData.placement_date,initial_pop:parseInt(formData.initial_pop),notes:formData.notes,created_at:new Date().toISOString(),status:'active'};
 flockStorage.saveFlock(flock);
 loadFlocks();
 loadFlockDetail(flock.id);
@@ -153,7 +166,7 @@ const initialPop=flock.initial_pop;
 const lastEntry=hist.length?hist[hist.length-1]:null;
 if(module==='layer'){
 const lastWeek=lastEntry?.week||0;
-const totalDead=hist.reduce((sum,h)=>sum+(h.mortality||0),0);
+const totalDead=lastEntry?.mortality||0;
 const livability=initialPop?((initialPop-totalDead)/initialPop*100).toFixed(1):null;
 const isProduction=lastWeek>=19;
 const epPct=isProduction?lastEntry?.ep_actual_pct:null;
@@ -212,8 +225,9 @@ stdRow=rangeData.find(r=>r.day===day);
 }else{
 stdRow=BROILER_RANGE.find(r=>r.day===day);
 }
-const mortality=entry?.mortality||0;
-currentPop=currentPop-mortality;
+const prevEntry=hist.filter(h=>h.day<day).sort((a,b)=>b.day-a.day)[0];
+const dailyMort=Math.max(0,(entry?.mortality||0)-(prevEntry?.mortality||0));
+currentPop=currentPop-dailyMort;
 const feedPerHead=entry?.feed_actual_g??stdRow?.feed_avg??0;
 totalFeedG+=feedPerHead*currentPop;
 }
@@ -240,10 +254,12 @@ bwEnd=lastEntry?.bw_actual_g??rangeData.find(r=>r.day===lastDay)?.bw_avg??null;
 bwEnd=lastEntry?.bw_actual_g??BROILER_RANGE.find(r=>r.day===lastDay)?.bw_avg??null;
 }
 const adg=(bwEnd&&lastDay>0)?Math.round((bwEnd-bwStart)/lastDay):null;
-const totalDead=hist.reduce((sum,h)=>sum+(h.mortality||0),0);
-const depletion=initialPop?((totalDead/initialPop)*100).toFixed(2):null;
-return(adg||fcr||depletion!==null||lastDay>0)?(
-<div style={{display:'grid',gridTemplateColumns:isMobile?'repeat(2, 1fr)':'repeat(4, 1fr)',gap:'0.5rem',marginTop:'0.75rem',marginBottom:'0.75rem'}}>
+const totalDead=lastEntry?.mortality||0;
+const dailyDepletion=initialPop?((totalDead/initialPop)*100).toFixed(2):null;
+const cumulativeDead=hist.reduce((sum,h)=>sum+(h.mortality||0),0);
+const cumulativeDepletion=initialPop?((cumulativeDead/initialPop)*100).toFixed(2):null;
+return(adg||fcr||dailyDepletion!==null||lastDay>0)?(
+<div style={{display:'grid',gridTemplateColumns:isMobile?'repeat(2, 1fr)':'repeat(5, 1fr)',gap:'0.5rem',marginTop:'0.75rem',marginBottom:'0.75rem'}}>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
 <div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.raisingDay')||'Raising Day'}</div>
 <div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
@@ -257,15 +273,21 @@ return(adg||fcr||depletion!==null||lastDay>0)?(
 </div>
 </div>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
-<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>FCR</div>
+<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>FCR (Cum.)</div>
 <div style={{fontSize:'1.1rem',fontWeight:'700',color:'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
 {fcr??'—'}
 </div>
 </div>
 <div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
-<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>{t('farmguide.depletion')||'Depletion'}</div>
-<div style={{fontSize:'1.1rem',fontWeight:'700',color:depletion>5?'#EF4444':'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
-{depletion!==null?`${depletion}%`:'—'}
+<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>Daily Depl.</div>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:dailyDepletion>5?'#EF4444':'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+{dailyDepletion!==null?`${dailyDepletion}%`:'—'}
+</div>
+</div>
+<div style={{background:'var(--fw-bg)',borderRadius:'8px',padding:'0.875rem 1rem',textAlign:'center'}}>
+<div style={{fontSize:'13px',color:'var(--fw-sub)',marginBottom:'2px'}}>Depletion (Cum.)</div>
+<div style={{fontSize:'1.1rem',fontWeight:'700',color:cumulativeDepletion>5?'#EF4444':'var(--fw-text)',fontFamily:'DM Mono, monospace'}}>
+{cumulativeDepletion!==null?`${cumulativeDepletion}%`:'—'}
 </div>
 </div>
 </div>
@@ -333,6 +355,51 @@ const renderAddView=()=>(
 <label style={{display:'block',marginBottom:'0.5rem',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-text)'}}>{t('farmguide.initialPop')||'Initial Population (birds)'} *</label>
 <input type="number" value={formData.initial_pop} onChange={e=>setFormData({...formData,initial_pop:e.target.value})} placeholder="10000" style={{width:'100%',padding:'0.75rem',border:'1px solid var(--fw-border)',borderRadius:'8px',fontSize:'1rem'}} required/>
 </div>
+{(module==='broiler')&&(
+  <div style={{marginBottom:'1rem'}}>
+    <label style={{display:'block',marginBottom:'0.5rem',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-text)'}}>
+      Breed *
+    </label>
+    <select
+      value={formData.breed_code}
+      onChange={e=>{
+        const selected=BROILER_BREEDS.find(b=>b.code===e.target.value);
+        setFormData({
+          ...formData,
+          breed_code: selected?.code||'',
+          breed_label: selected?.label||'',
+          breed_json: selected?.jsonFile||'',
+        });
+      }}
+      style={{width:'100%',padding:'0.75rem',border:'1px solid var(--fw-border)',borderRadius:'8px',fontSize:'1rem',background:'white'}}
+      required
+    >
+      <option value="">— Select Breed —</option>
+      {BROILER_BREEDS.map(b=>(
+        <option key={b.code} value={b.code}>{b.label}</option>
+      ))}
+    </select>
+  </div>
+)}
+{(module==='layer')&&(
+  <div style={{marginBottom:'1rem'}}>
+    <label style={{display:'block',marginBottom:'0.5rem',fontSize:'0.875rem',fontWeight:'600',color:'var(--fw-text)'}}>
+      Breed *
+    </label>
+    <select
+      value={formData.breed_code}
+      onChange={e=>{
+        const selected=LAYER_BREEDS.find(b=>b.code===e.target.value);
+        setFormData({...formData,breed_code:selected?.code||'',breed_label:selected?.label||'',breed_json:selected?.jsonFile||''});
+      }}
+      style={{width:'100%',padding:'0.75rem',border:'1px solid var(--fw-border)',borderRadius:'8px',fontSize:'1rem',background:'white'}}
+      required
+    >
+      <option value="">— Select Breed —</option>
+      {LAYER_BREEDS.map(b=>(<option key={b.code} value={b.code}>{b.label}</option>))}
+    </select>
+  </div>
+)}
 {module==='color_chicken'&&(
 <>
 <div style={{marginBottom:'1rem'}}>
@@ -364,7 +431,7 @@ const renderDetailView=()=>{
 if(!selectedFlock)return null;
 const currentDay=getCurrentDay(selectedFlock.placement_date);
 const currentWeek=getCurrentWeek(currentDay);
-const totalMort=history.reduce((sum,h)=>sum+(h.mortality||0),0);
+const totalMort=history.length?history[history.length-1].mortality||0:0;
 const currentPop=selectedFlock.initial_pop-totalMort;
 
 // For Layer: show latest entered week or current week, whichever is greater

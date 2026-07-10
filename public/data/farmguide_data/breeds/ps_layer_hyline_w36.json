@@ -8,11 +8,11 @@
   "performance_summary": {
     "age_50pct_production_days": 143,
     "age_50pct_production_weeks": 20.4,
-    "peak_production_pct": 95.0,
+    "peak_production_pct": 95,
     "total_eggs_hha_75wk": 335.5,
     "settable_eggs_hha_75wk": 316.5,
     "chicks_per_female_housed_75wk": 129.5,
-    "hatchability_pct_avg": 82.0,
+    "hatchability_pct_avg": 82,
     "bw_female_17wk_g": 1163,
     "bw_female_40wk_g": 1646,
     "feed_rearing_total_kg": 5.4,
@@ -27,21 +27,21 @@
       "bw_g": 67,
       "bw_range_low": 65,
       "bw_range_high": 69,
-      "feed_g_bird_day": 14.0
+      "feed_g_bird_day": 14
     },
     {
       "week": 2,
       "bw_g": 118,
       "bw_range_low": 115,
       "bw_range_high": 122,
-      "feed_g_bird_day": 18.0
+      "feed_g_bird_day": 18
     },
     {
       "week": 3,
       "bw_g": 174,
       "bw_range_low": 169,
       "bw_range_high": 179,
-      "feed_g_bird_day": 23.0
+      "feed_g_bird_day": 23
     },
     {
       "week": 4,
@@ -76,7 +76,7 @@
       "bw_g": 546,
       "bw_range_low": 530,
       "bw_range_high": 563,
-      "feed_g_bird_day": 45.0
+      "feed_g_bird_day": 45
     },
     {
       "week": 9,
@@ -97,42 +97,42 @@
       "bw_g": 793,
       "bw_range_low": 769,
       "bw_range_high": 817,
-      "feed_g_bird_day": 55.0
+      "feed_g_bird_day": 55
     },
     {
       "week": 12,
       "bw_g": 865,
       "bw_range_low": 839,
       "bw_range_high": 891,
-      "feed_g_bird_day": 58.0
+      "feed_g_bird_day": 58
     },
     {
       "week": 13,
       "bw_g": 932,
       "bw_range_low": 904,
       "bw_range_high": 960,
-      "feed_g_bird_day": 61.0
+      "feed_g_bird_day": 61
     },
     {
       "week": 14,
       "bw_g": 994,
       "bw_range_low": 964,
       "bw_range_high": 1023,
-      "feed_g_bird_day": 64.0
+      "feed_g_bird_day": 64
     },
     {
       "week": 15,
       "bw_g": 1052,
       "bw_range_low": 1020,
       "bw_range_high": 1084,
-      "feed_g_bird_day": 67.0
+      "feed_g_bird_day": 67
     },
     {
       "week": 16,
       "bw_g": 1108,
       "bw_range_low": 1075,
       "bw_range_high": 1141,
-      "feed_g_bird_day": 71.0
+      "feed_g_bird_day": 71
     },
     {
       "week": 17,
@@ -176,7 +176,7 @@
       "lay_rate_hd_pct": 27.5,
       "eggs_bird_cum": 2.5,
       "hh_eggs_cum": 2.7,
-      "feed_g_bird_day": 87.0,
+      "feed_g_bird_day": 87,
       "bw_female_g": 1324,
       "avg_egg_weight_g": 47.5,
       "settable_pct": null,
@@ -187,7 +187,7 @@
     },
     {
       "age_weeks": 21,
-      "lay_rate_hd_pct": 54.0,
+      "lay_rate_hd_pct": 54,
       "eggs_bird_cum": 6.3,
       "hh_eggs_cum": 6.3,
       "feed_g_bird_day": 90.5,
@@ -218,49 +218,49 @@
       "lay_rate_hd_pct": 83.5,
       "eggs_bird_cum": 17.4,
       "hh_eggs_cum": 17.4,
-      "feed_g_bird_day": 96.0,
+      "feed_g_bird_day": 96,
       "bw_female_g": 1482,
-      "avg_egg_weight_g": 54.0,
+      "avg_egg_weight_g": 54,
       "settable_pct": 75,
       "settable_hh_cum": 7.8,
       "hatchability_pct": 79.5,
       "chicks_bird_week": 1.8,
-      "chicks_bird_cum": 3.0
+      "chicks_bird_cum": 3
     },
     {
       "age_weeks": 24,
-      "lay_rate_hd_pct": 89.0,
+      "lay_rate_hd_pct": 89,
       "eggs_bird_cum": 23.6,
       "hh_eggs_cum": 23.5,
-      "feed_g_bird_day": 98.0,
+      "feed_g_bird_day": 98,
       "bw_female_g": 1528,
       "avg_egg_weight_g": 55.4,
       "settable_pct": 83,
       "settable_hh_cum": 12.9,
-      "hatchability_pct": 81.0,
-      "chicks_bird_week": 2.0,
+      "hatchability_pct": 81,
+      "chicks_bird_week": 2,
       "chicks_bird_cum": 5.1
     },
     {
       "age_weeks": 25,
       "lay_rate_hd_pct": 92.5,
-      "eggs_bird_cum": 30.0,
-      "hh_eggs_cum": 30.0,
-      "feed_g_bird_day": 100.0,
+      "eggs_bird_cum": 30,
+      "hh_eggs_cum": 30,
+      "feed_g_bird_day": 100,
       "bw_female_g": 1565,
       "avg_egg_weight_g": 56.5,
       "settable_pct": 94,
-      "settable_hh_cum": 19.0,
+      "settable_hh_cum": 19,
       "hatchability_pct": 82.7,
       "chicks_bird_week": 2.5,
       "chicks_bird_cum": 7.7
     },
     {
       "age_weeks": 26,
-      "lay_rate_hd_pct": 94.0,
+      "lay_rate_hd_pct": 94,
       "eggs_bird_cum": 36.5,
       "hh_eggs_cum": 36.5,
-      "feed_g_bird_day": 101.0,
+      "feed_g_bird_day": 101,
       "bw_female_g": 1593,
       "avg_egg_weight_g": 57.2,
       "settable_pct": 96,
@@ -271,12 +271,12 @@
     },
     {
       "age_weeks": 27,
-      "lay_rate_hd_pct": 95.0,
+      "lay_rate_hd_pct": 95,
       "eggs_bird_cum": 43.2,
       "hh_eggs_cum": 43.1,
       "feed_g_bird_day": 102.5,
       "bw_female_g": 1610,
-      "avg_egg_weight_g": 58.0,
+      "avg_egg_weight_g": 58,
       "settable_pct": 96,
       "settable_hh_cum": 31.6,
       "hatchability_pct": 85.3,
@@ -285,15 +285,15 @@
     },
     {
       "age_weeks": 28,
-      "lay_rate_hd_pct": 95.0,
+      "lay_rate_hd_pct": 95,
       "eggs_bird_cum": 49.9,
       "hh_eggs_cum": 49.7,
-      "feed_g_bird_day": 104.0,
+      "feed_g_bird_day": 104,
       "bw_female_g": 1620,
       "avg_egg_weight_g": 58.6,
       "settable_pct": 97,
-      "settable_hh_cum": 38.0,
-      "hatchability_pct": 86.0,
+      "settable_hh_cum": 38,
+      "hatchability_pct": 86,
       "chicks_bird_week": 2.8,
       "chicks_bird_cum": 15.7
     },
@@ -302,7 +302,7 @@
       "lay_rate_hd_pct": 95.5,
       "eggs_bird_cum": 56.5,
       "hh_eggs_cum": 56.4,
-      "feed_g_bird_day": 105.0,
+      "feed_g_bird_day": 105,
       "bw_female_g": 1624,
       "avg_egg_weight_g": 59.2,
       "settable_pct": 97,
@@ -315,40 +315,40 @@
       "age_weeks": 30,
       "lay_rate_hd_pct": 95.5,
       "eggs_bird_cum": 63.2,
-      "hh_eggs_cum": 63.0,
-      "feed_g_bird_day": 106.0,
+      "hh_eggs_cum": 63,
+      "feed_g_bird_day": 106,
       "bw_female_g": 1626,
       "avg_egg_weight_g": 59.6,
       "settable_pct": 98,
-      "settable_hh_cum": 51.0,
+      "settable_hh_cum": 51,
       "hatchability_pct": 86.3,
       "chicks_bird_week": 2.8,
       "chicks_bird_cum": 21.2
     },
     {
       "age_weeks": 31,
-      "lay_rate_hd_pct": 96.0,
+      "lay_rate_hd_pct": 96,
       "eggs_bird_cum": 69.9,
       "hh_eggs_cum": 69.6,
-      "feed_g_bird_day": 107.0,
+      "feed_g_bird_day": 107,
       "bw_female_g": 1628,
-      "avg_egg_weight_g": 60.0,
+      "avg_egg_weight_g": 60,
       "settable_pct": 98,
       "settable_hh_cum": 57.5,
       "hatchability_pct": 86.3,
       "chicks_bird_week": 2.8,
-      "chicks_bird_cum": 24.0
+      "chicks_bird_cum": 24
     },
     {
       "age_weeks": 32,
       "lay_rate_hd_pct": 95.5,
       "eggs_bird_cum": 76.6,
       "hh_eggs_cum": 76.2,
-      "feed_g_bird_day": 108.0,
+      "feed_g_bird_day": 108,
       "bw_female_g": 1630,
       "avg_egg_weight_g": 60.3,
       "settable_pct": 98,
-      "settable_hh_cum": 64.0,
+      "settable_hh_cum": 64,
       "hatchability_pct": 86.3,
       "chicks_bird_week": 2.8,
       "chicks_bird_cum": 26.8
@@ -358,7 +358,7 @@
       "lay_rate_hd_pct": 95.5,
       "eggs_bird_cum": 83.2,
       "hh_eggs_cum": 82.8,
-      "feed_g_bird_day": 109.0,
+      "feed_g_bird_day": 109,
       "bw_female_g": 1632,
       "avg_egg_weight_g": 60.5,
       "settable_pct": 98,
@@ -369,8 +369,8 @@
     },
     {
       "age_weeks": 34,
-      "lay_rate_hd_pct": 95.0,
-      "eggs_bird_cum": 90.0,
+      "lay_rate_hd_pct": 95,
+      "eggs_bird_cum": 90,
       "hh_eggs_cum": 89.4,
       "feed_g_bird_day": 109.5,
       "bw_female_g": 1633,
@@ -383,12 +383,12 @@
     },
     {
       "age_weeks": 35,
-      "lay_rate_hd_pct": 95.0,
+      "lay_rate_hd_pct": 95,
       "eggs_bird_cum": 96.6,
-      "hh_eggs_cum": 96.0,
-      "feed_g_bird_day": 110.0,
+      "hh_eggs_cum": 96,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1635,
-      "avg_egg_weight_g": 61.0,
+      "avg_egg_weight_g": 61,
       "settable_pct": 98,
       "settable_hh_cum": 83.3,
       "hatchability_pct": 86.3,
@@ -397,10 +397,10 @@
     },
     {
       "age_weeks": 36,
-      "lay_rate_hd_pct": 95.0,
+      "lay_rate_hd_pct": 95,
       "eggs_bird_cum": 103.2,
       "hh_eggs_cum": 102.5,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1637,
       "avg_egg_weight_g": 61.1,
       "settable_pct": 98,
@@ -411,10 +411,10 @@
     },
     {
       "age_weeks": 37,
-      "lay_rate_hd_pct": 95.0,
+      "lay_rate_hd_pct": 95,
       "eggs_bird_cum": 109.9,
-      "hh_eggs_cum": 109.0,
-      "feed_g_bird_day": 110.0,
+      "hh_eggs_cum": 109,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1639,
       "avg_egg_weight_g": 61.3,
       "settable_pct": 98,
@@ -425,10 +425,10 @@
     },
     {
       "age_weeks": 38,
-      "lay_rate_hd_pct": 95.0,
+      "lay_rate_hd_pct": 95,
       "eggs_bird_cum": 116.6,
       "hh_eggs_cum": 115.6,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1641,
       "avg_egg_weight_g": 61.5,
       "settable_pct": 98,
@@ -441,22 +441,22 @@
       "age_weeks": 39,
       "lay_rate_hd_pct": 94.5,
       "eggs_bird_cum": 123.2,
-      "hh_eggs_cum": 122.0,
-      "feed_g_bird_day": 110.0,
+      "hh_eggs_cum": 122,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1644,
       "avg_egg_weight_g": 61.5,
       "settable_pct": 98,
       "settable_hh_cum": 108.8,
       "hatchability_pct": 86.3,
       "chicks_bird_week": 2.8,
-      "chicks_bird_cum": 46.0
+      "chicks_bird_cum": 46
     },
     {
       "age_weeks": 40,
-      "lay_rate_hd_pct": 94.0,
+      "lay_rate_hd_pct": 94,
       "eggs_bird_cum": 129.7,
       "hh_eggs_cum": 128.5,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1646,
       "avg_egg_weight_g": 61.7,
       "settable_pct": 98,
@@ -467,10 +467,10 @@
     },
     {
       "age_weeks": 41,
-      "lay_rate_hd_pct": 94.0,
+      "lay_rate_hd_pct": 94,
       "eggs_bird_cum": 136.3,
       "hh_eggs_cum": 134.9,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1648,
       "avg_egg_weight_g": 61.8,
       "settable_pct": 98,
@@ -481,10 +481,10 @@
     },
     {
       "age_weeks": 42,
-      "lay_rate_hd_pct": 94.0,
+      "lay_rate_hd_pct": 94,
       "eggs_bird_cum": 142.8,
       "hh_eggs_cum": 141.4,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1650,
       "avg_egg_weight_g": 61.8,
       "settable_pct": 98,
@@ -498,12 +498,12 @@
       "lay_rate_hd_pct": 93.5,
       "eggs_bird_cum": 149.4,
       "hh_eggs_cum": 147.8,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1652,
-      "avg_egg_weight_g": 62.0,
+      "avg_egg_weight_g": 62,
       "settable_pct": 98,
       "settable_hh_cum": 134.2,
-      "hatchability_pct": 86.0,
+      "hatchability_pct": 86,
       "chicks_bird_week": 2.7,
       "chicks_bird_cum": 56.9
     },
@@ -512,21 +512,21 @@
       "lay_rate_hd_pct": 93.5,
       "eggs_bird_cum": 155.9,
       "hh_eggs_cum": 154.2,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1654,
-      "avg_egg_weight_g": 62.0,
+      "avg_egg_weight_g": 62,
       "settable_pct": 98,
       "settable_hh_cum": 140.4,
-      "hatchability_pct": 86.0,
+      "hatchability_pct": 86,
       "chicks_bird_week": 2.7,
       "chicks_bird_cum": 59.5
     },
     {
       "age_weeks": 45,
-      "lay_rate_hd_pct": 93.0,
+      "lay_rate_hd_pct": 93,
       "eggs_bird_cum": 162.4,
       "hh_eggs_cum": 160.6,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1656,
       "avg_egg_weight_g": 62.1,
       "settable_pct": 98,
@@ -537,10 +537,10 @@
     },
     {
       "age_weeks": 46,
-      "lay_rate_hd_pct": 93.0,
+      "lay_rate_hd_pct": 93,
       "eggs_bird_cum": 168.9,
       "hh_eggs_cum": 166.9,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1657,
       "avg_egg_weight_g": 62.2,
       "settable_pct": 98,
@@ -554,7 +554,7 @@
       "lay_rate_hd_pct": 92.5,
       "eggs_bird_cum": 175.5,
       "hh_eggs_cum": 173.2,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1659,
       "avg_egg_weight_g": 62.2,
       "settable_pct": 98,
@@ -568,7 +568,7 @@
       "lay_rate_hd_pct": 92.5,
       "eggs_bird_cum": 181.9,
       "hh_eggs_cum": 179.5,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1661,
       "avg_egg_weight_g": 62.3,
       "settable_pct": 98,
@@ -579,10 +579,10 @@
     },
     {
       "age_weeks": 49,
-      "lay_rate_hd_pct": 92.0,
+      "lay_rate_hd_pct": 92,
       "eggs_bird_cum": 188.3,
       "hh_eggs_cum": 185.8,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1663,
       "avg_egg_weight_g": 62.4,
       "settable_pct": 98,
@@ -593,10 +593,10 @@
     },
     {
       "age_weeks": 50,
-      "lay_rate_hd_pct": 92.0,
+      "lay_rate_hd_pct": 92,
       "eggs_bird_cum": 194.8,
       "hh_eggs_cum": 192.1,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1665,
       "avg_egg_weight_g": 62.5,
       "settable_pct": 98,
@@ -610,21 +610,21 @@
       "lay_rate_hd_pct": 91.5,
       "eggs_bird_cum": 201.2,
       "hh_eggs_cum": 198.2,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1667,
       "avg_egg_weight_g": 62.5,
       "settable_pct": 98,
       "settable_hh_cum": 183.6,
       "hatchability_pct": 85.4,
       "chicks_bird_week": 2.5,
-      "chicks_bird_cum": 78.0
+      "chicks_bird_cum": 78
     },
     {
       "age_weeks": 52,
-      "lay_rate_hd_pct": 91.0,
+      "lay_rate_hd_pct": 91,
       "eggs_bird_cum": 207.6,
       "hh_eggs_cum": 204.4,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1669,
       "avg_egg_weight_g": 62.6,
       "settable_pct": 98,
@@ -638,7 +638,7 @@
       "lay_rate_hd_pct": 90.5,
       "eggs_bird_cum": 213.8,
       "hh_eggs_cum": 210.6,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1671,
       "avg_egg_weight_g": 62.6,
       "settable_pct": 98,
@@ -649,10 +649,10 @@
     },
     {
       "age_weeks": 54,
-      "lay_rate_hd_pct": 90.0,
+      "lay_rate_hd_pct": 90,
       "eggs_bird_cum": 220.2,
       "hh_eggs_cum": 216.7,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1673,
       "avg_egg_weight_g": 62.7,
       "settable_pct": 98,
@@ -666,21 +666,21 @@
       "lay_rate_hd_pct": 89.5,
       "eggs_bird_cum": 226.4,
       "hh_eggs_cum": 222.8,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1675,
       "avg_egg_weight_g": 62.8,
       "settable_pct": 98,
       "settable_hh_cum": 207.6,
       "hatchability_pct": 83.7,
       "chicks_bird_week": 2.5,
-      "chicks_bird_cum": 88.0
+      "chicks_bird_cum": 88
     },
     {
       "age_weeks": 56,
-      "lay_rate_hd_pct": 89.0,
+      "lay_rate_hd_pct": 89,
       "eggs_bird_cum": 232.7,
       "hh_eggs_cum": 228.8,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1678,
       "avg_egg_weight_g": 62.9,
       "settable_pct": 98,
@@ -691,10 +691,10 @@
     },
     {
       "age_weeks": 57,
-      "lay_rate_hd_pct": 89.0,
+      "lay_rate_hd_pct": 89,
       "eggs_bird_cum": 238.9,
       "hh_eggs_cum": 234.8,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1680,
       "avg_egg_weight_g": 62.9,
       "settable_pct": 98,
@@ -708,7 +708,7 @@
       "lay_rate_hd_pct": 88.5,
       "eggs_bird_cum": 245.1,
       "hh_eggs_cum": 240.8,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1682,
       "avg_egg_weight_g": 62.9,
       "settable_pct": 98,
@@ -719,12 +719,12 @@
     },
     {
       "age_weeks": 59,
-      "lay_rate_hd_pct": 88.0,
+      "lay_rate_hd_pct": 88,
       "eggs_bird_cum": 251.2,
       "hh_eggs_cum": 246.6,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1684,
-      "avg_egg_weight_g": 63.0,
+      "avg_egg_weight_g": 63,
       "settable_pct": 97,
       "settable_hh_cum": 230.9,
       "hatchability_pct": 81.6,
@@ -736,7 +736,7 @@
       "lay_rate_hd_pct": 87.5,
       "eggs_bird_cum": 257.4,
       "hh_eggs_cum": 252.6,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1686,
       "avg_egg_weight_g": 63.1,
       "settable_pct": 97,
@@ -747,10 +747,10 @@
     },
     {
       "age_weeks": 61,
-      "lay_rate_hd_pct": 87.0,
+      "lay_rate_hd_pct": 87,
       "eggs_bird_cum": 263.4,
       "hh_eggs_cum": 258.4,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1688,
       "avg_egg_weight_g": 63.1,
       "settable_pct": 97,
@@ -764,21 +764,21 @@
       "lay_rate_hd_pct": 86.5,
       "eggs_bird_cum": 269.5,
       "hh_eggs_cum": 264.2,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1690,
       "avg_egg_weight_g": 63.2,
       "settable_pct": 97,
       "settable_hh_cum": 247.9,
-      "hatchability_pct": 80.0,
+      "hatchability_pct": 80,
       "chicks_bird_week": 2.2,
       "chicks_bird_cum": 104.4
     },
     {
       "age_weeks": 63,
-      "lay_rate_hd_pct": 86.0,
+      "lay_rate_hd_pct": 86,
       "eggs_bird_cum": 275.5,
-      "hh_eggs_cum": 270.0,
-      "feed_g_bird_day": 110.0,
+      "hh_eggs_cum": 270,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1691,
       "avg_egg_weight_g": 63.2,
       "settable_pct": 97,
@@ -792,7 +792,7 @@
       "lay_rate_hd_pct": 85.5,
       "eggs_bird_cum": 281.5,
       "hh_eggs_cum": 275.8,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1693,
       "avg_egg_weight_g": 63.3,
       "settable_pct": 97,
@@ -803,15 +803,15 @@
     },
     {
       "age_weeks": 65,
-      "lay_rate_hd_pct": 85.0,
+      "lay_rate_hd_pct": 85,
       "eggs_bird_cum": 287.4,
       "hh_eggs_cum": 281.5,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1695,
       "avg_egg_weight_g": 63.4,
       "settable_pct": 96,
       "settable_hh_cum": 264.6,
-      "hatchability_pct": 78.0,
+      "hatchability_pct": 78,
       "chicks_bird_week": 2.2,
       "chicks_bird_cum": 110.9
     },
@@ -820,41 +820,41 @@
       "lay_rate_hd_pct": 84.5,
       "eggs_bird_cum": 293.4,
       "hh_eggs_cum": 287.1,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1697,
       "avg_egg_weight_g": 63.5,
       "settable_pct": 96,
-      "settable_hh_cum": 270.0,
+      "settable_hh_cum": 270,
       "hatchability_pct": 77.3,
-      "chicks_bird_week": 2.0,
-      "chicks_bird_cum": 113.0
+      "chicks_bird_week": 2,
+      "chicks_bird_cum": 113
     },
     {
       "age_weeks": 67,
       "lay_rate_hd_pct": 83.5,
       "eggs_bird_cum": 299.2,
       "hh_eggs_cum": 292.6,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1699,
       "avg_egg_weight_g": 63.5,
       "settable_pct": 96,
       "settable_hh_cum": 275.4,
       "hatchability_pct": 76.5,
-      "chicks_bird_week": 2.0,
-      "chicks_bird_cum": 115.0
+      "chicks_bird_week": 2,
+      "chicks_bird_cum": 115
     },
     {
       "age_weeks": 68,
-      "lay_rate_hd_pct": 83.0,
-      "eggs_bird_cum": 305.0,
+      "lay_rate_hd_pct": 83,
+      "eggs_bird_cum": 305,
       "hh_eggs_cum": 298.2,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1701,
       "avg_egg_weight_g": 63.5,
       "settable_pct": 96,
       "settable_hh_cum": 280.7,
       "hatchability_pct": 75.8,
-      "chicks_bird_week": 2.0,
+      "chicks_bird_week": 2,
       "chicks_bird_cum": 117.1
     },
     {
@@ -862,21 +862,21 @@
       "lay_rate_hd_pct": 82.5,
       "eggs_bird_cum": 310.8,
       "hh_eggs_cum": 303.7,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1703,
       "avg_egg_weight_g": 63.7,
       "settable_pct": 96,
-      "settable_hh_cum": 286.0,
-      "hatchability_pct": 75.0,
+      "settable_hh_cum": 286,
+      "hatchability_pct": 75,
       "chicks_bird_week": 1.9,
-      "chicks_bird_cum": 119.0
+      "chicks_bird_cum": 119
     },
     {
       "age_weeks": 70,
       "lay_rate_hd_pct": 81.5,
       "eggs_bird_cum": 316.5,
       "hh_eggs_cum": 309.1,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1705,
       "avg_egg_weight_g": 63.7,
       "settable_pct": 95,
@@ -890,7 +890,7 @@
       "lay_rate_hd_pct": 81.5,
       "eggs_bird_cum": 322.1,
       "hh_eggs_cum": 314.5,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1707,
       "avg_egg_weight_g": 63.8,
       "settable_pct": 95,
@@ -904,7 +904,7 @@
       "lay_rate_hd_pct": 80.5,
       "eggs_bird_cum": 327.9,
       "hh_eggs_cum": 319.9,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1709,
       "avg_egg_weight_g": 63.8,
       "settable_pct": 95,
@@ -918,7 +918,7 @@
       "lay_rate_hd_pct": 79.5,
       "eggs_bird_cum": 333.4,
       "hh_eggs_cum": 325.1,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1712,
       "avg_egg_weight_g": 63.9,
       "settable_pct": 95,
@@ -932,9 +932,9 @@
       "lay_rate_hd_pct": 78.5,
       "eggs_bird_cum": 338.9,
       "hh_eggs_cum": 330.4,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1714,
-      "avg_egg_weight_g": 64.0,
+      "avg_egg_weight_g": 64,
       "settable_pct": 95,
       "settable_hh_cum": 311.3,
       "hatchability_pct": 69.8,
@@ -946,9 +946,9 @@
       "lay_rate_hd_pct": 77.5,
       "eggs_bird_cum": 344.4,
       "hh_eggs_cum": 335.5,
-      "feed_g_bird_day": 110.0,
+      "feed_g_bird_day": 110,
       "bw_female_g": 1716,
-      "avg_egg_weight_g": 64.0,
+      "avg_egg_weight_g": 64,
       "settable_pct": 95,
       "settable_hh_cum": 316.2,
       "hatchability_pct": 68.8,
@@ -970,7 +970,7 @@
     {
       "week": 20,
       "bw_g": 1324,
-      "feed_g_bird_day": 87.0
+      "feed_g_bird_day": 87
     },
     {
       "week": 21,
@@ -985,22 +985,22 @@
     {
       "week": 23,
       "bw_g": 1482,
-      "feed_g_bird_day": 96.0
+      "feed_g_bird_day": 96
     },
     {
       "week": 24,
       "bw_g": 1528,
-      "feed_g_bird_day": 98.0
+      "feed_g_bird_day": 98
     },
     {
       "week": 25,
       "bw_g": 1565,
-      "feed_g_bird_day": 100.0
+      "feed_g_bird_day": 100
     },
     {
       "week": 26,
       "bw_g": 1593,
-      "feed_g_bird_day": 101.0
+      "feed_g_bird_day": 101
     },
     {
       "week": 27,
@@ -1010,32 +1010,32 @@
     {
       "week": 28,
       "bw_g": 1620,
-      "feed_g_bird_day": 104.0
+      "feed_g_bird_day": 104
     },
     {
       "week": 29,
       "bw_g": 1624,
-      "feed_g_bird_day": 105.0
+      "feed_g_bird_day": 105
     },
     {
       "week": 30,
       "bw_g": 1626,
-      "feed_g_bird_day": 106.0
+      "feed_g_bird_day": 106
     },
     {
       "week": 31,
       "bw_g": 1628,
-      "feed_g_bird_day": 107.0
+      "feed_g_bird_day": 107
     },
     {
       "week": 32,
       "bw_g": 1630,
-      "feed_g_bird_day": 108.0
+      "feed_g_bird_day": 108
     },
     {
       "week": 33,
       "bw_g": 1632,
-      "feed_g_bird_day": 109.0
+      "feed_g_bird_day": 109
     },
     {
       "week": 34,
@@ -1045,207 +1045,277 @@
     {
       "week": 35,
       "bw_g": 1635,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 36,
       "bw_g": 1637,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 37,
       "bw_g": 1639,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 38,
       "bw_g": 1641,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 39,
       "bw_g": 1644,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 40,
       "bw_g": 1646,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 41,
       "bw_g": 1648,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 42,
       "bw_g": 1650,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 43,
       "bw_g": 1652,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 44,
       "bw_g": 1654,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 45,
       "bw_g": 1656,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 46,
       "bw_g": 1657,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 47,
       "bw_g": 1659,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 48,
       "bw_g": 1661,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 49,
       "bw_g": 1663,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 50,
       "bw_g": 1665,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 51,
       "bw_g": 1667,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 52,
       "bw_g": 1669,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 53,
       "bw_g": 1671,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 54,
       "bw_g": 1673,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 55,
       "bw_g": 1675,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 56,
       "bw_g": 1678,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 57,
       "bw_g": 1680,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 58,
       "bw_g": 1682,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 59,
       "bw_g": 1684,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 60,
       "bw_g": 1686,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 61,
       "bw_g": 1688,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 62,
       "bw_g": 1690,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 63,
       "bw_g": 1691,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 64,
       "bw_g": 1693,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 65,
       "bw_g": 1695,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 66,
       "bw_g": 1697,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 67,
       "bw_g": 1699,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 68,
       "bw_g": 1701,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 69,
       "bw_g": 1703,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 70,
       "bw_g": 1705,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 71,
       "bw_g": 1707,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 72,
       "bw_g": 1709,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 73,
       "bw_g": 1712,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 74,
       "bw_g": 1714,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
     },
     {
       "week": 75,
       "bw_g": 1716,
-      "feed_g_bird_day": 110.0
+      "feed_g_bird_day": 110
+    }
+  ],
+  "male_bw_rearing": [
+    {
+      "week": 1,
+      "bw_g": 70
+    },
+    {
+      "week": 2,
+      "bw_g": 134
+    },
+    {
+      "week": 3,
+      "bw_g": 207
+    },
+    {
+      "week": 4,
+      "bw_g": 292
+    },
+    {
+      "week": 5,
+      "bw_g": 391
+    },
+    {
+      "week": 6,
+      "bw_g": 501
+    },
+    {
+      "week": 7,
+      "bw_g": 617
+    },
+    {
+      "week": 8,
+      "bw_g": 732
+    },
+    {
+      "week": 9,
+      "bw_g": 843
+    },
+    {
+      "week": 10,
+      "bw_g": 946
+    },
+    {
+      "week": 11,
+      "bw_g": 1041
+    },
+    {
+      "week": 12,
+      "bw_g": 1130
+    },
+    {
+      "week": 13,
+      "bw_g": 1215
+    },
+    {
+      "week": 14,
+      "bw_g": 1295
+    },
+    {
+      "week": 15,
+      "bw_g": 1370
+    },
+    {
+      "week": 16,
+      "bw_g": 1440
+    },
+    {
+      "week": 17,
+      "bw_g": 1502
     }
   ]
 }

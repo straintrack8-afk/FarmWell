@@ -38,15 +38,7 @@ function FarmGuideHome() {
         if (moduleId === 'broiler') {
             navigate('/farmguide/commercial/broiler/pilih-jenis');
         } else if (moduleId === 'layer') {
-            // Set default context for layer (no breed variants)
-            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
-            localStorage.setItem('farmguide_active_flock', JSON.stringify({
-                ...ctx,
-                module_id: 'layer',
-                breed_code: 'layer',
-                breed_label: 'Layer Commercial',
-            }));
-            navigate(`/farmguide/layer/panduan`);
+            navigate('/farmguide/commercial/layer/pilih-jenis');
         } else if (moduleId === 'color_chicken') {
             // Set default context for color chicken (choi male)
             const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');

@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useLanguage } from '../../../contexts/LanguageContext';
 import { useTranslation } from '../../../hooks/useTranslation';
-import SharedTopNav from '../../../components/SharedTopNav';
 import ChecklistItem from '../components/ChecklistItem';
 import WeekDaySelector from '../components/WeekDaySelector';
 import { BROILER_GUIDE, FEED_WEEKLY, BROILER_DAILY_ENV } from '../data/broilerGuideData';
@@ -9,6 +9,7 @@ import { COLOR_CHICKEN_GUIDE, COLOR_CHICKEN_TARGETS } from '../data/colorChicken
 import { getColorRange } from '../data/colorChickenRangeData';
 import { LAYER_GUIDE } from '../data/layerGuideData';
 import { LAYER_RANGE, LAYER_REARING, LAYER_PRODUCTION, getLayerStd, getLayerPhase } from '../data/layerRangeData';
+import { getLayerBreedStd } from '../utils/layerBreedUtils';
 import { PS_FEMALE_BW, PS_MALE_BW, PS_FEMALE_FEED, PS_MALE_FEED, PS_EGG_PRODUCTION, PS_BROODING_DAILY, PS_CHECKLIST_DAILY } from '../data/broilerPSRangeData';
 import { BROILER_PS_GUIDE } from '../data/broilerPSGuideData';
 import { LAYER_PS_GUIDE } from '../data/layerPSGuideData';
@@ -138,6 +139,12 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
     const module = moduleProp || moduleParam || moduleSlug;
     const { t, tSafe, language } = useTranslation();
     const lang = language || 'en';
+    const { language: langContext, setLanguage } = useLanguage();
+    const languages = [
+        { code: 'en', flag: '/images/flags/flag_en.png', label: 'EN' },
+        { code: 'id', flag: '/images/flags/flag_id.png', label: 'ID' },
+        { code: 'vi', flag: '/images/flags/flag_vn.png', label: 'VI' },
+    ];
 
     const [flockContext, setFlockContext] = useState(null);
     const [selectedWeek, setSelectedWeek] = useState(() => {
@@ -195,6 +202,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
     
     // Checklist state
     const [checkedItems, setCheckedItems] = useState({});
+    const [layerBreedData, setLayerBreedData] = useState(null);
 
     useEffect(() => {
         // Load flock context from localStorage - ONLY ONCE on mount
@@ -208,6 +216,17 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         const context = JSON.parse(stored);
         setFlockContext(context);
     }, []);
+
+    // Fetch breed JSON for layer commercial
+    useEffect(() => {
+        if (!flockContext || flockContext.module_id !== 'layer') return;
+        if (!flockContext.breed_json) { setLayerBreedData(null); return; }
+        setLayerBreedData(null);
+        fetch(flockContext.breed_json)
+            .then(r => r.json())
+            .then(data => setLayerBreedData(data))
+            .catch(() => setLayerBreedData(null));
+    }, [flockContext]);
 
     useEffect(() => {
         // Load checklist state from localStorage
@@ -245,7 +264,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         if (activeTab === 'bw' && !bwData && module) {
             loadBWData();
         }
-    }, [activeTab, module]);
+    }, [activeTab, module, psSex]);
 
     useEffect(() => {
         // Save viewMode to localStorage
@@ -400,6 +419,28 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 fetch(breedJson)
                     .then(r => r.json())
                     .then(data => {
+                        // --- MALE branch (rearing only, no production phase) ---
+                        if (psSex === 'male') {
+                            const maleRearing = data.male_bw_rearing ?? [];
+                            const maleData = maleRearing.map(r => ({
+                                week: r.week,
+                                bw_g: r.bw_g,
+                                bw_range_low: r.bw_range_low || null,
+                                bw_range_high: r.bw_range_high || null,
+                                feed_g_bird_day: r.feed_g_bird_day || null,
+                                phase: 'rearing'
+                            }));
+                            setBwData({
+                                ...data,
+                                weeklyStandard: maleData,
+                                weeklyProduction: [],
+                                breedLabel: data.breed_label,
+                                isLayerPS: true
+                            });
+                            return;
+                        }
+
+                        // --- FEMALE branch (existing logic — unchanged) ---
                         const weeklyStandard = [
                             ...(data.female_bw_rearing || []).map(r => ({
                                 week: r.week,
@@ -441,6 +482,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     })
                     .catch(err => console.error('Failed to load Layer PS breed data:', err));
             }
+
         } else if (module === 'color_ps') {
             const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
             const breedJson = ctx.breed_json;
@@ -563,6 +605,8 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
 
     const handlePSSexChange = (sex) => {
         setPsSex(sex);
+        setBwData(null);
+        if (sex === 'male') setPsPhase('rearing');
         const flock = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
         flock.sex = sex;
         localStorage.setItem('farmguide_active_flock', JSON.stringify(flock));
@@ -631,7 +675,15 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             return 'Parent Stock (PS)';
         }
 
-        // Layer PS — read breed_label directly, works for all 3 Layer PS breeds
+        // Layer Commercial
+        if (module === 'layer') {
+            const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
+            const label = ctx.breed_label;
+            if (label) return 'Layer Commercial · ' + label;
+            return 'Layer Commercial';
+        }
+
+        // Layer PS
         if (module === 'layer_ps') {
             const ctx = JSON.parse(localStorage.getItem('farmguide_active_flock') || '{}');
             const label = ctx.breed_label;
@@ -2673,6 +2725,36 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         if (module === 'layer_ps') {
             // ── REARING: numeric feed table ─────────────────────────────────────────────────
             if (psPhase === 'rearing') {
+                if (psSex === 'male') {
+                    return (
+                        <div style={{
+                            background: '#F0FAF4',
+                            border: '1.5px solid #2EAA5E',
+                            borderRadius: '10px',
+                            padding: '16px 20px',
+                            marginBottom: '16px',
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '12px'
+                        }}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="#2EAA5E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                            <div>
+                                <p style={{ margin: 0, fontWeight: 600, color: '#1E7A42', fontSize: '14px' }}>
+                                    Male Feed Program
+                                </p>
+                                <p style={{ margin: '4px 0 0', color: '#444', fontSize: '13px', lineHeight: '1.5' }}>
+                                    Male feed program follows the flock schedule. Refer to female feed data for daily intake targets.
+                                </p>
+                            </div>
+                        </div>
+                    );
+                }
+
                 const rearingRows = (bwData?.weeklyStandard || []).filter(r => r.phase === 'rearing' && r.feed_g_bird_day != null);
                 if (rearingRows.length === 0) return (
                     <div style={{ padding: '2rem', textAlign: 'center', color: '#4A6B4A' }}>
@@ -3496,7 +3578,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     <div style={{ fontWeight: '700', fontSize: '15px' }}>
-                        Week {selectedWeek} — Standard BW ({psSex === 'male' ? 'Male' : 'Female'})
+                        {psSex === 'male' ? 'Male Body Weight — Rearing' : 'Female Body Weight'}
                     </div>
                     <div style={{ overflowY: 'auto', maxHeight: '420px', borderRadius: '10px', border: '1px solid var(--fw-border)' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
@@ -3596,7 +3678,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     </div>
 
                     {/* Table */}
-                    <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white' }}>
+                    <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white', maxHeight: '420px', overflowY: 'auto' }}>
                         <div style={{
                             display: 'grid', gridTemplateColumns: '56px 1fr 1fr',
                             background: '#2EAA5E', padding: '10px 14px', gap: '8px'
@@ -3700,10 +3782,15 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         } else if (!bwData) {
             return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
         } else if (module === 'layer') {
-            tableData = LAYER_RANGE.map((row, idx) => ({
+            const _lRows = layerBreedData
+                ? Array.from({ length: 80 }, (_, i) => i + 1)
+                    .map(w => { const s = getLayerBreedStd(layerBreedData, w); return s ? { week: w, bw: s.bw_avg } : null; })
+                    .filter(Boolean)
+                : LAYER_RANGE.map(row => ({ week: row.week, bw: row.bw_avg }));
+            tableData = _lRows.map((row, idx) => ({
                 week: row.week,
-                bw: row.bw_avg,
-                gain: idx > 0 ? row.bw_avg - LAYER_RANGE[idx - 1].bw_avg : null
+                bw: row.bw,
+                gain: idx > 0 ? row.bw - _lRows[idx - 1].bw : null
             }));
         } else if (module === 'color_chicken') {
             // Weekly view: pick day 7 of each week (D7, D14, D21 ... D126)
@@ -4093,7 +4180,9 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 
                 {/* Layer BW Chart */}
                 {module === 'layer' && (() => {
-                    const chartData = LAYER_RANGE;
+                    const chartData = layerBreedData
+                        ? Array.from({ length: 80 }, (_, i) => i + 1).map(w => { const s = getLayerBreedStd(layerBreedData, w); return s ? { week: w, bw_avg: s.bw_avg } : null; }).filter(Boolean)
+                        : LAYER_RANGE;
                     const maxBW = 2200;
                     const chartHeight = 300;
                     const chartWidth = 800;
@@ -4818,7 +4907,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     </div>
 
                     {/* Table */}
-                    <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white' }}>
+                    <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #DFF0E6', background: 'white', maxHeight: '380px', overflowY: 'auto' }}>
                         <div style={{
                             display: 'grid', gridTemplateColumns: '52px 1fr 1fr 1fr 1fr',
                             background: '#2EAA5E', padding: '10px 14px', gap: '8px'
@@ -5801,10 +5890,29 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
     }
 
     return (
-        <div className="fw-page">
-            <SharedTopNav />
-
-            <div className="fw-section">
+        <div className="fw-module-page">
+            <div className="fw-mod-top">
+                <div
+                    className="fw-mod-top-logo"
+                    onClick={() => navigate('/')}
+                    title="Back to Home"
+                >
+                    <img src="/images/FarmWell_Logo.png" alt="FarmWell" style={{ width: 34, height: 34, objectFit: 'contain' }} />
+                </div>
+                <div className="fw-mod-top-lang">
+                    {languages.map(lang => (
+                        <button
+                            key={lang.code}
+                            className={`fw-mod-top-lang-btn${langContext === lang.code ? ' active' : ''}`}
+                            onClick={() => setLanguage(lang.code)}
+                        >
+                            {lang.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+            <div className="fw-mod-card" style={{ background: '#E8F5EE' }}>
+                <div className="fw-mod-content">
                 {/* Flock Badge */}
                 <div style={{ marginBottom: '1rem' }}>
                     <div style={{
@@ -6025,15 +6133,17 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         )}
 
                         {/* Row 2: WeekDaySelector with phase toggle */}
-                        <WeekDaySelector
-                            mode="phase"
-                            totalWeeks={module === 'layer_ps' ? 75 : module === 'color_ps' ? 70 : 64}
-                            rearingEndWeek={module === 'layer_ps' ? 18 : module === 'color_ps' ? 24 : 24}
-                            selectedWeek={selectedWeek}
-                            selectedPhase={psPhase}
-                            onWeekChange={(w) => setSelectedWeek(Number(w))}
-                            onPhaseChange={handlePSPhaseChange}
-                        />
+                        {!(module === 'layer_ps' && psSex === 'male') && (
+                            <WeekDaySelector
+                                mode="phase"
+                                totalWeeks={module === 'layer_ps' ? 75 : module === 'color_ps' ? 70 : 64}
+                                rearingEndWeek={module === 'layer_ps' ? 18 : module === 'color_ps' ? 24 : 24}
+                                selectedWeek={selectedWeek}
+                                selectedPhase={psPhase}
+                                onWeekChange={(w) => setSelectedWeek(Number(w))}
+                                onPhaseChange={handlePSPhaseChange}
+                            />
+                        )}
                     </>
                 )}
 
@@ -6258,6 +6368,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         </svg>
                         <span>FarmGuide</span>
                     </button>
+                </div>
                 </div>
             </div>
         </div>

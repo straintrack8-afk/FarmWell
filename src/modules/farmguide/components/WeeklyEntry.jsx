@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getLayerStd, getLayerPhase } from '../data/layerRangeData';
 import { LAYER_PS_FEMALE_BW, LAYER_PS_MALE_BW } from '../data/layerPSRangeData';
 import { PS_FEMALE_BW, PS_MALE_BW } from '../data/broilerPSRangeData';
+import { getLayerBreedStd } from '../utils/layerBreedUtils';
 
 const WeeklyEntry = ({ flock, history, onSave, onClose, t, initialWeek, initialData, module, sex }) => {
     const [week, setWeek] = useState(initialWeek || 1);
@@ -11,6 +12,19 @@ const WeeklyEntry = ({ flock, history, onSave, onClose, t, initialWeek, initialD
     const [feedActual, setFeedActual] = useState('');
     const [mortality, setMortality] = useState('');
     const [notes, setNotes] = useState('');
+    const [layerBreedData, setLayerBreedData] = useState(null);
+    const layerBreedJsonRef = useRef(null);
+
+    useEffect(() => {
+      const breedJson = flock?.breed_json;
+      if (!breedJson || module !== 'layer') return;
+      if (layerBreedJsonRef.current === breedJson) return;
+      layerBreedJsonRef.current = breedJson;
+      fetch(breedJson)
+        .then(r => r.json())
+        .then(data => setLayerBreedData(data))
+        .catch(() => setLayerBreedData(null));
+    }, [flock?.breed_json, module]);
 
     useEffect(() => {
         if (initialData) {
@@ -34,6 +48,9 @@ const WeeklyEntry = ({ flock, history, onSave, onClose, t, initialWeek, initialD
         const bwArr = sex === 'male' ? PS_MALE_BW : PS_FEMALE_BW;
         const row = bwArr.find(r => r.week === week) || {};
         return { bw_low: null, bw_high: null, bw_avg: row.bw_g || null, ep_pct: null, egg_weight_g: null, feed_g_day: null };
+      }
+      if (module === 'layer' && layerBreedData) {
+        return getLayerBreedStd(layerBreedData, week) || getLayerStd(week);
       }
       return getLayerStd(week);
     })();

@@ -1,9 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getColorRange } from '../data/colorChickenRangeData';
 import { BROILER_RANGE } from '../data/broilerRangeData';
+import { interpolateBreedDailyRange } from '../utils/breedDailyRange';
 
 export default function DailyEntry({ flock, history, onSave, onClose, t, module, variant, sex, initialDay, initialData }) {
-  const rangeData=(module==='color_chicken')?getColorRange(variant||'choi',sex||'male'):BROILER_RANGE;
+  const [breedRange, setBreedRange] = useState(null);
+  const breedJsonRef = useRef(null);
+
+  useEffect(() => {
+    const breedJson = flock?.breed_json;
+    if (!breedJson || module === 'color_chicken') return;
+    if (breedJsonRef.current === breedJson) return; // already loaded
+    breedJsonRef.current = breedJson;
+    fetch(breedJson)
+      .then(r => r.json())
+      .then(data => {
+        const interpolated = interpolateBreedDailyRange(data);
+        if (interpolated) setBreedRange(interpolated);
+      })
+      .catch(() => setBreedRange(null));
+  }, [flock?.breed_json, module]);
+
+  const rangeData=(module==='color_chicken')
+    ? getColorRange(variant||'choi',sex||'male')
+    : (breedRange || BROILER_RANGE);
   const maxDay=rangeData.length>0?rangeData[rangeData.length-1].day:56;
   const calcCurrentDay = () => {
     const placed = new Date(flock.placement_date);
@@ -210,8 +230,8 @@ export default function DailyEntry({ flock, history, onSave, onClose, t, module,
             }}
           />
           <p style={{ color: 'var(--fw-sub)', fontSize: '12px', marginTop: '4px' }}>
-            {t('farmguide.totalMortality')}: {cumMortality + (parseInt(mortality) || 0)}
-            ({(((cumMortality + (parseInt(mortality) || 0)) / flock.initial_pop) * 100).toFixed(2)}%)
+            {t('farmguide.totalMortality')}: {parseInt(mortality) || 0}
+            ({(((parseInt(mortality) || 0) / flock.initial_pop) * 100).toFixed(2)}%)
           </p>
         </div>
 

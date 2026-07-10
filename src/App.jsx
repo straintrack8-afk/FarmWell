@@ -10,6 +10,7 @@ import SplashScreen from './components/SplashScreen';
 import SharedTopNav from './components/SharedTopNav';
 import OnboardingQuestionnaire from './components/OnboardingQuestionnaire';
 import AnnouncementBanner from './components/AnnouncementBanner';
+import BackToTop from './components/BackToTop';
 import AdminPage from './pages/admin/AdminPage';
 import { useOnboarding } from './hooks/useOnboarding';
 
@@ -64,6 +65,7 @@ function AppContent() {
                     </Routes>
                 </>
             )}
+            <BackToTop />
         </>
     );
 }
