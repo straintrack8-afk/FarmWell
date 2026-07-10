@@ -26,7 +26,7 @@ const WelcomePage = () => {
             icon: '/images/PigWell_Logo.png',
             colorClass: 'mod-pig',
             path: '/swine',
-            status: 'live',
+            status: 'construction',
         },
         {
             id: 'poultry',
@@ -49,6 +49,7 @@ const WelcomePage = () => {
     ];
 
     const handleModuleClick = (mod) => {
+        if (mod.status === 'construction') return;
         if (mod.status === 'soon') {
             setShowWaitlistModal(true);
         } else if (mod.path) {
@@ -103,7 +104,19 @@ const WelcomePage = () => {
                             key={mod.id}
                             className={`fw-mod-item-card ${mod.colorClass}`}
                             onClick={() => handleModuleClick(mod)}
+                            style={mod.status === 'construction' ? { opacity: 0.7, cursor: 'not-allowed', position: 'relative' } : { position: 'relative' }}
                         >
+                            {mod.status === 'construction' && (
+                                <div style={{
+                                    position: 'absolute', top: '8px', right: '8px',
+                                    background: '#F9A825', color: '#fff',
+                                    fontSize: '10px', fontWeight: 700,
+                                    borderRadius: '6px', padding: '2px 7px',
+                                    letterSpacing: '0.5px', textTransform: 'uppercase',
+                                }}>
+                                    {language === 'vi' ? 'Đang Phát Triển' : language === 'id' ? 'Dalam Pengembangan' : 'Coming Soon'}
+                                </div>
+                            )}
                             <div className="fw-mod-item-icon-wrap">
                                 <img
                                     src={mod.icon}

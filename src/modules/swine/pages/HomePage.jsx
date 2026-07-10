@@ -39,6 +39,34 @@ function HomePage() {
         <div className="portal-layout">
             <div className="portal-container">
                 <div className="portal-card" style={{ background: 'none' }}>
+            {/* Under Construction Banner */}
+            <div style={{
+                background: '#FFF8E1',
+                border: '1.5px solid #F9A825',
+                borderRadius: '12px',
+                padding: '1rem 1.25rem',
+                marginBottom: '1.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+            }}>
+                <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='#F9A825' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
+                    <path d='M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z'/>
+                    <line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12.01' y2='17'/>
+                </svg>
+                <div>
+                    <div style={{ fontWeight: 700, fontSize: '14px', color: '#E65100' }}>
+                        {language === 'vi' ? 'Đang Phát Triển' : language === 'id' ? 'Sedang Dikembangkan' : 'Under Construction'}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#795548', marginTop: '2px' }}>
+                        {language === 'vi'
+                            ? 'PigWell đang được cải tiến. Một số tính năng có thể thay đổi.'
+                            : language === 'id'
+                            ? 'PigWell sedang dalam pengembangan. Beberapa fitur mungkin berubah.'
+                            : 'PigWell is being improved. Some features may change.'}
+                    </div>
+                </div>
+            </div>
                     {/* PigWell Logo (centered) */}
                     <div className="page-header" style={{
                         padding: '0.1875rem 1rem 2rem',
