@@ -2,6 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useTranslation } from '../../../hooks/useTranslation';
+
+const agePageTranslations = {
+  en: { selectAge: 'Select Age Group', selectAgeSubtitle: 'Choose the age group of the affected birds' },
+  id: { selectAge: 'Pilih Kelompok Umur', selectAgeSubtitle: 'Pilih kelompok umur unggas yang terpengaruh' },
+  vi: { selectAge: 'Chọn Nhóm Tuổi', selectAgeSubtitle: 'Chọn nhóm tuổi của đàn gia cầm bị ảnh hưởng' },
+};
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { STEPS } from '../utils/constants';
 import PoultryTopNav from './common/PoultryTopNav';
@@ -111,10 +117,10 @@ function AgeSelection() {
                 <div className="fw-mod-content">
                     <div style={{ textAlign: 'center' }}>
                         <div style={{ fontSize: '15px', fontWeight: '800', color: 'var(--fw-text)', marginBottom: '4px' }}>
-                            {t('poultry.diagnosis.selectAge') || 'Select Age Group'}
+                            {agePageTranslations[language]?.selectAge || 'Select Age Group'}
                         </div>
                         <div style={{ fontSize: '11px', color: 'var(--fw-sub)' }}>
-                            {t('poultry.diagnosis.selectAgeSubtitle') || 'Choose the age group of the affected birds'}
+                            {agePageTranslations[language]?.selectAgeSubtitle || 'Choose the age group of the affected birds'}
                         </div>
                     </div>
 

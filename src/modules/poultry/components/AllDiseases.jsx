@@ -136,7 +136,7 @@ const translations = {
 
 function AllDiseases() {
     const navigate = useNavigate();
-    const { diseases, setStep } = useDiagnosis();
+    const { diseases, setStep, viewDiseaseDetail } = useDiagnosis();
     const { language } = useLanguage();
     const normalizedLang = (language === 'vt' || language === 'vn') ? 'vi' : language;
     const t = translations[normalizedLang] || translations.en;
@@ -270,8 +270,8 @@ function AllDiseases() {
                                     key={disease.id || name}
                                     className="fw-disease-card"
                                     onClick={() => {
-                                        if (setStep) setStep(STEPS.DETAIL);
-                                        navigate('/poultry/diagnostic/detail', { state: { disease } });
+                                        viewDiseaseDetail(disease);
+                                        navigate('/poultry/diagnostic/detail');
                                     }}
                                 >
                                     <div className="fw-disease-card-name">{name}</div>
