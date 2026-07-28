@@ -96,7 +96,9 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -302,7 +304,9 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_NECK_WRY_091",
@@ -459,7 +463,9 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SOUND_COUGH_097",
@@ -584,16 +590,17 @@
       "rekomendasi_vaksin": [
         "Vaksin hidup yang dilemahkan (misalnya, serotipe Massachusetts, Connecticut, Arkansas) diberikan melalui semprotan atau air minum",
         "Vaksin tidak aktif diberikan kepada breeder dan petelur sebelum masa produksi untuk memastikan kekebalan yang bertahan lama"
-     ]
+      ]
     },
     {
-
       "id": 1004,
       "nama": "Infectious Laryngotracheitis (Laringotrakeitis Infeksius)",
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_RESP_GASP_021",
@@ -728,7 +735,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -852,7 +862,9 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SKIN_LESION_094",
@@ -986,7 +998,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Semua umur"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)",
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_PARALYZE_082",
@@ -1117,7 +1132,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_NECK_TREMOR_090",
@@ -1238,7 +1256,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_ABD_ENLARGED_001",
@@ -1348,7 +1369,9 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BODY_STUNTED_018",
@@ -1449,7 +1472,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BEH_LETHARGIC_003",
@@ -1573,7 +1598,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SOUND_COUGH_097",
@@ -1696,7 +1723,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -1832,7 +1861,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_FACE_SWELL_065",
@@ -1953,7 +1984,10 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -2073,7 +2107,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_GREEN_034",
@@ -2193,7 +2229,10 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Broiler",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_DARK_033",
@@ -2312,7 +2351,10 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": true,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -2421,7 +2463,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_WEIGHT_LOSS_113",
@@ -2540,7 +2584,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_GAIT_CIRCLE_074",
@@ -2644,112 +2690,14 @@
       ]
     },
     {
-      "id": 1021,
-      "nama": "Erysipelas (Erisipelas)",
-      "kategori": "Bakteri",
-      "tingkat_keparahan": "Sedang",
-      "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_COMB_PURPLE_026",
-          "nama": "Jengger ungu/merah gelap (sianosis)",
-          "kategori": "jengger",
-          "bagian_tubuh": "jengger_pial",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "nama": "Kematian mendadak",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_SKIN_RED_095",
-          "nama": "Kulit kemerahan",
-          "kategori": "kulit",
-          "bagian_tubuh": "kulit_bulu",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "nama": "Perilaku depresi/lesu",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_FEATH_RUFFLE_071",
-          "nama": "Bulu mengembang",
-          "kategori": "bulu",
-          "bagian_tubuh": "kulit_bulu",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "nama": "Perilaku lemah",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Erisipelas adalah infeksi bakteri sistemik akut yang disebabkan oleh Erysipelothrix rhusiopathiae. Meskipun secara tradisional menjadi ancaman utama bagi kalkun dan babi, penyakit ini semakin sering menyebabkan wabah parah pada ayam petelur, terutama dalam sistem perumahan alternatif atau free-range, menyebabkan mortalitas tinggi.",
-      "tanda_klinis": [
-        "Kematian mendadak unggas yang tampak sehat beberapa jam sebelumnya",
-        "Sianosis (perubahan warna ungu gelap) pada jengger, pial, dan kulit wajah",
-        "Lesu parah, depresi, dan bulu mengembang",
-        "Kemerahan umum atau lesi kulit bercak",
-        "Penurunan produksi telur yang signifikan pada kawanan petelur"
-      ],
-      "penularan": [
-        "Masuknya bakteri melalui abrasi kulit, luka, atau kanibalisme",
-        "Ingesti tanah, air, atau bangkai terinfeksi terkontaminasi",
-        "Penularan mekanis oleh serangga penggigit, terutama tungau merah unggas (Dermanyssus gallinae)"
-      ],
-      "diagnosis": [
-        "Pewarnaan Gram darah atau apusan jaringan menunjukkan batang Gram-positif, ramping, pleomorfik yang khas",
-        "Kultur bakteri dan isolasi dari hati, limpa, atau darah jantung",
-        "Patologi makroskopis menunjukkan hati dan limpa membesar dan rapuh, dan pendarahan petekie di otot"
-      ],
-      "pengobatan": [
-        "Pemberian penisilin segera (sangat efektif) melalui air minum atau injeksi intramuskular",
-        "Eritromisin atau tetrasiklin dapat digunakan berdasarkan uji kepekaan"
-      ],
-      "pengendalian": [
-        "Manajemen agresif dan pemberantasan tungau merah unggas",
-        "Pembuangan cepat dan aman bangkai unggas untuk mencegah kanibalisme",
-        "Pembersihan menyeluruh, disinfeksi, dan istirahat area range terkontaminasi"
-      ],
-      "rekomendasi_vaksin": [
-        "Bakterin tidak aktif efektif digunakan pada kawanan petelur atau breeder berisiko tinggi dan kalkun. Biasanya diberikan melalui injeksi sebelum onset produksi atau paparan ke range terkontaminasi"
-      ]
-    },
-    {
       "id": 1022,
       "nama": "Bumblefoot (Bumblefoot)",
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_FOOT_SWELL_073",
@@ -2838,7 +2786,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_SWELL_081",
@@ -2931,15 +2881,18 @@
       ],
       "rekomendasi_vaksin": [
         "Vaksin komersial umumnya tidak digunakan, meskipun bakterin autogenous kadang-kadang dapat digunakan pada kawanan breeder bernilai tinggi yang menghadapi tantangan endemik"
-       ]
+      ]
     },
     {
-"id": 1024,
+      "id": 1024,
       "nama": "Infectious Synovitis (Sinovitis Infeksius)",
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Broiler"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)",
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_SWELL_081",
@@ -3040,7 +2993,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_NARES_DISCH_087",
@@ -3142,7 +3097,10 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Broiler",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_FACE_SWELL_065",
@@ -3243,7 +3201,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler"],
+      "kelompok_umur": [
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SKIN_LESION_094",
@@ -3333,7 +3293,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler"],
+      "kelompok_umur": [
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SKIN_LESION_094",
@@ -3433,7 +3395,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_SWELL_081",
@@ -3523,7 +3487,10 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Petelur"],
+      "kelompok_umur": [
+        "Broiler",
+        "Petelur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_PARALYZE_082",
@@ -3602,7 +3569,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_EYE_DISCH_062",
@@ -3703,7 +3672,10 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Semua umur"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)",
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_BLOOD_032",
@@ -3833,7 +3805,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_YELLOW_041",
@@ -3943,7 +3917,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WORM_040",
@@ -4064,7 +4040,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_RICE_039",
@@ -4163,7 +4141,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -4262,7 +4242,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_RESP_GASP_021",
@@ -4356,200 +4338,14 @@
       ]
     },
     {
-      "id": 1038,
-      "nama": "Cryptosporidiosis (Kriptosporidiosis)",
-      "kategori": "Parasit",
-      "tingkat_keparahan": "Sedang",
-      "zoonosis": true,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Semua umur"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_DROP_WATERY_038",
-          "nama": "Kotoran encer (diare)",
-          "kategori": "kotoran",
-          "bagian_tubuh": "kotoran",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BODY_STUNTED_018",
-          "nama": "Tubuh kerdil atau pertumbuhan berkurang",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "nama": "Perilaku depresi/lesu",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "nama": "Penurunan berat badan",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "nama": "Perilaku lemah",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_FEATH_RUFFLE_071",
-          "nama": "Bulu mengembang",
-          "kategori": "bulu",
-          "bagian_tubuh": "kulit_bulu",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Kriptosporidiosis pada unggas adalah penyakit infeksius yang disebabkan oleh protozoa kecil, terutama Cryptosporidium baileyi (menyerang saluran pernapasan dan pencernaan) dan C. meleagridis (terutama enterik). Ini adalah patogen oportunistik yang menyebabkan morbiditas signifikan, terutama pada unggas dengan sistem kekebalan terganggu.",
-      "tanda_klinis": [
-        "Bentuk usus: Diare encer persisten, pertumbuhan kerdil nyata, dan konversi pakan buruk",
-        "Bentuk pernapasan (C. baileyi): Bersin, batuk, dispnea, dan sinus bengkak (menyerupai bronkitis virus)",
-        "Lesu parah, depresi, dan bulu mengembang",
-        "Peningkatan mortalitas jika dipersulit oleh infeksi bakteri sekunder (misalnya, E. coli)"
-      ],
-      "penularan": [
-        "Rute fekal-oral melalui ingesti ookista berdinding tebal infektif dari litter, pakan, atau air terkontaminasi",
-        "Inhalasi ookista aerosol langsung menginfeksi saluran pernapasan",
-        "Ookista sepenuhnya infektif saat dikeluarkan dan sangat resisten terhadap disinfektan kimia standar"
-      ],
-      "diagnosis": [
-        "Pemeriksaan mikroskopis apusan feses atau kerokan mukosa menggunakan pewarnaan tahan asam khusus untuk memvisualisasikan ookista merah kecil",
-        "Uji imunofluoresensi (IFA) atau ELISA pada sampel feses",
-        "Histopatologi menunjukkan organisme bulat melekat pada batas apikal sel epitel di trakea, bursa, atau usus"
-      ],
-      "pengobatan": [
-        "Tidak ada obat anti-kriptosporidial spesifik yang efektif yang saat ini disetujui atau sangat berhasil pada unggas",
-        "Pengobatan berfokus sepenuhnya pada perawatan suportif, mengoptimalkan lingkungan, dan mengobati infeksi bakteri sekunder bersamaan"
-      ],
-      "pengendalian": [
-        "Implementasi kebersihan dan tindakan biosekuriti ekstrem",
-        "Pembersihan mekanis menyeluruh kandang diikuti waktu istirahat dan pengeringan yang diperpanjang",
-        "Disinfeksi kimia memerlukan agen spesifik seperti larutan amonia 5-10%, formalin, atau hidrogen peroksida untuk inaktivasi ookista yang efektif"
-      ],
-      "rekomendasi_vaksin": [
-        "Tidak ada vaksin komersial yang tersedia untuk Cryptosporidium pada unggas"
-      ]
-    },
-    {
-      "id": 1039,
-      "nama": "Giardiasis (Giardiasis)",
-      "kategori": "Parasit",
-      "tingkat_keparahan": "Rendah",
-      "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_DROP_WATERY_038",
-          "nama": "Kotoran encer (diare)",
-          "kategori": "kotoran",
-          "bagian_tubuh": "kotoran",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "nama": "Penurunan berat badan",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_FEATH_DULL_067",
-          "nama": "Bulu kusam dan/atau patah",
-          "kategori": "bulu",
-          "bagian_tubuh": "kulit_bulu",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "nama": "Perilaku lemah",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_BODY_STUNTED_018",
-          "nama": "Tubuh kerdil atau pertumbuhan berkurang",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Giardiasis adalah infeksi usus yang disebabkan oleh protozoa berflagel Giardia spp. Meskipun relatif jarang sebagai penyakit klinis primer pada unggas komersial, kadang-kadang menyerang kawanan backyard atau unggas peliharaan, melekat pada usus halus dan menyebabkan malabsorpsi dan gangguan pencernaan kronis.",
-      "tanda_klinis": [
-        "Diare encer persisten berbau busuk",
-        "Penurunan berat badan kronis dan kondisi tubuh buruk",
-        "Pertumbuhan kerdil pada unggas muda",
-        "Bulu kusam dan tidak terawat serta kelemahan umum",
-        "Sering asimptomatik pada unggas dewasa imunokompeten"
-      ],
-      "penularan": [
-        "Rute fekal-oral langsung melalui ingesti kista infektif dari air minum, genangan air, atau pakan basah terkontaminasi",
-        "Kista dapat bertahan untuk waktu yang lama dalam kondisi lingkungan lembab dan dingin"
-      ],
-      "diagnosis": [
-        "Pemeriksaan mikroskopis langsung apusan feses segar hangat untuk memvisualisasikan trofozoit berflagel motil (motilitas 'daun jatuh')",
-        "Flotasi feses menggunakan seng sulfat untuk mengidentifikasi kista khas",
-        "Tes ELISA atau IFA komersial yang dirancang untuk mendeteksi antigen Giardia dalam feses"
-      ],
-      "pengobatan": [
-        "Pemberian obat antiprotozoa seperti metronidazol, ronidazol, atau fenbendazol",
-        "Catatan: Penggunaan metronidazol dan nitroimidazol terkait sangat dilarang pada unggas penghasil makanan di banyak yurisdiksi"
-      ],
-      "pengendalian": [
-        "Menyediakan sistem air minum yang bersih, disanitasi, dan tertutup",
-        "Mencegah akses kawanan ke air tanah atau genangan air",
-        "Sanitasi rutin tempat pakan dan minum, dan mempertahankan kondisi litter kering"
-      ],
-      "rekomendasi_vaksin": [
-        "Tidak ada vaksin yang tersedia untuk Giardiasis pada unggas"
-      ]
-    },
-    {
       "id": 1040,
       "nama": "Baylisascariasis (Baylisaskariasis)",
       "kategori": "Parasit",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_GAIT_ATAXIA_075",
@@ -4648,7 +4444,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_GAIT_ATAXIA_075",
@@ -4736,7 +4534,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BEH_WEAK_013",
@@ -4824,7 +4624,9 @@
       "kategori": "Jamur",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_RESP_GASP_021",
@@ -4946,15 +4748,19 @@
       ],
       "rekomendasi_vaksin": [
         "Tidak ada vaksin komersial yang tersedia untuk Aspergilosis"
-]
+      ]
     },
     {
-"id": 1044,
+      "id": 1044,
       "nama": "Yeast Infection (Infeksi Jamur / Kandidiasis)",
       "kategori": "Jamur",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)", "Semua umur"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)",
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_MOUTH_LESION_085",
@@ -5065,7 +4871,9 @@
       "kategori": "Jamur",
       "tingkat_keparahan": "Rendah",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_COMB_POWDER_025",
@@ -5155,7 +4963,9 @@
       "kategori": "Ektoparasit",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_FEATH_INSECT_069",
@@ -5270,121 +5080,14 @@
       ]
     },
     {
-      "id": 1047,
-      "nama": "Northern Fowl Mite Infestation (Infestasi Tungau Unggas Utara)",
-      "kategori": "Ektoparasit",
-      "tingkat_keparahan": "Sedang",
-      "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_FEATH_INSECT_069",
-          "nama": "Bulu terdapat serangga atau telur",
-          "kategori": "bulu",
-          "bagian_tubuh": "kulit_bulu",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_SKIN_RED_095",
-          "nama": "Kulit kemerahan",
-          "kategori": "kulit",
-          "bagian_tubuh": "kulit_bulu",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_SCRATCH_011",
-          "nama": "Perilaku menggaruk (berlebihan)",
-          "kategori": "perilaku",
-          "bagian_tubuh": "kulit_bulu",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_COMB_PALE_024",
-          "nama": "Jengger pucat",
-          "kategori": "jengger",
-          "bagian_tubuh": "jengger_pial",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_EGG_REDUCED_056",
-          "nama": "Telur jumlah berkurang",
-          "kategori": "telur",
-          "bagian_tubuh": "telur",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "nama": "Penurunan berat badan",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_FEATH_DULL_067",
-          "nama": "Bulu kusam dan/atau patah",
-          "kategori": "bulu",
-          "bagian_tubuh": "kulit_bulu",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Tungau Unggas Utara (Ornithonyssus sylviarum) adalah salah satu ektoparasit penghisap darah yang paling merusak pada unggas. Tidak seperti tungau merah, tungau ini menghabiskan seluruh siklus hidupnya pada inang. Infestasi berat menyebabkan anemia parah, penurunan produksi telur dramatis, dan gangguan kesejahteraan signifikan.",
-      "tanda_klinis": [
-        "Bulu kusut, kotor, berwarna gelap di sekitar area vent karena akumulasi kotoran tungau dan darah kering",
-        "Tungau kecil hitam, merah, atau abu-abu merayap jelas terlihat pada kulit saat bulu dibuka",
-        "Kulit di sekitar vent gelap, menebal, berkerak, dan sangat teriritasi",
-        "Jengger dan pial pucat menunjukkan anemia parah",
-        "Garukan signifikan, gelisah, penurunan berat badan, dan produksi telur berkurang"
-      ],
-      "penularan": [
-        "Penularan langsung cepat dari unggas ke unggas",
-        "Penularan mekanis oleh personel yang menangani unggas, peralatan terkontaminasi, dan baki telur",
-        "Tungau dapat bertahan di luar inang di lingkungan hingga 2-3 minggu dalam kondisi lembab dan dingin"
-      ],
-      "diagnosis": [
-        "Pemeriksaan visual langsung dengan membuka bulu di sekitar vent untuk mengungkapkan tungau bergerak cepat dan lesi kulit karakteristik",
-        "Pekerja mungkin melaporkan tungau merayap di lengan dan tangan mereka setelah menangani unggas atau telur"
-      ],
-      "pengobatan": [
-        "Aplikasi akarisida yang disetujui (misalnya, permetrin, karbaril, spinosad) langsung ke unggas menggunakan semprotan tekanan tinggi, memastikan bahan kimia menembus bulu untuk mencapai kulit di sekitar vent",
-        "Penaburan unggas dan area bersarang dengan diatomaceous earth"
-      ],
-      "pengendalian": [
-        "Eksklusi burung liar (misalnya, burung gereja, merpati) dari kandang unggas, karena mereka adalah pembawa utama",
-        "Biosekuriti ketat mengenai pergerakan peralatan, baki, dan personel antar kandang",
-        "Inspeksi kawanan rutin terjadwal untuk mendeteksi infestasi sebelum menyebar luas"
-      ],
-      "rekomendasi_vaksin": [
-        "Tidak ada vaksin komersial yang tersedia untuk Tungau Unggas Utara"
-      ]
-    },
-    {
       "id": 1048,
       "nama": "Tropical Fowl Mite Infestation (Infestasi Tungau Unggas Tropis)",
       "kategori": "Ektoparasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SKIN_RED_095",
@@ -5483,7 +5186,9 @@
       "kategori": "Ektoparasit",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SKIN_SCALY_096",
@@ -5582,7 +5287,9 @@
       "kategori": "Ektoparasit",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BEH_SCRATCH_011",
@@ -5672,7 +5379,9 @@
       "kategori": "Ektoparasit",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SKIN_LESION_094",
@@ -5762,7 +5471,10 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_DEFORM_080",
@@ -5871,7 +5583,10 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_TOE_CURL_106",
@@ -5960,7 +5675,10 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Broiler"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)",
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_DEFORM_080",
@@ -6047,7 +5765,10 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -6146,7 +5867,9 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_EYE_DISCH_062",
@@ -6245,7 +5968,9 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_NECK_WRY_091",
@@ -6334,7 +6059,9 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_NECK_WRY_091",
@@ -6423,7 +6150,9 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_FOOT_LESION_072",
@@ -6511,7 +6240,10 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Semua umur"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)",
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_DEFORM_080",
@@ -6588,7 +6320,9 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_DEFORM_080",
@@ -6675,7 +6409,9 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_COMB_PALE_024",
@@ -6761,7 +6497,9 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SKIN_SCALY_096",
@@ -6829,15 +6567,17 @@
       ],
       "rekomendasi_vaksin": [
         "Tidak ada vaksin yang tersedia"
- ]
+      ]
     },
     {
-"id": 1064,
+      "id": 1064,
       "nama": "Pyridoxine Deficiency (Kekurangan Piridoksin)",
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_GAIT_ATAXIA_075",
@@ -6913,7 +6653,9 @@
       "kategori": "Nutrisi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_FEATH_DULL_067",
@@ -7000,7 +6742,11 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder", "Dara (9-20 minggu)"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder",
+        "Dara (9-20 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_DEFORM_080",
@@ -7079,7 +6825,11 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder", "Dara (9-20 minggu)"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder",
+        "Dara (9-20 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SHELL_THIN_049",
@@ -7167,7 +6917,9 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_SWELL_081",
@@ -7264,7 +7016,10 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_ABD_ENLARGED_001",
@@ -7361,7 +7116,10 @@
       "kategori": "Kardiovaskular",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -7449,7 +7207,9 @@
       "kategori": "Kardiovaskular",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler"],
+      "kelompok_umur": [
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_ABD_ENLARGED_001",
@@ -7549,7 +7309,10 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_ABD_ENLARGED_001",
@@ -7639,7 +7402,9 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BODY_STUNTED_018",
@@ -7729,7 +7494,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Broiler",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -7819,7 +7587,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SHELL_THIN_049",
@@ -7909,7 +7680,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_NARES_DISCH_087",
@@ -8009,7 +7782,9 @@
       "kategori": "Manajemen",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BODY_BLEED_015",
@@ -8098,7 +7873,9 @@
       "kategori": "Lingkungan",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_RESP_GASP_021",
@@ -8198,7 +7975,9 @@
       "kategori": "Toksikologi",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_NECK_LIMP_088",
@@ -8286,7 +8065,9 @@
       "kategori": "Toksikologi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_WEIGHT_LOSS_113",
@@ -8377,16 +8158,17 @@
       ],
       "rekomendasi_vaksin": [
         "Tidak ada vaksin yang tersedia. Ingestion toxin actually heavily suppresses the efficacy of standard vaccination programs"
- ]
+      ]
     },
     {
-
-"id": 1081,
+      "id": 1081,
       "nama": "Salt Toxicity (Toksisitas Garam)",
       "kategori": "Toksikologi",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -8474,7 +8256,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_COMB_PALE_024",
@@ -8565,7 +8350,10 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Semua umur"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)",
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -8654,7 +8442,10 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -8739,90 +8530,14 @@
       ]
     },
     {
-      "id": 1085,
-      "nama": "Spotty Liver Disease (Penyakit Hati Bercak)",
-      "kategori": "Bakteri",
-      "tingkat_keparahan": "Sedang",
-      "zoonosis": false,
-      "kelompok_umur": ["Petelur"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "nama": "Kematian mendadak",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_EGG_REDUCED_056",
-          "nama": "Telur jumlah berkurang",
-          "kategori": "telur",
-          "bagian_tubuh": "telur",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "nama": "Perilaku depresi/lesu",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_COMB_PALE_024",
-          "nama": "Jengger pucat",
-          "kategori": "jengger",
-          "bagian_tubuh": "jengger_pial",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Penyakit Hati Bercak (SLD) adalah penyakit bakteri muncul yang terutama menyerang ayam petelur free-range, disebabkan oleh Campylobacter hepaticus. Ini ditandai dengan penurunan produksi telur akut dan peningkatan mortalitas kawanan selama periode puncak produksi, dengan lesi patognomonik pada hati.",
-      "tanda_klinis": [
-        "Penurunan produksi telur mendadak, sering turun 10% hingga 25% dalam beberapa hari",
-        "Mortalitas sporadis akut pada ayam yang tampak sehat",
-        "Lesu ringan, jengger pucat, dan asupan pakan berkurang",
-        "Tanda klinis sering bertepatan dengan stresor lingkungan (misalnya, cuaca panas/lembab, perubahan diet)"
-      ],
-      "penularan": [
-        "Penularan fekal-oral adalah rute utama, sangat terkait dengan paparan tanah, feses, dan air terkontaminasi di lingkungan free-range",
-        "Rodensia dan burung liar dapat bertindak sebagai vektor"
-      ],
-      "diagnosis": [
-        "Nekropsi makroskopis sangat khas: hati membesar dan ditutupi bercak nekrotik milier abu-abu putih 1-2 mm (nekrosis hati fokal)",
-        "Kultur bakteri C. hepaticus dari hati atau empedu memerlukan kondisi mikroaerofilik spesifik dan inkubasi berkepanjangan",
-        "PCR jaringan hati atau empedu untuk konfirmasi cepat dan definitif"
-      ],
-      "pengobatan": [
-        "Antibiotik seperti klortetrasiklin, linkomisin, atau tilmikosin diberikan dalam air atau pakan sering memberikan perbaikan klinis cepat",
-        "Namun, rekrudensi (kambuh) penyakit sangat umum setelah terapi antibiotik berhenti"
-      ],
-      "pengendalian": [
-        "Memperbaiki manajemen range dan drainase untuk menghilangkan area basah",
-        "Biosekuriti ketat dan pengendalian rodensia",
-        "Optimalisasi kesehatan usus melalui asam organik atau probiotik untuk mengurangi kolonisasi patogen di sekum"
-      ],
-      "rekomendasi_vaksin": [
-        "Tidak ada vaksin komersial yang saat ini tersedia, meskipun bakterin eksperimental sedang dikembangkan"
-      ]
-    },
-    {
       "id": 1086,
       "nama": "Trichomoniasis (Trikomoniasis)",
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_MOUTH_LESION_085",
@@ -8911,7 +8626,9 @@
       "kategori": "Lingkungan",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_EYE_CLOSED_060",
@@ -9001,7 +8718,9 @@
       "kategori": "Toksikologi",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -9090,7 +8809,9 @@
       "kategori": "Toksikologi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_MOUTH_LESION_085",
@@ -9178,7 +8899,9 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler"],
+      "kelompok_umur": [
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BODY_STUNTED_018",
@@ -9252,104 +8975,15 @@
       ]
     },
     {
-      "id": 1091,
-      "nama": "Coronaviral Enteritis (Enteritis Koronavirus)",
-      "kategori": "Viral",
-      "tingkat_keparahan": "Tinggi",
-      "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_DROP_WATERY_038",
-          "nama": "Kotoran encer (diare)",
-          "kategori": "kotoran",
-          "bagian_tubuh": "kotoran",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "nama": "Perilaku depresi/lesu",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_COMB_PURPLE_026",
-          "nama": "Jengger ungu/merah gelap (sianosis)",
-          "kategori": "jengger",
-          "bagian_tubuh": "jengger_pial",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "nama": "Penurunan berat badan",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "nama": "Kematian mendadak",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Enteritis Koronavirus, secara historis dikenal sebagai Penyakit Bluecomb, adalah penyakit akut yang sangat infeksius terutama menyerang kalkun, disebabkan oleh Turkey Coronavirus (TCV). Ini menyebabkan enteritis parah, kehilangan asupan pakan dan air yang dramatis, dan dehidrasi mendalam, menyebabkan mortalitas signifikan pada poult muda dan kerugian ekonomi parah pada unggas yang lebih tua.",
-      "tanda_klinis": [
-        "Onset mendadak diare encer parah, berbusa, kehijauan hingga kecoklatan",
-        "Depresi mendalam, berkerumun, dan hampir berhenti total makan dan minum",
-        "Dehidrasi parah menyebabkan sianosis (penggelapan) kepala dan pial ('bluecomb')",
-        "Penurunan berat badan cepat dan emasiasi",
-        "Mortalitas bisa sangat tinggi pada poult muda karena kelaparan dan dehidrasi"
-      ],
-      "penularan": [
-        "Sangat menular melalui rute fekal-oral",
-        "Penularan mekanis oleh personel, peralatan, dan burung liar (yang dapat bertindak sebagai vektor mekanis)",
-        "Virus dilepaskan dalam jumlah besar dalam feses"
-      ],
-      "diagnosis": [
-        "Presentasi klinis diare eksplosif dan penolakan pakan mendadak pada kalkun",
-        "Nekropsi makroskopis mengungkapkan usus berdinding tipis, berisi gas dan cairan dengan isi encer",
-        "Mikroskop elektron langsung dari isi usus, atau pengujian RT-PCR spesifik untuk TCV",
-        "IFA atau ELISA pada serum konvalesen"
-      ],
-      "pengobatan": [
-        "Tidak ada pengobatan antivirus yang tersedia",
-        "Terapi suportif agresif termasuk pemanasan kandang dan penyediaan elektrolit dan vitamin dalam air untuk melawan dehidrasi parah",
-        "Antibiotik dapat digunakan untuk mengendalikan enteritis bakteri sekunder"
-      ],
-      "pengendalian": [
-        "Biosekuriti ketat dan pergerakan terkendali antar kandang kalkun",
-        "Depopulasi lengkap kawanan terinfeksi, diikuti pembersihan ketat, disinfeksi, dan waktu istirahat minimum 3-4 minggu",
-        "Pencegahan kontaminasi silang dari kawanan tua yang sembuh (yang mungkin melepaskan virus) ke poult muda"
-      ],
-      "rekomendasi_vaksin": [
-        "Tidak ada vaksin komersial efektif yang saat ini tersedia. Pengendalian sepenuhnya bergantung pada biosekuriti ketat dan pemberantasan"
-      ]
-    },
-    {
       "id": 1092,
       "nama": "Viral Arthritis (Artritis Viral)",
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Broiler",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_SWELL_081",
@@ -9440,7 +9074,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Broiler"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)",
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_BLOOD_032",
@@ -9530,7 +9167,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_GAIT_ATAXIA_075",
@@ -9620,7 +9259,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_COMB_PALE_024",
@@ -9708,7 +9349,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_COMB_PALE_024",
@@ -9797,7 +9440,10 @@
       "kategori": "Lingkungan",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Broiler",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_FOOT_LESION_072",
@@ -9886,7 +9532,10 @@
       "kategori": "Toksikologi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Anak umur sehari (0-1 hari)"],
+      "kelompok_umur": [
+        "Broiler",
+        "Anak umur sehari (0-1 hari)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_UNDIG_037",
@@ -9976,7 +9625,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WORM_040",
@@ -10064,7 +9715,9 @@
       "kategori": "Parasit",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -10146,97 +9799,6 @@
       ],
       "rekomendasi_vaksin": [
         "Tidak ada vaksin yang tersedia"
- ]
-    },
-    {
-"id": 1101,
-      "nama": "Mycoplasma meleagridis Infection (Infeksi Mycoplasma meleagridis)",
-      "kategori": "Bakteri",
-      "tingkat_keparahan": "Sedang",
-      "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_RESP_GASP_021",
-          "nama": "Pernapasan terengah-engah, megap-megap, sulit",
-          "kategori": "pernapasan",
-          "bagian_tubuh": "pernapasan",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_LEG_DEFORM_080",
-          "nama": "Kaki cacat",
-          "kategori": "kaki",
-          "bagian_tubuh": "kaki",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BODY_STUNTED_018",
-          "nama": "Tubuh kerdil atau pertumbuhan berkurang",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_EGG_HATCH_052",
-          "nama": "Telur daya tetas menurun",
-          "kategori": "telur",
-          "bagian_tubuh": "telur",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "nama": "Perilaku lemah",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Mycoplasma meleagridis (MM) adalah infeksi bakteri yang ditularkan melalui telur yang spesifik untuk kalkun. Sementara M. gallisepticum menyerang banyak spesies, MM secara ketat menargetkan kalkun, menyebabkan airsacculitis parah pada poult yang baru menetas, deformitas rangka (sindrom TS-65), dan penurunan daya tetas masif.",
-      "tanda_klinis": [
-        "Gangguan pernapasan, terengah-engah, dan bersin ringan pada poult muda",
-        "Pertumbuhan kerdil, pertumbuhan bulu buruk, dan kondisi tidak sehat umum",
-        "Insiden tinggi deformitas rangka, khususnya pembengkokan tarsometatarsus dan masalah vertebra servikal",
-        "Penurunan signifikan daya tetas dan mortalitas embrio tahap akhir",
-        "Asimptomatik pada kawanan breeder dewasa, selain dampak reproduktif"
-      ],
-      "penularan": [
-        "Penularan vertikal dari induk breeder terinfeksi ke telur adalah mode utama penyebaran penyakit",
-        "Penularan venereal selama kawin alami atau inseminasi buatan dengan semen terkontaminasi",
-        "Penularan horizontal melalui aerosol pernapasan di penetasan atau brooder"
-      ],
-      "diagnosis": [
-        "Nekropsi makroskopis poult yang terkena atau embrio mati dalam cangkang mengungkapkan airsacculitis keruh parah dengan eksudat kaseosa",
-        "Serologi (RPA, HI, atau ELISA) untuk memantau status kawanan",
-        "Pengujian PCR swab trakea atau kloaka untuk konfirmasi cepat dan spesifik",
-        "Kultur pada media Mycoplasma khusus"
-      ],
-      "pengobatan": [
-        "Pengobatan antibiotik strategis (misalnya, tylosin, tiamulin) dapat mengurangi tanda klinis dan lesi pernapasan pada poult tetapi tidak akan menghilangkan status pembawa",
-        "Pengobatan kawanan breeder digunakan untuk sementara mengurangi tingkat penularan telur tetapi tidak mencapai pemberantasan"
-      ],
-      "pengendalian": [
-        "Standar emas adalah pemberantasan lengkap melalui pembentukan dan pemeliharaan kawanan breeder primer bebas MM",
-        "Pencelupan telur atau pemanasan (perlakuan perbedaan suhu) dikombinasikan dengan antibiotik dapat digunakan untuk menghilangkan patogen dari telur tetas",
-        "Biosekuriti ketat untuk mencegah masuknya lateral"
-      ],
-      "rekomendasi_vaksin": [
-        "Tidak ada vaksin komersial yang tersedia. Pengendalian sepenuhnya bergantung pada program pemberantasan nasional dan membeli poult dari sumber bersertifikat bebas MM"
       ]
     },
     {
@@ -10245,7 +9807,9 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -10336,7 +9900,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -10420,101 +9987,15 @@
       ]
     },
     {
-      "id": 1104,
-      "nama": "Turkey Viral Hepatitis (Hepatitis Viral Kalkun)",
-      "kategori": "Viral",
-      "tingkat_keparahan": "Sedang",
-      "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "nama": "Kematian mendadak",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "nama": "Perilaku depresi/lesu",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "nama": "Perilaku lemah",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "nama": "Penurunan berat badan",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_DROP_WATERY_038",
-          "nama": "Kotoran encer (diare)",
-          "kategori": "kotoran",
-          "bagian_tubuh": "kotoran",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Hepatitis Viral Kalkun adalah penyakit virus yang sangat menular, subklinis hingga akut ringan yang spesifik untuk poult kalkun, disebabkan oleh picornavirus yang berbeda. Meskipun mortalitas biasanya rendah, ini menyebabkan nekrosis hati fokal dan dapat sangat mengganggu kinerja awal dan keseragaman kawanan.",
-      "tanda_klinis": [
-        "Sering subklinis, dengan infeksi berlalu tanpa terdeteksi pada kawanan yang kuat",
-        "Depresi ringan hingga parah, lesu, dan berkerumun pada poult yang terkena",
-        "Kadang-kadang diare encer dan kematian mendadak pada persentase kecil kawanan",
-        "Konsumsi pakan menurun dan tingkat pertumbuhan tidak merata"
-      ],
-      "penularan": [
-        "Penularan horizontal melalui rute fekal-oral adalah metode penyebaran utama",
-        "Virus sangat stabil di lingkungan, bertahan dalam feses dan litter untuk waktu yang lama",
-        "Penularan mekanis melalui peralatan dan personel terkontaminasi"
-      ],
-      "diagnosis": [
-        "Nekropsi makroskopis mengungkapkan hati membesar dihiasi banyak fokus nekrotik abu-abu keputihan, dan pankreas membesar dan pucat",
-        "Histopatologi mengkonfirmasi nekrosis fokal dan infiltrasi mononuklear di hati",
-        "Isolasi virus dari jaringan hati melalui inokulasi kantung kuning telur dalam telur kalkun berembrio",
-        "Pengujian PCR untuk identifikasi virus spesifik"
-      ],
-      "pengobatan": [
-        "Tidak ada pengobatan antivirus khusus yang tersedia",
-        "Perawatan suportif termasuk vitamin dan nutrisi berkualitas tinggi untuk mengurangi dampak pada pertumbuhan awal"
-      ],
-      "pengendalian": [
-        "Siklus produksi all-in/all-out yang ketat",
-        "Pembersihan menyeluruh, disinfeksi kimia, dan waktu istirahat yang diperpanjang dari fasilitas brooding untuk mengurangi beban virus lingkungan"
-      ],
-      "rekomendasi_vaksin": [
-        "Tidak ada vaksin komersial yang saat ini tersedia atau secara rutin diperlukan untuk Hepatitis Viral Kalkun"
-      ]
-    },
-    {
       "id": 1105,
       "nama": "Quail Bronchitis (Bronkitis Puyuh)",
       "kategori": "Viral",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SOUND_SNEEZE_101",
@@ -10606,7 +10087,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Anak umur sehari (0-1 hari)", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Anak umur sehari (0-1 hari)",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -10696,7 +10180,10 @@
       "kategori": "Viral",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_EGG_REDUCED_056",
@@ -10781,102 +10268,14 @@
       ]
     },
     {
-      "id": 1108,
-      "nama": "Turkey Meningoencephalitis (Meningoensefalitis Kalkun)",
-      "kategori": "Viral",
-      "tingkat_keparahan": "Tinggi",
-      "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)", "Semua umur"],
-      "gejala_lengkap": [
-        {
-          "id": "SYM_GAIT_ATAXIA_075",
-          "nama": "Gaya berjalan tidak terkoordinasi (ataksia)",
-          "kategori": "neurologis",
-          "bagian_tubuh": "kaki",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_LEG_PARALYZE_082",
-          "nama": "Kaki lumpuh",
-          "kategori": "neurologis",
-          "bagian_tubuh": "kaki",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_NECK_WRY_091",
-          "nama": "Leher kaku (tortikolis, terpuntir, miring)",
-          "kategori": "neurologis",
-          "bagian_tubuh": "leher",
-          "bobot": 0.85,
-          "signifikansi": "primer",
-          "spesifisitas": "tinggi",
-          "urgensi": "tinggi"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "nama": "Perilaku depresi/lesu",
-          "kategori": "perilaku",
-          "bagian_tubuh": "perilaku",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        },
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "nama": "Kematian mendadak",
-          "kategori": "umum",
-          "bagian_tubuh": "sistemik",
-          "bobot": 0.55,
-          "signifikansi": "sekunder",
-          "spesifisitas": "sedang",
-          "urgensi": "sedang"
-        }
-      ],
-      "deskripsi": "Meningoensefalitis Kalkun adalah penyakit virus parah yang ditularkan oleh nyamuk pada kalkun yang disebabkan oleh Israel Turkey Meningoencephalitis Virus (ITV), sebuah flavivirus. Ini ditandai dengan degradasi neurologis progresif, kelumpuhan parah, dan mortalitas tinggi, terutama menyerang kalkun yang dipelihara di daerah endemik (terutama Timur Tengah dan sebagian Afrika).",
-      "tanda_klinis": [
-        "Inkoordinasi progresif (ataksia) menyebabkan sempoyongan parah",
-        "Sayap terkulai dan kelumpuhan progresif pada kaki",
-        "Tortikolis (leher kaku) dan tremor kepala parah",
-        "Lesu mendalam, anoreksia, dan penurunan produksi telur",
-        "Mortalitas tinggi pada kawanan tidak terlindungi, terutama selama musim puncak nyamuk"
-      ],
-      "penularan": [
-        "Ditularkan secara eksklusif melalui gigitan nyamuk terinfeksi (terutama spesies Culex)",
-        "Tidak menular melalui kontak langsung antar unggas"
-      ],
-      "diagnosis": [
-        "Presentasi klinis kelumpuhan parah dan tanda neurologis pada kalkun selama musim nyamuk",
-        "Histopatologi mengungkapkan meningoensefalitis non-supuratif dengan cuffing perivaskular di otak dan sumsum tulang belakang",
-        "Isolasi virus dari jaringan otak atau deteksi RT-PCR flavivirus",
-        "Serologi (HI atau ELISA) untuk konfirmasi kawanan"
-      ],
-      "pengobatan": [
-        "Tidak ada pengobatan antivirus khusus yang tersedia",
-        "Perawatan suportif umumnya tidak efektif karena sifat progresif kerusakan neurologis"
-      ],
-      "pengendalian": [
-        "Program kontrol vektor ketat bertujuan mengurangi populasi nyamuk di sekitar peternakan kalkun",
-        "Menghilangkan genangan air dan menerapkan larvasida dan dewaisida yang sesuai",
-        "Pemasangan kasa di kandang jika memungkinkan"
-      ],
-      "rekomendasi_vaksin": [
-        "Vaksin hidup yang dilemahkan sangat efektif dan secara rutin diberikan di daerah endemik untuk mencegah wabah"
-      ]
-    },
-    {
       "id": 1109,
       "nama": "Avian Spirochetosis (Spiroketosis Unggas)",
       "kategori": "Bakteri",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_COMB_PALE_024",
@@ -10966,7 +10365,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Sedang",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -11056,7 +10457,9 @@
       "kategori": "Bakteri",
       "tingkat_keparahan": "Rendah",
       "zoonosis": true,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_WATERY_038",
@@ -11134,7 +10537,9 @@
       "kategori": "Manajemen",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BEH_LETHARGIC_003",
@@ -11221,7 +10626,10 @@
       "kategori": "Toksikologi",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Broiler",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_GAIT_ATAXIA_075",
@@ -11309,7 +10717,9 @@
       "kategori": "Toksikologi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_DROP_DARK_033",
@@ -11398,7 +10808,10 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Breeder"],
+      "kelompok_umur": [
+        "Broiler",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_WING_MASS_115",
@@ -11452,7 +10865,9 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler"],
+      "kelompok_umur": [
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_DEFORM_080",
@@ -11539,7 +10954,9 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler"],
+      "kelompok_umur": [
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -11627,7 +11044,9 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -11704,7 +11123,9 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler"],
+      "kelompok_umur": [
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_PARALYZE_082",
@@ -11779,7 +11200,9 @@
       "kategori": "Metabolik",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler"],
+      "kelompok_umur": [
+        "Broiler"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_LEG_DEFORM_080",
@@ -11846,15 +11269,18 @@
       ],
       "rekomendasi_vaksin": [
         "Tidak berlaku"
- ]
+      ]
     },
     {
-"id": 1121,
+      "id": 1121,
       "nama": "Keel Bone Cyst (Kista Tulang Dada)",
       "kategori": "Lingkungan",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Broiler", "Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Broiler",
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_BODY_MASS_016",
@@ -11930,7 +11356,9 @@
       "kategori": "Kardiovaskular",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -12007,7 +11435,9 @@
       "kategori": "Kardiovaskular",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Masa pertumbuhan (2-8 minggu)"],
+      "kelompok_umur": [
+        "Masa pertumbuhan (2-8 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_SUDDEN_DEATH_104",
@@ -12072,7 +11502,9 @@
       "kategori": "Pencernaan",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Semua umur"],
+      "kelompok_umur": [
+        "Semua umur"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_CROP_ENLARGE_030",
@@ -12160,7 +11592,10 @@
       "kategori": "Pencernaan",
       "tingkat_keparahan": "Rendah",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_VENT_PASTY_109",
@@ -12249,7 +11684,11 @@
       "kategori": "Reproduksi",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder", "Dara (9-20 minggu)"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder",
+        "Dara (9-20 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_EGG_NOTLAY_055",
@@ -12328,7 +11767,10 @@
       "kategori": "Reproduksi",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_ABD_ENLARGED_001",
@@ -12418,7 +11860,11 @@
       "kategori": "Reproduksi",
       "tingkat_keparahan": "Tinggi",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder", "Dara (9-20 minggu)"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder",
+        "Dara (9-20 minggu)"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_VENT_PROLAPSE_110",
@@ -12497,7 +11943,10 @@
       "kategori": "Reproduksi",
       "tingkat_keparahan": "Sedang",
       "zoonosis": false,
-      "kelompok_umur": ["Petelur", "Breeder"],
+      "kelompok_umur": [
+        "Petelur",
+        "Breeder"
+      ],
       "gejala_lengkap": [
         {
           "id": "SYM_EGG_REDUCED_056",
@@ -12578,7 +12027,7 @@
       ],
       "rekomendasi_vaksin": [
         "Memvaksinasi terhadap pemicu pernapasan primer (IBV, NDV, MG) dan menggunakan bakterin E. coli pada kawanan breeder untuk mengurangi kerentanan sistemik"
- ]
+      ]
     }
   ]
 }

@@ -4,7 +4,7 @@
     "last_updated": "2026-03-10",
     "dataset_name": "Cơ sở dữ liệu mở rộng về bệnh ở gia cầm",
     "description": "Cơ sở dữ liệu toàn diện về bệnh ở gia cầm (gà, gà tây, vịt, v.v.) bao gồm thông tin chi tiết về các bệnh do virus, vi khuẩn, ký sinh trùng, nấm, dinh dưỡng, chuyển hóa, tim mạch, sinh sản, độc chất, môi trường và rối loạn quản lý.",
-    "total_diseases": 129,
+    "total_diseases": 120,
     "categories": {
       "Viral": 18,
       "Bacterial": 29,
@@ -2592,7 +2592,7 @@
       ]
     },
     {
-"id": 1025,
+      "id": 1025,
       "name": "Nhiễm khuẩn Ornithobacterium (ORT)",
       "category": "Bacterial",
       "severity": "Trung bình",
@@ -3697,199 +3697,6 @@
       ]
     },
     {
-      "id": 1038,
-      "name": "Bệnh Cryptosporidiosis",
-      "category": "Parasitic",
-      "severity": "Trung bình",
-      "zoonotic": true,
-      "ageGroups": [
-        "Gà giò (2-8 tuần tuổi)",
-        "Mọi lứa tuổi"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_DROP_WATERY_038",
-          "name": "Phân, Nhiều nước (tiêu chảy)",
-          "category": "phân",
-          "bodyPart": "phân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BODY_STUNTED_018",
-          "name": "Cơ thể, Còi cọc hoặc giảm tăng trưởng",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "name": "Hành vi, Suy nhược/ủ rũ",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "name": "Sụt cân",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "name": "Hành vi, Yếu ớt",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_FEATH_RUFFLE_071",
-          "name": "Lông, Xù",
-          "category": "lông",
-          "bodyPart": "da_lông",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Cryptosporidiosis ở gia cầm là một bệnh truyền nhiễm do các động vật nguyên sinh nhỏ thuộc chi Cryptosporidium gây ra, chủ yếu là C. baileyi (ảnh hưởng đến đường hô hấp và tiêu hóa) và C. meleagridis (chủ yếu là đường ruột). Nó là một mầm bệnh cơ hội gây bệnh tật đáng kể, đặc biệt ở gia cầm có hệ thống miễn dịch bị tổn thương.",
-      "clinicalSigns": [
-        "Dạng ruột: Tiêu chảy nhiều nước dai dẳng, còi cọc rõ rệt và hệ số chuyển đổi thức ăn kém",
-        "Dạng hô hấp (C. baileyi): Hắt hơi, ho, khó thở và sưng xoang (giống viêm phế quản do virus)",
-        "Thờ ơ nghiêm trọng, trầm cảm và lông xù",
-        "Tăng tỷ lệ tử vong nếu có biến chứng do nhiễm trùng vi khuẩn thứ phát (ví dụ: E. coli)"
-      ],
-      "transmission": [
-        "Đường phân-miệng qua ăn phải các noãn nang có vỏ dày, nhiễm bệnh từ chất độn chuồng, thức ăn hoặc nước bị ô nhiễm",
-        "Hít phải noãn nang dạng khí dung lây nhiễm trực tiếp vào đường hô hấp",
-        "Noãn nang hoàn toàn có khả năng lây nhiễm ngay khi bài tiết và có khả năng kháng cao với chất khử trùng hóa học tiêu chuẩn"
-      ],
-      "diagnosis": [
-        "Kiểm tra bằng kính hiển vi phết phân hoặc vết cạo niêm mạc sử dụng nhuộm kháng axit chuyên dụng để hình dung các noãn nang nhỏ màu đỏ",
-        "Xét nghiệm miễn dịch huỳnh quang (IFA) hoặc ELISA trên mẫu phân",
-        "Mô bệnh học cho thấy các sinh vật hình cầu gắn vào rìa đỉnh của các tế bào biểu mô trong khí quản, túi Fabricius hoặc ruột"
-      ],
-      "treatment": [
-        "Không có thuốc chống cryptosporidium cụ thể, hiệu quả nào được phê duyệt hoặc thành công cao ở gia cầm.",
-        "Điều trị tập trung hoàn toàn vào chăm sóc hỗ trợ, tối ưu hóa môi trường và điều trị nhiễm trùng vi khuẩn thứ phát đồng thời."
-      ],
-      "control": [
-        "Thực hiện các biện pháp vệ sinh và an toàn sinh học cực kỳ nghiêm ngặt",
-        "Làm sạch cơ học kỹ lưỡng chuồng trại, sau đó kéo dài thời gian cách ly và làm khô",
-        "Khử trùng hóa học yêu cầu các chất cụ thể như dung dịch amoniac 5-10%, formalin hoặc hydrogen peroxide để vô hiệu hóa noãn nang hiệu quả"
-      ],
-      "vaccineRecommendations": [
-        "Không có vaccine thương mại cho Cryptosporidium ở gia cầm."
-      ]
-    },
-    {
-      "id": 1039,
-      "name": "Bệnh Giardiasis",
-      "category": "Parasitic",
-      "severity": "Thấp",
-      "zoonotic": true,
-      "ageGroups": [
-        "Mọi lứa tuổi"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_DROP_WATERY_038",
-          "name": "Phân, Nhiều nước (tiêu chảy)",
-          "category": "phân",
-          "bodyPart": "phân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "name": "Sụt cân",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_FEATH_DULL_067",
-          "name": "Lông, Xỉn màu và/hoặc gãy",
-          "category": "lông",
-          "bodyPart": "da_lông",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "name": "Hành vi, Yếu ớt",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_BODY_STUNTED_018",
-          "name": "Cơ thể, Còi cọc hoặc giảm tăng trưởng",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Giardiasis là một bệnh nhiễm trùng đường ruột do động vật nguyên sinh có lông roi Giardia spp. gây ra. Mặc dù tương đối hiếm khi là bệnh lâm sàng chính ở gia cầm thương phẩm, nó thỉnh thoảng ảnh hưởng đến đàn gia cầm sân sau hoặc gia cầm cảnh, bám vào ruột non và gây kém hấp thu và rối loạn tiêu hóa mãn tính.",
-      "clinicalSigns": [
-        "Tiêu chảy nhiều nước dai dẳng, có mùi hôi",
-        "Sụt cân mãn tính và thể trạng kém",
-        "Còi cọc ở gia cầm non",
-        "Bộ lông xỉn màu, không được chăm sóc và yếu chung",
-        "Thường không có triệu chứng ở gia cầm trưởng thành, có hệ miễn dịch bình thường"
-      ],
-      "transmission": [
-        "Đường phân-miệng trực tiếp qua ăn phải nang nhiễm bệnh từ nước uống, vũng nước hoặc thức ăn ướt bị ô nhiễm",
-        "Nang có thể tồn tại trong thời gian dài trong điều kiện môi trường mát mẻ, ẩm ướt"
-      ],
-      "diagnosis": [
-        "Kiểm tra bằng kính hiển vi trực tiếp phết phân tươi, ấm để hình dung các thể tư dưỡng có lông roi di động (chuyển động 'lá rụng')",
-        "Phương pháp phù nổi phân sử dụng kẽm sulfat để xác định nang đặc trưng",
-        "Xét nghiệm ELISA hoặc IFA thương mại được thiết kế để phát hiện kháng nguyên Giardia trong phân"
-      ],
-      "treatment": [
-        "Sử dụng thuốc kháng nguyên sinh như metronidazole, ronidazole hoặc fenbendazole",
-        "Lưu ý: Việc sử dụng metronidazole và các nitroimidazole liên quan bị nghiêm cấm ở gia cầm lấy thịt ở nhiều khu vực pháp lý."
-      ],
-      "control": [
-        "Cung cấp hệ thống nước uống sạch, được vệ sinh và khép kín",
-        "Ngăn chặn đàn gia cầm tiếp cận nước ngầm tù đọng hoặc vũng nước",
-        "Vệ sinh thường xuyên máng ăn và máng uống, và duy trì điều kiện chất độn chuồng khô ráo"
-      ],
-      "vaccineRecommendations": [
-        "Không có vaccine cho Giardiasis ở gia cầm."
-      ]
-    },
-    {
       "id": 1040,
       "name": "Bệnh Baylisascariasis",
       "category": "Parasitic",
@@ -3988,10 +3795,10 @@
       ],
       "vaccineRecommendations": [
         "Không có vaccine cho Baylisascariasis."
- ]
+      ]
     },
     {
- "id": 1041,
+      "id": 1041,
       "name": "Bệnh Toxoplasmosis",
       "category": "Parasitic",
       "severity": "Trung bình",
@@ -4500,117 +4307,6 @@
       ]
     },
     {
-      "id": 1047,
-      "name": "Nhiễm mạt gà phương Bắc",
-      "category": "Ectoparasitic",
-      "severity": "Trung bình",
-      "zoonotic": false,
-      "ageGroups": [
-        "Mọi lứa tuổi"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_FEATH_INSECT_069",
-          "name": "Lông, Có côn trùng hoặc trứng nhìn thấy được",
-          "category": "lông",
-          "bodyPart": "da_lông",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_SKIN_RED_095",
-          "name": "Da, Đỏ",
-          "category": "da",
-          "bodyPart": "da_lông",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_SCRATCH_011",
-          "name": "Hành vi, Gãi (quá mức)",
-          "category": "hành vi",
-          "bodyPart": "da_lông",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_COMB_PALE_024",
-          "name": "Mào, Nhợt nhạt",
-          "category": "mào",
-          "bodyPart": "mào_tích",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_EGG_REDUCED_056",
-          "name": "Trứng, Giảm số lượng",
-          "category": "trứng",
-          "bodyPart": "trứng",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "name": "Sụt cân",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_FEATH_DULL_067",
-          "name": "Lông, Xỉn màu và/hoặc gãy",
-          "category": "lông",
-          "bodyPart": "da_lông",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Mạt gà phương Bắc (Ornithonyssus sylviarum) là một trong những loài ký sinh trùng ngoài hút máu có sức tàn phá lớn nhất đối với gia cầm. Không giống như mạt đỏ, nó dành toàn bộ vòng đời trên vật chủ. Sự xâm nhập nặng gây thiếu máu nghiêm trọng, sụt giảm sản lượng trứng đáng kể và ảnh hưởng đáng kể đến phúc lợi.",
-      "clinicalSigns": [
-        "Lông xung quanh lỗ huyệt bị rối, bẩn, sẫm màu do tích tụ phân mạt và máu khô",
-        "Mạt nhỏ màu đen, đỏ hoặc xám bò rõ ràng trên da khi rẽ lông",
-        "Da quanh lỗ huyệt sẫm màu, dày lên, đóng vảy và rất kích ứng",
-        "Mào và tích nhợt nhạt cho thấy thiếu máu nghiêm trọng",
-        "Gãi nhiều, bồn chồn, sụt cân và giảm sản lượng trứng"
-      ],
-      "transmission": [
-        "Lây truyền trực tiếp nhanh chóng từ gia cầm này sang gia cầm khác",
-        "Lây truyền cơ học qua nhân viên xử lý gia cầm, thiết bị bị ô nhiễm và khay trứng",
-        "Mạt có thể sống ngoài vật chủ trong môi trường tới 2-3 tuần trong điều kiện mát mẻ, ẩm ướt"
-      ],
-      "diagnosis": [
-        "Kiểm tra trực quan bằng cách rẽ lông quanh lỗ huyệt để thấy mạt di chuyển nhanh và tổn thương da đặc trưng",
-        "Công nhân có thể báo cáo mạt bò trên tay và cánh tay sau khi xử lý gia cầm hoặc trứng"
-      ],
-      "treatment": [
-        "Bôi thuốc diệt mạt được phê duyệt (ví dụ: permethrin, carbaryl, spinosad) trực tiếp lên gia cầm bằng bình xịt áp lực cao, đảm bảo hóa chất thấm qua lông để đến da quanh lỗ huyệt",
-        "Rắc bột đất tảo cát lên gia cầm và khu vực làm tổ"
-      ],
-      "control": [
-        "Ngăn chặn chim hoang dã (ví dụ: chim sẻ, bồ câu) xâm nhập vào chuồng nuôi, vì chúng là vật mang mầm bệnh chính",
-        "An toàn sinh học nghiêm ngặt liên quan đến việc di chuyển thiết bị, khay và nhân viên giữa các chuồng",
-        "Kiểm tra đàn định kỳ, theo lịch trình để phát hiện sự xâm nhập trước khi chúng lây lan rộng"
-      ],
-      "vaccineRecommendations": [
-        "Không có vaccine thương mại cho mạt gà phương Bắc."
-      ]
-    },
-    {
       "id": 1048,
       "name": "Nhiễm mạt gà nhiệt đới",
       "category": "Ectoparasitic",
@@ -4994,10 +4690,10 @@
       ],
       "vaccineRecommendations": [
         "Không có vaccine cho bệnh giòi."
-]
+      ]
     },
     {
- "id": 1052,
+      "id": 1052,
       "name": "Bệnh còi xương (Rickets)",
       "category": "Nutritional",
       "severity": "Trung bình",
@@ -5932,10 +5628,10 @@
       ],
       "vaccineRecommendations": [
         "Không có vaccine."
-  ]
+      ]
     },
     {
- "id": 1062,
+      "id": 1062,
       "name": "Thiếu Axit Folic",
       "category": "Nutritional",
       "severity": "Trung bình",
@@ -6832,10 +6528,10 @@
       ],
       "vaccineRecommendations": [
         "Không có vaccine cho hội chứng chuyển hóa này."
- ]
+      ]
     },
     {
-"id": 1072,
+      "id": 1072,
       "name": "Viêm rôn (Nhiễm trùng túi noãn hoàng) - Omphalitis",
       "category": "Bacterial",
       "severity": "Cao",
@@ -7778,10 +7474,10 @@
       ],
       "vaccineRecommendations": [
         "Không áp dụng."
-]
+      ]
     },
     {
-"id": 1082,
+      "id": 1082,
       "name": "Bệnh thiếu máu truyền nhiễm ở gà (CAV)",
       "category": "Viral",
       "severity": "Cao",
@@ -8057,86 +7753,6 @@
       ],
       "vaccineRecommendations": [
         "Hiện không có vaccine thương mại cho AIS."
-      ]
-    },
-    {
-      "id": 1085,
-      "name": "Bệnh gan lốm đốm (Spotty Liver Disease)",
-      "category": "Bacterial",
-      "severity": "Trung bình",
-      "zoonotic": false,
-      "ageGroups": [
-        "Gà đẻ"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "name": "Chết đột ngột",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_EGG_REDUCED_056",
-          "name": "Trứng, Giảm số lượng",
-          "category": "trứng",
-          "bodyPart": "trứng",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "name": "Hành vi, Suy nhược/ủ rũ",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_COMB_PALE_024",
-          "name": "Mào, Nhợt nhạt",
-          "category": "mào",
-          "bodyPart": "mào_tích",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Bệnh gan lốm đốm (SLD) là một bệnh do vi khuẩn mới nổi, chủ yếu ảnh hưởng đến gà đẻ thả vườn, do Campylobacter hepaticus gây ra. Đặc trưng bởi sự sụt giảm sản lượng trứng cấp tính và tăng tỷ lệ tử vong đàn trong giai đoạn đẻ cao điểm, với các tổn thương đặc trưng trên gan.",
-      "clinicalSigns": [
-        "Sụt giảm sản lượng trứng đột ngột, thường giảm 10% đến 25% trong vòng vài ngày",
-        "Tử vong lẻ tẻ, cấp tính ở những con mái có vẻ ngoài khỏe mạnh",
-        "Thờ ơ nhẹ, mào nhợt nhạt và giảm lượng thức ăn ăn vào",
-        "Các dấu hiệu lâm sàng thường trùng với các tác nhân gây căng thẳng môi trường (ví dụ: thời tiết nóng ẩm, thay đổi chế độ ăn)"
-      ],
-      "transmission": [
-        "Lây truyền qua đường phân-miệng là con đường chính, liên quan nhiều đến việc tiếp xúc với đất, phân và nước bị ô nhiễm trong môi trường thả vườn",
-        "Động vật gặm nhấm và chim hoang dã có thể là vật trung gian truyền bệnh"
-      ],
-      "diagnosis": [
-        "Mổ khám rất đặc trưng: gan to và có nhiều đốm hoại tử nhỏ màu trắng xám, kích thước 1-2 mm (hoại tử gan khu trú)",
-        "Nuôi cấy vi khuẩn C. hepaticus từ gan hoặc mật yêu cầu điều kiện vi hiếu khí cụ thể và ủ kéo dài",
-        "PCR mô gan hoặc mật để xác nhận nhanh và chính xác"
-      ],
-      "treatment": [
-        "Kháng sinh như chlortetracycline, lincomycin hoặc tilmicosin sử dụng trong nước hoặc thức ăn thường cải thiện lâm sàng nhanh chóng.",
-        "Tuy nhiên, bệnh tái phát rất phổ biến sau khi ngừng điều trị bằng kháng sinh."
-      ],
-      "control": [
-        "Cải thiện quản lý bãi chăn và thoát nước để loại bỏ các khu vực ẩm ướt",
-        "An toàn sinh học nghiêm ngặt và kiểm soát động vật gặm nhấm",
-        "Tối ưu hóa sức khỏe đường ruột thông qua axit hữu cơ hoặc probiotic để giảm sự xâm chiếm của mầm bệnh trong manh tràng"
-      ],
-      "vaccineRecommendations": [
-        "Hiện không có vaccine thương mại, mặc dù vaccin tự thân thử nghiệm đang được phát triển."
       ]
     },
     {
@@ -8585,101 +8201,7 @@
       ]
     },
     {
-      "id": 1091,
-      "name": "Viêm ruột do Coronavirus (Bệnh mào xanh - Bluecomb Disease)",
-      "category": "Viral",
-      "severity": "Cao",
-      "zoonotic": false,
-      "ageGroups": [
-        "Mọi lứa tuổi"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_DROP_WATERY_038",
-          "name": "Phân, Nhiều nước (tiêu chảy)",
-          "category": "phân",
-          "bodyPart": "phân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "name": "Hành vi, Suy nhược/ủ rũ",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_COMB_PURPLE_026",
-          "name": "Mào, tím/đỏ sẫm (tím tái)",
-          "category": "mào",
-          "bodyPart": "mào_tích",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "name": "Sụt cân",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "name": "Chết đột ngột",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Viêm ruột do Coronavirus, trong lịch sử được gọi là Bệnh mào xanh, là một bệnh cấp tính, rất dễ lây lan, chủ yếu ảnh hưởng đến gà tây, do Turkey Coronavirus (TCV) gây ra. Nó dẫn đến viêm ruột nghiêm trọng, mất thức ăn và nước uống đáng kể và mất nước sâu sắc, gây tử vong đáng kể ở gà tây non và thiệt hại kinh tế nghiêm trọng ở gia cầm lớn tuổi.",
-      "clinicalSigns": [
-        "Khởi phát đột ngột tiêu chảy nhiều nước, có bọt, màu xanh lục đến nâu",
-        "Trầm cảm sâu sắc, túm tụm và gần như ngừng hoàn toàn ăn và uống",
-        "Mất nước nghiêm trọng dẫn đến tím tái (sẫm màu) đầu và tích ('mào xanh')",
-        "Sụt cân nhanh chóng và suy mòn",
-        "Tỷ lệ tử vong có thể rất cao ở gà tây non do đói và mất nước"
-      ],
-      "transmission": [
-        "Rất dễ lây lan qua đường phân-miệng",
-        "Lây truyền cơ học qua nhân viên, thiết bị và chim hoang dã (có thể là vật trung gian cơ học)",
-        "Virus được thải ra với số lượng lớn trong phân"
-      ],
-      "diagnosis": [
-        "Biểu hiện lâm sàng của tiêu chảy bùng nổ và từ chối ăn đột ngột ở gà tây",
-        "Mổ khám cho thấy ruột thành mỏng, chứa đầy khí và dịch với chất lỏng bên trong",
-        "Kính hiển vi điện tử trực tiếp của chất chứa ruột, hoặc xét nghiệm RT-PCR cụ thể cho TCV",
-        "IFA hoặc ELISA trên huyết thanh đang dưỡng bệnh"
-      ],
-      "treatment": [
-        "Không có điều trị kháng virus.",
-        "Liệu pháp hỗ trợ tích cực bao gồm sưởi ấm chuồng và cung cấp chất điện giải và vitamin trong nước để chống mất nước nghiêm trọng.",
-        "Có thể sử dụng kháng sinh để kiểm soát viêm ruột do vi khuẩn thứ phát."
-      ],
-      "control": [
-        "An toàn sinh học nghiêm ngặt và kiểm soát di chuyển giữa các chuồng gà tây",
-        "Tiêu hủy hoàn toàn đàn bị nhiễm bệnh, sau đó làm sạch, khử trùng và cách ly tối thiểu 3-4 tuần",
-        "Ngăn ngừa lây nhiễm chéo từ đàn già đã khỏi bệnh (có thể thải virus) sang gà tây non"
-      ],
-      "vaccineRecommendations": [
-        "Hiện không có vaccine thương mại hiệu quả. Kiểm soát hoàn toàn dựa vào an toàn sinh học nghiêm ngặt và loại trừ."
- ]
-    },
-    {
- "id": 1092,
+      "id": 1092,
       "name": "Viêm khớp do virus (Reovirus)",
       "category": "Viral",
       "severity": "Trung bình",
@@ -9506,101 +9028,7 @@
       ]
     },
     {
-      "id": 1101,
-      "name": "Nhiễm Mycoplasma meleagridis",
-      "category": "Bacterial",
-      "severity": "Trung bình",
-      "zoonotic": false,
-      "ageGroups": [
-        "Gà con mới nở (0-1 ngày tuổi)",
-        "Gà giò (2-8 tuần tuổi)"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_RESP_GASP_021",
-          "name": "Thở, há mồm, khó khăn",
-          "category": "hô hấp",
-          "bodyPart": "hô hấp",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_LEG_DEFORM_080",
-          "name": "Chân, Biến dạng",
-          "category": "chân",
-          "bodyPart": "chân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BODY_STUNTED_018",
-          "name": "Cơ thể, Còi cọc hoặc giảm tăng trưởng",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_EGG_HATCH_052",
-          "name": "Trứng, Giảm tỷ lệ ấp nở",
-          "category": "trứng",
-          "bodyPart": "trứng",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "name": "Hành vi, Yếu ớt",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Mycoplasma meleagridis (MM) là một bệnh nhiễm trùng do vi khuẩn lây truyền qua trứng, đặc hiệu cho gà tây. Trong khi M. gallisepticum ảnh hưởng đến nhiều loài, MM chỉ nhắm mục tiêu vào gà tây, gây viêm túi khí nghiêm trọng ở gà tây con mới nở, dị dạng xương (hội chứng TS-65) và giảm tỷ lệ ấp nở lớn.",
-      "clinicalSigns": [
-        "Suy hô hấp, thở hổn hển và hắt hơi nhẹ ở gà tây con",
-        "Còi cọc, lông kém và tình trạng kém phát triển nói chung",
-        "Tỷ lệ cao dị dạng xương, cụ thể là cong xương cổ chân và các vấn đề về đốt sống cổ",
-        "Giảm đáng kể tỷ lệ ấp nở và tử vong phôi giai đoạn cuối",
-        "Không có triệu chứng ở đàn giống trưởng thành, ngoài tác động sinh sản"
-      ],
-      "transmission": [
-        "Lây truyền dọc từ gà mái giống bị nhiễm bệnh sang trứng là phương thức lây bệnh chính",
-        "Lây truyền qua đường sinh dục trong quá trình giao phối tự nhiên hoặc thụ tinh nhân tạo với tinh dịch bị ô nhiễm",
-        "Lây truyền ngang qua khí dung hô hấp trong trại giống hoặc chuồng úm"
-      ],
-      "diagnosis": [
-        "Mổ khám gà tây con bị ảnh hưởng hoặc phôi chết trong trứng cho thấy viêm túi khí nặng, đục với dịch tiết bã đậu",
-        "Huyết thanh học (RPA, HI hoặc ELISA) để theo dõi tình trạng đàn",
-        "Xét nghiệm PCR từ tăm bông khí quản hoặc lỗ huyệt để xác nhận nhanh và cụ thể",
-        "Nuôi cấy trên môi trường Mycoplasma đặc biệt"
-      ],
-      "treatment": [
-        "Điều trị kháng sinh chiến lược (ví dụ: tylosin, tiamulin) có thể làm giảm các dấu hiệu lâm sàng và tổn thương hô hấp ở gà tây con nhưng sẽ không loại bỏ tình trạng mang mầm bệnh.",
-        "Điều trị đàn giống được sử dụng để tạm thời giảm tỷ lệ lây truyền qua trứng nhưng không đạt được loại trừ."
-      ],
-      "control": [
-        "Tiêu chuẩn vàng là loại trừ hoàn toàn thông qua việc thiết lập và duy trì đàn giống gốc không có MM",
-        "Nhúng hoặc xử lý nhiệt trứng (chênh lệch nhiệt độ) kết hợp với kháng sinh có thể được sử dụng để loại bỏ mầm bệnh khỏi trứng ấp",
-        "An toàn sinh học nghiêm ngặt để ngăn ngừa xâm nhập ngang"
-      ],
-      "vaccineRecommendations": [
-        "Không có vaccine thương mại. Kiểm soát hoàn toàn dựa vào các chương trình loại trừ quốc gia và mua gà tây con từ các nguồn được chứng nhận không có MM."
-  ]
-    },
-    {
- "id": 1102,
+      "id": 1102,
       "name": "Bệnh viêm ruột do virus ở vịt (Dịch tả vịt)",
       "category": "Viral",
       "severity": "Cao",
@@ -9782,98 +9210,6 @@
       ],
       "vaccineRecommendations": [
         "Vaccine sống nhược độc được sử dụng cho vịt giống để đảm bảo truyền kháng thể mẹ mạnh mẽ cho con. Nếu vịt giống chưa được tiêm phòng, có thể tiêm phòng trực tiếp cho vịt con lúc 1 ngày tuổi."
-      ]
-    },
-    {
-      "id": 1104,
-      "name": "Bệnh viêm gan do virus ở gà tây (Turkey Viral Hepatitis)",
-      "category": "Viral",
-      "severity": "Trung bình",
-      "zoonotic": false,
-      "ageGroups": [
-        "Gà con mới nở (0-1 ngày tuổi)",
-        "Gà giò (2-8 tuần tuổi)"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "name": "Chết đột ngột",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "name": "Hành vi, Suy nhược/ủ rũ",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "name": "Hành vi, Yếu ớt",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_WEIGHT_LOSS_113",
-          "name": "Sụt cân",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_DROP_WATERY_038",
-          "name": "Phân, Nhiều nước (tiêu chảy)",
-          "category": "phân",
-          "bodyPart": "phân",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Bệnh viêm gan do virus ở gà tây là một bệnh do virus rất dễ lây lan, không có triệu chứng đến cấp tính nhẹ, đặc hiệu cho gà tây non, do một picornavirus riêng biệt gây ra. Mặc dù tỷ lệ tử vong thường thấp, nó gây hoại tử gan khu trú và có thể làm suy giảm nghiêm trọng hiệu suất đầu đời và độ đồng đều của đàn.",
-      "clinicalSigns": [
-        "Thường không có triệu chứng, nhiễm trùng không được chú ý trong đàn khỏe mạnh",
-        "Trầm cảm từ nhẹ đến nặng, thờ ơ và túm tụm ở gà tây con bị ảnh hưởng",
-        "Thỉnh thoảng tiêu chảy nhiều nước và chết đột ngột ở một tỷ lệ nhỏ trong đàn",
-        "Giảm tiêu thụ thức ăn và tốc độ tăng trưởng không đồng đều"
-      ],
-      "transmission": [
-        "Lây truyền ngang qua đường phân-miệng là phương thức lây lan chính",
-        "Virus đặc biệt ổn định trong môi trường, tồn tại trong phân và chất độn chuồng trong thời gian dài",
-        "Lây truyền cơ học qua thiết bị và nhân viên bị ô nhiễm"
-      ],
-      "diagnosis": [
-        "Mổ khám cho thấy gan to với nhiều ổ hoại tử màu trắng xám rải rác, và tuyến tụy to, nhợt nhạt",
-        "Mô bệnh học xác nhận hoại tử khu trú và thâm nhiễm tế bào đơn nhân trong gan",
-        "Phân lập virus từ mô gan qua tiêm vào lòng đỏ trứng gà tây có phôi",
-        "Xét nghiệm PCR để xác định virus cụ thể"
-      ],
-      "treatment": [
-        "Không có điều trị kháng virus đặc hiệu.",
-        "Chăm sóc hỗ trợ bao gồm vitamin và dinh dưỡng chất lượng cao để giảm thiểu tác động đến tăng trưởng sớm."
-      ],
-      "control": [
-        "Chu kỳ sản xuất cùng vào/cùng ra nghiêm ngặt",
-        "Làm sạch kỹ lưỡng, khử trùng hóa học và kéo dài thời gian cách ly chuồng úm để giảm tải lượng virus môi trường"
-      ],
-      "vaccineRecommendations": [
-        "Hiện không có vaccine thương mại hoặc thường không cần thiết cho Bệnh viêm gan do virus ở gà tây."
       ]
     },
     {
@@ -10155,99 +9491,6 @@
       ],
       "vaccineRecommendations": [
         "Hiện không có vaccine thương mại cho BLS."
-      ]
-    },
-    {
-      "id": 1108,
-      "name": "Bệnh viêm màng não tủy ở gà tây (Turkey Meningoencephalitis)",
-      "category": "Viral",
-      "severity": "Cao",
-      "zoonotic": false,
-      "ageGroups": [
-        "Gà giò (2-8 tuần tuổi)",
-        "Mọi lứa tuổi"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_GAIT_ATAXIA_075",
-          "name": "Dáng đi, không phối hợp (mất điều hòa)",
-          "category": "thần kinh",
-          "bodyPart": "chân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_LEG_PARALYZE_082",
-          "name": "Chân, Bại liệt",
-          "category": "thần kinh",
-          "bodyPart": "chân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_NECK_WRY_091",
-          "name": "Cổ, Vẹo (nghiêng, xoắn, lệch)",
-          "category": "thần kinh",
-          "bodyPart": "cổ",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "name": "Hành vi, Suy nhược/ủ rũ",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "name": "Chết đột ngột",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Bệnh viêm màng não tủy ở gà tây là một bệnh do virus nặng, do muỗi truyền ở gà tây, gây ra bởi Israel Turkey Meningoencephalitis Virus (ITV), một flavivirus. Bệnh đặc trưng bởi sự suy thoái thần kinh tiến triển, tê liệt nghiêm trọng và tỷ lệ tử vong cao, chủ yếu ảnh hưởng đến gà tây nuôi ở các khu vực lưu hành dịch (chủ yếu là Trung Đông và một phần châu Phi).",
-      "clinicalSigns": [
-        "Mất phối hợp tiến triển dẫn đến loạng choạng nghiêm trọng",
-        "Xệ cánh và tê liệt tiến triển ở chân",
-        "Vẹo cổ và run đầu nghiêm trọng",
-        "Thờ ơ sâu sắc, chán ăn và giảm sản lượng trứng",
-        "Tỷ lệ tử vong cao trong đàn không được bảo vệ, đặc biệt là trong mùa cao điểm của muỗi"
-      ],
-      "transmission": [
-        "Lây truyền độc quyền qua vết đốt của muỗi bị nhiễm bệnh (chủ yếu là loài Culex)",
-        "Không lây nhiễm qua tiếp xúc trực tiếp giữa các gia cầm"
-      ],
-      "diagnosis": [
-        "Biểu hiện lâm sàng của tê liệt nghiêm trọng và các dấu hiệu thần kinh ở gà tây trong mùa muỗi",
-        "Mô bệnh học cho thấy viêm màng não tủy không mưng mủ với vòng bít quanh mạch trong não và tủy sống",
-        "Phân lập virus từ mô não hoặc phát hiện flavivirus bằng RT-PCR",
-        "Huyết thanh học (HI hoặc ELISA) để xác nhận đàn"
-      ],
-      "treatment": [
-        "Không có điều trị kháng virus đặc hiệu.",
-        "Chăm sóc hỗ trợ thường không hiệu quả do tính chất tiến triển của tổn thương thần kinh."
-      ],
-      "control": [
-        "Các chương trình kiểm soát vectơ nghiêm ngặt nhằm giảm quần thể muỗi xung quanh các trang trại gà tây",
-        "Loại bỏ nước đọng và áp dụng thuốc diệt ấu trùng và diệt muỗi trưởng thành thích hợp",
-        "Che chắn chuồng trại nếu khả thi"
-      ],
-      "vaccineRecommendations": [
-        "Vaccine sống nhược độc có hiệu quả cao và thường được sử dụng ở các khu vực lưu hành dịch để ngăn ngừa bùng phát."
       ]
     },
     {
@@ -11019,10 +10262,10 @@
       ],
       "vaccineRecommendations": [
         "Không có vaccine."
- ]
+      ]
     },
     {
- "id": 1118,
+      "id": 1118,
       "name": "Hội chứng gan và thận nhiễm mỡ (Fatty Liver and Kidney Syndrome - FLKS)",
       "category": "Metabolic",
       "severity": "Trung bình",
@@ -12010,10 +11253,10 @@
       ],
       "vaccineRecommendations": [
         "Tiêm phòng các tác nhân kích thích hô hấp chính (IBV, NDV, MG) và sử dụng vaccin E. coli cho đàn giống để giảm tính mẫn cảm toàn thân."
-    ]
+      ]
     },
     {
-"id": 1010,
+      "id": 1010,
       "name": "Bệnh Reticuloendotheliosis",
       "category": "Viral",
       "severity": "Trung bình",
@@ -12345,108 +11588,6 @@
       ],
       "vaccineRecommendations": [
         "Không có vaccine thương mại được sử dụng cho Listeriosis ở gia cầm."
-      ]
-    },
-    {
-      "id": 1021,
-      "name": "Bệnh Erysipelas (Đóng dấu lợn ở gia cầm)",
-      "category": "Bacterial",
-      "severity": "Trung bình",
-      "zoonotic": true,
-      "ageGroups": [
-        "Mọi lứa tuổi"
-      ],
-      "symptomsEnhanced": [
-        {
-          "id": "SYM_COMB_PURPLE_026",
-          "name": "Mào, tím/đỏ sẫm (tím tái)",
-          "category": "mào",
-          "bodyPart": "mào_tích",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_SUDDEN_DEATH_104",
-          "name": "Chết đột ngột",
-          "category": "chung",
-          "bodyPart": "toàn thân",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_SKIN_RED_095",
-          "name": "Da, Đỏ",
-          "category": "da",
-          "bodyPart": "da_lông",
-          "weight": 0.85,
-          "significance": "chính",
-          "specificity": "cao",
-          "urgency": "cao"
-        },
-        {
-          "id": "SYM_BEH_LETHARGIC_003",
-          "name": "Hành vi, Suy nhược/ủ rũ",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_FEATH_RUFFLE_071",
-          "name": "Lông, Xù",
-          "category": "lông",
-          "bodyPart": "da_lông",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        },
-        {
-          "id": "SYM_BEH_WEAK_013",
-          "name": "Hành vi, Yếu ớt",
-          "category": "hành vi",
-          "bodyPart": "hành vi",
-          "weight": 0.55,
-          "significance": "phụ",
-          "specificity": "trung bình",
-          "urgency": "trung bình"
-        }
-      ],
-      "description": "Erysipelas là một bệnh nhiễm trùng do vi khuẩn cấp tính, toàn thân do Erysipelothrix rhusiopathiae gây ra. Mặc dù theo truyền thống là mối đe dọa chính đối với gà tây và lợn, nó ngày càng gây ra các đợt bùng phát nghiêm trọng ở gà đẻ, đặc biệt trong các hệ thống nhà ở thay thế hoặc thả vườn, dẫn đến tỷ lệ tử vong cao.",
-      "clinicalSigns": [
-        "Chết đột ngột của những gia cầm trông khỏe mạnh vài giờ trước đó",
-        "Tím tái (đổi màu tím đậm) của mào, tích và da mặt",
-        "Thờ ơ nghiêm trọng, trầm cảm và lông xù",
-        "Da đỏ hoặc tổn thương da lốm đốm nói chung",
-        "Sụt giảm sản lượng trứng đáng kể ở đàn gà đẻ"
-      ],
-      "transmission": [
-        "Vi khuẩn xâm nhập qua vết trầy xước da, vết thương hoặc ăn thịt đồng loại",
-        "Ăn phải đất, nước hoặc xác chết bị nhiễm bệnh",
-        "Lây truyền cơ học bởi côn trùng cắn, đặc biệt là mạt đỏ gà (Dermanyssus gallinae)"
-      ],
-      "diagnosis": [
-        "Nhuộm Gram phết máu hoặc mô cho thấy trực khuẩn Gram dương, mảnh, đa hình thái đặc trưng",
-        "Nuôi cấy và phân lập vi khuẩn từ gan, lá lách hoặc máu tim",
-        "Bệnh lý đại thể cho thấy gan và lá lách to, dễ vỡ và xuất huyết dạng chấm trong cơ"
-      ],
-      "treatment": [
-        "Sử dụng ngay penicillin (rất hiệu quả) qua nước uống hoặc tiêm bắp",
-        "Erythromycin hoặc tetracyclin có thể được sử dụng dựa trên thử nghiệm độ nhạy cảm"
-      ],
-      "control": [
-        "Quản lý tích cực và loại trừ mạt đỏ gà",
-        "Loại bỏ nhanh chóng và xử lý an toàn xác chết để ngăn ngừa ăn thịt đồng loại",
-        "Làm sạch, khử trùng kỹ lưỡng và để cách ly các bãi chăn bị ô nhiễm"
-      ],
-      "vaccineRecommendations": [
-        "Vaccin bất hoạt được sử dụng hiệu quả ở đàn gà đẻ, gà giống và gà tây có nguy cơ cao. Chúng thường được tiêm trước khi bắt đầu đẻ hoặc tiếp xúc với các bãi chăn bị ô nhiễm."
       ]
     },
     {
