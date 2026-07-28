@@ -32,7 +32,7 @@ const translations = {
     en: {
         pageTitle: 'Diagnostic Tools',
         selectTool: 'Select Tool',
-        allDiseases: { name: 'All Diseases & Conditions', desc: 'Browse 129 poultry diseases with detailed info' },
+        allDiseases: { name: 'All Diseases & Conditions', desc: 'Browse 120 poultry diseases with detailed info' },
         diagnosis: { name: 'Diagnosis Tool', desc: 'Select symptoms to diagnose with confidence scoring' },
         compare: { name: 'Compare Diseases', desc: 'Side-by-side disease comparison tool' },
         home: 'Home',
@@ -41,7 +41,7 @@ const translations = {
     id: {
         pageTitle: 'Alat Diagnostik',
         selectTool: 'Pilih Alat',
-        allDiseases: { name: 'Semua Penyakit & Kondisi', desc: 'Jelajahi 129 penyakit unggas dengan info lengkap' },
+        allDiseases: { name: 'Semua Penyakit & Kondisi', desc: 'Jelajahi 120 penyakit unggas dengan info lengkap' },
         diagnosis: { name: 'Alat Diagnosis', desc: 'Pilih gejala untuk mendiagnosis dengan skor kepercayaan' },
         compare: { name: 'Bandingkan Penyakit', desc: 'Perbandingan karakteristik penyakit secara berdampingan' },
         home: 'Beranda',
@@ -50,7 +50,7 @@ const translations = {
     vi: {
         pageTitle: 'Công Cụ Chẩn Đoán',
         selectTool: 'Chọn Công Cụ',
-        allDiseases: { name: 'Tất Cả Bệnh & Tình Trạng', desc: 'Duyệt 129 bệnh gia cầm với thông tin chi tiết' },
+        allDiseases: { name: 'Tất Cả Bệnh & Tình Trạng', desc: 'Duyệt 120 bệnh gia cầm với thông tin chi tiết' },
         diagnosis: { name: 'Công Cụ Chẩn Đoán', desc: 'Chọn triệu chứng để chẩn đoán với điểm tin cậy' },
         compare: { name: 'So Sánh Bệnh', desc: 'Công cụ so sánh đặc điểm bệnh song song' },
         home: 'Trang chủ',
