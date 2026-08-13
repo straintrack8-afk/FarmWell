@@ -3796,13 +3796,6 @@
               "salmonella",
               "e_coli"
             ]
-          },
-          "conditional_logic": {
-            "show_if": {
-              "question_id": "K2",
-              "operator": "equals",
-              "value": "manual_collection"
-            }
           }
         },
         {
