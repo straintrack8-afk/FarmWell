@@ -18,7 +18,7 @@
     "website": "www.biocheck.ugent.be"
   },
   "total_categories": 9,
-  "total_questions": 83,
+  "total_questions": 50,
   "score_system": {
     "weighted_categories": true,
     "total_score": 1000,
@@ -410,64 +410,6 @@
           "id": "Q3",
           "order": 3,
           "question": {
-            "en": "When was the first poultry farm building constructed? (year)",
-            "vi": "Trang trại nuôi gia cầm đầu tiên (tính theo năm) được xây dựng từ khi nào?",
-            "id": "Kapan bangunan peternakan unggas pertama dibangun? (tahun)"
-          },
-          "answer_type": "number_input",
-          "required": true,
-          "validation": {
-            "min": 1900,
-            "max": 2025
-          },
-          "scoring_logic": {
-            "type": "range",
-            "ranges": [
-              {
-                "min": 1900,
-                "max": 1990,
-                "score": 4
-              },
-              {
-                "min": 1991,
-                "max": 2000,
-                "score": 6
-              },
-              {
-                "min": 2001,
-                "max": 2010,
-                "score": 8
-              },
-              {
-                "min": 2011,
-                "max": 2025,
-                "score": 10
-              }
-            ]
-          },
-          "risk_assessment": {
-            "trigger_score": 6,
-            "risk_description": {
-              "en": "Older facilities may have outdated infrastructure and biosecurity design",
-              "vi": "Cơ sở vật chất cũ có thể có cơ sở hạ tầng lỗi thời và thiết kế an toàn sinh học không phù hợp",
-              "id": "Fasilitas yang lebih tua mungkin memiliki infrastruktur dan desain biosekuritas yang ketinggalan zaman"
-            },
-            "recommendation": {
-              "en": "1. Conduct regular infrastructure maintenance and upgrades\n2. Implement modern biosecurity retrofitting\n3. Improve ventilation and insulation systems\n4. Regular disinfection of older structures\n5. Consider facility renovation or replacement",
-              "vi": "1. Thực hiện bảo trì và nâng cấp cơ sở hạ tầng thường xuyên\n2. Triển khai cải tạo an toàn sinh học hiện đại\n3. Cải thiện hệ thống thông gió và cách nhiệt\n4. Khử trùng thường xuyên các cấu trúc cũ\n5. Xem xét cải tạo hoặc thay thế cơ sở",
-              "id": "1. Lakukan pemeliharaan dan peningkatan infrastruktur secara teratur\n2. Terapkan retrofit biosekuritas modern\n3. Tingkatkan sistem ventilasi dan insulasi\n4. Disinfeksi teratur struktur yang lebih tua\n5. Pertimbangkan renovasi atau penggantian fasilitas"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Salmonella",
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q4",
-          "order": 4,
-          "question": {
             "en": "When was the newest poultry farm building constructed? (year)",
             "vi": "Trang trại nuôi gia cầm mới nhất (tính theo năm) được xây dựng từ khi nào?",
             "id": "Kapan bangunan peternakan unggas terbaru dibangun? (tahun)"
@@ -538,8 +480,8 @@
       },
       "questions": [
         {
-          "id": "Q5",
-          "order": 5,
+          "id": "Q4",
+          "order": 4,
           "question": {
             "en": "Are chicks always purchased from one supplier (in the past 2 years)?",
             "vi": "Những con gà thường được mua từ một nhà cung cấp (trong 2 năm vừa qua)?",
@@ -589,72 +531,8 @@
           }
         },
         {
-          "id": "Q6",
-          "order": 6,
-          "question": {
-            "en": "Are day-old chicks always delivered to your farm before being delivered to other farms on the same vehicle?",
-            "vi": "Gà con được mua về luôn được giao tại trang trại của ông (bà) trước khi giao cho các trang trại khác trên cùng một phương tiện vận tải?",
-            "id": "Apakah anak ayam sehari selalu dikirim ke peternakan Anda sebelum dikirim ke peternakan lain dengan kendaraan yang sama?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_6A",
-              "label": {
-                "en": "Yes",
-                "vi": "Đúng",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_6B",
-              "label": {
-                "en": "Sometimes",
-                "vi": "Đôi khi",
-                "id": "Kadang-kadang"
-              },
-              "score": 4
-            },
-            {
-              "id": "OPT_6C",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "conditional_logic": {
-            "OPT_6A": "continue",
-            "OPT_6B": "continue",
-            "OPT_6C": "continue"
-          },
-          "risk_assessment": {
-            "trigger_score": 4,
-            "risk_description": {
-              "en": "Multiple farm deliveries increase cross-contamination risks",
-              "vi": "Giao hàng cho nhiều trang trại làm tăng nguy cơ nhiễm chéo",
-              "id": "Pengiriman ke beberapa peternakan meningkatkan risiko kontaminasi silang"
-            },
-            "recommendation": {
-              "en": "1. Request to be the first delivery on the route\n2. Ensure vehicle disinfection between farms\n3. Use dedicated vehicles for chick transport\n4. Verify transport biosecurity protocols\n5. Monitor chick health after delivery",
-              "vi": "1. Yêu cầu là điểm giao hàng đầu tiên trên tuyến đường\n2. Đảm bảo khử trùng phương tiện giữa các trang trại\n3. Sử dụng phương tiện chuyên dụng để vận chuyển gà con\n4. Xác minh giao thức an toàn sinh học vận chuyển\n5. Theo dõi sức khỏe gà con sau khi giao hàng",
-              "id": "1. Minta untuk menjadi pengiriman pertama di rute\n2. Pastikan disinfeksi kendaraan antar peternakan\n3. Gunakan kendaraan khusus untuk transportasi anak ayam\n4. Verifikasi protokol biosekuritas transportasi\n5. Pantau kesehatan anak ayam setelah pengiriman"
-            },
-            "priority": "high",
-            "diseases_affected": [
-              "Avian_Influenza",
-              "Newcastle_Disease",
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q7",
-          "order": 7,
+          "id": "Q5",
+          "order": 5,
           "question": {
             "en": "Are trucks disinfected before chicks are loaded?",
             "vi": "Xe tải có được khử trùng trước khi gà con được chuyển lên xe không?",
@@ -703,8 +581,8 @@
           }
         },
         {
-          "id": "Q8",
-          "order": 8,
+          "id": "Q6",
+          "order": 6,
           "question": {
             "en": "How many times per year are chicks introduced to the farm?",
             "vi": "Gà con được nhập về trang trại bao nhiêu lần mỗi năm?",
@@ -762,67 +640,8 @@
           }
         },
         {
-          "id": "Q9",
-          "order": 9,
-          "question": {
-            "en": "Are transport vehicles for slaughter/processing always empty when arriving at the farm?",
-            "vi": "Xe vận chuyển đưa gia cầm đến lò mổ/thương lái, người mua lẻ có luôn trong tình trạng trống rỗng khi đến trang trại không?",
-            "id": "Apakah kendaraan transportasi untuk pemotongan/pengolahan selalu kosong ketika tiba di peternakan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_9A",
-              "label": {
-                "en": "Yes, always",
-                "vi": "Có, luôn luôn",
-                "id": "Ya, selalu"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_9B",
-              "label": {
-                "en": "Sometimes",
-                "vi": "Đôi khi",
-                "id": "Kadang-kadang"
-              },
-              "score": 4
-            },
-            {
-              "id": "OPT_9C",
-              "label": {
-                "en": "No, never",
-                "vi": "Không, không bao giờ",
-                "id": "Tidak, tidak pernah"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 4,
-            "risk_description": {
-              "en": "Non-empty vehicles can carry pathogens from other farms or facilities",
-              "vi": "Xe không trống rỗng có thể mang mầm bệnh từ các trang trại hoặc cơ sở khác",
-              "id": "Kendaraan tidak kosong dapat membawa patogen dari peternakan atau fasilitas lain"
-            },
-            "recommendation": {
-              "en": "1. Require empty vehicle certification\n2. Implement vehicle inspection protocols\n3. Schedule transport during low-risk periods\n4. Use dedicated vehicles for farm pickups\n5. Document all vehicle movements",
-              "vi": "1. Yêu cầu chứng nhận xe trống rỗng\n2. Triển khai giao thức kiểm tra phương tiện\n3. Lên lịch vận chuyển trong thời gian rủi ro thấp\n4. Sử dụng phương tiện chuyên dụng để đón tại trang trại\n5. Ghi lại tất cả các di chuyển của phương tiện",
-              "id": "1. Minta sertifikasi kendaraan kosong\n2. Terapkan protokol inspeksi kendaraan\n3. Jadwalkan transportasi selama periode risiko rendah\n4. Gunakan kendaraan khusus untuk pengambilan di peternakan\n5. Dokumentasikan semua pergerakan kendaraan"
-            },
-            "priority": "high",
-            "diseases_affected": [
-              "Avian_Influenza",
-              "Newcastle_Disease",
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q10",
-          "order": 10,
+          "id": "Q7",
+          "order": 7,
           "question": {
             "en": "Are transport vehicles always cleaned and disinfected when arriving at the farm?",
             "vi": "Phương tiện vận chuyển cho gia cầm có luôn được vệ sinh và khử trùng khi đến trang trại không?",
@@ -871,8 +690,8 @@
           }
         },
         {
-          "id": "Q11",
-          "order": 11,
+          "id": "Q8",
+          "order": 8,
           "question": {
             "en": "Are drivers and catchers provided with farm-specific clothing or disposable clothing during animal transport?",
             "vi": "Lái xe và những người bắt gà có được phát quần áo và giày chuyên dụng từ trang trại hoặc quần áo và giày dùng một lần trong khi vận chuyển con vật không?",
@@ -930,8 +749,8 @@
           }
         },
         {
-          "id": "Q12",
-          "order": 12,
+          "id": "Q9",
+          "order": 9,
           "question": {
             "en": "Are traders and retail buyers allowed to enter poultry houses and have direct contact with animals?",
             "vi": "Thương lái và người mua lẻ có được phép vào chuồng trại tiếp xúc trực tiếp với con vật không?",
@@ -987,122 +806,6 @@
               "Multiple"
             ]
           }
-        },
-        {
-          "id": "Q13",
-          "order": 13,
-          "question": {
-            "en": "How many steps are involved in reducing poultry flock size at the farm?",
-            "vi": "Có bao nhiêu bước trong việc giảm số lượng đàn gia cầm tại trang trại?",
-            "id": "Berapa banyak langkah yang terlibat dalam mengurangi ukuran kawanan unggas di peternakan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_13A",
-              "label": {
-                "en": "In one step",
-                "vi": "Trong một bước",
-                "id": "Dalam satu langkah"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_13B",
-              "label": {
-                "en": "In two steps",
-                "vi": "Trong hai bước",
-                "id": "Dalam dua langkah"
-              },
-              "score": 6
-            },
-            {
-              "id": "OPT_13C",
-              "label": {
-                "en": "In more than two steps",
-                "vi": "Trong hơn hai bước",
-                "id": "Dalam lebih dari dua langkah"
-              },
-              "score": 2
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 6,
-            "risk_description": {
-              "en": "Multiple depopulation steps increase stress and disease transmission risk",
-              "vi": "Nhiều bước giảm đàn làm tăng căng thẳng và nguy cơ lây truyền bệnh",
-              "id": "Beberapa langkah depopulasi meningkatkan stres dan risiko penularan penyakit"
-            },
-            "recommendation": {
-              "en": "1. Implement all-in-all-out depopulation when possible\n2. Minimize handling steps during depopulation\n3. Use proper catching and handling techniques\n4. Schedule depopulation during optimal conditions\n5. Monitor bird welfare during depopulation",
-              "vi": "1. Triển khai giảm đàn all-in-all-out khi có thể\n2. Giảm thiểu các bước xử lý trong quá trình giảm đàn\n3. Sử dụng kỹ thuật bắt và xử lý đúng cách\n4. Lên lịch giảm đàn trong điều kiện tối ưu\n5. Giám sát phúc lợi gia cầm trong quá trình giảm đàn",
-              "id": "1. Terapkan depopulasi all-in-all-out jika memungkinkan\n2. Minimalkan langkah penanganan selama depopulasi\n3. Gunakan teknik penangkapan dan penanganan yang tepat\n4. Jadwalkan depopulasi selama kondisi optimal\n5. Pantau kesejahteraan unggas selama depopulasi"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Stress-related_diseases"
-            ]
-          }
-        },
-        {
-          "id": "Q14",
-          "order": 14,
-          "question": {
-            "en": "How many times per year are broilers exported from the farm?",
-            "vi": "Gà thịt được xuất ra từ trang trại bao nhiêu lần mỗi năm?",
-            "id": "Berapa kali per tahun ayam pedaging diekspor dari peternakan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_14A",
-              "label": {
-                "en": "Less than 6 times per year",
-                "vi": "Ít hơn 6 lần một năm",
-                "id": "Kurang dari 6 kali per tahun"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_14B",
-              "label": {
-                "en": "6 to 12 times per year",
-                "vi": "Từ 6 đến 12 lần một năm",
-                "id": "6 hingga 12 kali per tahun"
-              },
-              "score": 6
-            },
-            {
-              "id": "OPT_14C",
-              "label": {
-                "en": "More than 12 times per year",
-                "vi": "Hơn 12 lần một năm",
-                "id": "Lebih dari 12 kali per tahun"
-              },
-              "score": 2
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 6,
-            "risk_description": {
-              "en": "Frequent exports increase disease transmission opportunities",
-              "vi": "Xuất khẩu thường xuyên làm tăng cơ hội lây truyền bệnh",
-              "id": "Ekspor yang sering meningkatkan peluang penularan penyakit"
-            },
-            "recommendation": {
-              "en": "1. Consolidate exports to minimize frequency\n2. Implement strict biosecurity during export operations\n3. Schedule exports during low-risk periods\n4. Monitor flock health before and after exports\n5. Maintain export records for traceability",
-              "vi": "1. Củng cố xuất khẩu để giảm thiểu tần suất\n2. Triển khai an toàn sinh học nghiêm ngặt trong hoạt động xuất khẩu\n3. Lên lịch xuất khẩu trong thời gian rủi ro thấp\n4. Theo dõi sức khỏe đàn trước và sau khi xuất khẩu\n5. Duy trì hồ sơ xuất khẩu để truy xuất nguồn gốc",
-              "id": "1. Konsolidasikan ekspor untuk meminimalkan frekuensi\n2. Terapkan biosekuritas ketat selama operasi ekspor\n3. Jadwalkan ekspor selama periode risiko rendah\n4. Pantau kesehatan ternak sebelum dan setelah ekspor\n5. Pertahankan catatan ekspor untuk penelusuran"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Avian_Influenza"
-            ]
-          }
         }
       ]
     },
@@ -1121,10 +824,10 @@
       },
       "questions": [
         {
-          "id": "Q15",
-          "order": 15,
+          "id": "Q10",
+          "order": 10,
           "question": {
-            "en": "Is the farm divided into clean and dirty zones?",
+            "en": "Is the farm divided into clean and dirty zones, and are these zones clearly enforced?",
             "vi": "Trang trại có được chia ra các khu vực sạch và khu vực bẩn không?",
             "id": "Apakah peternakan dibagi menjadi zona bersih dan kotor?"
           },
@@ -1189,56 +892,8 @@
           }
         },
         {
-          "id": "Q16",
-          "order": 16,
-          "question": {
-            "en": "Are clean and dirty zones clearly separated?",
-            "vi": "Khu vực chuồng trại sạch và bẩn có được phân cách rõ ràng không?",
-            "id": "Apakah zona bersih dan kotor dipisahkan dengan jelas?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_16A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_16B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Poor separation allows pathogen movement between zones",
-              "vi": "Sự phân cách kém cho phép mầm bệnh di chuyển giữa các khu vực",
-              "id": "Pemisahan yang buruk memungkinkan pergerakan patogen antar zona"
-            },
-            "recommendation": {
-              "en": "1. Install physical barriers between zones\n2. Establish one-way traffic flow\n3. Implement color-coded equipment for each zone\n4. Provide separate changing facilities\n5. Monitor compliance with separation protocols",
-              "vi": "1. Lắp đặt rào cản vật lý giữa các khu vực\n2. Thiết lập luồng giao thông một chiều\n3. Triển khai thiết bị mã màu cho mỗi khu vực\n4. Cung cấp cơ sở thay đồ riêng biệt\n5. Giám sát tuân thủ giao thức phân cách",
-              "id": "1. Pasang penghalang fisik antar zona\n2. Tetapkan aliran lalu lintas satu arah\n3. Terapkan peralatan berkode warna untuk setiap zona\n4. Sediakan fasilitas ganti terpisah\n5. Pantau kepatuhan terhadap protokol pemisahan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q17",
-          "order": 17,
+          "id": "Q11",
+          "order": 11,
           "question": {
             "en": "Can feed companies deliver feed to your storage without entering the clean zone?",
             "vi": "Các công ty thức ăn có thể vận chuyển thức ăn vào kho chứa của ông (bà) mà không cần đi vào khu vực sạch không?",
@@ -1295,66 +950,8 @@
           }
         },
         {
-          "id": "Q18",
-          "order": 18,
-          "question": {
-            "en": "Do feed suppliers access poultry houses and have direct contact with animals?",
-            "vi": "Người cung cấp thức ăn có tiếp cận chuồng trại và tiếp xúc trực tiếp với con vật không?",
-            "id": "Apakah pemasok pakan mengakses kandang unggas dan melakukan kontak langsung dengan hewan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_18A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 0
-            },
-            {
-              "id": "OPT_18B",
-              "label": {
-                "en": "Sometimes",
-                "vi": "Đôi khi",
-                "id": "Kadang-kadang"
-              },
-              "score": 4
-            },
-            {
-              "id": "OPT_18C",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 10
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 4,
-            "risk_description": {
-              "en": "Supplier access to poultry houses increases disease introduction risk",
-              "vi": "Nhà cung cấp tiếp cận chuồng gia cầm làm tăng nguy cơ đưa bệnh vào",
-              "id": "Akses pemasok ke kandang unggas meningkatkan risiko pengenalan penyakit"
-            },
-            "recommendation": {
-              "en": "1. Restrict supplier access to poultry houses\n2. Establish designated delivery areas outside production zones\n3. Implement contactless delivery systems\n4. Train suppliers on biosecurity protocols\n5. Monitor supplier compliance with access restrictions",
-              "vi": "1. Hạn chế quyền truy cập của nhà cung cấp vào chuồng gia cầm\n2. Thiết lập khu vực giao hàng được chỉ định bên ngoài khu vực sản xuất\n3. Triển khai hệ thống giao hàng không tiếp xúc\n4. Đào tạo nhà cung cấp về giao thức an toàn sinh học\n5. Giám sát việc tuân thủ các hạn chế truy cập của nhà cung cấp",
-              "id": "1. Batasi akses pemasok ke kandang unggas\n2. Bangun area pengiriman yang ditentukan di luar zona produksi\n3. Terapkan sistem pengiriman tanpa kontak\n4. Latih pemasok tentang protokol biosekuritas\n5. Pantau kepatuhan pemasok terhadap pembatasan akses"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Avian_Influenza"
-            ]
-          }
-        },
-        {
-          "id": "Q19",
-          "order": 19,
+          "id": "Q12",
+          "order": 12,
           "question": {
             "en": "Are feed storage facilities sealed to prevent water, birds, and rodents?",
             "vi": "Các kho chứa thức ăn có được khép kín để tránh nước, chim và chuột bọ không?",
@@ -1403,65 +1000,8 @@
           }
         },
         {
-          "id": "Q20",
-          "order": 20,
-          "question": {
-            "en": "How many times per year does the feed company fill your feed storage?",
-            "vi": "Công ty cung cấp thức ăn đồ đầy kho chứa thức ăn bao nhiêu lần trong một năm?",
-            "id": "Berapa kali per tahun perusahaan pakan mengisi penyimpanan pakan Anda?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_20A",
-              "label": {
-                "en": "Less than 20 times per year",
-                "vi": "Ít hơn 20 lần một năm",
-                "id": "Kurang dari 20 kali per tahun"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_20B",
-              "label": {
-                "en": "20 to 35 times per year",
-                "vi": "Từ 20 đến 35 lần một năm",
-                "id": "20 hingga 35 kali per tahun"
-              },
-              "score": 6
-            },
-            {
-              "id": "OPT_20C",
-              "label": {
-                "en": "More than 35 times per year",
-                "vi": "Hơn 35 lần một năm",
-                "id": "Lebih dari 35 kali per tahun"
-              },
-              "score": 2
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 6,
-            "risk_description": {
-              "en": "Frequent feed deliveries increase external contact and contamination risk",
-              "vi": "Giao thức ăn thường xuyên làm tăng tiếp xúc bên ngoài và nguy cơ nhiễm bẩn",
-              "id": "Pengiriman pakan yang sering meningkatkan kontak eksternal dan risiko kontaminasi"
-            },
-            "recommendation": {
-              "en": "1. Increase storage capacity to reduce delivery frequency\n2. Schedule deliveries during low-risk periods\n3. Implement strict biosecurity during deliveries\n4. Monitor feed quality after each delivery\n5. Maintain delivery records for traceability",
-              "vi": "1. Tăng công suất lưu trữ để giảm tần suất giao hàng\n2. Lên lịch giao hàng trong thời gian rủi ro thấp\n3. Triển khai an toàn sinh học nghiêm ngặt trong quá trình giao hàng\n4. Giám sát chất lượng thức ăn sau mỗi lần giao hàng\n5. Duy trì hồ sơ giao hàng để truy xuất nguồn gốc",
-              "id": "1. Tingkatkan kapasitas penyimpanan untuk mengurangi frekuensi pengiriman\n2. Jadwalkan pengiriman selama periode risiko rendah\n3. Terapkan biosekuritas ketat selama pengiriman\n4. Pantau kualitas pakan setelah setiap pengiriman\n5. Pertahankan catatan pengiriman untuk penelusuran"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q21",
-          "order": 21,
+          "id": "Q13",
+          "order": 13,
           "question": {
             "en": "Are bacterial analyses of drinking water performed regularly?",
             "vi": "Các phân tích vi khuẩn trong nước uống có được thực hiện thường xuyên không?",
@@ -1531,66 +1071,8 @@
           }
         },
         {
-          "id": "Q22",
-          "order": 22,
-          "question": {
-            "en": "Where are water samples collected from?",
-            "vi": "Mẫu nước được lấy mẫu từ đâu?",
-            "id": "Dari mana sampel air dikumpulkan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_22A",
-              "label": {
-                "en": "Source",
-                "vi": "Nguồn",
-                "id": "Sumber"
-              },
-              "score": 6
-            },
-            {
-              "id": "OPT_22B",
-              "label": {
-                "en": "Drinker",
-                "vi": "Máng uống",
-                "id": "Peminum"
-              },
-              "score": 8
-            },
-            {
-              "id": "OPT_22C",
-              "label": {
-                "en": "Source + drinker",
-                "vi": "Nguồn + máng uống",
-                "id": "Sumber + peminum"
-              },
-              "score": 10
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 8,
-            "risk_description": {
-              "en": "Limited sampling points may miss contamination in the distribution system",
-              "vi": "Các điểm lấy mẫu hạn chế có thể bỏ sót ô nhiễm trong hệ thống phân phối",
-              "id": "Titik pengambilan sampel terbatas mungkin melewatkan kontaminasi dalam sistem distribusi"
-            },
-            "recommendation": {
-              "en": "1. Sample from multiple points in water system\n2. Include source, storage, and endpoint samples\n3. Test at different times of day\n4. Monitor seasonal variations in water quality\n5. Document all sampling locations and results",
-              "vi": "1. Lấy mẫu từ nhiều điểm trong hệ thống nước\n2. Bao gồm mẫu nguồn, lưu trữ và điểm cuối\n3. Kiểm tra vào các thời điểm khác nhau trong ngày\n4. Theo dõi biến đổi theo mùa về chất lượng nước\n5. Ghi lại tất cả các vị trí lấy mẫu và kết quả",
-              "id": "1. Sampel dari beberapa titik dalam sistem air\n2. Sertakan sampel sumber, penyimpanan, dan titik akhir\n3. Uji pada waktu berbeda dalam sehari\n4. Pantau variasi musiman dalam kualitas air\n5. Dokumentasikan semua lokasi pengambilan sampel dan hasilnya"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Waterborne_diseases",
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q23",
-          "order": 23,
+          "id": "Q14",
+          "order": 14,
           "question": {
             "en": "Is manure transported through the dirty zone?",
             "vi": "Phân có được chuyển đi qua khu vực bẩn không?",
@@ -1655,8 +1137,8 @@
       },
       "questions": [
         {
-          "id": "Q24",
-          "order": 24,
+          "id": "Q15",
+          "order": 15,
           "question": {
             "en": "Is there a separate storage facility for dead poultry?",
             "vi": "Có kho chứa xác gia cầm riêng biệt không?",
@@ -1708,8 +1190,8 @@
           }
         },
         {
-          "id": "Q25",
-          "order": 25,
+          "id": "Q16",
+          "order": 16,
           "question": {
             "en": "Can dead poultry be collected by waste processing company without entering the farm, e.g., from public road?",
             "vi": "Xác gia cầm có thể được thu thập bởi công ty xử lý chất thải mà không cần vào trang trại không, ví dụ: từ đường công cộng?",
@@ -1757,8 +1239,8 @@
           }
         },
         {
-          "id": "Q26",
-          "order": 26,
+          "id": "Q17",
+          "order": 17,
           "question": {
             "en": "Is dead poultry storage facility sealed to prevent access by insects, dogs, or cats?",
             "vi": "Kho chứa xác gia cầm có được đóng kín để ngăn ngừa sâu bọ, chó hoặc mèo tiếp cận không?",
@@ -1816,8 +1298,8 @@
           }
         },
         {
-          "id": "Q27",
-          "order": 27,
+          "id": "Q18",
+          "order": 18,
           "question": {
             "en": "Is dead poultry storage facility regularly cleaned and disinfected?",
             "vi": "Kho bảo quản xác gia cầm có thường xuyên được vệ sinh và khử trùng không?",
@@ -1875,57 +1357,8 @@
           }
         },
         {
-          "id": "Q28",
-          "order": 28,
-          "question": {
-            "en": "Is dead poultry storage facility refrigerated?",
-            "vi": "Kho bảo quản xác gia cầm có được làm lạnh không?",
-            "id": "Apakah fasilitas penyimpanan bangkai unggas didinginkan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_28A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_28B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Lack of refrigeration accelerates decomposition and pathogen growth",
-              "vi": "Thiếu làm lạnh làm tăng tốc độ phân hủy và phát triển mầm bệnh",
-              "id": "Kurangnya pendinginan mempercepat dekomposisi dan pertumbuhan patogen"
-            },
-            "recommendation": {
-              "en": "1. Install refrigeration system for dead bird storage\n2. Maintain temperature below 4°C (39°F)\n3. Regular maintenance of refrigeration equipment\n4. Monitor temperature continuously\n5. Implement backup power system for refrigeration",
-              "vi": "1. Lắp đặt hệ thống làm lạnh để lưu trữ xác gia cầm\n2. Duy trì nhiệt độ dưới 4°C (39°F)\n3. Bảo trì thường xuyên thiết bị làm lạnh\n4. Theo dõi nhiệt độ liên tục\n5. Triển khai hệ thống điện dự phòng cho làm lạnh",
-              "id": "1. Pasang sistem pendingin untuk penyimpanan bangkai unggas\n2. Pertahankan suhu di bawah 4°C (39°F)\n3. Pemeliharaan rutin peralatan pendingin\n4. Pantau suhu terus menerus\n5. Terapkan sistem daya cadangan untuk pendinginan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Bacterial_growth_related"
-            ]
-          }
-        },
-        {
-          "id": "Q29",
-          "order": 29,
+          "id": "Q19",
+          "order": 19,
           "question": {
             "en": "Are protective measures implemented when handling dead poultry (e.g., hand washing or using gloves)?",
             "vi": "Các biện pháp bảo vệ có được thực hiện khi xử lý xác gia cầm (ví dụ: rửa tay hoặc sử dụng găng tay) không?",
@@ -1999,57 +1432,8 @@
       },
       "questions": [
         {
-          "id": "Q30",
-          "order": 30,
-          "question": {
-            "en": "Are visitors required to register before entering poultry houses?",
-            "vi": "Khách tham quan có bắt buộc phải đăng ký trước khi vào chuồng trại không?",
-            "id": "Apakah pengunjung diwajibkan mendaftar sebelum memasuki kandang unggas?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_30A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_30B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Unregistered visitors compromise traceability and biosecurity control",
-              "vi": "Khách tham quan không đăng ký làm tổn hại khả năng truy xuất nguồn gốc và kiểm soát an toàn sinh học",
-              "id": "Pengunjung yang tidak terdaftar membahayakan penelusuran dan kontrol biosekuritas"
-            },
-            "recommendation": {
-              "en": "1. Implement mandatory visitor registration system\n2. Maintain visitor logs with contact information\n3. Record purpose and duration of visit\n4. Provide visitor identification badges\n5. Train staff on visitor management procedures",
-              "vi": "1. Triển khai hệ thống đăng ký khách tham quan bắt buộc\n2. Duy trì nhật ký khách tham quan với thông tin liên hệ\n3. Ghi lại mục đích và thời gian thăm\n4. Cung cấp thẻ nhận dạng cho khách tham quan\n5. Đào tạo nhân viên về thủ tục quản lý khách tham quan",
-              "id": "1. Terapkan sistem pendaftaran pengunjung wajib\n2. Pertahankan log pengunjung dengan informasi kontak\n3. Catat tujuan dan durasi kunjungan\n4. Sediakan kartu identifikasi pengunjung\n5. Latih staf tentang prosedur manajemen pengunjung"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Avian_Influenza"
-            ]
-          }
-        },
-        {
-          "id": "Q31",
-          "order": 31,
+          "id": "Q20",
+          "order": 20,
           "question": {
             "en": "Do farm workers and staff always comply with hygiene rules when entering the farm?",
             "vi": "Công nhân và nhân viên của trại có luôn tuân thủ các quy tắc vệ sinh khi vào trại không?",
@@ -2107,8 +1491,8 @@
           }
         },
         {
-          "id": "Q32",
-          "order": 32,
+          "id": "Q21",
+          "order": 21,
           "question": {
             "en": "Is there a minimum 12-hour non-contact period with poultry for all visitors before they are allowed to enter poultry houses?",
             "vi": "Có khoảng thời gian không tiếp xúc với gia cầm trên 12h cho tất cả khách tham quan trước khi họ được phép vào chuồng hay không?",
@@ -2156,10 +1540,10 @@
           }
         },
         {
-          "id": "Q33",
-          "order": 33,
+          "id": "Q22",
+          "order": 22,
           "question": {
-            "en": "Are visitors and staff required to wear farm-specific clothing (overalls/disinfected clothing) before entering poultry houses?",
+            "en": "Are visitors and staff required to wear farm-specific clothing AND footwear before entering poultry houses?",
             "vi": "Du khách và nhân viên có bắt buộc phải mặc quần áo chuyên dụng của trang trại (quần áo mặc ngoài/quần áo được khử trùng) trước khi họ được phép vào chuồng không?",
             "id": "Apakah pengunjung dan staf diwajibkan memakai pakaian khusus peternakan (overall/pakaian didisinfeksi) sebelum memasuki kandang unggas?"
           },
@@ -2206,166 +1590,8 @@
           }
         },
         {
-          "id": "Q34",
-          "order": 34,
-          "question": {
-            "en": "Are visitors and staff required to wear farm-specific shoes/shoe covers before entering poultry houses?",
-            "vi": "Khách tham quan và nhân viên có phải mang giày chuyên dụng/giày bao chuyên dụng của trang trại trước khi được phép vào chuông không?",
-            "id": "Apakah pengunjung dan staf diwajibkan memakai sepatu khusus/penutup sepatu khusus peternakan sebelum memasuki kandang unggas?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_34A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_34B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Footwear can carry pathogens from external locations",
-              "vi": "Giày dép có thể mang mầm bệnh từ các địa điểm bên ngoài",
-              "id": "Alas kaki dapat membawa patogen dari lokasi eksternal"
-            },
-            "recommendation": {
-              "en": "1. Provide farm-specific footwear or disposable shoe covers\n2. Install footbaths at all entry points\n3. Establish footwear changing stations\n4. Train staff on proper footwear protocols\n5. Monitor compliance with footwear requirements",
-              "vi": "1. Cung cấp giày dép chuyên dụng của trang trại hoặc bao giày dùng một lần\n2. Lắp đặt bồn chân ở tất cả các điểm vào\n3. Thiết lập trạm thay giày dép\n4. Đào tạo nhân viên về giao thức giày dép đúng cách\n5. Giám sát việc tuân thủ các yêu cầu về giày dép",
-              "id": "1. Sediakan alas kaki khusus peternakan atau penutup sepatu sekali pakai\n2. Pasang footbath di semua titik masuk\n3. Bangun stasiun ganti alas kaki\n4. Latih staf tentang protokol alas kaki yang tepat\n5. Pantau kepatuhan terhadap persyaratan alas kaki"
-            },
-            "priority": "high",
-            "diseases_affected": [
-              "Multiple",
-              "Salmonella",
-              "E.coli"
-            ]
-          }
-        },
-        {
-          "id": "Q35",
-          "order": 35,
-          "question": {
-            "en": "Are visitors and staff required to wash and disinfect hands before entering poultry houses?",
-            "vi": "Khách tham quan và nhân viên có bắt buộc phải rửa và khử trùng tay trước khi được phép vào chuồng?",
-            "id": "Apakah pengunjung dan staf diwajibkan mencuci dan mendisinfeksi tangan sebelum memasuki kandang unggas?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_35A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_35B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Unsanitized hands can transfer pathogens to poultry and equipment",
-              "vi": "Tay không được vệ sinh có thể chuyển mầm bệnh sang gia cầm và thiết bị",
-              "id": "Tangan yang tidak disanitasi dapat mentransfer patogen ke unggas dan peralatan"
-            },
-            "recommendation": {
-              "en": "1. Install hand washing stations at all entry points\n2. Provide appropriate hand sanitizers\n3. Train staff on proper hand hygiene techniques\n4. Display hand hygiene instructions\n5. Monitor compliance with hand hygiene protocols",
-              "vi": "1. Lắp đặt trạm rửa tay ở tất cả các điểm vào\n2. Cung cấp chất khử trùng tay thích hợp\n3. Đào tạo nhân viên về kỹ thuật vệ sinh tay đúng cách\n4. Hiển thị hướng dẫn vệ sinh tay\n5. Giám sát việc tuân thủ giao thức vệ sinh tay",
-              "id": "1. Pasang stasiun cuci tangan di semua titik masuk\n2. Sediakan pembersih tangan yang sesuai\n3. Latih staf tentang teknik kebersihan tangan yang benar\n4. Tampilkan instruksi kebersihan tangan\n5. Pantau kepatuhan terhadap protokol kebersihan tangan"
-            },
-            "priority": "high",
-            "diseases_affected": [
-              "Multiple",
-              "Salmonella",
-              "E.coli"
-            ]
-          }
-        },
-        {
-          "id": "Q36",
-          "order": 36,
-          "question": {
-            "en": "How many times per year are visitors allowed to enter poultry houses?",
-            "vi": "Số lần được phép vào chuồng trại của khách tham quan là bao nhiêu lần mỗi năm?",
-            "id": "Berapa kali per tahun pengunjung diizinkan memasuki kandang unggas?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_36A",
-              "label": {
-                "en": "Access is never granted",
-                "vi": "Truy cập không bao giờ được cấp",
-                "id": "Akses tidak pernah diberikan"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_36B",
-              "label": {
-                "en": "Access granted, but less than 12 times per year",
-                "vi": "Quyền truy cập được cấp, nhưng ít hơn 12 lần một năm",
-                "id": "Akses diberikan, tetapi kurang dari 12 kali per tahun"
-              },
-              "score": 6
-            },
-            {
-              "id": "OPT_36C",
-              "label": {
-                "en": "Access granted more than 12 times per year",
-                "vi": "Quyền truy cập được cấp hơn 12 lần một năm",
-                "id": "Akses diberikan lebih dari 12 kali per tahun"
-              },
-              "score": 2
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 6,
-            "risk_description": {
-              "en": "Frequent visitor access increases disease introduction risk",
-              "vi": "Truy cập của khách tham quan thường xuyên làm tăng nguy cơ đưa bệnh vào",
-              "id": "Akses pengunjung yang sering meningkatkan risiko pengenalan penyakit"
-            },
-            "recommendation": {
-              "en": "1. Minimize visitor access to essential personnel only\n2. Implement virtual tour options where possible\n3. Schedule visits during low-risk periods\n4. Group multiple visits to minimize frequency\n5. Maintain strict biosecurity for all visitors",
-              "vi": "1. Giảm thiểu quyền truy cập của khách tham quan chỉ cho nhân viên thiết yếu\n2. Triển khai tùy chọn tham quan ảo khi có thể\n3. Lên lịch các chuyến thăm trong thời gian rủi ro thấp\n4. Nhóm nhiều chuyến thăm để giảm thiểu tần suất\n5. Duy trì an toàn sinh học nghiêm ngặt cho tất cả khách tham quan",
-              "id": "1. Minimalkan akses pengunjung hanya untuk personel penting\n2. Terapkan opsi tur virtual jika memungkinkan\n3. Jadwalkan kunjungan selama periode risiko rendah\n4. Kelompokkan beberapa kunjungan untuk meminimalkan frekuensi\n5. Pertahankan biosekuritas ketat untuk semua pengunjung"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Avian_Influenza"
-            ]
-          }
-        },
-        {
-          "id": "Q37",
-          "order": 37,
+          "id": "Q23",
+          "order": 23,
           "question": {
             "en": "Do any farm staff keep poultry or birds at their homes?",
             "vi": "Có nhân viên nào của trang trại nuôi gia cầm hoặc chim ở nhà của họ không?",
@@ -2414,8 +1640,8 @@
           }
         },
         {
-          "id": "Q38",
-          "order": 38,
+          "id": "Q24",
+          "order": 24,
           "question": {
             "en": "Do any farm staff work for other poultry farms?",
             "vi": "Có nhân viên nào của trại làm việc cho các trang trại gia cầm khác không?",
@@ -2464,8 +1690,8 @@
           }
         },
         {
-          "id": "Q39",
-          "order": 39,
+          "id": "Q25",
+          "order": 25,
           "question": {
             "en": "Is equipment within the farm used on other farms?",
             "vi": "Thiết bị có trong trang trại được sử dụng trên các trang trại khác không?",
@@ -2512,56 +1738,6 @@
               "Newcastle_Disease"
             ]
           }
-        },
-        {
-          "id": "Q40",
-          "order": 40,
-          "question": {
-            "en": "Are specific preventive measures implemented for material supply (e.g., UV disinfection, alcohol disinfection)?",
-            "vi": "Các biện pháp phòng ngừa cụ thể có được thực hiện cho việc cung cấp nguyên liệu không (ví dụ: khử trùng bằng tia cực tím, khử trùng bằng cồn)?",
-            "id": "Apakah tindakan pencegahan spesifik diterapkan untuk pasokan material (misalnya, disinfeksi UV, disinfeksi alkohol)?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_40A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_40B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Inadequate material disinfection can introduce pathogens to the farm",
-              "vi": "Khử trùng vật liệu không đầy đủ có thể đưa mầm bệnh vào trang trại",
-              "id": "Disinfeksi material yang tidak memadai dapat memperkenalkan patogen ke peternakan"
-            },
-            "recommendation": {
-              "en": "1. Implement material disinfection protocols for all incoming items\n2. Establish quarantine area for incoming materials\n3. Use appropriate disinfection methods for different materials\n4. Train staff on material handling procedures\n5. Monitor material disinfection effectiveness",
-              "vi": "1. Triển khai giao thức khử trùng vật liệu cho tất cả các mặt hàng đến\n2. Thiết lập khu vực cách ly cho vật liệu đến\n3. Sử dụng phương pháp khử trùng thích hợp cho các vật liệu khác nhau\n4. Đào tạo nhân viên về thủ tục xử lý vật liệu\n5. Giám sát hiệu quả khử trùng vật liệu",
-              "id": "1. Terapkan protokol disinfeksi material untuk semua barang masuk\n2. Bangun area karantina untuk material masuk\n3. Gunakan metode disinfeksi yang sesuai untuk material berbeda\n4. Latih staf tentang prosedur penanganan material\n5. Pantau efektivitas disinfeksi material"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Salmonella",
-              "E.coli"
-            ]
-          }
         }
       ]
     },
@@ -2580,8 +1756,8 @@
       },
       "questions": [
         {
-          "id": "Q41",
-          "order": 41,
+          "id": "Q26",
+          "order": 26,
           "question": {
             "en": "Are poultry allowed to roam outdoors?",
             "vi": "Gia cầm có được thả ra ngoài trời không?",
@@ -2630,58 +1806,8 @@
           }
         },
         {
-          "id": "Q42",
-          "order": 42,
-          "question": {
-            "en": "Is poultry manure stored within the farm?",
-            "vi": "Phân gia cầm có được lưu trữ trong trang trại không?",
-            "id": "Apakah kotoran unggas disimpan di dalam peternakan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_42A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 0
-            },
-            {
-              "id": "OPT_42B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 10
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "On-farm manure storage attracts pests and can harbor pathogens",
-              "vi": "Lưu trữ phân tại trang trại thu hút dịch hại và có thể chứa mầm bệnh",
-              "id": "Penyimpanan kotoran di peternakan menarik hama dan dapat menampung patogen"
-            },
-            "recommendation": {
-              "en": "1. Implement regular manure removal schedule\n2. Store manure off-site if possible\n3. Use covered manure storage facilities\n4. Treat manure to reduce pathogen load\n5. Monitor pest activity around manure storage",
-              "vi": "1. Triển khai lịch loại bỏ phân thường xuyên\n2. Lưu trữ phân ngoài trang trại nếu có thể\n3. Sử dụng cơ sở lưu trữ phân có mái che\n4. Xử lý phân để giảm tải mầm bệnh\n5. Giám sát hoạt động dịch hại xung quanh khu vực lưu trữ phân",
-              "id": "1. Terapkan jadwal pembuangan kotoran rutin\n2. Simpan kotoran di luar lokasi jika memungkinkan\n3. Gunakan fasilitas penyimpanan kotoran tertutup\n4. Olah kotoran untuk mengurangi beban patogen\n5. Pantau aktivitas hama di sekitar penyimpanan kotoran"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Salmonella",
-              "E.coli",
-              "Rodent-borne_diseases"
-            ]
-          }
-        },
-        {
-          "id": "Q43",
-          "order": 43,
+          "id": "Q27",
+          "order": 27,
           "question": {
             "en": "Can wild birds enter the farm?",
             "vi": "Các loài chim hoang dã có thể vào trang trại không?",
@@ -2730,8 +1856,8 @@
           }
         },
         {
-          "id": "Q44",
-          "order": 44,
+          "id": "Q28",
+          "order": 28,
           "question": {
             "en": "Are nets for birds and rodents placed on ventilation openings?",
             "vi": "Lưới chắn chim và chuột bọ có được đặt trên lỗ thông gió không?",
@@ -2780,8 +1906,8 @@
           }
         },
         {
-          "id": "Q45",
-          "order": 45,
+          "id": "Q29",
+          "order": 29,
           "question": {
             "en": "Is the farm surrounded (using fences, barbed wire, etc.)?",
             "vi": "Trang trại có được bao quanh (sử dụng hàng rào, dây thép gai,...) không?",
@@ -2838,66 +1964,8 @@
           }
         },
         {
-          "id": "Q46",
-          "order": 46,
-          "question": {
-            "en": "Is the outside of the farm (around walls) paved and cleaned (weed removal, waste removal, etc.)?",
-            "vi": "Bên ngoài của trang trại (xung quanh tường) có được lát đường và quét dọn không (cắt bỏ cỏ dại, loại bỏ chất thải,...)?",
-            "id": "Apakah bagian luar peternakan (sekitar dinding) diaspal dan dibersihkan (penghilangan gulma, penghilangan limbah, dll.)?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_46A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_46B",
-              "label": {
-                "en": "Partially",
-                "vi": "Một phần",
-                "id": "Sebagian"
-              },
-              "score": 4
-            },
-            {
-              "id": "OPT_46C",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 4,
-            "risk_description": {
-              "en": "Unmaintained perimeter areas provide habitat for pests and harbor pathogens",
-              "vi": "Các khu vực chu vi không được bảo trì cung cấp môi trường sống cho dịch hại và chứa mầm bệnh",
-              "id": "Area perimeter yang tidak dipelihara menyediakan habitat untuk hama dan menampung patogen"
-            },
-            "recommendation": {
-              "en": "1. Pave perimeter areas to reduce vegetation\n2. Implement regular perimeter cleaning schedule\n3. Remove weeds and vegetation regularly\n4. Keep perimeter free of debris and waste\n5. Monitor perimeter for pest activity",
-              "vi": "1. Lát đường các khu vực chu vi để giảm thảm thực vật\n2. Triển khai lịch làm sạch chu vi thường xuyên\n3. Loại bỏ cỏ dại và thảm thực vật thường xuyên\n4. Giữ chu vi không có mảnh vụn và chất thải\n5. Giám sát chu vi để tìm hoạt động dịch hại",
-              "id": "1. Aspal area perimeter untuk mengurangi vegetasi\n2. Terapkan jadwal pembersihan perimeter rutin\n3. Hapus gulma dan vegetasi secara teratur\n4. Jaga perimeter bebas dari puing dan limbah\n5. Pantau perimeter untuk aktivitas hama"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Rodent-borne_diseases",
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q47",
-          "order": 47,
+          "id": "Q30",
+          "order": 30,
           "question": {
             "en": "Does your farm have problems with pests (rodents, insects, etc.)?",
             "vi": "Trang trại của ông (bà) có vấn đề về các động vật gây hại (chuột, bọ v...v) hay không?",
@@ -2955,8 +2023,8 @@
           }
         },
         {
-          "id": "Q48",
-          "order": 48,
+          "id": "Q31",
+          "order": 31,
           "question": {
             "en": "Is a pest control program implemented at the farm?",
             "vi": "Có chương trình kiểm soát động vật gây hại được thực hiện tại trang trại không?",
@@ -3005,8 +2073,8 @@
           }
         },
         {
-          "id": "Q49",
-          "order": 49,
+          "id": "Q32",
+          "order": 32,
           "question": {
             "en": "Can pets (dogs, cats, etc.) access poultry houses or cleaning areas?",
             "vi": "Vật nuôi cảnh (chó, mèo, ...) có thể sử dụng chuồng hoặc khu vực vệ sinh không?",
@@ -3054,156 +2122,8 @@
           }
         },
         {
-          "id": "Q50",
-          "order": 50,
-          "question": {
-            "en": "Do you raise poultry using free-range methods?",
-            "vi": "Ông (bà) có nuôi gia cầm theo phương thức thả vườn không?",
-            "id": "Apakah Anda memelihara unggas menggunakan metode bebas berkeliaran?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_50A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 0
-            },
-            {
-              "id": "OPT_50B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 10
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Free-range systems increase exposure to environmental pathogens and wildlife",
-              "vi": "Hệ thống thả vườn làm tăng phơi nhiễm với mầm bệnh môi trường và động vật hoang dã",
-              "id": "Sistem bebas berkeliaran meningkatkan paparan terhadap patogen lingkungan dan satwa liar"
-            },
-            "recommendation": {
-              "en": "1. Consider transitioning to controlled indoor systems\n2. Implement enhanced biosecurity for free-range areas\n3. Regular health monitoring of free-range flocks\n4. Control access to free-range areas\n5. Monitor wildlife activity in free-range zones",
-              "vi": "1. Xem xét chuyển đổi sang hệ thống trong nhà được kiểm soát\n2. Triển khai an toàn sinh học tăng cường cho các khu vực thả vườn\n3. Giám sát sức khỏe thường xuyên của đàn thả vườn\n4. Kiểm soát quyền truy cập vào các khu vực thả vườn\n5. Giám sát hoạt động động vật hoang dã trong các khu vực thả vườn",
-              "id": "1. Pertimbangkan transisi ke sistem dalam ruangan yang terkontrol\n2. Terapkan biosekuritas yang ditingkatkan untuk area bebas berkeliaran\n3. Pemantauan kesehatan rutin kawanan bebas berkeliaran\n4. Kontrol akses ke area bebas berkeliaran\n5. Pantau aktivitas satwa liar di zona bebas berkeliaran"
-            },
-            "priority": "high",
-            "diseases_affected": [
-              "Avian_Influenza",
-              "Newcastle_Disease",
-              "Wildlife_borne_diseases"
-            ]
-          }
-        },
-        {
-          "id": "Q51",
-          "order": 51,
-          "question": {
-            "en": "Are other animals kept on the same farm?",
-            "vi": "Các vật nuôi khác có được nuôi giữ trên cùng trang trại không?",
-            "id": "Apakah hewan lain dipelihara di peternakan yang sama?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_51A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 0
-            },
-            {
-              "id": "OPT_51B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 10
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Multiple animal species increase cross-species disease transmission risk",
-              "vi": "Nhiều loài động vật làm tăng nguy cơ lây truyền bệnh chéo loài",
-              "id": "Beberapa spesies hewan meningkatkan risiko penularan penyakit lintas spesies"
-            },
-            "recommendation": {
-              "en": "1. Separate different animal species completely\n2. Implement strict biosecurity between species areas\n3. Regular health monitoring of all animal species\n4. Consider single-species farming operations\n5. Monitor for cross-species disease transmission",
-              "vi": "1. Tách biệt hoàn toàn các loài động vật khác nhau\n2. Triển khai an toàn sinh học nghiêm ngặt giữa các khu vực loài\n3. Giám sát sức khỏe thường xuyên của tất cả các loài động vật\n4. Xem xét hoạt động chăn nuôi đơn loài\n5. Giám sát lây truyền bệnh chéo loài",
-              "id": "1. Pisahkan spesies hewan yang berbeda sepenuhnya\n2. Terapkan biosekuritas ketat antar area spesies\n3. Pemantauan kesehatan rutin semua spesies hewan\n4. Pertimbangkan operasi peternakan spesies tunggal\n5. Pantau penularan penyakit lintas spesies"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Zoonotic_diseases"
-            ]
-          }
-        },
-        {
-          "id": "Q52",
-          "order": 52,
-          "question": {
-            "en": "Is there standing or flowing water within 1km radius?",
-            "vi": "Trong vòng bán kính 1km có nước ứ đọng hoặc nước chảy không?",
-            "id": "Apakah ada air tergenang atau mengalir dalam radius 1km?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_52A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 0
-            },
-            {
-              "id": "OPT_52B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 10
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Nearby water sources attract wild birds and increase disease transmission risk",
-              "vi": "Nguồn nước gần đó thu hút chim hoang dã và làm tăng nguy cơ lây truyền bệnh",
-              "id": "Sumber air terdekat menarik burung liar dan meningkatkan risiko penularan penyakit"
-            },
-            "recommendation": {
-              "en": "1. Implement enhanced wild bird control measures\n2. Monitor water sources for wild bird activity\n3. Consider water management to reduce attraction\n4. Increase biosecurity during migration seasons\n5. Regular disease surveillance in flocks",
-              "vi": "1. Triển khai các biện pháp kiểm soát chim hoang dã tăng cường\n2. Giám sát nguồn nước để tìm hoạt động của chim hoang dã\n3. Xem xét quản lý nước để giảm sự thu hút\n4. Tăng cường an toàn sinh học trong mùa di cư\n5. Giám sát bệnh thường xuyên trong đàn",
-              "id": "1. Terapkan tindakan kontrol burung liar yang ditingkatkan\n2. Pantau sumber air untuk aktivitas burung liar\n3. Pertimbangkan manajemen air untuk mengurangi daya tarik\n4. Tingkatkan biosekuritas selama musim migrasi\n5. Surveilans penyakit rutin dalam kawanan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Avian_Influenza",
-              "Wildlife_borne_diseases"
-            ]
-          }
-        },
-        {
-          "id": "Q53",
-          "order": 53,
+          "id": "Q33",
+          "order": 33,
           "question": {
             "en": "What is the distance to the nearest neighboring poultry farm (straight line)?",
             "vi": "Trang trại gia cầm lân cận gần nhất nằm trong khoảng cách nào (theo đường thẳng)?",
@@ -3259,115 +2179,6 @@
               "Multiple"
             ]
           }
-        },
-        {
-          "id": "Q54",
-          "order": 54,
-          "question": {
-            "en": "Does manure from neighboring poultry farms spread to your farm (within 500 meter radius)?",
-            "vi": "Phân từ các trang trại gia cầm lân cận khác có lan tràn tới trang trại của ông (bà) không (trong bán kính 500 mét)?",
-            "id": "Apakah kotoran dari peternakan unggas tetangga menyebar ke peternakan Anda (dalam radius 500 meter)?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_54A",
-              "label": {
-                "en": "Frequently",
-                "vi": "Thường xuyên",
-                "id": "Sering"
-              },
-              "score": 0
-            },
-            {
-              "id": "OPT_54B",
-              "label": {
-                "en": "Sometimes",
-                "vi": "Đôi khi",
-                "id": "Kadang-kadang"
-              },
-              "score": 4
-            },
-            {
-              "id": "OPT_54C",
-              "label": {
-                "en": "Never",
-                "vi": "Không bao giờ",
-                "id": "Tidak pernah"
-              },
-              "score": 10
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 4,
-            "risk_description": {
-              "en": "Neighboring farm manure spread can introduce pathogens through wind or water",
-              "vi": "Phân từ trang trại lân cận lan tràn có thể đưa mầm bệnh qua gió hoặc nước",
-              "id": "Penyebaran kotoran peternakan tetangga dapat memperkenalkan patogen melalui angin atau air"
-            },
-            "recommendation": {
-              "en": "1. Communicate with neighbors about manure management\n2. Install windbreaks or barriers\n3. Monitor wind patterns and manure application times\n4. Implement enhanced biosecurity during manure spreading periods\n5. Regular disease surveillance in flocks",
-              "vi": "1. Giao tiếp với hàng xóm về quản lý phân\n2. Lắp đặt vật chắn gió hoặc rào cản\n3. Theo dõi mô hình gió và thời gian bón phân\n4. Triển khai an toàn sinh học tăng cường trong thời gian rải phân\n5. Giám sát bệnh thường xuyên trong đàn",
-              "id": "1. Berkomunikasi dengan tetangga tentang manajemen kotoran\n2. Pasang penghalang angin atau penghalang\n3. Pantau pola angin dan waktu aplikasi kotoran\n4. Terapkan biosekuritas yang ditingkatkan selama periode penyebaran kotoran\n5. Surveilans penyakit rutin dalam kawanan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Salmonella",
-              "E.coli"
-            ]
-          }
-        },
-        {
-          "id": "Q55",
-          "order": 55,
-          "question": {
-            "en": "Do poultry transport vehicles frequently (at least once daily) pass through public roads (roads under 100 meters) where your farm is located (e.g., due to nearby slaughterhouse, etc.)?",
-            "vi": "Xe vận chuyển gia cầm có thường (tối thiểu một lần trong ngày) chạy xuyên qua đường công (đường dưới 100 mét) cộng nơi mà vị trí nông trại của ông (bà) không (ví dụ: do ở gần đó có lò giết mổ, ...)?",
-            "id": "Apakah kendaraan transportasi unggas sering (setidaknya sekali sehari) melewati jalan umum (jalan di bawah 100 meter) di mana peternakan Anda berada (misalnya, karena rumah potong hewan terdekat, dll.)?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_55A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 0
-            },
-            {
-              "id": "OPT_55B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 10
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Frequent poultry transport near farm increases disease introduction risk",
-              "vi": "Vận chuyển gia cầm thường xuyên gần trang trại làm tăng nguy cơ đưa bệnh vào",
-              "id": "Transportasi unggas yang sering dekat peternakan meningkatkan risiko pengenalan penyakit"
-            },
-            "recommendation": {
-              "en": "1. Consider alternative farm access routes\n2. Implement enhanced biosecurity for farm perimeter\n3. Schedule farm activities to avoid transport times\n4. Monitor transport vehicle biosecurity practices\n5. Regular disease surveillance in flocks",
-              "vi": "1. Xem xét các tuyến đường tiếp cận trang trại thay thế\n2. Triển khai an toàn sinh học tăng cường cho chu vi trang trại\n3. Lên lịch hoạt động trang trại để tránh thời gian vận chuyển\n4. Giám sát thực hành an toàn sinh học của xe vận chuyển\n5. Giám sát bệnh thường xuyên trong đàn",
-              "id": "1. Pertimbangkan rute akses peternakan alternatif\n2. Terapkan biosekuritas yang ditingkatkan untuk perimeter peternakan\n3. Jadwalkan aktivitas peternakan untuk menghindari waktu transportasi\n4. Pantau praktik biosekuritas kendaraan transportasi\n5. Surveilans penyakit rutin dalam kawanan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Avian_Influenza",
-              "Newcastle_Disease",
-              "Multiple"
-            ]
-          }
         }
       ]
     },
@@ -3386,8 +2197,8 @@
       },
       "questions": [
         {
-          "id": "Q56",
-          "order": 56,
+          "id": "Q34",
+          "order": 34,
           "question": {
             "en": "Are there regulations for vaccination at the farm and are they strictly followed?",
             "vi": "Có quy định nào cho việc tiêm phòng tại trang trại và các quy định đó có được tuân thủ nghiêm ngặt không?",
@@ -3435,8 +2246,8 @@
           }
         },
         {
-          "id": "Q57",
-          "order": 57,
+          "id": "Q35",
+          "order": 35,
           "question": {
             "en": "Is the farm disease status checked regularly (at least once per year)?",
             "vi": "Tình trạng bệnh dịch của trang trại được kiểm tra thường xuyên không (ít nhất một lần một năm)?",
@@ -3484,68 +2295,10 @@
           }
         },
         {
-          "id": "Q58",
-          "order": 58,
+          "id": "Q36",
+          "order": 36,
           "question": {
-            "en": "How frequently are dead birds removed from the farm?",
-            "vi": "Việc loại bỏ con vật chết ra khỏi trang trại thực hiện thường xuyên như thế nào?",
-            "id": "Seberapa sering burung mati dikeluarkan dari peternakan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_58A",
-              "label": {
-                "en": "Daily",
-                "vi": "Hàng ngày",
-                "id": "Setiap hari"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_58B",
-              "label": {
-                "en": "Every two days",
-                "vi": "Mỗi hai ngày",
-                "id": "Setiap dua hari"
-              },
-              "score": 6
-            },
-            {
-              "id": "OPT_58C",
-              "label": {
-                "en": "Less than twice per week",
-                "vi": "Ít hơn hai lần một tuần",
-                "id": "Kurang dari dua kali per minggu"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 6,
-            "risk_description": {
-              "en": "Infrequent dead bird removal increases disease spread and environmental contamination",
-              "vi": "Loại bỏ xác gia cầm không thường xuyên làm tăng sự lây lan bệnh và ô nhiễm môi trường",
-              "id": "Pengangkatan bangkai burung yang tidak sering meningkatkan penyebaran penyakit dan kontaminasi lingkungan"
-            },
-            "recommendation": {
-              "en": "1. Implement daily dead bird collection\n2. Train staff on proper removal procedures\n3. Use appropriate containers for dead bird storage\n4. Document mortality rates and causes\n5. Monitor removal frequency and effectiveness",
-              "vi": "1. Triển khai thu gom xác gia cầm hàng ngày\n2. Đào tạo nhân viên về thủ tục loại bỏ đúng cách\n3. Sử dụng thùng chứa thích hợp để lưu trữ xác gia cầm\n4. Ghi lại tỷ lệ tử vong và nguyên nhân\n5. Giám sát tần suất và hiệu quả loại bỏ",
-              "id": "1. Terapkan pengumpulan bangkai burung harian\n2. Latih staf tentang prosedur pengangkatan yang benar\n3. Gunakan wadah yang sesuai untuk penyimpanan bangkai burung\n4. Dokumentasikan tingkat kematian dan penyebabnya\n5. Pantau frekuensi dan efektivitas pengangkatan"
-            },
-            "priority": "high",
-            "diseases_affected": [
-              "Multiple",
-              "Bacterial_growth_related"
-            ]
-          }
-        },
-        {
-          "id": "Q59",
-          "order": 59,
-          "question": {
-            "en": "What is the poultry density in the poultry house?",
+            "en": "What is the stocking density in the poultry house? (kg live weight/m2)",
             "vi": "Mật độ gia cầm trong chuồng trại như thế nào?",
             "id": "Bagaimana kepadatan unggas di kandang unggas?"
           },
@@ -3673,8 +2426,8 @@
           }
         },
         {
-          "id": "Q60",
-          "order": 60,
+          "id": "Q37",
+          "order": 37,
           "question": {
             "en": "Are there poultry groups of different ages currently on the farm?",
             "vi": "Hiện nay, trong trang trại có các nhóm gia cầm khác độ tuổi không?",
@@ -3722,10 +2475,10 @@
           }
         },
         {
-          "id": "Q61",
-          "order": 61,
+          "id": "Q38",
+          "order": 38,
           "question": {
-            "en": "Do vehicles pass through disinfection ponds before entering the farm?",
+            "en": "Do vehicles pass through disinfection ponds before entering the farm, and is this strictly enforced?",
             "vi": "Xe vận chuyển có qua các hồ khử trùng trước khi vào trang trại không?",
             "id": "Apakah kendaraan melewati kolam disinfeksi sebelum memasuki peternakan?"
           },
@@ -3775,58 +2528,10 @@
           }
         },
         {
-          "id": "Q62",
-          "order": 62,
+          "id": "Q39",
+          "order": 39,
           "question": {
-            "en": "Is vehicle disinfection before farm entry strictly enforced?",
-            "vi": "Việc khử trùng xe trước khi vào trại có được tuân thủ nghiêm ngặt không?",
-            "id": "Apakah disinfeksi kendaraan sebelum masuk peternakan ditegakkan secara ketat?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_62A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_62B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Inconsistent disinfection compliance reduces effectiveness and increases risk",
-              "vi": "Tuân thủ khử trùng không nhất quán làm giảm hiệu quả và tăng rủi ro",
-              "id": "Kepatuhan disinfeksi yang tidak konsisten mengurangi efektivitas dan meningkatkan risiko"
-            },
-            "recommendation": {
-              "en": "1. Implement mandatory disinfection protocols\n2. Install monitoring systems (cameras, sensors)\n3. Train staff and drivers on importance of compliance\n4. Conduct regular audits of disinfection practices\n5. Implement consequences for non-compliance",
-              "vi": "1. Triển khai giao thức khử trùng bắt buộc\n2. Lắp đặt hệ thống giám sát (camera, cảm biến)\n3. Đào tạo nhân viên và tài xế về tầm quan trọng của việc tuân thủ\n4. Thực hiện kiểm tra thường xuyên về thực hành khử trùng\n5. Triển khai hậu quả cho việc không tuân thủ",
-              "id": "1. Terapkan protokol disinfeksi wajib\n2. Pasang sistem pemantauan (kamera, sensor)\n3. Latih staf dan pengemudi tentang pentingnya kepatuhan\n4. Lakukan audit rutin praktik disinfeksi\n5. Terapkan konsekuensi untuk ketidakpatuhan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q63",
-          "order": 63,
-          "question": {
-            "en": "Are poultry houses cleaned after each production cycle?",
+            "en": "Are poultry houses cleaned AND disinfected after each production cycle?",
             "vi": "Các chuồng có được vệ sinh sạch sau mỗi chu kỳ sản xuất không?",
             "id": "Apakah kandang unggas dibersihkan setelah setiap siklus produksi?"
           },
@@ -3873,58 +2578,8 @@
           }
         },
         {
-          "id": "Q64",
-          "order": 64,
-          "question": {
-            "en": "Are these poultry houses disinfected after each production cycle?",
-            "vi": "Những chuồng này có được khử trùng sau mỗi chu kỳ sản xuất không?",
-            "id": "Apakah kandang unggas ini didisinfeksi setelah setiap siklus produksi?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_64A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_64B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Lack of disinfection allows pathogen survival and transmission to new flocks",
-              "vi": "Thiếu khử trùng cho phép mầm bệnh sống sót và lây truyền sang đàn mới",
-              "id": "Kurangnya disinfeksi memungkinkan kelangsungan hidup patogen dan penularan ke kawanan baru"
-            },
-            "recommendation": {
-              "en": "1. Implement mandatory disinfection after each production cycle\n2. Use appropriate disinfectants for different pathogens\n3. Follow correct contact times and application methods\n4. Train staff on proper disinfection procedures\n5. Monitor disinfection effectiveness through testing",
-              "vi": "1. Triển khai khử trùng bắt buộc sau mỗi chu kỳ sản xuất\n2. Sử dụng chất khử trùng thích hợp cho các mầm bệnh khác nhau\n3. Tuân thủ thời gian tiếp xúc và phương pháp áp dụng đúng cách\n4. Đào tạo nhân viên về thủ tục khử trùng đúng cách\n5. Giám sát hiệu quả khử trùng thông qua kiểm tra",
-              "id": "1. Terapkan disinfeksi wajib setelah setiap siklus produksi\n2. Gunakan disinfektan yang sesuai untuk patogen berbeda\n3. Ikuti waktu kontak yang benar dan metode aplikasi\n4. Latih staf tentang prosedur disinfeksi yang benar\n5. Pantau efektivitas disinfeksi melalui pengujian"
-            },
-            "priority": "high",
-            "diseases_affected": [
-              "Multiple",
-              "Salmonella",
-              "E.coli"
-            ]
-          }
-        },
-        {
-          "id": "Q65",
-          "order": 65,
+          "id": "Q40",
+          "order": 40,
           "question": {
             "en": "Is the effectiveness of cleaning and disinfection checked (e.g., through hygiene indicators)?",
             "vi": "Hiệu quả của việc vệ sinh và khử trùng có được kiểm tra hay không (ví dụ: bằng các chỉ tiêu vệ sinh)?",
@@ -3982,58 +2637,8 @@
           }
         },
         {
-          "id": "Q66",
-          "order": 66,
-          "question": {
-            "en": "Are loading/unloading areas cleaned and disinfected after each production cycle?",
-            "vi": "Khu vực bốc dỡ có được làm sạch và khử trùng sau mỗi chu kỳ sản xuất không?",
-            "id": "Apakah area bongkar/muat dibersihkan dan didisinfeksi setelah setiap siklus produksi?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_66A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_66B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Contaminated loading areas can introduce pathogens to new flocks",
-              "vi": "Khu vực bốc dỡ bị ô nhiễm có thể đưa mầm bệnh vào đàn mới",
-              "id": "Area bongkar muat yang terkontaminasi dapat memperkenalkan patogen ke kawanan baru"
-            },
-            "recommendation": {
-              "en": "1. Include loading areas in cleaning and disinfection protocols\n2. Use appropriate cleaning agents for concrete and other surfaces\n3. Train staff on proper cleaning of loading areas\n4. Document cleaning schedules and procedures\n5. Monitor loading area cleanliness regularly",
-              "vi": "1. Bao gồm khu vực bốc dỡ trong giao thức làm sạch và khử trùng\n2. Sử dụng chất tẩy rửa thích hợp cho bê tông và các bề mặt khác\n3. Đào tạo nhân viên về việc làm sạch khu vực bốc dỡ đúng cách\n4. Ghi lại lịch trình và thủ tục làm sạch\n5. Giám sát vệ sinh khu vực bốc dỡ thường xuyên",
-              "id": "1. Sertakan area bongkar muat dalam protokol pembersihan dan disinfeksi\n2. Gunakan agen pembersih yang sesuai untuk beton dan permukaan lainnya\n3. Latih staf tentang pembersihan area bongkar muat yang benar\n4. Dokumentasikan jadwal dan prosedur pembersihan\n5. Pantau kebersihan area bongkar muat secara teratur"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Salmonella",
-              "E.coli"
-            ]
-          }
-        },
-        {
-          "id": "Q67",
-          "order": 67,
+          "id": "Q41",
+          "order": 41,
           "question": {
             "en": "How many days is the cleaning transition period after each production cycle?",
             "vi": "Thời gian vệ sinh chuyển tiếp sau mỗi chu kỳ sản xuất kéo dài bao nhiêu ngày?",
@@ -4090,10 +2695,10 @@
           }
         },
         {
-          "id": "Q68",
-          "order": 68,
+          "id": "Q42",
+          "order": 42,
           "question": {
-            "en": "Does the farm currently have separate hygiene facilities?",
+            "en": "Does the farm have a hygiene facility (shower/changing room) with clear separation between dirty and clean areas?",
             "vi": "Hiện tại trang trại có khu vệ sinh riêng không?",
             "id": "Apakah peternakan saat ini memiliki fasilitas kebersihan terpisah?"
           },
@@ -4143,56 +2748,8 @@
           }
         },
         {
-          "id": "Q69",
-          "order": 69,
-          "question": {
-            "en": "Is there strict separation between clean and dirty areas of the hygiene facility?",
-            "vi": "Có sự tách biệt nghiêm ngặt giữa khu sạch và bẩn của khu vực vệ sinh không?",
-            "id": "Apakah ada pemisahan ketat antara area bersih dan kotor dari fasilitas kebersihan?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_69A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_69B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Poor separation in hygiene facilities allows cross-contamination",
-              "vi": "Sự phân cách kém trong cơ sở vệ sinh cho phép nhiễm chéo",
-              "id": "Pemisahan yang buruk dalam fasilitas kebersihan memungkinkan kontaminasi silang"
-            },
-            "recommendation": {
-              "en": "1. Design hygiene facilities with clear clean/dirty separation\n2. Implement one-way traffic flow through facilities\n3. Install physical barriers between clean and dirty areas\n4. Train staff on proper facility use\n5. Monitor compliance with separation protocols",
-              "vi": "1. Thiết kế cơ sở vệ sinh với sự phân tách sạch/bẩn rõ ràng\n2. Triển khai luồng giao thông một chiều qua các cơ sở\n3. Lắp đặt rào cản vật lý giữa khu vực sạch và bẩn\n4. Đào tạo nhân viên về việc sử dụng cơ sở đúng cách\n5. Giám sát việc tuân thủ giao thức phân cách",
-              "id": "1. Rancang fasilitas kebersihan dengan pemisahan bersih/kotor yang jelas\n2. Terapkan aliran lalu lintas satu arah melalui fasilitas\n3. Pasang penghalang fisik antara area bersih dan kotor\n4. Latih staf tentang penggunaan fasilitas yang benar\n5. Pantau kepatuhan terhadap protokol pemisahan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q70",
-          "order": 70,
+          "id": "Q43",
+          "order": 43,
           "question": {
             "en": "Does the farm currently have a changing room with farm-specific clothing and footwear in the hygiene area?",
             "vi": "Hiện tại trang trại bạn có phòng thay đồ với quần áo và giầy chuyên dụng của trang trại trong khu vực vệ sinh hay không?",
@@ -4241,109 +2798,10 @@
           }
         },
         {
-          "id": "Q71",
-          "order": 71,
+          "id": "Q44",
+          "order": 44,
           "question": {
-            "en": "Does the farm currently have separate poultry house hygiene facilities?",
-            "vi": "Hiện tại trang trại có khu vực vệ sinh chuồng nuôi riêng biệt không?",
-            "id": "Apakah peternakan saat ini memiliki fasilitas kebersihan kandang unggas terpisah?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_71A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_71B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0,
-              "conditional_logic": {
-                "action": "skip_to_Q75"
-              }
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Lack of house-specific hygiene facilities increases disease transmission between houses",
-              "vi": "Thiếu cơ sở vệ sinh cụ thể cho chuồng làm tăng lây truyền bệnh giữa các chuồng",
-              "id": "Kurangnya fasilitas kebersihan khusus rumah meningkatkan penularan penyakit antar rumah"
-            },
-            "recommendation": {
-              "en": "1. Install hygiene facilities at each poultry house entrance\n2. Provide house-specific equipment and supplies\n3. Implement strict entry procedures for each house\n4. Train staff on house-specific hygiene protocols\n5. Monitor facility usage and maintenance",
-              "vi": "1. Lắp đặt cơ sở vệ sinh tại lối vào mỗi chuồng gia cầm\n2. Cung cấp thiết bị và vật tư cụ thể cho chuồng\n3. Triển khai thủ tục vào cửa nghiêm ngặt cho mỗi chuồng\n4. Đào tạo nhân viên về giao thức vệ sinh cụ thể cho chuồng\n5. Giám sát việc sử dụng và bảo trì cơ sở",
-              "id": "1. Pasang fasilitas kebersihan di pintu masuk setiap kandang unggas\n2. Sediakan peralatan dan persediaan khusus rumah\n3. Terapkan prosedur masuk ketat untuk setiap rumah\n4. Latih staf tentang protokol kebersihan khusus rumah\n5. Pantau penggunaan dan pemeliharaan fasilitas"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q72",
-          "order": 72,
-          "question": {
-            "en": "Is there strict separation between clean and dirty areas of the poultry house hygiene facility?",
-            "vi": "Có sự tách biệt nghiêm ngặt giữa khu vực sạch và bẩn của khu vực vệ sinh chuồng nuôi không?",
-            "id": "Apakah ada pemisahan ketat antara area bersih dan kotor dari fasilitas kebersihan kandang unggas?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_72A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_72B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Poor separation in house hygiene facilities allows cross-contamination between houses",
-              "vi": "Sự phân cách kém trong cơ sở vệ sinh chuồng cho phép nhiễm chéo giữa các chuồng",
-              "id": "Pemisahan yang buruk dalam fasilitas kebersihan rumah memungkinkan kontaminasi silang antar rumah"
-            },
-            "recommendation": {
-              "en": "1. Design house hygiene facilities with clear clean/dirty separation\n2. Implement one-way traffic flow\n3. Install physical barriers between areas\n4. Train staff on proper facility use\n5. Monitor compliance with separation protocols",
-              "vi": "1. Thiết kế cơ sở vệ sinh chuồng với sự phân tách sạch/bẩn rõ ràng\n2. Triển khai luồng giao thông một chiều\n3. Lắp đặt rào cản vật lý giữa các khu vực\n4. Đào tạo nhân viên về việc sử dụng cơ sở đúng cách\n5. Giám sát việc tuân thủ giao thức phân cách",
-              "id": "1. Rancang fasilitas kebersihan rumah dengan pemisahan bersih/kotor yang jelas\n2. Terapkan aliran lalu lintas satu arah\n3. Pasang penghalang fisik antar area\n4. Latih staf tentang penggunaan fasilitas yang benar\n5. Pantau kepatuhan terhadap protokol pemisahan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q73",
-          "order": 73,
-          "question": {
-            "en": "Are there footbaths/boot washers in the poultry house hygiene area?",
+            "en": "Are footbaths AND handwashing facilities available in the poultry house hygiene area?",
             "vi": "Có chậu rửa chân/ủng trong khu vực vệ sinh chuồng nuôi không?",
             "id": "Apakah ada footbath/pencuci sepatu bot di area kebersihan kandang unggas?"
           },
@@ -4390,60 +2848,10 @@
           }
         },
         {
-          "id": "Q74",
-          "order": 74,
+          "id": "Q45",
+          "order": 45,
           "question": {
-            "en": "Can hands be washed and disinfected in the poultry house hygiene area?",
-            "vi": "Có thể rửa và khử trùng tay trong khu vực vệ sinh chuồng nuôi không?",
-            "id": "Dapatkah tangan dicuci dan didisinfeksi di area kebersihan kandang unggas?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_74A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_74B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Lack of hand hygiene facilities allows pathogen transfer on hands",
-              "vi": "Thiếu cơ sở vệ sinh tay cho phép chuyển mầm bệnh trên tay",
-              "id": "Kurangnya fasilitas kebersihan tangan memungkinkan transfer patogen pada tangan"
-            },
-            "recommendation": {
-              "en": "1. Install hand washing stations at all poultry house entrances\n2. Provide soap and hand sanitizer\n3. Train staff on proper hand hygiene techniques\n4. Display hand hygiene instructions\n5. Monitor hand hygiene compliance",
-              "vi": "1. Lắp đặt trạm rửa tay ở tất cả các lối vào chuồng gia cầm\n2. Cung cấp xà phòng và chất khử trùng tay\n3. Đào tạo nhân viên về kỹ thuật vệ sinh tay đúng cách\n4. Hiển thị hướng dẫn vệ sinh tay\n5. Giám sát việc tuân thủ vệ sinh tay",
-              "id": "1. Pasang stasiun cuci tangan di semua pintu masuk kandang unggas\n2. Sediakan sabun dan pembersih tangan\n3. Latih staf tentang teknik kebersihan tangan yang benar\n4. Tampilkan instruksi kebersihan tangan\n5. Pantau kepatuhan kebersihan tangan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple",
-              "Salmonella",
-              "E.coli"
-            ]
-          }
-        },
-        {
-          "id": "Q75",
-          "order": 75,
-          "question": {
-            "en": "Are there disinfection baths/boot washers at the farm entrance?",
+            "en": "Are disinfection baths at the farm entrance maintained with regularly changed liquid?",
             "vi": "Có bồn khử trùng/rửa ủng tại ở cổng vào của trang trại không?",
             "id": "Apakah ada bak disinfeksi/pencuci sepatu bot di pintu masuk peternakan?"
           },
@@ -4493,58 +2901,10 @@
           }
         },
         {
-          "id": "Q76",
-          "order": 76,
+          "id": "Q46",
+          "order": 46,
           "question": {
-            "en": "Is liquid in disinfection baths changed immediately when visibly contaminated?",
-            "vi": "Chất lỏng tại các bồn khử trùng có bị thay đổi ngay lập tức khi thấy bị nhiễm bẩn không?",
-            "id": "Apakah cairan dalam bak disinfeksi diganti segera ketika terlihat terkontaminasi?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_76A",
-              "label": {
-                "en": "Yes",
-                "vi": "Có",
-                "id": "Ya"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_76B",
-              "label": {
-                "en": "No",
-                "vi": "Không",
-                "id": "Tidak"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 5,
-            "risk_description": {
-              "en": "Contaminated disinfectant solutions lose effectiveness and can spread pathogens",
-              "vi": "Dung dịch khử trùng bị ô nhiễm mất hiệu quả và có thể lây lan mầm bệnh",
-              "id": "Larutan disinfektan yang terkontaminasi kehilangan efektivitas dan dapat menyebarkan patogen"
-            },
-            "recommendation": {
-              "en": "1. Establish regular disinfection bath maintenance schedule\n2. Train staff on bath monitoring and maintenance\n3. Change solutions based on usage and contamination\n4. Document bath maintenance activities\n5. Monitor disinfectant effectiveness regularly",
-              "vi": "1. Thiết lập lịch bảo trì bồn khử trùng thường xuyên\n2. Đào tạo nhân viên về giám sát và bảo trì bồn\n3. Thay đổi dung dịch dựa trên mức độ sử dụng và ô nhiễm\n4. Ghi lại các hoạt động bảo trì bồn\n5. Giám sát hiệu quả chất khử trùng thường xuyên",
-              "id": "1. Tetapkan jadwal pemeliharaan bak disinfeksi rutin\n2. Latih staf tentang pemantauan dan pemeliharaan bak\n3. Ganti larutan berdasarkan penggunaan dan kontaminasi\n4. Dokumentasikan aktivitas pemeliharaan bak\n5. Pantau efektivitas disinfektan secara teratur"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q77",
-          "order": 77,
-          "question": {
-            "en": "Is the drinking water system properly cleaned and disinfected both inside and outside?",
+            "en": "Are the drinking water AND feeding systems properly cleaned and disinfected after each production cycle?",
             "vi": "Hệ thống nước uống có được làm sạch và khử trùng đúng cách cả bên trong và bên ngoài không?",
             "id": "Apakah sistem air minum dibersihkan dan didisinfeksi dengan benar baik di dalam maupun di luar?"
           },
@@ -4598,124 +2958,6 @@
               "E.coli"
             ]
           }
-        },
-        {
-          "id": "Q78",
-          "order": 78,
-          "question": {
-            "en": "Is the feeding system properly cleaned and disinfected both inside and outside?",
-            "vi": "Hệ thống cho ăn có được làm sạch và khử trùng đúng cách cả bên trong và bên ngoài không?",
-            "id": "Apakah sistem pemberian makan dibersihkan dan didisinfeksi dengan benar baik di dalam maupun di luar?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_78A",
-              "label": {
-                "en": "After each production cycle/round",
-                "vi": "Sau mỗi vòng/chu kỳ sản xuất",
-                "id": "Setelah setiap siklus/putaran produksi"
-              },
-              "score": 10
-            },
-            {
-              "id": "OPT_78B",
-              "label": {
-                "en": "Sometimes",
-                "vi": "Đôi khi",
-                "id": "Kadang-kadang"
-              },
-              "score": 4
-            },
-            {
-              "id": "OPT_78C",
-              "label": {
-                "en": "Never",
-                "vi": "Không bao giờ",
-                "id": "Tidak pernah"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 4,
-            "risk_description": {
-              "en": "Inadequate feed system cleaning allows mold growth and pathogen contamination",
-              "vi": "Làm sạch hệ thống thức ăn không đầy đủ cho phép nấm mốc phát triển và nhiễm bẩn mầm bệnh",
-              "id": "Pembersihan sistem pakan yang tidak memadai memungkinkan pertumbuhan jamur dan kontaminasi patogen"
-            },
-            "recommendation": {
-              "en": "1. Implement regular feed system cleaning and disinfection schedule\n2. Use appropriate cleaners for feed systems\n3. Ensure complete drying after cleaning\n4. Train staff on proper feed system maintenance\n5. Monitor feed quality after system cleaning",
-              "vi": "1. Triển khai lịch làm sạch và khử trùng hệ thống thức ăn thường xuyên\n2. Sử dụng chất tẩy rửa thích hợp cho hệ thống thức ăn\n3. Đảm bảo làm khô hoàn toàn sau khi làm sạch\n4. Đào tạo nhân viên về bảo trì hệ thống thức ăn đúng cách\n5. Giám sát chất lượng thức ăn sau khi làm sạch hệ thống",
-              "id": "1. Terapkan jadwal pembersihan dan disinfeksi sistem pakan rutin\n2. Gunakan pembersih yang sesuai untuk sistem pakan\n3. Pastikan pengeringan lengkap setelah pembersihan\n4. Latih staf tentang pemeliharaan sistem pakan yang benar\n5. Pantau kualitas pakan setelah pembersihan sistem"
-            },
-            "priority": "high",
-            "diseases_affected": [
-              "Mold-related_diseases",
-              "Salmonella",
-              "Multiple"
-            ]
-          }
-        },
-        {
-          "id": "Q79",
-          "order": 79,
-          "question": {
-            "en": "Are feed storage facilities cleaned (and disinfected) inside?",
-            "vi": "Các kho chứa thức ăn có được làm sạch (và khử trùng) ở bên trong không?",
-            "id": "Apakah fasilitas penyimpanan pakan dibersihkan (dan didisinfeksi) di dalam?"
-          },
-          "answer_type": "single_choice",
-          "required": true,
-          "options": [
-            {
-              "id": "OPT_79A",
-              "label": {
-                "en": "After 1 to 2 production cycles/rounds",
-                "vi": "Sau 1 đến 2 vòng/chu kỳ sản xuất",
-                "id": "Setelah 1 hingga 2 siklus/putaran produksi"
-              },
-              "score": 8
-            },
-            {
-              "id": "OPT_79B",
-              "label": {
-                "en": "Sometimes",
-                "vi": "Đôi khi",
-                "id": "Kadang-kadang"
-              },
-              "score": 4
-            },
-            {
-              "id": "OPT_79C",
-              "label": {
-                "en": "Never",
-                "vi": "Không bao giờ",
-                "id": "Tidak pernah"
-              },
-              "score": 0
-            }
-          ],
-          "risk_assessment": {
-            "trigger_score": 4,
-            "risk_description": {
-              "en": "Inadequate feed storage cleaning allows mold, pest infestation, and contamination",
-              "vi": "Làm sạch kho chứa thức ăn không đầy đủ cho phép nấm mốc, nhiễm dịch hại và ô nhiễm",
-              "id": "Pembersihan penyimpanan pakan yang tidak memadai memungkinkan jamur, infestasi hama, dan kontaminasi"
-            },
-            "recommendation": {
-              "en": "1. Implement regular feed storage cleaning schedule\n2. Empty and clean storage between different feed types\n3. Use appropriate cleaning methods for storage facilities\n4. Train staff on proper storage cleaning procedures\n5. Monitor storage facility condition and cleanliness",
-              "vi": "1. Triển khai lịch làm sạch kho chứa thức ăn thường xuyên\n2. Làm trống và làm sạch kho chứa giữa các loại thức ăn khác nhau\n3. Sử dụng phương pháp làm sạch thích hợp cho cơ sở lưu trữ\n4. Đào tạo nhân viên về thủ tục làm sạch kho chứa đúng cách\n5. Giám sát tình trạng và vệ sinh cơ sở lưu trữ",
-              "id": "1. Terapkan jadwal pembersihan penyimpanan pakan rutin\n2. Kosongkan dan bersihkan penyimpanan antara jenis pakan berbeda\n3. Gunakan metode pembersihan yang sesuai untuk fasilitas penyimpanan\n4. Latih staf tentang prosedur pembersihan penyimpanan yang benar\n5. Pantau kondisi dan kebersihan fasilitas penyimpanan"
-            },
-            "priority": "medium",
-            "diseases_affected": [
-              "Mold-related_diseases",
-              "Pest-related_diseases",
-              "Multiple"
-            ]
-          }
         }
       ]
     },
@@ -4734,8 +2976,8 @@
       },
       "questions": [
         {
-          "id": "Q80",
-          "order": 80,
+          "id": "Q47",
+          "order": 47,
           "question": {
             "en": "Are there regulations for cleaning and disinfecting equipment after each production cycle and how are these regulations followed?",
             "vi": "Có quy định về việc vệ sinh và khử trùng dụng cụ sau mỗi chu kỳ sản xuất không và quy định này được tuân thủ như thế nào?",
@@ -4784,8 +3026,8 @@
           }
         },
         {
-          "id": "Q81",
-          "order": 81,
+          "id": "Q48",
+          "order": 48,
           "question": {
             "en": "Are there multiple poultry houses on the farm?",
             "vi": "Hiện có nhiều chuồng gia cầm trong trang trại không?",
@@ -4836,8 +3078,8 @@
           }
         },
         {
-          "id": "Q82",
-          "order": 82,
+          "id": "Q49",
+          "order": 49,
           "question": {
             "en": "Are tools kept at each house and easily identifiable?",
             "vi": "Các dụng cụ để tại mỗi chuồng và dễ nhận biết chúng không?",
@@ -4885,8 +3127,8 @@
           }
         },
         {
-          "id": "Q83",
-          "order": 83,
+          "id": "Q50",
+          "order": 50,
           "question": {
             "en": "Is house-specific clothing (including boots) available?",
             "vi": "Quần áo chuyên dụng của chuồng (bao gồm cả ủng) có sẵn không?",
