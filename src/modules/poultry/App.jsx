@@ -33,6 +33,7 @@ import LayerAssessmentDashboard from './pages/layer/LayerAssessmentDashboard';
 import LayerAssessmentPage from './pages/layer/LayerAssessmentPage';
 import LayerResultsPage from './pages/layer/LayerResultsPage';
 import DiseaseComparison from './pages/DiseaseComparison';
+import VaccinationAuditPage from './components/VaccinationAuditPage';
 import DiagnosticLanding from './pages/DiagnosticLanding';
 
 
@@ -222,6 +223,7 @@ function App() {
 
                     {/* Disease Comparison Page */}
                     <Route path="/compare" element={<DiseaseComparison />} />
+                    <Route path="/vaccination-audit" element={<VaccinationAuditPage />} />
                 </Routes>
             </main>
         </div>

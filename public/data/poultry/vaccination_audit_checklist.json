@@ -1,0 +1,464 @@
+{
+  "sections": [
+    {
+      "id": "I",
+      "title_vi": "BẢO QUẢN VACCINE",
+      "title_en": "VACCINE STORAGE",
+      "subtitle_vi": "Đảm bảo nhiệt độ, sắp xếp và vệ sinh",
+      "subtitle_en": "Ensure temperature, arrangement, and hygiene",
+      "max_score": 100,
+      "criteria": [
+        {
+          "no": 1,
+          "title_vi": "Nhiệt độ tủ lạnh bảo quản",
+          "title_en": "Refrigerator temperature",
+          "req_vi": "Duy trì ổn định từ 2-8°C",
+          "req_en": "Maintain a stable temperature of 2-8°C",
+          "max_score": 15
+        },
+        {
+          "no": 2,
+          "title_vi": "Theo dõi nhiệt độ",
+          "title_en": "Temperature monitoring",
+          "req_vi": "Ghi chép tối thiểu 2 lần/ngày (sáng-chiều)",
+          "req_en": "Record at least twice daily (morning-afternoon)",
+          "max_score": 10
+        },
+        {
+          "no": 3,
+          "title_vi": "Sắp xếp vaccine",
+          "title_en": "Vaccine arrangement",
+          "req_vi": "Có khoảng cách giữa các hộp, không sát vách tủ",
+          "req_en": "Leave space between boxes, do not touch the walls",
+          "max_score": 15
+        },
+        {
+          "no": 4,
+          "title_vi": "Kiểm tra hạn sử dụng (FEFO)",
+          "title_en": "Expiry check (FEFO)",
+          "req_vi": "Ưu tiên dùng lô cận hạn trước",
+          "req_en": "Prioritize batches nearing expiry",
+          "max_score": 15
+        },
+        {
+          "no": 5,
+          "title_vi": "Vệ sinh tủ lạnh",
+          "title_en": "Refrigerator hygiene",
+          "req_vi": "Sạch sẽ, không để thực phẩm/vật dụng lạ",
+          "req_en": "Clean, no food or foreign objects",
+          "max_score": 10
+        },
+        {
+          "no": 6,
+          "title_vi": "Thiết bị cảnh báo",
+          "title_en": "Warning devices",
+          "req_vi": "Có nhiệt kế dự phòng hoặc hệ thống báo động",
+          "req_en": "Backup thermometer or alarm system",
+          "max_score": 10
+        },
+        {
+          "no": 7,
+          "title_vi": "Ghi nhận các bất thường của vaccine",
+          "title_en": "Detecting vaccine abnormalities",
+          "req_vi": "Không ghi nhận bất thường: vaccine bị đông đá, vỡ, bể, thay đổi màu sắc",
+          "req_en": "No abnormalities: not frozen, broken, cracked, or discolored",
+          "max_score": 10
+        },
+        {
+          "no": 8,
+          "title_vi": "Bảo quản nước pha",
+          "title_en": "Diluent storage",
+          "req_vi": "Nhiệt độ phòng hoặc mát (20-25°C), không để nóng",
+          "req_en": "Room temp or cool (20-25°C), avoid heat",
+          "max_score": 15
+        }
+      ]
+    },
+    {
+      "id": "II",
+      "title_vi": "CHUẨN BỊ VÀ PHA CHẾ",
+      "title_en": "PREPARATION & RECONSTITUTION",
+      "subtitle_vi": "Vô trùng và chính xác",
+      "subtitle_en": "Sterile and precise",
+      "max_score": 100,
+      "criteria": [
+        {
+          "no": 9,
+          "title_vi": "Khu vực pha chế",
+          "title_en": "Mixing area",
+          "req_vi": "Biệt lập, sạch sẽ, kín gió, đủ ánh sáng",
+          "req_en": "Isolated, clean, draft-free, well-lit",
+          "max_score": 15
+        },
+        {
+          "no": 10,
+          "title_vi": "Vệ sinh người thực hiện",
+          "title_en": "Personnel hygiene",
+          "req_vi": "Sát trùng tay, đeo găng tay, khẩu trang",
+          "req_en": "Disinfect hands, wear gloves and masks",
+          "max_score": 15
+        },
+        {
+          "no": 11,
+          "title_vi": "Sát trùng nắp lọ",
+          "title_en": "Vial cap disinfection",
+          "req_vi": "Dùng cồn 70° lau nắp lọ vaccine và nước pha",
+          "req_en": "Use 70% alcohol to wipe vial caps",
+          "max_score": 10
+        },
+        {
+          "no": 12,
+          "title_vi": "Dụng cụ pha chế",
+          "title_en": "Tools",
+          "req_vi": "Xi lanh, kim pha phải vô trùng/dùng 1 lần",
+          "req_en": "Sterile/single-use syringes and needles",
+          "max_score": 10
+        },
+        {
+          "no": 13,
+          "title_vi": "Kỹ thuật hoàn nguyên",
+          "title_en": "Reconstitution technique",
+          "req_vi": "Bơm nước pha chậm theo thành lọ, tránh bọt",
+          "req_en": "Inject diluent slowly along the vial wall",
+          "max_score": 10
+        },
+        {
+          "no": 14,
+          "title_vi": "Thao tác hòa tan",
+          "title_en": "Dissolution process",
+          "req_vi": "Lắc nhẹ hình số 8, không lắc mạnh",
+          "req_en": "Gently swirl (figure 8), do not shake",
+          "max_score": 10
+        },
+        {
+          "no": 15,
+          "title_vi": "Thời gian sử dụng",
+          "title_en": "Usage time",
+          "req_vi": "Vaccine sau khi pha phải dùng hết trong vòng 1-2 giờ",
+          "req_en": "Vaccine must be administered within 1-2 hours of reconstitution",
+          "max_score": 10
+        },
+        {
+          "no": 16,
+          "title_vi": "Tránh ánh sáng trực tiếp",
+          "title_en": "Avoid direct light",
+          "req_vi": "Giữ trong thùng đá/ca cách nhiệt, tránh nắng",
+          "req_en": "Keep in ice packs/insulated cups, avoid sun",
+          "max_score": 10
+        },
+        {
+          "no": 17,
+          "title_vi": "Quy trình pha trộn",
+          "title_en": "Mixing protocol",
+          "req_vi": "Thực hiện đúng hướng dẫn của nhà sản xuất",
+          "req_en": "Follow manufacturer's instructions",
+          "max_score": 10
+        }
+      ]
+    },
+    {
+      "id": "III",
+      "title_vi": "KỸ THUẬT PHUN SƯƠNG",
+      "title_en": "SPRAY TECHNIQUE",
+      "subtitle_vi": "Độ đồng đều của hạt sương",
+      "subtitle_en": "Droplet uniformity",
+      "max_score": 100,
+      "criteria": [
+        {
+          "no": 18,
+          "title_vi": "Kiểm tra vòi phun",
+          "title_en": "Nozzle check",
+          "req_vi": "Vòi không nghẹt, tia phun đều, không rò rỉ",
+          "req_en": "No clogs, even spray, no leaks",
+          "max_score": 10
+        },
+        {
+          "no": 19,
+          "title_vi": "Kích thước hạt sương",
+          "title_en": "Droplet size",
+          "req_vi": "Sử dụng đúng loại vòi (Hạt thô 100-150um)",
+          "req_en": "Correct nozzle (Coarse spray 100-150um)",
+          "max_score": 10
+        },
+        {
+          "no": 20,
+          "title_vi": "Áp suất máy phun",
+          "title_en": "Spray pressure",
+          "req_vi": "Duy trì ổn định theo khuyến cáo (3-4 bar)",
+          "req_en": "Maintain stable pressure (3-4 bar)",
+          "max_score": 10
+        },
+        {
+          "no": 21,
+          "title_vi": "Hiệu chỉnh máy phun",
+          "title_en": "Calibration",
+          "req_vi": "Khoảng cách và độ rộng phù hợp thùng gà",
+          "req_en": "Proper distance and width for boxes",
+          "max_score": 10
+        },
+        {
+          "no": 22,
+          "title_vi": "Tốc độ phun",
+          "title_en": "Spray speed",
+          "req_vi": "Phun tốc độ phù hợp, vaccine rơi xuống thùng gà hoàn toàn mới rút thùng ra",
+          "req_en": "Spray at appropriate speed; ensure vaccine settles completely before removing crate",
+          "max_score": 10
+        },
+        {
+          "no": 23,
+          "title_vi": "Độ bao phủ",
+          "title_en": "Coverage",
+          "req_vi": "Vaccine phủ đều trên lông toàn bộ gà",
+          "req_en": "Vaccine evenly distributed on all chick down",
+          "max_score": 10
+        },
+        {
+          "no": 24,
+          "title_vi": "Liều lượng vaccine/khay",
+          "title_en": "Dosage per tray",
+          "req_vi": "Sai số tiêu tốn thực tế < 5%",
+          "req_en": "Actual consumption error < 5%",
+          "max_score": 10
+        },
+        {
+          "no": 25,
+          "title_vi": "Phản ứng của gà",
+          "title_en": "Chick reaction",
+          "req_vi": "Gà lanh lợi, rỉa lông nhau sau khi phun (hấp thu)",
+          "req_en": "Chicks are alert and exhibit preening after spraying",
+          "max_score": 10
+        },
+        {
+          "no": 26,
+          "title_vi": "Môi trường sau phun",
+          "title_en": "Post-spray environment",
+          "req_vi": "Để khô tự nhiên 15-20 phút trước khi xuất",
+          "req_en": "Air dry for 15-20 mins before dispatch",
+          "max_score": 10
+        },
+        {
+          "no": 27,
+          "title_vi": "Nhiệt độ phòng phun",
+          "title_en": "Spray room temperature",
+          "req_vi": "Ấm áp (25-27°C), tránh gió lùa",
+          "req_en": "Warm (25-27°C), no drafts",
+          "max_score": 10
+        }
+      ]
+    },
+    {
+      "id": "IV",
+      "title_vi": "TIÊM DƯỚI DA CỔ",
+      "title_en": "SUB-Q INJECTION TECHNIQUE",
+      "subtitle_vi": "Đúng vị trí và đủ liều",
+      "subtitle_en": "Correct site and dosage",
+      "max_score": 100,
+      "criteria": [
+        {
+          "no": 28,
+          "title_vi": "Cài đặt thiết bị",
+          "title_en": "Equipment setup",
+          "req_vi": "Tuân thủ quy trình cài đặt nhà sản xuất",
+          "req_en": "Follow manufacturer's setup protocol",
+          "max_score": 10
+        },
+        {
+          "no": 29,
+          "title_vi": "Định vị máy tiêm",
+          "title_en": "Machine positioning",
+          "req_vi": "Bề mặt chắc chắn, chiều cao phù hợp",
+          "req_en": "Stable surface, ergonomic height",
+          "max_score": 8
+        },
+        {
+          "no": 30,
+          "title_vi": "Bộ phận trong máy",
+          "title_en": "Internal components",
+          "req_vi": "Các bộ phận hoạt động tốt, không thay đổi thông số kỹ thuật",
+          "req_en": "Machine parts functioning correctly, technical parameters unchanged",
+          "max_score": 8
+        },
+        {
+          "no": 31,
+          "title_vi": "Rò rỉ vaccine",
+          "title_en": "Vaccine leakage",
+          "req_vi": "Không rò rỉ hoặc rò rỉ rất ít (<0.5%)",
+          "req_en": "No leaks or minimal leakage (<0.5%)",
+          "max_score": 10
+        },
+        {
+          "no": 32,
+          "title_vi": "Cài đặt liều lượng",
+          "title_en": "Dosage setting",
+          "req_vi": "Kiểm tra độ chính xác của xi lanh (0.1/0.2ml)",
+          "req_en": "Check syringe accuracy (0.1/0.2ml)",
+          "max_score": 10
+        },
+        {
+          "no": 33,
+          "title_vi": "Kim tiêm",
+          "title_en": "Injection needle",
+          "req_vi": "Đúng cỡ, thay mới mỗi 2,000-3,000 gà",
+          "req_en": "Correct size, change every 2,000-3,000 chicks",
+          "max_score": 10
+        },
+        {
+          "no": 34,
+          "title_vi": "Vị trí tiêm",
+          "title_en": "Injection site",
+          "req_vi": "1/3 dưới da cổ, tránh chạm xương",
+          "req_en": "1/3 lower neck skin, avoid bone contact",
+          "max_score": 10
+        },
+        {
+          "no": 35,
+          "title_vi": "Tốc độ tiêm",
+          "title_en": "Injection speed",
+          "req_vi": "Nhịp nhàng, không ép gà quá nhanh",
+          "req_en": "Rhythmic, do not force chicks too fast",
+          "max_score": 8
+        },
+        {
+          "no": 36,
+          "title_vi": "Kiểm tra bộ đếm",
+          "title_en": "Counter check",
+          "req_vi": "Số gà tiêm khớp số vaccine đã dùng",
+          "req_en": "Counted chicks match vaccine used",
+          "max_score": 10
+        },
+        {
+          "no": 37,
+          "title_vi": "Áp lực khí nén",
+          "title_en": "Pneumatic pressure",
+          "req_vi": "Ổn định theo yêu cầu kỹ thuật",
+          "req_en": "Stable as per technical requirements",
+          "max_score": 8
+        },
+        {
+          "no": 38,
+          "title_vi": "Vệ sinh máy trong ca",
+          "title_en": "Intra-shift cleaning",
+          "req_vi": "Lau chùi cảm biến và bề mặt tiếp xúc",
+          "req_en": "Clean sensors and contact surfaces during shift",
+          "max_score": 8
+        }
+      ]
+    },
+    {
+      "id": "V",
+      "title_vi": "BẢO TRÌ & VỆ SINH",
+      "title_en": "MAINTENANCE & HYGIENE",
+      "subtitle_vi": "An toàn sinh học & độ bền thiết bị",
+      "subtitle_en": "Biosecurity & equipment durability",
+      "max_score": 100,
+      "criteria": [
+        {
+          "no": 39,
+          "title_vi": "Xử lý rác thải y tế",
+          "title_en": "Medical waste disposal",
+          "req_vi": "Vỏ chai, kim tiêm vào thùng chuyên dụng. Tiêu hủy bằng nhiệt hoặc hóa chất",
+          "req_en": "Vials and needles in sharps containers. Neutralize with heat or chemicals",
+          "max_score": 15
+        },
+        {
+          "no": 40,
+          "title_vi": "Xử lý vaccine thừa",
+          "title_en": "Leftover vaccine disposal",
+          "req_vi": "Vaccine đã pha không sử dụng phải hủy đúng quy trình, không tái sử dụng",
+          "req_en": "Reconstituted unused vaccine must be properly discarded, never reused",
+          "max_score": 15
+        },
+        {
+          "no": 41,
+          "title_vi": "Vệ sinh khu vực làm việc",
+          "title_en": "Work area sanitization",
+          "req_vi": "Lau sạch bề mặt làm việc bằng chất sát trùng sau mỗi ca tiêm",
+          "req_en": "Clean work surfaces with disinfectant after each vaccination session",
+          "max_score": 15
+        },
+        {
+          "no": 42,
+          "title_vi": "Sát trùng thiết bị",
+          "title_en": "Machine disinfection",
+          "req_vi": "Lau cồn hoặc chất sát trùng nhẹ",
+          "req_en": "Wipe with alcohol or mild disinfectant",
+          "max_score": 15
+        },
+        {
+          "no": 43,
+          "title_vi": "Bảo dưỡng định kỳ",
+          "title_en": "Routine maintenance",
+          "req_vi": "Tra dầu, kiểm tra ron (O-ring)",
+          "req_en": "Lubricate, check O-rings",
+          "max_score": 15
+        },
+        {
+          "no": 44,
+          "title_vi": "Lưu trữ hồ sơ",
+          "title_en": "Record keeping",
+          "req_vi": "Ghi nhật ký lô, loại vaccine, người tiêm",
+          "req_en": "Log batch, vaccine type, operator",
+          "max_score": 15
+        },
+        {
+          "no": 45,
+          "title_vi": "Kiểm kê thiết bị",
+          "title_en": "Equipment inventory",
+          "req_vi": "Đảm bảo đủ phụ kiện cho ca sau",
+          "req_en": "Ensure accessories ready for next shift",
+          "max_score": 10
+        }
+      ]
+    }
+  ],
+  "injection_test": {
+    "columns": [
+      {
+        "id": "name",
+        "title_vi": "Tên",
+        "title_en": "Name"
+      },
+      {
+        "id": "no_of_chick",
+        "title_vi": "Số gà",
+        "title_en": "No. of chick"
+      },
+      {
+        "id": "wet",
+        "title_vi": "Ướt",
+        "title_en": "Wet"
+      },
+      {
+        "id": "very_wet",
+        "title_vi": "Rất ướt",
+        "title_en": "Very wet"
+      },
+      {
+        "id": "bleed",
+        "title_vi": "Chảy máu",
+        "title_en": "Bleed"
+      },
+      {
+        "id": "no_vaccine",
+        "title_vi": "Không vaccine",
+        "title_en": "No vaccine"
+      },
+      {
+        "id": "dead",
+        "title_vi": "Chết",
+        "title_en": "Dead"
+      },
+      {
+        "id": "good",
+        "title_vi": "Tốt",
+        "title_en": "Good"
+      }
+    ]
+  },
+  "total_max_score": 500,
+  "version": "1.0",
+  "languages": [
+    "en",
+    "vi"
+  ]
+}
