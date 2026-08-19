@@ -2,6 +2,39 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useLanguage } from '../../../contexts/LanguageContext';
+
+const fgHomeTranslations = {
+  en: {
+    commercial: 'Commercial',
+    parentStock: 'Parent Stock',
+    descBroiler: 'D1–D56 management guide',
+    descLayer: 'W1–W80 production reference',
+    descColor: 'W1–W18 local breed guide',
+    descBroilerPS: 'W1–W64 breeder reference',
+    descLayerPS: 'W1–W75 breeder guide',
+    descColorPS: 'W1–W70 breeder guide',
+  },
+  id: {
+    commercial: 'Komersial',
+    parentStock: 'Indukan',
+    descBroiler: 'Panduan manajemen H1–H56',
+    descLayer: 'Referensi produksi M1–M80',
+    descColor: 'Panduan ayam lokal M1–M18',
+    descBroilerPS: 'Referensi indukan M1–M64',
+    descLayerPS: 'Panduan indukan M1–M75',
+    descColorPS: 'Panduan indukan M1–M70',
+  },
+  vi: {
+    commercial: 'Thương mại',
+    parentStock: 'Giống bố mẹ',
+    descBroiler: 'Hướng dẫn quản lý N1–N56',
+    descLayer: 'Tài liệu sản xuất T1–T80',
+    descColor: 'Hướng dẫn giống địa phương T1–T18',
+    descBroilerPS: 'Tài liệu giống bố mẹ T1–T64',
+    descLayerPS: 'Hướng dẫn giống bố mẹ T1–T75',
+    descColorPS: 'Hướng dẫn giống bố mẹ T1–T70',
+  }
+};
 import SharedTopNav from '../../../components/SharedTopNav';
 import '../../../portal.css';
 import { flockStorage } from '../utils/flockStorage';
@@ -10,6 +43,7 @@ function FarmGuideHome() {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { language, setLanguage } = useLanguage();
+    const fgTr = fgHomeTranslations[language] || fgHomeTranslations.en;
     const [modules, setModules] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeFlocks, setActiveFlocks] = useState([]);
@@ -166,12 +200,12 @@ function FarmGuideHome() {
     );
 
     const moduleMeta = {
-        broiler:        { icon: <BroilerIcon />,   desc: 'D1\u2013D56 management guide' },
-        layer:          { icon: <LayerIcon />,     desc: 'W1\u2013W80 production reference' },
-        color_chicken:  { icon: <ColorIcon />,     desc: 'W1\u2013W18 local breed guide' },
-        broiler_ps:     { icon: <BroilerPSIcon />, desc: 'W1\u2013W64 breeder reference' },
-        layer_ps:       { icon: <LayerPSIcon />,   desc: 'W1\u2013W75 breeder guide' },
-        color_ps:       { icon: <ColorIcon />,     desc: 'W1–W70 breeder guide' },
+        broiler:        { icon: <BroilerIcon />,   desc: fgTr.descBroiler },
+        layer:          { icon: <LayerIcon />,     desc: fgTr.descLayer },
+        color_chicken:  { icon: <ColorIcon />,     desc: fgTr.descColor },
+        broiler_ps:     { icon: <BroilerPSIcon />, desc: fgTr.descBroilerPS },
+        layer_ps:       { icon: <LayerPSIcon />,   desc: fgTr.descLayerPS },
+        color_ps:       { icon: <ColorIcon />,     desc: fgTr.descColorPS },
     };
 
     const allModules = [
@@ -266,7 +300,7 @@ function FarmGuideHome() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '18px 0 12px' }}>
                         <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#2EAA5E', flexShrink: 0 }} />
                         <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.1em', color: '#b8c2bc', textTransform: 'uppercase' }}>
-                            Commercial
+                            {fgTr.commercial}
                         </span>
                         <span style={{ flex: 1, height: '0.5px', background: '#e5e7eb' }} />
                     </div>
@@ -278,7 +312,7 @@ function FarmGuideHome() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '18px 0 12px' }}>
                         <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#E87B35', flexShrink: 0 }} />
                         <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: '0.1em', color: '#b8c2bc', textTransform: 'uppercase' }}>
-                            Parent Stock
+                            {fgTr.parentStock}
                         </span>
                         <span style={{ flex: 1, height: '0.5px', background: '#e5e7eb' }} />
                     </div>
