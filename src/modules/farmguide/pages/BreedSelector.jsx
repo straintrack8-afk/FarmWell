@@ -1,7 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
-import { useLanguage } from '../../../contexts/LanguageContext';
+import { useLanguage } from '../../../contexts/LanguageContext';
+
+const bsTranslations = {
+  en: {
+    broilerPS: 'Broiler PS', layerPS: 'Layer PS',
+    broilerCommercial: 'Broiler Commercial', layerCommercial: 'Layer Commercial',
+    colorPS: 'Color PS', colorChicken: 'Color Chicken', parentStock: 'Parent Stock'
+  },
+  id: {
+    broilerPS: 'Broiler PS', layerPS: 'Layer PS',
+    broilerCommercial: 'Broiler Komersial', layerCommercial: 'Layer Komersial',
+    colorPS: 'Color PS', colorChicken: 'Ayam Kampung', parentStock: 'Indukan'
+  },
+  vi: {
+    broilerPS: 'Broiler PS', layerPS: 'Layer PS',
+    broilerCommercial: 'Broiler Thương mại', layerCommercial: 'Layer Thương mại',
+    colorPS: 'Color PS', colorChicken: 'Gà màu', parentStock: 'Giống bố mẹ'
+  }
+};
 import '../../../portal.css';
 
 const BreedIcon = () => (
@@ -217,7 +235,8 @@ function BreedSelector() {
     const navigate = useNavigate();
     const location = useLocation();
     const { t } = useTranslation();
-    const { language, setLanguage } = useLanguage();
+    const { language, setLanguage } = useLanguage();
+    const bsTr = bsTranslations[language] || bsTranslations.en;
     const [selectedBreed, setSelectedBreed] = useState(null);
 
     const pathParts = location.pathname.split('/').filter(Boolean);
