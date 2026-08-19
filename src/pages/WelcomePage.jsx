@@ -17,7 +17,7 @@ const WelcomePage = () => {
             icon: '/images/feed_additives_logo.svg',
             colorClass: 'mod-feed',
             path: '/feed-additives',
-            status: 'live',
+            status: 'hidden',
         },
         {
             id: 'swine',
