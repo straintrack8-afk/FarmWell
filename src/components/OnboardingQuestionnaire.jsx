@@ -645,6 +645,13 @@ export default function OnboardingQuestionnaire({ onComplete }) {
             >
               {t('onboarding.startApp')}
             </button>
+            <button
+              className="oq-btn-back"
+              style={{ marginTop: 12, width: '100%', textAlign: 'center' }}
+              onClick={() => setStep(1)}
+            >
+              {t('onboarding.editAnswers') || '← Edit Answers'}
+            </button>
           </div>
         )}
     </div>
