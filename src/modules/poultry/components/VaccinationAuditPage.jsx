@@ -223,7 +223,7 @@ export default function VaccinationAuditPage() {
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 20, paddingLeft: 16, position: 'relative', zIndex: 10 }}>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 10, paddingLeft: 16, position: 'relative', zIndex: 10 }}>
         {['audit', 'injection'].map(tab => (
           <button key={tab} onClick={() => setActiveTab(tab)} style={{
             padding: '8px 20px', borderRadius: 8, border: 'none', cursor: 'pointer',
