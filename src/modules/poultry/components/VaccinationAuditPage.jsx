@@ -244,7 +244,7 @@ export default function VaccinationAuditPage() {
         const secColor = getScoreColor(secPct);
         const isCollapsed = collapsed[section.id];
         return (
-          <div key={section.id} className="fw-mod-card" style={{ marginBottom: 8 }}>
+          <div key={section.id} className="fw-mod-card" style={{ marginBottom: 8, marginTop: 0 }}>
             <div
               onClick={() => setCollapsed(prev => ({ ...prev, [section.id]: !prev[section.id] }))}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', cursor: 'pointer', userSelect: 'none' }}
