@@ -100,7 +100,7 @@ const WelcomePage = () => {
 
                 {/* 2×2 module grid */}
                 <div className="fw-module-grid-2">
-                    {modules.map(mod => (
+                    {modules.filter(mod => mod.status !== 'hidden').map(mod => (
                         <div
                             key={mod.id}
                             className={`fw-mod-item-card ${mod.colorClass}`}
