@@ -50,6 +50,7 @@ const WelcomePage = () => {
 
     const handleModuleClick = (mod) => {
         if (mod.status === 'construction') return;
+        if (mod.status === 'hidden') return;
         if (mod.status === 'soon') {
             setShowWaitlistModal(true);
         } else if (mod.path) {
