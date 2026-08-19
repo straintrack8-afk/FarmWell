@@ -97,7 +97,7 @@ function PoultryLanding() {
         {
             id: 'vaccination',
             icon: (
-                <svg viewBox="0 0 24 24" style={{width:20,height:20,stroke:'white',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
+                <svg viewBox="0 0 24 24" style={{width:20,height:20,stroke:'#1E7A42',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
                     <path d="M9 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/>
                     <path d="M9 3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/>
                     <path d="M9 12h6M9 16h4"/>
