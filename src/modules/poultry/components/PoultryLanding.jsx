@@ -103,8 +103,8 @@ function PoultryLanding() {
                     <path d="M9 12h6M9 16h4"/>
                 </svg>
             ),
-            name: 'Vaccination Audit',
-            desc: 'Vaccine administration quality checklist',
+            name: language === 'vi' ? 'Kiểm Tra Tiêm Phòng' : (language === 'id' ? 'Audit Vaksinasi' : 'Vaccination Audit'),
+            desc: language === 'vi' ? 'Bảng kiểm tra chất lượng tiêm phòng vaccine' : (language === 'id' ? 'Daftar periksa kualitas pemberian vaksin' : 'Vaccine administration quality checklist'),
             route: '/poultry/vaccination-audit',
         },
         {
