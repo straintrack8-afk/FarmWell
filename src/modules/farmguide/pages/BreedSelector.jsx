@@ -263,13 +263,13 @@ function BreedSelector() {
     };
 
     const getModuleName = () => {
-        if (category === 'ps' && moduleSlug === 'broiler') return 'Broiler PS';
-        if (category === 'ps' && moduleSlug === 'layer') return 'Layer PS';
-        if (moduleSlug === 'broiler') return 'Broiler Commercial';
-        if (moduleSlug === 'layer') return 'Layer Commercial';
-        if (category === 'ps' && moduleSlug === 'color') return 'Color PS';
-        if (moduleSlug === 'color') return 'Color Chicken';
-        if (category === 'ps') return 'Parent Stock';
+        if (category === 'ps' && moduleSlug === 'broiler') return bsTr.broilerPS;
+        if (category === 'ps' && moduleSlug === 'layer') return bsTr.layerPS;
+        if (moduleSlug === 'broiler') return bsTr.broilerCommercial;
+        if (moduleSlug === 'layer') return bsTr.layerCommercial;
+        if (category === 'ps' && moduleSlug === 'color') return bsTr.colorPS;
+        if (moduleSlug === 'color') return bsTr.colorChicken;
+        if (category === 'ps') return bsTr.parentStock;
         return moduleSlug;
     };
 
