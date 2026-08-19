@@ -14,7 +14,9 @@ export const LanguageProvider = ({ children }) => {
     const [language, setLanguageState] = useState(() => {
         // Load saved language from localStorage or default to 'en'
         const savedLanguage = localStorage.getItem('farmwell_language');
-        return savedLanguage || 'en';
+        const browserLang = navigator.language || navigator.userLanguage || '';
+        const defaultLang = browserLang.startsWith('vi') ? 'vi' : browserLang.startsWith('id') ? 'id' : 'en';
+        return savedLanguage || defaultLang;
     });
 
     const setLanguage = (lang) => {
