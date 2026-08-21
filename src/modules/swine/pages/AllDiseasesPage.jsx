@@ -141,9 +141,13 @@ function AllDiseasesPage() {
       </div>
 
       <div className="fw-mod-bnav">
-        <button className="fw-mod-bnav-home" onClick={() => navigate('/swine/diagnostic')}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          Back
+        <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>PigWell</span>
+        </button>
+        <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/diagnostic')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <span>Diagnostic</span>
         </button>
       </div>
     </div>
