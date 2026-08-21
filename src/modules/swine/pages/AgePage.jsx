@@ -108,12 +108,13 @@ function AgePage() {
                     </div>
                 </div>
 
-                <div className="fw-mod-bnav">
+
                 <div className="fw-mod-bnav">
                     <button className="fw-mod-bnav-home" onClick={() => navigate('/swine/diagnostic')}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                         <span>Diagnostic</span>
                     </button>
+                    <button
                         className="fw-mod-bnav-alerts"
                         onClick={handleContinue}
                         disabled={!selectedAge}
@@ -123,7 +124,6 @@ function AgePage() {
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                 </div>
-            </div>
         </DiagnosisWrapper>
     );
 }
