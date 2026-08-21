@@ -26,7 +26,7 @@ const WelcomePage = () => {
             icon: '/images/PigWell_Logo.png',
             colorClass: 'mod-pig',
             path: '/swine',
-            status: 'construction',
+            status: 'live',
         },
         {
             id: 'poultry',

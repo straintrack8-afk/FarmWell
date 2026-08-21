@@ -3,45 +3,28 @@ import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { swineTranslations } from '../translations';
 import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
+import PigWellTopNav from '../components/common/PigWellTopNav';
 
-function ProgressBar({ step, t }) {
-    return (
-        <div style={{
-            background: 'white',
-            padding: '1rem',
-            borderRadius: '12px',
-            marginBottom: '2rem',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                {[1, 2, 3].map(s => (
-                    <div key={s} style={{ flex: 1, textAlign: 'center', padding: '0 2px' }}>
-                        <div style={{
-                            width: 'clamp(28px, 8vw, 40px)',
-                            height: 'clamp(28px, 8vw, 40px)',
-                            borderRadius: '50%',
-                            background: step >= s ? '#10b981' : '#e5e7eb',
-                            color: 'white',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: '700',
-                            fontSize: 'clamp(0.75rem, 3vw, 1rem)',
-                            marginBottom: '0.35rem'
-                        }}>
-                            {s}
-                        </div>
-                        <div style={{ fontSize: 'clamp(0.6rem, 2.5vw, 0.875rem)', color: '#6b7280', lineHeight: 1.2 }}>
-                            {s === 1 && t('stepAge')}
-                            {s === 2 && t('stepSymptoms')}
-                            {s === 3 && t('stepResults')}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
+const SwineIcon = () => (
+    <svg viewBox="0 0 24 24" style={{width:22,height:22,stroke:'#2EAA5E',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
+        <path d="M18 8h1a4 4 0 010 8h-1"/>
+        <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
+        <line x1="6" y1="1" x2="6" y2="4"/>
+        <line x1="10" y1="1" x2="10" y2="4"/>
+        <line x1="14" y1="1" x2="14" y2="4"/>
+    </svg>
+);
+
+const AGE_LABEL_KEYS = {
+    'All ages':  { labelKey: 'all',       descKey: 'allDesc'      },
+    'Newborn':   { labelKey: 'newborn',   descKey: 'newbornDesc'  },
+    'Suckling':  { labelKey: 'suckling',  descKey: 'sucklingDesc' },
+    'Weaned':    { labelKey: 'weaned',    descKey: 'weanedDesc'   },
+    'Growers':   { labelKey: 'growers',   descKey: 'growersDesc'  },
+    'Finishers': { labelKey: 'finishers', descKey: 'finishersDesc'},
+    'Sows':      { labelKey: 'sows',      descKey: 'sowsDesc'     },
+    'Boars':     { labelKey: 'boars',     descKey: 'boarsDesc'    },
+};
 
 function AgePage() {
     const navigate = useNavigate();
@@ -49,213 +32,97 @@ function AgePage() {
     const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
     const { selectedAge, setSelectedAge, ageGroups } = useDiagnosis();
 
-    // Map each age group ID → translation keys in swineTranslations
-    const AGE_LABEL_KEYS = {
-        'All ages':  { labelKey: 'all',       descKey: 'allDesc'      },
-        'Newborn':   { labelKey: 'newborn',   descKey: 'newbornDesc'  },
-        'Suckling':  { labelKey: 'suckling',  descKey: 'sucklingDesc' },
-        'Weaned':    { labelKey: 'weaned',    descKey: 'weanedDesc'   },
-        'Growers':   { labelKey: 'growers',   descKey: 'growersDesc'  },
-        'Finishers': { labelKey: 'finishers', descKey: 'finishersDesc'},
-        'Sows':      { labelKey: 'sows',      descKey: 'sowsDesc'     },
-        'Boars':     { labelKey: 'boars',     descKey: 'boarsDesc'    },
-    };
-
-    const handleSelectAge = (ageId) => {
-        setSelectedAge(ageId);
-    };
-
     const handleContinue = () => {
-        if (selectedAge) {
-            navigate('/swine/diagnosis/symptoms');
-        }
+        if (selectedAge) navigate('/swine/diagnosis/symptoms');
     };
-
-    // Green theme color for selected age cards
-    const themeGradient = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
 
     return (
         <DiagnosisWrapper>
-            <div style={{
-                minHeight: '100vh',
-                background: 'var(--bg-primary)',
-                paddingBottom: selectedAge ? '120px' : '2rem'
-            }}>
-                <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }}>
-                    <ProgressBar step={1} t={t} />
+            <div className="fw-module-page">
+                <PigWellTopNav title={t('selectAgeGroup') || 'Select Age Group'} />
 
-                    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                        <h1 style={{
-                            fontSize: '2.5rem',
-                            fontWeight: '800',
-                            marginBottom: '1rem',
-                            background: 'var(--primary)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text'
-                        }}>
-                            {t('selectAgeGroup')}
-                        </h1>
-                        <p style={{ fontSize: '1.125rem', color: '#6B7280' }}>
-                            {t('chooseAgeGroup')}
-                        </p>
+                <div className="fw-mod-card" style={{ marginTop: -18, borderRadius: '16px 16px 12px 12px' }}>
+                    {/* Step indicator */}
+                    <div style={{ display: 'flex', gap: 8, padding: '12px 16px 0', justifyContent: 'center' }}>
+                        {[
+                            { n: 1, label: t('stepAge') || 'Age' },
+                            { n: 2, label: t('stepSymptoms') || 'Symptoms' },
+                            { n: 3, label: t('stepResults') || 'Results' },
+                        ].map(s => (
+                            <div key={s.n} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <div style={{
+                                    width: 24, height: 24, borderRadius: '50%',
+                                    background: s.n === 1 ? '#2EAA5E' : '#E5E7EB',
+                                    color: s.n === 1 ? 'white' : '#9CA3AF',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontSize: 11, fontWeight: 700
+                                }}>{s.n}</div>
+                                <span style={{ fontSize: 11, color: s.n === 1 ? '#2EAA5E' : '#9CA3AF', fontWeight: s.n === 1 ? 700 : 400 }}>
+                                    {s.label}
+                                </span>
+                                {s.n < 3 && <span style={{ color: '#E5E7EB', marginLeft: 4 }}>—</span>}
+                            </div>
+                        ))}
                     </div>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                        gap: '1.5rem',
-                        padding: '1rem'
-                    }}>
-                        {ageGroups && ageGroups.map((age, index) => {
-                            const keys = AGE_LABEL_KEYS[age.id];
-                            const translatedLabel = keys ? t(keys.labelKey) : (age.label || age.id);
-                            const translatedDesc  = keys ? t(keys.descKey)  : (age.description || '');
+                    <div className="fw-mod-content">
+                        <div style={{ textAlign: 'center', marginBottom: 16 }}>
+                            <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--fw-text)' }}>{t('selectAgeGroup') || 'Select Age Group'}</div>
+                            <div style={{ fontSize: 11, color: 'var(--fw-sub)', marginTop: 4 }}>{t('chooseAgeGroup') || 'Choose the age group of the affected pigs'}</div>
+                        </div>
 
-                            // Split "Name (range)" → name part + optional age range in parens
-                            const parenIdx = translatedLabel.indexOf(' (');
-                            const namePart  = parenIdx >= 0 ? translatedLabel.slice(0, parenIdx) : translatedLabel;
-                            const agePart   = parenIdx >= 0 ? translatedLabel.slice(parenIdx + 1) : null; // e.g. "(0-7 days)"
+                        <div className="fw-module-grid-2">
+                            {ageGroups && ageGroups.map((age) => {
+                                const keys = AGE_LABEL_KEYS[age.id];
+                                const label = keys ? t(keys.labelKey) : (age.label || age.id);
+                                const desc = keys ? t(keys.descKey) : (age.description || '');
+                                const parenIdx = label.indexOf(' (');
+                                const namePart = parenIdx >= 0 ? label.slice(0, parenIdx) : label;
+                                const agePart = parenIdx >= 0 ? label.slice(parenIdx + 1) : null;
+                                const isSelected = selectedAge === age.id;
 
-                            return (
-                            <div
-                                key={age.id}
-                                style={{
-                                    background: selectedAge === age.id ? themeGradient : 'white',
-                                    borderRadius: '1.5rem',
-                                    padding: '2.5rem 1.5rem',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                                    boxShadow: selectedAge === age.id
-                                        ? '0 20px 40px rgba(16, 185, 129, 0.25)'
-                                        : '0 4px 20px rgba(16, 185, 129, 0.05)',
-                                    border: selectedAge === age.id ? '2px solid transparent' : '2px solid rgba(16, 185, 129, 0.15)',
-                                    textAlign: 'center',
-                                    position: 'relative',
-                                    overflow: 'hidden'
-                                }}
-                                onClick={() => handleSelectAge(age.id)}
-                                onMouseEnter={(e) => {
-                                    if (selectedAge !== age.id) {
-                                        e.currentTarget.style.transform = 'translateY(-8px)';
-                                        e.currentTarget.style.boxShadow = '0 12px 30px rgba(16, 185, 129, 0.15)';
-                                        e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.5)';
-                                    }
-                                }}
-                                onMouseLeave={(e) => {
-                                    if (selectedAge !== age.id) {
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 4px 20px rgba(16, 185, 129, 0.05)';
-                                        e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.15)';
-                                    }
-                                }}
-                            >
-                                {/* Decorative circle for selected state */}
-                                {selectedAge === age.id && (
-                                    <div style={{
-                                        position: 'absolute',
-                                        top: '-40px',
-                                        right: '-40px',
-                                        width: '120px',
-                                        height: '120px',
-                                        borderRadius: '50%',
-                                        background: 'rgba(255, 255, 255, 0.1)',
-                                        pointerEvents: 'none'
-                                    }} />
-                                )}
-
-                                <div style={{ position: 'relative', zIndex: 1 }}>
-                                    <div style={{
-                                        fontSize: '4rem',
-                                        marginBottom: '1rem',
-                                        filter: selectedAge === age.id ? 'brightness(1.2)' : 'none'
-                                    }}>
-                                        {age.icon}
+                                return (
+                                    <div
+                                        key={age.id}
+                                        className="fw-mod-item-card"
+                                        onClick={() => setSelectedAge(age.id)}
+                                        style={{
+                                            cursor: 'pointer',
+                                            border: isSelected ? '2px solid #2EAA5E' : '2px solid #E5E7EB',
+                                            background: isSelected ? '#F0FDF4' : 'white',
+                                            transition: 'all 0.2s',
+                                        }}
+                                    >
+                                        <div className="fw-mod-item-icon-wrap" style={{ background: isSelected ? '#2EAA5E' : '#E8F5EE' }}>
+                                            <SwineIcon />
+                                        </div>
+                                        <div className="fw-mod-item-name" style={{ color: isSelected ? '#2EAA5E' : 'var(--fw-text)' }}>
+                                            {namePart}
+                                            {agePart && <span style={{ fontSize: 11, fontWeight: 500, display: 'block', marginTop: 2 }}>{agePart}</span>}
+                                        </div>
+                                        <div className="fw-mod-item-tag">{desc}</div>
                                     </div>
-                                    <div style={{
-                                        fontSize: '1.5rem',
-                                        fontWeight: '700',
-                                        marginBottom: '0.5rem',
-                                        color: selectedAge === age.id ? 'white' : '#111827',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        gap: '0.25rem'
-                                    }}>
-                                        {namePart}
-                                        {agePart && (
-                                            <span style={{ fontSize: '1rem', fontWeight: '500', opacity: 0.9 }}>
-                                                {agePart}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div style={{
-                                        fontSize: '0.875rem',
-                                        color: selectedAge === age.id ? 'rgba(255, 255, 255, 0.9)' : '#6B7280',
-                                        lineHeight: '1.5'
-                                    }}>
-                                        {translatedDesc}
-                                    </div>
-                                </div>
-
-                                {/* Checkmark for selected */}
-                                {selectedAge === age.id && (
-                                    <div style={{
-                                        position: 'absolute',
-                                        top: '1rem',
-                                        right: '1rem',
-                                        width: '32px',
-                                        height: '32px',
-                                        borderRadius: '50%',
-                                        background: 'rgba(255, 255, 255, 0.3)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        fontSize: '1.25rem'
-                                    }}>
-
-                                    </div>
-                                )}
-                            </div>
-                        )})}
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
 
-                {selectedAge && (
-                    <div className="action-bar" style={{ animation: 'slideUp 0.3s ease-out' }}>
-                        <div className="action-bar-content">
-                            <div className="action-bar-info">
-                                {t('selected')}: <strong style={{ color: 'white' }}>
-                                    {(() => {
-                                        const k = AGE_LABEL_KEYS[selectedAge];
-                                        const lbl = k ? t(k.labelKey) : selectedAge;
-                                        const pi = lbl.indexOf(' (');
-                                        return pi >= 0 ? lbl.slice(0, pi) : lbl;
-                                    })()}
-                                </strong>
-                            </div>
-                            <button
-                                className="btn btn-primary"
-                                onClick={handleContinue}
-                            >
-                                {t('continueButton')}
-                            </button>
-                        </div>
-                    </div>
-                )}
-
-                <style>{`
-                @keyframes slideUp {
-                    from {
-                        transform: translateY(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateY(0);
-                        opacity: 1;
-                    }
-                }
-            `}</style>
+                <div className="fw-mod-bnav">
+                    <button className="fw-mod-bnav-home" onClick={() => navigate('/swine/diagnostic')}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                        Back
+                    </button>
+                    <button
+                        className="fw-mod-bnav-alerts"
+                        onClick={handleContinue}
+                        disabled={!selectedAge}
+                        style={{ opacity: selectedAge ? 1 : 0.4 }}
+                    >
+                        {t('continueButton') || 'Continue'}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
             </div>
         </DiagnosisWrapper>
     );

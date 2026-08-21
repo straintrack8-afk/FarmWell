@@ -1,201 +1,87 @@
-import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import PigWellTopNav from '../components/common/PigWellTopNav';
 
 const translations = {
   en: {
     pageTitle: 'Disease Diagnostic Tools',
-    pageSubtitle: 'Comprehensive tools for swine disease diagnosis, comparison, and information management',
-    allDiseases: {
-      title: 'All Diseases & Conditions',
-      description: 'Browse complete disease database with detailed information on 104 swine diseases'
-    },
-    diagnosis: {
-      title: 'Diagnosis Tools',
-      description: 'Select symptoms to diagnose conditions with confidence scoring and treatment recommendations'
-    },
-    compare: {
-      title: 'Compare Diseases',
-      description: 'Side-by-side comparison of disease characteristics, symptoms, and treatment options'
-    },
-    openTool: 'Open Tool'
+    allDiseases: { title: 'All Diseases & Conditions', desc: 'Browse 104 swine diseases with detailed info' },
+    diagnosis: { title: 'Diagnosis Tool', desc: 'Select symptoms to diagnose with confidence scoring' },
+    compare: { title: 'Compare Diseases', desc: 'Side-by-side disease comparison tool' },
   },
   id: {
     pageTitle: 'Alat Diagnostik Penyakit',
-    pageSubtitle: 'Alat komprehensif untuk diagnosis penyakit babi, perbandingan, dan manajemen informasi',
-    allDiseases: {
-      title: 'Semua Penyakit & Kondisi',
-      description: 'Jelajahi database penyakit lengkap dengan informasi detail tentang 104 penyakit babi'
-    },
-    diagnosis: {
-      title: 'Alat Diagnosis',
-      description: 'Pilih gejala untuk mendiagnosis kondisi dengan skor kepercayaan dan rekomendasi pengobatan'
-    },
-    compare: {
-      title: 'Bandingkan Penyakit',
-      description: 'Perbandingan side-by-side karakteristik penyakit, gejala, dan pilihan pengobatan'
-    },
-    openTool: 'Buka Alat'
+    allDiseases: { title: 'Semua Penyakit & Kondisi', desc: 'Jelajahi 104 penyakit babi dengan info lengkap' },
+    diagnosis: { title: 'Alat Diagnosis', desc: 'Pilih gejala untuk diagnosis dengan skor kepercayaan' },
+    compare: { title: 'Bandingkan Penyakit', desc: 'Perbandingan penyakit secara berdampingan' },
   },
   vi: {
     pageTitle: 'Công Cụ Chẩn Đoán Bệnh',
-    pageSubtitle: 'Công cụ toàn diện cho chẩn đoán bệnh lợn, so sánh và quản lý thông tin',
-    allDiseases: {
-      title: 'Tất Cả Bệnh & Tình Trạng',
-      description: 'Duyệt cơ sở dữ liệu bệnh đầy đủ với thông tin chi tiết về 104 bệnh lợn'
-    },
-    diagnosis: {
-      title: 'Công Cụ Chẩn Đoán',
-      description: 'Chọn triệu chứng để chẩn đoán tình trạng với điểm tin cậy và khuyến nghị điều trị'
-    },
-    compare: {
-      title: 'So Sánh Bệnh',
-      description: 'So sánh đặc điểm bệnh, triệu chứng và phương án điều trị song song'
-    },
-    openTool: 'Mở Công Cụ'
+    allDiseases: { title: 'Tất Cả Bệnh & Tình Trạng', desc: 'Duyệt 104 bệnh lợn với thông tin chi tiết' },
+    diagnosis: { title: 'Công Cụ Chẩn Đoán', desc: 'Chọn triệu chứng để chẩn đoán với điểm tin cậy' },
+    compare: { title: 'So Sánh Bệnh', desc: 'Công cụ so sánh bệnh song song' },
   }
 };
+
+const AllDiseasesIcon = () => (
+  <svg viewBox="0 0 24 24" style={{width:22,height:22,stroke:'#2EAA5E',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
+    <path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2h-4"/>
+    <path d="M9 3a2 2 0 012-2h2a2 2 0 012 2v0a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+    <path d="M9 12h6M9 16h4"/>
+  </svg>
+);
+
+const DiagnosisIcon = () => (
+  <svg viewBox="0 0 24 24" style={{width:22,height:22,stroke:'#2EAA5E',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
+    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/>
+  </svg>
+);
+
+const CompareIcon = () => (
+  <svg viewBox="0 0 24 24" style={{width:22,height:22,stroke:'#2EAA5E',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
+    <path d="M18 20V10M12 20V4M6 20v-6"/>
+  </svg>
+);
 
 const DiagnosticLanding = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = translations[language] || translations.en;
-  
-  const tools = [
-    {
-      id: 'all-diseases',
-      icon: '📋',
-      title: t.allDiseases.title,
-      description: t.allDiseases.description,
-      route: '/swine/diseases',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
-    },
-    {
-      id: 'diagnosis',
-      icon: '🔍',
-      title: t.diagnosis.title,
-      description: t.diagnosis.description,
-      route: '/swine/diagnosis/age',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
-    },
-    {
-      id: 'compare',
-      icon: '⚖️',
-      title: t.compare.title,
-      description: t.compare.description,
-      route: '/swine/compare',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
-    }
-  ];
-  
-  return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #F0FDF4, #FFFFFF, #DBEAFE)', padding: '3rem 0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-        
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <div style={{ marginBottom: '1rem' }}>
-            <span style={{ fontSize: '4rem' }}>🐷</span>
-          </div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.75rem' }}>
-            {t.pageTitle}
-          </h1>
-          <p style={{ fontSize: '1.125rem', color: '#6B7280', maxWidth: '700px', margin: '0 auto', lineHeight: '1.6' }}>
-            {t.pageSubtitle}
-          </p>
-        </div>
-        
-        {/* Tool Cards Grid */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-          gap: '1.5rem',
-          padding: '0 0.5rem'
-        }}>
-          {tools.map(tool => (
-            <ToolCard
-              key={tool.id}
-              {...tool}
-              onClick={() => navigate(tool.route)}
-              buttonText={t.openTool}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
 
-const ToolCard = ({ icon, title, description, gradient, onClick, buttonText }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
-  
+  const tools = [
+    { icon: <AllDiseasesIcon />, title: t.allDiseases.title, desc: t.allDiseases.desc, route: '/swine/diseases' },
+    { icon: <DiagnosisIcon />, title: t.diagnosis.title, desc: t.diagnosis.desc, route: '/swine/diagnosis/age' },
+    { icon: <CompareIcon />, title: t.compare.title, desc: t.compare.desc, route: '/swine/compare' },
+  ];
+
   return (
-    <div 
-      style={{
-        background: 'white',
-        borderRadius: '16px',
-        boxShadow: isHovered ? '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)' : '0 10px 15px -3px rgba(0,0,0,0.1)',
-        overflow: 'hidden',
-        transition: 'all 0.3s',
-        transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
-        cursor: 'pointer',
-        border: '2px solid #E5E7EB'
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
-    >
-      {/* Icon Header with Gradient */}
-      <div style={{
-        background: gradient,
-        padding: '2rem',
-        textAlign: 'center'
-      }}>
-        <div style={{ fontSize: '4rem', marginBottom: '0.5rem' }}>{icon}</div>
+    <div className="fw-module-page">
+      <PigWellTopNav title={t.pageTitle} />
+      <div className="fw-mod-card" style={{ marginTop: -18, borderRadius: '16px 16px 12px 12px' }}>
+        <div className="fw-mod-content">
+          <div className="fw-welcome-section-label">SELECT TOOL</div>
+          <div className="fw-module-grid-2" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+            {tools.map((tool, i) => (
+              <div
+                key={i}
+                className="fw-mod-item-card"
+                onClick={() => navigate(tool.route)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="fw-mod-item-icon-wrap" style={{ background: '#E8F5EE' }}>
+                  {tool.icon}
+                </div>
+                <div className="fw-mod-item-name">{tool.title}</div>
+                <div className="fw-mod-item-tag">{tool.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      
-      {/* Content */}
-      <div style={{ padding: '1.5rem' }}>
-        <h3 style={{ 
-          fontSize: '1.5rem', 
-          fontWeight: 'bold', 
-          color: '#111827', 
-          marginBottom: '0.75rem' 
-        }}>
-          {title}
-        </h3>
-        <p style={{ 
-          color: '#6B7280', 
-          fontSize: '0.875rem', 
-          marginBottom: '2rem', 
-          lineHeight: '1.6' 
-        }}>
-          {description}
-        </p>
-        
-        {/* Button */}
-        <button
-          style={{
-            width: '100%',
-            background: '#10B981',
-            color: 'white',
-            padding: '0.75rem 1.5rem',
-            borderRadius: '8px',
-            border: 'none',
-            fontWeight: '600',
-            fontSize: '1rem',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.5rem'
-          }}
-          onMouseEnter={e => e.target.style.background = '#059669'}
-          onMouseLeave={e => e.target.style.background = '#10B981'}
-        >
-          <span>{buttonText}</span>
-          <span>→</span>
+      <div className="fw-mod-bnav">
+        <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>PigWell</span>
         </button>
       </div>
     </div>

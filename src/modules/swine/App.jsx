@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { DiagnosisProvider } from './contexts/DiagnosisContext';
 import { BiosecurityProvider } from './contexts/BiosecurityContext';
-import SharedTopNav from '../../components/SharedTopNav';
+
 import HomePage from './pages/HomePage';
 
 // Diagnosis pages
@@ -36,26 +36,26 @@ function App() {
   const location = useLocation();
   const { t } = useTranslation();
   const { language } = useLanguage();
-  const isSwineHomePage = location.pathname === '/swine' || location.pathname === '/swine/';
+
 
   return (
     <DiagnosisProvider>
       <BiosecurityProvider>
         <div className="fw-page">
-          <SharedTopNav
-            logoSrc={isSwineHomePage ? "/images/FarmWell_Logo.png" : "/images/PigWell_Logo.png"}
-            logoAlt={isSwineHomePage ? "FarmWell" : "PigWell"}
-            logoHref={isSwineHomePage ? "/" : "/swine"}
-            logoScale={1}
-            imageScale={isSwineHomePage ? 1 : 1.25}
-          />
-          <div className="portal-layout" style={{ background: 'transparent', padding: 0 }}>
-            <div className="portal-container" style={{ maxWidth: '100%', padding: 0 }}>
-              <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
-                <Routes>
-                  <Route path="/" element={null} />
-                </Routes>
-                <main style={{ flex: 1, padding: 0 }}>
+
+
+
+
+
+
+
+          <main>
+
+
+
+
+
+
                   <Routes>
                     {/* PigWell Feature Selection */}
                     <Route path="/" element={<HomePage />} />
@@ -93,9 +93,9 @@ function App() {
                     <Route path="*" element={<Navigate to="/swine" replace />} />
                   </Routes>
                 </main>
-              </div>
-            </div>
-          </div>
+
+
+
 
           {/* ── SUPPORTED BY ── */}
           <div className="fw-supported">
