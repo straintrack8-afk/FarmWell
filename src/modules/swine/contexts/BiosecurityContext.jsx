@@ -132,7 +132,7 @@ export function BiosecurityProvider({ children }) {
 
     // TODO: Calculate total based on conditional logic
     // For now, use a rough estimate
-    const totalEstimates = { 1: 44, 2: 29, 3: 23, 4: 20 };
+    const totalEstimates = { 0: 25, 1: 17, 2: 18, 3: 6 };
     const total = totalEstimates[focusArea] || 0;
 
     return {
