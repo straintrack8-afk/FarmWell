@@ -4,6 +4,7 @@ import { useLanguage } from '../../../contexts/LanguageContext';
 import { swineTranslations } from '../translations';
 import { diseasePageTranslations } from '../translations_extended';
 import { formatDescription, cleanText, textToBullets } from '../utils/formatters';
+import PigWellTopNav from '../components/common/PigWellTopNav';
 
 function getCategoryClass(category) {
     const lower = category?.toLowerCase() || '';
@@ -99,7 +100,9 @@ function DiseasePage() {
     const unmatchedSymptoms = allSymptoms.filter(s => !selectedSymptoms.includes(s));
 
     return (
-        <div className="container swine-diagnosis" style={{ paddingBottom: '2rem' }}>
+        <div className="fw-module-page">
+            <PigWellTopNav title={dName || 'Disease Detail'} backPath="/swine/diseases" />
+            <div className="fw-mod-card" style={{ marginTop: -18, borderRadius: '16px 16px 12px 12px', padding: '16px' }}>
             {/* Main Content Card */}
             <div className="disease-detail-card">
                 {/* Disease Header */}
@@ -622,8 +625,8 @@ function DiseasePage() {
                     </button>
                 </div>
             </div>
+            </div>
         </div>
     );
 }
-
 export default DiseasePage;
