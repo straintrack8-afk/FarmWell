@@ -15,17 +15,6 @@ const SwineIcon = () => (
     </svg>
 );
 
-const AGE_LABEL_KEYS = {
-    'All ages':  { labelKey: 'all',       descKey: 'allDesc'      },
-    'Newborn':   { labelKey: 'newborn',   descKey: 'newbornDesc'  },
-    'Suckling':  { labelKey: 'suckling',  descKey: 'sucklingDesc' },
-    'Weaned':    { labelKey: 'weaned',    descKey: 'weanedDesc'   },
-    'Growers':   { labelKey: 'growers',   descKey: 'growersDesc'  },
-    'Finishers': { labelKey: 'finishers', descKey: 'finishersDesc'},
-    'Sows':      { labelKey: 'sows',      descKey: 'sowsDesc'     },
-    'Boars':     { labelKey: 'boars',     descKey: 'boarsDesc'    },
-};
-
 function AgePage() {
     const navigate = useNavigate();
     const { language } = useLanguage();
@@ -40,9 +29,7 @@ function AgePage() {
         <DiagnosisWrapper>
             <div className="fw-module-page">
                 <PigWellTopNav title={t('selectAgeGroup') || 'Select Age Group'} />
-
                 <div className="fw-mod-card" style={{ marginTop: -18, borderRadius: '16px 16px 12px 12px' }}>
-                    {/* Step indicator */}
                     <div style={{ display: 'flex', gap: 8, padding: '12px 16px 0', justifyContent: 'center' }}>
                         {[
                             { n: 1, label: t('stepAge') || 'Age' },
@@ -64,23 +51,14 @@ function AgePage() {
                             </div>
                         ))}
                     </div>
-
                     <div className="fw-mod-content">
                         <div style={{ textAlign: 'center', marginBottom: 16 }}>
                             <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--fw-text)' }}>{t('selectAgeGroup') || 'Select Age Group'}</div>
                             <div style={{ fontSize: 11, color: 'var(--fw-sub)', marginTop: 4 }}>{t('chooseAgeGroup') || 'Choose the age group of the affected pigs'}</div>
                         </div>
-
                         <div className="fw-module-grid-2">
                             {ageGroups && ageGroups.map((age) => {
-                                const keys = AGE_LABEL_KEYS[age.id];
-                                const label = keys ? t(keys.labelKey) : (age.label || age.id);
-                                const desc = keys ? t(keys.descKey) : (age.description || '');
-                                const parenIdx = label.indexOf(' (');
-                                const namePart = parenIdx >= 0 ? label.slice(0, parenIdx) : label;
-                                const agePart = parenIdx >= 0 ? label.slice(parenIdx + 1) : null;
                                 const isSelected = selectedAge === age.id;
-
                                 return (
                                     <div
                                         key={age.id}
@@ -97,18 +75,15 @@ function AgePage() {
                                             <SwineIcon />
                                         </div>
                                         <div className="fw-mod-item-name" style={{ color: isSelected ? '#2EAA5E' : 'var(--fw-text)' }}>
-                                            {namePart}
-                                            {agePart && <span style={{ fontSize: 11, fontWeight: 500, display: 'block', marginTop: 2 }}>{agePart}</span>}
+                                            {age.label || age.id}
                                         </div>
-                                        <div className="fw-mod-item-tag">{desc}</div>
+                                        <div className="fw-mod-item-tag">{age.description || ''}</div>
                                     </div>
                                 );
                             })}
                         </div>
                     </div>
                 </div>
-
-
                 <div className="fw-mod-bnav">
                     <button className="fw-mod-bnav-home" onClick={() => navigate('/swine/diagnostic')}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
@@ -120,10 +95,11 @@ function AgePage() {
                         disabled={!selectedAge}
                         style={{ opacity: selectedAge ? 1 : 0.4 }}
                     >
-                        {t('continueButton') || 'Continue'}
+                        <span>{t('continueButton') || 'Continue'}</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                 </div>
+            </div>
         </DiagnosisWrapper>
     );
 }
