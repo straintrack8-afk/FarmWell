@@ -837,8 +837,8 @@
             ]
           }
         ],
-        "total_questions": 44,
-        "estimated_time_minutes": 66
+        "total_questions": 25,
+        "estimated_time_minutes": 38
       },
       {
         "number": 2,
@@ -1280,8 +1280,8 @@
             ]
           }
         ],
-        "total_questions": 31,
-        "estimated_time_minutes": 47
+        "total_questions": 17,
+        "estimated_time_minutes": 26
       },
       {
         "number": 3,
@@ -1750,8 +1750,8 @@
             ]
           }
         ],
-        "total_questions": 30,
-        "estimated_time_minutes": 45
+        "total_questions": 18,
+        "estimated_time_minutes": 27
       },
       {
         "number": 4,
@@ -1939,8 +1939,8 @@
             ]
           }
         ],
-        "total_questions": 11,
-        "estimated_time_minutes": 17
+        "total_questions": 6,
+        "estimated_time_minutes": 9
       }
     ]
   },
