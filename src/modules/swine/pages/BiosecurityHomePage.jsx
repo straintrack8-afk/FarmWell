@@ -1,242 +1,168 @@
-import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBiosecurity } from '../contexts/BiosecurityContext';
-import { useTranslation } from '../../../hooks/useTranslation';
-import { Shield, CheckCircle, AlertTriangle, Clock, FileText } from 'lucide-react';
+import { useLanguage } from '../../../contexts/LanguageContext';
+import PigWellTopNav from '../components/common/PigWellTopNav';
+
+const BioIcon = () => (
+    <svg viewBox="0 0 24 24" style={{width:22,height:22,stroke:'#2EAA5E',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+);
+
+const tr = {
+  en: {
+    title: 'Biosecurity Assessment',
+    desc: 'Comprehensive biosecurity evaluation for your pig farm',
+    startNew: 'Start New Assessment',
+    startNewDesc: 'Complete a full biosecurity evaluation',
+    viewHistory: 'View History',
+    lastScore: 'Last Score',
+    noHistory: 'No assessments yet',
+    noHistoryDesc: 'Complete your first assessment to see results here',
+    draft: 'Continue Draft',
+    draftDesc: 'You have an unfinished assessment',
+    assessments: 'assessments completed',
+    good: 'Good',
+    poor: 'Needs Attention',
+  },
+  id: {
+    title: 'Penilaian Biosekuriti',
+    desc: 'Evaluasi biosekuriti komprehensif untuk peternakan babi Anda',
+    startNew: 'Mulai Penilaian Baru',
+    startNewDesc: 'Selesaikan evaluasi biosekuriti lengkap',
+    viewHistory: 'Lihat Riwayat',
+    lastScore: 'Skor Terakhir',
+    noHistory: 'Belum ada penilaian',
+    noHistoryDesc: 'Selesaikan penilaian pertama Anda untuk melihat hasilnya',
+    draft: 'Lanjutkan Draft',
+    draftDesc: 'Anda memiliki penilaian yang belum selesai',
+    assessments: 'penilaian selesai',
+    good: 'Baik',
+    poor: 'Perlu Perhatian',
+  },
+  vi: {
+    title: 'Đánh Giá An Toàn Sinh Học',
+    desc: 'Đánh giá an toàn sinh học toàn diện cho trang trại lợn của bạn',
+    startNew: 'Bắt Đầu Đánh Giá Mới',
+    startNewDesc: 'Hoàn thành đánh giá an toàn sinh học đầy đủ',
+    viewHistory: 'Xem Lịch Sử',
+    lastScore: 'Điểm Gần Nhất',
+    noHistory: 'Chưa có đánh giá nào',
+    noHistoryDesc: 'Hoàn thành đánh giá đầu tiên để xem kết quả tại đây',
+    draft: 'Tiếp Tục Bản Nháp',
+    draftDesc: 'Bạn có một đánh giá chưa hoàn thành',
+    assessments: 'đánh giá hoàn thành',
+    good: 'Tốt',
+    poor: 'Cần Cải Thiện',
+  }
+};
 
 function BiosecurityHomePage() {
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  const t = tr[language] || tr.en;
   const { assessmentHistory, loadDraftAssessment } = useBiosecurity();
-  const { t } = useTranslation();
 
   const lastAssessment = assessmentHistory.length > 0
     ? assessmentHistory[assessmentHistory.length - 1]
     : null;
 
-  const handleStartNew = () => {
-    navigate('/swine/biosecurity/assessment');
-  };
+  const hasDraft = (() => {
+    try { return localStorage.getItem('biosecurity_draft') !== null; }
+    catch { return false; }
+  })();
 
+  const handleStartNew = () => navigate('/swine/biosecurity/assessment');
   const handleContinueDraft = () => {
     const hasDraft = loadDraftAssessment();
-    if (hasDraft) {
-      navigate('/swine/biosecurity/assessment');
-    }
+    if (hasDraft) navigate('/swine/biosecurity/assessment');
   };
 
-  const handleViewReport = (assessmentId) => {
-    navigate(`/swine/biosecurity/results/${assessmentId}`);
-  };
-
-  const checkForDraft = () => {
-    try {
-      const draft = localStorage.getItem('biosecurity_draft');
-      return draft !== null;
-    } catch {
-      return false;
-    }
-  };
-
-  const hasDraft = checkForDraft();
+  const goodCount = assessmentHistory.filter(a => (a.overallScore || 0) >= 60).length;
+  const poorCount = assessmentHistory.filter(a => (a.overallScore || 0) < 60).length;
 
   return (
-    <div className="container" style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem 1rem' }}>
-      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '80px',
-          height: '80px',
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          marginBottom: '1.5rem'
-        }}>
-          <Shield size={40} color="white" />
-        </div>
-        <h1 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '1rem' }}>
-          {t('swine.biosecurity.home.pageTitle')}
-        </h1>
-        <p style={{ fontSize: '1.125rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-          {t('swine.biosecurity.home.pageDescription')}
-        </p>
-      </div>
+    <div className="fw-module-page">
+      <PigWellTopNav title={t.title} />
+      <div className="fw-mod-card" style={{ marginTop: -18, borderRadius: '16px 16px 12px 12px' }}>
+        <div className="fw-mod-content">
 
-      {hasDraft && (
-        <div className="card" style={{
-          marginBottom: '2rem',
-          background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-          border: '2px solid #f59e0b'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <Clock size={24} color="#d97706" />
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: '600', color: '#92400e', marginBottom: '0.25rem' }}>
-                {t('swine.biosecurity.home.draftFound')}
+          {/* Stats */}
+          <div className="fw-module-grid-2" style={{ marginBottom: 16 }}>
+            <div style={{ background: '#F9FAFB', borderRadius: 12, padding: '14px 16px' }}>
+              <div style={{ fontSize: 11, color: 'var(--fw-sub)', textTransform: 'uppercase', letterSpacing: 1 }}>TOTAL</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--fw-text)' }}>{assessmentHistory.length}</div>
+              <div style={{ fontSize: 11, color: 'var(--fw-sub)' }}>{t.assessments}</div>
+            </div>
+            <div style={{ background: '#F9FAFB', borderRadius: 12, padding: '14px 16px' }}>
+              <div style={{ fontSize: 11, color: 'var(--fw-sub)', textTransform: 'uppercase', letterSpacing: 1 }}>{t.lastScore}</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: lastAssessment ? '#2EAA5E' : '#9CA3AF' }}>
+                {lastAssessment ? Math.round(lastAssessment.overallScore || 0) + '%' : 'N/A'}
               </div>
-              <div style={{ fontSize: '0.875rem', color: '#78350f' }}>
-                {t('swine.biosecurity.home.draftDescription')}
+              <div style={{ fontSize: 11, color: 'var(--fw-sub)' }}>
+                {lastAssessment ? (lastAssessment.overallScore >= 60 ? t.good : t.poor) : '-'}
               </div>
             </div>
-            <button
-              onClick={handleContinueDraft}
-              className="btn btn-primary"
-              style={{ background: '#d97706', borderColor: '#d97706' }}
-            >
-              {t('swine.biosecurity.home.continueDraft')}
-            </button>
+            <div style={{ background: '#F0FDF4', borderRadius: 12, padding: '14px 16px' }}>
+              <div style={{ fontSize: 11, color: '#2EAA5E', textTransform: 'uppercase', letterSpacing: 1 }}>{t.good}</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: '#2EAA5E' }}>{goodCount}</div>
+            </div>
+            <div style={{ background: '#FEF2F2', borderRadius: 12, padding: '14px 16px' }}>
+              <div style={{ fontSize: 11, color: '#EF4444', textTransform: 'uppercase', letterSpacing: 1 }}>{t.poor}</div>
+              <div style={{ fontSize: 28, fontWeight: 800, color: '#EF4444' }}>{poorCount}</div>
+            </div>
           </div>
-        </div>
-      )}
 
-      <div className="card" style={{ marginBottom: '2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '2rem', flexWrap: 'wrap' }}>
-          <div style={{ flex: 1 }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>
-              {t('swine.biosecurity.home.startNew')}
-            </h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-              {t('swine.biosecurity.home.startNewDescription')}
-            </p>
-
-            {lastAssessment && (
-              <div style={{
-                padding: '1rem',
-                background: 'var(--bg-secondary)',
-                borderRadius: '8px',
-                marginBottom: '1.5rem'
-              }}>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                  {t('swine.biosecurity.home.lastAssessment')}
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                  <div>
-                    <span style={{ fontWeight: '600', fontSize: '1.25rem' }}>
-                      {lastAssessment.results?.overall_score || 0}
-                    </span>
-                    <span style={{ color: 'var(--text-muted)' }}>/100</span>
-                  </div>
-                  <div style={{
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '9999px',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
-                    background: lastAssessment.results?.risk_level.level === 'low' ? '#d1fae5' :
-                      lastAssessment.results?.risk_level.level === 'medium' ? '#fef3c7' :
-                        lastAssessment.results?.risk_level.level === 'high' ? '#fed7aa' : '#fecaca',
-                    color: lastAssessment.results?.risk_level.level === 'low' ? '#065f46' :
-                      lastAssessment.results?.risk_level.level === 'medium' ? '#92400e' :
-                        lastAssessment.results?.risk_level.level === 'high' ? '#9a3412' : '#991b1b'
-                  }}>
-                    {lastAssessment.results?.risk_level.level.toUpperCase()} {t('swine.biosecurity.home.risk')}
-                  </div>
-                  <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                    {new Date(lastAssessment.completed_at).toLocaleDateString()}
-                  </div>
-                </div>
+          {/* Draft banner */}
+          {hasDraft && (
+            <div style={{
+              background: '#FFF8E1', border: '1.5px solid #F9A825',
+              borderRadius: 10, padding: '12px 16px',
+              display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F9A825" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 13, color: '#E65100' }}>{t.draft}</div>
+                <div style={{ fontSize: 11, color: '#795548' }}>{t.draftDesc}</div>
               </div>
-            )}
+              <button onClick={handleContinueDraft} style={{
+                background: '#F9A825', color: 'white', border: 'none',
+                borderRadius: 8, padding: '8px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer'
+              }}>{t.draft}</button>
+            </div>
+          )}
 
-            <button
-              onClick={handleStartNew}
-              className="btn btn-primary btn-lg"
-              style={{ width: '100%' }}
-            >
-              <Shield size={20} style={{ marginRight: '0.5rem' }} />
-              {t('swine.biosecurity.home.startNew')}
-            </button>
-          </div>
+          {/* Action buttons */}
+          <button onClick={handleStartNew} style={{
+            width: '100%', background: '#2EAA5E', color: 'white',
+            border: 'none', borderRadius: 12, padding: '14px',
+            fontSize: 15, fontWeight: 700, cursor: 'pointer', marginBottom: 10,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8
+          }}>
+            <BioIcon />
+            {t.startNew}
+          </button>
+          <button onClick={() => navigate('/swine/biosecurity/history')} style={{
+            width: '100%', background: 'white', color: '#2EAA5E',
+            border: '1.5px solid #2EAA5E', borderRadius: 12, padding: '12px',
+            fontSize: 14, fontWeight: 600, cursor: 'pointer'
+          }}>{t.viewHistory}</button>
+
+          {/* No history */}
+          {assessmentHistory.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '32px 0', color: 'var(--fw-sub)' }}>
+              <div style={{ fontSize: 40, marginBottom: 8 }}>🛡️</div>
+              <div style={{ fontWeight: 600, marginBottom: 4 }}>{t.noHistory}</div>
+              <div style={{ fontSize: 12 }}>{t.noHistoryDesc}</div>
+            </div>
+          )}
         </div>
       </div>
-
-      <div style={{ marginBottom: '2rem' }}>
-        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
-          {t('swine.biosecurity.home.whatYouAssess')}
-        </h3>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
-          {[
-            { icon: '', key: 'infrastructure' },
-            { icon: '', key: 'animals' },
-            { icon: '', key: 'people' },
-            { icon: '', key: 'feed' },
-            { icon: '', key: 'pest' },
-            { icon: '', key: 'cleaning' }
-          ].map((item, idx) => (
-            <div key={idx} className="card" style={{ padding: '1rem' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
-              <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>{t(`swine.biosecurity.home.assessmentCategories.${item.key}.title`)}</div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{t(`swine.biosecurity.home.assessmentCategories.${item.key}.desc`)}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {assessmentHistory.length > 0 && (
-        <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
-            {t('swine.biosecurity.home.history')}
-          </h3>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {assessmentHistory.slice().reverse().slice(0, 5).map((assessment) => (
-              <div
-                key={assessment.id}
-                className="card"
-                style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
-                onClick={() => handleViewReport(assessment.id)}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '1.5rem',
-                    fontWeight: '700',
-                    background: assessment.results?.risk_level.level === 'low' ? '#d1fae5' :
-                      assessment.results?.risk_level.level === 'medium' ? '#fef3c7' :
-                        assessment.results?.risk_level.level === 'high' ? '#fed7aa' : '#fecaca',
-                    color: assessment.results?.risk_level.level === 'low' ? '#065f46' :
-                      assessment.results?.risk_level.level === 'medium' ? '#92400e' :
-                        assessment.results?.risk_level.level === 'high' ? '#9a3412' : '#991b1b'
-                  }}>
-                    {assessment.results?.overall_score || 0}
-                  </div>
-
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>
-                      {t('swine.biosecurity.home.assessment')} - {new Date(assessment.completed_at).toLocaleDateString()}
-                    </div>
-                    <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                      {t('swine.biosecurity.home.grade')}: {assessment.results?.grade} • {assessment.results?.risk_level.level.toUpperCase()} {t('swine.biosecurity.home.risk')}
-                    </div>
-                  </div>
-
-                  <FileText size={20} color="var(--text-muted)" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="card" style={{ marginTop: '2rem', background: '#eff6ff', border: '1px solid #3b82f6' }}>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <div style={{ color: '#1e40af', fontSize: '1.5rem' }}></div>
-          <div>
-            <div style={{ fontWeight: '600', color: '#1e3a8a', marginBottom: '0.5rem' }}>
-              {t('swine.biosecurity.home.aboutTitle')}
-            </div>
-            <div style={{ fontSize: '0.875rem', color: '#1e40af' }}>
-              {t('swine.biosecurity.home.aboutDescription')}
-            </div>
-          </div>
-        </div>
+      <div className="fw-mod-bnav">
+        <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>PigWell</span>
+        </button>
       </div>
     </div>
   );
