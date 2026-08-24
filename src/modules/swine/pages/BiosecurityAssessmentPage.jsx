@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useBiosecurity } from '../contexts/BiosecurityContext';
 import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight, Check, AlertCircle, Info } from 'lucide-react';
+import PigWellTopNav from '../components/common/PigWellTopNav';
 
 function BiosecurityAssessmentPage() {
   const navigate = useNavigate();
@@ -127,7 +128,8 @@ function BiosecurityAssessmentPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-secondary)' }}>
+    <div className="fw-module-page">
+      <PigWellTopNav title="Biosecurity Assessment" backPath="/swine/biosecurity" />
       {/* Progress Bar */}
       <div style={{ 
         background: 'white', 
