@@ -14,6 +14,7 @@ import {
 import CircularProgress from '../../components/biosecurity/CircularProgress';
 import DiseaseRiskSection from '../../components/biosecurity/DiseaseRiskSection';
 import PriorityRecommendationsSection from '../../components/biosecurity/PriorityRecommendationsSection';
+import PigWellTopNav from '../../components/common/PigWellTopNav';
 
 function ResultsPage() {
     const navigate = useNavigate();
@@ -96,7 +97,9 @@ function ResultsPage() {
     }
 
     return (
-        <div className="container print-container" style={{ paddingBottom: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
+        <div className="fw-module-page">
+            <div className="no-print"><PigWellTopNav /></div>
+            <div className="container print-container" style={{ paddingBottom: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
             <style>
                 {`
                     @media print {
@@ -625,6 +628,17 @@ function ResultsPage() {
                         ))}
                     </div>
                 )}
+            </div>
+        </div>
+            <div className="fw-mod-bnav no-print">
+                <button className="fw-mod-bnav-btn" onClick={() => navigate('/swine/biosecurity')}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Biosecurity
+                </button>
+                <button className="fw-mod-bnav-btn" onClick={() => navigate('/swine')}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    PigWell Home
+                </button>
             </div>
         </div>
     );

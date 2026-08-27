@@ -5,6 +5,7 @@ import { useBiosecurity } from '../../contexts/BiosecurityContext';
 import { getFullAssessmentHistory, deleteAssessment } from '../../utils/biosecurityStorage';
 import { calculateOverallScore, getScoreInterpretation } from '../../utils/biosecurityScoring';
 import { downloadBiosecurityReport } from '../../utils/pdfGenerator';
+import PigWellTopNav from '../../components/common/PigWellTopNav';
 
 function BiosecurityHistoryPage() {
     const navigate = useNavigate();

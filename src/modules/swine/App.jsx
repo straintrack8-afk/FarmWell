@@ -24,7 +24,6 @@ import FarmProfilePage from './pages/biosecurity/FarmProfilePage';
 import BiosecurityDashboard from './pages/biosecurity/BiosecurityDashboard';
 import AssessmentPage from './pages/biosecurity/AssessmentPage';
 import BiosecurityResultsPage from './pages/biosecurity/ResultsPage';
-import BiosecurityReportPage from './pages/biosecurity/BiosecurityReportPage';
 import BiosecurityHistoryPage from './pages/biosecurity/BiosecurityHistoryPage';
 
 // Farm Calculator page
@@ -83,7 +82,7 @@ function App() {
                     <Route path="/biosecurity/dashboard" element={<BiosecurityDashboard />} />
                     <Route path="/biosecurity/assessment/:focusArea" element={<AssessmentPage />} />
                     <Route path="/biosecurity/results" element={<BiosecurityResultsPage />} />
-                    <Route path="/biosecurity/report" element={<BiosecurityReportPage />} />
+                    <Route path="/biosecurity/report" element={<BiosecurityResultsPage />} />
                     <Route path="/biosecurity/history" element={<BiosecurityHistoryPage />} />
 
                     {/* Farm Calculator Route */}

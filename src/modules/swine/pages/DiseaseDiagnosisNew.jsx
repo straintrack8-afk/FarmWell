@@ -3,16 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { useDiagnosis } from '../contexts/DiagnosisContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import '../styles/DiseaseDiagnosis.css';
+import PigWellTopNav from '../components/common/PigWellTopNav';
 
 const CATEGORY_EMOJI = {
-  mortality:     { emoji: '💀', label: 'Mortality' },
-  fever:         { emoji: '🌡️', label: 'Fever' },
-  respiratory:   { emoji: '🫁', label: 'Respiratory' },
-  digestive:     { emoji: '🦠', label: 'Digestive' },
-  nervous:       { emoji: '🧠', label: 'Nervous' },
-  skin:          { emoji: '🩹', label: 'Skin' },
-  reproductive:  { emoji: '�', label: 'Reproductive' },
-  systemic:      { emoji: '⚡', label: 'Systemic' },
+  mortality:    { label: 'Mortality' },
+  fever:        { label: 'Fever' },
+  respiratory:  { label: 'Respiratory' },
+  digestive:    { label: 'Digestive' },
+  nervous:      { label: 'Nervous' },
+  skin:         { label: 'Skin' },
+  reproductive: { label: 'Reproductive' },
+  systemic:     { label: 'Systemic' },
+};
+
+const CategoryIcon = ({ catId }) => {
+  const icons = {
+    mortality:    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>,
+    fever:        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>,
+    respiratory:  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v6m0 0C9 8 6 10 4 14c-1 2-1 4 1 5s4-1 5-4V8m3 0c3 0 6 2 8 6 1 2 1 4-1 5s-4-1-5-4V8"/></svg>,
+    digestive:    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a9 9 0 0 1 9 9c0 3-2 6-5 7.5S8 20 6 18c-2-2-3-5-2-8a9 9 0 0 1 8-8z"/><path d="M12 8v4l3 3"/></svg>,
+    nervous:      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
+    skin:         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M3 15h18"/></svg>,
+    reproductive: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="5"/><path d="M12 13v8m-3-3 3 3 3-3"/></svg>,
+    systemic:     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
+  };
+  return icons[catId] || null;
 };
 
 const DiseaseDiagnosisNew = () => {
@@ -100,7 +115,7 @@ const DiseaseDiagnosisNew = () => {
     }
     const meta = CATEGORY_EMOJI[activeCategory];
     const catData = symptomCategories?.[activeCategory];
-    return meta && catData ? `${meta.emoji} ${catData.label || meta.label}` : '';
+    return meta && catData ? catData.label || meta.label : '';
   }, [symptomCategories, activeCategory, searchTerm, language]);
 
   const selectedInActiveCategory = useMemo(() => {
@@ -114,7 +129,9 @@ const DiseaseDiagnosisNew = () => {
   }, [activeSymptoms, selectedSymptoms]);
 
   return (
-    <div className="diagnosis-page">
+    <div className="fw-module-page">
+      <PigWellTopNav />
+      <div className="diagnosis-page">
       {/* Step Progress Bar */}
       <div className="dd-step-bar">
         <div className="dd-step-inner">
@@ -217,7 +234,7 @@ const DiseaseDiagnosisNew = () => {
                   onClick={() => selectCategory(catId)}
                 >
                   <div className="dd-cat-sel-badge">{selCount}</div>
-                  <div className="dd-cat-emoji-wrap">{meta.emoji}</div>
+                  <div className="dd-cat-emoji-wrap"><CategoryIcon catId={catId} /></div>
                   <span className="dd-cat-name">{catData.label || meta.label}</span>
                 </div>
               );
@@ -235,7 +252,6 @@ const DiseaseDiagnosisNew = () => {
             <div className="dd-sym-panel-body">
               {activeSymptoms.length === 0 ? (
                 <div className="dd-empty-chips">
-                  <div className="dd-empty-chips-icon">😔</div>
                   <div className="dd-empty-chips-msg">
                     {language === 'en' ? 'No symptoms match your search' : language === 'id' ? 'Tidak ada gejala yang cocok dengan pencarian Anda' : 'Không có triệu chứng nào khớp với tìm kiếm của bạn'}
                   </div>
@@ -312,7 +328,6 @@ const DiseaseDiagnosisNew = () => {
             <div>
               {selectedSymptoms.length === 0 ? (
                 <div className="dd-empty-results">
-                  <div className="dd-empty-results-icon">🔬</div>
                   <div className="dd-empty-results-msg">
                     {language === 'en' ? 'Select symptoms to see possible conditions' : language === 'id' ? 'Pilih gejala untuk melihat kondisi yang mungkin' : 'Chọn triệu chứng để xem tình trạng có thể'}
                   </div>
@@ -393,6 +408,7 @@ const DiseaseDiagnosisNew = () => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
