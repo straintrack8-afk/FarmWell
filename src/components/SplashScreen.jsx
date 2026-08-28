@@ -58,9 +58,7 @@ const SplashScreen = ({ onComplete, duration = 3500 }) => {
                 />
             </div>
 
-            {/* Powered By */}
             <div className="fw-splash-powered">
-                <span className="fw-splash-powered-text">Powered by</span>
                 <img
                     src="/images/Vaksindo_logo.png"
                     alt="Vaksindo Logo"
