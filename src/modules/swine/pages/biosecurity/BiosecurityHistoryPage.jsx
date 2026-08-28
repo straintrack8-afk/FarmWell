@@ -83,31 +83,10 @@ function BiosecurityHistoryPage() {
     };
 
     return (
-        <div style={{
-            minHeight: '100vh',
-            background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-            padding: '2rem 0'
-        }}>
-            <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-                {/* Header */}
-                <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h1 style={{ fontSize: '2rem', fontWeight: '800', color: '#1f2937' }}>
-                         {getTranslation('title')}
-                    </h1>
-                    <button
-                        onClick={() => navigate('/swine/biosecurity')}
-                        style={{
-                            padding: '0.75rem 1.5rem',
-                            background: 'white',
-                            border: '1px solid #e5e7eb',
-                            borderRadius: '0.5rem',
-                            cursor: 'pointer',
-                            fontWeight: '600'
-                        }}
-                    >
-                        {getTranslation('backToDashboard')}
-                    </button>
-                </div>
+        <div className="fw-module-page">
+            <PigWellTopNav />
+            <div className="fw-mod-card">
+            <div className="fw-mod-content">
 
                 {/* History Table */}
                 <div className="card" style={{ background: 'white', borderRadius: '1rem', padding: '1.5rem', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}>
@@ -158,7 +137,7 @@ function BiosecurityHistoryPage() {
                                                 onClick={() => handleViewReport(assessment)}
                                                 style={{
                                                     padding: '0.5rem 1rem',
-                                                    background: '#10b981',
+                                                    background: '#2EAA5E',
                                                     color: 'white',
                                                     border: 'none',
                                                     borderRadius: '0.375rem',
@@ -170,8 +149,8 @@ function BiosecurityHistoryPage() {
                                                     fontWeight: '500',
                                                     transition: 'background 0.2s'
                                                 }}
-                                                onMouseEnter={(e) => e.target.style.background = '#059669'}
-                                                onMouseLeave={(e) => e.target.style.background = '#10b981'}
+                                                onMouseEnter={(e) => e.target.style.background = '#2EAA5E'}
+                                                onMouseLeave={(e) => e.target.style.background = '#2EAA5E'}
                                             >
                                                  {getTranslation('viewReport')}
                                             </button>
@@ -229,9 +208,19 @@ function BiosecurityHistoryPage() {
                     )}
                 </div>
             </div>
+            </div>
+                        <div className="fw-mod-bnav">
+                <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>PigWell</span>
+                </button>
+                <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/biosecurity')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Biosecurity</span>
+                </button>
+            </div>
         </div>
     );
 }
 
 export default BiosecurityHistoryPage;
-

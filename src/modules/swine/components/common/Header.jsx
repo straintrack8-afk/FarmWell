@@ -34,7 +34,7 @@ function Header() {
                         width: '8px',
                         height: '8px',
                         borderRadius: '50%',
-                        background: isOnline ? '#10B981' : '#F59E0B'
+                        background: isOnline ? '#2EAA5E' : '#F59E0B'
                     }}></span>
                     {isOnline ? 'Online' : 'Offline'}
                 </div>

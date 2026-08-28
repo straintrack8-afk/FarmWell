@@ -82,6 +82,72 @@ function ResultsPage() {
         });
     };
 
+    const getTranslation = (key) => {
+        const translations = {
+            en: {
+                title: "Biosecurity Analysis Report",
+                backToDashboard: "Back to Assessment",
+                overallScore: "Overall Score",
+                external: "External Biosecurity",
+                internal: "Internal Biosecurity",
+                riskLevel: "Risk Status",
+                criticalActions: "Critical Actions Required",
+                recommendation: "Recommendation",
+                print: "Print Report",
+                noRisks: "No critical risks identified.",
+                improvementPlan: "Improvement Plan",
+                assessmentDate: "Assessment Date",
+                assessorName: "Assessor Name",
+                farmName: "Farm Name",
+                auditType: "Audit Type",
+                focusAreaScores: "Focus Area Scores",
+                score: "Score",
+                auditTypes: { internal: "Internal Audit", external: "External Audit", certification: "Certification Audit", surveillance: "Surveillance Audit" }
+            },
+            id: {
+                title: "Laporan Analisa Biosekuriti",
+                backToDashboard: "Kembali ke Penilaian",
+                overallScore: "Skor Keseluruhan",
+                external: "Biosekuriti Eksternal",
+                internal: "Biosekuriti Internal",
+                riskLevel: "Status Risiko",
+                criticalActions: "Tindakan Kritis Diperlukan",
+                recommendation: "Rekomendasi",
+                print: "Cetak Laporan",
+                noRisks: "Tidak ada risiko kritis yang teridentifikasi.",
+                improvementPlan: "Rencana Perbaikan",
+                assessmentDate: "Tanggal Penilaian",
+                assessorName: "Nama Penilai",
+                farmName: "Nama Peternakan",
+                auditType: "Jenis Audit",
+                focusAreaScores: "Skor Area Fokus",
+                score: "Skor",
+                auditTypes: { internal: "Audit Internal", external: "Audit Eksternal", certification: "Audit Sertifikasi", surveillance: "Audit Pengawasan" }
+            },
+            vi: {
+                title: "Báo cáo Phân tích An ninh sinh học",
+                backToDashboard: "Quay lại Đánh giá",
+                overallScore: "Điểm tổng thể",
+                external: "An ninh sinh học bên ngoài",
+                internal: "An ninh sinh học nội bộ",
+                riskLevel: "Tình trạng rủi ro",
+                criticalActions: "Hành động khẩn cấp cần thiết",
+                recommendation: "Khuyến nghị",
+                print: "In báo cáo",
+                noRisks: "Không có rủi ro nghiêm trọng nào được xác định.",
+                improvementPlan: "Kế hoạch cải thiện",
+                assessmentDate: "Ngày Đánh Giá",
+                assessorName: "Tên Người Đánh Giá",
+                farmName: "Tên Trang Trại",
+                auditType: "Loại Kiểm Toán",
+                focusAreaScores: "Điểm Khu Vực Tập Trung",
+                score: "Điểm",
+                auditTypes: { internal: "Kiểm Toán Nội Bộ", external: "Kiểm Toán Bên Ngoài", certification: "Kiểm Toán Chứng Nhận", surveillance: "Kiểm Toán Giám Sát" }
+            }
+        };
+        return translations[language]?.[key] || translations.en[key];
+    };
+
     if (!assessment) {
         return (
             <div className="container" style={{ padding: '2rem', textAlign: 'center' }}>
@@ -99,6 +165,7 @@ function ResultsPage() {
     return (
         <div className="fw-module-page">
             <div className="no-print"><PigWellTopNav /></div>
+            <div className="fw-mod-card" style={{padding:0}}>
             <div className="container print-container" style={{ paddingBottom: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
             <style>
                 {`
@@ -144,26 +211,16 @@ function ResultsPage() {
             </style>
 
             {/* Header / Navigation */}
-            <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+            <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', marginTop: '1.5rem' }}>
                 <button
                     onClick={() => navigate('/swine/biosecurity/dashboard')}
-                    className="btn btn-secondary"
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem'
-                    }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.25rem', borderRadius: '20px', background: '#2EAA5E', color: 'white', border: 'none', fontWeight: '600', fontSize: '0.875rem', cursor: 'pointer' }}
                 >
                     {getTranslation('backToDashboard')}
                 </button>
                 <button
                     onClick={() => window.print()}
-                    className="btn btn-primary"
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem'
-                    }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.25rem', borderRadius: '20px', background: '#2EAA5E', color: 'white', border: 'none', fontWeight: '600', fontSize: '0.875rem', cursor: 'pointer' }}
                 >
                     {getTranslation('print')}
                 </button>
@@ -331,7 +388,7 @@ function ResultsPage() {
                                 <div style={{
                                     width: `${scoreAnalysis.external}%`,
                                     height: '100%',
-                                    background: scoreAnalysis.external >= 60 ? '#10B981' : (scoreAnalysis.external >= 40 ? '#F59E0B' : '#EF4444'),
+                                    background: scoreAnalysis.external >= 60 ? '#2EAA5E' : (scoreAnalysis.external >= 40 ? '#F59E0B' : '#EF4444'),
                                     transition: 'width 1s ease'
                                 }} />
                             </div>
@@ -344,7 +401,7 @@ function ResultsPage() {
                                 <div style={{
                                     width: `${scoreAnalysis.internal}%`,
                                     height: '100%',
-                                    background: scoreAnalysis.internal >= 60 ? '#10B981' : (scoreAnalysis.internal >= 40 ? '#F59E0B' : '#EF4444'),
+                                    background: scoreAnalysis.internal >= 60 ? '#2EAA5E' : (scoreAnalysis.internal >= 40 ? '#F59E0B' : '#EF4444'),
                                     transition: 'width 1s ease'
                                 }} />
                             </div>
@@ -368,7 +425,7 @@ function ResultsPage() {
                         {Object.keys(categoryBreakdown.categories).map((categoryKey) => {
                             const category = categoryBreakdown.categories[categoryKey];
                             const percentage = category.score;
-                            const color = percentage >= 80 ? '#10B981' : percentage >= 60 ? '#3B82F6' : percentage >= 40 ? '#F59E0B' : '#EF4444';
+                            const color = percentage >= 80 ? '#2EAA5E' : percentage >= 60 ? '#3B82F6' : percentage >= 40 ? '#F59E0B' : '#EF4444';
 
                             return (
                                 <div key={categoryKey} style={{
@@ -465,8 +522,8 @@ function ResultsPage() {
                                 number: 4,
                                 title: language === 'id' ? 'Protokol Kebersihan' : language === 'vi' ? 'Quy trình Vệ sinh' : 'Hygiene Protocols',
                                 description: language === 'id' ? 'Jaga kebersihan di semua area' : language === 'vi' ? 'Duy trì vệ sinh ở tất cả các khu vực' : 'Maintain cleanliness across all areas',
-                                color: '#10B981',
-                                bgColor: '#D1FAE5'
+                                color: '#2EAA5E',
+                                bgColor: '#2EAA5E'
                             }
                         ].map((area) => {
                             const focusAreaData = assessment.focus_areas[area.number];
@@ -575,7 +632,7 @@ function ResultsPage() {
                     <div style={{
                         padding: '3rem',
                         background: '#ECFDF5',
-                        border: '1px solid #10B981',
+                        border: '1px solid #2EAA5E',
                         borderRadius: '1rem',
                         textAlign: 'center',
                         color: '#065F46'
@@ -620,7 +677,7 @@ function ResultsPage() {
                                     <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
                                         <strong>{language === 'id' ? 'Jawaban Anda:' : language === 'vi' ? 'Câu trả lời:' : 'Your Answer:'}</strong> {item.answer.toString()}
                                     </p>
-                                    <div style={{ marginTop: '0.75rem', color: '#059669', fontSize: '0.9rem' }}>
+                                    <div style={{ marginTop: '0.75rem', color: '#2EAA5E', fontSize: '0.9rem' }}>
                                         <strong>{language === 'id' ? 'Rekomendasi:' : language === 'vi' ? 'Khuyến nghị:' : 'Recommendation:'}</strong> {language === 'id' ? `Terapkan prosedur biosekuriti standar untuk mengatasi risiko ini. Pastikan kepatuhan dengan manual biosekuriti bagian ${item.focusArea}.${item.questionNumber}.` : language === 'vi' ? `Thực hiện quy trình an toàn sinh học tiêu chuẩn để giải quyết rủi ro này. Đảm bảo tuân thủ hướng dẫn an toàn sinh học phần ${item.focusArea}.${item.questionNumber}.` : `Implement standard biosecurity procedure to address this risk. Ensure compliance with biosecurity manual section ${item.focusArea}.${item.questionNumber}.`}
                                     </div>
                                 </div>
@@ -630,14 +687,15 @@ function ResultsPage() {
                 )}
             </div>
         </div>
-            <div className="fw-mod-bnav no-print">
-                <button className="fw-mod-bnav-btn" onClick={() => navigate('/swine/biosecurity')}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Biosecurity
+            </div>
+                        <div className="fw-mod-bnav no-print">
+                <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>PigWell</span>
                 </button>
-                <button className="fw-mod-bnav-btn" onClick={() => navigate('/swine')}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    PigWell Home
+                <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/biosecurity')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Biosecurity</span>
                 </button>
             </div>
         </div>

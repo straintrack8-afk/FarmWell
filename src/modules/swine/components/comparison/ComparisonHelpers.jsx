@@ -128,7 +128,7 @@ export const SelectionBox = ({
         </select>
         
         {selected && (
-          <div style={{ marginTop: '0.75rem', padding: '0.75rem', background: '#D1FAE5', border: '2px solid #10B981', borderRadius: '8px' }}>
+          <div style={{ marginTop: '0.75rem', padding: '0.75rem', background: '#2EAA5E', border: '2px solid #2EAA5E', borderRadius: '8px' }}>
             <h3 style={{ fontWeight: '600', fontSize: '0.875rem', color: '#111827', marginBottom: '0.5rem' }}>{selected.name}</h3>
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', background: '#DBEAFE', color: '#1E40AF', borderRadius: '4px' }}>
@@ -136,7 +136,7 @@ export const SelectionBox = ({
               </span>
               <span style={{
                 fontSize: '0.75rem', padding: '0.25rem 0.5rem', borderRadius: '4px',
-                background: selected.mortalityLevel === 'High' ? '#FEE2E2' : selected.mortalityLevel === 'Moderate' ? '#FEF3C7' : '#D1FAE5',
+                background: selected.mortalityLevel === 'High' ? '#FEE2E2' : selected.mortalityLevel === 'Moderate' ? '#FEF3C7' : '#2EAA5E',
                 color: selected.mortalityLevel === 'High' ? '#991B1B' : selected.mortalityLevel === 'Moderate' ? '#92400E' : '#065F46'
               }}>
                 {selected.mortalityLevel}
@@ -171,14 +171,14 @@ export const ComparisonDisplay = ({ disease1, disease2, translations, module }) 
         <DiseaseHeader disease={disease2} translations={translations} />
       </div>
       
-      <div style={{ background: 'linear-gradient(to right, #D1FAE5, #A7F3D0)', borderRadius: '8px', padding: '1rem', marginTop: '1.5rem', border: '2px solid #10B981' }}>
+      <div style={{ background: 'linear-gradient(to right, #2EAA5E, #2EAA5E)', borderRadius: '8px', padding: '1rem', marginTop: '1.5rem', border: '2px solid #2EAA5E' }}>
         <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>📊 {translations.symptomOverlap}</h3>
         <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}>
-          <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#059669' }}>{overlapPct}%</div>
+          <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#2EAA5E' }}>{overlapPct}%</div>
           <div style={{ fontSize: '0.875rem', color: '#6B7280' }}>{common.length} {translations.commonSymptoms}</div>
         </div>
         <div style={{ width: '100%', background: '#E5E7EB', borderRadius: '9999px', height: '12px', marginBottom: '1rem' }}>
-          <div style={{ background: '#10B981', height: '12px', borderRadius: '9999px', width: `${overlapPct}%` }}></div>
+          <div style={{ background: '#2EAA5E', height: '12px', borderRadius: '9999px', width: `${overlapPct}%` }}></div>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem', fontSize: '0.875rem' }}>
           <SymptomList title={translations.uniqueSymptoms} symptoms={unique1.map(getSymptomName)} />
@@ -228,7 +228,7 @@ const DiseaseHeader = ({ disease, translations }) => (
 
 const SymptomList = ({ title, symptoms }) => (
   <div style={{ padding: '0.75rem', background: 'white', borderRadius: '6px', border: '1px solid #D1D5DB' }}>
-    <h4 style={{ fontWeight: '600', color: '#059669', marginBottom: '0.5rem' }}>{title}</h4>
+    <h4 style={{ fontWeight: '600', color: '#2EAA5E', marginBottom: '0.5rem' }}>{title}</h4>
     <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
       {symptoms.map((s, i) => (
         <li key={i} style={{ color: '#6B7280', fontSize: '0.75rem', marginBottom: '0.125rem' }}>• {s}</li>
@@ -238,10 +238,10 @@ const SymptomList = ({ title, symptoms }) => (
 );
 
 const SideBySideSection = ({ title, translations, content1, content2 }) => (
-  <div style={{ border: '2px solid #10B981', borderRadius: '8px', padding: '1rem', background: '#F0FDF4', marginTop: '1.5rem' }}>
-    <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>{title}</h3>
+  <div style={{ border: '2px solid #2EAA5E', borderRadius: '8px', padding: '1rem', background: '#F0FDF4', marginTop: '1.5rem' }}>
+    <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#2EAA5E', marginBottom: '0.75rem' }}>{title}</h3>
     <div style={{ display: 'flex', gap: '0', border: '1px solid #D1D5DB', borderRadius: '6px', overflow: 'hidden' }}>
-      <div style={{ flex: 1, minWidth: 0, wordWrap: 'break-word', padding: '1rem', background: 'white', borderRight: '2px solid #10B981' }}>
+      <div style={{ flex: 1, minWidth: 0, wordWrap: 'break-word', padding: '1rem', background: 'white', borderRight: '2px solid #2EAA5E' }}>
         <p style={{ fontSize: '0.875rem', color: '#6B7280', lineHeight: '1.5', margin: 0 }}>
           {content1 || translations.noInformation}
         </p>
@@ -256,14 +256,14 @@ const SideBySideSection = ({ title, translations, content1, content2 }) => (
 );
 
 const SideBySideList = ({ title, translations, list1, list2 }) => (
-  <div style={{ border: '2px solid #10B981', borderRadius: '8px', padding: '1rem', background: '#F0FDF4', marginTop: '1.5rem' }}>
-    <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>{title}</h3>
+  <div style={{ border: '2px solid #2EAA5E', borderRadius: '8px', padding: '1rem', background: '#F0FDF4', marginTop: '1.5rem' }}>
+    <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#2EAA5E', marginBottom: '0.75rem' }}>{title}</h3>
     <div style={{ display: 'flex', gap: '0', border: '1px solid #D1D5DB', borderRadius: '6px', overflow: 'hidden' }}>
-      <div style={{ flex: 1, minWidth: 0, wordWrap: 'break-word', padding: '1rem', background: 'white', borderRight: '2px solid #10B981' }}>
+      <div style={{ flex: 1, minWidth: 0, wordWrap: 'break-word', padding: '1rem', background: 'white', borderRight: '2px solid #2EAA5E' }}>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {list1.length > 0 ? list1.map((item, i) => (
             <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-              <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+              <span style={{ marginRight: '0.5rem', color: '#2EAA5E', fontWeight: 'bold' }}>•</span>
               <span>{item}</span>
             </li>
           )) : <li style={{ fontSize: '0.875rem', color: '#9CA3AF', fontStyle: 'italic' }}>{translations.noInformation}</li>}
@@ -273,7 +273,7 @@ const SideBySideList = ({ title, translations, list1, list2 }) => (
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {list2.length > 0 ? list2.map((item, i) => (
             <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-              <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+              <span style={{ marginRight: '0.5rem', color: '#2EAA5E', fontWeight: 'bold' }}>•</span>
               <span>{item}</span>
             </li>
           )) : <li style={{ fontSize: '0.875rem', color: '#9CA3AF', fontStyle: 'italic' }}>{translations.noInformation}</li>}

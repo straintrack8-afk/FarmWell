@@ -32,7 +32,7 @@ function BiosecurityResultsPage() {
 
   const getRiskColor = (level) => {
     const colors = {
-      low: { bg: '#d1fae5', text: '#065f46', border: '#10b981' },
+      low: { bg: '#d1fae5', text: '#2EAA5E', border: '#2EAA5E' },
       medium: { bg: '#fef3c7', text: '#92400e', border: '#f59e0b' },
       high: { bg: '#fed7aa', text: '#9a3412', border: '#f97316' },
       critical: { bg: '#fecaca', text: '#991b1b', border: '#ef4444' }
@@ -200,7 +200,7 @@ function BiosecurityResultsPage() {
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 {Object.entries(results.category_scores).map(([categoryId, score]) => {
-                  const categoryColor = score >= 85 ? '#10b981' :
+                  const categoryColor = score >= 85 ? '#2EAA5E' :
                                        score >= 70 ? '#f59e0b' :
                                        score >= 50 ? '#f97316' : '#ef4444';
                   
@@ -359,7 +359,7 @@ function BiosecurityResultsPage() {
 
             {disease_risks.critical.length === 0 && disease_risks.high.length === 0 && disease_risks.medium.length === 0 && (
               <div className="card" style={{ textAlign: 'center', padding: '3rem' }}>
-                <CheckCircle size={64} color="#10b981" style={{ margin: '0 auto 1rem' }} />
+                <CheckCircle size={64} color="#2EAA5E" style={{ margin: '0 auto 1rem' }} />
                 <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                   {t('biosecurity.results.excellentBiosecurityTitle')}
                 </h3>
@@ -436,7 +436,7 @@ function BiosecurityResultsPage() {
               </div>
             ) : (
               <div className="card" style={{ textAlign: 'center', padding: '3rem' }}>
-                <CheckCircle size={64} color="#10b981" style={{ margin: '0 auto 1rem' }} />
+                <CheckCircle size={64} color="#2EAA5E" style={{ margin: '0 auto 1rem' }} />
                 <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem' }}>
                   {t('biosecurity.results.greatWork')}
                 </h3>

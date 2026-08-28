@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBiosecurity } from '../../contexts/BiosecurityContext';
 import { getAllFocusAreas } from '../../data/questions_data';
@@ -53,7 +53,7 @@ function BiosecurityDashboard() {
 
     const getScoreColor = (score) => {
         if (!score) return 'var(--text-muted)';
-        if (score >= 80) return '#10B981';
+        if (score >= 80) return '#2EAA5E';
         if (score >= 60) return '#3B82F6';
         if (score >= 40) return '#F59E0B';
         return '#EF4444';
@@ -74,10 +74,10 @@ function BiosecurityDashboard() {
                 poor: 'Buruk'
             },
             vi: {
-                excellent: 'Xuất sắc',
-                good: 'Tốt',
-                moderate: 'Vừa phải',
-                poor: 'Kém'
+                excellent: 'Xuß║Ñt sß║»c',
+                good: 'Tß╗æt',
+                moderate: 'Vß╗½a phß║úi',
+                poor: 'K├⌐m'
             }
         };
 
@@ -150,27 +150,27 @@ function BiosecurityDashboard() {
                 viewAnalysis: 'Lihat Analisis & Perbaikan'
             },
             vi: {
-                title: 'Bảng điều khiển Đánh giá An ninh sinh học',
-                subtitle: 'Đánh giá toàn diện các biện pháp an ninh sinh học trang trại',
-                overallScore: 'Điểm An ninh sinh học Tổng thể',
-                externalBiosecurity: 'Bên ngoài',
-                internalBiosecurity: 'Bên trong',
-                farmProfile: 'Hồ sơ Trang trại',
-                completed: 'Hoàn thành',
-                viewReport: 'Xem Báo cáo Đầy đủ',
-                externalSection: 'AN NINH SINH HỌC BÊN NGOÀI',
-                internalSection: 'AN NINH SINH HỌC BÊN TRONG',
-                notStarted: 'Chưa đánh giá',
-                changeLanguage: 'Đổi Ngôn ngữ',
-                backToDashboard: 'Quay lại Bảng điều khiển',
-                discardAssessment: 'Hủy Đánh giá',
-                confirmDiscard: 'Bạn có chắc chắn muốn hủy đánh giá này? Tất cả tiến trình sẽ bị mất.',
-                backToPigWell: 'Quay lại Mô-đun PigWell',
-                edit: 'Chỉnh sửa',
-                completeSave: 'Hoàn thành & Lưu',
-                confirmComplete: 'Hoàn thành đánh giá và lưu báo cáo?',
-                savedSuccess: 'Đánh giá đã được lưu thành công!',
-                viewAnalysis: 'Xem Phân tích & Cải tiến'
+                title: 'Bß║úng ─æiß╗üu khiß╗ân ─É├ính gi├í An ninh sinh hß╗ìc',
+                subtitle: '─É├ính gi├í to├án diß╗çn c├íc biß╗çn ph├íp an ninh sinh hß╗ìc trang trß║íi',
+                overallScore: '─Éiß╗âm An ninh sinh hß╗ìc Tß╗òng thß╗â',
+                externalBiosecurity: 'B├¬n ngo├ái',
+                internalBiosecurity: 'B├¬n trong',
+                farmProfile: 'Hß╗ô s╞í Trang trß║íi',
+                completed: 'Ho├án th├ánh',
+                viewReport: 'Xem B├ío c├ío ─Éß║ºy ─æß╗º',
+                externalSection: 'AN NINH SINH Hß╗îC B├èN NGO├ÇI',
+                internalSection: 'AN NINH SINH Hß╗îC B├èN TRONG',
+                notStarted: 'Ch╞░a ─æ├ính gi├í',
+                changeLanguage: '─Éß╗òi Ng├┤n ngß╗»',
+                backToDashboard: 'Quay lß║íi Bß║úng ─æiß╗üu khiß╗ân',
+                discardAssessment: 'Hß╗ºy ─É├ính gi├í',
+                confirmDiscard: 'Bß║ín c├│ chß║»c chß║»n muß╗æn hß╗ºy ─æ├ính gi├í n├áy? Tß║Ñt cß║ú tiß║┐n tr├¼nh sß║╜ bß╗ï mß║Ñt.',
+                backToPigWell: 'Quay lß║íi M├┤-─æun PigWell',
+                edit: 'Chß╗ënh sß╗¡a',
+                completeSave: 'Ho├án th├ánh & L╞░u',
+                confirmComplete: 'Ho├án th├ánh ─æ├ính gi├í v├á l╞░u b├ío c├ío?',
+                savedSuccess: '─É├ính gi├í ─æ├ú ─æ╞░ß╗úc l╞░u th├ánh c├┤ng!',
+                viewAnalysis: 'Xem Ph├ón t├¡ch & Cß║úi tiß║┐n'
             }
         };
         return translations[language]?.[key] || translations.en[key];
@@ -178,8 +178,11 @@ function BiosecurityDashboard() {
 
     if (!currentAssessment) {
         return (
-            <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-                <div className="spinner"></div>
+            <div className="fw-module-page">
+                <PigWellTopNav />
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+                    <div className="spinner"></div>
+                </div>
             </div>
         );
     }
@@ -324,8 +327,8 @@ function BiosecurityDashboard() {
                                 fontSize: '0.875rem',
                                 borderRadius: '25px',
                                 background: 'transparent',
-                                color: '#10B981',
-                                border: '2px solid #10B981',
+                                color: '#2EAA5E',
+                                border: '2px solid #2EAA5E',
                                 fontWeight: '600',
                                 cursor: 'pointer',
                                 transition: 'all 0.2s ease'
@@ -393,7 +396,7 @@ function BiosecurityDashboard() {
                         <button
                             style={{
                                 padding: '0.875rem 2rem',
-                                background: '#10B981', // Green
+                                background: '#2EAA5E', // Green
                                 color: 'white',
                                 border: 'none',
                                 borderRadius: '0.75rem',
@@ -419,7 +422,7 @@ function BiosecurityDashboard() {
                                     alert(getTranslation('savedSuccess'));
 
                                     // Navigate to report or main dashboard
-                                    navigate('/swine/biosecurity/results');
+                                    navigate('/swine/biosecurity/report');
                                 }
                             }}
                             onMouseEnter={(e) => {
@@ -437,7 +440,7 @@ function BiosecurityDashboard() {
 
                     <button
                         className="btn btn-primary"
-                        onClick={() => navigate('/swine/biosecurity/results')}
+                        onClick={() => navigate('/swine/biosecurity/report')}
                     >
                         {getTranslation('viewAnalysis')}
                     </button>
@@ -447,8 +450,8 @@ function BiosecurityDashboard() {
                             padding: '0.875rem 1.75rem',
                             borderRadius: '25px',
                             background: 'transparent',
-                            color: '#10B981',
-                            border: '2px solid #10B981',
+                            color: '#2EAA5E',
+                            border: '2px solid #2EAA5E',
                             fontWeight: '600',
                             fontSize: '0.9375rem',
                             cursor: 'pointer',
@@ -466,14 +469,14 @@ function BiosecurityDashboard() {
                 </div>
             </div>
             </div>
-            <div className="fw-mod-bnav">
-                <button className="fw-mod-bnav-btn" onClick={() => navigate('/swine/biosecurity')}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Biosecurity
+                        <div className="fw-mod-bnav">
+                <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>PigWell</span>
                 </button>
-                <button className="fw-mod-bnav-btn" onClick={() => navigate('/swine')}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    PigWell Home
+                <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/biosecurity')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Biosecurity</span>
                 </button>
             </div>
         </div>

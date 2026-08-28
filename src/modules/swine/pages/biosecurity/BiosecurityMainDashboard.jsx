@@ -202,7 +202,7 @@ function BiosecurityMainDashboard() {
     };
 
     const getScoreColor = (score) => {
-        if (score >= 80) return '#10B981';
+        if (score >= 80) return '#2EAA5E';
         if (score >= 60) return '#3B82F6';
         if (score >= 40) return '#F59E0B';
         return '#EF4444';
@@ -211,7 +211,7 @@ function BiosecurityMainDashboard() {
     // Neutral accent colors for stat cards
     const accents = {
         blue: '#366092',
-        green: '#10B981',
+        green: '#2EAA5E',
         amber: '#F59E0B',
         red: '#EF4444'
     };
@@ -230,7 +230,7 @@ function BiosecurityMainDashboard() {
                     marginBottom: '1.5rem'
                 }}>
                     {/* Card 1: Total Assessments */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #2EAA5E', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
                         <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
                             {getTranslation('totalAssessments')}
                         </div>
@@ -243,7 +243,7 @@ function BiosecurityMainDashboard() {
                     </div>
 
                     {/* Card 2: Last Score */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #2EAA5E', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
                         <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem', lineHeight: 1.3 }}>
                             {getTranslation(stats.scoreLabelKey || 'lastScore')}
                         </div>
@@ -256,11 +256,11 @@ function BiosecurityMainDashboard() {
                     </div>
 
                     {/* Card 3: Good Assessments */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #2EAA5E', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
                         <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
                             {getTranslation('goodAssessments')}
                         </div>
-                        <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10B981', lineHeight: 1 }}>
+                        <div style={{ fontSize: '2rem', fontWeight: '800', color: '#2EAA5E', lineHeight: 1 }}>
                             {stats.goodAssessments || 0}
                         </div>
                         <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '0.3rem' }}>
@@ -269,7 +269,7 @@ function BiosecurityMainDashboard() {
                     </div>
 
                     {/* Card 4: Poor Assessments */}
-                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #10B981', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
+                    <div style={{ background: 'white', borderRadius: '0.75rem', padding: '1rem', borderLeft: '4px solid #2EAA5E', boxShadow: '0 1px 4px rgba(0,0,0,0.07)', minWidth: 0, overflow: 'hidden' }}>
                         <div style={{ fontSize: '0.7rem', fontWeight: '600', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.4rem' }}>
                             {getTranslation('poorAssessments')}
                         </div>
@@ -306,7 +306,7 @@ function BiosecurityMainDashboard() {
                         </h3>
                         {(() => {
                             const pieData = [
-                                { label: 'Excellent (80-100)', value: assessmentHistory.filter(a => calculateOverallScore(a, language) >= 80).length, color: '#10B981' },
+                                { label: 'Excellent (80-100)', value: assessmentHistory.filter(a => calculateOverallScore(a, language) >= 80).length, color: '#2EAA5E' },
                                 {
                                     label: 'Good (60-79)', value: assessmentHistory.filter(a => {
                                         const s = calculateOverallScore(a, language);
@@ -398,7 +398,7 @@ function BiosecurityMainDashboard() {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 gap: '0.5rem',
-                                background: 'linear-gradient(135deg, #059669 0%, #047857 100%)'
+                                background: 'linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%)'
                             }}
                             onClick={handleViewHistory}
                         >
@@ -485,7 +485,7 @@ function BiosecurityMainDashboard() {
                                                         fontSize: '0.875rem',
                                                         fontWeight: '600',
                                                         background: score >= 80 ? '#d1fae5' : score >= 60 ? '#dbeafe' : score >= 40 ? '#fef3c7' : '#fee2e2',
-                                                        color: score >= 80 ? '#065f46' : score >= 60 ? '#1e40af' : score >= 40 ? '#92400e' : '#991b1b'
+                                                        color: score >= 80 ? '#2EAA5E' : score >= 60 ? '#1e40af' : score >= 40 ? '#92400e' : '#991b1b'
                                                     }}>
                                                         {interpretation.label}
                                                     </span>
@@ -512,14 +512,14 @@ function BiosecurityMainDashboard() {
                 </div>
             </div>
             </div>
-            <div className="fw-mod-bnav">
-                <button className="fw-mod-bnav-btn" onClick={() => navigate('/swine/biosecurity')}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Biosecurity
+                        <div className="fw-mod-bnav">
+                <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>PigWell</span>
                 </button>
-                <button className="fw-mod-bnav-btn" onClick={() => navigate('/swine')}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    PigWell Home
+                <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/biosecurity')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Biosecurity</span>
                 </button>
             </div>
         </div>

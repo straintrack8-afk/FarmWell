@@ -86,7 +86,7 @@ function SymptomsPage() {
                             width: 'clamp(28px, 8vw, 40px)',
                             height: 'clamp(28px, 8vw, 40px)',
                             borderRadius: '50%',
-                            background: step >= s ? '#10b981' : '#e5e7eb',
+                            background: step >= s ? '#2EAA5E' : '#e5e7eb',
                             color: 'white',
                             display: 'inline-flex',
                             alignItems: 'center',
@@ -135,7 +135,7 @@ function SymptomsPage() {
                 
                 {/* COLUMN 1: Symptom Selection */}
                 <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxHeight: '600px', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ background: '#10B981', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600' }}>
+                    <div style={{ background: '#2EAA5E', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600' }}>
                         1️⃣ {t('searchSymptoms')}
                     </div>
                     <input type='text' placeholder={t('searchSymptoms')} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} style={{ padding: '0.75rem', border: '1px solid #E5E7EB', borderRadius: '8px', marginBottom: '1rem' }} />
@@ -146,7 +146,7 @@ function SymptomsPage() {
                             if (filtered.length === 0 && searchTerm) return null;
                             return (
                                 <div key={key} style={{ marginBottom: '0.5rem' }}>
-                                    <div onClick={() => toggleCategory(key)} style={{ padding: '0.75rem', background: expandedCategories[key] ? '#F0FDF4' : '#F9FAFB', border: '1px solid', borderColor: expandedCategories[key] ? '#10B981' : '#E5E7EB', borderRadius: '8px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div onClick={() => toggleCategory(key)} style={{ padding: '0.75rem', background: expandedCategories[key] ? '#F0FDF4' : '#F9FAFB', border: '1px solid', borderColor: expandedCategories[key] ? '#2EAA5E' : '#E5E7EB', borderRadius: '8px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <span style={{ fontWeight: '600', fontSize: '0.875rem' }}>{cat.label} ({filtered.length})</span>
                                         <span>{expandedCategories[key] ? '🔼' : '🔽'}</span>
                                     </div>
@@ -156,8 +156,8 @@ function SymptomsPage() {
                                                 const isSelected = selectedSymptoms.includes(symptom);
                                                 return (
                                                     <div key={idx} onClick={() => toggleSymptom(symptom)} style={{ padding: '0.5rem 0.75rem', marginBottom: '0.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: '6px', background: isSelected ? '#F0FDF4' : 'transparent' }}>
-                                                        <span style={{ fontSize: '0.8125rem', color: isSelected ? '#059669' : '#374151', fontWeight: isSelected ? '500' : '400' }}>{symptom}</span>
-                                                        <button onClick={(e) => { e.stopPropagation(); toggleSymptom(symptom); }} style={{ width: '24px', height: '24px', borderRadius: '50%', background: isSelected ? '#10B981' : '#10B981', border: 'none', color: 'white', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '700' }}>{isSelected ? '✓' : '+'}</button>
+                                                        <span style={{ fontSize: '0.8125rem', color: isSelected ? '#2EAA5E' : '#374151', fontWeight: isSelected ? '500' : '400' }}>{symptom}</span>
+                                                        <button onClick={(e) => { e.stopPropagation(); toggleSymptom(symptom); }} style={{ width: '24px', height: '24px', borderRadius: '50%', background: isSelected ? '#2EAA5E' : '#2EAA5E', border: 'none', color: 'white', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '700' }}>{isSelected ? '✓' : '+'}</button>
                                                     </div>
                                                 );
                                             })}
@@ -171,7 +171,7 @@ function SymptomsPage() {
 
                 {/* COLUMN 2: Selected Symptoms */}
                 <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxHeight: '600px', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ background: '#10B981', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ background: '#2EAA5E', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span>2️⃣ {t('selectedSymptoms')} ({selectedSymptoms.length})</span>
                         {selectedSymptoms.length > 0 && <button onClick={clearSymptoms} style={{ background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', padding: '0.25rem 0.75rem', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: '600' }}>{t('clearAll')}</button>}
                     </div>
@@ -182,8 +182,8 @@ function SymptomsPage() {
                             </div>
                         ) : (
                             selectedSymptoms.map((symptom, idx) => (
-                                <div key={idx} style={{ padding: '0.75rem', marginBottom: '0.5rem', background: '#F0FDF4', border: '1px solid #10B981', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                    <span style={{ fontSize: '0.8125rem', color: '#059669', fontWeight: '500', flex: 1 }}>{symptom}</span>
+                                <div key={idx} style={{ padding: '0.75rem', marginBottom: '0.5rem', background: '#F0FDF4', border: '1px solid #2EAA5E', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <span style={{ fontSize: '0.8125rem', color: '#2EAA5E', fontWeight: '500', flex: 1 }}>{symptom}</span>
                                     <button onClick={() => toggleSymptom(symptom)} style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#EF4444', border: 'none', color: 'white', cursor: 'pointer', fontSize: '0.875rem', fontWeight: '700' }}>✕</button>
                                 </div>
                             ))
@@ -193,7 +193,7 @@ function SymptomsPage() {
 
                 {/* COLUMN 3: Disease Results */}
                 <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxHeight: '600px', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ background: '#10B981', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600' }}>
+                    <div style={{ background: '#2EAA5E', color: 'white', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem', fontWeight: '600' }}>
                         3️⃣ {t('possibleDiseases')} ({matchedDiseases.length})
                     </div>
                     <div style={{ flex: 1, overflowY: 'auto' }}>
@@ -203,7 +203,7 @@ function SymptomsPage() {
                             </div>
                         ) : (
                             matchedDiseases.map((disease, idx) => {
-                                const getConfColor = (c) => c >= 80 ? '#10B981' : c >= 60 ? '#F59E0B' : '#EF4444';
+                                const getConfColor = (c) => c >= 80 ? '#2EAA5E' : c >= 60 ? '#F59E0B' : '#EF4444';
                                 return (
                                     <div key={disease.id} onClick={() => navigate(`/swine/diagnosis/disease/${disease.id}`)} style={{ padding: '0.75rem', marginBottom: '0.75rem', background: 'white', border: '1px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'} onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}>
                                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.5rem' }}>

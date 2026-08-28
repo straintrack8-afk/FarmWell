@@ -18,16 +18,16 @@ function FocusAreaCard({ focusArea, assessment, language = 'en' }) {
 
     // Accent colors for each focus area to maintain visual distinction without heavy gradients
     const accentColors = {
-        1: '#10B981',
-        2: '#10B981',
-        3: '#10B981',
-        4: '#10B981'
+        1: '#2EAA5E',
+        2: '#2EAA5E',
+        3: '#2EAA5E',
+        4: '#2EAA5E'
     };
 
     const accentColor = accentColors[number] || accentColors[1];
 
     const getScoreColor = (score) => {
-        if (score >= 80) return '#10B981'; // Green
+        if (score >= 80) return '#2EAA5E'; // Green
         if (score >= 60) return '#3B82F6'; // Blue
         if (score >= 40) return '#F59E0B'; // Orange
         return '#EF4444'; // Red

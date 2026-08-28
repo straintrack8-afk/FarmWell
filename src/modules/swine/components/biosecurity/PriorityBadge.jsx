@@ -26,8 +26,8 @@ export default function PriorityBadge({ priority, language = 'en' }) {
         },
         low: {
             label: { en: 'Low', id: 'Rendah', vi: 'Thấp' },
-            color: '#10B981',
-            bgColor: '#D1FAE5',
+            color: '#2EAA5E',
+            bgColor: '#2EAA5E',
             icon: ''
         }
     };

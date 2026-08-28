@@ -167,32 +167,32 @@ function DiseasePage() {
                             padding: '1rem',
                             background: '#F0FDF4',
                             borderRadius: '8px',
-                            border: '2px solid #10B981'
+                            border: '2px solid #2EAA5E'
                         }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#059669' }}>
+                                <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#2EAA5E' }}>
                                     {t('confidenceMatch')}
                                 </span>
-                                <span style={{ fontSize: '1.25rem', fontWeight: '700', color: '#059669' }}>
+                                <span style={{ fontSize: '1.25rem', fontWeight: '700', color: '#2EAA5E' }}>
                                     {disease.percentage.toFixed(1)}%
                                 </span>
                             </div>
                             <div style={{ 
                                 width: '100%',
                                 height: '8px',
-                                background: '#D1FAE5',
+                                background: '#2EAA5E',
                                 borderRadius: '4px',
                                 overflow: 'hidden'
                             }}>
                                 <div style={{
                                     width: `${Math.min(disease.percentage, 100)}%`,
                                     height: '100%',
-                                    background: disease.percentage >= 70 ? '#10B981' : disease.percentage >= 40 ? '#F59E0B' : '#EF4444',
+                                    background: disease.percentage >= 70 ? '#2EAA5E' : disease.percentage >= 40 ? '#F59E0B' : '#EF4444',
                                     transition: 'width 0.3s'
                                 }} />
                             </div>
                             {matchedSymptoms.length > 0 && (
-                                <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: '#059669' }}>
+                                <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: '#2EAA5E' }}>
                                     {matchedSymptoms.length} {t('strong')} {allSymptoms.length} {t('symptomsMatched')}
                                 </div>
                             )}
@@ -218,13 +218,13 @@ function DiseasePage() {
                     {/* Description */}
                     {dDesc && (
                         <div style={{ 
-                            border: '2px solid #10B981', 
+                            border: '2px solid #2EAA5E', 
                             borderRadius: '8px', 
                             padding: '1rem', 
                             background: '#F0FDF4',
                             marginBottom: '1.5rem'
                         }}>
-                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#2EAA5E', marginBottom: '0.75rem' }}>
                                 📝 {t('description')}
                             </h3>
                             <div style={{ 
@@ -250,7 +250,7 @@ function DiseasePage() {
                             {/* Matched Symptoms */}
                             {matchedSymptoms.length > 0 && (
                                 <>
-                                    <h4 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#059669', marginBottom: '0.75rem' }}>
+                                    <h4 style={{ fontSize: '0.875rem', fontWeight: '600', color: '#2EAA5E', marginBottom: '0.75rem' }}>
                                         ✓ {t('matchedSymptoms')} ({matchedSymptoms.length})
                                     </h4>
                                     <div style={{
@@ -265,15 +265,15 @@ function DiseasePage() {
                                                 style={{
                                                     padding: '0.75rem 1rem',
                                                     background: '#F0FDF4',
-                                                    border: '2px solid #10B981',
+                                                    border: '2px solid #2EAA5E',
                                                     borderRadius: '8px',
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     gap: '0.5rem'
                                                 }}
                                             >
-                                                <span style={{ color: '#10B981', fontWeight: 'bold', fontSize: '1.125rem' }}>✓</span>
-                                                <span style={{ color: '#059669', fontWeight: '500' }}>{getTranslatedSymptom(symptom)}</span>
+                                                <span style={{ color: '#2EAA5E', fontWeight: 'bold', fontSize: '1.125rem' }}>✓</span>
+                                                <span style={{ color: '#2EAA5E', fontWeight: '500' }}>{getTranslatedSymptom(symptom)}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -317,13 +317,13 @@ function DiseasePage() {
                     {/* Transmission */}
                     {dTransmission && (
                         <div style={{ 
-                            border: '2px solid #10B981', 
+                            border: '2px solid #2EAA5E', 
                             borderRadius: '8px', 
                             padding: '1rem', 
                             background: '#F0FDF4',
                             marginBottom: '1.5rem'
                         }}>
-                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#2EAA5E', marginBottom: '0.75rem' }}>
                                 🦠 {t('transmissionTitle')}
                             </h3>
                             <div style={{ 
@@ -335,7 +335,7 @@ function DiseasePage() {
                                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                                     {(Array.isArray(dTransmission) ? dTransmission : textToBullets(dTransmission)).map((item, i) => (
                                         <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-                                            <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+                                            <span style={{ marginRight: '0.5rem', color: '#2EAA5E', fontWeight: 'bold' }}>•</span>
                                             <span>{item}</span>
                                         </li>
                                     ))}
@@ -347,13 +347,13 @@ function DiseasePage() {
                     {/* Diagnosis Methods */}
                     {dDiagnosis && (
                         <div style={{ 
-                            border: '2px solid #10B981', 
+                            border: '2px solid #2EAA5E', 
                             borderRadius: '8px', 
                             padding: '1rem', 
                             background: '#F0FDF4',
                             marginBottom: '1.5rem'
                         }}>
-                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#2EAA5E', marginBottom: '0.75rem' }}>
                                 🔬 {t('diagnosisMethodsTitle')}
                             </h3>
                             <div style={{ 
@@ -365,7 +365,7 @@ function DiseasePage() {
                                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                                     {(Array.isArray(dDiagnosis) ? dDiagnosis : textToBullets(dDiagnosis)).map((item, i) => (
                                         <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-                                            <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+                                            <span style={{ marginRight: '0.5rem', color: '#2EAA5E', fontWeight: 'bold' }}>•</span>
                                             <span>{item}</span>
                                         </li>
                                     ))}
@@ -377,13 +377,13 @@ function DiseasePage() {
                     {/* Treatment Options */}
                     {dTreatment && (
                         <div style={{ 
-                            border: '2px solid #10B981', 
+                            border: '2px solid #2EAA5E', 
                             borderRadius: '8px', 
                             padding: '1rem', 
                             background: '#F0FDF4',
                             marginBottom: '1.5rem'
                         }}>
-                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#2EAA5E', marginBottom: '0.75rem' }}>
                                 💊 {t('treatmentOptionsTitle')}
                             </h3>
                             <div style={{ 
@@ -395,7 +395,7 @@ function DiseasePage() {
                                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                                     {(Array.isArray(dTreatment) ? dTreatment : textToBullets(dTreatment)).map((item, i) => (
                                         <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-                                            <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+                                            <span style={{ marginRight: '0.5rem', color: '#2EAA5E', fontWeight: 'bold' }}>•</span>
                                             <span>{item}</span>
                                         </li>
                                     ))}
@@ -407,13 +407,13 @@ function DiseasePage() {
                     {/* Control & Prevention */}
                     {dPrevention && (
                         <div style={{ 
-                            border: '2px solid #10B981', 
+                            border: '2px solid #2EAA5E', 
                             borderRadius: '8px', 
                             padding: '1rem', 
                             background: '#F0FDF4',
                             marginBottom: '1.5rem'
                         }}>
-                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#2EAA5E', marginBottom: '0.75rem' }}>
                                 🛡️ {t('controlPreventionTitle')}
                             </h3>
                             <div style={{ 
@@ -425,7 +425,7 @@ function DiseasePage() {
                                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                                     {(Array.isArray(dPrevention) ? dPrevention : textToBullets(dPrevention)).map((item, i) => (
                                         <li key={i} style={{ fontSize: '0.875rem', color: '#6B7280', display: 'flex', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-                                            <span style={{ marginRight: '0.5rem', color: '#10B981', fontWeight: 'bold' }}>•</span>
+                                            <span style={{ marginRight: '0.5rem', color: '#2EAA5E', fontWeight: 'bold' }}>•</span>
                                             <span>{item}</span>
                                         </li>
                                     ))}
@@ -436,13 +436,13 @@ function DiseasePage() {
 
                     {/* Vaccine Recommendations - Always visible */}
                     <div style={{ 
-                        border: '2px solid #10B981', 
+                        border: '2px solid #2EAA5E', 
                         borderRadius: '8px', 
                         padding: '1rem', 
                         background: '#F0FDF4',
                         marginBottom: '1.5rem'
                     }}>
-                        <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#059669', marginBottom: '0.75rem' }}>
+                        <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#2EAA5E', marginBottom: '0.75rem' }}>
                             💉 {t('vaccineRecommendationTitle')}
                         </h3>
                         
@@ -545,7 +545,7 @@ function DiseasePage() {
                         onClick={() => navigate('/swine/diagnosis/symptoms')}
                         style={{
                             padding: '1rem',
-                            background: '#10B981',
+                            background: '#2EAA5E',
                             color: 'white',
                             border: 'none',
                             borderRadius: '8px',
@@ -554,8 +554,8 @@ function DiseasePage() {
                             cursor: 'pointer',
                             transition: 'background 0.2s'
                         }}
-                        onMouseEnter={(e) => e.target.style.background = '#059669'}
-                        onMouseLeave={(e) => e.target.style.background = '#10B981'}
+                        onMouseEnter={(e) => e.target.style.background = '#2EAA5E'}
+                        onMouseLeave={(e) => e.target.style.background = '#2EAA5E'}
                     >
                         {t('backToResults')}
                     </button>
@@ -564,7 +564,7 @@ function DiseasePage() {
                         onClick={handleNewDiagnosis}
                         style={{
                             padding: '1rem',
-                            background: '#10B981',
+                            background: '#2EAA5E',
                             color: 'white',
                             border: 'none',
                             borderRadius: '8px',
@@ -573,8 +573,8 @@ function DiseasePage() {
                             cursor: 'pointer',
                             transition: 'background 0.2s'
                         }}
-                        onMouseEnter={(e) => e.target.style.background = '#059669'}
-                        onMouseLeave={(e) => e.target.style.background = '#10B981'}
+                        onMouseEnter={(e) => e.target.style.background = '#2EAA5E'}
+                        onMouseLeave={(e) => e.target.style.background = '#2EAA5E'}
                     >
                         {t('newDiagnosis')}
                     </button>
@@ -590,7 +590,7 @@ function DiseasePage() {
                         onClick={() => navigate('/swine/diseases')}
                         style={{
                             padding: '1rem',
-                            background: '#10B981',
+                            background: '#2EAA5E',
                             color: 'white',
                             border: 'none',
                             borderRadius: '8px',
@@ -599,8 +599,8 @@ function DiseasePage() {
                             cursor: 'pointer',
                             transition: 'background 0.2s'
                         }}
-                        onMouseEnter={(e) => e.target.style.background = '#059669'}
-                        onMouseLeave={(e) => e.target.style.background = '#10B981'}
+                        onMouseEnter={(e) => e.target.style.background = '#2EAA5E'}
+                        onMouseLeave={(e) => e.target.style.background = '#2EAA5E'}
                     >
                         {t('allSwineDiseases')}
                     </button>
@@ -609,7 +609,7 @@ function DiseasePage() {
                         onClick={() => window.print()}
                         style={{
                             padding: '1rem',
-                            background: '#10B981',
+                            background: '#2EAA5E',
                             color: 'white',
                             border: 'none',
                             borderRadius: '8px',
@@ -618,12 +618,22 @@ function DiseasePage() {
                             cursor: 'pointer',
                             transition: 'background 0.2s'
                         }}
-                        onMouseEnter={(e) => e.target.style.background = '#059669'}
-                        onMouseLeave={(e) => e.target.style.background = '#10B981'}
+                        onMouseEnter={(e) => e.target.style.background = '#2EAA5E'}
+                        onMouseLeave={(e) => e.target.style.background = '#2EAA5E'}
                     >
                         {t('print')}
                     </button>
                 </div>
+            </div>
+                        <div className="fw-mod-bnav">
+                <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>PigWell</span>
+                </button>
+                <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/diagnostic')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span>Diagnosis</span>
+                </button>
             </div>
             </div>
         </div>

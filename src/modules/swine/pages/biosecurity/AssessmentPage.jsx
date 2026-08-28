@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useBiosecurity } from '../../contexts/BiosecurityContext';
 import { getFocusAreaQuestions, getAllFocusAreas, filterQuestionsByFarmType } from '../../data/questions_data';
 import QuestionRenderer from '../../components/biosecurity/QuestionRenderer';
+import PigWellTopNav from '../../components/common/PigWellTopNav';
 
 function AssessmentPage() {
     const navigate = useNavigate();
@@ -376,28 +377,39 @@ function AssessmentPage() {
 
     if (!currentQuestion) {
         return (
-            <div className="container" style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem 1rem' }}>
-                <div className="card" style={{ padding: '2rem', textAlign: 'center' }}>
-                    <h2>{getTranslation('focusAreaComplete')}</h2>
-                    <button className="btn btn-primary" onClick={handleComplete}>
-                        {getTranslation('returnToDashboard')}
-                    </button>
+            <div className="fw-module-page">
+                <PigWellTopNav />
+                <div className="fw-mod-card">
+                <div className="fw-mod-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '40vh' }}>
+                    <div style={{ textAlign: 'center' }}>
+                        <h2 style={{ marginBottom: '1.5rem' }}>{getTranslation('focusAreaComplete')}</h2>
+                        <button style={{ padding: '0.75rem 2rem', borderRadius: '20px', background: '#2EAA5E', color: 'white', border: 'none', fontWeight: '600', cursor: 'pointer' }} onClick={handleComplete}>
+                            {getTranslation('returnToDashboard')}
+                        </button>
+                    </div>
                 </div>
+                </div>
+            <div className="fw-mod-bnav">
+                <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>PigWell</span>
+                </button>
+                <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/biosecurity')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Biosecurity</span>
+                </button>
+            </div>
             </div>
         );
     }
 
     return (
-        <div className="container" style={{ maxWidth: '700px', margin: '0 auto', padding: '2rem 1rem' }}>
+        <div className="fw-module-page">
+            <PigWellTopNav />
+            <div className="fw-mod-card">
+            <div className="fw-mod-content" style={{ maxWidth: '700px', margin: '0 auto', width: '100%' }}>
             {/* Header */}
-            <div style={{ marginBottom: '2rem' }}>
-                <button
-                    className="btn btn-secondary"
-                    onClick={() => navigate('/swine/biosecurity/dashboard')}
-                    style={{ marginBottom: '1rem' }}
-                >
-                    {getTranslation('backToDashboard')}
-                </button>
+            <div style={{ marginBottom: '2rem', paddingTop: '0.5rem' }}>
                 <h1 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.25rem' }}>
                     {currentLang === 'id' ? `Area Fokus ${focusAreaNumber}` : currentLang === 'vi' ? `Khu vực ${focusAreaNumber}` : `Focus Area ${focusAreaNumber}`}: {focusAreaInfo.name}
                 </h1>
@@ -471,6 +483,18 @@ function AssessmentPage() {
                         ? getTranslation('complete')
                         : `${getTranslation('next')}`
                     }
+                </button>
+            </div>
+            </div>
+            </div>
+            <div className="fw-mod-bnav">
+                <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>PigWell</span>
+                </button>
+                <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/biosecurity')}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Biosecurity</span>
                 </button>
             </div>
         </div>

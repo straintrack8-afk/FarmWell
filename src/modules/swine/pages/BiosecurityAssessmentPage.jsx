@@ -113,7 +113,7 @@ function BiosecurityAssessmentPage() {
       farm_characteristics: '#8b5cf6',
       purchase_animals: '#3b82f6',
       transport_deadstock: '#06b6d4',
-      feed_water_equipment: '#10b981',
+      feed_water_equipment: '#2EAA5E',
       visitors_workers: '#f59e0b',
       vermin_bird_control: '#ef4444',
       location: '#ec4899',
@@ -475,6 +475,16 @@ function BiosecurityAssessmentPage() {
           )}
         </div>
       </div>
+    <div className="fw-mod-bnav">
+        <button className="fw-mod-bnav-home" onClick={() => navigate('/swine')}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>PigWell</span>
+        </button>
+        <button className="fw-mod-bnav-alerts" onClick={() => navigate('/swine/biosecurity')}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Biosecurity</span>
+        </button>
+    </div>
     </div>
   );
 }

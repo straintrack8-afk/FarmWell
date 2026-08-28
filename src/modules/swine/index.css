@@ -3,12 +3,12 @@
 /* CSS Variables - Color Scheme */
 :root {
   /* Primary Colors - Veterinary Theme (Updated to Green standard) */
-  --primary: #10B981;
-  --primary-dark: #059669;
+  --primary: #2EAA5E;
+  --primary-dark: #2EAA5E;
   --primary-light: #34D399;
 
   /* Semantic Colors */
-  --success: #10B981;
+  --success: #2EAA5E;
   --warning: #F59E0B;
   --danger: #EF4444;
   --info: #3B82F6;
@@ -16,7 +16,7 @@
   /* Disease Category Colors */
   --category-bacterial: #3B82F6;
   --category-viral: #EF4444;
-  --category-parasitic: #10B981;
+  --category-parasitic: #2EAA5E;
   --category-nutritional: #F59E0B;
   --category-toxicosis: #8B5CF6;
   --category-other: #6B7280;
@@ -25,7 +25,7 @@
   --mortality-very-high: #DC2626;
   --mortality-high: #EF4444;
   --mortality-moderate: #F59E0B;
-  --mortality-low: #10B981;
+  --mortality-low: #2EAA5E;
   --mortality-minimal: #6EE7B7;
 
   /* UI Elements */
@@ -173,26 +173,26 @@ a:hover {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+  background: linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%) !important;
   color: white !important;
   border: none !important;
   border-radius: 25px !important;
   padding: 14px 32px;
   font-weight: 700 !important;
   letter-spacing: 0.3px;
-  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.35) !important;
+  box-shadow: 0 6px 15px rgba(46, 170, 94, 0.3) !important;
   transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  background: linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 8px 25px rgba(46, 170, 94, 0.3) !important;
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3) !important;
+  box-shadow: 0 3px 10px rgba(46, 170, 94, 0.3) !important;
 }
 
 .btn-secondary {
@@ -212,12 +212,12 @@ a:hover {
   border-color: var(--primary) !important;
   color: var(--primary-dark) !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.15) !important;
+  box-shadow: 0 6px 15px rgba(46, 170, 94, 0.3) !important;
 }
 
 .btn-secondary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.05) !important;
+  box-shadow: 0 2px 6px rgba(46, 170, 94, 0.3) !important;
 }
 
 .btn-danger {
@@ -255,7 +255,7 @@ a:hover {
 }
 
 .btn-outline:hover {
-  background: rgba(16, 185, 129, 0.1);
+  background: rgba(46, 170, 94, 0.3);
   transform: translateY(-1px);
 }
 
@@ -264,26 +264,26 @@ a:hover {
 }
 
 .btn-success {
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  background: linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%);
   color: white;
   border: none;
   border-radius: 25px;
   padding: 14px 32px;
   font-weight: 600;
   letter-spacing: 0.3px;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 12px rgba(46, 170, 94, 0.3);
   transition: all 0.3s ease;
 }
 
 .btn-success:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  background: linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 6px 20px rgba(46, 170, 94, 0.3);
 }
 
 .btn-success:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 2px 8px rgba(46, 170, 94, 0.3);
 }
 
 .btn-lg {
@@ -497,7 +497,7 @@ a:hover {
 /* Collapsible Sections (Symptoms Accodion Theme) */
 .collapsible {
   background: white;
-  border: 1px solid rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(46, 170, 94, 0.3);
   border-radius: 20px;
   margin-bottom: var(--space-4);
   overflow: hidden;
@@ -507,12 +507,12 @@ a:hover {
 
 .collapsible:hover {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-  border-color: rgba(16, 185, 129, 0.3);
+  border-color: rgba(46, 170, 94, 0.3);
 }
 
 .collapsible.open {
-  border-color: rgba(16, 185, 129, 0.5);
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
+  border-color: rgba(46, 170, 94, 0.3);
+  box-shadow: 0 10px 30px rgba(46, 170, 94, 0.3);
 }
 
 .collapsible-header {
@@ -534,7 +534,7 @@ a:hover {
 .collapsible.open .collapsible-header {
   background: #f0fdf4;
   /* Keep light mint background when open */
-  border-bottom: 1px dashed rgba(16, 185, 129, 0.2);
+  border-bottom: 1px dashed rgba(46, 170, 94, 0.3);
 }
 
 .collapsible-title {
@@ -605,20 +605,20 @@ a:hover {
 /* Disease Card Theme (Welcome Page Style) */
 .disease-card {
   background: white;
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  border-top: 4px solid #10B981;
+  border: 1px solid rgba(46, 170, 94, 0.3);
+  border-top: 4px solid #2EAA5E;
   border-radius: 20px;
   padding: 1.5rem;
   margin-bottom: 1.25rem;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.05);
+  box-shadow: 0 4px 20px rgba(46, 170, 94, 0.3);
 }
 
 .disease-card:hover {
-  border-color: rgba(16, 185, 129, 0.5);
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+  border-color: rgba(46, 170, 94, 0.3);
+  box-shadow: 0 8px 25px rgba(46, 170, 94, 0.3);
   transform: translateY(-4px);
   background: #f0fdf4;
   /* mint accent on hover */
@@ -627,11 +627,11 @@ a:hover {
 /* Disease Detail Card (Welcome Page Style) */
 .disease-detail-card {
   background: white;
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  border-top: 6px solid #10B981;
+  border: 1px solid rgba(46, 170, 94, 0.3);
+  border-top: 6px solid #2EAA5E;
   border-radius: 20px;
   padding: 2.5rem;
-  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.08);
+  box-shadow: 0 8px 30px rgba(46, 170, 94, 0.3);
   margin-bottom: 2rem;
 }
 
@@ -1169,7 +1169,7 @@ a:hover {
 }
 
 .stat-card-green {
-  background: linear-gradient(135deg, #10B981 0%, #6EE7B7 100%);
+  background: linear-gradient(135deg, #2EAA5E 0%, #6EE7B7 100%);
 }
 
 .stat-card-primary {
@@ -1434,9 +1434,9 @@ a:hover {
 }
 
 .score-badge-excellent {
-  background: rgba(16, 185, 129, 0.1);
-  color: #059669;
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(46, 170, 94, 0.3);
+  color: #2EAA5E;
+  border: 1px solid rgba(46, 170, 94, 0.3);
 }
 
 .score-badge-good {
