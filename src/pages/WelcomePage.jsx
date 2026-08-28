@@ -46,6 +46,15 @@ const WelcomePage = () => {
             path: '/farmguide',
             status: 'live',
         },
+        {
+            id: 'ai-assistant',
+            name: t('welcome.aiModule.name') || 'FarmWell AI Assistant',
+            tag: 'AI Chat · Multi-Module',
+            icon: '/images/FarmWell_Logo.png',
+            colorClass: 'mod-ai',
+            path: null,
+            status: 'soon',
+        },
     ];
 
     const handleModuleClick = (mod) => {
@@ -131,27 +140,6 @@ const WelcomePage = () => {
                     ))}
                 </div>
 
-                {/* AI Assistant — full width */}
-                <div
-                    className="fw-mod-item-card-wide"
-                    onClick={() => setShowWaitlistModal(true)}
-                >
-                    <div className="fw-mod-item-icon-wrap">
-                        <span style={{ fontSize: '24px' }}>🤖</span>
-                    </div>
-                    <div>
-                        <div className="fw-mod-item-name">
-                            {t('welcome.aiModule.name') || 'FarmWell AI Assistant'}
-                        </div>
-                        <div className="fw-mod-item-tag">
-                            {t('welcome.aiModule.tags.chat') || 'AI Chat'} ·{' '}
-                            {t('welcome.aiModule.tags.multi') || 'Multi-module'}
-                        </div>
-                    </div>
-                    <div className="fw-mod-item-wide-soon">
-                        {t('welcome.aiModule.soon') || 'Soon'}
-                    </div>
-                </div>
 
                 {/* Vaksindo logo */}
                 <div className="fw-vaksindo-area">

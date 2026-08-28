@@ -1424,6 +1424,7 @@ body {
 .fw-mod-item-card.mod-pig     { background: #F4FBF7; border-color: #C8E8D4; }
 .fw-mod-item-card.mod-poultry { background: #F4FBF7; border-color: #C8E8D4; }
 .fw-mod-item-card.mod-guide   { background: #F4FBF7; border-color: #C8E8D4; }
+.fw-mod-item-card.mod-ai      { background: #F0FBF5; border-color: #2EAA5E; }
 
 .fw-mod-item-card.mod-poultry .fw-mod-item-icon-wrap { background: #DDF2E8; }
 .fw-mod-item-card.mod-poultry .fw-mod-item-tag { background: #C8E8D4; color: #1E7A42; }
