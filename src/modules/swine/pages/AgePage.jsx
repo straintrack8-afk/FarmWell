@@ -5,20 +5,133 @@ import { swineTranslations } from '../translations';
 import { DiagnosisWrapper } from '../components/disease-diagnosis/DiagnosisWrapper';
 import PigWellTopNav from '../components/common/PigWellTopNav';
 
-const SwineIcon = () => (
-    <svg viewBox="0 0 24 24" style={{width:22,height:22,stroke:'#2EAA5E',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
-        <path d="M18 8h1a4 4 0 010 8h-1"/>
-        <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
-        <line x1="6" y1="1" x2="6" y2="4"/>
-        <line x1="10" y1="1" x2="10" y2="4"/>
-        <line x1="14" y1="1" x2="14" y2="4"/>
-    </svg>
-);
+const AgeIcon = ({ ageId, color }) => {
+    const s = { width:22, height:22, stroke: color || '#2EAA5E', fill:'none', strokeWidth:1.8, strokeLinecap:'round', strokeLinejoin:'round' };
+    if (ageId === 'Newborn') return (
+        <svg viewBox="0 0 24 24" style={s}>
+            <ellipse cx="12" cy="13" rx="7" ry="6"/>
+            <path d="M9 10c0-1.5 6-1.5 6 0"/>
+            <circle cx="9.5" cy="13" r="0.5" fill={color||'#2EAA5E'}/>
+            <circle cx="14.5" cy="13" r="0.5" fill={color||'#2EAA5E'}/>
+            <path d="M10 16.5c.5.5 3.5.5 4 0"/>
+            <path d="M5 10c-1-2 0-5 2-5"/>
+            <path d="M19 10c1-2 0-5-2-5"/>
+        </svg>
+    );
+    if (ageId === 'Suckling') return (
+        <svg viewBox="0 0 24 24" style={s}>
+            <ellipse cx="12" cy="13" rx="7" ry="5.5"/>
+            <circle cx="9.5" cy="12.5" r="0.5" fill={color||'#2EAA5E'}/>
+            <circle cx="14.5" cy="12.5" r="0.5" fill={color||'#2EAA5E'}/>
+            <path d="M10 15.5c.5.5 3.5.5 4 0"/>
+            <path d="M5 10c-1-2 0-4 2-4"/>
+            <path d="M19 10c1-2 0-4-2-4"/>
+            <path d="M8 18l-2 3M16 18l2 3"/>
+        </svg>
+    );
+    if (ageId === 'Weaned') return (
+        <svg viewBox="0 0 24 24" style={s}>
+            <ellipse cx="12" cy="13" rx="7.5" ry="5.5"/>
+            <circle cx="9.5" cy="12.5" r="0.5" fill={color||'#2EAA5E'}/>
+            <circle cx="14.5" cy="12.5" r="0.5" fill={color||'#2EAA5E'}/>
+            <path d="M10 15.5c.5.5 3.5.5 4 0"/>
+            <path d="M5 10c-1-2 0-4 2-4"/>
+            <path d="M19 10c1-2 0-4-2-4"/>
+            <path d="M7 18.5l-1 2.5M17 18.5l1 2.5"/>
+            <path d="M10 18.5l0 2.5M14 18.5l0 2.5"/>
+        </svg>
+    );
+    if (ageId === 'Growers') return (
+        <svg viewBox="0 0 24 24" style={s}>
+            <ellipse cx="12" cy="12" rx="8" ry="6"/>
+            <circle cx="9.5" cy="11.5" r="0.5" fill={color||'#2EAA5E'}/>
+            <circle cx="14.5" cy="11.5" r="0.5" fill={color||'#2EAA5E'}/>
+            <path d="M10 14.5c.5.5 3.5.5 4 0"/>
+            <path d="M4 9c-1-2.5 0-5 3-5"/>
+            <path d="M20 9c1-2.5 0-5-3-5"/>
+            <path d="M6 18l-1 3M10 18.5v2.5M14 18.5v2.5M18 18l1 3"/>
+        </svg>
+    );
+    if (ageId === 'Finishers') return (
+        <svg viewBox="0 0 24 24" style={s}>
+            <ellipse cx="12" cy="12" rx="9" ry="6.5"/>
+            <circle cx="9.5" cy="11" r="0.6" fill={color||'#2EAA5E'}/>
+            <circle cx="14.5" cy="11" r="0.6" fill={color||'#2EAA5E'}/>
+            <path d="M10 14c.5.6 3.5.6 4 0"/>
+            <path d="M3 9c-1-3 0-5.5 3-5.5"/>
+            <path d="M21 9c1-3 0-5.5-3-5.5"/>
+            <path d="M5 18.5l-1 3M9 19v2.5M15 19v2.5M19 18.5l1 3"/>
+        </svg>
+    );
+    if (ageId === 'Sows / Gilts') return (
+        <svg viewBox="0 0 24 24" style={s}>
+            <ellipse cx="11" cy="12" rx="8" ry="6"/>
+            <circle cx="8.5" cy="11" r="0.6" fill={color||'#2EAA5E'}/>
+            <circle cx="13.5" cy="11" r="0.6" fill={color||'#2EAA5E'}/>
+            <path d="M9 14c.5.6 3.5.6 4 0"/>
+            <path d="M3 9c-1-2.5 0-5 2-5"/>
+            <circle cx="20" cy="8" r="3"/>
+            <path d="M20 11v2M18.5 9.5l-1 1"/>
+            <path d="M5 18.5l-1 2.5M9 19v2.5M13 19v2.5"/>
+        </svg>
+    );
+    if (ageId === 'Boars') return (
+        <svg viewBox="0 0 24 24" style={s}>
+            <ellipse cx="11" cy="13" rx="8" ry="6"/>
+            <circle cx="8.5" cy="12" r="0.6" fill={color||'#2EAA5E'}/>
+            <circle cx="13.5" cy="12" r="0.6" fill={color||'#2EAA5E'}/>
+            <path d="M9 15c.5.6 3.5.6 4 0"/>
+            <path d="M3 10c-1-2.5 0-5 2-5"/>
+            <path d="M19 5l3-3M19 5h3M19 5v3"/>
+            <path d="M5 19.5l-1 2.5M9 20v2M13 20v2"/>
+        </svg>
+    );
+    // Default: All Ages
+    return (
+        <svg viewBox="0 0 24 24" style={s}>
+            <ellipse cx="12" cy="12" rx="8" ry="6"/>
+            <circle cx="9.5" cy="11" r="0.6" fill={color||'#2EAA5E'}/>
+            <circle cx="14.5" cy="11" r="0.6" fill={color||'#2EAA5E'}/>
+            <path d="M10 14c.5.6 3.5.6 4 0"/>
+            <path d="M4 9c-1-2.5 0-5 2-5"/>
+            <path d="M20 9c1-2.5 0-5-2-5"/>
+            <path d="M6 18.5l-1 3M10 19v2.5M14 19v2.5M18 18.5l1 3"/>
+        </svg>
+    );
+};
 
 function AgePage() {
     const navigate = useNavigate();
     const { language } = useLanguage();
     const t = (key) => swineTranslations[language]?.[key] || swineTranslations['en'][key];
+
+    const getAgeLabel = (ageId) => {
+        const map = {
+            'All ages': t('allAges'),
+            'Newborn': t('newborn'),
+            'Suckling': t('suckling'),
+            'Weaned': t('weaned'),
+            'Growers': t('growers'),
+            'Finishers': t('finishers'),
+            'Sows / Gilts': t('sows'),
+            'Boars': t('boars'),
+        };
+        return map[ageId] || ageId;
+    };
+
+    const getAgeDesc = (ageId) => {
+        const map = {
+            'All ages': t('allAgesDesc'),
+            'Newborn': t('newbornDesc'),
+            'Suckling': t('sucklingDesc'),
+            'Weaned': t('weanedDesc'),
+            'Growers': t('growersDesc'),
+            'Finishers': t('finishersDesc'),
+            'Sows / Gilts': t('sowsDesc'),
+            'Boars': t('boarsDesc'),
+        };
+        return map[ageId] || '';
+    };
     const { selectedAge, setSelectedAge, ageGroups } = useDiagnosis();
 
     const handleContinue = () => {
@@ -72,12 +185,12 @@ function AgePage() {
                                         }}
                                     >
                                         <div className="fw-mod-item-icon-wrap" style={{ background: isSelected ? '#2EAA5E' : '#E8F5EE' }}>
-                                            <SwineIcon />
+                                            <AgeIcon ageId={age.id} color={isSelected ? 'white' : '#2EAA5E'} />
                                         </div>
                                         <div className="fw-mod-item-name" style={{ color: isSelected ? '#2EAA5E' : 'var(--fw-text)' }}>
-                                            {age.label || age.id}
+                                            {getAgeLabel(age.id)}
                                         </div>
-                                        <div className="fw-mod-item-tag">{age.description || ''}</div>
+                                        <div className="fw-mod-item-tag">{getAgeDesc(age.id)}</div>
                                     </div>
                                 );
                             })}

@@ -29,7 +29,7 @@
 }
 
 .age-badge {
-  background: #14b8a6;
+  background: #2EAA5E;
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
@@ -63,7 +63,7 @@
 }
 
 .info-selected {
-  color: #14b8a6;
+  color: #2EAA5E;
   font-weight: 600;
   font-size: 1rem;
 }
@@ -88,22 +88,22 @@
 }
 
 .body-part-card:hover {
-  border-color: #14b8a6;
-  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.15);
+  border-color: #2EAA5E;
+  box-shadow: 0 4px 12px rgba(46, 170, 94, 0.3);
   transform: translateY(-2px);
 }
 
 .body-part-card.selected {
   background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
-  border-color: #14b8a6;
-  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.2);
+  border-color: #2EAA5E;
+  box-shadow: 0 4px 12px rgba(46, 170, 94, 0.3);
 }
 
 .card-checkbox input[type="checkbox"] {
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
-  accent-color: #14b8a6;
+  accent-color: #2EAA5E;
 }
 
 .card-content {
@@ -148,7 +148,7 @@
 }
 
 .body-part-card.selected .card-badge {
-  background: #14b8a6;
+  background: #2EAA5E;
   color: white;
 }
 
@@ -187,14 +187,14 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  background: linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%);
   color: white;
-  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+  box-shadow: 0 4px 12px rgba(46, 170, 94, 0.3);
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(20, 184, 166, 0.4);
+  box-shadow: 0 6px 16px rgba(46, 170, 94, 0.3);
 }
 
 .btn-primary:disabled {
@@ -203,15 +203,15 @@
 }
 
 .btn-secondary {
-  background: #10B981;
+  background: #2EAA5E;
   color: white;
-  border: 2px solid #10B981;
+  border: 2px solid #2EAA5E;
 }
 
 .btn-secondary:hover {
-  background: #059669;
+  background: #2EAA5E;
   color: white;
-  border-color: #059669;
+  border-color: #2EAA5E;
 }
 
 /* Help Text */

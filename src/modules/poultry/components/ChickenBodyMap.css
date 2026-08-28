@@ -26,7 +26,7 @@
 }
 
 .body-part.selected {
-  color: #10b981; /* Green when selected */
+  color: #2EAA5E; /* Green when selected */
   opacity: 0.9 !important;
   animation: pulse 2s infinite;
 }
@@ -74,8 +74,8 @@
 }
 
 .legend-color.selected {
-  background: #10b981;
-  border-color: #059669;
+  background: #2EAA5E;
+  border-color: #2EAA5E;
 }
 
 /* Responsive */

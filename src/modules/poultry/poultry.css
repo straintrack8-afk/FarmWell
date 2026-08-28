@@ -3,15 +3,15 @@
 /* CSS Variables - Color Scheme */
 :root {
   /* Primary Colors - Poultry Theme (Emerald/Green) */
-  --primary: #059669;
+  --primary: #2EAA5E;
   /* emerald-600 */
-  --primary-dark: #047857;
+  --primary-dark: #2EAA5E;
   /* emerald-700 */
-  --primary-light: #10b981;
+  --primary-light: #2EAA5E;
   /* emerald-500 */
 
   /* Semantic Colors */
-  --success: #10B981;
+  --success: #2EAA5E;
   --warning: #F59E0B;
   --danger: #EF4444;
   --info: #3B82F6;
@@ -19,7 +19,7 @@
   /* Disease Category Colors (Aligned with Swine) */
   --category-bacterial: #3B82F6;
   --category-viral: #EF4444;
-  --category-parasitic: #10B981;
+  --category-parasitic: #2EAA5E;
   --category-nutritional: #F59E0B;
   --category-toxicosis: #8B5CF6;
   --category-other: #6B7280;
@@ -28,7 +28,7 @@
   --mortality-very-high: #DC2626;
   --mortality-high: #EF4444;
   --mortality-moderate: #F59E0B;
-  --mortality-low: #10B981;
+  --mortality-low: #2EAA5E;
   --mortality-minimal: #6EE7B7;
 
   /* UI Elements */
@@ -140,54 +140,54 @@ p {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  background: linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%);
   color: white;
   border: none;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 12px rgba(46, 170, 94, 0.3);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  background: linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 6px 20px rgba(46, 170, 94, 0.3);
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 2px 8px rgba(46, 170, 94, 0.3);
 }
 
 .btn-secondary {
-  background: #10B981 !important;
+  background: #2EAA5E !important;
   color: white !important;
-  border: 2px solid #10B981 !important;
-  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2) !important;
+  border: 2px solid #2EAA5E !important;
+  box-shadow: 0 2px 6px rgba(46, 170, 94, 0.3) !important;
 }
 
 .btn-secondary:hover {
-  background: #059669 !important;
-  border-color: #059669 !important;
+  background: #2EAA5E !important;
+  border-color: #2EAA5E !important;
   color: white !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(46, 170, 94, 0.3) !important;
 }
 
 .btn-secondary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+  box-shadow: 0 2px 6px rgba(46, 170, 94, 0.3);
 }
 
 .btn-outline {
   background: white;
-  color: #10B981;
-  border: 2px solid #10B981;
+  color: #2EAA5E;
+  border: 2px solid #2EAA5E;
 }
 
 .btn-outline:hover {
-  background: #10B981;
+  background: #2EAA5E;
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 12px rgba(46, 170, 94, 0.3);
 }
 
 .btn-outline:active {
@@ -560,7 +560,7 @@ p {
 .age-card.selected {
   border-color: var(--primary);
   background: #f0fdf4;
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+  box-shadow: 0 0 0 4px rgba(46, 170, 94, 0.3);
 }
 
 .age-card-icon {
@@ -806,11 +806,11 @@ p {
 }
 
 .stat-card-green {
-  background: linear-gradient(135deg, #10B981 0%, #6EE7B7 100%);
+  background: linear-gradient(135deg, #2EAA5E 0%, #6EE7B7 100%);
 }
 
 .stat-card-primary {
-  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  background: linear-gradient(135deg, #2EAA5E 0%, #2EAA5E 100%);
 }
 
 .stat-card-red {
@@ -875,7 +875,7 @@ p {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #059669, #10b981);
+  background: linear-gradient(90deg, #2EAA5E, #2EAA5E);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -989,9 +989,9 @@ p {
 }
 
 .score-badge-excellent {
-  background: rgba(16, 185, 129, 0.1);
-  color: #059669;
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(46, 170, 94, 0.3);
+  color: #2EAA5E;
+  border: 1px solid rgba(46, 170, 94, 0.3);
 }
 
 .score-badge-good {
@@ -1016,7 +1016,7 @@ p {
 .modern-empty-state {
   text-align: center;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, rgba(46, 170, 94, 0.3) 100%);
   border-radius: var(--radius-xl);
   border: 2px dashed var(--border-color);
 }

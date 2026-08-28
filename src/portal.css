@@ -1104,7 +1104,8 @@ body {
 }
 
 .fw-splash-vaksindo-logo {
-  height: 120px;
+  width: 260px;
+  max-width: 80vw;
   mix-blend-mode: multiply;
 }
 
