@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import PoultryTopNav from './common/PoultryTopNav';
 import Chart from 'chart.js/auto';
@@ -112,6 +113,7 @@ const INJ_NUM    = ['totalChicks','good','wet','veryWet','bleed','noVax','dead']
 const INP = { width:'100%', border:'1px solid #E5E7EB', borderRadius:6, padding:'6px 8px', fontSize:13, boxSizing:'border-box' };
 
 export default function VaccinationAuditPage() {
+  const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const lang = ['vi','id'].includes(language) ? language : 'en';
   const t = tr[lang];
@@ -711,7 +713,16 @@ export default function VaccinationAuditPage() {
         </div>
       )}
 
-      <div style={{height:24}}/>
+      <div className="fw-mod-bnav">
+        <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Home</span>
+        </button>
+        <button className="fw-mod-bnav-alerts" onClick={() => navigate('/poultry')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 8 12 12 16"/><line x1="16" y1="12" x2="8" y2="12"/></svg>
+          <span>PoultryWell</span>
+        </button>
+      </div>
     </div>
   );
 }
