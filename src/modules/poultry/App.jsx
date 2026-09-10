@@ -34,6 +34,7 @@ import LayerAssessmentPage from './pages/layer/LayerAssessmentPage';
 import LayerResultsPage from './pages/layer/LayerResultsPage';
 import DiseaseComparison from './pages/DiseaseComparison';
 import VaccinationAuditPage from './components/VaccinationAuditPage';
+import HatcheryChecklistPage from './components/HatcheryChecklistPage';
 import DiagnosticLanding from './pages/DiagnosticLanding';
 
 
@@ -224,6 +225,7 @@ function App() {
                     {/* Disease Comparison Page */}
                     <Route path="/compare" element={<DiseaseComparison />} />
                     <Route path="/vaccination-audit" element={<VaccinationAuditPage />} />
+                    <Route path="/hatchery-checklist" element={<HatcheryChecklistPage />} />
                 </Routes>
             </main>
         </div>
