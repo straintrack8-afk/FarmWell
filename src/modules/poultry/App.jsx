@@ -33,6 +33,7 @@ import LayerAssessmentDashboard from './pages/layer/LayerAssessmentDashboard';
 import LayerAssessmentPage from './pages/layer/LayerAssessmentPage';
 import LayerResultsPage from './pages/layer/LayerResultsPage';
 import DiseaseComparison from './pages/DiseaseComparison';
+import HatcherySection from './components/HatcherySection';
 import VaccinationAuditPage from './components/VaccinationAuditPage';
 import HatcheryChecklistPage from './components/HatcheryChecklistPage';
 import DiagnosticLanding from './pages/DiagnosticLanding';
@@ -166,6 +167,7 @@ function App() {
                             <DiagnosticApp />
                         </DiagnosisProvider>
                     } />
+                    <Route path="/hatchery" element={<HatcherySection />} />
                     <Route path="/hatchery-audit/*" element={<HatcheryAuditRouter />} />
 
                     {/* Broiler Biosecurity Assessment Routes */}

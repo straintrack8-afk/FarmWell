@@ -19,13 +19,7 @@ const HatcheryIcon = () => (
     </svg>
 );
 
-const HatcheryChecklistIcon = () => (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 20, height: 20, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
-        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
-        <rect x="9" y="3" width="6" height="4" rx="2"/>
-        <path d="M9 12h6M9 16h4M14 16l2 2 4-4"/>
-    </svg>
-);
+
 
 const BroilerIcon = () => (
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 20, height: 20, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
@@ -84,16 +78,9 @@ function PoultryLanding() {
         {
             id: 'hatchery',
             icon: <HatcheryIcon />,
-            name: t('poultry.hatchery.title') || 'Hatchery Audit',
-            desc: t('poultry.hatchery.description') || 'Quality assessment for hatchery',
-            route: '/poultry/hatchery-audit',
-        },
-        {
-            id: 'hatchery-checklist',
-            icon: <HatcheryChecklistIcon />,
-            name: language === 'vi' ? 'Kiểm Tra Trại Ấp' : 'Hatchery Checklist',
-            desc: language === 'vi' ? 'An toàn sinh học và kỹ thuật trại ấp' : 'Biosecurity & technical field audit',
-            route: '/poultry/hatchery-checklist',
+            name: language === 'vi' ? 'Trại Ấp' : (language === 'id' ? 'Hatchery' : 'Hatchery'),
+            desc: language === 'vi' ? 'Kiểm tra vi sinh và kiểm tra thực địa trại ấp' : (language === 'id' ? 'Audit lab & inspeksi lapangan hatchery' : 'Lab audit & field inspection tools'),
+            route: '/poultry/hatchery',
         },
         {
             id: 'broiler',
