@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { useTranslation } from '../../../hooks/useTranslation';
@@ -16,6 +16,14 @@ const HatcheryIcon = () => (
         <path d="M12 2c4 0 7 4 7 8 0 3-1.5 5.5-4 7"/>
         <path d="M9 17c0 2.5 1.3 4 3 4s3-1.5 3-4"/>
         <circle cx="12" cy="11" r="2"/>
+    </svg>
+);
+
+const HatcheryChecklistIcon = () => (
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 20, height: 20, stroke: '#1E7A42', fill: 'none', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="2"/>
+        <path d="M9 12h6M9 16h4M14 16l2 2 4-4"/>
     </svg>
 );
 
@@ -81,19 +89,13 @@ function PoultryLanding() {
             route: '/poultry/hatchery-audit',
         },
         {
-        {
             id: 'hatchery-checklist',
-            icon: (
-                <svg viewBox="0 0 24 24" style={{width:20,height:20,stroke:'#1E7A42',fill:'none',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}}>
-                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
-                    <rect x="9" y="3" width="6" height="4" rx="2"/>
-                    <path d="M9 12h6M9 16h4M14 16l2 2 4-4"/>
-                </svg>
-            ),
-            name: language === 'vi' ? 'Ki\u1ec3m Tra Tr\u1ea1i \u1ea4p' : 'Hatchery Checklist',
-            desc: language === 'vi' ? 'An to\u00e0n sinh h\u1ecdc v\u00e0 k\u1ef9 thu\u1eadt tr\u1ea1i \u1ea5p' : 'Biosecurity & technical field audit',
+            icon: <HatcheryChecklistIcon />,
+            name: language === 'vi' ? 'Kiểm Tra Trại Ấp' : 'Hatchery Checklist',
+            desc: language === 'vi' ? 'An toàn sinh học và kỹ thuật trại ấp' : 'Biosecurity & technical field audit',
             route: '/poultry/hatchery-checklist',
         },
+        {
             id: 'broiler',
             icon: <BroilerIcon />,
             name: t('poultry.biosecurity.title') || 'Broiler Biosecurity',
@@ -116,8 +118,8 @@ function PoultryLanding() {
                     <path d="M9 12h6M9 16h4"/>
                 </svg>
             ),
-            name: language === 'vi' ? 'Kiá»ƒm Tra TiÃªm PhÃ²ng' : (language === 'id' ? 'Audit Vaksinasi' : 'Vaccination Audit'),
-            desc: language === 'vi' ? 'Báº£ng kiá»ƒm tra cháº¥t lÆ°á»£ng tiÃªm phÃ²ng vaccine' : (language === 'id' ? 'Daftar periksa kualitas pemberian vaksin' : 'Vaccine administration quality checklist'),
+            name: language === 'vi' ? 'Kiểm Tra Tiêm Phòng' : (language === 'id' ? 'Audit Vaksinasi' : 'Vaccination Audit'),
+            desc: language === 'vi' ? 'Bảng kiểm tra chất lượng tiêm phòng vaccine' : (language === 'id' ? 'Daftar periksa kualitas pemberian vaksin' : 'Vaccine administration quality checklist'),
             route: '/poultry/vaccination-audit',
         },
         {
@@ -132,7 +134,7 @@ function PoultryLanding() {
     return (
         <div className="fw-module-page">
 
-            {/* â”€â”€ COMPACT HEADER â”€â”€ */}
+            {/* ── COMPACT HEADER ── */}
             <div className="fw-mod-top">
                 <div
                     className="fw-mod-top-logo"
@@ -154,11 +156,11 @@ function PoultryLanding() {
                 </div>
             </div>
 
-            {/* â”€â”€ WHITE CARD â”€â”€ */}
+            {/* ── WHITE CARD ── */}
             <div className="fw-mod-card">
                 <div className="fw-mod-content">
                     <div className="fw-welcome-section-label">
-                        PoultryWell â€” {t('welcome.allModules') || 'Select Tool'}
+                        PoultryWell — {t('welcome.allModules') || 'Select Tool'}
                     </div>
 
                     {/* Feature grid */}
@@ -179,7 +181,7 @@ function PoultryLanding() {
                     </div>
                 </div>
 
-                {/* â”€â”€ BOTTOM NAV â”€â”€ */}
+                {/* ── BOTTOM NAV ── */}
                 <div className="fw-mod-bnav">
                     <button className="fw-mod-bnav-home" onClick={() => navigate('/')}>
                         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
