@@ -261,7 +261,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 .catch(err => console.error('Failed to load checklist data:', err));
         }
         
-        if (activeTab === 'bw' && !bwData && module) {
+        if ((activeTab === 'bw' || activeTab === 'eggProduction') && !bwData && module) {
             loadBWData();
         }
     }, [activeTab, module, psSex]);
@@ -467,7 +467,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             eggs_bird_cum: r.eggs_bird_cum,
                             hatching_eggs_week: r.he_bird_week,
                             hatching_eggs_cum: r.he_bird_cum,
-                            hatchability_pct: r.hatchability_pct ?? r.settable_pct ?? null,
+                            hatchability_pct: r.hatching_eggs_settable_pct ?? r.hatchability_pct ?? r.settable_pct ?? null,
                             chicks_week: r.chicks_bird_week,
                             chicks_cum: r.chicks_bird_cum,
                             feed_g_bird_day: r.feed_g_bird_day || null
@@ -1105,8 +1105,12 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     </div>
                 );
             } else {
-                // WEEKLY MODE (W2-W64)
-                const weekData = BROILER_PS_GUIDE.find(w => w.week === selectedWeek);
+                // WEEKLY MODE (W2-W64) — nearest-match (sparse guide entries)
+                const psEnvFiltered = BROILER_PS_GUIDE.filter(e => e.phase === (psPhase === 'production' ? 'production' : 'rearing'));
+                let weekData = psEnvFiltered[0];
+                for (const entry of psEnvFiltered) {
+                    if (entry.week <= selectedWeek) weekData = entry;
+                }
                 if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
                 
                 const env = weekData.environment;
@@ -1231,22 +1235,22 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '12px', marginBottom: '1rem' }}>
                             <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '12px', padding: '1rem' }}>
                                 <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🌡️</div>
-                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>Room Temperature</div>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>{t('farmguide.roomTemp') || 'Room Temperature'}</div>
                                 <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--fw-text)' }}>{dailyEnv.room_temp}</div>
                             </div>
                             <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '12px', padding: '1rem' }}>
                                 <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>💧</div>
-                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>Relative Humidity</div>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>{t('farmguide.relHumidity') || 'Relative Humidity'}</div>
                                 <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--fw-text)' }}>{dailyEnv.rh}</div>
                             </div>
                             <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '12px', padding: '1rem' }}>
                                 <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>💡</div>
-                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>Lighting</div>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>{t('farmguide.lighting') || 'Lighting'}</div>
                                 <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--fw-text)' }}>{dailyEnv.lighting}</div>
                             </div>
                             <div style={{ background: 'var(--fw-card)', border: '1px solid var(--fw-border)', borderRadius: '12px', padding: '1rem' }}>
                                 <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🌬️</div>
-                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>Ventilation</div>
+                                <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginBottom: '4px' }}>{t('farmguide.ventilation') || 'Ventilation'}</div>
                                 <div style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--fw-text)' }}>{dailyEnv.ventilation}</div>
                             </div>
                         </div>
@@ -1306,10 +1310,26 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 );
             }
 
-            // Weekly mode: existing behavior
-            const weekData = BROILER_GUIDE[selectedWeek - 1];
+            // Weekly mode: nearest-match lookup (sparse guide entries)
+            const psEnvEntries = BROILER_PS_GUIDE.filter(e =>
+                psPhase === 'production' ? e.phase === 'production' : e.phase === 'rearing'
+            );
+            let weekData = psEnvEntries[0];
+            for (const entry of psEnvEntries) {
+                if (entry.week <= selectedWeek) weekData = entry;
+            }
             if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
-            const env = weekData.environment;
+            const rawEnv = weekData.environment;
+            const resolveField = (f) => f ? (typeof f === 'object' ? (f[lang] ?? f.en ?? '') : f) : '';
+            const env = {
+                temp: resolveField(rawEnv.temperature),
+                rh: resolveField(rawEnv.humidity),
+                light: resolveField(rawEnv.lighting),
+                lightIntensity: resolveField(rawEnv.lightIntensity),
+                ventilation: resolveField(rawEnv.ventilation),
+                nh3: rawEnv.nh3 || '< 10 ppm',
+                co2: rawEnv.co2 || '< 2,500 ppm',
+            };
             
             return (
                 <div>
@@ -1393,7 +1413,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         gap: '0.75rem',
                         marginBottom: '1.5rem'
                     }}>
-                        {weekData.specs.map((spec, idx) => (
+                        {(weekData.specs || []).map((spec, idx) => (
                             <div key={idx} style={{
                                 padding: '1rem',
                                 background: 'var(--fw-card)',
@@ -1464,23 +1484,23 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
                         <div style={{ padding: '1.5rem', background: 'var(--fw-card)', border: '2px solid var(--fw-border)', borderRadius: '12px' }}>
                             <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌡️</div>
-                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>Temperature</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>{t('farmguide.tempTarget') || 'Temperature'}</div>
                             <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.temp}</div>
                         </div>
                         <div style={{ padding: '1.5rem', background: 'var(--fw-card)', border: '2px solid var(--fw-border)', borderRadius: '12px' }}>
                             <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💧</div>
-                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>Humidity</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>{t('farmguide.humidity') || 'Humidity'}</div>
                             <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.rh}</div>
                         </div>
                         <div style={{ padding: '1.5rem', background: 'var(--fw-card)', border: '2px solid var(--fw-border)', borderRadius: '12px' }}>
                             <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💡</div>
-                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>Lighting</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>{t('farmguide.lighting') || 'Lighting'}</div>
                             <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.light?.[lang] || env.light?.en || env.light}</div>
                             {env.light_lux && <div style={{ fontSize: '0.875rem', color: 'var(--fw-sub)', marginTop: '0.25rem' }}>{env.light_lux}</div>}
                         </div>
                         <div style={{ padding: '1.5rem', background: 'var(--fw-card)', border: '2px solid var(--fw-border)', borderRadius: '12px' }}>
                             <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌬️</div>
-                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>Ventilation</div>
+                            <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>{t('farmguide.ventilation') || 'Ventilation'}</div>
                             <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)' }}>{env.ventilation}</div>
                         </div>
                     </div>
@@ -1994,7 +2014,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             padding: '1rem',
                             overflowX: 'auto'
                         }}>
-                            <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                            <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                                 {/* Y-axis gridlines */}
                                 {yTicks.map(tick => (
                                     <line
@@ -2069,21 +2089,21 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                     strokeWidth="3"
                                 />
                                 
-                                {/* Single highlight circle at selected week */}
-                                {(() => {
-                                    const selectedData = filteredData.find(d => d.week === selectedWeek);
-                                    if (selectedData) {
-                                        return (
-                                            <circle
-                                                cx={xScale(selectedData.week)}
-                                                cy={yScale(selectedData.feed_g_day)}
-                                                r="6"
-                                                fill="#0C3830"
-                                            />
-                                        );
-                                    }
-                                    return null;
-                                })()}
+                                {/* Data point circles */}
+                                {filteredData.map((d) => {
+                                    const isSelected = d.week === selectedWeek;
+                                    return (
+                                        <circle
+                                            key={d.week}
+                                            cx={xScale(d.week)}
+                                            cy={yScale(d.feed_g_day)}
+                                            r={isSelected ? 6 : 4}
+                                            fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                            stroke="var(--fw-teal)"
+                                            strokeWidth="2"
+                                        />
+                                    );
+                                })}
                             </svg>
                         </div>
                     </div>
@@ -2109,7 +2129,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             marginBottom: '1.5rem'
                         }}>
                             <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--fw-sub)', marginBottom: '0.5rem' }}>
-                                Fase Aktif
+                                {t('farmguide.activeFeedPhase') || 'Active Phase'}
                             </div>
                             <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--fw-text)', marginBottom: '1rem' }}>
                                 {feedInfo.phase.toUpperCase()}
@@ -2117,19 +2137,19 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem' }}>
                                 <div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>Bentuk</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>{t('farmguide.feedForm') || 'Form'}</div>
                                     <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>{feedInfo.form}</div>
                                 </div>
                                 <div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>Ukuran</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>{t('farmguide.feedSize') || 'Size'}</div>
                                     <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>{feedInfo.size}</div>
                                 </div>
                                 <div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>Durasi</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>{t('farmguide.feedDuration') || 'Duration'}</div>
                                     <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>{feedInfo.duration}</div>
                                 </div>
                                 <div>
-                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>Intake</div>
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--fw-sub)', marginBottom: '0.25rem' }}>{t('farmguide.intake') || 'Intake'}</div>
                                     <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--fw-text)' }}>{feedInfo.intake}</div>
                                 </div>
                             </div>
@@ -2282,7 +2302,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                     padding: '1rem',
                                     overflowX: 'auto'
                                 }}>
-                                    <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                    <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                                         {/* Grid lines */}
                                         {[0, 50, 100, 150, 200, 250].map(feed => (
                                             <g key={feed}>
@@ -2315,16 +2335,23 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                             strokeWidth="3"
                                         />
                                         
-                                        {/* Current selection highlight */}
-                                        <line
-                                            x1={currentX}
-                                            y1={padding.top}
-                                            x2={currentX}
-                                            y2={chartHeight - padding.bottom}
-                                            stroke="var(--fw-teal)"
-                                            strokeWidth="2"
-                                            strokeDasharray="5,5"
-                                        />
+                                        {/* Data point circles */}
+                                        {chartData.map((d) => {
+                                            const x = viewMode === 'weekly' ? xScale(d.week) : xScale(d.day);
+                                            const y = viewMode === 'weekly' ? yScale(d.daily_g) : yScale(d.feed_g_day);
+                                            const isSelected = viewMode === 'weekly' ? d.week === selectedWeek : d.day === selectedDay;
+                                            return (
+                                                <circle
+                                                    key={viewMode === 'weekly' ? d.week : d.day}
+                                                    cx={x}
+                                                    cy={y}
+                                                    r={isSelected ? 6 : 4}
+                                                    fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                                    stroke="var(--fw-teal)"
+                                                    strokeWidth="2"
+                                                />
+                                            );
+                                        })}
                                         
                                         {/* X-axis labels */}
                                         {viewMode === 'weekly' ? (
@@ -2427,7 +2454,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                     padding: '1rem',
                                     overflowX: 'auto'
                                 }}>
-                                    <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                    <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                                         {/* Y-axis gridlines and labels */}
                                         {yTicks.map(feed => (
                                             <g key={feed}>
@@ -2460,25 +2487,22 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                             strokeWidth="2"
                                         />
                                         
-                                        {/* Selected day highlight circle */}
-                                        {(() => {
-                                            const selectedData = chartData.find(d => d.day === selectedDay);
-                                            if (selectedData) {
-                                                const x = xScale(selectedData.day);
-                                                const y = yScale(selectedData.feed_avg);
-                                                return (
-                                                    <circle
-                                                        cx={x}
-                                                        cy={y}
-                                                        r={6}
-                                                        fill="#0C3830"
-                                                        stroke="#0C3830"
-                                                        strokeWidth="2"
-                                                    />
-                                                );
-                                            }
-                                            return null;
-                                        })()}
+                                        {/* Data point circles */}
+                                        {chartData.map((d) => {
+                                            const targetDay = viewMode === 'weekly' ? selectedWeek * 7 : selectedDay;
+                                            const isSelected = d.day === targetDay;
+                                            return (
+                                                <circle
+                                                    key={d.day}
+                                                    cx={xScale(d.day)}
+                                                    cy={yScale(d.feed_avg)}
+                                                    r={isSelected ? 6 : 4}
+                                                    fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                                    stroke="var(--fw-teal)"
+                                                    strokeWidth="2"
+                                                />
+                                            );
+                                        })}
                                         
                                         {/* X-axis ticks */}
                                         {xTicks.map(day => (
@@ -2923,7 +2947,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 </svg>
                             </div>
                             <div>
-                                <div style={{ fontWeight: '700', fontSize: '14px', color: '#1A2E1A' }}>Rearing Feed Program</div>
+                                <div style={{ fontWeight: '700', fontSize: '14px', color: '#1A2E1A' }}>{t('farmguide.rearingFeedProg') || 'Rearing Feed Program'}</div>
                                 <div style={{ fontSize: '12px', color: '#4A6B4A' }}>{bwData?.breedLabel || ''} · W1–W{rearingRows[rearingRows.length - 1]?.week}</div>
                             </div>
                         </div>
@@ -3457,7 +3481,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             padding: '1rem',
                             overflowX: 'auto'
                         }}>
-                            <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                            <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                                 {/* Y-axis gridlines */}
                                 {yTicks.map(tick => (
                                     <line
@@ -3532,21 +3556,21 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                     strokeWidth="3"
                                 />
                                 
-                                {/* Single highlight circle at selected week */}
-                                {(() => {
-                                    const selectedData = filteredData.find(d => d.week === selectedWeek);
-                                    if (selectedData) {
-                                        return (
-                                            <circle
-                                                cx={xScale(selectedData.week)}
-                                                cy={yScale(selectedData.bw)}
-                                                r="6"
-                                                fill="#0C3830"
-                                            />
-                                        );
-                                    }
-                                    return null;
-                                })()}
+                                {/* Data point circles */}
+                                {filteredData.map((d) => {
+                                    const isSelected = d.week === selectedWeek;
+                                    return (
+                                        <circle
+                                            key={d.week}
+                                            cx={xScale(d.week)}
+                                            cy={yScale(d.bw)}
+                                            r={isSelected ? 6 : 4}
+                                            fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                            stroke="var(--fw-teal)"
+                                            strokeWidth="2"
+                                        />
+                                    );
+                                })}
                             </svg>
                         </div>
                     </div>
@@ -3584,9 +3608,9 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
                             <thead>
                                 <tr style={{ background: 'var(--fw-teal)', color: 'white', position: 'sticky', top: 0 }}>
-                                    <th style={{ padding: '10px 14px', textAlign: 'left' }}>Week</th>
-                                    <th style={{ padding: '10px 14px', textAlign: 'right' }}>Standard BW (g)</th>
-                                    <th style={{ padding: '10px 14px', textAlign: 'right' }}>Weekly Gain (g)</th>
+                                    <th style={{ padding: '10px 14px', textAlign: 'left' }}>{t('farmguide.week') || 'Week'}</th>
+                                    <th style={{ padding: '10px 14px', textAlign: 'right' }}>{t('farmguide.stdBWg') || 'Standard BW (g)'}</th>
+                                    <th style={{ padding: '10px 14px', textAlign: 'right' }}>{t('farmguide.weeklyGainG') || 'Weekly Gain (g)'}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -3611,24 +3635,30 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             </tbody>
                         </table>
                     </div>
-                    <div style={{ fontWeight: '600', fontSize: '14px' }}>Standard BW Curve</div>
+                    <div style={{ fontWeight: '600', fontSize: '14px' }}>{t('farmguide.bwChart') || 'Standard BW Curve'}</div>
                     <div style={{ background: 'white', borderRadius: '10px', border: '1px solid var(--fw-border)', padding: '16px', overflowX: 'auto' }}>
-                        <svg viewBox="0 0 800 300" style={{ width: '100%', minWidth: '400px' }}>
+                        <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                             {[0,1,2,3,4].map(i => (
                                 <line key={i} x1="40" y1={40 + i*57} x2="760" y2={40 + i*57}
                                     stroke="#E5E7EB" strokeWidth="1" />
                             ))}
                             <path d={pathD} fill="none" stroke="var(--fw-teal)" strokeWidth="2.5" />
-                            {selectedRow && (
-                                <circle cx={toX(selectedRow.week)} cy={toY(selectedRow.bw_g)} r="5"
-                                    fill="var(--fw-teal)" stroke="white" strokeWidth="2" />
-                            )}
+                            {phaseData.map(r => {
+                                const isSelected = r.week === selectedWeek;
+                                return (
+                                    <circle key={r.week}
+                                        cx={toX(r.week)} cy={toY(r.bw_g)}
+                                        r={isSelected ? 6 : 4}
+                                        fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                        stroke="var(--fw-teal)" strokeWidth="2" />
+                                );
+                            })}
                             {phaseData.filter((_, i) => i % Math.ceil(phaseData.length / 8) === 0).map(r => (
                                 <text key={r.week} x={toX(r.week)} y="290" textAnchor="middle"
                                     fontSize="10" fill="#6B7280">W{r.week}</text>
                             ))}
                             <text x="12" y="150" textAnchor="middle" fontSize="10" fill="#6B7280"
-                                transform="rotate(-90, 12, 150)">Body Weight</text>
+                                transform="rotate(-90, 12, 150)">{t('farmguide.bodyWeight') || 'Body Weight'}</text>
                         </svg>
                     </div>
                 </div>
@@ -3729,14 +3759,21 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     </div>
                     <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '16px' }}>Standard BW Curve</div>
                     <div style={{ background: 'white', borderRadius: '10px', border: '1px solid #DFF0E6', padding: '16px', overflowX: 'auto', marginTop: '8px' }}>
-                        <svg viewBox="0 0 800 300" style={{ width: '100%', minWidth: '400px' }}>
+                        <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                             {[0,1,2,3,4].map(i => (
                                 <line key={i} x1="40" y1={40 + i*57} x2="760" y2={40 + i*57} stroke="#E5E7EB" strokeWidth="1" />
                             ))}
                             <path d={pathD} fill="none" stroke="#2EAA5E" strokeWidth="2.5" />
-                            {selectedBWRow && (
-                                <circle cx={toX(selectedBWRow.week)} cy={toY(selectedBWRow.bw_g)} r="5" fill="#2EAA5E" stroke="white" strokeWidth="2" />
-                            )}
+                            {bwRows.map(r => {
+                                const isSelected = Number(r.week) === Number(selectedWeek);
+                                return (
+                                    <circle key={r.week}
+                                        cx={toX(r.week)} cy={toY(r.bw_g)}
+                                        r={isSelected ? 6 : 4}
+                                        fill={isSelected ? '#2EAA5E' : 'white'}
+                                        stroke="#2EAA5E" strokeWidth="2" />
+                                );
+                            })}
                             {bwRows.filter((_, i) => i % Math.ceil(bwRows.length / 8) === 0).map(r => (
                                 <text key={r.week} x={toX(r.week)} y="290" textAnchor="middle" fontSize="10" fill="#6B7280">W{r.week}</text>
                             ))}
@@ -4076,7 +4113,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 padding: '1rem',
                                 overflowX: 'auto'
                             }}>
-                                <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                                     {/* Grid lines */}
                                     {[0, 500, 1000, 1500, 2000, 2500, 3000, 3500].map(bw => (
                                         <g key={bw}>
@@ -4109,16 +4146,23 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                         strokeWidth="3"
                                     />
                                     
-                                    {/* Current selection highlight */}
-                                    <line
-                                        x1={currentX}
-                                        y1={padding.top}
-                                        x2={currentX}
-                                        y2={chartHeight - padding.bottom}
-                                        stroke="var(--fw-orange)"
-                                        strokeWidth="2"
-                                        strokeDasharray="5,5"
-                                    />
+                                    {/* Data point circles */}
+                                    {chartData.map((d) => {
+                                        const x = viewMode === 'weekly' ? xScale(d.week) : xScale(d.day);
+                                        const y = viewMode === 'weekly' ? yScale(d.bw_g) : yScale(d.bw_g);
+                                        const isSelected = viewMode === 'weekly' ? d.week === selectedWeek : d.day === selectedDay;
+                                        return (
+                                            <circle
+                                                key={viewMode === 'weekly' ? d.week : d.day}
+                                                cx={x}
+                                                cy={y}
+                                                r={isSelected ? 6 : 4}
+                                                fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                                stroke="var(--fw-teal)"
+                                                strokeWidth="2"
+                                            />
+                                        );
+                                    })}
                                     
                                     {/* X-axis labels */}
                                     {viewMode === 'weekly' ? (
@@ -4219,7 +4263,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 padding: '1rem',
                                 overflowX: 'auto'
                             }}>
-                                <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                                     {/* Grid lines */}
                                     {[0, 500, 1000, 1500, 2000].map(bw => (
                                         <g key={bw}>
@@ -4366,7 +4410,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 padding: '1rem',
                                 overflowX: 'auto'
                             }}>
-                                <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                                <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                                     {/* Y-axis gridlines and labels */}
                                     {yTicks.map(bw => (
                                         <g key={bw}>
@@ -4399,26 +4443,22 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                         strokeWidth="2"
                                     />
                                     
-                                    {/* Selected day/week highlight circle */}
-                                    {(() => {
+                                    {/* Data point circles */}
+                                    {chartData.map((d) => {
                                         const targetDay = viewMode === 'weekly' ? selectedWeek * 7 : selectedDay;
-                                        const selectedData = chartData.find(d => d.day === targetDay);
-                                        if (selectedData) {
-                                            const x = xScale(selectedData.day);
-                                            const y = yScale(selectedData.bw_avg);
-                                            return (
-                                                <circle
-                                                    cx={x}
-                                                    cy={y}
-                                                    r={6}
-                                                    fill="#0C3830"
-                                                    stroke="#0C3830"
-                                                    strokeWidth="2"
-                                                />
-                                            );
-                                        }
-                                        return null;
-                                    })()}
+                                        const isSelected = d.day === targetDay;
+                                        return (
+                                            <circle
+                                                key={d.day}
+                                                cx={xScale(d.day)}
+                                                cy={yScale(d.bw_avg)}
+                                                r={isSelected ? 6 : 4}
+                                                fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                                stroke="var(--fw-teal)"
+                                                strokeWidth="2"
+                                            />
+                                        );
+                                    })}
                                     
                                     {/* X-axis ticks */}
                                     {xTicks.map(day => {
@@ -4519,7 +4559,13 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     hatchability_pct: r.hatchability_pct,
                     chicks_bird_cum: r.chicks_cum,
                 }))
-                : PS_EGG_PRODUCTION;
+                : PS_EGG_PRODUCTION.map(r => ({
+                    week: r.week,
+                    ep_pct: r.ep_pct,
+                    he_pct: r.hatchability_pct,
+                    hatching_eggs_bird_week: r.hatching_eggs_bird_week,
+                    chicks_cum: r.chicks_cum,
+                }));
             
             // Y-axis ticks (every 20%)
             const yTicks = [0, 20, 40, 60, 80, 100];
@@ -4644,7 +4690,11 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             padding: '1rem',
                             overflowX: 'auto'
                         }}>
-                            <svg width={chartWidth} height={chartHeight} style={{ display: 'block' }}>
+                            <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px', marginTop: '4px' }}>
+                                <span style={{ color: 'var(--fw-teal)' }}>— EP%</span>
+                                <span style={{ color: 'var(--fw-orange)', marginLeft: '16px' }}>— HE%</span>
+                            </div>
+                            <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                                 {/* Y-axis gridlines */}
                                 {yTicks.map(tick => (
                                     <line
@@ -4711,29 +4761,54 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                     EP% (H.D.)
                                 </text>
                                 
-                                {/* Line path */}
+                                {/* EP% line */}
                                 <polyline
-                                    points={epData.map(d => `${xScale(d.week)},${yScale(d.ep_pct)}`).join(' ')}
+                                    points={epData.filter(d => d.ep_pct != null).map(d => `${xScale(d.week)},${yScale(d.ep_pct)}`).join(' ')}
                                     fill="none"
                                     stroke="var(--fw-teal)"
                                     strokeWidth="3"
                                 />
-                                
-                                {/* Single highlight circle at selected week */}
-                                {(() => {
-                                    const selectedData = epData.find(d => d.week === selectedWeek);
-                                    if (selectedData) {
-                                        return (
-                                            <circle
-                                                cx={xScale(selectedData.week)}
-                                                cy={yScale(selectedData.ep_pct)}
-                                                r="6"
-                                                fill="#0C3830"
-                                            />
-                                        );
-                                    }
-                                    return null;
-                                })()}
+
+                                {/* HE% line */}
+                                <polyline
+                                    points={epData.filter(d => d.he_pct != null).map(d => `${xScale(d.week)},${yScale(d.he_pct)}`).join(' ')}
+                                    fill="none"
+                                    stroke="var(--fw-orange)"
+                                    strokeWidth="2"
+                                    strokeDasharray="5,3"
+                                />
+
+                                {/* EP% circles */}
+                                {epData.filter(d => d.ep_pct != null).map((d) => {
+                                    const isSelected = d.week === selectedWeek;
+                                    return (
+                                        <circle
+                                            key={`ep-${d.week}`}
+                                            cx={xScale(d.week)}
+                                            cy={yScale(d.ep_pct)}
+                                            r={isSelected ? 6 : 4}
+                                            fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                            stroke="var(--fw-teal)"
+                                            strokeWidth="2"
+                                        />
+                                    );
+                                })}
+
+                                {/* HE% circles */}
+                                {epData.filter(d => d.he_pct != null).map((d) => {
+                                    const isSelected = d.week === selectedWeek;
+                                    return (
+                                        <circle
+                                            key={`he-${d.week}`}
+                                            cx={xScale(d.week)}
+                                            cy={yScale(d.he_pct)}
+                                            r={isSelected ? 6 : 4}
+                                            fill={isSelected ? 'var(--fw-orange)' : 'white'}
+                                            stroke="var(--fw-orange)"
+                                            strokeWidth="2"
+                                        />
+                                    );
+                                })}
                             </svg>
                         </div>
                     </div>
@@ -4757,7 +4832,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     egg_weight_g: null,
                     saleable_chicks_cum: r.chicks_cum,
                 }))
-                : LAYER_PS_EP;
+                : PS_EGG_PRODUCTION.map(r => ({ week: r.week, ep_pct: r.ep_pct, he_pct: r.hatchability_pct, egg_weight_g: null, saleable_chicks_cum: r.chicks_cum }));
             const selectedRow = epData.find(r => r.week === selectedWeek) || epData[0];
             const minW = 19, maxW = 75;
             const toX = (w) => ((w - minW) / (maxW - minW)) * 680 + 60;
@@ -4795,11 +4870,11 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
                             <thead>
                                 <tr style={{ background: 'var(--fw-teal)', color: 'white', position: 'sticky', top: 0 }}>
-                                    <th style={{ padding: '10px 12px', textAlign: 'left' }}>Week</th>
+                                    <th style={{ padding: '10px 12px', textAlign: 'left' }}>{t('farmguide.week') || 'Week'}</th>
                                     <th style={{ padding: '10px 12px', textAlign: 'right' }}>EP%</th>
                                     <th style={{ padding: '10px 12px', textAlign: 'right' }}>HE%</th>
-                                    <th style={{ padding: '10px 12px', textAlign: 'right' }}>Egg Wt (g)</th>
-                                    <th style={{ padding: '10px 12px', textAlign: 'right' }}>Chicks Cum.</th>
+                                    <th style={{ padding: '10px 12px', textAlign: 'right' }}>{t('farmguide.eggWtG') || 'Egg Wt (g)'}</th>
+                                    <th style={{ padding: '10px 12px', textAlign: 'right' }}>{t('farmguide.chicksCum') || 'Chicks Cum.'}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -4830,7 +4905,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             <span style={{ color: 'var(--fw-teal)' }}>— EP%</span>
                             <span style={{ color: 'var(--fw-orange)', marginLeft: '16px' }}>— HE%</span>
                         </div>
-                        <svg viewBox="0 0 800 280" style={{ width: '100%', minWidth: '400px' }}>
+                        <svg width="100%" height="280" viewBox="0 0 800 280" style={{ overflow: 'visible' }}>
                             {yTicks.map(y => (
                                 <g key={y}>
                                     <line x1="60" y1={toY(y)} x2="760" y2={toY(y)} stroke="#E5E7EB" strokeWidth="1" />
@@ -4842,10 +4917,26 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             ))}
                             <path d={epLine} fill="none" stroke="var(--fw-teal)" strokeWidth="2.5" />
                             <path d={heLine} fill="none" stroke="var(--fw-orange)" strokeWidth="2" strokeDasharray="5,3" />
-                            {selectedRow && selectedRow.ep_pct != null && (
-                                <circle cx={toX(selectedRow.week)} cy={toY(selectedRow.ep_pct)} r="5"
-                                    fill="var(--fw-teal)" stroke="white" strokeWidth="2" />
-                            )}
+                            {epData.filter(r => r.ep_pct != null).map(r => {
+                                const isSelected = r.week === selectedWeek;
+                                return (
+                                    <circle key={`ep-${r.week}`}
+                                        cx={toX(r.week)} cy={toY(r.ep_pct)}
+                                        r={isSelected ? 6 : 4}
+                                        fill={isSelected ? 'var(--fw-teal)' : 'white'}
+                                        stroke="var(--fw-teal)" strokeWidth="2" />
+                                );
+                            })}
+                            {epData.filter(r => r.he_pct != null).map(r => {
+                                const isSelected = r.week === selectedWeek;
+                                return (
+                                    <circle key={`he-${r.week}`}
+                                        cx={toX(r.week)} cy={toY(r.he_pct)}
+                                        r={isSelected ? 6 : 4}
+                                        fill={isSelected ? 'var(--fw-orange)' : 'white'}
+                                        stroke="var(--fw-orange)" strokeWidth="2" />
+                                );
+                            })}
                         </svg>
                     </div>
                 </div>
@@ -4853,6 +4944,11 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         }
 
         if (module === 'color_ps') {
+            if (psPhase === 'rearing') return (
+                <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)', fontSize: '14px' }}>
+                    🥚 {t('farmguide.epStartsW19') || 'Egg production data starts from Week 19 (Production phase).'}
+                </div>
+            );
             const productionRows = (bwData?.weeklyProduction || []).filter(r => r.age_weeks >= 22);
             if (productionRows.length === 0) return (
                 <div style={{ padding: '2rem', textAlign: 'center', color: '#4A6B4A' }}>
@@ -4954,10 +5050,10 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             );
                         })}
                     </div>
-                    <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '16px' }}>Egg Production Curve</div>
+                    <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '16px' }}>{t('farmguide.epCurve') || 'Egg Production Curve'}</div>
                     <div style={{ background: 'white', borderRadius: '10px', border: '1px solid #DFF0E6', padding: '16px', overflowX: 'auto', marginTop: '8px' }}>
                         <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px', color: '#2EAA5E' }}>— Prod %</div>
-                        <svg viewBox="0 0 800 300" style={{ width: '100%', minWidth: '400px' }}>
+                        <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                             {[0,20,40,60,80,100].map(y => (
                                 <g key={y}>
                                     <line x1="40" y1={toY(y)} x2="760" y2={toY(y)} stroke="#E5E7EB" strokeWidth="1" />
@@ -4965,9 +5061,16 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 </g>
                             ))}
                             <path d={epPathD} fill="none" stroke="#2EAA5E" strokeWidth="2.5" />
-                            {selectedRow?.hen_housed_pct != null && (
-                                <circle cx={toX(selectedRow.age_weeks)} cy={toY(selectedRow.hen_housed_pct)} r="5" fill="#2EAA5E" stroke="white" strokeWidth="2" />
-                            )}
+                            {epRows.map(r => {
+                                const isSelected = Number(r.age_weeks) === Number(selectedWeek);
+                                return (
+                                    <circle key={r.age_weeks}
+                                        cx={toX(r.age_weeks)} cy={toY(r.hen_housed_pct)}
+                                        r={isSelected ? 6 : 4}
+                                        fill={isSelected ? '#2EAA5E' : 'white'}
+                                        stroke="#2EAA5E" strokeWidth="2" />
+                                );
+                            })}
                             {epRows.filter((_, i) => i % Math.ceil(epRows.length / 8) === 0).map(r => (
                                 <text key={r.age_weeks} x={toX(r.age_weeks)} y="290" textAnchor="middle" fontSize="10" fill="#6B7280">W{r.age_weeks}</text>
                             ))}
@@ -5693,7 +5796,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                     fontSize: '11px', padding: '3px 10px',
                                     background: 'var(--fw-teal-lt, #E6F5F2)',
                                     color: 'var(--fw-teal)', borderRadius: '20px', fontWeight: '600',
-                                }}>Verified</span>
+                                }}>{t('farmguide.verified') || 'Verified'}</span>
                             </div>
                         ))}
                     </div>
@@ -5801,7 +5904,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     )}
                 </p>
 
-                <h4 style={{ marginBottom: '8px' }}>Methodology</h4>
+                <h4 style={{ marginBottom: '8px' }}>{t('farmguide.methodology') || 'Methodology'}</h4>
                 <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
                     {isColorChicken ? (
                         <>
@@ -5819,7 +5922,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     )}
                 </p>
 
-                <h4 style={{ marginBottom: '12px' }}>References</h4>
+                <h4 style={{ marginBottom: '12px' }}>{t('farmguide.references') || 'References'}</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
                     {(isColorChicken ? [
                         { title: 'Color Chicken Commercial Management Guide',     year: '2023', type: 'Management Guide'   },

@@ -151,7 +151,7 @@ export default function DailyEntry({ flock, history, onSave, onClose, t, module,
               📋 {t('farmguide.stdReference') || 'Referensi Standar'} {t('farmguide.day')} {selectedDay}
             </div>
             <div>🐔 BW Range: <strong>{std.bw_low_alert}–{std.bw_high_alert} g</strong> (avg {std.bw_avg})</div>
-            <div>🌾 {t('farmguide.feedPerDay') || 'Feed/hari'}: <strong>{std.feed_min}–{std.feed_max} g</strong> (avg {std.feed_avg})</div>
+            <div>🌾 {t('farmguide.feedPerDay') || 'Feed/hari'}: <strong>{std.feed_min != null ? `${std.feed_min}–${std.feed_max} g` : `${std.feed_avg} g`}</strong>{std.feed_min != null ? ` (avg ${std.feed_avg})` : ''}</div>
           </div>
         )}
 
