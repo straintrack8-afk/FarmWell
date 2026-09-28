@@ -62,26 +62,6 @@ function HomePage() {
 
             <div className="fw-mod-card" style={{ marginTop: -18, borderRadius: '16px 16px 12px 12px' }}>
                 <div className="fw-mod-content">
-                    {/* Under Construction Banner */}
-                    <div style={{
-                        background: '#FFF8E1', border: '1.5px solid #F9A825',
-                        borderRadius: 10, padding: '10px 14px',
-                        display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16
-                    }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F9A825" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-                        </svg>
-                        <div>
-                            <div style={{ fontWeight: 700, fontSize: 13, color: '#E65100' }}>
-                                {language === 'vi' ? 'Đang Phát Triển' : language === 'id' ? 'Sedang Dikembangkan' : 'Under Construction'}
-                            </div>
-                            <div style={{ fontSize: 11, color: '#795548', marginTop: 2 }}>
-                                {language === 'vi' ? 'PigWell đang được cải tiến.' : language === 'id' ? 'PigWell sedang dalam pengembangan.' : 'PigWell is being improved. Some features may change.'}
-                            </div>
-                        </div>
-                    </div>
-
                     {/* Tagline */}
                     <p style={{ fontSize: 13, color: 'var(--fw-sub)', textAlign: 'center', marginBottom: 20, lineHeight: 1.6 }}>
                         {tagline[language]}
