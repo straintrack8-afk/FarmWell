@@ -2918,6 +2918,60 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             </div>
                         </div>
                     ))}
+                    {/* Production Feed Intake Bar Chart */}
+                    <div style={{ marginTop: '8px' }}>
+                        <div style={{ fontWeight: '600', fontSize: '14px', marginBottom: '8px', color: 'var(--fw-text)' }}>
+                            Feed Intake by Phase (g/bird/day)
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '10px', border: '1px solid #DFF0E6', padding: '16px' }}>
+                            <svg width="100%" height="200" viewBox="0 0 800 200" style={{ overflow: 'visible' }}>
+                                {/* Gridlines */}
+                                {[0, 40, 80, 120].map(v => (
+                                    <g key={v}>
+                                        <line x1="60" y1={170 - (v / 120) * 140} x2="780" y2={170 - (v / 120) * 140}
+                                            stroke="#E5E7EB" strokeWidth="1" strokeDasharray="4,4" />
+                                        <text x="52" y={174 - (v / 120) * 140} textAnchor="end" fontSize="11" fill="#9CA3AF">{v}g</text>
+                                    </g>
+                                ))}
+                                {/* Bars */}
+                                {[
+                                    { label: 'W19–30', value: 115, phase: 'Phase 1' },
+                                    { label: 'W31–50', value: 110, phase: 'Phase 2' },
+                                    { label: 'W51–75', value: 105, phase: 'Phase 3' },
+                                ].map((bar, i) => {
+                                    const barW = 160;
+                                    const gap = 80;
+                                    const x = 100 + i * (barW + gap);
+                                    const barH = (bar.value / 120) * 140;
+                                    const y = 170 - barH;
+                                    const isActive = (
+                                        (i === 0 && selectedWeek >= 19 && selectedWeek <= 30) ||
+                                        (i === 1 && selectedWeek >= 31 && selectedWeek <= 50) ||
+                                        (i === 2 && selectedWeek >= 51)
+                                    );
+                                    return (
+                                        <g key={i}>
+                                            <rect x={x} y={y} width={barW} height={barH}
+                                                fill={isActive ? 'var(--fw-teal)' : '#A8D5BE'}
+                                                rx="6" />
+                                            <text x={x + barW / 2} y={y - 6} textAnchor="middle"
+                                                fontSize="12" fontWeight="700"
+                                                fill={isActive ? 'var(--fw-teal)' : '#4A6B4A'}>
+                                                {bar.value}g
+                                            </text>
+                                            <text x={x + barW / 2} y="188" textAnchor="middle"
+                                                fontSize="11" fill="#6B7280">{bar.label}</text>
+                                            <text x={x + barW / 2} y="200" textAnchor="middle"
+                                                fontSize="10" fill="#9CA3AF">{bar.phase}</text>
+                                        </g>
+                                    );
+                                })}
+                                {/* Y axis */}
+                                <line x1="60" y1="20" x2="60" y2="170" stroke="#E5E7EB" strokeWidth="1.5" />
+                                <line x1="60" y1="170" x2="780" y2="170" stroke="#E5E7EB" strokeWidth="1.5" />
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             );
         }
