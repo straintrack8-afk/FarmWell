@@ -5017,6 +5017,8 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             const toX = (w) => ((w - minEPW) / Math.max(maxEPW - minEPW, 1)) * 720 + 40;
             const toY = (v) => 270 - (v / 100) * 230;
             const epPathD = epRows.map((r, i) => `${i === 0 ? 'M' : 'L'} ${toX(r.age_weeks)} ${toY(r.hen_housed_pct)}`).join(' ');
+            const heRows = productionRows.filter(r => r.hatchability_pct != null);
+            const hePathD = heRows.map((r, i) => `${i === 0 ? 'M' : 'L'} ${toX(r.age_weeks)} ${toY(r.hatchability_pct)}`).join(' ');
             return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                     {/* Section header */}
@@ -5106,7 +5108,10 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     </div>
                     <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '16px' }}>{t('farmguide.epCurve') || 'Egg Production Curve'}</div>
                     <div style={{ background: 'white', borderRadius: '10px', border: '1px solid #DFF0E6', padding: '16px', overflowX: 'auto', marginTop: '8px' }}>
-                        <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px', color: '#2EAA5E' }}>— Prod %</div>
+                        <div style={{ fontSize: '13px', fontWeight: '600', marginBottom: '8px' }}>
+                            <span style={{ color: '#2EAA5E' }}>— Prod %</span>
+                            <span style={{ color: 'var(--fw-orange)', marginLeft: '16px' }}>— HE%</span>
+                        </div>
                         <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                             {[0,20,40,60,80,100].map(y => (
                                 <g key={y}>
@@ -5115,14 +5120,25 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 </g>
                             ))}
                             <path d={epPathD} fill="none" stroke="#2EAA5E" strokeWidth="2.5" />
+                            {hePathD && <path d={hePathD} fill="none" stroke="var(--fw-orange)" strokeWidth="2" strokeDasharray="5,3" />}
                             {epRows.map(r => {
                                 const isSelected = Number(r.age_weeks) === Number(selectedWeek);
                                 return (
-                                    <circle key={r.age_weeks}
+                                    <circle key={`ep-${r.age_weeks}`}
                                         cx={toX(r.age_weeks)} cy={toY(r.hen_housed_pct)}
                                         r={isSelected ? 6 : 4}
                                         fill={isSelected ? '#2EAA5E' : 'white'}
                                         stroke="#2EAA5E" strokeWidth="2" />
+                                );
+                            })}
+                            {heRows.map(r => {
+                                const isSelected = Number(r.age_weeks) === Number(selectedWeek);
+                                return (
+                                    <circle key={`he-${r.age_weeks}`}
+                                        cx={toX(r.age_weeks)} cy={toY(r.hatchability_pct)}
+                                        r={isSelected ? 6 : 4}
+                                        fill={isSelected ? 'var(--fw-orange)' : 'white'}
+                                        stroke="var(--fw-orange)" strokeWidth="2" />
                                 );
                             })}
                             {epRows.filter((_, i) => i % Math.ceil(epRows.length / 8) === 0).map(r => (
@@ -5937,6 +5953,68 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             );
         }
         
+        if (module === 'color_ps') {
+            const breedName = bwData?.breedLabel || 'JA57';
+            return (
+                <div style={{ maxWidth: '700px', padding: '8px 0' }}>
+                    <h3 style={{ marginBottom: '8px' }}>
+                        {t('farmguide.aboutStandards') || 'About These Standards'}
+                    </h3>
+                    <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
+                        Performance standards for <strong>{breedName}</strong> color parent stock in this app are sourced
+                        directly from the breed management handbook. Values represent breed-specific guidelines
+                        for rearing (W1–W24) and production (W25–W70) phases.
+                    </p>
+
+                    <h4 style={{ marginBottom: '8px' }}>{t('farmguide.methodology') || 'Methodology'}</h4>
+                    <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
+                        Body weight and egg production data are taken directly from the {breedName} breed handbook.
+                        Feed intake targets for rearing are breed-specific. Production egg production (EP%) and
+                        hatching egg data follow the handbook values. An acceptable tolerance of ±3% is applied
+                        to account for normal on-farm variation.
+                    </p>
+
+                    <h4 style={{ marginBottom: '12px' }}>{t('farmguide.references') || 'References'}</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
+                        {[
+                            { title: `${breedName} Parent Stock Management Guide`, year: '2024', type: 'Management Guide' },
+                            { title: `${breedName} Performance Objectives`,         year: '2023', type: 'Performance Data' },
+                            { title: 'Color Chicken PS Pocket Guide',               year: '2024', type: 'Field Reference'  },
+                        ].map((ref, i) => (
+                            <div key={i} style={{
+                                padding: '12px 16px', background: 'white',
+                                borderRadius: '8px', border: '1px solid var(--fw-border)',
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                            }}>
+                                <div>
+                                    <div style={{ fontWeight: '600', fontSize: '14px' }}>{ref.title}</div>
+                                    <div style={{ fontSize: '12px', color: 'var(--fw-sub)', marginTop: '2px' }}>
+                                        {ref.type} · {ref.year}
+                                    </div>
+                                </div>
+                                <span style={{
+                                    fontSize: '11px', padding: '3px 10px',
+                                    background: 'var(--fw-teal-lt, #E6F5F2)',
+                                    color: 'var(--fw-teal)', borderRadius: '20px', fontWeight: '600',
+                                }}>{t('farmguide.verified') || 'Verified'}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div style={{
+                        background: '#FFF9EC', border: '1px solid #F6D860',
+                        borderRadius: '8px', padding: '14px 16px',
+                        fontSize: '13px', color: '#6b5b00', lineHeight: '1.6',
+                    }}>
+                        <strong>⚠ Disclaimer:</strong> Performance data shown in this application
+                        is sourced from breed management handbooks and represents general guidance only.
+                        Actual performance will vary based on genetics, environment, nutrition, health
+                        status, and management practices.
+                    </div>
+                </div>
+            );
+        }
+
         const isColorChicken = module === 'color_chicken';
         
         return (

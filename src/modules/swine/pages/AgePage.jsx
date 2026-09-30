@@ -114,6 +114,7 @@ function AgePage() {
             'Growers': t('growers'),
             'Finishers': t('finishers'),
             'Sows / Gilts': t('sows'),
+            'Sows': t('sows'),
             'Boars': t('boars'),
         };
         return map[ageId] || ageId;
@@ -128,6 +129,7 @@ function AgePage() {
             'Growers': t('growersDesc'),
             'Finishers': t('finishersDesc'),
             'Sows / Gilts': t('sowsDesc'),
+            'Sows': t('sowsDesc'),
             'Boars': t('boarsDesc'),
         };
         return map[ageId] || '';
