@@ -438,9 +438,14 @@ export const DiagnosisProvider = ({ children }) => {
       });
     });
     
-    // Extract unique symptoms from current language diseases
+    // Filter diseases by selected age before extracting symptoms
+    const ageFilteredDiseases = (selectedAge && selectedAge !== 'All ages' && filterDiseasesByAge)
+      ? filterDiseasesByAge(diseases, selectedAge)
+      : diseases;
+
+    // Extract unique symptoms from age-filtered diseases
     const symptomMap = new Map();
-    diseases.forEach(disease => {
+    ageFilteredDiseases.forEach(disease => {
       (disease.symptomsEnhanced || []).forEach(symptom => {
         if (symptom.id && symptom.name && !symptomMap.has(symptom.id)) {
           symptomMap.set(symptom.id, symptom.name);
@@ -500,7 +505,7 @@ export const DiagnosisProvider = ({ children }) => {
     });
 
     return categories;
-  }, [diseases, englishDiseases, language]);
+  }, [diseases, englishDiseases, language, selectedAge, filterDiseasesByAge]);
 
   // Toggle symptom selection
   const toggleSymptom = (symptom) => {

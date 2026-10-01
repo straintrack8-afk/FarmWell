@@ -53,7 +53,8 @@ const DiseaseDiagnosisNew = () => {
   const ageLabel = selectedAge || 'All ages';
 
   const handleToggleSym = (symptom) => {
-    toggleSymptom(symptom);
+    const symName = typeof symptom === 'string' ? symptom : symptom.name || symptom;
+    toggleSymptom(symName);
     setTimeout(() => calculateResults(), 0);
   };
 
