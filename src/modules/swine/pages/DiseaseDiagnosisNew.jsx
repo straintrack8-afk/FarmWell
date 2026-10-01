@@ -72,7 +72,7 @@ const DiseaseDiagnosisNew = () => {
   useEffect(() => {
     calculateResults();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSymptoms.length]);
+  }, [selectedSymptoms]);
 
   const activeSymptoms = useMemo(() => {
     if (!symptomCategories) return [];
