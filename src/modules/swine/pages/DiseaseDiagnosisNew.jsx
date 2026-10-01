@@ -55,12 +55,10 @@ const DiseaseDiagnosisNew = () => {
   const handleToggleSym = (symptom) => {
     const symName = typeof symptom === 'string' ? symptom : symptom.name || symptom;
     toggleSymptom(symName);
-    setTimeout(() => calculateResults(), 0);
   };
 
   const handleClearAll = () => {
     clearSymptoms();
-    setTimeout(() => calculateResults(), 0);
   };
 
   const selectCategory = (catId) => {
@@ -72,9 +70,7 @@ const DiseaseDiagnosisNew = () => {
   };
 
   useEffect(() => {
-    if (selectedSymptoms.length > 0) {
-      calculateResults();
-    }
+    calculateResults();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSymptoms.length]);
 
