@@ -130,9 +130,9 @@ const PS_COLOR_BREEDS = [
 
         stats: [
 
-            { label: 'Rearing', value: 'W1â€“W24' },
+            { label: 'Rearing', value: 'W1-W24' },
 
-            { label: 'Production', value: 'W25â€“W70' },
+            { label: 'Production', value: 'W25-W70' },
 
         ],
 
@@ -152,9 +152,9 @@ const PS_COLOR_BREEDS = [
 
         stats: [
 
-            { label: 'Rearing', value: 'W1â€“W24' },
+            { label: 'Rearing', value: 'W1-W24' },
 
-            { label: 'Production', value: 'W25â€“W70' },
+            { label: 'Production', value: 'W25-W70' },
 
         ],
 
@@ -180,7 +180,7 @@ const PS_LAYER_BREEDS = [
 
         stats: [
 
-            { label: 'Age 50% prod.', value: 'W21Ã¢â‚¬â€œ22' },
+            { label: 'Age 50% prod.', value: 'W21-22' },
 
             { label: 'Peak prod.', value: '92.9%' },
 
@@ -200,7 +200,7 @@ const PS_LAYER_BREEDS = [
 
         stats: [
 
-            { label: 'Age 50% prod.', value: 'W20Ã¢â‚¬â€œ21' },
+            { label: 'Age 50% prod.', value: 'W20-21' },
 
             { label: 'Peak prod.', value: '93.2%' },
 
@@ -242,7 +242,7 @@ const PS_LAYER_BREEDS = [
 
         stats: [
 
-            { label: 'Age 50% prod.', value: 'W20Ã¢â‚¬â€œ21' },
+            { label: 'Age 50% prod.', value: 'W20-21' },
 
             { label: 'Peak prod.', value: '92.5%' },
 
@@ -378,8 +378,8 @@ const LAYER_COMMERCIAL_BREEDS = [
     badge: 'Hy-Line International',
     jsonFile: '/data/farmguide_data/breeds/layer_commercial_hyline_brown.json',
     stats: [
-      { label: 'Peak prod.', value: '93.6â€“98.5%' },
-      { label: 'Avg egg wt', value: '61.2â€“65.0g' },
+      { label: 'Peak prod.', value: '93.6-98.5%' },
+      { label: 'Avg egg wt', value: '61.2-65.0g' },
     ],
   },
   {
@@ -556,7 +556,7 @@ function BreedSelector() {
 
                     <div className="fw-welcome-section-label">
 
-                        FarmGuide â€” {getModuleName()}
+                        FarmGuide  -  {getModuleName()}
 
                     </div>
 
