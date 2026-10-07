@@ -877,7 +877,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             { id: 'feed', label: t('farmguide.tabFeed') || 'Feed Program' },
             { id: 'bw', label: t('farmguide.tabBW') || 'Body Weight' },
             { id: 'checklist', label: t('farmguide.tabChecklist') || 'Checklist' },
-            { id: 'references', label: 'References' },
+            { id: 'references', label: t('farmguide.references') },
         ];
         
         // Add Egg Production tab for Layer and Parent Stock modules
@@ -888,7 +888,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 { id: 'bw', label: t('farmguide.tabBW') || 'Body Weight' },
                 { id: 'eggProduction', label: t('farmguide.eggProduction') || 'Egg Production' },
                 { id: 'checklist', label: t('farmguide.tabChecklist') || 'Checklist' },
-                { id: 'references', label: 'References' },
+                { id: 'references', label: t('farmguide.references') },
             ];
         }
         
@@ -899,7 +899,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 { id: 'bw', label: t('farmguide.tabBW') || 'Body Weight' },
                 { id: 'eggProduction', label: t('farmguide.eggProduction') || 'Egg Production' },
                 { id: 'checklist', label: t('farmguide.tabChecklist') || 'Checklist' },
-                { id: 'references', label: 'References' },
+                { id: 'references', label: t('farmguide.references') },
             ];
         }
 
@@ -910,7 +910,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 { id: 'bw', label: t('farmguide.tabBW') || 'Body Weight' },
                 { id: 'eggProduction', label: t('farmguide.eggProduction') || 'Egg Production' },
                 { id: 'checklist', label: t('farmguide.tabChecklist') || 'Checklist' },
-                { id: 'references', label: 'References' },
+                { id: 'references', label: t('farmguide.references') },
             ];
         }
 
@@ -921,7 +921,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 { id: 'bw', label: t('farmguide.tabBW') || 'Body Weight' },
                 { id: 'eggProduction', label: t('farmguide.eggProduction') || 'Egg Production' },
                 { id: 'checklist', label: t('farmguide.tabChecklist') || 'Checklist' },
-                { id: 'references', label: 'References' },
+                { id: 'references', label: t('farmguide.references') },
             ];
         }
         
@@ -5835,7 +5835,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     </p>
 
                     <h4 style={{ marginBottom: '12px' }}>
-                        {'References'}
+                        {t('farmguide.references')}
                     </h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
                         {[
@@ -5894,7 +5894,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         {t('farmguide.psMethodologyLayer')}
                     </p>
 
-                    <h4 style={{ marginBottom: '12px' }}>{'References'}</h4>
+                    <h4 style={{ marginBottom: '12px' }}>{t('farmguide.references')}</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
                         {[
                             { title: 'Layer PS Management Handbook',      year: '2023', type: 'Management Guide' },
@@ -5985,10 +5985,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         borderRadius: '8px', padding: '14px 16px',
                         fontSize: '13px', color: '#6b5b00', lineHeight: '1.6',
                     }}>
-                        <strong>⚠ Disclaimer:</strong> Performance data shown in this application
-                        is sourced from breed management handbooks and represents general guidance only.
-                        Actual performance will vary based on genetics, environment, nutrition, health
-                        status, and management practices.
+                        <strong>⚠ Disclaimer:</strong> {t('farmguide.disclaimerShort')}
                     </div>
                 </div>
             );
