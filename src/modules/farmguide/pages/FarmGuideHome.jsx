@@ -293,7 +293,7 @@ function FarmGuideHome() {
             <div className="fw-mod-card">
                 <div className="fw-mod-content">
                     <div className="fw-welcome-section-label">
-                        FarmGuide � All Modules
+                        {t('farmguide.title')} — {t('farmguide.allModules')}
                     </div>
 
                     {/* Commercial section */}
