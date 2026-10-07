@@ -973,7 +973,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             if (isPSBrooding) {
                 // BROODING MODE (W1, D1-D28)
                 const dayData = PS_BROODING_DAILY[psBroodingDay - 1];
-                if (!dayData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+                if (!dayData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
                 
                 return (
                     <div>
@@ -1111,7 +1111,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 for (const entry of psEnvFiltered) {
                     if (entry.week <= selectedWeek) weekData = entry;
                 }
-                if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+                if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
                 
                 const env = weekData.environment;
                 
@@ -1318,7 +1318,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             for (const entry of psEnvEntries) {
                 if (entry.week <= selectedWeek) weekData = entry;
             }
-            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
             const rawEnv = weekData.environment;
             const resolveField = (f) => f ? (typeof f === 'object' ? (f[lang] ?? f.en ?? '') : f) : '';
             const env = {
@@ -1472,7 +1472,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         if (module === 'color_ps') {
             const guideWeek = Math.min(selectedWeek, 18);
             const weekData = COLOR_CHICKEN_GUIDE[guideWeek - 1];
-            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
             const env = weekData.environment;
             return (
                 <div>
@@ -1516,7 +1516,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
 
         if (module === 'color_chicken') {
             const weekData = COLOR_CHICKEN_GUIDE[selectedWeek - 1];
-            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
             
             const env = weekData.environment;
             
@@ -1674,7 +1674,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         // Layer module
         if (module === 'layer') {
             const weekData = LAYER_GUIDE[selectedWeek - 1];
-            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
             
             const env = weekData.environment;
             
@@ -2113,7 +2113,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         
         if (module === 'broiler' || module === 'color_chicken') {
             const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
-            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
             
             const feedInfo = weekData.feed;
             
@@ -2162,7 +2162,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                                 fontSize: '0.875rem',
                                 color: 'var(--fw-text)'
                             }}>
-                                <strong>Air:</strong> {feedInfo.water}
+                                <strong>{t('farmguide.airLabel')}:</strong> {feedInfo.water}
                             </div>
                         </div>
                     )}
@@ -2921,7 +2921,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                     {/* Production Feed Intake Bar Chart */}
                     <div style={{ marginTop: '8px' }}>
                         <div style={{ fontWeight: '600', fontSize: '14px', marginBottom: '8px', color: 'var(--fw-text)' }}>
-                            Feed Intake by Phase (g/bird/day)
+                            {t('farmguide.feedIntakeByPhase')}
                         </div>
                         <div style={{ background: 'white', borderRadius: '10px', border: '1px solid #DFF0E6', padding: '16px' }}>
                             <svg width="100%" height="200" viewBox="0 0 800 200" style={{ overflow: 'visible' }}>
@@ -3233,7 +3233,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         }
         
         if (!feedData) {
-            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
+            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.loading')}</div>;
         }
         
         const getFeedPhase = (week) => {
@@ -3247,7 +3247,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         const phase = feedData.feed_phases.phases.find(p => p.phase_id === phaseId);
         
         if (!phase) {
-            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
         }
         
         const targetDay = selectedWeek * 7;
@@ -3811,7 +3811,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                             );
                         })}
                     </div>
-                    <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '16px' }}>Standard BW Curve</div>
+                    <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '16px' }}>{t('farmguide.bwChart')}</div>
                     <div style={{ background: 'white', borderRadius: '10px', border: '1px solid #DFF0E6', padding: '16px', overflowX: 'auto', marginTop: '8px' }}>
                         <svg width="100%" height="300" viewBox="0 0 800 300" style={{ overflow: 'visible' }}>
                             {[0,1,2,3,4].map(i => (
@@ -3843,7 +3843,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         // Handle daily view for Broiler and Color Chicken
         if (viewMode === 'daily' && module === 'broiler') {
             if (!bwData || !bwData.dailyStandard) {
-                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
+                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.loading')}</div>;
             }
             tableData = bwData.dailyStandard.map(row => ({
                 day: row.day,
@@ -3862,7 +3862,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             }));
         } else if (module === 'broiler') {
             if (!bwData || !bwData.weeklyStandard) {
-                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
+                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.loading')}</div>;
             }
             tableData = bwData.weeklyStandard.map(row => ({
                 week: row.week,
@@ -3871,7 +3871,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 gain: row.gain_g
             }));
         } else if (!bwData) {
-            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
+            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.loading')}</div>;
         } else if (module === 'layer') {
             const _lRows = layerBreedData
                 ? Array.from({ length: 80 }, (_, i) => i + 1)
@@ -3896,7 +3896,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             }));
         } else if (module === 'parent_stock') {
             if (!bwData) {
-                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>Loading...</div>;
+                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.loading')}</div>;
             }
             
             const sex = flockContext?.sex || 'female';
@@ -3910,7 +3910,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             }
             
             if (!Array.isArray(rawData) || rawData.length === 0) {
-                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available for this breed and sex combination.</div>;
+                return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataBreedSex')}</div>;
             }
             
             const weekMap = new Map();
@@ -3933,7 +3933,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         }
         
         if (tableData.length === 0) {
-            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
         }
         
         return (
@@ -5358,7 +5358,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             if (isPSBrooding) {
                 // DAILY MODE (W1, D1-D28)
                 const dayData = PS_CHECKLIST_DAILY[psBroodingDay - 1];
-                if (!dayData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+                if (!dayData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
                 
                 const routineItems = dayData.routine || [];
                 const milestoneItems = dayData.milestone || [];
@@ -5470,7 +5470,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             } else {
                 // WEEKLY MODE (W2-W64)
                 const weekData = BROILER_PS_GUIDE.find(w => w.week === selectedWeek);
-                if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+                if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
                 
                 const items = weekData.checklist || [];
                 const completedCount = items.filter((item, idx) => checkedItems[`ps-w${selectedWeek}-${idx}`]).length;
@@ -5533,7 +5533,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         if (module === 'color_ps') {
             const guideWeek = Math.min(selectedWeek, 18);
             const weekData = COLOR_CHICKEN_GUIDE[guideWeek - 1];
-            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
             const items = weekData.checklist || [];
             const completedCount = items.filter(item => checkedItems[item.id]).length;
             const totalCount = items.length;
@@ -5577,7 +5577,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
 
         if (module === 'broiler' || module === 'color_chicken') {
             const weekData = module === 'broiler' ? BROILER_GUIDE[selectedWeek - 1] : COLOR_CHICKEN_GUIDE[selectedWeek - 1];
-            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
             
             const items = weekData.checklist || [];
             const completedCount = items.filter(item => checkedItems[item.id]).length;
@@ -5629,7 +5629,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         fontSize: '0.875rem',
                         color: 'var(--fw-text)'
                     }}>
-                        <strong>Focus:</strong> {weekData.titleKey ? (tSafe('farmguide.' + weekData.titleKey) ?? weekData.title) : weekData.title}
+                        <strong>{t('farmguide.focusLabel')}:</strong> {weekData.titleKey ? (tSafe('farmguide.' + weekData.titleKey) ?? weekData.title) : weekData.title}
                     </div>
                     
                     {/* Checklist Items */}
@@ -5695,7 +5695,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
         // Layer module
         if (module === 'layer') {
             const weekData = LAYER_GUIDE[selectedWeek - 1];
-            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>No data available</div>;
+            if (!weekData) return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--fw-sub)' }}>{t('farmguide.noDataAvailable')}</div>;
             
             const items = weekData.checklist || [];
             const completedCount = items.filter(item => checkedItems[item.id]).length;
@@ -5824,22 +5824,14 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         {t('farmguide.aboutStandards') || 'About These Standards'}
                     </h3>
                     <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
-                        Performance standards for broiler parent stock (PS) in this app represent{' '}
-                        <strong>averaged ranges</strong> derived from multiple PS breed management
-                        handbooks. Values are general guidelines for PS rearing and production —
-                        not specifications from any specific breed or genetics company.
+                        {t('farmguide.psStandardsNote')}
                     </p>
 
                     <h4 style={{ marginBottom: '8px' }}>
                         {'Methodology'}
                     </h4>
                     <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
-                        Body weight standards are derived by averaging performance data from
-                        multiple PS breed handbooks covering both rearing (W1–W24) and
-                        production (W25–W64) phases, for both male and female separately.
-                        Feed and egg production data follow the same multi-source averaging
-                        approach. An acceptable tolerance of ±3% is applied to account for
-                        normal on-farm variation.
+                        {t('farmguide.psMethodologyBroiler')}
                     </p>
 
                     <h4 style={{ marginBottom: '12px' }}>
@@ -5894,20 +5886,12 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         {t('farmguide.aboutStandards') || 'About These Standards'}
                     </h3>
                     <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
-                        Performance standards for layer parent stock (Layer PS) in this app represent{' '}
-                        <strong>averaged ranges</strong> derived from multiple layer PS breed management
-                        handbooks. Values are general guidelines for Layer PS rearing and production —
-                        not specifications from any specific breed or genetics company.
+                        {t('farmguide.layerPsStandardsNote')}
                     </p>
 
                     <h4 style={{ marginBottom: '8px' }}>{'Methodology'}</h4>
                     <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
-                        Body weight standards are derived by averaging performance data from
-                        multiple Layer PS breed handbooks covering both rearing (W1–W18) and
-                        production (W19–W75) phases, for both male and female separately.
-                        Feed and egg production data follow the same multi-source averaging
-                        approach. An acceptable tolerance of ±3% is applied to account for
-                        normal on-farm variation.
+                        {t('farmguide.psMethodologyLayer')}
                     </p>
 
                     <h4 style={{ marginBottom: '12px' }}>{'References'}</h4>
@@ -5961,17 +5945,12 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                         {t('farmguide.aboutStandards') || 'About These Standards'}
                     </h3>
                     <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
-                        Performance standards for <strong>{breedName}</strong> color parent stock in this app are sourced
-                        directly from the breed management handbook. Values represent breed-specific guidelines
-                        for rearing (W1–W24) and production (W25–W70) phases.
+                        {t('farmguide.colorPsAboutStandards').replace('{breed}', breedName)}
                     </p>
 
                     <h4 style={{ marginBottom: '8px' }}>{t('farmguide.methodology') || 'Methodology'}</h4>
                     <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
-                        Body weight and egg production data are taken directly from the {breedName} breed handbook.
-                        Feed intake targets for rearing are breed-specific. Production egg production (EP%) and
-                        hatching egg data follow the handbook values. An acceptable tolerance of ±3% is applied
-                        to account for normal on-farm variation.
+                        {t('farmguide.colorPsMethodology').replace('{breed}', breedName)}
                     </p>
 
                     <h4 style={{ marginBottom: '12px' }}>{t('farmguide.references') || 'References'}</h4>
@@ -6021,37 +6000,12 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
             <div style={{ maxWidth: '700px', padding: '8px 0' }}>
                 <h3 style={{ marginBottom: '8px' }}>{t('farmguide.aboutStandards') || 'About These Standards'}</h3>
                 <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
-                    {isColorChicken ? (
-                        <>
-                            Performance standards for color chicken in this app represent <strong>averaged ranges</strong> derived
-                            from multiple commercial slow-growing breed handbooks. Values are general guidelines — not
-                            specifications from any specific breed or company.
-                        </>
-                    ) : (
-                        <>
-                            Performance standards in this app represent <strong>averaged ranges</strong> derived
-                            from multiple commercial broiler industry handbooks. Values are general guidelines
-                            for broiler production — not specifications from any specific breed or company.
-                        </>
-                    )}
+                    {isColorChicken ? t('farmguide.colorChickenAboutStandards') : t('farmguide.broilerAboutStandards')}
                 </p>
 
                 <h4 style={{ marginBottom: '8px' }}>{t('farmguide.methodology') || 'Methodology'}</h4>
                 <p style={{ color: 'var(--fw-sub)', lineHeight: '1.7', marginBottom: '24px', fontSize: '14px' }}>
-                    {isColorChicken ? (
-                        <>
-                            Body weight and feed intake ranges are derived from averaging performance data across
-                            Choi and Mia color chicken variants. An acceptable tolerance of ±5% is applied to
-                            account for normal on-farm variation.
-                        </>
-                    ) : (
-                        <>
-                            Body weight and feed intake ranges are derived by averaging performance data
-                            from multiple commercial broiler production standards. An acceptable tolerance
-                            of ±3% is applied beyond the natural variation observed across all referenced
-                            sources to account for normal on-farm conditions.
-                        </>
-                    )}
+                    {isColorChicken ? t('farmguide.colorChickenMethodology') : t('farmguide.broilerMethodology')}
                 </p>
 
                 <h4 style={{ marginBottom: '12px' }}>{t('farmguide.references') || 'References'}</h4>
@@ -6091,11 +6045,7 @@ const ManagementGuide = ({ module: moduleProp } = {}) => {
                 borderRadius: '8px', padding: '14px 16px',
                 fontSize: '13px', color: '#6b5b00', lineHeight: '1.6',
             }}>
-                <strong>⚠ Disclaimer:</strong> Performance data shown in this application is aggregated from
-                multiple industry sources and represents general guidance only. This data is
-                not affiliated with, endorsed by, or sourced directly from any specific breed
-                company or genetics supplier. Actual performance will vary based on genetics,
-                environment, nutrition, health status, and management practices.
+                <strong>⚠ Disclaimer:</strong> {t('farmguide.disclaimerBody')}
             </div>
         </div>
         );
